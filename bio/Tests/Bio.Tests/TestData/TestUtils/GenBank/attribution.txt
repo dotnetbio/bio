@@ -1,0 +1,12 @@
+The Genbank file D12555.gbk was downloaded from the location below, and modified for testing purposes
+http://www.ncbi.nlm.nih.gov/nuccore/303649
+
+The Genbank file U49845+D12555.gbk was downloaded from the location below, and merged for testing purposes
+http://www.ncbi.nlm.nih.gov/nuccore/303649
+http://www.ncbi.nlm.nih.gov/nuccore/1293613
+
+Below files were downloaded from NCBI site and modified for testing purposes
+http://www.ncbi.nlm.nih.gov/nuccore/BK000016 - BK000016-tpa.gbk
+http://www.ncbi.nlm.nih.gov/nuccore/NC_001284 - NC_001284.gbk
+http://www.ncbi.nlm.nih.gov/nuccore/NC_003070 - NC_003070.gbk
+http://www.ncbi.nlm.nih.gov/nuccore/U49845 - U49845.gbk

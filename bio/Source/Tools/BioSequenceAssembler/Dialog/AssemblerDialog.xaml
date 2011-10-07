@@ -1,0 +1,102 @@
+﻿<!--
+<summary>
+// AssemblerDialog class will provide a pop-up to the user, which will be allow
+// the user to configure input parameters to the Assembly process.
+</summary>
+-->
+<Window x:Class="SequenceAssembler.AssemblerDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="{DynamicResource SequenceAssembly_SequenceAssembler}" Width="445" Height="Auto" SizeToContent="Height" WindowStyle="SingleBorderWindow" ResizeMode="NoResize"  Background="Transparent" 
+    ShowInTaskbar="False" WindowStartupLocation="CenterScreen" 
+    VerticalAlignment="Center" HorizontalAlignment="Center" Icon="/BioSequenceAssembler;component/Resources/SequenceAssembler.ico">
+
+    <Border Style="{DynamicResource BorderStyle}" BorderThickness="3" Padding="10,5,5,5" BorderBrush="#FFFFFFFF">
+        <StackPanel>
+            <TextBlock Text="{DynamicResource AssemblerDialog_HeadingAssemblyInput}" TextWrapping="Wrap" FontSize="18" FontWeight="Bold"/>
+            
+            <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                <RadioButton x:Name="simpleSequenceAssemblerOptionButton" IsChecked="True" Content="{DynamicResource AssemblerDialog_SimpleSequenceAssembler}" />
+                <RadioButton x:Name="padenaOptionButton" Margin="20,0,0,0" Content="{DynamicResource AssemblerDialog_PaDeNA}" />
+            </StackPanel>
+            
+            <!--Padena UI-->
+            <Grid x:Name="padenaPart" Margin="0,10,0,0" Visibility="Collapsed">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Row="0" Grid.Column="0">
+                    <TextBlock Text="{DynamicResource AssemblerDialog_KmerLength}" Margin="0,10,0,0" TextWrapping="Wrap"/>
+                    <TextBox x:Name="txtKmerLength" Width="50" HorizontalAlignment="Left" Text="20" />
+                    <TextBlock Text="{DynamicResource AssemblerDialog_RedundantThreshold}" Margin="0,10,0,0" TextWrapping="Wrap"/>
+                    <TextBox x:Name="txtRedundantThreshold" Width="50" HorizontalAlignment="Left" Text="20" />
+                    <TextBlock Text="{DynamicResource AssemblerDialog_DangleThreshold}" TextWrapping="Wrap" Margin="0,10,0,0"/>
+                    <TextBox x:Name="txtDangleThreshold" Text="61" HorizontalAlignment="Left" Width="50"/>
+                    <CheckBox x:Name="chkErosion" Content="{DynamicResource AssemblerDialog_Erosion}" Margin="0,10,0,0" IsChecked="True"/>
+                    <TextBlock Text="{DynamicResource AssemblerDialog_DefaultErosion}" FontStyle="Italic" IsEnabled="{Binding ElementName=chkErosion, Path=IsChecked}"/>
+                    <TextBox x:Name="txtErosionThreshold" Text ="-1" HorizontalAlignment="Left" Width="50" IsEnabled="{Binding ElementName=chkErosion, Path=IsChecked}"/>
+                    <CheckBox x:Name="chkLowCoverageRemoval" Content="{DynamicResource AssemblerDialog_LowCoverageContigRemoval}" Margin="0,10,0,0" IsChecked="True"/>
+                    <TextBlock Text="{DynamicResource AssemblerDialog_DefaultErosion}" FontStyle="Italic" IsEnabled="{Binding ElementName=txtLowLowCoverageContigRemoval, Path=IsChecked}"/>
+                    <TextBox x:Name="txtLowCoverageRemovalThreshold" Text ="-1" HorizontalAlignment="Left" Width="50" IsEnabled="{Binding ElementName=txtLowCoverageContigRemoval, Path=IsChecked}"/>
+                </StackPanel>
+
+                <StackPanel Grid.Row="0" Grid.Column="1">
+                    <CheckBox x:Name="scaffoldGenerationParameters" IsChecked="True" Margin="0,10,0,0">Scaffold Generation</CheckBox>
+                    <TextBlock Text="{DynamicResource AssemblerDialog_ScaffoldRedundancy}" Margin="0,10,0,0" TextWrapping="Wrap" IsEnabled="{Binding ElementName=scaffoldGenerationParameters, Path=IsChecked}" />
+                    <TextBox x:Name="txtScaffoldRedundancy" Width="50" HorizontalAlignment="Left" Text="2" IsEnabled="{Binding ElementName=scaffoldGenerationParameters, Path=IsChecked}" />
+                    <TextBlock Text="{DynamicResource AssemblerDialog_ContigGraphTraversalDepth}" TextWrapping="Wrap" Margin="0,10,0,0" IsEnabled="{Binding ElementName=scaffoldGenerationParameters, Path=IsChecked}" />
+                    <TextBox x:Name="txtDepth" HorizontalAlignment="Left" Width="50" Text="20" IsEnabled="{Binding ElementName=scaffoldGenerationParameters, Path=IsChecked}" />
+                    <TextBlock Text="{DynamicResource AssemblerDialog_Library}" TextWrapping="Wrap" Margin="0,10,0,0" IsEnabled="{Binding ElementName=scaffoldGenerationParameters, Path=IsChecked}" />
+                    <ComboBox x:Name="cmbLibraryNames" Margin="0,0,0,0" Height="23" IsSynchronizedWithCurrentItem="True" FontSize="12" FontWeight="Normal" IsEnabled="{Binding ElementName=scaffoldGenerationParameters, Path=IsChecked}"></ComboBox>
+                    <TextBlock Text="{DynamicResource AssemblerDialog_LibraryNames}" TextWrapping="Wrap" Margin="0,10,0,0" IsEnabled="{Binding ElementName=scaffoldGenerationParameters, Path=IsChecked}" />
+                    <TextBox x:Name="txtLibraryName" HorizontalAlignment="Left" Width="50" IsEnabled="{Binding ElementName=scaffoldGenerationParameters, Path=IsChecked}" />
+                    <TextBlock Text="{DynamicResource AssemblerDialog_LibraryMean}" TextWrapping="Wrap" Margin="0,10,0,0" IsEnabled="{Binding ElementName=scaffoldGenerationParameters, Path=IsChecked}" />
+                    <TextBox x:Name="txtLibraryMean" HorizontalAlignment="Left" Width="50" IsEnabled="{Binding ElementName=scaffoldGenerationParameters, Path=IsChecked}" />
+                    <TextBlock Text="{DynamicResource AssemblerDialog_LibrarySd}" TextWrapping="Wrap" Margin="0,10,0,0" IsEnabled="{Binding ElementName=scaffoldGenerationParameters, Path=IsChecked}" />
+                    <TextBox x:Name="txtLibraryStandardDeviation" HorizontalAlignment="Left" Width="50" IsEnabled="{Binding ElementName=scaffoldGenerationParameters, Path=IsChecked}" />
+                </StackPanel>
+            </Grid>
+            
+            <!--Simple sequence assembler UI-->
+            <Grid x:Name="simpleSequencePart" Margin="0,10,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Row="0" Grid.Column="0">
+                    <TextBlock Text="{DynamicResource AssemblerDialog_MatchScore}" Margin="0,10,0,0" TextWrapping="Wrap"/>
+                    <TextBox x:Name="txtMatchScore" Width="50" HorizontalAlignment="Left" Text="1" />
+                    <TextBlock Text="{DynamicResource AssemblerDialog_MismatchScore}" Margin="0,10,0,0" TextWrapping="Wrap"/>
+                    <TextBox x:Name="txtMisMatchScore" Width="50" Text="-8" HorizontalAlignment="Left"/>
+                    <TextBlock Text="{DynamicResource AssemblerPane_SelectAlgorithm}"  Margin="0,10,0,0" TextWrapping="Wrap"/>
+                    <ComboBox x:Name="cmbAlgorithms" Margin="0,0,0,0" Height="23" IsSynchronizedWithCurrentItem="True" FontSize="12" FontWeight="Normal">
+                    </ComboBox>
+                </StackPanel>
+
+                <StackPanel Grid.Row="0" Grid.Column="1">
+                    <TextBlock Text="{DynamicResource AssemblerDialog_MergeThreshold}" TextWrapping="Wrap" Margin="0,10,0,0"/>
+                    <TextBox x:Name="txtMergeThreshold" Text="4" HorizontalAlignment="Left" Width="50"/>
+                    <TextBlock Text="{DynamicResource AssemblerDialog_ConsensusThreshold}" TextWrapping="Wrap" Margin="0,10,0,0"/>
+                    <TextBox x:Name="txtConsensusThreshold" Text="66" HorizontalAlignment="Left" Width="50"/>
+                </StackPanel>
+                
+                <StackPanel Grid.Row="1" Grid.ColumnSpan="2" x:Name="stkAlingerParam" />
+            </Grid>
+            <Path Stretch="Fill" Stroke="#FF809EB7" Height="1" Data="M12,189 L248.10379,189" Margin="0,10,0,0"/>
+            <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                <Button x:Name="btnSubmit" Style="{DynamicResource WebServiceButton}" Content="{DynamicResource BlastSubmitText}" IsDefault="True"/>
+                <Button x:Name="btnCancel" Style="{DynamicResource WebServiceButton}" Content="{DynamicResource BlastCancelText}" Margin="3,0,0,0" IsCancel="True"/>
+            </StackPanel>
+        </StackPanel>
+    </Border>
+
+</Window>
+
+    

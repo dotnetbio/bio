@@ -1,0 +1,3 @@
+
+Usage:	SAMUtils.exe index  in.bam [out.index]
+Description: Generates Index file for given BAM file.

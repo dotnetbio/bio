@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Include>
+     
+    <Icon Id='MBF.ico' SourceFile="Bitmaps\MBF.ico"/>
+    <Property Id="ARPPRODUCTICON" Value="MBF.ico" />
+    
+    <!--Support Link-->
+    <Property Id="ARPURLINFOABOUT" Value="http://bio.codeplex.com/" />
+    <!--Update Info-->
+    <Property Id="ARPURLUPDATEINFO" Value="http://bio.codeplex.com/" />
+    
+    <Property Id='INSTALLLEVEL' Value='1'/>
+    <Property Id='_BrowseProperty' Value='ProgramFilesFolder' />
+    <Property Id='WIXUI_INSTALLDIR'>ProgramFilesFolder</Property>
+    <Property Id="WixUI_InstallMode" Value="InstallDefault"/>
+    <Property Id="WIXUI_EXITDIALOGOPTIONALCHECKBOXTEXT" Value="!(loc.ExitDialogOptionalCheckboxText)" />
+    <Property Id="WIXUI_EXITDIALOGOPTIONALCHECKBOX" Value="1" />
+    <Property Id="DISABLENEXTBUTTON" Value="0"/>
+
+    <!--ROOTDRIVE explicitly set to prevent it from defaulting to drive with most space-->
+    <Property Id="ROOTDRIVE" Value="$(env.SystemDrive)" />
+  
+    <UIRef Id="WixUI_CustomInstallDir" />
+    <UIRef Id="WixUI_CustomErrorProgressText" />
+
+  <!--Launch Conditions-->
+  <!--Check for OS compatibility-->
+  <Condition Message='!(loc.LaunchFailOS)'>
+    VersionNT >= 600 OR VersionNT = 502 OR (VersionNT = 501 AND ServicePackLevel > 1)
+  </Condition>
+
+  <!--Check if user is Admin-->
+  <Condition Message='!(loc.LaunchFailAdminPrivilege)'>
+    Privileged
+  </Condition>
+  <!--Launch Conditions end-->
+
+  <!--Prerequisite checks-->
+  <!--Check for .NET 4.0 Full profile-->
+  <Property Id="NETFRAMEWORK40VERSION" Secure="yes">
+    <RegistrySearch Id="NetFramework40" Root="HKLM" Key="SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full" Name="Version" Type="raw" />
+  </Property>
+  <!-- Minimum required version of .NET 4.0 -->
+  <SetProperty Id="NETFRAMEWORK40" After="AppSearch" Value="1">
+    NETFRAMEWORK40VERSION >= "4.0.30319"
+  </SetProperty>
+
+  <!--Check if .NET Bio Framework installed-->
+  <Property Id='MBFFRAMEWORKINSTALLED'>
+    <RegistrySearch Id='MBFFrameworkCheck' Root='HKLM' Key='Software\.NET Bio\$(env.ProductVersion)\Framework'
+                Type='raw' Name='Installed'/>
+  </Property>
+  <!--Get .NET Bio Framework installation path-->
+  <Property Id='MBFFRAMEWORKDIR'>
+	  <RegistrySearch Id='MBFFrameworkDir' Root='HKLM' Key='Software\.NET Bio\$(env.ProductVersion)\Framework'
+              Name='InstallationPath' Type='directory' />
+  </Property>
+
+  <!--Get Visual Studio 2010 User Project Templates directory path-->
+  <Property Id='VSTEMPLATEDIR'>
+    <RegistrySearch Id='VSTemplateLocation' Root='HKCU' Key='Software\Microsoft\VisualStudio\10.0'
+              Name='UserProjectTemplatesLocation' Type='directory' />
+  </Property>
+
+  <!--Set Framework target path to existing path if Framework already installed-->
+  <CustomAction Id='SetToExistingPath' Directory='FRAMEWORKFOLDER' Value='[MBFFRAMEWORKDIR]'/>
+  <!--Set Framework target path to current path if Framework not installed-->
+  <CustomAction Id='SetToCurrentPath' Directory='FRAMEWORKFOLDER' Value='[FRAMEWORKINSTALLFOLDER]'/>
+
+  <!--Set project install path based on registry read-->
+  <CustomAction Id='SetVSTemplatePath' Directory='VSTEMPLATEFOLDER' Value='[VSTEMPLATEDIR]'/>
+
+  <InstallExecuteSequence>
+    <Custom Action='SetToExistingPath' Before='InstallInitialize'>(NOT Installed) AND (MBFFRAMEWORKINSTALLED)</Custom>
+    <Custom Action='SetToCurrentPath' Before='InstallInitialize'>(NOT Installed) AND (NOT MBFFRAMEWORKINSTALLED)</Custom>
+    <Custom Action='SetVSTemplatePath' Before='InstallInitialize'>VSTEMPLATEDIR</Custom>
+  </InstallExecuteSequence>
+
+</Include>

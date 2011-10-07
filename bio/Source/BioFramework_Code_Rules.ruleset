@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RuleSet Name="Bio_Code_Rules" ToolsVersion="10.0">
+  <Include Path="allrules.ruleset" Action="Default" />
+  <Rules AnalyzerId="Microsoft.Analyzers.ManagedCodeAnalysis" RuleNamespace="Microsoft.Rules.Managed">
+    <Rule Id="CA1600" Action="None" />
+    <Rule Id="CA1601" Action="None" />
+    <Rule Id="CA1701" Action="None" />
+    <Rule Id="CA1702" Action="None" />
+    <Rule Id="CA1703" Action="None" />
+    <Rule Id="CA1704" Action="None" />
+    <Rule Id="CA1707" Action="None" />
+    <Rule Id="CA1709" Action="None" />
+    <Rule Id="CA1710" Action="None" />
+    <Rule Id="CA1711" Action="None" />
+    <Rule Id="CA1713" Action="None" />
+    <Rule Id="CA1714" Action="None" />
+    <Rule Id="CA1715" Action="None" />
+    <Rule Id="CA1717" Action="None" />
+    <Rule Id="CA1719" Action="None" />
+    <Rule Id="CA1722" Action="None" />
+    <Rule Id="CA2204" Action="None" />
+  </Rules>
+</RuleSet>

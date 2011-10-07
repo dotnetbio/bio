@@ -1,0 +1,309 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ALL_FILE_FORMAT" xml:space="preserve">
+    <value>All Files type</value>
+  </data>
+  <data name="BAD_FILE_ERROR" xml:space="preserve">
+    <value>Bad input in file</value>
+  </data>
+  <data name="BITS_TEXT" xml:space="preserve">
+    <value>Bits</value>
+  </data>
+  <data name="CAPTION" xml:space="preserve">
+    <value>.NET Bio Sequence Assembler</value>
+  </data>
+  <data name="CONTIG_TEXT" xml:space="preserve">
+    <value>Contig</value>
+  </data>
+  <data name="DUPLICATE_FILE" xml:space="preserve">
+    <value>Few files in the selected files have been already imported. Please import new files.</value>
+  </data>
+  <data name="EDIT_TEXT" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="FAQ_LINK" xml:space="preserve">
+    <value>http://www.ncbi.nlm.nih.gov/books/bv.fcgi?rid=handbook.glossary.1237#app36</value>
+  </data>
+  <data name="FILE_TEXT" xml:space="preserve">
+    <value>File</value>
+  </data>
+  <data name="FORMATTING_ERROR" xml:space="preserve">
+    <value>Error formatting the file. Please try to save in another format.</value>
+  </data>
+  <data name="HEADER_LETTER" xml:space="preserve">
+    <value> Letters</value>
+  </data>
+  <data name="INVALID_FILE_TYPE" xml:space="preserve">
+    <value>Invalid File type</value>
+  </data>
+  <data name="INVALID_SERVICE_PARAM_MESSAGE" xml:space="preserve">
+    <value>Chosen request parameters are not valid for the selected sequence</value>
+  </data>
+  <data name="PAIRWISE_BITS" xml:space="preserve">
+    <value> {0} {1}</value>
+  </data>
+  <data name="REASSEMBLY_WARNING" xml:space="preserve">
+    <value>Current operation will result in re-building the consensus/alignment view. All your previous output will be lost. Ensure that you have saved previous output before you proceed. Do you want to continue?</value>
+  </data>
+  <data name="SAVE_TEXT" xml:space="preserve">
+    <value>Save As...</value>
+  </data>
+  <data name="SEQUENCE_TEXT_CV" xml:space="preserve">
+    <value>[Sequence{0} {1}]</value>
+  </data>
+  <data name="TAXONAMY_LINK" xml:space="preserve">
+    <value>http://www.ncbi.nlm.nih.gov/books/bv.fcgi?rid=handbook.chapter.ch4</value>
+  </data>
+  <data name="UNASSEMBLED_TEXT" xml:space="preserve">
+    <value>Unassembled Sequences</value>
+  </data>
+  <data name="UNLOAD_TEXT" xml:space="preserve">
+    <value>Unload</value>
+  </data>
+  <data name="INVALID_TEXT" xml:space="preserve">
+    <value>Invalid </value>
+  </data>
+  <data name="VALUE_TEXT" xml:space="preserve">
+    <value> value</value>
+  </data>
+  <data name="BLAST_ERROR_TEXT" xml:space="preserve">
+    <value>Blast output recieved cannot be rendered on SilverMap</value>
+  </data>
+  <data name="SEQUENCE_TEXT_SV" xml:space="preserve">
+    <value>Sequence</value>
+  </data>
+  <data name="AUTO_DETECT_TEXT" xml:space="preserve">
+    <value>Auto Detect</value>
+  </data>
+  <data name="EXIT_APPLICATION" xml:space="preserve">
+    <value>Are you sure you want to exit the application?</value>
+  </data>
+  <data name="MANUAL_CHOICE" xml:space="preserve">
+    <value>Choose Parser</value>
+  </data>
+  <data name="BLAST_CANCEL_FAILED" xml:space="preserve">
+    <value>Failed to cancel the Blast request. {0}</value>
+  </data>
+  <data name="DATABASE_EM_REL" xml:space="preserve">
+    <value>em_rel</value>
+  </data>
+  <data name="DATABASE_NR" xml:space="preserve">
+    <value>nr</value>
+  </data>
+  <data name="DATABASE_NR_25" xml:space="preserve">
+    <value>nr.25</value>
+  </data>
+  <data name="DATABASE_NT" xml:space="preserve">
+    <value>nt</value>
+  </data>
+  <data name="AZURE_URI" xml:space="preserve">
+    <value>http://blast2.cloudapp.net/BlastService.svc</value>
+  </data>
+  <data name="SequencesPanel_FontSizeLow" xml:space="preserve">
+    <value>Font size is too low. Please use 2 or above as font size.</value>
+  </data>
+  <data name="SequencesPanel_NothingToDisplay" xml:space="preserve">
+    <value>Add one or more sequences to this workspace to view it.</value>
+  </data>
+  <data name="PaDeNAString" xml:space="preserve">
+    <value>PaDeNA</value>
+  </data>
+  <data name="FileNotFound" xml:space="preserve">
+    <value>File not found: {0}</value>
+  </data>
+  <data name="ParserNotFound" xml:space="preserve">
+    <value>Parser not found for {0}</value>
+  </data>
+  <data name="OpenApplicationInAdminMode" xml:space="preserve">
+    <value>To change the file type association run this application in administrator mode.</value>
+  </data>
+  <data name="DefaultWebService" xml:space="preserve">
+    <value>NCBI QBLAST</value>
+  </data>
+  <data name="AligningSequences" xml:space="preserve">
+    <value>Aligning Sequences...</value>
+  </data>
+  <data name="Alignment" xml:space="preserve">
+    <value>Alignment</value>
+  </data>
+  <data name="Alignments" xml:space="preserve">
+    <value>Alignments</value>
+  </data>
+  <data name="AlignmentsTreeView" xml:space="preserve">
+    <value>Alignments Tree View</value>
+  </data>
+  <data name="AssemblingSequences" xml:space="preserve">
+    <value>Assembling Sequences...</value>
+  </data>
+  <data name="ContigsTreeView" xml:space="preserve">
+    <value>Contigs Tree View</value>
+  </data>
+  <data name="Contigs" xml:space="preserve">
+    <value>Contigs</value>
+  </data>
+  <data name="EndOffset" xml:space="preserve">
+    <value>End Offset</value>
+  </data>
+  <data name="NoAlignmentPossible" xml:space="preserve">
+    <value>An alignment was not possible with the given input.</value>
+  </data>
+  <data name="NoOfAlignments" xml:space="preserve">
+    <value>No. of Alignments:</value>
+  </data>
+  <data name="NoOfContigs" xml:space="preserve">
+    <value>No. of Contigs:</value>
+  </data>
+  <data name="StartOffset" xml:space="preserve">
+    <value>Start Offset</value>
+  </data>
+  <data name="PAMSAM" xml:space="preserve">
+    <value>PAMSAM</value>
+  </data>
+  <data name="TreeViewLoadTimeOut" xml:space="preserve">
+    <value>Too many scaffolds generated, please increase the K-mer length and retry.</value>
+  </data>
+  <data name="SILVERMAP_ERROR_PROCESSING_BLAST_RESULT" xml:space="preserve">
+    <value>Unexpected error while processing BLAST results: {0}</value>
+  </data>
+  <data name="SILVERMAP_QUERY_SEQUENCE" xml:space="preserve">
+    <value>Query sequence</value>
+  </data>
+  <data name="SILVERMAP_UNKNOWN_QUERY_ID" xml:space="preserve">
+    <value>Query ID unknown</value>
+  </data>
+  <data name="MBFWebsiteAddress" xml:space="preserve">
+    <value>http://bio.codeplex.com</value>
+  </data>
+  <data name="NoUserGuidePresent" xml:space="preserve">
+    <value>Could not find user guide document.</value>
+  </data>
+  <data name="UserGuideRelativePath" xml:space="preserve">
+    <value>Docs\.Net Bio_Sequence_Assembler_User_Guide.docx</value>
+  </data>
+  <data name="NoSequencesSelected" xml:space="preserve">
+    <value>No selected sequences found.</value>
+  </data>
+  <data name="AllFilesFilter" xml:space="preserve">
+    <value>All Files|*.*</value>
+  </data>
+  <data name="AutoString" xml:space="preserve">
+    <value>Auto</value>
+  </data>
+</root>

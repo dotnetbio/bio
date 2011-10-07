@@ -1,0 +1,11 @@
+﻿##gff-version 2
+##date Thu May 32 19:51:06 2009
+##type RNA chrX
+##DNA chrI
+##acggctcggattggcgctggatgatagatcagacgac
+##acggctcggattggcgctggatgatagatcagacgac
+##end-DNA
+
+Hsap_BTK	annotation	Internal	89067	89195	.	-	1	BTK
+Hsap_BTK	annotation	Internal	88679	88746	.	-	1	BTK
+Hsap_BTK	annotation	Internal	87074	87261	.	-	0	BTK

@@ -1,0 +1,27 @@
+﻿ <!--
+<summary>
+// Treeview tooltip control would be used for building custom 
+// tooltip for the Sequence and Consensus tree view.
+</summary>
+-->
+<UserControl x:Class="SequenceAssembler.TreeViewTooltip"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Height="Auto" Width="Auto">    
+    <Grid>        
+        <StackPanel>
+            <TextBlock Visibility="Collapsed" x:Name="txtDispTitle" Text="{DynamicResource AssemblerPane_Tooltip_ID}" TextWrapping="Wrap" FontSize="10" Foreground="#FF575757"/>
+            <TextBlock Visibility="Collapsed" x:Name="txtDisplayId" TextWrapping="Wrap"/>
+            <TextBlock Visibility="Collapsed" x:Name="txtLengthTitle" FontSize="10" Foreground="#FF575757" Text="{DynamicResource AssemblerPane_Tooltip_Len}" TextWrapping="Wrap" Margin="0,5,0,0"/>
+            <TextBlock Visibility="Collapsed" x:Name="txtLength" TextWrapping="Wrap"/>
+            <TextBlock Visibility="Collapsed" x:Name="txtMoleculeTitle" FontSize="10" Foreground="#FF575757" Text="{DynamicResource AssemblerPane_Tooltip_Type}" TextWrapping="Wrap" Margin="0,5,0,0"/>
+            <TextBlock Visibility="Collapsed" x:Name="txtmoleculeType" TextWrapping="Wrap"/>
+            <TextBlock Visibility="Collapsed" x:Name="txtDescTitle" FontSize="10" Foreground="#FF575757" Text="{DynamicResource AssemblerPane_Tooltip_Desc}" TextWrapping="Wrap" Margin="0,5,0,0"/>
+            <TextBlock Visibility="Collapsed" x:Name="txtdescription" Text="" TextWrapping="Wrap"/>
+            <TextBlock Visibility="Collapsed" x:Name="txtSequenceTitle" FontSize="10" Foreground="#FF575757" Text="{DynamicResource AssemblerPane_Tooltip_Sequence}" TextWrapping="Wrap" Margin="0,5,0,0"/>
+            <TextBlock Visibility="Collapsed" x:Name="txtSequence" Text="" TextWrapping="Wrap"/>
+            <TextBlock Visibility="Collapsed" x:Name="txtFileNameTitle" FontSize="10" Foreground="#FF575757" Text="{DynamicResource AssemblerPane_Tooltip_FileName}" TextWrapping="Wrap" Margin="0,5,0,0"/>
+            <TextBlock Visibility="Collapsed" x:Name="txtFileName" Text="" TextWrapping="Wrap"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

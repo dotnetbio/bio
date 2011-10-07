@@ -1,0 +1,1 @@
+Small_Size.gbk, file present in this folder is downloaded from NCBI site http://www.ncbi.nlm.nih.gov/nuccore/AF032047 and modified accordingly for the test

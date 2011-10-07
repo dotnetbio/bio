@@ -1,0 +1,56 @@
+﻿<Window x:Class="ReadSimulator.TestWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Bio="clr-namespace:Bio.Controls"
+    Title="Bio Tests" Height="600" Width="800">
+    <DockPanel>
+        <GroupBox DockPanel.Dock="Top" Header="Parsing">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto" MinWidth="80"/>
+                    <ColumnDefinition Width="Auto" MinWidth="80"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                
+                <Label Grid.Row="0" Grid.Column="0">GenBank:</Label>
+                <Label Grid.Row="1" Grid.Column="0">GFF:</Label>
+                <Label Grid.Row="2" Grid.Column="0">Fasta:</Label>
+                
+                <TextBox x:Name="GenBankFile" Grid.Row="0" Grid.Column="1"/>
+                <TextBox x:Name="GffFile" Grid.Row="1" Grid.Column="1"/>
+                <TextBox x:Name="FastaFile" Grid.Row="2" Grid.Column="1"/>
+                
+                <Button x:Name="GenBankBrowse" Grid.Row="0" Grid.Column="2" Click="GenBankBrowse_Click">Browse...</Button>
+                <Button x:Name="GffBrowse" Grid.Row="1" Grid.Column="2" Click="GffBrowse_Click">Browse...</Button>
+                <Button x:Name="FastaBrowse" Grid.Row="2" Grid.Column="2" Click="FastaBrowse_Click">Browse...</Button>
+                
+                <Button x:Name="GenBankParse" Grid.Row="0" Grid.Column="3" Click="GenBankParse_Click">Parse</Button>
+                <Button x:Name="GffParse" Grid.Row="1" Grid.Column="3" Click="GffParse_Click">Parse</Button>
+                <Button x:Name="FastaParse" Grid.Row="2" Grid.Column="3" Click="FastaParse_Click">Parse</Button>
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="Loaded Sequences" DockPanel.Dock="Left">
+            <DockPanel>
+                <Button DockPanel.Dock="Bottom" x:Name="JaredTest" Click="JaredTest_Click">Jared's Test</Button>
+                <ListBox x:Name="SequencesListBox" SelectionChanged="SequencesListBox_SelectionChanged">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate DataType="Bio.Sequence">
+                            <StackPanel>
+                                <TextBlock Text="{Binding Path=DisplayID}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </DockPanel>
+        </GroupBox>
+        <GroupBox Header="Workspace">
+            <Bio:SequenceViewer x:Name="SequenceViewer" HorizontalAlignment="Stretch" MinHeight="50"/>
+        </GroupBox>
+    </DockPanel>
+</Window>

@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+    
+    The use and distribution terms for this software are covered by the
+    Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
+    which can be found in the file CPL.TXT at the root of this distribution.
+    By using this software in any fashion, you are agreeing to be bound by
+    the terms of this license.
+    
+    You must not remove this notice, or any other, from this software.
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Fragment>
+        <UI>
+          <Dialog Id="PrerequisiteDeterminationDlg" Width="370" Height="270" Title="!(loc.PrerequisiteDeterminationDlg_Title)">
+            <Control Id="Back" Type="PushButton" X="180" Y="243" Width="56" Height="17" Text="!(loc.WixUIBack)">
+              <Publish Event="NewDialog" Value="[WixUI_PrerequisiteDeterminationDlg_BackDefault]">WixUI_InstallMode = "InstallDefault"</Publish>
+              <Publish Event="NewDialog" Value="[WixUI_PrerequisiteDeterminationDlg_BackCustom]">WixUI_InstallMode = "InstallCustom"</Publish>
+            </Control>
+            <Control Id="Install" Type="PushButton" ElevationShield="yes" X="236" Y="243" Width="56" Height="17" Default="yes" Hidden="yes" Disabled="yes" Text="!(loc.VerifyReadyDlgInstall)">
+              <Condition Action="show">NOT Installed AND ALLUSERS</Condition>
+              <Condition Action="enable">(NOT Installed) AND NETFRAMEWORK40 AND EXCEL AND VSTORUNTIME AND NODEXL</Condition>
+              <Condition Action="default">(NOT Installed) AND NETFRAMEWORK40 AND EXCEL AND VSTORUNTIME AND NODEXL</Condition>
+              <Publish Event="SpawnWaitDialog" Value="WaitForCostingDlg">CostingComplete = 1</Publish>
+              <Publish Event="EndDialog" Value="Return"><![CDATA[OutOfDiskSpace <> 1]]></Publish>
+              <Publish Event="SpawnDialog" Value="CustomOutOfRbDiskDlg">OutOfDiskSpace = 1 AND OutOfNoRbDiskSpace = 0 AND (PROMPTROLLBACKCOST="P" OR NOT PROMPTROLLBACKCOST)</Publish>
+              <Publish Event="EndDialog" Value="Return">OutOfDiskSpace = 1 AND OutOfNoRbDiskSpace = 0 AND PROMPTROLLBACKCOST="D"</Publish>
+              <Publish Event="EnableRollback" Value="False">OutOfDiskSpace = 1 AND OutOfNoRbDiskSpace = 0 AND PROMPTROLLBACKCOST="D"</Publish>
+              <Publish Event="SpawnDialog" Value="CustomOutOfDiskDlg">(OutOfDiskSpace = 1 AND OutOfNoRbDiskSpace = 1) OR (OutOfDiskSpace = 1 AND PROMPTROLLBACKCOST="F")</Publish>
+            </Control>
+            <Control Id="InstallNoShield" Type="PushButton" ElevationShield="no" X="236" Y="243" Width="56" Height="17" Default="yes" Hidden="yes" Disabled="yes" Text="!(loc.VerifyReadyDlgInstall)">
+              <Condition Action="show">NOT Installed AND NOT ALLUSERS</Condition>
+              <Condition Action="enable">(NOT Installed) AND NETFRAMEWORK40 AND EXCEL AND VSTORUNTIME AND NODEXL</Condition>
+              <Condition Action="default">(NOT Installed) AND NETFRAMEWORK40 AND EXCEL AND VSTORUNTIME AND NODEXL</Condition>
+              <Publish Event="SpawnWaitDialog" Value="WaitForCostingDlg">CostingComplete = 1</Publish>
+              <Publish Event="EndDialog" Value="Return"><![CDATA[OutOfDiskSpace <> 1]]></Publish>
+              <Publish Event="SpawnDialog" Value="CustomOutOfRbDiskDlg">OutOfDiskSpace = 1 AND OutOfNoRbDiskSpace = 0 AND (PROMPTROLLBACKCOST="P" OR NOT PROMPTROLLBACKCOST)</Publish>
+              <Publish Event="EndDialog" Value="Return">OutOfDiskSpace = 1 AND OutOfNoRbDiskSpace = 0 AND PROMPTROLLBACKCOST="D"</Publish>
+              <Publish Event="EnableRollback" Value="False">OutOfDiskSpace = 1 AND OutOfNoRbDiskSpace = 0 AND PROMPTROLLBACKCOST="D"</Publish>
+              <Publish Event="SpawnDialog" Value="CustomOutOfDiskDlg">(OutOfDiskSpace = 1 AND OutOfNoRbDiskSpace = 1) OR (OutOfDiskSpace = 1 AND PROMPTROLLBACKCOST="F")</Publish>
+            </Control>
+            <Control Id="Cancel" Type="PushButton" X="304" Y="243" Width="56" Height="17" Cancel="yes" Text="!(loc.WixUICancel)">
+              <Publish Event="SpawnDialog" Value="CustomCancelDlg">1</Publish>
+              <Condition Action="hide">NOT (NETFRAMEWORK40 AND EXCEL AND VSTORUNTIME AND NODEXL)</Condition>
+              <Condition Action="disable">NOT (NETFRAMEWORK40 AND EXCEL AND VSTORUNTIME AND NODEXL)</Condition>
+            </Control>
+            <Control Id="Finish" Type="PushButton" X="304" Y="243" Width="56" Height="17" Text="!(loc.WixUIFinish)" Hidden="yes">
+              <Publish Event="SpawnDialog" Value="CustomCancelDlg">1</Publish>
+              <Condition Action="show">NOT (NETFRAMEWORK40 AND EXCEL AND VSTORUNTIME AND NODEXL)</Condition>
+              <Condition Action="enable">NOT (NETFRAMEWORK40 AND EXCEL AND VSTORUNTIME AND NODEXL)</Condition>
+            </Control>
+            <Control Id="BannerBitmap" Type="Bitmap" X="0" Y="0" Width="370" Height="44" TabSkip="no" Text="!(loc.LicenseAgreementDlgBannerBitmap)" />
+
+            <!--Prerequisite names-->
+            <Control Id="NetFrameworkDescription" Type="Text" X="25" Y="87" Width="100" Height="10" Text="!(loc.NetFramework40Label)"/>
+            <Control Id="NetFrameworkMinVersion" Type="Text" X="25" Y="97" Width="100" Height="10" Text="!(loc.RCAndAboveLabel)"/>
+            <Control Id="ExcelDescription" Type="Text" X="25" Y="117" Width="100" Height="10" Text="!(loc.ExcelLabel)"/>
+            <Control Id="VstoRuntime" Type="Text" X="25" Y="147" Width="100" Height="10" Text="!(loc.VstoRuntimeLabel)"/>
+            <Control Id="VstoRuntimeMinVersion" Type="Text" X="25" Y="157" Width="100" Height="10" Text="!(loc.RCAndAboveLabel)"/>
+            <Control Id="NodeXLDescription" Type="Text" X="25" Y="177" Width="100" Height="10" Text="!(loc.NodeXLLabel)"/>
+            <Control Id="NodeXLMinVersion" Type="Text" X="25" Y="187" Width="100" Height="10" Text="!(loc.NodeXLMinVersionLabel)"/>
+
+            <!--Prerequisite status-->
+            <!--.NET Framework 4.0-->
+            <Control Id="NetFrameworkInstalled" Type="Text" X="150" Y="85" Width="60" Height="20"
+                     Text="!(loc.PrerequisiteDeterminationDlgItemInstalled)" Hidden="yes">
+              <Condition Action="show">NETFRAMEWORK40</Condition>
+            </Control>
+            <Control Id="NetFrameworkMissing" Type="Text" X="150" Y="85" Width="60" Height="20"
+                     Text="!(loc.PrerequisiteDeterminationDlgItemNotInstalled)" Hidden="yes">
+              <Condition Action="show">NOT NETFRAMEWORK40</Condition>
+            </Control>
+
+            <!--Excel-->
+            <Control Id="ExcelInstalled" Type="Text" X="150" Y="115" Width="60" Height="20"
+            Text="!(loc.PrerequisiteDeterminationDlgItemInstalled)" Hidden="yes">
+              <Condition Action="show">EXCEL</Condition>
+            </Control>
+            <Control Id="ExcelMissing" Type="Text" X="150" Y="115" Width="60" Height="20"
+                     Text="!(loc.PrerequisiteDeterminationDlgItemNotInstalled)" Hidden="yes">
+              <Condition Action="show">NOT EXCEL</Condition>
+            </Control>
+
+            <!--VSTO Runtime-->
+            <Control Id="VstoRuntimeInstalled" Type="Text" X="150" Y="145" Width="60" Height="20"
+            Text="!(loc.PrerequisiteDeterminationDlgItemInstalled)" Hidden="yes">
+              <Condition Action="show">VSTORUNTIME</Condition>
+            </Control>
+            <Control Id="VstoRuntimeMissing" Type="Text" X="150" Y="145" Width="60" Height="20"
+                     Text="!(loc.PrerequisiteDeterminationDlgItemNotInstalled)" Hidden="yes">
+              <Condition Action="show">NOT VSTORUNTIME</Condition>
+            </Control>
+
+            <Control Id="NodeXLInstalled" Type="Text" X="150" Y="175" Width="60" Height="20"
+            Text="!(loc.PrerequisiteDeterminationDlgItemInstalled)" Hidden="yes">
+              <Condition Action="show">NODEXL</Condition>
+            </Control>
+            <Control Id="NodeXLMissing" Type="Text" X="150" Y="175" Width="60" Height="20"
+                     Text="!(loc.PrerequisiteDeterminationDlgItemNotInstalled)" Hidden="yes">
+              <Condition Action="show">NOT NODEXL</Condition>
+            </Control>
+            <!--Prerequisite status end-->
+
+            <!--Prerequisite download links-->
+            <!--.NET Framework 4.0-->
+            <Control Id="NetFrameworkDownloadLink" Type="PushButton" X="250" Y="83" Width="70" Height="20" Hidden="yes" Text="!(loc.WixUIDownload)">
+              <Publish Property="WixShellExecTarget" Value="http://msdn.microsoft.com/en-us/netframework/default.aspx">1</Publish>
+              <Publish Event="DoAction" Value="LaunchBrowser">1</Publish>
+              <Condition Action="show">NOT NETFRAMEWORK40</Condition>
+            </Control>
+
+            <!--Excel-->
+            <Control Id="ExcelDownloadLink" Type="PushButton" X="250" Y="113" Width="70" Height="20" Hidden="yes" Text="!(loc.WixUIDownload2)">
+              <Publish Property="WixShellExecTarget" Value="http://office.microsoft.com/en-us/excel/default.aspx">1</Publish>
+              <Publish Event="DoAction" Value="LaunchBrowser">1</Publish>
+              <Condition Action="show">NOT EXCEL</Condition>
+            </Control>
+
+            <!--VSTO Runtime-->
+            <Control Id="VSTORuntimeDownloadLink" Type="PushButton" X="250" Y="143" Width="70" Height="20" Hidden="yes" Text="!(loc.WixUIDownload3)">
+              <Publish Property="WixShellExecTarget" Value="http://www.microsoft.com/downloads/en/details.aspx?FamilyID=06C32242-2289-4471-93AA-CE96AA5CBC36">1</Publish>
+              <Publish Event="DoAction" Value="LaunchBrowser">1</Publish>
+              <Condition Action="show">NOT VSTORUNTIME</Condition>
+            </Control>
+
+            <!--NodeXL-->
+            <Control Id="NodeXLDownloadLink" Type="PushButton" X="250" Y="173" Width="70" Height="20" Hidden="yes" Text="!(loc.WixUIDownload4)">
+              <Publish Property="WixShellExecTarget" Value="http://nodexl.codeplex.com">1</Publish>
+              <Publish Event="DoAction" Value="LaunchBrowser">1</Publish>
+              <Condition Action="show">NOT NODEXL</Condition>
+            </Control>
+            <!--Prerequisite download links end-->
+
+            <Control Id="BannerLine" Type="Line" X="0" Y="44" Width="370" Height="0" />
+            <Control Id="BottomLine" Type="Line" X="0" Y="234" Width="370" Height="0" />
+            <Control Id="Description" Type="Text" X="15" Y="23" Width="300" Height="55" Transparent="yes"
+                     NoPrefix="yes" Text="!(loc.PrerequisiteDeterminationDlgDescription)"/>
+            <Control Id="Title" Type="Text" X="15" Y="7" Width="300" Height="55" Transparent="yes"
+                       NoPrefix="yes" Text="!(loc.PrerequisiteDeterminationDlgTitle)"/>
+            <Control Id="Text" Type="Text" X="15" Y="55" Width="300" Height="55" Transparent="yes"
+                    NoPrefix="yes" Text="!(loc.PrerequisiteDeterminationDlgText)"/>
+
+            <!--Prerequisites missing error message-->
+            <Control Id="Icon" Type="Icon" X="15" Y="195" Width="32" Height="32"
+                       FixedSize="yes" IconSize="32" Text="!(loc.PrerequisitesMissingDlgIcon)" Hidden="yes">
+              <Condition Action="show">NOT (NETFRAMEWORK40 AND EXCEL AND VSTORUNTIME AND NODEXL)</Condition>
+            </Control>
+            <Control Id="Message" Type="Text" X="55" Y="200" Width="300" Height="32" TabSkip="no"
+                       Text="!(loc.PrerequisitesMissingDlgText)" Hidden="yes">
+              <Condition Action="show">NOT (NETFRAMEWORK40 AND EXCEL AND VSTORUNTIME AND NODEXL)</Condition>
+            </Control>
+
+          </Dialog>
+        </UI>
+
+      <CustomAction Id="LaunchBrowser" BinaryKey="WixCA" DllEntry="WixShellExec" Impersonate="yes" />
+           
+    </Fragment>
+</Wix>

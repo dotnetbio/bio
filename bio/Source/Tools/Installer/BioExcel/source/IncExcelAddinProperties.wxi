@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Include>
+
+    <Property Id='INSTALLLEVEL' Value='1'/>
+
+    <Icon Id="MBF.ico" SourceFile="Bitmaps\MBF.ico"/>
+    <Property Id="ARPPRODUCTICON" Value="MBF.ico" />
+    
+    <!--Support Link-->
+    <Property Id="ARPURLINFOABOUT" Value="http://bio.codeplex.com/" />
+    <!--Update Info-->
+    <Property Id="ARPURLUPDATEINFO" Value="http://bio.codeplex.com/" />
+
+    <!--Launch Conditions-->
+    <!--Check for OS compatibility-->
+    <Condition Message='!(loc.LaunchFailOS)'>
+      VersionNT >= 600 OR VersionNT = 502 OR (VersionNT = 501 AND ServicePackLevel > 1)
+    </Condition>
+
+    <!--Check if user is Admin-->
+    <Condition Message='!(loc.LaunchFailAdminPrivilege)'>
+      Privileged
+    </Condition>
+    <!--Launch Conditions end-->
+
+    <!--Property refered by Wix UI Lib-->
+    <Property Id='WIXUI_INSTALLDIR'>INSTALLDIR</Property>
+    <Property Id="WixUI_InstallMode">InstallDefault</Property>
+    <Property Id="WIXUI_EXITDIALOGOPTIONALCHECKBOXTEXT" Value="!(loc.ExitDialogOptionalCheckboxText)" />
+    <Property Id="WIXUI_LAUNCHAPPCHECKBOX" Value="1" />
+    <Property Id="WIXUI_EXITDIALOGOPTIONALCHECKBOX" Value="1" />
+    <Property Id="DISABLENEXTBUTTON" Value="0"/>
+
+    <!--ROOTDRIVE explicitly set to prevent it from defaulting to drive with most space-->
+    <Property Id="ROOTDRIVE" Value="$(env.SystemDrive)" />
+
+    <UIRef Id="WixUI_CustomInstallDir" />
+    <UIRef Id="WixUI_CustomErrorProgressText" />
+
+  <!--Prerequisite checks-->
+	<!--Detect supported versions of NodeXL-->
+	<Upgrade Id="87DDE855-47E5-48B2-9D6E-03B84139823A">
+		<UpgradeVersion Minimum="1.0.105" IncludeMinimum="yes" OnlyDetect="yes" Property="NODEXLVALID"/>
+	</Upgrade>
+
+	<!--Detect unsupported versions of NodeXL-->
+	<Upgrade Id="87DDE855-47E5-48B2-9D6E-03B84139823A">
+		<UpgradeVersion Minimum="0" Maximum="1.0.105" IncludeMaximum="no" OnlyDetect="yes" Property="NODEXLINVALID"/>
+	</Upgrade>
+
+	<!--Detect NodeXL by component GUID (to enable per-machine installation detection)-->
+	<!--GUID is for Microsoft.NodeXL.Core.dll-->
+	<Property Id="NODEXLCOMPONENT">
+		<ComponentSearch Id="FindNodeXlByComponentId" Guid="{1FDC8093-C665-59DA-F22D-3E31143059FF}"/>
+	</Property>
+
+	<!--Mark NodeXL as found if valid version detected OR component guid found and invalid version not detected-->
+	<SetProperty Id="NODEXL" After="AppSearch" Value="1">
+		NODEXLVALID OR (NODEXLCOMPONENT AND (NOT NODEXLINVALID))
+	</SetProperty>
+	
+  <!--Check for .NET 4.0 Full profile-->
+  <Property Id="NETFRAMEWORK40VERSION" Secure="yes">
+    <RegistrySearch Id="NetFramework40" Root="HKLM" Key="SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full" Name="Version" Type="raw" />
+  </Property>
+  <!--Minimum required version of .NET 4.0 -->
+  <SetProperty Id="NETFRAMEWORK40" After="AppSearch" Value="1">
+    NETFRAMEWORK40VERSION >= "4.0.30319"
+  </SetProperty>
+  
+  <!--Check for Excel 2007-->
+  <Property Id="EXCELVERSION" Secure="yes">
+    <RegistrySearch Id="Excel" Root="HKCR" Key="Excel.Application\CurVer" Name=" " Type="raw" />
+  </Property>
+  <!--Supported Excel versions-->
+  <Property Id="EXCEL2007">Excel.Application.12</Property>
+  <Property Id="EXCEL2010">Excel.Application.14</Property>
+  <SetProperty Id="EXCEL" After="AppSearch" Value="1">
+    (EXCELVERSION = EXCEL2007) OR (EXCELVERSION = EXCEL2010)
+  </SetProperty>
+  <!--Get Excel app path-->
+  <Property Id="EXCELPATH" Secure="yes">
+    <RegistrySearch Id="ExcelAppPath" Root="HKLM" Key="SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\excel.exe" Name=" " Type="raw" />
+  </Property>
+
+  <!--Check for VSTO Runtime 4.0 -->
+  <Property Id="VSTORUNTIMEVERSION" Secure="yes">
+    <RegistrySearch Id='VstoRuntimeSearch' Root='HKLM' Key='SOFTWARE\Microsoft\VSTO Runtime Setup\v4R' Name='Version' Type='raw'/>
+  </Property>
+  <!--Minimum required version of VSTO Runtime 4.0-->
+  <SetProperty Id="VSTORUNTIME" After="AppSearch" Value="1">VSTORUNTIMEVERSION >= "10.0.30319"</SetProperty>
+
+  <!--Check if .NET Bio Framework installed-->
+  <Property Id='MBFFRAMEWORKINSTALLED'>
+    <RegistrySearch Id='MBFFrameworkCheck' Root='HKLM' Key='Software\Microsoft\.NET Bio\$(env.ProductVersion)\Framework'
+                Type='raw' Name='Installed'/>
+  </Property>
+  <!--Get .NET Bio Framework installation path-->
+  <Property Id='MBFFRAMEWORKDIR'>
+    <RegistrySearch Id='MBFFrameworkDir' Root='HKLM' Key='Software\Microsoft\.NET Bio\$(env.ProductVersion)\Framework'
+              Name='InstallationPath' Type='directory' />
+  </Property>
+	
+</Include>

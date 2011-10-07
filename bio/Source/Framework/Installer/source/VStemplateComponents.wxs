@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Fragment>
+    <ComponentGroup Id="VSTemplateComponentGroup">
+      <ComponentRef Id="VisualStudioTemplateZIP" />
+      <ComponentRef Id="VisualStudioTemplateDLL" />
+    </ComponentGroup>
+    <DirectoryRef Id="VSTEMPLATEFOLDER">
+      <Component Id="VisualStudioTemplateZIP" Guid="3E182562-C1C6-4554-86A3-B42270D83CB0">
+        <File Id="BioConsoleApplicationTemplate" KeyPath="yes" Source="SourceDir\BioConsoleApplicationTemplate.zip" />
+      </Component>
+      <Component Id="VisualStudioTemplateDLL" Guid="0ED9431D-0D44-48B9-B967-47834199CFED">
+        <File Id="BioTemplateWizard" Assembly=".net" KeyPath="yes" Source="SourceDir\Bio.TemplateWizard.dll" />
+      </Component>
+    </DirectoryRef>
+  </Fragment>
+</Wix>

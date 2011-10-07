@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Product
+    Id='84389389-F9B5-4990-9834-8AAF0601B5D5'
+    Name='!(loc.ProductName)'
+    Language='1033'
+    Version='$(env.ProductVersion)'
+    Manufacturer=' '
+    UpgradeCode='D3AF0002-2D7E-45EB-86CF-06FCFDF075A0'>
+
+    <!--installer package information-->
+    <Package
+        Id='*'
+        Description='!(loc.ProductName) installation database.'
+        Comments='This installer database contains the logic and data required to install !(loc.ProductName).'
+        Manufacturer='.NET Bio'
+        InstallerVersion='200'
+        Compressed='yes'/>
+
+    <Media Id='1' Cabinet='BioFramework.cab' EmbedCab='yes'/>
+
+    <!-- Upgrade support region -->
+    <!--
+    To enable upgrade when changing product version:
+    1. Change Product Version (major.minor) environment variable.
+    2. Change Product Id (GUID) and all component GUIDs.
+    3. Modify the code in this region as necessary.
+    -->
+
+    <!--Detect older version of the product for Upgrade support-->
+    <Upgrade Id="D3AF0002-2D7E-45EB-86CF-06FCFDF075A0">
+
+      <!-- Check for version 1.0 and lower -->
+      <UpgradeVersion Maximum="1.0.0" Minimum="0.2.0" IncludeMaximum="yes" IncludeMinimum="yes" MigrateFeatures="yes" Property="BELOWVERSIONTWO"/>
+
+      <!-- Check for version 2.1 (developer preview version) - special case -->
+      <UpgradeVersion Maximum="2.1.0" Minimum="2.1.0" IncludeMaximum="yes" IncludeMinimum="yes" MigrateFeatures="yes" Property="DEVPREVIEWFOUND"/>
+
+      <!-- Check for lower minor version -->
+      <UpgradeVersion Maximum="$(env.ProductMajorVersion).$(env.ProductMinorVersion).$(env.ProductBuildVersion)" Minimum="$(env.ProductMajorVersion).0.0"
+                      IncludeMaximum="yes" IncludeMinimum="yes" MigrateFeatures="yes" Property="LOWERMINORFOUND"/>
+
+      <!-- Check for lower version (major or minor) -->
+      <UpgradeVersion Maximum="$(env.ProductMajorVersion).$(env.ProductMinorVersion).$(env.ProductBuildVersion)" Minimum="0.0.0"
+                      IncludeMaximum="no" IncludeMinimum="yes" MigrateFeatures="yes" Property="LOWERVERSIONFOUND"/>
+
+      <!-- Check for higher version (major or minor) -->
+      <UpgradeVersion Maximum="127.254.32767" Minimum="$(env.ProductMajorVersion).$(env.ProductMinorVersion).$(env.ProductBuildVersion)"
+                      IncludeMaximum="yes" IncludeMinimum="no" MigrateFeatures="yes" Property="NEWERVERSIONFOUND"/>
+    </Upgrade>
+
+    <!-- Prevent installation if newer version found -->
+    <Condition Message='!(loc.NewerVersionInstalledAlert)'>
+      (NOT NEWERVERSIONFOUND) OR DEVPREVIEWFOUND
+    </Condition>
+
+    <!-- Silently upgrade older product version with lower minor version -->
+    <InstallExecuteSequence>
+      <RemoveExistingProducts After="InstallInitialize">
+        LOWERMINORFOUND AND (NOT DEVPREVIEWFOUND)
+      </RemoveExistingProducts>
+    </InstallExecuteSequence>
+    <!-- Upgrade support region end -->
+
+    <!--Directory: Target-->
+    <Directory Id='TARGETDIR' Name='SourceDir'>
+
+      <!--Directory: ProgramFiles-->
+      <Directory Id='ProgramFilesFolder' Name='PFiles'>
+
+        <!--Directory: Configurable install directory-->
+        <Directory Id='INSTALLDIR'>
+
+          <!--Directory: Visual Studio user project templates folder-->
+          <!--Note: This path is set based on a registry search-->
+          <Directory Id='VSTEMPLATEFOLDER'/>
+
+          <!--Directory: Root directory for .NET Bio products-->
+          <Directory Id='ProductRoot' Name='!(loc.ProductRootFolder)'>
+
+			  <!--Directory: Version number-->
+			  <Directory Id='ProductVersionFolder' Name='$(env.ProductVersion)'>
+				  <Directory Id='ProductTools' Name='Tools'>
+					  <!--Directory: Framework -->
+					  <Directory Id='FRAMEWORKINSTALLFOLDER' Name='!(loc.BinFolder)'>
+
+						  <!--Framework merge module-->
+						  <Directory Id='FRAMEWORKFOLDER'>
+							  <Merge Id='BioFrameworkModule' Language='1033' SourceFile='MergeModule.msm' DiskId='1'/>
+						  </Directory>
+						  <!--Framework End -->
+					  </Directory>
+
+					  <!--Temporary readme document-->
+					  <Component Id='ReadmeDocument' Guid='B427B15C-7F9B-45E9-9831-D3CE16911A3B'>
+						  <!--<CreateFolder Directory='ProductVersionFolder' />-->
+						  <File Id='readme.txt' KeyPath='yes' Source='SourceDir\readme.txt'/>
+					  </Component>
+					  <!--Directory: Tools Folder end-->
+				  </Directory>
+				  
+				  <!--Directory: SDK /-->
+          <Directory Id='SDKFolder' Name='!(loc.SDKFolder)'>
+          </Directory>
+
+				  <!--Directory: Version number end-->
+			  </Directory>
+
+            <!--Directory: Root directory for .NET Bio products end-->
+          </Directory>
+
+          <!--Directory: Configurable install directory end-->
+        </Directory>
+
+        <!-- Directory: Program Menu folder (for application shortcuts) -->
+        <Directory Id="ProgramMenuFolder">
+          <Directory Id="ApplicationProgramsFolder" Name="!(loc.ProductRootFolder)">
+            <Directory Id="ApplicationDocumentsFolder" Name="!(loc.ApplicationDocumentsFolderName)"/>
+          </Directory>
+        </Directory>
+
+        <!--Directory: ProgramFiles end-->
+      </Directory>
+
+      <!--Directory: Target end-->
+    </Directory>
+
+    <!-- Application shortcuts region -->
+	  <DirectoryRef Id="ApplicationProgramsFolder">
+		  <Component Id="DefInstallation" Guid="0B28C866-023E-49CF-99BE-593459FB2E01">
+			  <Shortcut Id="ShortcutCommandLine" 
+						Name="!(loc.BioCommandPrompt)"
+						Description="!(loc.BioCommandPrompt)"
+						Target="[%ComSpec]"
+						WorkingDirectory="FRAMEWORKINSTALLFOLDER" />
+			  <Shortcut Id="ShortcutReadme"
+						Name="ReadMe"
+						Description=".NET Bio Readme"
+						Target="[ProductTools]ReadMe.txt"
+						WorkingDirectory="ToolsFolder" />
+			  <RemoveFolder Id="RemoveShortcutReadme" On="uninstall"/>
+			  <RegistryValue Root="HKCU" Key="Software\.NET Bio\$(env.ProductVersion)\Framework"
+							 Name="Framework Read Me" Type="integer" Value="1" KeyPath="yes"/>
+		  </Component>
+	  </DirectoryRef>
+
+    <DirectoryRef Id="ApplicationDocumentsFolder">
+		<Component Id="DocumentShortcut" Guid="1D9E0154-61D8-4B5F-9916-2EA72038EF48">
+			<Shortcut Id="ShortcutGettingStarted"
+					  Name="!(loc.GettingStarted)"
+					  Description="!(loc.GettingStartedDescription)"
+					  Target="[SDKFolder]\Docs\.NET Bio_Getting_Started.docx"
+					  WorkingDirectory="SDKFolder"/>
+
+			<!--".NET Bio Coding_Conventions.docx"-->
+			<Shortcut Id="ShortcutCodingConventions"
+						Name="!(loc.CodingConventions)"
+						Description="!(loc.CodingConventionsDescription)"
+						Target="[SDKFolder]\Docs\.NET Bio_Coding_Conventions.docx"
+						WorkingDirectory="SDKFolder"/>
+			<!--".NET Bio Commenting_Conventions.docx"-->
+			<Shortcut Id="ShortcutCommentingConventions"
+					  Name="!(loc.CommentingConventions)"
+					  Description="!(loc.CommentingConventionsDescription)"
+					  Target="[SDKFolder]\Docs\.NET Bio_Commenting_Conventions.docx"
+					  WorkingDirectory="SDKFolder"/>
+
+
+			<!--".NET Bio Contribution_Documentation_Template_v2.docx"-->
+			<Shortcut Id="ShortcutContributionDocumentationTemplate"
+					  Name="!(loc.ContributionDocumentationTemplate)"
+					  Description="!(loc.ContributionDocTemplateDescription)"
+					  Target="[SDKFolder]\Docs\.NET Bio_Contribution_Documentation_Template.docx"
+					  WorkingDirectory="SDKFolder"/>
+
+			<!--".NET Bio IronPython Programming_Guide_v2.docx"-->
+			<!--".NET Bio Overview.docx"-->
+			<Shortcut Id="ShortcutBioOverview"
+					  Name="!(loc.Overview)"
+					  Description="!(loc.OverviewDescription)"
+					  Target="[SDKFolder]\Docs\.NET Bio_Overview.docx"
+					  WorkingDirectory="SDKFolder"/>
+			<!--".NET Bio Parallel de Novo Assembler Technical Guide.docx"-->
+			<Shortcut Id="ShortcutPaDeNa"
+					  Name="!(loc.PaDeNA)"
+					  Description="!(loc.PaDeNADescription)"
+					  Target="[SDKFolder]\Docs\.NET Bio_Parallel_de_Novo_Assembler_Technical_Guide.docx"
+					  WorkingDirectory="SDKFolder"/>
+			<!--.NET Bio Comparative Assembly Technical Guide.docx-->
+			<Shortcut Id="ShortcutComparativeAssembly"
+					  Name="!(loc.ComparativeAssemblyGuide)"
+					  Description="!(loc.ComparativeAssemblyGuideDescription)"
+					  Target="[SDKFolder]\Docs\.NET Bio_Comparative_Assembly_Technical_Guide.docx"
+					  WorkingDirectory="SDKFolder"/>
+			<!--".NET Bio Programming_Guide.docx"-->
+			<Shortcut Id="ShortcutProgrammingGuide"
+					  Name="!(loc.ProgrammingGuide)"
+					  Description="!(loc.ProgrammingGuideDescription)"
+					  Target="[SDKFolder]\Docs\.NET Bio_Programming_Guide.docx"
+					  WorkingDirectory="SDKFolder"/>
+			<!--".NET Bio Testing_Guide.docx"-->
+			<Shortcut Id="ShortcutTestingGuide"
+					  Name="!(loc.TestingGuide)"
+					  Description="!(loc.TestingGuideDescription)"
+					  Target="[SDKFolder]\Docs\.NET Bio_Testing_Guide.docx"
+					  WorkingDirectory="SDKFolder"/>
+			<!--Bio.chm-->
+			<Shortcut Id="ShortcutMbfChm"
+					  Name="!(loc.MbfChm)"
+					  Description="!(loc.MbfChmDescription)"
+					  Target="[SDKFolder]\Docs\Bio.chm"
+					  WorkingDirectory="SDKFolder"/>
+			<RemoveFolder Id="RemoveShortcut" On="uninstall"/>
+			<RegistryValue Root="HKCU" Key="Software\.NET Bio\$(env.ProductVersion)\Framework"
+						   Name="Document Shortcuts" Type="integer" Value="1" KeyPath="yes"/>
+		</Component>
+    </DirectoryRef>
+    <!-- Application shortcuts region end -->
+
+	  <!--Features-->
+	  <!--Framework feature enabled by default with no option to deselect-->
+	  <Feature Id='MBFFeature' Title='!(loc.FrameworkFeatureTitle)' Level='1'
+			   Display='expand' AllowAdvertise='no' InstallDefault='local' ConfigurableDirectory='INSTALLDIR'
+			   TypicalDefault='install' Description='!(loc.CustomizeDlgMBFDescription)' Absent='disallow'>
+		  <MergeRef Id='BioFrameworkModule' />
+		  <ComponentRef Id='ReadmeDocument'/>
+		  <ComponentRef Id='DefInstallation' />
+	  </Feature>
+	  <!--SDK feature disabled initially. User can select it in SelectionTree-->
+	  <Feature Id='SDKFeature' Title='!(loc.SDKFeatureTitle)' Level='2'
+			   Display='expand' AllowAdvertise='no' InstallDefault='local' ConfigurableDirectory='INSTALLDIR'
+			   TypicalDefault='install' Description='!(loc.CustomizeDlgSDKDescription)'>
+		  <ComponentGroupRef Id='SDKComponentGroup'/>
+		  <ComponentRef Id='DocumentShortcut'/>
+		  <!--.NET Bio project template for Visual Studio 2010-->
+		  <Feature Id='VSTemplateFeature' Title='!(loc.VSTemplateFeatureTitle)' Level='2'
+			 Display='expand' AllowAdvertise='no' InstallDefault='local'
+			 TypicalDefault='install' Description='!(loc.CustomizeDlgVSTemplateDescription)' Absent='allow'>
+			  <ComponentGroupRef Id='VSTemplateComponentGroup'/>
+			  <ComponentGroupRef Id='BioTemplateGroup'/>
+			  <Condition Level='0'>NOT VSTEMPLATEDIR</Condition>
+		  </Feature>
+	  </Feature>
+
+	  <?include IncFrameworkProperties.wxi?>
+
+  </Product>
+</Wix>

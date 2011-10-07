@@ -1,0 +1,321 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{B58E121A-3D49-472F-A20A-72EC35575E53}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Bio.Tests</RootNamespace>
+    <AssemblyName>Bio.Tests</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\Build\Binaries\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>..\..\Source\BioFramework_Code_Rules.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <DocumentationFile>..\..\Build\Binaries\Debug\Bio.Tests.XML</DocumentationFile>
+    <CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\Build\Binaries\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
+    <CodeAnalysisRuleSet>..\..\Source\BioFramework_Code_Rules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.XML" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <CodeAnalysisDependentAssemblyPaths Condition=" '$(VS100COMNTOOLS)' != '' " Include="$(VS100COMNTOOLS)..\IDE\PrivateAssemblies">
+      <Visible>False</Visible>
+    </CodeAnalysisDependentAssemblyPaths>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Framework\AlphabetsFriendlyNameTest.cs" />
+    <Compile Include="Framework\DeriveSequenceTests.cs" />
+    <Compile Include="Framework\IO\AppliedBiosystems\Ab1DataValidator.cs" />
+    <Compile Include="Framework\IO\AppliedBiosystems\Ab1Examples.cs" />
+    <Compile Include="Framework\IO\AppliedBiosystems\AbiTests.cs" />
+    <Compile Include="Framework\IO\AppliedBiosystems\TestAb1Data.cs" />
+    <Compile Include="Framework\IO\BAM\BAMTests.cs" />
+    <Compile Include="Framework\IO\Snp\SnpParserTests.cs" />
+    <Compile Include="Framework\IO\Wiggle\WiggleTests.cs" />
+    <Compile Include="Framework\Matrix\BioMatrixTests.cs" />
+    <Compile Include="Framework\Algorithms\StringSearch\BoyerMooreTests.cs" />
+    <Compile Include="Framework\IO\Bed\BEDOperationsTests.cs" />
+    <Compile Include="Framework\Algorithms\Alignment\AlignerTests.cs" />
+    <Compile Include="Framework\Algorithms\Alignment\PairwiseOverlapAlignerTests.cs" />
+    <Compile Include="Framework\Algorithms\Translation\TranslationTests.cs" />
+    <Compile Include="Framework\AmbiguousRnaAlphabetTests.cs" />
+    <Compile Include="Framework\Assembly\OverlapDeNovoAssemblerTests.cs" />
+    <Compile Include="Framework\DnaAlphabetTests.cs" />
+    <Compile Include="Framework\IO\ClustalW\ClustalWTests.cs" />
+    <Compile Include="Framework\IO\FastA\FastaTests.cs" />
+    <Compile Include="Framework\IO\FastQ\FastQTests.cs" />
+    <Compile Include="Framework\IO\GenBank\GenBankTests.cs" />
+    <Compile Include="Framework\IO\Gff\GffTests.cs" />
+    <Compile Include="Framework\IO\Nexus\NexusTests.cs" />
+    <Compile Include="Framework\IO\Phylip\PhylipTests.cs" />
+    <Compile Include="Framework\MUMmer\LongestIncreasingSubsequence\LongestIncreasingSubsequenceTests.cs" />
+    <Compile Include="Framework\MUMmer\MUMmerAlignerTests.cs" />
+    <Compile Include="Framework\QualitativeSequenceTest.cs" />
+    <Compile Include="Framework\RnaAlphabetTests.cs" />
+    <Compile Include="Framework\SequenceTests.cs" />
+    <Compile Include="Framework\SparseSequenceTests.cs" />
+    <Compile Include="Framework\TestSequencesCopyToForBio.cs" />
+    <Compile Include="Framework\TestToStringForBio.cs" />
+    <Compile Include="Framework\Web\BlastWebTests.cs" />
+    <Compile Include="Framework\Web\WebAccessorTest.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Hpc\AggregateNumbers.cs" />
+    <Compile Include="Hpc\BinaryOperator.cs" />
+    <Compile Include="Hpc\HpcTests.cs" />
+    <Compile Include="PADENA\ContigBuilderTests.cs" />
+    <Compile Include="PADENA\DanglingLinksPurgerTests.cs" />
+    <Compile Include="PADENA\GraphConstructionTests.cs" />
+    <Compile Include="PADENA\ParallelDeNovoAssemblerExtendedTests.cs" />
+    <Compile Include="PADENA\ParallelDeNovoAssemblerTests.cs" />
+    <Compile Include="PADENA\ReadAlignmentTests.cs" />
+    <Compile Include="PADENA\RedundantPathsPurgerTests.cs" />
+    <Compile Include="PADENA\Scaffold\DistanceCalculationTests.cs" />
+    <Compile Include="PADENA\Scaffold\FilterMatePairsTests.cs" />
+    <Compile Include="PADENA\Scaffold\GraphScaffoldBuilderTests.cs" />
+    <Compile Include="PADENA\Scaffold\MapReadsToContigsTests.cs" />
+    <Compile Include="PADENA\Scaffold\PathPurgerTests.cs" />
+    <Compile Include="PADENA\Scaffold\TracePathTests.cs" />
+    <Compile Include="PADENA\TestInputs.cs" />
+    <Compile Include="PAMSAM\BinaryGuideTreeTests.cs" />
+    <Compile Include="PAMSAM\DistanceMatrixTests.cs" />
+    <Compile Include="PAMSAM\HierarchicalClusteringSerialTests.cs" />
+    <Compile Include="PAMSAM\KimuraDistanceMatrixGeneratorTests.cs" />
+    <Compile Include="PAMSAM\KmerDistanceMatrixGeneratorTests.cs" />
+    <Compile Include="PAMSAM\MsaBenchMarkTests.cs" />
+    <Compile Include="PAMSAM\MsaUtilsTests.cs" />
+    <Compile Include="PAMSAM\NeedlemanWunschProfileAlignerTests.cs" />
+    <Compile Include="PAMSAM\PAMSAMMultipleSequenceAlignmentTests.cs" />
+    <Compile Include="PAMSAM\ParallelDynamicProgrammingTests.cs" />
+    <Compile Include="PAMSAM\ProfileTests.cs" />
+    <Compile Include="PAMSAM\ProgressiveAlignerTests.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Framework\IO\SAM\SAMTests.cs" />
+    <Compile Include="SAMUtils\SAMUtilTests.cs" />
+    <Compile Include="Framework\IO\Xsv\XsvSparseTests.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Source\Framework\Add-ins\Bio.Padena\Bio.Padena.csproj">
+      <Project>{1CFF1C79-1E34-4411-97E0-0FB02F4865C3}</Project>
+      <Name>Bio.Padena</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Source\Framework\Add-ins\Bio.Pamsam\Bio.Pamsam.csproj">
+      <Project>{0416DD4D-DA84-4BBF-B698-892CF04D3DFB}</Project>
+      <Name>Bio.Pamsam</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Source\Framework\Bio.Hpc.DistributeApp\Bio.Hpc.DistributeApp.csproj">
+      <Project>{8ACAC84A-CB0C-40C4-B595-CA37E221B180}</Project>
+      <Name>Bio.Hpc.DistributeApp</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Source\Framework\Bio.Hpc\Bio.Hpc.csproj">
+      <Project>{1FF9E7F1-4571-495B-AF7A-CE1151C4EDC1}</Project>
+      <Name>Bio.Hpc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Source\Framework\Bio.WebServiceHandlers\Bio.WebServiceHandlers.csproj">
+      <Project>{C5A9B65E-98FB-4879-8699-69E8AB6A4BAA}</Project>
+      <Name>Bio.WebServiceHandlers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Source\Framework\Bio\Bio.csproj">
+      <Project>{B53E11DF-F9A9-4939-893E-78E59872089A}</Project>
+      <Name>Bio</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Source\Tools\SamUtil\SamUtil.csproj">
+      <Project>{438E5AEB-2B46-491A-9173-A46780DFC282}</Project>
+      <Name>SamUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bio.TestUtils\Bio.TestUtils.csproj">
+      <Project>{FC09FA89-39A2-4DB7-BB26-4DF616918506}</Project>
+      <Name>Bio.TestUtils</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="TestData\TestUtils\122_raw.afa" />
+    <None Include="TestData\TestUtils\AppliedBiosystems\A_2004-08-24_18-23-44_043630_A02_017_015.ab1" />
+    <None Include="TestData\TestUtils\BAM\PairedReadsTest.bam" />
+    <None Include="TestData\TestUtils\BAM\SeqAlignment.bam" />
+    <None Include="TestData\TestUtils\BED\Intersect\Intersect_query.BED" />
+    <None Include="TestData\TestUtils\BED\Intersect\Intersect_ref.BED" />
+    <None Include="TestData\TestUtils\BED\Intersect\Result_Intersect_MinOverlap0.BED" />
+    <None Include="TestData\TestUtils\BED\Intersect\Result_Intersect_MinOverlap0_OverLappingBases.BED" />
+    <None Include="TestData\TestUtils\BED\Intersect\Result_Intersect_MinOverlap1.BED" />
+    <None Include="TestData\TestUtils\BED\Intersect\Result_Intersect_MinOverlap1_OverLappingBases.BED" />
+    <None Include="TestData\TestUtils\BED\Merge\Merge_single.BED" />
+    <None Include="TestData\TestUtils\BED\Merge\Merge_twofiles_1.BED" />
+    <None Include="TestData\TestUtils\BED\Merge\Merge_twofiles_2.BED" />
+    <None Include="TestData\TestUtils\BED\Merge\Result_Merge_Single_MinLength-1.BED" />
+    <None Include="TestData\TestUtils\BED\Merge\Result_Merge_Single_MinLength-3.BED" />
+    <None Include="TestData\TestUtils\BED\Merge\Result_Merge_Single_MinLength0.BED" />
+    <None Include="TestData\TestUtils\BED\Merge\Result_Merge_Single_MinLength1.BED" />
+    <None Include="TestData\TestUtils\BED\Merge\Result_Merge_Two_MinLength-1.BED" />
+    <None Include="TestData\TestUtils\BED\Merge\Result_Merge_Two_MinLength-3.BED" />
+    <None Include="TestData\TestUtils\BED\Merge\Result_Merge_Two_MinLength0.BED" />
+    <None Include="TestData\TestUtils\BED\Merge\Result_Merge_Two_MinLength1.BED" />
+    <None Include="TestData\TestUtils\BED\Merge\Result_Merge_Two_MinLength2.BED" />
+    <None Include="TestData\TestUtils\BED\Merge\Result_Merge_Two_MinLength6.BED" />
+    <None Include="TestData\TestUtils\BED\Subtract\Result_subtract_minoverlap0.bed" />
+    <None Include="TestData\TestUtils\BED\Subtract\Result_Subtract_minoverlap0_NOnOverlappingPieces.BED" />
+    <None Include="TestData\TestUtils\BED\Subtract\Result_Subtract_minoverlap1.bed" />
+    <None Include="TestData\TestUtils\BED\Subtract\Result_Subtract_minoverlap1_NOnOverlappingPieces.BED" />
+    <None Include="TestData\TestUtils\BED\Subtract\Subtract_query.BED" />
+    <None Include="TestData\TestUtils\BED\Subtract\Subtract_ref.BED" />
+    <None Include="TestData\TestUtils\BOX032Small.xml.afa" />
+    <None Include="TestData\TestUtils\ClustalW\AlignmentData.aln" />
+    <None Include="TestData\TestUtils\Fasta\186972391.fasta" />
+    <None Include="TestData\TestUtils\Fasta\5_sequences.fasta" />
+    <None Include="TestData\TestUtils\Fasta\EmptySequenceWithID.fasta" />
+    <None Include="TestData\TestUtils\Fasta\NC_005213.ffn" />
+    <None Include="TestData\TestUtils\Fasta\Protein\Balibase\RV911\BOX010.xml.afa" />
+    <None Include="TestData\TestUtils\Fasta\Protein\Balibase\RV911\BOX022.xml.afa" />
+    <None Include="TestData\TestUtils\Fasta\Protein\Balibase\RV911\BOX032.xml.afa" />
+    <None Include="TestData\TestUtils\Fasta\Protein\Balibase\RV911\BOX034.xml.afa" />
+    <None Include="TestData\TestUtils\Fasta\Protein\Balibase\RV911\BOX035.xml.afa" />
+    <None Include="TestData\TestUtils\Fasta\Protein\Balibase\RV911\BOX046.xml.afa" />
+    <None Include="TestData\TestUtils\Fasta\Protein\Balibase\RV911\BOX060.xml.afa" />
+    <None Include="TestData\TestUtils\Fasta\Protein\Balibase\RV911\BOX063.xml.afa" />
+    <None Include="TestData\TestUtils\Fasta\Protein\Balibase\RV911\BOX076.xml.afa" />
+    <None Include="TestData\TestUtils\Fasta\Protein\Balibase\RV911\BOX096.xml.afa" />
+    <None Include="TestData\TestUtils\Fasta\Protein\Balibase\RV913\BOX032.xml.afa" />
+    <None Include="TestData\TestUtils\Fasta\Protein\BB11001.tfa" />
+    <None Include="TestData\TestUtils\Fasta\Protein\SABmark\group1\reference\d1a6m__-d1ash__.fasta" />
+    <None Include="TestData\TestUtils\Fasta\Protein\SABmark\group1\reference\d1a6m__-d1ckia_.fasta" />
+    <None Include="TestData\TestUtils\Fasta\Protein\SABmark\group1\reference\d1a6m__-d1dlwa_.fasta" />
+    <None Include="TestData\TestUtils\Fasta\Protein\SABmark\group1\reference\d1a6m__-d1ew6a_.fasta" />
+    <None Include="TestData\TestUtils\Fasta\Protein\SABmark\group1\reference\d1a6m__-d1fn9a_.fasta" />
+    <None Include="TestData\TestUtils\Fasta\Protein\SABmark\group1\reference\d1a6m__-d1fx2a_.fasta" />
+    <None Include="TestData\TestUtils\Fasta\Protein\SABmark\group1\reference\d1a6m__-d1g5na_.fasta" />
+    <None Include="TestData\TestUtils\Fasta\Protein\SABmark\group1\reference\d1a6m__-d1g8la3.fasta" />
+    <None Include="TestData\TestUtils\Fasta\Protein\SABmark\group1\reference\d1a6m__-d1gesa2.fasta" />
+    <None Include="TestData\TestUtils\Fasta\Protein\SABmark\group1\reference\d1a6m__-d1gtea1.fasta" />
+    <None Include="TestData\TestUtils\Fasta\RNA\k10\5S_rRNA\5S_rRNA.apsi-52.sci-77.no-1.raw.fa" />
+    <None Include="TestData\TestUtils\Fasta\RNA\k10\5S_rRNA\5S_rRNA.apsi-52.sci-77.no-1.ref.fa" />
+    <None Include="TestData\TestUtils\Fasta\RNA\k10\5S_rRNA\5S_rRNA.apsi-53.sci-75.no-1.raw.fa" />
+    <None Include="TestData\TestUtils\Fasta\RNA\k10\5S_rRNA\5S_rRNA.apsi-53.sci-75.no-1.ref.fa" />
+    <None Include="TestData\TestUtils\Fasta\RNA\k10\5S_rRNA\5S_rRNA.apsi-53.sci-79.no-1.raw.fa" />
+    <None Include="TestData\TestUtils\Fasta\RNA\k10\5S_rRNA\5S_rRNA.apsi-53.sci-79.no-1.ref.fa" />
+    <None Include="TestData\TestUtils\Fasta\RNA\k10\5S_rRNA\5S_rRNA.apsi-53.sci-91.no-1.raw.fa" />
+    <None Include="TestData\TestUtils\Fasta\RNA\k10\5S_rRNA\5S_rRNA.apsi-53.sci-91.no-1.ref.fa" />
+    <None Include="TestData\TestUtils\Fasta\RNA\k10\5S_rRNA\5S_rRNA.apsi-54.sci-72.no-1.raw.fa" />
+    <None Include="TestData\TestUtils\Fasta\RNA\k10\5S_rRNA\5S_rRNA.apsi-54.sci-72.no-1.ref.fa" />
+    <None Include="TestData\TestUtils\Fasta\RunningTime\BOX246.xml.afa" />
+    <None Include="TestData\TestUtils\Fasta\RV11_BBS_all.afa" />
+    <None Include="TestData\TestUtils\Fasta\uniprot-dutpase.fasta" />
+    <None Include="TestData\TestUtils\FastQ\SRR002012_5.fastq" />
+    <None Include="TestData\TestUtils\GenBank\BK000016-tpa.gbk" />
+    <None Include="TestData\TestUtils\GenBank\D12555.gbk" />
+    <None Include="TestData\TestUtils\GenBank\LocusTokenParserTest.gb" />
+    <None Include="TestData\TestUtils\GenBank\NC_001284.gbk" />
+    <None Include="TestData\TestUtils\GenBank\NC_003070.gbk" />
+    <None Include="TestData\TestUtils\GenBank\NM_001747.gb" />
+    <None Include="TestData\TestUtils\GenBank\U49845+D12555.gbk" />
+    <None Include="TestData\TestUtils\GenBank\U49845.gbk" />
+    <None Include="TestData\TestUtils\GFF\random.GFF" />
+    <None Include="TestData\TestUtils\GFF\Tachibana2005.gff" />
+    <None Include="TestData\TestUtils\MockOutput\TestBioHPCBlast_Dna.object" />
+    <None Include="TestData\TestUtils\MockOutput\TestBioHPCBlast_GetServiceMetadata.object" />
+    <None Include="TestData\TestUtils\MockOutput\TestBioHPCBlast_GetServiceMetadataDatabasesDna.object" />
+    <None Include="TestData\TestUtils\MockOutput\TestBioHPCBlast_GetServiceMetadataDatabasesProt.object" />
+    <None Include="TestData\TestUtils\MockOutput\TestBioHPCBlast_GetServiceMetadataFilter.object" />
+    <None Include="TestData\TestUtils\MockOutput\TestBioHPCBlast_GetServiceMetadataFormats.object" />
+    <None Include="TestData\TestUtils\MockOutput\TestBioHPCBlast_GetServiceMetadataMatrixName.object" />
+    <None Include="TestData\TestUtils\MockOutput\TestBioHPCBlast_GetServiceMetadataProgram.object" />
+    <None Include="TestData\TestUtils\MockOutput\TestBioHPCBlast_Protein.object" />
+    <None Include="TestData\TestUtils\MockOutput\TestBlastXmlParser.object" />
+    <None Include="TestData\TestUtils\MockOutput\TestEBIWuBlast_Casing.object" />
+    <None Include="TestData\TestUtils\MockOutput\TestEBIWuBlast_Dna.object" />
+    <None Include="TestData\TestUtils\MockOutput\TestEBIWuBlast_GetServiceMetadataDatabases.object" />
+    <None Include="TestData\TestUtils\MockOutput\TestEBIWuBlast_GetServiceMetadataFilters.object" />
+    <None Include="TestData\TestUtils\MockOutput\TestEBIWuBlast_GetServiceMetadataMatrices.object" />
+    <None Include="TestData\TestUtils\MockOutput\TestEBIWuBlast_GetServiceMetadataPrograms.object" />
+    <None Include="TestData\TestUtils\MockOutput\TestEBIWuBlast_GetServiceMetadataSensitivity.object" />
+    <None Include="TestData\TestUtils\MockOutput\TestEBIWuBlast_GetServiceMetadataSort.object" />
+    <None Include="TestData\TestUtils\MockOutput\TestEBIWuBlast_GetServiceMetadataStats.object" />
+    <None Include="TestData\TestUtils\MockOutput\TestEBIWuBlast_GetServiceMetadataXmlFormats.object" />
+    <None Include="TestData\TestUtils\MockOutput\TestEbiWuBlast_Protein.object" />
+    <None Include="TestData\TestUtils\MockOutput\TestNcbiQBlast_BadDatabase.object" />
+    <None Include="TestData\TestUtils\MockOutput\TestNcbiQBlast_Casing.object" />
+    <None Include="TestData\TestUtils\MockOutput\TestNcbiQBlast_Dna.object" />
+    <None Include="TestData\TestUtils\MockOutput\TestNcbiQBlast_Protein.object" />
+    <None Include="TestData\TestUtils\MockOutput\TestNcbiQBlast_Protein_UserQuery.object" />
+    <None Include="TestData\TestUtils\Nexus\primate-mtDNA-interleaved.nex" />
+    <None Include="TestData\TestUtils\Phylip\dna.phy" />
+    <None Include="TestData\TestUtils\Phylip\primates.phy" />
+    <None Include="TestData\TestUtils\RV11_BBS_allSmall.afa" />
+    <None Include="TestData\TestUtils\SampleSparseSeq.csv" />
+    <None Include="TestData\TestUtils\SAM\PairedReadsTest.sam" />
+    <None Include="TestData\TestUtils\SAM\SeqAlignment.bam" />
+    <None Include="TestData\TestUtils\SAM\SeqAlignment.sam" />
+    <None Include="TestData\TestUtils\SAM\SeqAlignment1.sam" />
+    <None Include="TestData\TestUtils\SnpFile.tsv" />
+    <None Include="TestData\TestUtils\Wiggle\fixed.wig" />
+    <None Include="TestData\TestUtils\Wiggle\variable.wig" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TestData\TestUtils\AppliedBiosystems\A_2004-08-24_18-23-44_043630_A02_017_015.ab1.xml" />
+    <Content Include="TestData\TestUtils\BlastXml\NewYork.xml" />
+    <Content Include="TestData\TestUtils\BlastXml\sources\readme.txt" />
+    <Content Include="TestData\TestUtils\GFF\attribution.txt" />
+    <Content Include="TestData\TestUtils\HpcInput.txt" />
+    <Content Include="TestData\TestUtils\PhylogeneticTree\tree.txt" />
+    <Content Include="TestData\TestUtils\SAM\CoverageOutput1.txt" />
+    <Content Include="TestData\TestUtils\SAM\CoverageOutput2.txt" />
+    <Content Include="TestData\TestUtils\SimilarityMatrices\attribution.txt" />
+    <Content Include="TestData\TestUtils\SimilarityMatrices\SampleCustomMatrix.txt" />
+    <Content Include="TestData\TestUtils\SimilarityMatrices\TestIupacNA.txt" />
+    <Content Include="TestData\TestUtils\SimilarityMatrices\TestNcbiStdAA.txt" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

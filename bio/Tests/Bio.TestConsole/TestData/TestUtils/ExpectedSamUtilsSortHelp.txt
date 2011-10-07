@@ -1,0 +1,5 @@
+
+Usage:     SAMUtils.exe sort [options] in.bam out.bam
+Description: It sort reads by name.
+Options:
+-n         sort by read names

@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<AutomationTest>
+  <SamFileParser>
+    <FilePaths>
+      <FilePath>TestUtils\SAMBAMTestData\AlignmentWithRef.sam</FilePath>
+    </FilePaths>
+    <ParserName>SAM</ParserName>
+    <FileTypes>.sam</FileTypes>
+    <Description>A SAMParser reads from a source of text that is formatted according to the SAM file specification, and converts the data to in-memory SequenceAlignmentMap objects.</Description>
+  </SamFileParser>
+  <SamFileFormatter>
+    <FilePaths>
+      <FilePath>TestUtils\SAMBAMTestData\AlignmentWithRef.sam</FilePath>
+    </FilePaths>
+    <ParserName>SAM</ParserName>
+    <FileTypes>.sam</FileTypes>
+    <Description>Writes a SequenceAlignmentMap to a particular location, usually a file. The output is formattedaccording to the SAM file format.</Description>
+  </SamFileFormatter>
+  <BamFileParser>
+    <FilePaths>
+      <FilePath>TestUtils\SAMBAMTestData\SeqAlignment.bam</FilePath>
+    </FilePaths>
+    <ParserName>BAM</ParserName>
+    <FileTypes>.bam</FileTypes>
+    <Description>A BAMParser reads from a source of binary data that is formatted according to the BAM file specification, and converts the data to in-memory SequenceAlignmentMap object.</Description>
+  </BamFileParser>
+  <BamFileFormatter>
+    <FilePaths>
+      <FilePath>TestUtils\SAMBAMTestData\SeqAlignment.bam</FilePath>
+    </FilePaths>
+    <ParserName>BAM</ParserName>
+    <FileTypes>.bam</FileTypes>
+    <Description>Writes a SequenceAlignmentMap to a particular location, usually a file. The output is formatted according to the BAM file format.</Description>
+  </BamFileFormatter>
+</AutomationTest>

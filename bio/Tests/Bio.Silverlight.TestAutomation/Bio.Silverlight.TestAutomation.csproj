@@ -1,0 +1,1023 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{AB7503EB-35B5-4164-9DBD-BF77FB95A92F}</ProjectGuid>
+    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Bio.Silverlight.TestAutomation</RootNamespace>
+    <AssemblyName>Bio.Silverlight.TestAutomation</AssemblyName>
+    <TargetFrameworkIdentifier>Silverlight</TargetFrameworkIdentifier>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
+    <SilverlightApplication>false</SilverlightApplication>
+    <ValidateXaml>true</ValidateXaml>
+    <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>4.0</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <!-- This property group is only here to support building this project using the 
+       MSBuild 3.5 toolset. In order to work correctly with this older toolset, it needs 
+       to set the TargetFrameworkVersion to v3.5 -->
+  <PropertyGroup Condition="'$(MSBuildToolsVersion)' == '3.5'">
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\Build\Binaries\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;SILVERLIGHT</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>..\..\Source\BioFramework_Code_Rules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\Build\Binaries\Release\</OutputPath>
+    <DefineConstants>TRACE;SILVERLIGHT</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>..\..\Source\BioFramework_Code_Rules.ruleset</CodeAnalysisRuleSet>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework">
+      <HintPath>$(VS100COMNTOOLS)..\IDE\PublicAssemblies\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="mscorlib" />
+    <Reference Include="system" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Windows">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Windows.Browser" />
+    <Reference Include="System.Xml.Linq, Version=2.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Microsoft SDKs\Silverlight\v4.0\Libraries\Client\System.Xml.Linq.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\Bio.TestAutomation\AlphabetsBvtTestCases.cs">
+      <Link>AlphabetsBvtTestCases.cs</Link>
+    </Compile>
+    <Compile Include="..\Bio.TestAutomation\IO\Bed\BedBvtTestCases.cs">
+      <Link>IO\Bed\BedBvtTestCases.cs</Link>
+    </Compile>
+    <Compile Include="..\Bio.TestAutomation\IO\Bed\BedP1TestCases.cs">
+      <Link>IO\Bed\BedP1TestCases.cs</Link>
+    </Compile>
+    <Compile Include="..\Bio.TestAutomation\IO\Fasta\FastaBvtTestCases.cs">
+      <Link>IO\FastA\FastaBvtTestCases.cs</Link>
+    </Compile>
+    <Compile Include="..\Bio.TestAutomation\IO\Fasta\FastaP1TestCases.cs">
+      <Link>IO\FastA\FastaP1TestCases.cs</Link>
+    </Compile>
+    <Compile Include="..\Bio.TestAutomation\IO\Fasta\FastaP2TestCases.cs">
+      <Link>IO\FastA\FastaP2TestCases.cs</Link>
+    </Compile>
+    <Compile Include="..\Bio.TestAutomation\IO\FastQ\FastQBvtTestCases.cs">
+      <Link>IO\FastQ\FastQBvtTestCases.cs</Link>
+    </Compile>
+    <Compile Include="..\Bio.TestAutomation\IO\FastQ\FastQP1TestCases.cs">
+      <Link>IO\FastQ\FastQP1TestCases.cs</Link>
+    </Compile>
+    <Compile Include="..\Bio.TestAutomation\IO\FastQ\FastQP2TestCases.cs">
+      <Link>IO\FastQ\FastQP2TestCases.cs</Link>
+    </Compile>
+    <Compile Include="..\Bio.TestAutomation\IO\GenBank\GenBankBvtTestCases.cs">
+      <Link>IO\Genbank\GenBankBvtTestCases.cs</Link>
+    </Compile>
+    <Compile Include="..\Bio.TestAutomation\IO\GenBank\GenBankFeaturesBvtTestCases.cs">
+      <Link>IO\Genbank\GenBankFeaturesBvtTestCases.cs</Link>
+    </Compile>
+    <Compile Include="..\Bio.TestAutomation\IO\GenBank\GenBankFeaturesP1TestCases.cs">
+      <Link>IO\Genbank\GenBankFeaturesP1TestCases.cs</Link>
+    </Compile>
+    <Compile Include="..\Bio.TestAutomation\IO\GenBank\GenBankFeaturesP2TestCases.cs">
+      <Link>IO\Genbank\GenBankFeaturesP2TestCases.cs</Link>
+    </Compile>
+    <Compile Include="..\Bio.TestAutomation\IO\GenBank\GenBankP1TestCases.cs">
+      <Link>IO\Genbank\GenBankP1TestCases.cs</Link>
+    </Compile>
+    <Compile Include="..\Bio.TestAutomation\IO\GenBank\GenBankP2TestCases.cs">
+      <Link>IO\Genbank\GenBankP2TestCases.cs</Link>
+    </Compile>
+    <Compile Include="..\Bio.TestAutomation\IO\Gff\GffBvtTestCases.cs">
+      <Link>IO\Gff\GffBvtTestCases.cs</Link>
+    </Compile>
+    <Compile Include="..\Bio.TestAutomation\IO\Gff\GffP1TestCases.cs">
+      <Link>IO\Gff\GffP1TestCases.cs</Link>
+    </Compile>
+    <Compile Include="..\Bio.TestAutomation\IO\Gff\GffP2TestCases.cs">
+      <Link>IO\Gff\GffP2TestCases.cs</Link>
+    </Compile>
+    <Compile Include="..\Bio.TestAutomation\QualitativeSequenceBvtTestCases.cs">
+      <Link>QualitativeSequenceBvtTestCases.cs</Link>
+    </Compile>
+    <Compile Include="..\Bio.TestAutomation\QualitativeSequenceP1TestCases.cs">
+      <Link>QualitativeSequenceP1TestCases.cs</Link>
+    </Compile>
+    <Compile Include="..\Bio.TestAutomation\QualitativeSequenceP2TestCases.cs">
+      <Link>QualitativeSequenceP2TestCases.cs</Link>
+    </Compile>
+    <Compile Include="..\Bio.TestAutomation\SequenceBvtTestCases.cs">
+      <Link>SequenceBvtTestCases.cs</Link>
+    </Compile>
+    <Compile Include="..\Bio.TestAutomation\SequenceParserP1TestCases.cs">
+      <Link>SequenceParserP1TestCases.cs</Link>
+    </Compile>
+    <Compile Include="..\Bio.TestAutomation\SequenceRangeAndSequenceRangeGroupingBvtTestCases.cs">
+      <Link>SequenceRangeAndSequenceRangeGroupingBvtTestCases.cs</Link>
+    </Compile>
+    <Compile Include="..\Bio.TestAutomation\SequenceRangeAndSequenceRangeGroupingP1TestCases.cs">
+      <Link>SequenceRangeAndSequenceRangeGroupingP1TestCases.cs</Link>
+    </Compile>
+    <Compile Include="..\Bio.TestAutomation\Util\Constants.cs">
+      <Link>Constants.cs</Link>
+    </Compile>
+    <Compile Include="..\Bio.TestAutomation\Util\Utility.cs">
+      <Link>Utility.cs</Link>
+    </Compile>
+    <Compile Include="..\Bio.TestAutomation\Util\XmlUtility.cs">
+      <Link>XmlUtility.cs</Link>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Source\Framework\Bio.Silverlight\Bio.Silverlight.csproj">
+      <Project>{5F239EA0-9370-4E10-9465-2F805BF25A70}</Project>
+      <Name>Bio.Silverlight</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\00_Bonobo_DEL_Chr1.bed">
+      <Link>TestData\TestUtils\00_Bonobo_DEL_Chr1.bed</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\00_Gorilla_DEL_chr1.bed">
+      <Link>TestData\TestUtils\00_Gorilla_DEL_chr1.bed</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\AlignEmptyFile_1.fasta">
+      <Link>TestData\TestUtils\AlignEmptyFile_1.fasta</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\AlignFileWithBlankLines.fasta">
+      <Link>TestData\TestUtils\AlignFileWithBlankLines.fasta</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\AlignFileWithGap_1.fasta">
+      <Link>TestData\TestUtils\AlignFileWithGap_1.fasta</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\AlignFileWithSpaces_1.fasta">
+      <Link>TestData\TestUtils\AlignFileWithSpaces_1.fasta</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\AlignFile_1.fasta">
+      <Link>TestData\TestUtils\AlignFile_1.fasta</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\AlignFile_2.fasta">
+      <Link>TestData\TestUtils\AlignFile_2.fasta</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\AlignFile_Dna_1.fasta">
+      <Link>TestData\TestUtils\AlignFile_Dna_1.fasta</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\AlignFile_Dna_2.fasta">
+      <Link>TestData\TestUtils\AlignFile_Dna_2.fasta</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\AlignFile_Pro_1.fasta">
+      <Link>TestData\TestUtils\AlignFile_Pro_1.fasta</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\AlignFile_Pro_2.fasta">
+      <Link>TestData\TestUtils\AlignFile_Pro_2.fasta</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\AlignFile_Rna_1.fasta">
+      <Link>TestData\TestUtils\AlignFile_Rna_1.fasta</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\AlignFile_Rna_2.fasta">
+      <Link>TestData\TestUtils\AlignFile_Rna_2.fasta</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\AlignmentData.aln">
+      <Link>TestData\TestUtils\AlignmentData.aln</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\AlignUnicodeFile_1.fasta">
+      <Link>TestData\TestUtils\AlignUnicodeFile_1.fasta</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\DNA-Medium.fasta">
+      <Link>TestData\TestUtils\DNA-Medium.fasta</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\DNA-MultiSequences.fasta">
+      <Link>TestData\TestUtils\DNA-MultiSequences.fasta</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\dna.phy">
+      <Link>TestData\TestUtils\dna.phy</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\DnaGenBank_MiscRecombination.gbk">
+      <Link>TestData\TestUtils\DnaGenBank_MiscRecombination.gbk</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\DNAGenBank_Variation.gbk">
+      <Link>TestData\TestUtils\DNAGenBank_Variation.gbk</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\EmptyNexusFile.nex">
+      <Link>TestData\TestUtils\EmptyNexusFile.nex</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\EmptyPhylipParserFile.phy">
+      <Link>TestData\TestUtils\EmptyPhylipParserFile.phy</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\EmptySeq.gbk">
+      <Link>TestData\TestUtils\EmptySeq.gbk</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\Fasta1000BP.fasta">
+      <Link>TestData\TestUtils\Fasta1000BP.fasta</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\Fasta1000BPReference.fasta">
+      <Link>TestData\TestUtils\Fasta1000BPReference.fasta</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\FastQDnaSolexa.fastq">
+      <Link>TestData\TestUtils\FastQDnaSolexa.fastq</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\FastQEmptyFile.fastq">
+      <Link>TestData\TestUtils\FastQEmptyFile.fastq</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\FastQFileWithEmptySeqIdAndQualityScore.fastq">
+      <Link>TestData\TestUtils\FastQFileWithEmptySeqIdAndQualityScore.fastq</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\FastQFileWithEmptySequence.fastq">
+      <Link>TestData\TestUtils\FastQFileWithEmptySequence.fastq</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\FastQFileWithInvalidAlphabet.fastq">
+      <Link>TestData\TestUtils\FastQFileWithInvalidAlphabet.fastq</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\FastQFileWithInvalidQualityScore.fastq">
+      <Link>TestData\TestUtils\FastQFileWithInvalidQualityScore.fastq</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\FastQFileWithInvalidSeqID.fastq">
+      <Link>TestData\TestUtils\FastQFileWithInvalidSeqID.fastq</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\FastQProteinSolexa.fastq">
+      <Link>TestData\TestUtils\FastQProteinSolexa.fastq</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\FastQRnaSolexa.fastq">
+      <Link>TestData\TestUtils\FastQRnaSolexa.fastq</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\FastQSanger.fastq">
+      <Link>TestData\TestUtils\FastQSanger.fastq</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\FastQSangerWithBlankLines.fastq">
+      <Link>TestData\TestUtils\FastQSangerWithBlankLines.fastq</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\FastQWithEmptyQualScore.fastq">
+      <Link>TestData\TestUtils\FastQWithEmptyQualScore.fastq</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\GenBankRepeatRegion.gbk">
+      <Link>TestData\TestUtils\GenBankRepeatRegion.gbk</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\GenBank_Features.gbk">
+      <Link>TestData\TestUtils\GenBank_Features.gbk</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\HumanReferenceGene.bed">
+      <Link>TestData\TestUtils\HumanReferenceGene.bed</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\InvalidAlignFile_1.fasta">
+      <Link>TestData\TestUtils\InvalidAlignFile_1.fasta</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\InvalidateEndFeature.gff">
+      <Link>TestData\TestUtils\InvalidateEndFeature.gff</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\InvalidateFrameFeature.gff">
+      <Link>TestData\TestUtils\InvalidateFrameFeature.gff</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\InvalidateGenBankParseFeaturesHasReader.gbk">
+      <Link>TestData\TestUtils\InvalidateGenBankParseFeaturesHasReader.gbk</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\InvalidateNullFeature.gff">
+      <Link>TestData\TestUtils\InvalidateNullFeature.gff</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\InvalidateParseHeaderDateFormate.gff">
+      <Link>TestData\TestUtils\InvalidateParseHeaderDateFormate.gff</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\InvalidateParseHeaderFieldLen.gff">
+      <Link>TestData\TestUtils\InvalidateParseHeaderFieldLen.gff</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\InvalidateParseHeaderProtein.gff">
+      <Link>TestData\TestUtils\InvalidateParseHeaderProtein.gff</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\InvalidateParseHeaderVersion.gff">
+      <Link>TestData\TestUtils\InvalidateParseHeaderVersion.gff</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\InvalidateScoreFeature.gff">
+      <Link>TestData\TestUtils\InvalidateScoreFeature.gff</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\InvalidateSpecificSeqs.gff">
+      <Link>TestData\TestUtils\InvalidateSpecificSeqs.gff</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\InvalidateStartFeature.gff">
+      <Link>TestData\TestUtils\InvalidateStartFeature.gff</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\InvalidateStrandFeature.gff">
+      <Link>TestData\TestUtils\InvalidateStrandFeature.gff</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\InvalideGenBank.gbk">
+      <Link>TestData\TestUtils\InvalideGenBank.gbk</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\InvalideGenBankParseHeader.genbank">
+      <Link>TestData\TestUtils\InvalideGenBankParseHeader.genbank</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\InvalideGenBankReference.genbank">
+      <Link>TestData\TestUtils\InvalideGenBankReference.genbank</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\InvalidFastQFormat.Fastq">
+      <Link>TestData\TestUtils\InvalidFastQFormat.Fastq</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\InvalidFastQQualScore.fastq">
+      <Link>TestData\TestUtils\InvalidFastQQualScore.fastq</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\InvalidFeatureLength.gff">
+      <Link>TestData\TestUtils\InvalidFeatureLength.gff</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\InvalidGenBankHeaderDataType.genbank">
+      <Link>TestData\TestUtils\InvalidGenBankHeaderDataType.genbank</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\InvalidGenBankSegment.gbk">
+      <Link>TestData\TestUtils\InvalidGenBankSegment.gbk</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\InvalidGenBankWithoutLocus.gbk">
+      <Link>TestData\TestUtils\InvalidGenBankWithoutLocus.gbk</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\InvalidGenBankWithPrimary.gbk">
+      <Link>TestData\TestUtils\InvalidGenBankWithPrimary.gbk</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\Invalid_GenBank_ParseReference.gbk">
+      <Link>TestData\TestUtils\Invalid_GenBank_ParseReference.gbk</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\Invalid_GenBank_ParseReference_Default.gbk">
+      <Link>TestData\TestUtils\Invalid_GenBank_ParseReference_Default.gbk</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\Invalid_GenBank_ParseSequence.gbk">
+      <Link>TestData\TestUtils\Invalid_GenBank_ParseSequence.gbk</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\Invalid_GenBank_ParseSequence_Default.gbk">
+      <Link>TestData\TestUtils\Invalid_GenBank_ParseSequence_Default.gbk</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\Invalid_GenBank_ParseSource.gbk">
+      <Link>TestData\TestUtils\Invalid_GenBank_ParseSource.gbk</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\Invalid_GenBank_Unknown_Locus.gbk">
+      <Link>TestData\TestUtils\Invalid_GenBank_Unknown_Locus.gbk</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\Invalid_GenBank_Unknown_MoleculeType.gbk">
+      <Link>TestData\TestUtils\Invalid_GenBank_Unknown_MoleculeType.gbk</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\Invalid_GenBank_Unknown_RawDate.gbk">
+      <Link>TestData\TestUtils\Invalid_GenBank_Unknown_RawDate.gbk</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\Invalid_GenBank_Unknown_StrandTopology.gbk">
+      <Link>TestData\TestUtils\Invalid_GenBank_Unknown_StrandTopology.gbk</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\Invalid_GenBank_Unknown_StrandType.gbk">
+      <Link>TestData\TestUtils\Invalid_GenBank_Unknown_StrandType.gbk</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\LargeSize.fasta">
+      <Link>TestData\TestUtils\LargeSize.fasta</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\LargeSize.gb">
+      <Link>TestData\TestUtils\LargeSize.gb</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\LargeSize.gbk">
+      <Link>TestData\TestUtils\LargeSize.gbk</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\LargeSize.GFF">
+      <Link>TestData\TestUtils\LargeSize.GFF</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\LargeSizeDnaIllumina.fastq">
+      <Link>TestData\TestUtils\LargeSizeDnaIllumina.fastq</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\LargeSizeDnaIlluminaFastq.fastq">
+      <Link>TestData\TestUtils\LargeSizeDnaIlluminaFastq.fastq</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\LargeSizeDnaSanger.fastq">
+      <Link>TestData\TestUtils\LargeSizeDnaSanger.fastq</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\LargeSizeFastQDnaSolexa.fastq">
+      <Link>TestData\TestUtils\LargeSizeFastQDnaSolexa.fastq</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\LargeSize_AlignFile_Pro_1.fasta">
+      <Link>TestData\TestUtils\LargeSize_AlignFile_Pro_1.fasta</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\LargeSize_AlignFile_Pro_2.fasta">
+      <Link>TestData\TestUtils\LargeSize_AlignFile_Pro_2.fasta</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\LargeSize_FastQ_Sanger.fastq">
+      <Link>TestData\TestUtils\LargeSize_FastQ_Sanger.fastq</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\Long_Start_End.bed">
+      <Link>TestData\TestUtils\Long_Start_End.bed</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\Mandatory_GenBank_Headers.gbk">
+      <Link>TestData\TestUtils\Mandatory_GenBank_Headers.gbk</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\Maximum_Sequences.gff">
+      <Link>TestData\TestUtils\Maximum_Sequences.gff</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\MediumSize.gbk">
+      <Link>TestData\TestUtils\MediumSize.gbk</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\MediumSize.Gff">
+      <Link>TestData\TestUtils\MediumSize.Gff</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\MediumSizeDNAGenBank.gbk">
+      <Link>TestData\TestUtils\MediumSizeDNAGenBank.gbk</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\MediumSizeDnaIllumina.fastq">
+      <Link>TestData\TestUtils\MediumSizeDnaIllumina.fastq</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\MediumSizeDnaSanger.fastq">
+      <Link>TestData\TestUtils\MediumSizeDnaSanger.fastq</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\MediumSizeFastQDnaSolexa.fastq">
+      <Link>TestData\TestUtils\MediumSizeFastQDnaSolexa.fastq</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\MediumSizeRNAGenBank.gbk">
+      <Link>TestData\TestUtils\MediumSizeRNAGenBank.gbk</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\MediumSize_AlignFile_Pro_1.fasta">
+      <Link>TestData\TestUtils\MediumSize_AlignFile_Pro_1.fasta</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\MediumSize_AlignFile_Pro_2.fasta">
+      <Link>TestData\TestUtils\MediumSize_AlignFile_Pro_2.fasta</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\MediumSize_GenBankFile.gbk">
+      <Link>TestData\TestUtils\MediumSize_GenBankFile.gbk</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\Medium_Size.fasta">
+      <Link>TestData\TestUtils\Medium_Size.fasta</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\MergeBed.bed">
+      <Link>TestData\TestUtils\MergeBed.bed</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\Metadata_GenBank_DNA.gbk">
+      <Link>TestData\TestUtils\Metadata_GenBank_DNA.gbk</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\Metadata_GenBank_Protein.gbk">
+      <Link>TestData\TestUtils\Metadata_GenBank_Protein.gbk</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\Metadata_GenBank_RNA.gbk">
+      <Link>TestData\TestUtils\Metadata_GenBank_RNA.gbk</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\MiscRNAGenBank.gbk">
+      <Link>TestData\TestUtils\MiscRNAGenBank.gbk</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\MulitSeqSanger-DNA_PRO.fastq">
+      <Link>TestData\TestUtils\MulitSeqSanger-DNA_PRO.fastq</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\MulitSeqSanger-DNA_RNA.fastq">
+      <Link>TestData\TestUtils\MulitSeqSanger-DNA_RNA.fastq</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\MulitSeqSanger-DNA_RNA_PRO.fastq">
+      <Link>TestData\TestUtils\MulitSeqSanger-DNA_RNA_PRO.fastq</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\MulitSeqSanger-RNA_PROTEIN.fastq">
+      <Link>TestData\TestUtils\MulitSeqSanger-RNA_PROTEIN.fastq</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\MulitSeqSolexa-DNA_PRO.fastq">
+      <Link>TestData\TestUtils\MulitSeqSolexa-DNA_PRO.fastq</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\MulitSeqSolexa-DNA_RNA.fastq">
+      <Link>TestData\TestUtils\MulitSeqSolexa-DNA_RNA.fastq</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\MulitSeqSolexa-DNA_RNA_PRO.fastq">
+      <Link>TestData\TestUtils\MulitSeqSolexa-DNA_RNA_PRO.fastq</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\MulitSeqSolexa-RNA_PRO.fastq">
+      <Link>TestData\TestUtils\MulitSeqSolexa-RNA_PRO.fastq</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\MultiChromoSnpFile.tsv">
+      <Link>TestData\TestUtils\MultiChromoSnpFile.tsv</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\MultiGene_CDS_DNA.gbk">
+      <Link>TestData\TestUtils\MultiGene_CDS_DNA.gbk</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\MultipleReference_GenBank_Protein.gbk">
+      <Link>TestData\TestUtils\MultipleReference_GenBank_Protein.gbk</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\MultiSeqIllumina-DNA_PRO.fastq">
+      <Link>TestData\TestUtils\MultiSeqIllumina-DNA_PRO.fastq</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\MultiSeqIllumina-DNA_RNA.fastq">
+      <Link>TestData\TestUtils\MultiSeqIllumina-DNA_RNA.fastq</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\MultiSeqIllumina-DNA_RNA_PRO.fastq">
+      <Link>TestData\TestUtils\MultiSeqIllumina-DNA_RNA_PRO.fastq</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\MultiSeqIllumina-RNA_PROTEIN.fastq">
+      <Link>TestData\TestUtils\MultiSeqIllumina-RNA_PROTEIN.fastq</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\MultiSequence-Dna_Pro.gff">
+      <Link>TestData\TestUtils\MultiSequence-Dna_Pro.gff</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\MultiSequence-DNA_RNA.gff">
+      <Link>TestData\TestUtils\MultiSequence-DNA_RNA.gff</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\MultiSequence-Dna_Rna_Pro.gff">
+      <Link>TestData\TestUtils\MultiSequence-Dna_Rna_Pro.gff</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\MultiSequence-Rna_Pro.gff">
+      <Link>TestData\TestUtils\MultiSequence-Rna_Pro.gff</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\MultiSequenceDNA_GenBank.gbk">
+      <Link>TestData\TestUtils\MultiSequenceDNA_GenBank.gbk</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\MultiSequences-DNA_DNA.fasta">
+      <Link>TestData\TestUtils\MultiSequences-DNA_DNA.fasta</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\MultiSequences-DNA_Pro.fasta">
+      <Link>TestData\TestUtils\MultiSequences-DNA_Pro.fasta</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\MultiSequences-DNA_RNA.fasta">
+      <Link>TestData\TestUtils\MultiSequences-DNA_RNA.fasta</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\MultiSequences-DNA_RNA_Pro.fasta">
+      <Link>TestData\TestUtils\MultiSequences-DNA_RNA_Pro.fasta</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\MultiSequences-RNA_Pro.fasta">
+      <Link>TestData\TestUtils\MultiSequences-RNA_Pro.fasta</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\MultiSequences_GenBank_Protein.gbk">
+      <Link>TestData\TestUtils\MultiSequences_GenBank_Protein.gbk</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\MultiSequence_GenBank_RNA.gbk">
+      <Link>TestData\TestUtils\MultiSequence_GenBank_RNA.gbk</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\MultiSeq_GenBank_Protein.gbk">
+      <Link>TestData\TestUtils\MultiSeq_GenBank_Protein.gbk</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\Multi_Sequences.fasta">
+      <Link>TestData\TestUtils\Multi_Sequences.fasta</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\Multi_Seq_Medium_Size.fasta">
+      <Link>TestData\TestUtils\Multi_Seq_Medium_Size.fasta</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\Multi_Seq_Search_Medium_Size.fasta">
+      <Link>TestData\TestUtils\Multi_Seq_Search_Medium_Size.fasta</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\Multi_Seq_Search_Small_Size.fasta">
+      <Link>TestData\TestUtils\Multi_Seq_Search_Small_Size.fasta</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\Multi_Seq_Small_Size.fasta">
+      <Link>TestData\TestUtils\Multi_Seq_Small_Size.fasta</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\OneLineDnaIlluminaSequence.fastq">
+      <Link>TestData\TestUtils\OneLineDnaIlluminaSequence.fastq</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\OneLineSeq.fasta">
+      <Link>TestData\TestUtils\OneLineSeq.fasta</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\OneLineSeq.gbk">
+      <Link>TestData\TestUtils\OneLineSeq.gbk</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\OneLineSeq.gff">
+      <Link>TestData\TestUtils\OneLineSeq.gff</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\OneLineSeqDnaSolexa.fastq">
+      <Link>TestData\TestUtils\OneLineSeqDnaSolexa.fastq</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\OneLineSnpFile.tsv">
+      <Link>TestData\TestUtils\OneLineSnpFile.tsv</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\One_Line.bed">
+      <Link>TestData\TestUtils\One_Line.bed</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\OnlyFeatures.gff">
+      <Link>TestData\TestUtils\OnlyFeatures.gff</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\OperatorGenBankFile.genbank">
+      <Link>TestData\TestUtils\OperatorGenBankFile.genbank</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\primate-mtDNA-interleaved.nex">
+      <Link>TestData\TestUtils\primate-mtDNA-interleaved.nex</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\PROTEIN-Medium.gbk">
+      <Link>TestData\TestUtils\PROTEIN-Medium.gbk</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\ProteinFastQIllumina.fastq">
+      <Link>TestData\TestUtils\ProteinFastQIllumina.fastq</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\ProteinFastQSanger.fastq">
+      <Link>TestData\TestUtils\ProteinFastQSanger.fastq</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\ProteinGenBank_MaturePeptide.gbk">
+      <Link>TestData\TestUtils\ProteinGenBank_MaturePeptide.gbk</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\ProteinGenBank_Variation.gbk">
+      <Link>TestData\TestUtils\ProteinGenBank_Variation.gbk</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\QueryBedWithTenChromo.bed">
+      <Link>TestData\TestUtils\QueryBedWithTenChromo.bed</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\Query_Protein.fasta">
+      <Link>TestData\TestUtils\Query_Protein.fasta</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\Query_Protein_Ambiguity.fasta">
+      <Link>TestData\TestUtils\Query_Protein_Ambiguity.fasta</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\Query_Rna.fasta">
+      <Link>TestData\TestUtils\Query_Rna.fasta</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\Query_Rna_Ambiguity.fasta">
+      <Link>TestData\TestUtils\Query_Rna_Ambiguity.fasta</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\Query_Small_Size_Ambiguity.fasta">
+      <Link>TestData\TestUtils\Query_Small_Size_Ambiguity.fasta</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\random.GFF">
+      <Link>TestData\TestUtils\random.GFF</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\reads.fasta">
+      <Link>TestData\TestUtils\reads.fasta</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\ReferenceBed.bed">
+      <Link>TestData\TestUtils\ReferenceBed.bed</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\ReferenceBedWithAllIdenticalEntries.bed">
+      <Link>TestData\TestUtils\ReferenceBedWithAllIdenticalEntries.bed</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\ReferenceBedWithTenChromo.bed">
+      <Link>TestData\TestUtils\ReferenceBedWithTenChromo.bed</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\RNA-Medium.gbk">
+      <Link>TestData\TestUtils\RNA-Medium.gbk</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\RnaFastQIllumina.fastq">
+      <Link>TestData\TestUtils\RnaFastQIllumina.fastq</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\RnaFastQSanger.fastq">
+      <Link>TestData\TestUtils\RnaFastQSanger.fastq</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\RNAGenBank_Variation.gbk">
+      <Link>TestData\TestUtils\RNAGenBank_Variation.gbk</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\Search_Dna.gbk">
+      <Link>TestData\TestUtils\Search_Dna.gbk</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\Search_Dna.gff">
+      <Link>TestData\TestUtils\Search_Dna.gff</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\Search_Medium_Size.fasta">
+      <Link>TestData\TestUtils\Search_Medium_Size.fasta</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\Search_Protein.fasta">
+      <Link>TestData\TestUtils\Search_Protein.fasta</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\Search_Protein_Ambiguity.fasta">
+      <Link>TestData\TestUtils\Search_Protein_Ambiguity.fasta</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\Search_Rna.fasta">
+      <Link>TestData\TestUtils\Search_Rna.fasta</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\Search_Rna_Ambiguity.fasta">
+      <Link>TestData\TestUtils\Search_Rna_Ambiguity.fasta</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\Search_Small_Size.fasta">
+      <Link>TestData\TestUtils\Search_Small_Size.fasta</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\Search_Small_Size_Ambiguity.fasta">
+      <Link>TestData\TestUtils\Search_Small_Size_Ambiguity.fasta</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\simple.GFF">
+      <Link>TestData\TestUtils\simple.GFF</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\SimpleDnaIllumina.fastq">
+      <Link>TestData\TestUtils\SimpleDnaIllumina.fastq</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\SimpleDnaIllumina.fq">
+      <Link>TestData\TestUtils\SimpleDnaIllumina.fq</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\SimpleDnaIlluminaDV.fastq">
+      <Link>TestData\TestUtils\SimpleDnaIlluminaDV.fastq</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\SimpleNexusCharBlock.nex">
+      <Link>TestData\TestUtils\SimpleNexusCharBlock.nex</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\SimpleNexusFile.nex">
+      <Link>TestData\TestUtils\SimpleNexusFile.nex</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\SimpleSnpFile.tsv">
+      <Link>TestData\TestUtils\SimpleSnpFile.tsv</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\Simple_Encoding.gff">
+      <Link>TestData\TestUtils\Simple_Encoding.gff</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\Simple_Encoding_Reader.gff">
+      <Link>TestData\TestUtils\Simple_Encoding_Reader.gff</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\Simple_Fasta_DNA.fa">
+      <Link>TestData\TestUtils\Simple_Fasta_DNA.fa</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\Simple_Fasta_DNA.fas">
+      <Link>TestData\TestUtils\Simple_Fasta_DNA.fas</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\Simple_Fasta_DNA.fasta">
+      <Link>TestData\TestUtils\Simple_Fasta_DNA.fasta</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\Simple_Fasta_DNA.fna">
+      <Link>TestData\TestUtils\Simple_Fasta_DNA.fna</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\Simple_Fasta_DNA.fsa">
+      <Link>TestData\TestUtils\Simple_Fasta_DNA.fsa</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\Simple_Fasta_DNA.mpfa">
+      <Link>TestData\TestUtils\Simple_Fasta_DNA.mpfa</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\Simple_Fasta_Protein.fasta">
+      <Link>TestData\TestUtils\Simple_Fasta_Protein.fasta</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\Simple_Fasta_RNA.fasta">
+      <Link>TestData\TestUtils\Simple_Fasta_RNA.fasta</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\Simple_Fastq_Sequence.fastq">
+      <Link>TestData\TestUtils\Simple_Fastq_Sequence.fastq</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\Simple_GenBank_DNA.gbk">
+      <Link>TestData\TestUtils\Simple_GenBank_DNA.gbk</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\Simple_GenBank_DNA.genbank">
+      <Link>TestData\TestUtils\Simple_GenBank_DNA.genbank</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\Simple_GenBank_Primary.gbk">
+      <Link>TestData\TestUtils\Simple_GenBank_Primary.gbk</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\Simple_GenBank_Protein.gbk">
+      <Link>TestData\TestUtils\Simple_GenBank_Protein.gbk</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\Simple_GenBank_RNA.gbk">
+      <Link>TestData\TestUtils\Simple_GenBank_RNA.gbk</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\Simple_Gff_Dna.gff">
+      <Link>TestData\TestUtils\Simple_Gff_Dna.gff</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\Simple_Gff_Protein.GFF">
+      <Link>TestData\TestUtils\Simple_Gff_Protein.GFF</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\Simple_Gff_Rna.gff">
+      <Link>TestData\TestUtils\Simple_Gff_Rna.gff</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\SingleSequenceFastQSanger.fastq">
+      <Link>TestData\TestUtils\SingleSequenceFastQSanger.fastq</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\SmallSizeQueryBed.bed">
+      <Link>TestData\TestUtils\SmallSizeQueryBed.bed</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\SmallSizeReferenceBed.bed">
+      <Link>TestData\TestUtils\SmallSizeReferenceBed.bed</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\Small_Size.bed">
+      <Link>TestData\TestUtils\Small_Size.bed</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\Small_Size.fasta">
+      <Link>TestData\TestUtils\Small_Size.fasta</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\Small_Size.gbk">
+      <Link>TestData\TestUtils\Small_Size.gbk</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\Small_Size.gff">
+      <Link>TestData\TestUtils\Small_Size.gff</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\Temp_Dna.fasta">
+      <Link>TestData\TestUtils\Temp_Dna.fasta</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\Three_Chromo.bed">
+      <Link>TestData\TestUtils\Three_Chromo.bed</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\TwoLineSeqDnaSolexa.fastq">
+      <Link>TestData\TestUtils\TwoLineSeqDnaSolexa.fastq</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\TwoLineSequenceDnaIllumina.fastq">
+      <Link>TestData\TestUtils\TwoLineSequenceDnaIllumina.fastq</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\TwoLineSequenceeDnaSanger.fastq">
+      <Link>TestData\TestUtils\TwoLineSequenceeDnaSanger.fastq</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\VeryLargeSize_AlignFile_Pro_1.fasta">
+      <Link>TestData\TestUtils\VeryLargeSize_AlignFile_Pro_1.fasta</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\VeryLargeSize_AlignFile_Pro_2.fasta">
+      <Link>TestData\TestUtils\VeryLargeSize_AlignFile_Pro_2.fasta</Link>
+    </None>
+    <None Include="..\Bio.TestAutomation\TestData\TestUtils\VeryLargeSize_Protein.fasta">
+      <Link>TestData\TestUtils\VeryLargeSize_Protein.fasta</Link>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\Bio.TestAutomation\TestData\TestUtils\AzureBlastConfig.xml">
+      <Link>TestData\TestUtils\AzureBlastConfig.xml</Link>
+    </Content>
+    <Content Include="..\Bio.TestAutomation\TestData\TestUtils\BedTestsConfig.xml">
+      <Link>TestData\TestUtils\BedTestsConfig.xml</Link>
+    </Content>
+    <Content Include="..\Bio.TestAutomation\TestData\TestUtils\BioHPCTestConfigs.xml">
+      <Link>TestData\TestUtils\BioHPCTestConfigs.xml</Link>
+    </Content>
+    <Content Include="..\Bio.TestAutomation\TestData\TestUtils\BlastRecords.xml">
+      <Link>TestData\TestUtils\BlastRecords.xml</Link>
+    </Content>
+    <Content Include="..\Bio.TestAutomation\TestData\TestUtils\BlastXmlWithMoreThanTenRecords.xml">
+      <Link>TestData\TestUtils\BlastXmlWithMoreThanTenRecords.xml</Link>
+    </Content>
+    <Content Include="..\Bio.TestAutomation\TestData\TestUtils\BlastXmlWithMoreThanThreeRecords.xml">
+      <Link>TestData\TestUtils\BlastXmlWithMoreThanThreeRecords.xml</Link>
+    </Content>
+    <Content Include="..\Bio.TestAutomation\TestData\TestUtils\BLOSUM50.txt">
+      <Link>TestData\TestUtils\BLOSUM50.txt</Link>
+    </Content>
+    <Content Include="..\Bio.TestAutomation\TestData\TestUtils\BLOSUM50_Dna.txt">
+      <Link>TestData\TestUtils\BLOSUM50_Dna.txt</Link>
+    </Content>
+    <Content Include="..\Bio.TestAutomation\TestData\TestUtils\BLOSUM50_Rna.txt">
+      <Link>TestData\TestUtils\BLOSUM50_Rna.txt</Link>
+    </Content>
+    <Content Include="..\Bio.TestAutomation\TestData\TestUtils\BLOSUMEmpty50.txt">
+      <Link>TestData\TestUtils\BLOSUMEmpty50.txt</Link>
+    </Content>
+    <Content Include="..\Bio.TestAutomation\TestData\TestUtils\BLOSUMFewAlphabets50.txt">
+      <Link>TestData\TestUtils\BLOSUMFewAlphabets50.txt</Link>
+    </Content>
+    <Content Include="..\Bio.TestAutomation\TestData\TestUtils\BLOSUMInvalid50.txt">
+      <Link>TestData\TestUtils\BLOSUMInvalid50.txt</Link>
+    </Content>
+    <Content Include="..\Bio.TestAutomation\TestData\TestUtils\BLOSUMInvalidDiagnol50.txt">
+      <Link>TestData\TestUtils\BLOSUMInvalidDiagnol50.txt</Link>
+    </Content>
+    <Content Include="..\Bio.TestAutomation\TestData\TestUtils\BLOSUMModified50.txt">
+      <Link>TestData\TestUtils\BLOSUMModified50.txt</Link>
+    </Content>
+    <Content Include="..\Bio.TestAutomation\TestData\TestUtils\BLOSUMOnlyAlphabet50.txt">
+      <Link>TestData\TestUtils\BLOSUMOnlyAlphabet50.txt</Link>
+    </Content>
+    <Content Include="..\Bio.TestAutomation\TestData\TestUtils\BoyerMooreTestConfig.xml">
+      <Link>TestData\TestUtils\BoyerMooreTestConfig.xml</Link>
+    </Content>
+    <Content Include="..\Bio.TestAutomation\TestData\TestUtils\ClustalWTestsConfig.xml">
+      <Link>TestData\TestUtils\ClustalWTestsConfig.xml</Link>
+    </Content>
+    <Content Include="..\Bio.TestAutomation\TestData\TestUtils\FastQTestsConfig.xml">
+      <Link>TestData\TestUtils\FastQTestsConfig.xml</Link>
+    </Content>
+    <Content Include="..\Bio.TestAutomation\TestData\TestUtils\GenBankFeaturesTestConfig.xml">
+      <Link>TestData\TestUtils\GenBankFeaturesTestConfig.xml</Link>
+    </Content>
+    <Content Include="..\Bio.TestAutomation\TestData\TestUtils\GffTestsConfig.xml">
+      <Link>TestData\TestUtils\GffTestsConfig.xml</Link>
+    </Content>
+    <Content Include="..\Bio.TestAutomation\TestData\TestUtils\GreaterThanOneTree.txt">
+      <Link>TestData\TestUtils\GreaterThanOneTree.txt</Link>
+    </Content>
+    <Content Include="..\Bio.TestAutomation\TestData\TestUtils\LargeSizeBlastRecords.xml">
+      <Link>TestData\TestUtils\LargeSizeBlastRecords.xml</Link>
+    </Content>
+    <Content Include="..\Bio.TestAutomation\TestData\TestUtils\LargeSizeDnaIllumina_output.txt">
+      <Link>TestData\TestUtils\LargeSizeDnaIllumina_output.txt</Link>
+    </Content>
+    <Content Include="..\Bio.TestAutomation\TestData\TestUtils\LargeSize_FastQ_Sanger_Output.txt">
+      <Link>TestData\TestUtils\LargeSize_FastQ_Sanger_Output.txt</Link>
+    </Content>
+    <Content Include="..\Bio.TestAutomation\TestData\TestUtils\MatrixTestsConfig.xml">
+      <Link>TestData\TestUtils\MatrixTestsConfig.xml</Link>
+    </Content>
+    <Content Include="..\Bio.TestAutomation\TestData\TestUtils\MediumSizedBlastXml.xml">
+      <Link>TestData\TestUtils\MediumSizedBlastXml.xml</Link>
+    </Content>
+    <Content Include="..\Bio.TestAutomation\TestData\TestUtils\Medium_Size_Aligned_Seq.txt">
+      <Link>TestData\TestUtils\Medium_Size_Aligned_Seq.txt</Link>
+    </Content>
+    <Content Include="..\Bio.TestAutomation\TestData\TestUtils\Medium_Size_End_Index.txt">
+      <Link>TestData\TestUtils\Medium_Size_End_Index.txt</Link>
+    </Content>
+    <Content Include="..\Bio.TestAutomation\TestData\TestUtils\Medium_Size_First_Mum_Order.txt">
+      <Link>TestData\TestUtils\Medium_Size_First_Mum_Order.txt</Link>
+    </Content>
+    <Content Include="..\Bio.TestAutomation\TestData\TestUtils\Medium_Size_First_Seq_Start.txt">
+      <Link>TestData\TestUtils\Medium_Size_First_Seq_Start.txt</Link>
+    </Content>
+    <Content Include="..\Bio.TestAutomation\TestData\TestUtils\Medium_Size_Length.txt">
+      <Link>TestData\TestUtils\Medium_Size_Length.txt</Link>
+    </Content>
+    <Content Include="..\Bio.TestAutomation\TestData\TestUtils\Medium_Size_Nodes.txt">
+      <Link>TestData\TestUtils\Medium_Size_Nodes.txt</Link>
+    </Content>
+    <Content Include="..\Bio.TestAutomation\TestData\TestUtils\Medium_Size_Second_Mum_Order.txt">
+      <Link>TestData\TestUtils\Medium_Size_Second_Mum_Order.txt</Link>
+    </Content>
+    <Content Include="..\Bio.TestAutomation\TestData\TestUtils\Medium_Size_Second_Seq_Start.txt">
+      <Link>TestData\TestUtils\Medium_Size_Second_Seq_Start.txt</Link>
+    </Content>
+    <Content Include="..\Bio.TestAutomation\TestData\TestUtils\Medium_Size_SimpleAligned_Seq.txt">
+      <Link>TestData\TestUtils\Medium_Size_SimpleAligned_Seq.txt</Link>
+    </Content>
+    <Content Include="..\Bio.TestAutomation\TestData\TestUtils\Medium_Size_Start_Index.txt">
+      <Link>TestData\TestUtils\Medium_Size_Start_Index.txt</Link>
+    </Content>
+    <Content Include="..\Bio.TestAutomation\TestData\TestUtils\MSAConfig.xml">
+      <Link>TestData\TestUtils\MSAConfig.xml</Link>
+    </Content>
+    <Content Include="..\Bio.TestAutomation\TestData\TestUtils\OneLeafTree.txt">
+      <Link>TestData\TestUtils\OneLeafTree.txt</Link>
+    </Content>
+    <Content Include="..\Bio.TestAutomation\TestData\TestUtils\OneLineTree.txt">
+      <Link>TestData\TestUtils\OneLineTree.txt</Link>
+    </Content>
+    <Content Include="..\Bio.TestAutomation\TestData\TestUtils\PhylogeneticTestsConfig.xml">
+      <Link>TestData\TestUtils\PhylogeneticTestsConfig.xml</Link>
+    </Content>
+    <Content Include="..\Bio.TestAutomation\TestData\TestUtils\Phylo_Tree_Special_Char.txt">
+      <Link>TestData\TestUtils\Phylo_Tree_Special_Char.txt</Link>
+    </Content>
+    <Content Include="..\Bio.TestAutomation\TestData\TestUtils\QualitativeTestsConfig.xml">
+      <Link>TestData\TestUtils\QualitativeTestsConfig.xml</Link>
+    </Content>
+    <Content Include="..\Bio.TestAutomation\TestData\TestUtils\Readme.txt">
+      <Link>TestData\TestUtils\Readme.txt</Link>
+    </Content>
+    <Content Include="..\Bio.TestAutomation\TestData\TestUtils\reads_output.txt">
+      <Link>TestData\TestUtils\reads_output.txt</Link>
+    </Content>
+    <Content Include="..\Bio.TestAutomation\TestData\TestUtils\SequenceAlignmentParser.xml">
+      <Link>TestData\TestUtils\SequenceAlignmentParser.xml</Link>
+    </Content>
+    <Content Include="..\Bio.TestAutomation\TestData\TestUtils\SequenceParser.xml">
+      <Link>TestData\TestUtils\SequenceParser.xml</Link>
+    </Content>
+    <Content Include="..\Bio.TestAutomation\TestData\TestUtils\SimpleDna_output.txt">
+      <Link>TestData\TestUtils\SimpleDna_output.txt</Link>
+    </Content>
+    <Content Include="..\Bio.TestAutomation\TestData\TestUtils\Simple_FastQ_Dna_output.txt">
+      <Link>TestData\TestUtils\Simple_FastQ_Dna_output.txt</Link>
+    </Content>
+    <Content Include="..\Bio.TestAutomation\TestData\TestUtils\Small_Size_Aligned_Seq.txt">
+      <Link>TestData\TestUtils\Small_Size_Aligned_Seq.txt</Link>
+    </Content>
+    <Content Include="..\Bio.TestAutomation\TestData\TestUtils\Small_Size_End_Index.txt">
+      <Link>TestData\TestUtils\Small_Size_End_Index.txt</Link>
+    </Content>
+    <Content Include="..\Bio.TestAutomation\TestData\TestUtils\Small_Size_First_Mum_Order.txt">
+      <Link>TestData\TestUtils\Small_Size_First_Mum_Order.txt</Link>
+    </Content>
+    <Content Include="..\Bio.TestAutomation\TestData\TestUtils\Small_Size_First_Seq_Start.txt">
+      <Link>TestData\TestUtils\Small_Size_First_Seq_Start.txt</Link>
+    </Content>
+    <Content Include="..\Bio.TestAutomation\TestData\TestUtils\Small_Size_Length.txt">
+      <Link>TestData\TestUtils\Small_Size_Length.txt</Link>
+    </Content>
+    <Content Include="..\Bio.TestAutomation\TestData\TestUtils\Small_Size_Nodes.txt">
+      <Link>TestData\TestUtils\Small_Size_Nodes.txt</Link>
+    </Content>
+    <Content Include="..\Bio.TestAutomation\TestData\TestUtils\Small_Size_Phylo_Tree.txt">
+      <Link>TestData\TestUtils\Small_Size_Phylo_Tree.txt</Link>
+    </Content>
+    <Content Include="..\Bio.TestAutomation\TestData\TestUtils\Small_Size_Second_Mum_Order.txt">
+      <Link>TestData\TestUtils\Small_Size_Second_Mum_Order.txt</Link>
+    </Content>
+    <Content Include="..\Bio.TestAutomation\TestData\TestUtils\Small_Size_Second_Seq_Start.txt">
+      <Link>TestData\TestUtils\Small_Size_Second_Seq_Start.txt</Link>
+    </Content>
+    <Content Include="..\Bio.TestAutomation\TestData\TestUtils\Small_Size_Start_Index.txt">
+      <Link>TestData\TestUtils\Small_Size_Start_Index.txt</Link>
+    </Content>
+    <Content Include="..\Bio.TestAutomation\TestData\TestUtils\TestsConfig.xml">
+      <Link>TestData\TestUtils\TestsConfig.xml</Link>
+    </Content>
+    <Content Include="..\Bio.TestAutomation\TestData\TestUtils\VeryLargeSize_Output.txt">
+      <Link>TestData\TestUtils\VeryLargeSize_Output.txt</Link>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Util\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
