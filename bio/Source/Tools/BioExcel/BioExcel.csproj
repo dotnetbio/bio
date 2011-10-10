@@ -165,7 +165,7 @@
     <PostBuildEvent>
     </PostBuildEvent>
     <SignManifests>true</SignManifests>
-    <ManifestKeyFile>MBFAddin.pfx</ManifestKeyFile>
+    <ManifestKeyFile>BioAddin.pfx</ManifestKeyFile>
     <ManifestCertificateThumbprint>EFB639108EF8F13642F330EACB3917B4FF831F45</ManifestCertificateThumbprint>
   </PropertyGroup>
   <!--
