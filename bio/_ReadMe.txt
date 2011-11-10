@@ -43,13 +43,15 @@ In addition to the code in this tree, there are the following
 External Dependencies that must be installed and met:
 
   Visual Studio 2010 - 
-      any version (Express through Universal) is required to develop 
-      .Net Bio applications.  The VisualStudio 2010 Express edition can 
-      be downloaded from
-        http://www.microsoft.com/express/downloads/
+      any version (Express through Ultimate) is required to develop 
+      .Net Bio applications.  You can see a comparison of all varities at this site
+	  http://www.microsoft.com/visualstudio/en-us/products
+	  
+	  The VisualStudio 2010 Express edition can 
+      be downloaded from http://www.microsoft.com/express/downloads/
                              
-  .Net Runtime v4.0 - 
-      .Net Bio runs on top of the .NET runtime V4.  The installer can be 
+  .NET Runtime v4.0 - 
+      .NET Bio runs on top of the .NET runtime V4.  The installer can be 
       downloaded from
         http://msdn.microsoft.com/en-us/netframework/aa569263.aspx
 
