@@ -1,14 +1,14 @@
 .NET Bio: Readme.txt
 Version 1.0 June 2011
 
-The .NET Bio is an open source, reusable .NET library and application programming interface (API) 
+.NET Bio is an open source, reusable .NET library and application programming interface (API) 
 for bioinformatics research.
 
-The .NET Bio is available at http://bio.codeplex.com.  
-It is licensed under the OSI approved Apache License , located at:  http://bio.codeplex.com/license.
+.NET Bio is available at http://bio.codeplex.com.  
+It is licensed under the OSI approved Apache License, located at:  http://bio.codeplex.com/license.
 
-After downloading and installing Bidoex Framework, the SDK “Tools” folder 
-containing the the tools and their source code by default is at:
+After downloading and installing the .NET Bio Framework, the SDK “Tools” folder 
+containing the tools and their source code by default is at:
 	$\Program Files (x86)\.NET Bio\1.0\SDK\Tools\
 
 The source code for each tool is in the specific tool's folder,
