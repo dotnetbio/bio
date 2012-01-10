@@ -4,19 +4,26 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Xml.Serialization;
+using System.Globalization;
 
 // This is getting rather unwieldy. Maybe replace the ints with Element objects that can do some work themselves?
 namespace Bio.Util
 {
 
     /// <summary>
-    /// A set of integers. Internally, represents this set as a sequence of ranges, for example, 1-10,333-1200,1300, so if
-    /// the integers are clumpy then RangeCollection is very fast and uses very little memory.
+    /// A set of longs. Internally, represents this set as a sequence of ranges, for example, 1-10,333-1200,1300, so if
+    /// the longs are clumpy then RangeCollection is very fast and uses very little memory.
     /// </summary>
-    public class RangeCollection : IEnumerable<long>
+    [Serializable]
+    public class RangeCollection : ISet<long>, IXmlSerializable
     {
 
-        private static readonly Regex _rangeExpression = new Regex(@"^(?<begin>-?\d+)(-(?<last>-?\d+))?$", RegexOptions.Compiled);
+        private static readonly Regex _rangeExpression = new Regex(@"^(?<begin>-?\d+)(-(?<last>-?\d+))?$"
+#if !SILVERLIGHT
+, RegexOptions.Compiled
+#endif
+);
         private List<long> _startItems;
         private SortedDictionary<long, long> _itemToLength;
 
@@ -29,8 +36,9 @@ namespace Bio.Util
             _itemToLength = new SortedDictionary<long, long>();
         }
 
+
         /// <summary>
-        /// Create an new RangeCollection containing a single integer.
+        /// Create an new RangeCollection containing a single long.
         /// </summary>
         /// <returns>a new RangeCollection</returns>
         public RangeCollection(long singleItem)
@@ -40,9 +48,9 @@ namespace Bio.Util
         }
 
         /// <summary>
-        /// Create a new RangeCollection containing the integers from a sequence.
+        /// Create a new RangeCollection containing the longs from a sequence.
         /// </summary>
-        /// <param name="itemSequence">A sequences of integers</param>
+        /// <param name="itemSequence">A sequences of longs</param>
         /// <returns>a new RangeCollection</returns>
         public RangeCollection(IEnumerable<long> itemSequence)
             : this()
@@ -51,18 +59,19 @@ namespace Bio.Util
         }
 
         /// <summary>
-        /// Create a new RangeCollection containing the integers from a sequence.
+        /// Create a new RangeCollection containing the longs from a sequence.
         /// </summary>
-        /// <param name="itemSequence">A sequences of integers</param>
+        /// <param name="itemSequence">A sequences of longs</param>
         /// <returns>a new RangeCollection</returns>
         public RangeCollection(IEnumerable<int> itemSequence)
             : this(itemSequence.Select(i => (long)i)) { }
 
+
         /// <summary>
-        /// Create a new Range collection containing all the integers in a range (inclusive)
+        /// Create a new Range colllection containing all the longs in a range (inclusive)
         /// </summary>
-        /// <param name="begin">The first integer to include in the RangeCollection</param>
-        /// <param name="last">The last integer to include in the RangeCollection</param>
+        /// <param name="begin">The first long to include in the RangeCollection</param>
+        /// <param name="last">The last long to include in the RangeCollection</param>
         /// <returns>a new RangeCollection</returns>
         public RangeCollection(long begin, long last)
             : this()
@@ -75,7 +84,7 @@ namespace Bio.Util
         /// If mergeOverlappingRanges, then, for example, 2-3,4-5 is represented
         /// as 2-5. Otherwise, they're maintained as separate ranges. The only difference is in the behavior of the ToString() call.
         /// By extension, this will change how a RangeCollection is parsed into a RangeCollectionCollection using the latter's
-        /// GetInstance(RangeCollection) initialize.
+        /// GetInstance(RangeCollection) initializer.
         /// </summary>
         /// <param name="ranges">A range or the string empty. \"empty\" will return an empty range.</param>
         /// <returns>a new RangeCollection</returns>
@@ -114,30 +123,32 @@ namespace Bio.Util
 
 
         /// <summary>
-        /// The smallest integer in the RangeCollection.
+        /// The smallest long in the RangeCollection.
         /// </summary>
         public long FirstElement
         {
             get
             {
+                Helper.CheckCondition<ArgumentOutOfRangeException>(_startItems.Count > 0, Properties.Resource.RangeCollectionIsEmpty);
                 return _startItems[0];
             }
         }
 
         /// <summary>
-        /// The largest integer in the RangeCollection
+        /// The largest long in the RangeCollection
         /// </summary>
         public long LastElement
         {
             get
             {
+                Helper.CheckCondition<ArgumentOutOfRangeException>(_startItems.Count > 0, Properties.Resource.RangeCollectionIsEmpty);
                 long startItem = _startItems[_startItems.Count - 1];
                 return startItem + _itemToLength[startItem] - 1;
             }
         }
 
         /// <summary>
-        /// Make the set empty
+        /// Make the set emtpy
         /// </summary>
         public void Clear()
         {
@@ -146,7 +157,7 @@ namespace Bio.Util
         }
 
         /// <summary>
-        /// The number of integer elements in the RangeCollection
+        /// The number of long elements in the RangeCollection
         /// </summary>
         /// <returns>A size of the set</returns>
         public long Count()
@@ -154,11 +165,13 @@ namespace Bio.Util
             return Count(long.MinValue, long.MaxValue);
         }
 
+
+
         /// <summary>
-        /// The number of integer elements in the RangeCollection between min and max (inclusive)
+        /// The number of long elements in the RangeCollection between min and max (inclusive)
         /// </summary>
-        /// <param name="min">The smallest integer element to consider</param>
-        /// <param name="max">The largest integer element to consider</param>
+        /// <param name="min">The smallest long element to consider</param>
+        /// <param name="max">The largest long element to consider</param>
         /// <returns>The number of element in between min and max (inclusive)</returns>
         public long Count(long min, long max)
         {
@@ -208,7 +221,7 @@ namespace Bio.Util
         }
 
         /// <summary>
-        /// Add the integers of one RangeCollection to this RangeCollection.
+        /// Add the longs of one RangeCollection to this RangeCollection.
         /// </summary>
         /// <param name="rangeCollection">The RangeCollection to add</param>
         public void AddRangeCollection(RangeCollection rangeCollection)
@@ -217,7 +230,7 @@ namespace Bio.Util
         }
 
         /// <summary>
-        /// Add the integers of one RangeCollection to this RangeCollection.
+        /// Add the longs of one RangeCollection to this RangeCollection.
         /// </summary>
         /// <param name="rangeCollection">The RangeCollection to add</param>
         /// <returns>true of all the elements added are new; otherwise, false</returns>
@@ -232,7 +245,7 @@ namespace Bio.Util
         }
 
         /// <summary>
-        /// Given a sequence of strings, each of which represents a contiguous range, add all the integers in all the ranges to this RangeCollection.
+        /// Given a sequence of strings, each of which represents a contiguous range, add all the longs in all the ranges to this RangeCollection.
         /// </summary>
         /// <param name="rangeAsStringSequence">A sequence of strings</param>
         public void AddRanges(IEnumerable<string> rangeAsStringSequence)
@@ -244,12 +257,12 @@ namespace Bio.Util
         }
 
         /// <summary>
-        /// Given a contiguous range represented as a string, for example, "1-5", add all the integers in that range to this RangeCollection.
+        /// Given a contiguous range represented as a string, for example, "1-5", add all the longs in that range to this RangeCollection.
         /// </summary>
         /// <param name="rangeAsString">the range to add represented as a string</param>
         public void AddRange(string rangeAsString)
         {
-            Helper.CheckCondition(_rangeExpression.IsMatch(rangeAsString), Properties.Resource.ExpectedValidRangeString, rangeAsString);
+            Helper.CheckCondition(_rangeExpression.IsMatch(rangeAsString), () => string.Format(CultureInfo.InvariantCulture, Properties.Resource.ExpectedValidRangeString, rangeAsString));
             Match match = _rangeExpression.Match(rangeAsString);
             long begin = long.Parse(match.Groups["begin"].Value);
             long last = string.IsNullOrEmpty(match.Groups["last"].Value) ? begin : long.Parse(match.Groups["last"].Value);
@@ -257,16 +270,16 @@ namespace Bio.Util
         }
 
         /// <summary>
-        /// Add all the integers starting at 'begin' to 'last' (inclusive) to the RangeCollection. They may or may not already be in the RangeCollection.
-        /// The number of integers added must not be more than long.MaxValue.
+        /// Add all the longs starting at 'begin' to 'last' (inclusive) to the RangeCollection. They may or may not already be in the RangeCollection.
+        /// The number of longs added must not be more than long.MaxValue.
         /// </summary>
-        /// <param name="begin">The first integer to add</param>
-        /// <param name="last">The last integer to add</param>
+        /// <param name="begin">The first long to add</param>
+        /// <param name="last">The last long to add</param>
         public void AddRange(long begin, long last)
         {
-            Helper.CheckCondition(begin <= last, Properties.Resource.InvalidRangeBeginMustBeLessThanLast, begin, last);
+            Helper.CheckCondition(begin <= last, () => string.Format(CultureInfo.InvariantCulture, Properties.Resource.InvalidRangeBeginMustBeLessThanLast, begin, last));
             long length = (long)last - (long)begin + 1;
-            Helper.CheckCondition(length <= long.MaxValue, Properties.Resource.InvalidRangeSizeOfRangeMustBeLessThanMaxValue, length);
+            Helper.CheckCondition(length <= long.MaxValue, () => string.Format(CultureInfo.InvariantCulture, Properties.Resource.InvalidRangeSizeOfRangeMustBeLessThanMaxValue, length));
             TryAdd(begin, (long)length);
         }
 
@@ -282,9 +295,9 @@ namespace Bio.Util
         }
 
         /// <summary>
-        /// Add a sequence of integers to the RangeCollection. Each may or may not already be in the RangeCollection.
+        /// Add a sequence of intergers to the RangeCollection. Each may or may not already be in the RangeCollection.
         /// </summary>
-        /// <param name="itemList">The sequence of integers to add</param>
+        /// <param name="itemList">The sequence of longs to add</param>
         public void AddRange(IEnumerable<long> itemList)
         {
             foreach (long item in itemList)
@@ -294,18 +307,47 @@ namespace Bio.Util
         }
 
         /// <summary>
-        /// Add an integer to the RangeCollection. The integer may or may not already be in the RangeCollection.
+        /// Add a sequence of intergers to the RangeCollection. Each may or may not already be in the RangeCollection.
         /// </summary>
-        /// <param name="item">The integer to add.</param>
+        /// <param name="itemList">The sequence of longs to add</param>
+        public void AddRange(IEnumerable<int> itemList)
+        {
+            if (itemList == null)
+            {
+                throw new ArgumentNullException("itemList");
+            }
+            foreach (int item in itemList)
+            {
+                Add(item);
+            }
+        }
+
+
+
+        /// <summary>
+        /// Add an long to the RangeCollection. The long may or may not already be in the RangeCollection.
+        /// </summary>
+        /// <param name="item">The long to add.</param>
         public void Add(long item)
         {
-            bool isOK = TryAdd(item);
+            TryAdd(item);
         }
 
         /// <summary>
-        /// Try to add a new element to the set.
+        /// Add an long to the RangeCollection. An exception is thrown if the long is already in the RangeCollection.
         /// </summary>
-        /// <param name="item">An integer to add</param>
+        /// <param name="item">The long to add.</param>
+        public void AddNew(long item)
+        {
+            bool isOK = TryAdd(item);
+            Helper.CheckCondition(isOK, () => string.Format(CultureInfo.InvariantCulture, "The element {0} was already in the RangeCollection.", item));
+        }
+
+
+        /// <summary>
+        /// Trys to add a new element to the set.
+        /// </summary>
+        /// <param name="item">An long to add</param>
         /// <returns>True if item was added. False if it already existed in the range.</returns>
         public bool TryAdd(long item)
         {
@@ -315,7 +357,7 @@ namespace Bio.Util
 
         private bool TryAdd(long item, long length)
         {
-            Helper.CheckCondition(length > 0, Properties.Resource.InvalidRangeSizeOfRangeMustBeGreaterThanZero, length);
+            Helper.CheckCondition(length > 0, () => string.Format(CultureInfo.InvariantCulture, Properties.Resource.InvalidRangeSizeOfRangeMustBeGreaterThanZero, length));
             Debug.Assert(_startItems.Count == _itemToLength.Count); // real assert
             int indexOfMiss = ~_startItems.BinarySearch(item);
 
@@ -384,7 +426,7 @@ namespace Bio.Util
             while (last >= next - 1)
             {
                 long newEnd = Math.Max(last, next + _itemToLength[next] - 1);
-                _itemToLength[previous] = newEnd - previous + 1;
+                _itemToLength[previous] = newEnd - previous + 1; //ItemToLength[previous] + ItemToLength[next];
                 _itemToLength.Remove(next);
                 _startItems.RemoveAt(indexOfMiss);
 
@@ -429,11 +471,11 @@ namespace Bio.Util
 
 
         /// <summary>
-        /// Tells if all integers from start to last (inclusive) are members of this RangeCollection.
+        /// Tells if all longs from start to last (inclusive) are members of this RangeCollection.
         /// </summary>
-        /// <param name="start">The first integer</param>
-        /// <param name="last">The last integer</param>
-        /// <returns>true if all integers from start to last (inclusive) are members of this RangeCollection; otherwise, false</returns>
+        /// <param name="start">The first long</param>
+        /// <param name="last">The last long</param>
+        /// <returns>true if all longs from start to last (inclusive) are members of this RangeCollection; otherwise, false</returns>
         public bool Contains(long start, long last)
         {
             if (last < start) // can't contain an empty range.
@@ -537,10 +579,10 @@ namespace Bio.Util
 
 
         /// <summary>
-        /// Tells if the range collection includes all integers from 0 (inclusive) to itemCount-1 (inclusive)
+        /// Tells if the range collection includes all longs from 0 (inclusive) to itemCount-1 (inclusive)
         /// </summary>
-        /// <param name="itemCount">The number of integers, starting at 0, expected</param>
-        /// <returns>true if the range collection includes the itemCount integers starting at 0; otherwise, false</returns>
+        /// <param name="itemCount">The number of longs, starting at 0, expected</param>
+        /// <returns>true if the range collection includes the itemCount longs starting at 0; otherwise, false</returns>
         public bool IsComplete(long itemCount)
         {
             return IsComplete(0, itemCount - 1);
@@ -548,7 +590,7 @@ namespace Bio.Util
 
 
         /// <summary>
-        /// Tells if the range collection contains a continuous set of integers.
+        /// Tells if the range collection contains a continuous set of longs.
         /// </summary>
         /// <returns>true if a continuous set; false if empty or if gaps.</returns>
         public bool IsContiguous()
@@ -560,14 +602,13 @@ namespace Bio.Util
 
 
         /// <summary>
-        /// Tells if the range collection includes all integers from firstItem to lastItem (inclusive)
+        /// Tells if the range collection includes all longs from firstItem to lastItem (inclusive)
         /// </summary>
-        /// <param name="firstItem">The first integer of interest</param>
-        /// <param name="lastItem">The last integer of interest</param>
-        /// <returns>true if the range collection includes all the integers between firstItem and lastItem (inclusive); otherwise, false</returns>
+        /// <param name="firstItem">The first long of interest</param>
+        /// <param name="lastItem">The last long of interest</param>
+        /// <returns>true if the range collection includes all the longs between firstItem and lastItem (inclusive); otherwise, false</returns>
         public bool IsComplete(long firstItem, long lastItem)
         {
-            Helper.CheckCondition(IsEmpty || LastElement <= lastItem, Properties.Resource.ShouldNotBeSmaller);
             bool b = (_startItems.Count == 1) && (_startItems[0] == firstItem) && (_itemToLength[_startItems[0]] == lastItem - firstItem + 1);
             return b;
         }
@@ -575,6 +616,7 @@ namespace Bio.Util
         /// <summary>
         /// Unit tests
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)")]
         static public void Test()
         {
             RangeCollection aRangeCollection = new RangeCollection();
@@ -613,6 +655,15 @@ namespace Bio.Util
 
             Console.WriteLine("Count: " + aRangeCollection.Count());
             Console.WriteLine("Count -5 to 2: " + aRangeCollection.Count(-5, 2));
+
+            //RangeCollectionCollection rcc = RangeCollectionCollection.GetInstance(aRangeCollection);
+            //Console.WriteLine(rcc);
+            //Console.WriteLine(rcc.GetContainingRangeCollection(-12));
+            //Console.WriteLine(rcc.GetContainingRangeCollection(-10));
+            //Console.WriteLine(rcc.GetContainingRangeCollection(-5));
+            //Console.WriteLine(rcc.GetContainingRangeCollection(3));
+            //Console.WriteLine(rcc.GetContainingRangeCollection(15));
+
         }
 
 
@@ -630,7 +681,7 @@ namespace Bio.Util
         /// <summary>
         /// Returns a collection of elements at what would be the i'th element for i \in rangeCollectionOfIndeces. 
         /// </summary>
-        /// <param name="rangeCollectionOfIndeces">0-based indices.</param>
+        /// <param name="rangeCollectionOfIndeces">0-based indeces.</param>
         public RangeCollection ElementsAt(RangeCollection rangeCollectionOfIndeces)
         {
             RangeCollection result = new RangeCollection();
@@ -691,6 +742,7 @@ namespace Bio.Util
             foreach (KeyValuePair<long, long> range in Ranges)
             {
                 long rangeLength = range.Value - range.Key + 1;
+                //long offset = countSoFar == 0 ? 0 : countSoFar + 1;
                 if (i - countSoFar < rangeLength)
                 {
                     long relativeIdx = i - countSoFar;
@@ -705,7 +757,7 @@ namespace Bio.Util
         /// <summary>
         /// Returns the competeCollection - thisCollection
         /// </summary>
-        /// <returns>Range Collection.</returns>
+        /// <returns></returns>
         public RangeCollection Complement(long fullRangeBegin, long fullRangeLast)
         {
             RangeCollection result = new RangeCollection();
@@ -732,12 +784,6 @@ namespace Bio.Util
             return result;
         }
 
-        /// <summary>
-        /// Neighbors.
-        /// </summary>
-        /// <typeparam name="T">Generic type.</typeparam>
-        /// <param name="collection">Generic collection.</param>
-        /// <returns>Returns collection of KeyValuePair of generic types. </returns>
         private static IEnumerable<KeyValuePair<T, T>> Neighbors<T>(IEnumerable<T> collection)
         {
             T previous = default(T);
@@ -786,10 +832,131 @@ namespace Bio.Util
             return true;
         }
 
+        #region ISet<long> Members
+
+        bool ISet<long>.Add(long item)
+        {
+            if (Contains(item))
+            {
+                return false;
+            }
+            else
+            {
+                Add(item);
+                return true;
+            }
+        }
+
+#pragma warning disable 1591
+        public void ExceptWith(IEnumerable<long> other)
+#pragma warning restore 1591
+        {
+            throw new NotImplementedException();
+        }
+
+#pragma warning disable 1591
+        public void IntersectWith(IEnumerable<long> other)
+#pragma warning restore 1591
+        {
+            throw new NotImplementedException();
+        }
+
+#pragma warning disable 1591
+        public bool IsProperSubsetOf(IEnumerable<long> other)
+#pragma warning restore 1591
+        {
+            throw new NotImplementedException();
+        }
+
+#pragma warning disable 1591
+        public bool IsProperSupersetOf(IEnumerable<long> other)
+#pragma warning restore 1591
+        {
+            throw new NotImplementedException();
+        }
+
+#pragma warning disable 1591
+        public bool IsSubsetOf(IEnumerable<long> other)
+#pragma warning restore 1591
+        {
+            throw new NotImplementedException();
+        }
+
+#pragma warning disable 1591
+        public bool IsSupersetOf(IEnumerable<long> other)
+#pragma warning restore 1591
+        {
+            throw new NotImplementedException();
+        }
+
+#pragma warning disable 1591
+        public bool Overlaps(IEnumerable<long> other)
+#pragma warning restore 1591
+        {
+            throw new NotImplementedException();
+        }
+
+#pragma warning disable 1591
+        public bool SetEquals(IEnumerable<long> other)
+#pragma warning restore 1591
+        {
+            throw new NotImplementedException();
+        }
+
+#pragma warning disable 1591
+        public void SymmetricExceptWith(IEnumerable<long> other)
+#pragma warning restore 1591
+        {
+            throw new NotImplementedException();
+        }
+
+#pragma warning disable 1591
+        public void UnionWith(IEnumerable<long> other)
+#pragma warning restore 1591
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
+
+        #region ICollection<long> Members
+
+
+
+#pragma warning disable 1591
+        public void CopyTo(long[] array, int arrayIndex)
+#pragma warning restore 1591
+        {
+            throw new NotImplementedException();
+        }
+
+        int ICollection<long>.Count
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+#pragma warning disable 1591
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1065:DoNotRaiseExceptionsInUnexpectedLocations")]
+        public bool IsReadOnly
+#pragma warning restore 1591
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+#pragma warning disable 1591
+        public bool Remove(long item)
+#pragma warning restore 1591
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
+
+
         #region IEnumerable<long> Members
 
         /// <summary>
-        /// Returns an enumeration of the integer elements in this RangeCollection.
+        /// Returns an enumeration of the long elements in this RangeCollection.
         /// </summary>
         public IEnumerator<long> GetEnumerator()
         {
@@ -805,10 +972,7 @@ namespace Bio.Util
         #endregion
 
         #region IEnumerable Members
-        /// <summary>
-        /// Enumeration of the elements
-        /// </summary>
-        /// <returns>Returns an enumeration of the integer elements.</returns>
+
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
@@ -816,23 +980,43 @@ namespace Bio.Util
 
         #endregion
 
+        #region IXmlSerialiable members
         /// <summary>
-        /// Just enumerate the Elements.
+        /// Required to override XmlSerialization. We use the default schema
         /// </summary>
-        [Obsolete("Just enumerate the object (which calls .GetEnumerator<long>())")]
-        public IEnumerable<long> Elements
+        /// <returns></returns>
+        public System.Xml.Schema.XmlSchema GetSchema()
         {
-            get
-            {
-                foreach (KeyValuePair<long, long> range in Ranges)
-                {
-                    for (long i = range.Key; i <= range.Value; i++)
-                    {
-                        yield return i;
-                    }
-                }
-            }
+            return null;
         }
+
+        /// <summary>
+        /// Overrides default XML serialization by using the ToString representation.
+        /// </summary>
+        public void ReadXml(System.Xml.XmlReader reader)
+        {
+            if (reader == null)
+            {
+                throw new ArgumentNullException("reader");
+            }
+
+            string range = reader.ReadInnerXml();
+            this.InternalParse(range);
+        }
+
+
+        /// <summary>
+        /// Overrides default XML serialization by using the ToString representation.
+        /// </summary>
+        public void WriteXml(System.Xml.XmlWriter writer)
+        {
+            if (writer == null)
+            {
+                throw new ArgumentNullException("writer");
+            }
+            writer.WriteString(this.ToString());
+        }
+        #endregion
     }
 
 }

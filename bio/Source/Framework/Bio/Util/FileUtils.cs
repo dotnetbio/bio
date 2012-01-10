@@ -5,48 +5,11 @@ using System.Reflection;
 using System.Text;
 using System.Linq;
 using System.Threading;
+using System.IO.Compression;
+using System.Globalization;
 
 namespace Bio.Util
 {
-    /// <summary>
-    /// FileAccessComparer
-    /// </summary>
-    public class FileAccessComparer : IEqualityComparer<FileInfo>
-    {
-        #region IEqualityComparer<FileInfo> Members
-
-        /// <summary>
-        /// Equals
-        /// </summary>
-        /// <param name="x">x</param>
-        /// <param name="y">y</param>
-        /// <returns>bool</returns>
-        public bool Equals(FileInfo x, FileInfo y)
-        {
-            if (x == null && y == null)
-                return true;
-
-            if (x == null || y == null)
-                return false;
-
-            return x.Name.Equals(y.Name) && x.LastWriteTime.Equals(y.LastWriteTime);
-        }
-
-        /// <summary>
-        /// GetHashCode
-        /// </summary>
-        /// <param name="obj">obj</param>
-        /// <returns>int</returns>
-        public int GetHashCode(FileInfo obj)
-        {
-            if (obj == null)
-                return 0;
-            return obj.Name.GetHashCode();
-        }
-
-        #endregion
-    }
-
     /// <summary>
     /// A static class of methods related to files.
     /// </summary>
@@ -57,24 +20,51 @@ namespace Bio.Util
         /// </summary>
         public const string CommentHeader = "Comment token:";
 
+
         /// <summary>
-        /// Open a FileInfo as a StreamReader that skips over comments.
+        /// Given a (possibly compressed) file with possible comments, return a StreamReader with uncompressed, uncommented text.
         /// </summary>
-        /// <param name="file">The FileInfo to read</param>
-        /// <returns>a StreamReader that skips over comments</returns>
-        public static StreamReader OpenTextStripComments(this FileInfo file)
+        /// <param name="filename">The file to open</param>
+        /// <returns>a StreamReader with uncompressed, uncommented text.</returns>
+        public static StreamReader OpenTextStripComments(string filename)
         {
-            return new CommentedStreamReader(file);
+            FileInfo file = new FileInfo(filename);
+            return OpenTextStripComments(file);
         }
 
         /// <summary>
-        /// Open the named file as a StreamReader that skips over comments.
+        /// Given a (possibly compressed) FileInfo with possible comments, return a StreamReader with uncompressed, uncommented text.
         /// </summary>
-        /// <param name="filename">The file to read</param>
-        /// <returns>a StreamReader that skips over comments</returns>
-        public static StreamReader OpenTextStripComments(string filename)
+        /// <param name="fileInfo">The FileInfo to open</param>
+        /// <param name="allowGzip">(Optional) Tells if should uncompress files with names ending in ".gz" or ".gzip".</param>
+        /// <returns>a StreamReader with uncompressed, uncommented text.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed")]
+        public static StreamReader OpenTextStripComments(this FileInfo fileInfo, bool allowGzip = true)
         {
-            return new CommentedStreamReader(filename);
+            if (fileInfo == null)
+            {
+                throw new ArgumentNullException("fileInfo");
+            }
+
+
+            if (allowGzip && (
+                fileInfo.Extension.Equals(".gz", StringComparison.CurrentCultureIgnoreCase) ||
+                fileInfo.Extension.Equals(".gzip", StringComparison.CurrentCultureIgnoreCase)))
+            {
+#if SILVERLIGHT
+                  throw new Exception("Compressed files are not supported in Silverlight.");
+#else
+                FileStream infile = new FileStream(fileInfo.FullName, FileMode.Open, FileAccess.Read, FileShare.Read);
+                GZipStream zipStream = new GZipStream(infile, CompressionMode.Decompress);
+                StreamReader reader = zipStream.StripComments();
+
+                return reader;
+#endif
+            }
+            else
+            {
+                return new CommentedStreamReader(fileInfo);
+            }
         }
 
         /// <summary>
@@ -82,7 +72,7 @@ namespace Bio.Util
         /// </summary>
         /// <param name="stream">The steam to filter</param>
         /// <returns>a StreamReader that skips over comments</returns>
-        public static StreamReader StripComments(Stream stream)
+        public static StreamReader StripComments(this Stream stream)
         {
             return new CommentedStreamReader(stream);
         }
@@ -113,6 +103,7 @@ namespace Bio.Util
                 return streamReader.ReadLine();
             }
         }
+
 
         /// <summary>
         /// Read the first line of a file after any comments.
@@ -146,7 +137,7 @@ namespace Bio.Util
         /// </summary>
         /// <param name="textReader">A textReader from which to read lines.</param>
         /// <returns>a sequence of lines from a TextReader</returns>
-        public static IEnumerable<string> ReadEachLine(TextReader textReader)
+        public static IEnumerable<string> ReadEachLine(this TextReader textReader)
         {
             string line;
             while (null != (line = textReader.ReadLine()))
@@ -158,11 +149,12 @@ namespace Bio.Util
         /// <summary>
         /// Returns a sequence of lines from a file.
         /// </summary>
-        /// <param name="file">A FileInfo from which to read lines.</param>
+        /// <param name="fileInfo">A FileInfo from which to read lines.</param>
         /// <returns>a sequence of lines from a file</returns>
-        public static IEnumerable<string> ReadEachLine(this FileInfo file)
+        public static IEnumerable<string> ReadEachLine(this FileInfo fileInfo)
         {
-            using (TextReader textReader = file.OpenTextStripComments())
+            //using (TextReader textReader = file.OpenTextStripComments())
+            using (TextReader textReader = fileInfo.OpenTextStripComments())
             {
                 string line;
                 while (null != (line = textReader.ReadLine()))
@@ -249,12 +241,15 @@ namespace Bio.Util
                     directoryName = ".";
                 }
 
-                foreach (string fileName in Directory.GetFiles(directoryName, Path.GetFileName(inputSubPattern)))
+                if (Directory.Exists(directoryName))
                 {
-                    yield return fileName;
-                    isZero = false;
+                    foreach (string fileName in Directory.EnumerateFiles(directoryName, Path.GetFileName(inputSubPattern)))
+                    {
+                        yield return fileName;
+                        isZero = false;
+                    }
                 }
-                Helper.CheckCondition(!isZero || zeroIsOK, Properties.Resource.ErrorNoFilesMatchSpecifiedName, inputSubPattern);
+                Helper.CheckCondition(!isZero || zeroIsOK, () => string.Format(CultureInfo.InvariantCulture, Properties.Resource.ErrorNoFilesMatchSpecifiedName, inputSubPattern));
             }
         }
 
@@ -287,30 +282,32 @@ namespace Bio.Util
         /// <returns></returns>
         public static Assembly GetEntryOrCallingAssembly()
         {
+#if !SILVERLIGHT
             Assembly entryAssembly = Assembly.GetEntryAssembly();
             if (null != entryAssembly)
             {
                 return entryAssembly;
             }
+#endif
             return Assembly.GetCallingAssembly();
         }
 
         /// <summary>
-        /// GetDirectoryName
+        /// Returns the directory/path name for the specified file
         /// </summary>
-        /// <param name="exampleFileToCopy">exampleFileToCopy</param>
-        /// <returns>string</returns>
+        /// <param name="exampleFileToCopy"> name of source file</param>
+        /// <returns> string holding the path</returns>
         public static string GetDirectoryName(string exampleFileToCopy)
         {
             return GetDirectoryName(exampleFileToCopy, "");
         }
 
         /// <summary>
-        /// GetDirectoryName
+        /// Returns the normalized directory/path name for the combined string workingDirectory + exampleFileToCopy
         /// </summary>
-        /// <param name="exampleFileToCopy">exampleFileToCopy</param>
-        /// <param name="workingDirectory">workingDirectory</param>
-        /// <returns>string</returns>
+        /// <param name="exampleFileToCopy"> name of source file</param>
+        /// <param name="workingDirectory"> name of path to source file</param>
+        /// <returns> string holding the normalized path</returns>
         public static string GetDirectoryName(string exampleFileToCopy, string workingDirectory)
         {
             string fullPathToExample = Path.Combine(workingDirectory, exampleFileToCopy);
@@ -321,57 +318,19 @@ namespace Bio.Util
         }
 
         /// <summary>
-        /// ArchiveExes
+        /// Keep trying to open file with a timeout
         /// </summary>
-        /// <param name="archivePath">archivePath</param>
-        /// <param name="overwriteExistingExesWithSameBuildNumber">overwriteExistingExesWithSameBuildNumber</param>
-        /// <param name="exeNameOrNull">exeNameOrNull</param>
-        public static void ArchiveExes(string archivePath = null, bool overwriteExistingExesWithSameBuildNumber = true, string exeNameOrNull = null)
-        {
-            if (string.IsNullOrEmpty(archivePath))
-                throw new ArgumentNullException("archivePath");
-
-            AssemblyName assemblyName;
-            var entryAssembly = SpecialFunctions.GetEntryOrCallingAssembly();
-
-            if (exeNameOrNull == null)
-                assemblyName = entryAssembly.GetName();
-            else
-                assemblyName = Assembly.LoadFrom(Path.GetDirectoryName(entryAssembly.Location) + "\\" + Path.GetFileNameWithoutExtension(exeNameOrNull) + ".exe").GetName();
-
-            string exeName = Path.GetFileNameWithoutExtension(assemblyName.Name);
-
-            string fullArchivePath = string.Format(@"{0}\{1}\{2}.{3}\{4}", archivePath, exeName, assemblyName.Version.Major, assemblyName.Version.Minor, assemblyName.Version);
-
-            bool alreadyThere = true;
-            if (!Directory.Exists(fullArchivePath))
-            {
-                Directory.CreateDirectory(fullArchivePath);
-                alreadyThere = false;
-            }
-
-            if (!alreadyThere || overwriteExistingExesWithSameBuildNumber)
-            {
-                Console.WriteLine("Archiving exes to {0}", fullArchivePath);
-
-                string srcDirectoryName = Path.GetDirectoryName(SpecialFunctions.GetEntryOrCallingAssembly().Location);
-                SpecialFunctions.CopyDirectory(srcDirectoryName, fullArchivePath, /*recursive*/ true);
-            }
-        }
-
-        /// <summary>
-        /// TryToOpenFile
-        /// </summary>
-        /// <param name="filename">filename</param>
-        /// <param name="timeout">timeout</param>
-        /// <param name="fileMode">fileMode</param>
-        /// <param name="fileAcces">fileAcces</param>
-        /// <param name="fileShare">fileShare</param>
-        /// <param name="filestream">filestream</param>
-        /// <returns>bool</returns>
+        /// <param name="filename"></param>
+        /// <param name="timeout"></param>
+        /// <param name="fileMode"></param>
+        /// <param name="fileAcces"></param>
+        /// <param name="fileShare"></param>
+        /// <param name="filestream"></param>
+        /// <returns>bool true if successfully opened, otherwise false</returns>
         public static bool TryToOpenFile(string filename, TimeSpan timeout, FileMode fileMode, FileAccess fileAcces, FileShare fileShare, out FileStream filestream)
         {
             filestream = null;
+            //int i = 0;
             long start = DateTime.Now.Ticks;
             long timeoutTicks = timeout.Ticks;
             int breakTime = 50;
@@ -382,7 +341,7 @@ namespace Bio.Util
                     filestream = File.Open(filename, fileMode, fileAcces, fileShare);
                     return true;
                 }
-                catch(Exception)
+                catch
                 {
                     if (DateTime.Now.Ticks - start < timeoutTicks)
                     {
@@ -396,13 +355,16 @@ namespace Bio.Util
                 }
             }
         }
+
     }
+
 
     /// <summary>
     /// A stream reader that can skip over comments in the input.
     /// </summary>
     public class CommentedStreamReader : StreamReader
     {
+
         bool _haveReadFirstLine = false;
         bool _isCommented = false;
 
@@ -432,6 +394,13 @@ namespace Bio.Util
         /// </summary>
         /// <param name="stream">The stream to create a CommentedStreamReader from</param>
         public CommentedStreamReader(Stream stream) : base(stream) { }
+
+        /// <summary>
+        /// Create a CommentedStreamReader from a TextReader. Loads the entire contents of the text reader into memory.
+        /// </summary>
+        /// <param name="reader">The TextReader to create a CommentedStreamReader from</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0")]
+        public CommentedStreamReader(TextReader reader) : base(new MemoryStream(new System.Text.UTF8Encoding().GetBytes(reader.ReadToEnd()))) { }
 
         /// <summary>
         /// Returns the next noncomment line
@@ -472,7 +441,7 @@ namespace Bio.Util
                 {
                     CommentToken = line.Substring(FileUtils.CommentHeader.Length);
                     _isCommented = true;
-                    Helper.CheckCondition(CommentToken.Length > 0, Properties.Resource.ExpectedNonZeroLengthCommentToken);
+                    Helper.CheckCondition(CommentToken.Length > 0, () => Properties.Resource.ExpectedNonZeroLengthCommentToken);
                     if (returnComment)
                         return line;
                     else
@@ -559,5 +528,48 @@ namespace Bio.Util
 
 
     }
+
+    /// <summary>
+    /// Compare FileInfo for equal file access capabilities
+    /// </summary>
+    public class FileAccessComparer : IEqualityComparer<FileInfo>
+    {
+        #region IEqualityComparer<FileInfo> Members
+
+        /// <summary>
+        /// Compare for file equality using name and timestamps
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns> bool true if FileInfo name and LastWriteTimes are equal, otherwise false </returns>
+        public bool Equals(FileInfo x, FileInfo y)
+        {
+            if (null == x || null == y)
+            {
+                return (null == x && null == y);
+            }
+
+            return x.Name.Equals(y.Name) && x.LastWriteTime.Equals(y.LastWriteTime);
+        }
+
+        /// <summary>
+        /// Returns HashCode from FileInfo.Name
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public int GetHashCode(FileInfo obj)
+        {
+            if (obj == null)
+            {
+                throw new ArgumentNullException("obj");
+            }
+
+            return obj.Name.GetHashCode();
+        }
+
+        #endregion
+    }
+
+
 
 }

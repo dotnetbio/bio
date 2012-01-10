@@ -369,6 +369,7 @@
     <Compile Include="Matrix\Matrix.cs" />
     <Compile Include="Matrix\MatrixExtensions.cs" />
     <Compile Include="Matrix\MatrixFactory.cs" />
+    <Compile Include="Matrix\MatrixRowAsIList.cs" />
     <Compile Include="Matrix\MatrixViewExtensions.cs" />
     <Compile Include="Matrix\MergeColsView.cs" />
     <Compile Include="Matrix\MergeRowsView.cs" />

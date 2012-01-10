@@ -70,7 +70,8 @@ namespace Bio.Util
         /// <param name="fileName">The name of the file to turn into a INamedStreamCreator.</param>
         /// <param name="name">(Optional) The name of the INamedStreamCreator. If null, fileName is used.</param>
         /// <returns>a INamedStreamCreator</returns>
-        public static INamedStreamCreator ToNamedStreamCreatorFromFileName(this string fileName, string name)
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed")]
+        public static INamedStreamCreator ToNamedStreamCreatorFromFileName(this string fileName, string name = null)
         {
             if (string.IsNullOrEmpty(fileName))
                 throw new ArgumentNullException("fileName");
@@ -88,7 +89,8 @@ namespace Bio.Util
         /// <param name="fileInfo">The FileInfo to turn into a INamedStreamCreator.</param>
         /// <param name="name">(Optional) The name of the INamedStreamCreator. If null, the FileInfo's name is used.</param>
         /// <returns>a INamedStreamCreator</returns>
-        public static INamedStreamCreator ToNamedStreamCreator(this FileInfo fileInfo, string name)
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed")]
+        public static INamedStreamCreator ToNamedStreamCreator(this FileInfo fileInfo, string name = null)
         {
             if (fileInfo == null)
                 throw new ArgumentNullException("fileInfo");
@@ -108,7 +110,8 @@ namespace Bio.Util
         /// <param name="resourceName">The name of the resource</param>
         /// <param name="name">(Optional) The name of the INamedStreamCreator. If null, resourceName is used.</param>
         /// <returns>a INamedStreamCreator</returns>
-        public static INamedStreamCreator ToNamedStreamCreator(this Assembly assembly, string resourceName, string name)
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed")]
+        public static INamedStreamCreator ToNamedStreamCreator(this Assembly assembly, string resourceName, string name = null)
         {
             if (assembly == null)
                 throw new ArgumentNullException("assembly");
@@ -131,7 +134,8 @@ namespace Bio.Util
         /// <param name="text">The text to turn into a INamedStreamCreator.</param>
         /// <param name="name">(Optional) The name of the INamedStreamCreator. If null, string is used for both data and for the name.</param>
         /// <returns>a INamedStreamCreator</returns>
-        public static INamedStreamCreator ToNamedStreamCreatorFromString(this string text, string name)
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed")]
+        public static INamedStreamCreator ToNamedStreamCreatorFromString(this string text, string name = null)
         {
             if (string.IsNullOrEmpty(text))
                 throw new ArgumentNullException("text");

@@ -390,11 +390,21 @@ namespace Bio.Matrix
                 return parentMatrix;
             }
 
-            //!!!Could check of this is a PermuteValuesView of a PermuteValuesView and simplify (see TransposeView for an example)
-
-            var matrixView = new PermuteValuesView<TRowKey, TColKey, TValue>();
-            matrixView.SetUp(parentMatrix, colIndexSequence);
-            return matrixView;
+            //If this is a permutation of a permutation, simplify
+            PermuteValuesView<TRowKey, TColKey, TValue> parentPermuteValuesViewOrNull = parentMatrix as PermuteValuesView<TRowKey, TColKey, TValue>;
+            if (null != parentPermuteValuesViewOrNull)
+            {
+                var colIndexSequenceTwo = colIndexSequence.Select(i => parentPermuteValuesViewOrNull.IndexOfParentCol[i]);
+                var matrixView = new PermuteValuesView<TRowKey, TColKey, TValue>();
+                matrixView.SetUp(parentPermuteValuesViewOrNull.ParentMatrix, colIndexSequenceTwo);
+                return matrixView;
+            }
+            else
+            {
+                var matrixView = new PermuteValuesView<TRowKey, TColKey, TValue>();
+                matrixView.SetUp(parentMatrix, colIndexSequence);
+                return matrixView;
+            }
         }
 
 

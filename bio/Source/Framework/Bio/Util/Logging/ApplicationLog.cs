@@ -14,24 +14,10 @@ namespace Bio.Util.Logging
     /// </summary>
     public static class ApplicationLog
     {
-        /// <summary>
-        /// File info field
-        /// </summary>
-        private static FileInfo finfo;
+        private static FileInfo _fInfo;
+        private static TextWriter _writer;
+        private static bool _autoflush = true;
 
-        /// <summary>
-        /// Test writer
-        /// </summary>
-        private static TextWriter writer;
-
-        /// <summary>
-        /// Auto flush
-        /// </summary>
-        private static bool autoflush = true;
-
-        /// <summary>
-        /// Initializes static members of the ApplicationLog class
-        /// </summary>
         static ApplicationLog()
         {
             if (!ApplicationLog.Ready)
@@ -41,33 +27,30 @@ namespace Bio.Util.Logging
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether flush occurs after each write or critical writes
         /// if true (default), a flush occurs after each write, to prevent loss of messages.
         /// if false, calling code should Flush() after critical writes.
         /// </summary>
         public static bool Autoflush
         {
-            get
-            {
-                return autoflush;
-            }
-
             set
             {
-                autoflush = value;
-            }           
+                _autoflush = value;
+            }
+            get
+            {
+                return _autoflush;
+            }
         }
 
         /// <summary>
-        /// Gets a value indicating whether there is a valid writer. 
-        /// returns true if there is a valid writer, if not
+        /// returns true if there is a valid writer. if not
         /// in this state, writes will be no-ops.
         /// </summary>
         public static bool Ready
         {
             get
             {
-                return writer != null;
+                return (_writer != null);
             }
         }
 
@@ -79,28 +62,31 @@ namespace Bio.Util.Logging
         /// <param name="fileName">the filename</param>
         public static void Open(string fileName)
         {
+#if !SILVERLIGHT
+            Thread.BeginCriticalRegion();
+#endif
             Close();
-            finfo = new FileInfo(fileName);
+            _fInfo = new FileInfo(fileName);
 
             try
             {
-                writer = new StreamWriter(finfo.FullName);
+                _writer = new StreamWriter(_fInfo.FullName);
             }
             catch (UnauthorizedAccessException)
             {
                 fileName = Path.GetTempPath() + Path.GetFileName(fileName);
-                finfo = new FileInfo(fileName);
-                writer = new StreamWriter(finfo.FullName);
+                _fInfo = new FileInfo(fileName);
+                _writer = new StreamWriter(_fInfo.FullName);
             }
             catch (IOException)
             {
-                if (string.IsNullOrEmpty(fileName))
-                {
-                    fileName = fileName.Replace(".log", DateTime.Now.Ticks + ".log");
-                    finfo = new FileInfo(fileName);
-                    writer = new StreamWriter(finfo.FullName);
-                }
+                fileName = fileName.Replace(".log", DateTime.Now.Ticks + ".log");
+                _fInfo = new FileInfo(fileName);
+                _writer = new StreamWriter(_fInfo.FullName);
             }
+#if !SILVERLIGHT
+            Thread.EndCriticalRegion();
+#endif
         }
 
         /// <summary>
@@ -113,13 +99,18 @@ namespace Bio.Util.Logging
         /// <param name="fileName">the filename</param>
         public static void Reopen(string fileName)
         {
+#if !SILVERLIGHT
+            Thread.BeginCriticalRegion();
+#endif
             FileInfo temp = new FileInfo(fileName);
-            if (Ready && finfo.FullName == temp.FullName)
+            if (Ready && _fInfo.FullName == temp.FullName)
             {
                 return;
             }
-
             OpenAppend(fileName);
+#if !SILVERLIGHT
+            Thread.EndCriticalRegion();
+#endif
         }
 
         /// <summary>
@@ -128,9 +119,15 @@ namespace Bio.Util.Logging
         /// <param name="fileName">the filename</param>
         public static void OpenAppend(string fileName)
         {
+#if !SILVERLIGHT
+            Thread.BeginCriticalRegion();
+#endif
             Close();
-            finfo = new FileInfo(fileName);
-            writer = new StreamWriter(finfo.FullName, true);
+            _fInfo = new FileInfo(fileName);
+            _writer = new StreamWriter(_fInfo.FullName, true);
+#if !SILVERLIGHT
+            Thread.EndCriticalRegion();
+#endif
         }
 
         /// <summary>
@@ -138,12 +135,18 @@ namespace Bio.Util.Logging
         /// </summary>
         public static void Close()
         {
-            if (writer != null)
+#if !SILVERLIGHT
+            Thread.BeginCriticalRegion();
+#endif
+            if (_writer != null)
             {
                 Flush();
-                writer.Close();
-                writer.Dispose();
+                _writer.Close();
+                _writer.Dispose();
             }
+#if !SILVERLIGHT
+            Thread.EndCriticalRegion();
+#endif
         }
 
         // the various write methods return what they wrote, as a convenience.
@@ -151,19 +154,24 @@ namespace Bio.Util.Logging
         /// <summary>
         /// Write a single string to the writer.
         /// </summary>
-        /// <param name="output">string to write</param>
+        /// <param name="output">the string</param>
         /// <returns>the string</returns>
         public static string Write(string output)
         {
+#if !SILVERLIGHT
+            Thread.BeginCriticalRegion();
+#endif
             if (Ready)
             {
-                writer.Write(output);
-                if (autoflush)
+                _writer.Write(output);
+                if (_autoflush)
                 {
                     Flush();
                 }
             }
-
+#if !SILVERLIGHT
+            Thread.EndCriticalRegion();
+#endif
             return output;
         }
 
@@ -176,36 +184,46 @@ namespace Bio.Util.Logging
         /// <returns>the formatted string that was written</returns>
         public static string Write(string fmt, params object[] args)
         {
-            string ret = string.Empty;
+            string ret = "";
+#if !SILVERLIGHT
+            Thread.BeginCriticalRegion();
+#endif
             if (Ready)
             {
                 ret = string.Format(CultureInfo.InvariantCulture, fmt, args);
-                writer.Write(ret);
-                if (autoflush)
+                _writer.Write(ret);
+                if (_autoflush)
                 {
                     Flush();
                 }
             }
-
+#if !SILVERLIGHT
+            Thread.EndCriticalRegion();
+#endif
             return ret;
         }
 
         /// <summary>
         /// Write a plain string to the output, then a newline.
         /// </summary>
-        /// <param name="output">the string to write</param>
+        /// <param name="output">the string</param>
         /// <returns>the string</returns>
         public static string WriteLine(string output)
         {
+#if !SILVERLIGHT
+            Thread.BeginCriticalRegion();
+#endif
             if (Ready)
             {
-                writer.WriteLine(output);
-                if (autoflush)
+                _writer.WriteLine(output);
+                if (_autoflush)
                 {
                     Flush();
                 }
             }
-
+#if !SILVERLIGHT
+            Thread.EndCriticalRegion();
+#endif
             return output + "\n";
         }
 
@@ -218,18 +236,22 @@ namespace Bio.Util.Logging
         /// <returns>the formatted string that was written</returns>
         public static string WriteLine(string fmt, params object[] args)
         {
-            string ret = string.Empty;
-
+            string ret = "";
+#if !SILVERLIGHT
+            Thread.BeginCriticalRegion();
+#endif
             if (Ready)
             {
                 ret = string.Format(CultureInfo.InvariantCulture, fmt, args) + "\n";
-                writer.Write(ret);
-                if (autoflush)
+                _writer.Write(ret);
+                if (_autoflush)
                 {
                     Flush();
                 }
             }
-
+#if !SILVERLIGHT
+            Thread.EndCriticalRegion();
+#endif
             return ret;
         }
 
@@ -242,18 +264,22 @@ namespace Bio.Util.Logging
         /// <returns>the formatted string (including date/time) that was written</returns>
         public static string WriteTime(string fmt, params object[] args)
         {
-            string ret = string.Empty;
-
+            string ret = "";
+#if !SILVERLIGHT
+            Thread.BeginCriticalRegion();
+#endif
             if (Ready)
             {
                 ret = DateTime.Now.ToString("u", CultureInfo.InvariantCulture) + ": " + string.Format(CultureInfo.InvariantCulture, fmt, args) + "\n";
-                writer.Write(ret);
-                if (autoflush)
+                _writer.Write(ret);
+                if (_autoflush)
                 {
                     Flush();
                 }
             }
-
+#if !SILVERLIGHT
+            Thread.EndCriticalRegion();
+#endif
             return ret;
         }
 
@@ -261,35 +287,29 @@ namespace Bio.Util.Logging
         /// Write an exception's message, its inner exception's message, and the
         /// stack trace to the log.
         /// </summary>
-        /// <param name="ex">the Exception</param>
+        /// <param name="exception">the Exception</param>
         /// <returns>the formatted string that was written</returns>
-        public static string Exception(Exception ex)
+        public static string Exception(Exception exception)
         {
-            string ret;
-            if (ex != null)
+            if (exception == null)
             {
-                if (ex.InnerException == null)
-                {
-                    ret = string.Format(CultureInfo.InvariantCulture, "Exception: {0}\n{1}\n", ex.Message, ex.StackTrace);
-                }
-                else
-                {
-                    ret = string.Format(
-                        CultureInfo.InvariantCulture,
-                        "Exception: {0} (innerException {1})\n{2}\n",
-                        ex.Message,
-                        ex.InnerException.Message,
-                        ex.StackTrace);
-                }
+                throw new ArgumentNullException("exception");
+            }
 
-                ApplicationLog.Write(ret);
-                ApplicationLog.Flush();
-                return ret;
+            string ret;
+            if (exception.InnerException == null)
+            {
+                ret = string.Format(CultureInfo.InvariantCulture, "Exception: {0}\n{1}\n",
+                exception.Message, exception.StackTrace);
             }
             else
             {
-                return string.Empty;
+                ret = string.Format(CultureInfo.InvariantCulture, "Exception: {0} (innerException {1})\n{2}\n",
+                exception.Message, exception.InnerException.Message, exception.StackTrace);
             }
+            ApplicationLog.Write(ret);
+            ApplicationLog.Flush();
+            return ret;
         }
 
         /// <summary>
@@ -299,7 +319,7 @@ namespace Bio.Util.Logging
         {
             if (Ready)
             {
-                writer.Flush();
+                _writer.Flush();
             }
         }
     }

@@ -22,12 +22,14 @@ namespace Bio.Util
 
         /// <summary>
         /// Creates a new UOPair from new elements. The items may be the same and do not need to be in order. If T allows null, then null is allowed.
+        /// If exactly one of e1 and e2 is null, then First will be null and Second will be non-null.
         /// The items must be IComparable{T}.
         /// </summary>
         /// <param name="e1">an element for the UOPair</param>
         /// <param name="e2">another element for the UOPair. The two elements may be the same and do not need to be in order.</param>
         /// <returns>A struct with the two items in sorted order.</returns>
-        public UOPair(T e1, T e2) : this() //The two elements can be the same
+        public UOPair(T e1, T e2)
+            : this() //The two elements can be the same
         {
 
             if (null == e1)
@@ -42,7 +44,7 @@ namespace Bio.Util
             }
             else
             {
-                Helper.CheckCondition(e1 is IComparable<T>, Properties.Resource.ExpectedUoPairElementsToBeIComparable );
+                Helper.CheckCondition(e1 is IComparable<T>, () => Properties.Resource.ExpectedUoPairElementsToBeIComparable);
                 if (((IComparable<T>)e1).CompareTo(e2) < 1)
                 {
                     First = e1;
@@ -194,5 +196,19 @@ namespace Bio.Util
         }
 
 
+    }
+
+    /// <summary>
+    /// Defines a static Create method.
+    /// </summary>
+    public static class UOPair
+    {
+        /// <summary>
+        /// Usage:  UOPair.Create(val1, val2)
+        /// </summary>
+        public static UOPair<T> Create<T>(T t1, T t2) where T : IComparable<T>
+        {
+            return new UOPair<T>(t1, t2);
+        }
     }
 }

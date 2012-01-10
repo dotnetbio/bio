@@ -45,6 +45,7 @@ namespace Bio.Util.Distribute
         /// <summary>
         /// The set of Tasks that should be run by this instance
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public RangeCollection Tasks
         {
             get { return tasks; }

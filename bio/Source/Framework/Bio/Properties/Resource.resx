@@ -1424,4 +1424,25 @@ Delta alignment file is corrupted. </value>
   <data name="SegmentByteArrayInvalidCount" xml:space="preserve">
     <value>The number of bytes must be evenly divisible by the count</value>
   </data>
+  <data name="ExpectEachDataRowToHaveNCharacters" xml:space="preserve">
+    <value>Expect each data row to have {0} characters.</value>
+  </data>
+  <data name="ExpectFileToEndAfterLastValue" xml:space="preserve">
+    <value>Expect file to end after last value</value>
+  </data>
+  <data name="ExpectRowKeyFileAndMainFileToAgreeOnTheRowkeys" xml:space="preserve">
+    <value>Expect rowKey file and main file to agree on the rowkeys</value>
+  </data>
+  <data name="ExpectToReadRowKey" xml:space="preserve">
+    <value>Expect to read rowKey</value>
+  </data>
+  <data name="RangeCollectionIsEmpty" xml:space="preserve">
+    <value>RangeCollection is empty.</value>
+  </data>
+  <data name="RowKeyIndexSeemsToReferToAFileOfTheWrongFormat" xml:space="preserve">
+    <value>RowKeyIndex seems to refer to a file of the wrong format.</value>
+  </data>
+  <data name="ThereAreDuplicateRowsWhichDoNotHDupRowsNonIdenticalValues" xml:space="preserve">
+    <value>There are duplicate rows which do not have identical values.</value>
+  </data>
 </root>

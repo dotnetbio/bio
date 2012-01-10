@@ -4,7 +4,6 @@ using System.Linq;
 
 namespace Bio.Util
 {
-
     /// <summary>
     /// Extension methods for IDictionary{TKey,TValue}
     /// </summary>
@@ -87,22 +86,13 @@ namespace Bio.Util
 
 
 
-
-        /// <summary>
-        /// Returns the value associated with key in the dictionary. If not present, adds the default value to the dictionary and returns that
-        /// value. The default value is created by the specified constructor.
-        /// </summary>
-        public static TValue GetValueOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, Func<TValue> defaultValueConstructor)
-        {
-            return dictionary.GetValueOrDefault(key, defaultValueConstructor, true);
-        }
-
         /// <summary>
         /// Returns the value associated with key in the dictionary. If not present, adds the default value to the dictionary and returns that
         /// value.
         /// </summary>
-        public static TValue GetValueOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, 
-            Func<TValue> defaultValueConstructor, bool insertIfMissing)
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed")]
+        public static TValue GetValueOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key,
+            Func<TValue> defaultValueConstructor, bool insertIfMissing = true)
         {
             TValue value;
             if (!dictionary.TryGetValue(key, out value))
@@ -124,7 +114,7 @@ namespace Bio.Util
         /// Returns the value associated with key in the dictionary. If not present, adds the default value to the dictionary and returns that
         /// value.
         /// </summary>
-        public static TValue GetValueOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, 
+        public static TValue GetValueOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key,
             TValue defaultValue, bool insertIfMissing)
         {
             TValue value;

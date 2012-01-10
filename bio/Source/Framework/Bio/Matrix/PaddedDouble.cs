@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Bio.Util;
 using Bio.Util.Logging;
+using System.Globalization;
 
 //!!!would be nice to have a TryGetInstance(filename) that didn't throw MatrixFormatException or any other exception
 
@@ -50,7 +51,7 @@ namespace Bio.Matrix
         }
         internal static string StoreListToString(List<double> storeList, int colCount)
         {
-            Helper.CheckCondition(storeList.Count == colCount, Properties.Resource.ExpectedOneValueForEveryColKey);
+            Helper.CheckCondition(storeList.Count == colCount, () => Properties.Resource.ExpectedOneValueForEveryColKey);
             StringBuilder sb = new StringBuilder(colCount);
             //05/18/2009 optimize: do on multiple threads?
             foreach (double store in storeList)
@@ -73,7 +74,7 @@ namespace Bio.Matrix
         protected override double SparseValToStore(string val)
 #pragma warning restore 1591
         {
-            Helper.CheckCondition(val.Length == 1, Properties.Resource.ExpectedValToBeSingleCharacter, val);
+            Helper.CheckCondition(val.Length == 1, () => string.Format(CultureInfo.InvariantCulture, Properties.Resource.ExpectedValToBeSingleCharacter, val));
             return double.Parse(val);
         }
 
@@ -356,7 +357,7 @@ namespace Bio.Matrix
                     }
                     storeList.Add(store);
                 }
-                Helper.CheckCondition(storeList.Count == matrix.ColCount, Properties.Resource.ExpectedOneValueForEveryColKey);
+                Helper.CheckCondition(storeList.Count == matrix.ColCount, () => Properties.Resource.ExpectedOneValueForEveryColKey);
                 string s = PaddedDouble.StoreListToString(storeList, matrix.ColCount);
                 textWriter.WriteLine(s);
             }

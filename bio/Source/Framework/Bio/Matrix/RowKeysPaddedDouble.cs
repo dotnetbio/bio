@@ -14,27 +14,28 @@ namespace Bio.Matrix
     public class RowKeysPaddedDouble : RowKeysStructMatrix<double>
     {
 
-        #pragma warning disable 1591
+#pragma warning disable 1591
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0")]
         protected override double ByteArrayToValueOrMissing(byte[] byteArray)
-        #pragma warning restore 1591
+#pragma warning restore 1591
         {
-            return double.Parse(System.Text.Encoding.Default.GetString(byteArray));
+            return double.Parse(System.Text.Encoding.UTF8.GetString(byteArray, 0, byteArray.Length));
         }
 
 #pragma warning disable 1591
         protected override byte[] ValueOrMissingToByteArray(double value)
 #pragma warning restore 1591
         {
-            System.Text.ASCIIEncoding  encoding=new System.Text.ASCIIEncoding();
+            //System.Text.ASCIIEncoding  encoding=new System.Text.ASCIIEncoding();
             string s = PaddedDouble.StoreToSparseVal(value);
-            byte[] byteArray = encoding.GetBytes(s);
+            byte[] byteArray = System.Text.Encoding.UTF8.GetBytes(s);
             return byteArray;
         }
 
 
-        #pragma warning disable 1591
+#pragma warning disable 1591
         protected override int BytesPerValue
-        #pragma warning restore 1591
+#pragma warning restore 1591
         {
             get
             {
@@ -42,9 +43,9 @@ namespace Bio.Matrix
             }
         }
 
-        #pragma warning disable 1591
+#pragma warning disable 1591
         public override double MissingValue
-        #pragma warning restore 1591
+#pragma warning restore 1591
         {
             get
             {

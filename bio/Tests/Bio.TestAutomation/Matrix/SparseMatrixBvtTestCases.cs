@@ -1903,7 +1903,7 @@ namespace Bio.TestAutomation.Matrix
                 GetSparseMatrix();
 
             string strJoin =
-                sparseMatrixObj.RowKeyColKeyValues.StringJoin(".", 2, "N").Replace("<", "").Replace(">", "");
+                sparseMatrixObj.RowKeyColKeyValues.StringJoin("", 2, "N").Replace("<", "").Replace(">", "").Replace("N", ".N");
             string expStrJoin =
                 utilityObj.xmlUtil.GetTextValue(Constants.SimpleMatrixNodeName,
                 Constants.DenseStringJoinSeparatorEtcNode);

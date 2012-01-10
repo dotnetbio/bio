@@ -4,6 +4,7 @@ using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
 using Bio.Util;
+using System.Globalization;
 
 namespace Bio.Matrix
 {
@@ -19,7 +20,7 @@ namespace Bio.Matrix
     /// <param name="parallelOptions">A ParallelOptions instance that configures the multithreaded behavior of this operation.</param>
     /// <param name="matrix">The matrix created.</param>
     /// <returns>true if the function was able to create a matrix from the information in the file; otherwise, false</returns>
-    public delegate bool TryParseMatrixDelegate<TRowKey, TColKey, TValue>(string filename, TValue missingValue, ParallelOptions parallelOptions, out Matrix<TRowKey,TColKey,TValue> matrix);
+    public delegate bool TryParseMatrixDelegate<TRowKey, TColKey, TValue>(string filename, TValue missingValue, ParallelOptions parallelOptions, out Matrix<TRowKey, TColKey, TValue> matrix);
 
     /// <summary>
     /// A class for creating a factory for parsing matrix files.
@@ -27,6 +28,7 @@ namespace Bio.Matrix
     /// <typeparam name="TRowKey">The type of the row key. Usually "String"</typeparam>
     /// <typeparam name="TColKey">The type of the col key. Usually "String"</typeparam>
     /// <typeparam name="TValue">The type of the value, for example, double, int, char, etc.</typeparam>
+    [Serializable]
     public class MatrixFactory<TRowKey, TColKey, TValue>
     {
         // First value is the class name, second is the method name. Method must have the signature 
@@ -36,7 +38,7 @@ namespace Bio.Matrix
         // Note that user-defined registered parsers are tried first.
 
         //!!!should raise an error if no such method
-        static Tuple<string, string>[] _defaultParserNames = new []{
+        static Tuple<string, string>[] _defaultParserNames = new[]{
             Tuple.Create("Bio.Matrix.DenseAnsi", "TryGetInstance"),
             Tuple.Create("Bio.Matrix.PaddedDouble", "TryGetInstance"),
             Tuple.Create("Bio.Matrix.SparseMatrix", "TryParseSparseFile"),
@@ -46,8 +48,9 @@ namespace Bio.Matrix
             Tuple.Create("Bio.Matrix.DenseAnsi", "TryParseDenseAnsiFormatAsGenericMatrix")
         };
 
-        List<MethodInfo> _builtInParsers; 
+        List<MethodInfo> _builtInParsers;
         List<TryParseMatrixDelegate<TRowKey, TColKey, TValue>> _registeredParsers = new List<TryParseMatrixDelegate<TRowKey, TColKey, TValue>>();
+#if !SILVERLIGHT
 
         private IEnumerable<Assembly> _allReferencedAssemblies;
         private IEnumerable<Assembly> AllReferencedAssemblies
@@ -74,6 +77,7 @@ namespace Bio.Matrix
                 return _allMatrixTypes;
             }
         }
+#endif
 
 
         //!!!not threadsafe, adds unwanted state
@@ -82,7 +86,11 @@ namespace Bio.Matrix
         /// </summary>
         public string ErrorMessages { get; private set; }
 
-        private MatrixFactory()
+
+        /// <summary>
+        /// A parameterless constructor for the MatrixFactor.
+        /// </summary>
+        public MatrixFactory()
         {
             _builtInParsers = KnownMatrixParsers();
         }
@@ -147,7 +155,7 @@ namespace Bio.Matrix
 
             foreach (TryParseMatrixDelegate<TRowKey, TColKey, TValue> ParseFunc in _registeredParsers)
             {
-                mfErrorWriter.SetLabel(ParseFunc.ToString());
+                mfErrorWriter.SetLabel(ParseFunc.Method.DeclaringType + "." + ParseFunc.Method.Name);
                 if (ParseFunc(filename, missingValue, parallelOptions, out result))
                 {
                     ErrorMessages = mfErrorWriter.ToString();
@@ -161,7 +169,7 @@ namespace Bio.Matrix
             {
                 mfErrorWriter.SetLabel(ParseFuncMemberInfo.DeclaringType.Name + "." + ParseFuncMemberInfo.Name);
                 int argCount = ParseFuncMemberInfo.GetParameters().Length;
-                Helper.CheckCondition(argCount == 3 || argCount == 4, Properties.Resource.ExpectedArgCountOfThreeOrFour);
+                Helper.CheckCondition(argCount == 3 || argCount == 4, () => string.Format(CultureInfo.InvariantCulture, Properties.Resource.ExpectedArgCountOfThreeOrFour));
                 object[] methodParams = (3 == argCount) ? methodParams3 : methodParams4;
                 bool success = (bool)ParseFuncMemberInfo.Invoke(null, methodParams);
                 if (success)
@@ -180,7 +188,7 @@ namespace Bio.Matrix
         private List<MethodInfo> KnownMatrixParsers()
         {
             List<MethodInfo> readers = new List<MethodInfo>();
-            
+
             Type[] argTypesPO = new Type[] { typeof(string), typeof(TValue), typeof(ParallelOptions), typeof(Matrix<TRowKey, TColKey, TValue>).MakeByRefType() };
             Type[] argTypesST = new Type[] { typeof(string), typeof(TValue), typeof(Matrix<TRowKey, TColKey, TValue>).MakeByRefType() };
             Type[] genericTypes3 = new Type[] { typeof(TRowKey), typeof(TColKey), typeof(TValue) };
@@ -260,6 +268,7 @@ namespace Bio.Matrix
         {
             string genericsTypeName = typeName + "`3";  // The generic versions will have 3 type parameters, so the type names will all end with `3
 
+#if !SILVERLIGHT
             foreach (Assembly assembly in AllReferencedAssemblies)
             {
                 returnType = assembly.GetType(typeName, false, true);
@@ -277,11 +286,13 @@ namespace Bio.Matrix
                     }
                 }
             }
-            
+#endif
+
             returnType = null;
             return false;
         }
 
+#if !SILVERLIGHT
         private static IEnumerable<string> EnumerateAllUserAssemblyCodeBases()
         {
             Assembly entryAssembly = FileUtils.GetEntryOrCallingAssembly();
@@ -356,6 +367,7 @@ namespace Bio.Matrix
             //}
         }
 
+
         private static IEnumerable<Type> EnumerateMatrixTypes()
         {
             Type mType = typeof(Matrix<TRowKey, TColKey, TValue>);
@@ -377,6 +389,7 @@ namespace Bio.Matrix
                 }
             }
         }
+#endif
 
         internal class MFErrorWriter : StringWriter
         {

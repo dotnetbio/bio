@@ -32,7 +32,7 @@ namespace Bio.Matrix
 
         /// <summary>
         /// Converts matrix to a new DenseMatrix. Even if the inputMatrix is a DenseMatrix, a new DenseMatrix is created. The copy is, thus,
-        /// always deep.
+        /// always deep if TValue is an atomic type.
         /// </summary>
         /// <typeparam name="TRowKey">The type of the row key. Usually "String"</typeparam>
         /// <typeparam name="TColKey">The type of the col key. Usually "String"</typeparam>

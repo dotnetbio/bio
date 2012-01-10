@@ -6,6 +6,7 @@ using Bio.Util;
 using System.Threading.Tasks;
 using System.Diagnostics;
 using System.IO;
+using System.Globalization;
 
 namespace Bio.Matrix
 {
@@ -48,7 +49,7 @@ namespace Bio.Matrix
 
         internal static string StoreListToString(List<UOPair<byte>> storeList, int colCount)
         {
-            Helper.CheckCondition(storeList.Count == colCount, Properties.Resource.ExpectedStoreListCountToEqualColCount, storeList.Count, colCount);
+            Helper.CheckCondition(storeList.Count == colCount, () => string.Format(CultureInfo.InvariantCulture, Properties.Resource.ExpectedStoreListCountToEqualColCount, storeList.Count, colCount));
             StringBuilder sb = new StringBuilder(colCount * 2);
             //05/18/2009 optimize: do on multiple threads?
             foreach (UOPair<byte> store in storeList)
@@ -85,7 +86,7 @@ namespace Bio.Matrix
         protected override UOPair<byte> SparseValToStore(string val)
 #pragma warning restore 1591
         {
-            Helper.CheckCondition(val.Length == 2, Properties.Resource.ExpectedValToContainTwoCharacters, val.Length);
+            Helper.CheckCondition(val.Length == 2, () => string.Format(CultureInfo.InvariantCulture, Properties.Resource.ExpectedValToContainTwoCharacters, val.Length));
             if (val[0].CompareTo(val[1]) == 1)
             {
                 new MatrixFormatException("The char pairs in the sparse file must be sorted. " + val);
@@ -126,7 +127,7 @@ namespace Bio.Matrix
         static public DensePairAnsi CreateEmptyInstance(IEnumerable<string> rowKeySequence, IEnumerable<string> colKeySequence, UOPair<char> missingValue)
         {
             //OK to use Equals because UOPair<char> can't be null.
-            Helper.CheckCondition(missingValue.Equals(StaticMissingValue), Properties.Resource.DensePairAnsiMissingValueSignatureMustBe);
+            Helper.CheckCondition(missingValue.Equals(StaticMissingValue), () => Properties.Resource.DensePairAnsiMissingValueSignatureMustBe);
             DensePairAnsi densePairAnsi = new DensePairAnsi();
             densePairAnsi.InternalCreateEmptyInstance(rowKeySequence, colKeySequence);
             return densePairAnsi;
@@ -174,11 +175,11 @@ namespace Bio.Matrix
                 using (TextReader textReader = File.OpenText(fileName))
                 {
                     string header = textReader.ReadLine();
-                    Helper.CheckCondition(null != header, Properties.Resource.ExpectedFileToHaveHeader, fileName);
+                    Helper.CheckCondition(null != header, () => string.Format(CultureInfo.InvariantCulture, Properties.Resource.ExpectedFileToHaveHeader, fileName));
                     int colKeyCountBefore = colKeyList.Count;
                     string[] headerFields = header.Split('\t');
                     colKeyList.AddRange(headerFields.Skip(1));
-                    Helper.CheckCondition(colKeyCountBefore + headerFields.Length - 1 == colKeyList.Count, Properties.Resource.ExpectedNoOverlapBetweenRowKeys);
+                    Helper.CheckCondition(colKeyCountBefore + headerFields.Length - 1 == colKeyList.Count, () => Properties.Resource.ExpectedNoOverlapBetweenRowKeys);
 
                     //CounterWithMessages counterWithMessages = new CounterWithMessages("reading line {0}", 10000, null);
                     string line;
@@ -186,7 +187,7 @@ namespace Bio.Matrix
                     {
                         //counterWithMessages.Increment();
                         string[] fields = line.Split('\t');
-                        Helper.CheckCondition(fields.Length == 2, Properties.Resource.ExpectedTwoFieldsFoundN, fields.Length);
+                        Helper.CheckCondition(fields.Length == 2, () => string.Format(CultureInfo.InvariantCulture, Properties.Resource.ExpectedTwoFieldsFoundN, fields.Length));
                         if (keepDelegate(fields[0]))
                         {
                             rowKeyToLine.Add(fields[0], fields[1]);
@@ -236,14 +237,19 @@ namespace Bio.Matrix
         //!!! very, very similar to other code
 
         /// <summary>
-        /// Creates a DensePairAnsi object from a sequence of groupings. A grouping here is a roew 
+        /// Creates a DensePairAnsi object from a sequence of groupings. A grouping here is a row 
         /// </summary>
         /// <param name="snpGroupsCidToNucPairEnumerable"></param>
-        /// <param name="inputsMissingChar"></param>
         /// <returns></returns>
-        public static DensePairAnsi GetInstance(IEnumerable<IGrouping<string, KeyValuePair<string, UOPair<char>>>>
-            snpGroupsCidToNucPairEnumerable, char inputsMissingChar)
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures")]
+        public static DensePairAnsi GetInstance(
+            IEnumerable<IGrouping<string, KeyValuePair<string, UOPair<char>>>> snpGroupsCidToNucPairEnumerable)
         {
+            if (snpGroupsCidToNucPairEnumerable == null)
+            {
+                throw new ArgumentNullException("snpGroupsCidToNucPairEnumerable");
+            }
+
             DensePairAnsi densePairAnsi = new DensePairAnsi();
 
             densePairAnsi.ColSerialNumbers = new SerialNumbers<string>();
@@ -251,7 +257,6 @@ namespace Bio.Matrix
 
             foreach (var snpGroupsCidToNucPair in snpGroupsCidToNucPairEnumerable)
             {
-                //!!!const
                 List<UOPair<byte>> storeArray = Enumerable.Repeat(StaticStoreMissingValue, densePairAnsi.ColSerialNumbers.Count).ToList();
                 string var = snpGroupsCidToNucPair.Key;
                 densePairAnsi.RowKeyToStoreList.Add(var, storeArray);
@@ -263,6 +268,7 @@ namespace Bio.Matrix
                     int colIndex = densePairAnsi.ColSerialNumbers.GetNewOrOld(cidAndNucPair.Key);
                     if (colIndex < storeArray.Count)
                     {
+                        Helper.CheckCondition(storeArray[colIndex] == StaticStoreMissingValue, () => string.Format(CultureInfo.InvariantCulture, "Each pair of keys, i,e,.<{0},{1}>, should only be seen once", var, cidAndNucPair.Key));
                         storeArray[colIndex] = densePairAnsi.ValueToStore(valPair);
                     }
                     else
@@ -384,7 +390,7 @@ namespace Bio.Matrix
                     }
                     storeList.Add(store);
                 }
-                Helper.CheckCondition(storeList.Count == matrix.ColCount, Properties.Resource.ExpectedStoreListCountToEqualColCount, storeList.Count, matrix.ColCount);
+                Helper.CheckCondition(storeList.Count == matrix.ColCount, () => string.Format(CultureInfo.InvariantCulture, Properties.Resource.ExpectedStoreListCountToEqualColCount, storeList.Count, matrix.ColCount));
                 string s = DensePairAnsi.StoreListToString(storeList, matrix.ColCount);
                 textWriter.WriteLine(s);
             }

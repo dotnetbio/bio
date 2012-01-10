@@ -1,12 +1,41 @@
 ﻿using System;
+using System.Globalization;
 
 namespace Bio.Util
 {
     /// <summary>
     /// A set of predefined convertion pairs for use with ConvertValueView.
     /// </summary>
+    [Serializable]
     public abstract class ValueConverter
     {
+
+        /// <summary>
+        /// Tries to convert a charater into any other type.
+        /// </summary>
+        /// <typeparam name="T">The other type</typeparam>
+        /// <returns>The converter</returns>
+        static public ValueConverter<char, T> GetCharToGeneric<T>()
+        {
+            //if (typeof(T).Equals(typeof(char)))
+            //{
+            //    return (ValueConverter<char, T>)(object)CharToChar;
+            //}
+            if (typeof(T).Equals(typeof(string)))
+            {
+                return (ValueConverter<char, T>)(object)CharToString;
+            }
+            if (typeof(T).Equals(typeof(int)))
+            {
+                return (ValueConverter<char, T>)(object)CharToInt;
+            }
+            if (typeof(T).Equals(typeof(double)))
+            {
+                return (ValueConverter<char, T>)(object)CharToDouble;
+            }
+            throw new ArgumentOutOfRangeException(string.Format(CultureInfo.InvariantCulture, "Don't have a predefined converter for char to {0}.", typeof(T)));
+        }
+
         /// <summary>
         /// Converts the characters '0'...'9' to the integers 0 ... 9
         /// </summary>
@@ -32,6 +61,11 @@ namespace Bio.Util
         /// </summary>
         public static readonly ValueConverter<int, double> IntToDouble = new IntToDoubleConverter();
         /// <summary>
+        /// Converts an int 0 and int 1 to a double
+        /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes")]
+        public static readonly ValueConverter<int, double> Int01ToDouble = new Int01ToDoubleConverter();
+        /// <summary>
         /// Converts the doubles 0.0 ... 9.0 to the characters '0' ... '9'.
         /// </summary>
         public static readonly ValueConverter<double, char> DoubleToChar = CharToDouble.Inverted;
@@ -39,6 +73,11 @@ namespace Bio.Util
         /// Converts a double to an int.
         /// </summary>
         public static readonly ValueConverter<double, int> DoubleToInt = IntToDouble.Inverted;
+        /// <summary>
+        /// Converts a double to an int 0 or int 1.
+        /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes")]
+        public static readonly ValueConverter<double, int> DoubleToInt01 = Int01ToDouble.Inverted;
         /// <summary>
         /// Converts the character '0' to the double -1.0 and the character '1' to the double 1.0.
         /// </summary>
@@ -67,6 +106,8 @@ namespace Bio.Util
     /// </summary>
     /// <typeparam name="TInput">The type to convert from</typeparam>
     /// <typeparam name="TOutput">The type to convert to</typeparam>
+    /// 
+    [Serializable]
     public class ValueConverter<TInput, TOutput> : ValueConverter
     {
         /// <summary>
@@ -107,26 +148,70 @@ namespace Bio.Util
 
 
     #region Implementations
+
+    [Serializable]
     internal class CharToIntConverter : ValueConverter<char, int>
     {
         public CharToIntConverter() : base(c => int.Parse(c.ToString()), i => Helper.FirstAndOnly(i.ToString())) { }
     }
 
+    [Serializable]
     internal class CharToStringConverter : ValueConverter<char, string>
     {
         public CharToStringConverter() : base(c => c.ToString(), s => Helper.FirstAndOnly(s)) { }
     }
 
 
+    [Serializable]
     internal class CharToDoubleConverter : ValueConverter<char, double>
     {
         public CharToDoubleConverter() : base(c => double.Parse(c.ToString()), i => Helper.FirstAndOnly(i.ToString())) { }
     }
 
+    [Serializable]
     internal class IntToDoubleConverter : ValueConverter<int, double>
     {
-        public IntToDoubleConverter() : base(i => (double) i, d => (int) d) { }
+        public IntToDoubleConverter()
+            : base(
+                i => (double)i,
+                d =>
+                {
+                    int i = (int)d;
+                    if ((double)i != d)
+                    {
+                        throw new ArgumentOutOfRangeException(string.Format(CultureInfo.InvariantCulture, "Cannot convert {0} into an integer", d));
+                    }
+                    return i;
+                }
+                )
+        { }
     }
+
+    [Serializable]
+    internal class Int01ToDoubleConverter : ValueConverter<int, double>
+    {
+        public Int01ToDoubleConverter()
+            : base(
+                i =>
+                {
+                    switch (i)
+                    {
+                        case 0: return 0.0;
+                        case 1: return 1.0;
+                    }
+                    throw new ArgumentOutOfRangeException(string.Format(CultureInfo.InvariantCulture, "Expect value to be 0 or 1, not {0}", i));
+                },
+
+                d =>
+                {
+                    if (d == 0.0) return 0;
+                    if (d == 1.0) return 1;
+                    throw new ArgumentOutOfRangeException(string.Format(CultureInfo.InvariantCulture, "Expect value to be 0.0 or 1.0, not {0}", d));
+                }
+                )
+        { }
+    }
+
 
     internal class CharACTGToDouble0123Converter : ValueConverter<char, double>
     {
@@ -138,20 +223,20 @@ namespace Bio.Util
             else if (d == 1.0) return 'C';
             else if (d == 2.0) return 'G';
             else if (d == 3.0) return 'T';
-            else throw new Exception(string.Format(Properties.Resource.ErrorConvertingDoubleToNucleotide, d));
+            else throw new ArgumentOutOfRangeException(string.Format(Properties.Resource.ErrorConvertingDoubleToNucleotide, d));
         }
 
         static public double ACTGTo0123Double(char c)
         {
-            if (c == 'A'||c=='a')
+            if (c == 'A' || c == 'a')
             {
                 return 0.0;
             }
-            else if (c == 'C'||c=='c')
+            else if (c == 'C' || c == 'c')
             {
                 return 1.0;
             }
-            else if (c == 'G'||c=='g')
+            else if (c == 'G' || c == 'g')
             {
                 return 2.0;
             }
@@ -161,7 +246,7 @@ namespace Bio.Util
             }
             else
             {
-                throw new Exception(string.Format(Properties.Resource.ErrorConvertingCharacterNucleotideToDouble, c));
+                throw new ArgumentOutOfRangeException(string.Format(Properties.Resource.ErrorConvertingCharacterNucleotideToDouble, c));
             }
         }
     }
@@ -180,7 +265,7 @@ namespace Bio.Util
             {
                 return 1.0;
             }
-            Helper.CheckCondition(false, Properties.Resource.ExpectedCharToBeZeroOrOne, c);
+            Helper.CheckCondition(false, () => string.Format(CultureInfo.InvariantCulture, Properties.Resource.ExpectedCharToBeZeroOrOne, c));
             return double.NaN;
         }
 
@@ -194,7 +279,7 @@ namespace Bio.Util
             {
                 return '1';
             }
-            Helper.CheckCondition(false, Properties.Resource.ExpectDoubleToBeMinusOneOrOne, r);
+            Helper.CheckCondition(false, () => string.Format(CultureInfo.InvariantCulture, Properties.Resource.ExpectDoubleToBeMinusOneOrOne, r));
             return default(char);
         }
 
@@ -214,13 +299,13 @@ namespace Bio.Util
             {
                 return true;
             }
-            Helper.CheckCondition(false, Properties.Resource.ExpectedCharToBeZeroOrOne, c);
+            Helper.CheckCondition(false, () => string.Format(CultureInfo.InvariantCulture, Properties.Resource.ExpectedCharToBeZeroOrOne, c));
             return null;
         }
 
         static public char BoolToZeroOneChar(bool? r)
         {
-            Helper.CheckCondition(r.HasValue, Properties.Resource.ExpectedBoolToBeTrueOrFalse);
+            Helper.CheckCondition(r.HasValue, () => Properties.Resource.ExpectedBoolToBeTrueOrFalse);
             if (r.Value)
             {
                 return '1';

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Bio.Util;
 using Bio.Util.Logging;
+using System.Globalization;
 
 //!!!would be nice to have a TryGetInstance(filename) that didn't throw MatrixFormatException or any other exception
 
@@ -48,7 +49,7 @@ namespace Bio.Matrix
         }
         internal static string StoreListToString(List<byte> storeList, int colCount)
         {
-            Helper.CheckCondition(storeList.Count == colCount, Properties.Resource.ExpectedStoreListCountToEqualColCount, storeList.Count, colCount);
+            Helper.CheckCondition(storeList.Count == colCount, () => string.Format(CultureInfo.InvariantCulture, Properties.Resource.ExpectedStoreListCountToEqualColCount, storeList.Count, colCount));
             StringBuilder sb = new StringBuilder(colCount);
             //05/18/2009 optimize: do on multiple threads?
             foreach (byte store in storeList)
@@ -69,7 +70,7 @@ namespace Bio.Matrix
         protected override byte SparseValToStore(string val)
 #pragma warning restore 1591
         {
-            Helper.CheckCondition(val.Length == 1, Properties.Resource.ErrorConvertingSparseValToStore, val.Length);
+            Helper.CheckCondition(val.Length == 1, () => string.Format(CultureInfo.InvariantCulture, Properties.Resource.ErrorConvertingSparseValToStore, val.Length));
             return (byte)val[0];
         }
         internal static string StoreToSparseVal(byte store)
@@ -221,7 +222,6 @@ namespace Bio.Matrix
             if (!DenseAnsi.TryGetInstance(filename, '?', parallelOptions, out sscMatrix))
                 return false;
             matrix = sscMatrix.ConvertValueView(new CharToGenericConverter<TValue>(), missingValue);
-            //matrix = sscMatrix.ConvertValueView(c => Parser.Parse<TValue>(c.ToString()), val => SpecialFunctions.FirstAndOnly<char>(val.ToString()), missingValue);
 
             return true;
         }
@@ -319,6 +319,41 @@ namespace Bio.Matrix
             return denseAnsi;
         }
         #endregion
+        /// <summary>
+        /// Create a DenseAnsi object from a sequence of RowKeyColKeyValue triples.
+        /// </summary>
+        /// <param name="tripleEnumerable">a sequence of RowKeyColKeyValue</param>
+        /// <returns>A DenseAnsi object</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures")]
+        public static DenseAnsi GetInstanceFromSparse(IEnumerable<RowKeyColKeyValue<string, string, char>> tripleEnumerable)
+        {
+            DenseAnsi denseAnsi = new DenseAnsi();
+            denseAnsi.GetInstanceFromSparseInternal(tripleEnumerable);
+            return denseAnsi;
+        }
+
+
+        /// <summary>
+        /// Write this DenseAnsi matrix to file.
+        /// </summary>
+        /// <param name="filename">The file to write to.</param>
+        /// <param name="parallelOptions">A ParallelOptions instance that configures the multithreaded behavior of this operation.</param>
+        public void WriteDenseAnsi(string filename, ParallelOptions parallelOptions)
+        {
+            Write(filename, parallelOptions);
+        }
+
+        /// <summary>
+        /// Write this DenseAnsi matrix to a textWriter
+        /// </summary>
+        /// <param name="textWriter"></param>
+        /// <param name="parallelOptions">A ParallelOptions instance that configures the multithreaded behavior of this operation.</param>
+        /// <param name="verbose">ignored</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "verbose"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed")]
+        public void WriteDenseAnsi(TextWriter textWriter, ParallelOptions parallelOptions, bool verbose = false)
+        {
+            Write(textWriter, parallelOptions);
+        }
     }
 
     /// <summary>
@@ -412,10 +447,12 @@ namespace Bio.Matrix
         /// <param name="matrix">The matrix to write</param>
         /// <param name="textWriter">The stream to write to</param>
         /// <param name="parallelOptions">A ParallelOptions instance that configures the multithreaded behavior of this operation.</param>
-        public static void WriteDenseAnsi<T>(this Matrix<string, string, T> matrix, TextWriter textWriter, ParallelOptions parallelOptions)
+        /// <param name="verbose">If true, may write out messages to the console telling how far along the writing is.</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed")]
+        public static void WriteDenseAnsi<T>(this Matrix<string, string, T> matrix, TextWriter textWriter, ParallelOptions parallelOptions, bool verbose = false)
         {
-            Matrix<string, string, char> matrixInternal = matrix.ConvertValueView(new CharToGenericConverter<T>().Inverted, DenseAnsi.StaticMissingValue);
-            matrixInternal.WriteDenseAnsi(textWriter, parallelOptions);
+            Matrix<string, string, char> matrixInternal = matrix.ConvertValueView(ValueConverter.GetCharToGeneric<T>().Inverted, DenseAnsi.StaticMissingValue);
+            matrixInternal.WriteDenseAnsi(textWriter, parallelOptions, verbose);
         }
 
         /// <summary>
@@ -424,8 +461,11 @@ namespace Bio.Matrix
         /// <param name="matrix">The matrix to write</param>
         /// <param name="textWriter">The stream to write to</param>
         /// <param name="parallelOptions">A ParallelOptions instance that configures the multithreaded behavior of this operation.</param>
-        public static void WriteDenseAnsi(this Matrix<string, string, char> matrix, TextWriter textWriter, ParallelOptions parallelOptions)
+        /// <param name="verbose">If true, may write out messages to the console telling how far along the writing is.</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "verbose"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "parallelOptions"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "1"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed")]
+        public static void WriteDenseAnsi(this Matrix<string, string, char> matrix, TextWriter textWriter, ParallelOptions parallelOptions, bool verbose = false)
         {
+
             textWriter.WriteLine("var\t{0}", matrix.ColKeys.StringJoin("\t"));
             foreach (string rowKey in matrix.RowKeys)
             {
@@ -449,7 +489,7 @@ namespace Bio.Matrix
                     storeList.Add(store);
                 }
 
-                Helper.CheckCondition(storeList.Count == matrix.ColCount, Properties.Resource.ExpectedStoreListCountToEqualColCount, storeList.Count, matrix.ColCount);
+                Helper.CheckCondition(storeList.Count == matrix.ColCount, () => string.Format(CultureInfo.InvariantCulture, Properties.Resource.ExpectedStoreListCountToEqualColCount, storeList.Count, matrix.ColCount));
                 string s = DenseAnsi.StoreListToString(storeList, matrix.ColCount);
                 textWriter.WriteLine(s);
             }

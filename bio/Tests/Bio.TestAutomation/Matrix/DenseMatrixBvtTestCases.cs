@@ -1834,7 +1834,7 @@ namespace Bio.TestAutomation.Matrix
             DenseMatrix<string, string, double> denseMatObj =
                 GetDenseMatrix();
 
-            string strJoin = denseMatObj.RowKeyColKeyValues.StringJoin(".", 2, "N").Replace("<", "").Replace(">", "");
+            string strJoin = denseMatObj.RowKeyColKeyValues.StringJoin("", 2, "N").Replace("<", "").Replace(">", "").Replace("N", ".N");
             string expStrJoin = utilityObj.xmlUtil.GetTextValue(Constants.SimpleMatrixNodeName,
                 Constants.DenseStringJoinSeparatorEtcNode);
 

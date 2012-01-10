@@ -135,7 +135,7 @@ namespace Bio.Matrix
 
         public bool Contains(KeyValuePair<TColKey, TValue> pair)
         {
-            Helper.CheckCondition(!_matrix.IsMissing(pair.Value), Properties.Resource.MatrixSpecialValueUseError);
+            Helper.CheckCondition(!_matrix.IsMissing(pair.Value), () => Properties.Resource.MatrixSpecialValueUseError);
             return _matrix.GetValueOrMissing(_rowKey, pair.Key).Equals(pair.Value);
         }
 

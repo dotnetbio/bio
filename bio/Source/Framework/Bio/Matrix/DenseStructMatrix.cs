@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Bio.Util;
 using Bio.Util.Logging;
+using System.Globalization;
 
 //!!!would be nice to have a TryGetInstance(filename) that didn't throw MatrixFormatException or any other exception
 
@@ -330,15 +331,15 @@ namespace Bio.Matrix
             using (TextReader textReader = FileUtils.OpenTextStripComments(denseStructFileName))
             {
                 string header = textReader.ReadLine();
-                Helper.CheckCondition(null != header, Properties.Resource.ExpectedFileToHaveHeader, denseStructFileName);
+                Helper.CheckCondition(null != header, () => string.Format(CultureInfo.InvariantCulture, Properties.Resource.ExpectedFileToHaveHeader, denseStructFileName));
                 string[] columns = header.Split(new char[] { '\t' }, 2);
-                Helper.CheckCondition(columns.Length > 0 && columns[0] == "var", Properties.Resource.ExpectedFileToHaveHeader, denseStructFileName);
+                Helper.CheckCondition(columns.Length > 0 && columns[0] == "var", () => string.Format(CultureInfo.InvariantCulture, Properties.Resource.ExpectedFileToHaveHeader, denseStructFileName));
 
                 string line;
                 while (null != (line = textReader.ReadLine()))
                 {
                     string[] fields = line.Split('\t');
-                    Helper.CheckCondition(fields.Length == 2, Properties.Resource.ExpectedEveryVarLineToHaveOneTab, denseStructFileName, fields.Length);
+                    Helper.CheckCondition(fields.Length == 2, () => string.Format(CultureInfo.InvariantCulture, Properties.Resource.ExpectedEveryVarLineToHaveOneTab, denseStructFileName, fields.Length));
                     string rowKey = fields[0];
                     yield return rowKey;
                 }
@@ -358,7 +359,7 @@ namespace Bio.Matrix
                 string header = textReader.ReadLine();
                 Helper.CheckCondition(null != header, Properties.Resource.ExpectedHeaderAsFirstLineOfFile, denseStructFileName);
                 string[] columns = header.Split(new char[] { '\t' }, 2);
-                Helper.CheckCondition(columns.Length > 0 && columns[0] == "var", Properties.Resource.Expected_var_AsFirstColumnOfHeader, columns[0], denseStructFileName);
+                Helper.CheckCondition(columns.Length > 0 && columns[0] == "var", () => string.Format(CultureInfo.InvariantCulture, Properties.Resource.Expected_var_AsFirstColumnOfHeader, columns[0], denseStructFileName));
 
                 return columns[1].Split('\t');
             }
@@ -541,16 +542,17 @@ namespace Bio.Matrix
                     string colKey = rowKeyColKeyVal[1];
                     string valAsString = rowKeyColKeyVal[2];
                     TStore store = SparseValToStore(valAsString);
-                    Helper.CheckCondition(!store.Equals(StoreMissingValue), Properties.Resource.ErrorConvertingValGaveMissingValue, valAsString, StoreMissingValue); //OK to use Equals because TScore can't be null
+                    Helper.CheckCondition(!store.Equals(StoreMissingValue), () => string.Format(CultureInfo.InvariantCulture, Properties.Resource.ErrorConvertingValGaveMissingValue, valAsString, StoreMissingValue)); //OK to use Equals because TScore can't be null
 
                     int colIndex = ColSerialNumbers.GetNewOrOld(colKey);
                     if (colIndex < storeList.Count)
                     {
+                        Helper.CheckCondition(storeList[colIndex].Equals(StoreMissingValue), () => string.Format(CultureInfo.InvariantCulture, "Each pair of keys, i,e,.<{0},{1}>, should only be seen once", rowKey, colKey));
                         storeList[colIndex] = store;
                     }
                     else
                     {
-                        Helper.CheckCondition(colIndex == storeList.Count, Properties.Resource.ErrorInputDataShouldBeGroupedByVar);
+                        Helper.CheckCondition(colIndex == storeList.Count, () => Properties.Resource.ErrorInputDataShouldBeGroupedByVar);
                         storeList.Add(store);
                     }
                 }
@@ -585,11 +587,12 @@ namespace Bio.Matrix
                 string colKey = triple.ColKey;
                 TValue value = triple.Value;
                 TStore store = ValueToStore(value);
-                Helper.CheckCondition(!store.Equals(StoreMissingValue), Properties.Resource.ErrorConvertingValGaveMissingValue, value, StoreMissingValue);
+                Helper.CheckCondition(!store.Equals(StoreMissingValue), () => string.Format(CultureInfo.InvariantCulture, Properties.Resource.ErrorConvertingValGaveMissingValue, value, StoreMissingValue));
 
                 int colIndex = ColSerialNumbers.GetNewOrOld(colKey);
                 if (colIndex < storeList.Count)
                 {
+                    Helper.CheckCondition(storeList[colIndex].Equals(StoreMissingValue), () => string.Format(CultureInfo.InvariantCulture, "Each pair of keys, i,e,.<{0},{1}>, should only be seen once", rowKey, colKey));
                     storeList[colIndex] = store;
                 }
                 else
@@ -599,7 +602,7 @@ namespace Bio.Matrix
                         storeList.Add(StoreMissingValue);
                     }
                     // REVIEW:  is this a bogus check?  Only a failure of storeList.Add could make this not be true
-                    Helper.CheckCondition(colIndex == storeList.Count, Properties.Resource.RealAssert);
+                    Helper.CheckCondition(colIndex == storeList.Count, () => Properties.Resource.RealAssert);
                     storeList.Add(store);
                 }
             }
@@ -679,13 +682,13 @@ namespace Bio.Matrix
                 using (TextReader textReader = FileUtils.OpenTextStripComments(fileName))
                 {
                     string header = textReader.ReadLine();
-                    Helper.CheckCondition(header != null, Properties.Resource.ExpectedFileToHaveHeader, fileName);
-                    Helper.CheckCondition(header.Equals("var\tcid\tval", StringComparison.InvariantCultureIgnoreCase), Properties.Resource.ExpectedHeaderToBe_var_cid_val, header);
+                    Helper.CheckCondition(header != null, () => string.Format(CultureInfo.InvariantCulture, Properties.Resource.ExpectedFileToHaveHeader, fileName));
+                    Helper.CheckCondition(header.Equals("var\tcid\tval", StringComparison.InvariantCultureIgnoreCase), () => string.Format(CultureInfo.InvariantCulture, Properties.Resource.ExpectedHeaderToBe_var_cid_val, header));
                     string line;
                     while (null != (line = textReader.ReadLine()))
                     {
                         string[] fields = line.Split('\t');
-                        Helper.CheckCondition(fields.Length == 3, Properties.Resource.ExpectedThreeFields, fields.Length, line);
+                        Helper.CheckCondition(fields.Length == 3, () => string.Format(CultureInfo.InvariantCulture, Properties.Resource.ExpectedThreeFields, fields.Length, line));
                         yield return fields;
                     }
                 }

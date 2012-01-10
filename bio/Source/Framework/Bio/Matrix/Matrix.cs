@@ -7,6 +7,8 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using Bio.Util;
+using System.Collections;
+using System.Globalization;
 
 namespace Bio.Matrix
 {
@@ -16,7 +18,8 @@ namespace Bio.Matrix
     /// <typeparam name="TRowKey">The type of the row key. Usually "String"</typeparam>
     /// <typeparam name="TColKey">The type of the col key. Usually "String"</typeparam>
     /// <typeparam name="TValue">The type of the value, for example, double, int, char, etc.</typeparam>
-    abstract public class Matrix<TRowKey, TColKey, TValue> //: IMatrix<TRowKey, TColKey, TValue>
+    [Serializable]
+    abstract public class Matrix<TRowKey, TColKey, TValue> : IList<IList<TValue>>
     {
         /// <summary>
         /// Gets or sets the value associated with the specified indexes.
@@ -119,14 +122,26 @@ namespace Bio.Matrix
         /// <returns>a value if the matrix contains an element with the specified keys; otherwise, the special Missing value.</returns>
         public TValue GetValueOrMissing(TRowKey rowKey, TColKey colKey)
         {
-            TValue value;
-            if (TryGetValue(rowKey, colKey, out value))
+            try
             {
-                return value;
+                TValue value;
+                if (TryGetValue(rowKey, colKey, out value))
+                {
+                    return value;
+                }
+                else
+                {
+                    return MissingValue;
+                }
             }
-            else
+            catch (KeyNotFoundException)
             {
-                return MissingValue;
+                if (!ContainsRowKey(rowKey))
+                    throw new KeyNotFoundException(string.Format(CultureInfo.InvariantCulture, "Row key {0} is not in the matrix.", rowKey));
+                else if (!ContainsColKey(colKey))
+                    throw new KeyNotFoundException(string.Format(CultureInfo.InvariantCulture, "Column key {0} is not in the matrix.", colKey));
+                else
+                    throw;
             }
         }
 
@@ -244,16 +259,16 @@ namespace Bio.Matrix
         /// This method returns false if the value is already missing from the Matrix.</returns>
         virtual public bool Remove(TRowKey rowKey, TColKey colKey)
         {
-                TValue oldValue;
-                if (TryGetValue(rowKey, colKey, out oldValue)) //Is there a (non-missing) value?
-                {
-                    SetValueOrMissing(rowKey, colKey, MissingValue);
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
+            TValue oldValue;
+            if (TryGetValue(rowKey, colKey, out oldValue)) //Is there a (non-missing) value?
+            {
+                SetValueOrMissing(rowKey, colKey, MissingValue);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         /// <summary>
@@ -339,6 +354,7 @@ namespace Bio.Matrix
             bool containsRowKey = IndexOfRowKey.ContainsKey(rowKey);
             return containsRowKey;
         }
+
 
         /// <summary>
         /// Determines whether the Matrix contains the specified col key.
@@ -479,7 +495,16 @@ namespace Bio.Matrix
                 foreach (TColKey colKey in ColKeys)
                 {
                     textWriter.Write("\t");
-                    textWriter.Write(GetValueOrMissing(rowKey, colKey));
+                    TValue value = GetValueOrMissing(rowKey, colKey);
+                    IEnumerable asEnum = value as IEnumerable;
+                    if (!(value is string) && asEnum != null)
+                    {
+                        textWriter.Write(asEnum.StringJoin(","));
+                    }
+                    else
+                    {
+                        textWriter.Write(value);
+                    }
                 }
                 textWriter.WriteLine();
             }
@@ -653,7 +678,106 @@ namespace Bio.Matrix
 
             return true;
         }
+
+
+        #region IList<IList<TValue>> Members
+
+        int IList<IList<TValue>>.IndexOf(IList<TValue> item)
+        {
+            throw new NotImplementedException();
+        }
+
+        void IList<IList<TValue>>.Insert(int index, IList<TValue> item)
+        {
+            throw new NotImplementedException(); //!!!don't allow this
+        }
+
+        void IList<IList<TValue>>.RemoveAt(int index)
+        {
+            throw new NotImplementedException(); //!!!don't allow this
+        }
+
+        IList<TValue> IList<IList<TValue>>.this[int rowIndex]
+        {
+            get
+            {
+                return new MatrixRowAsIList<TRowKey, TColKey, TValue>(this, rowIndex);
+            }
+            set
+            {
+                throw new NotImplementedException(); //!!!don't allow this
+            }
+        }
+
+        #endregion
+
+        #region ICollection<IList<TValue>> Members
+
+        void ICollection<IList<TValue>>.Add(IList<TValue> item)
+        {
+            throw new NotImplementedException(); //!!!don't allow this
+        }
+
+        void ICollection<IList<TValue>>.Clear()
+        {
+            throw new NotImplementedException(); //!!!don't allow this
+        }
+
+        bool ICollection<IList<TValue>>.Contains(IList<TValue> item)
+        {
+            throw new NotImplementedException();
+        }
+
+        void ICollection<IList<TValue>>.CopyTo(IList<TValue>[] array, int arrayIndex)
+        {
+            throw new NotImplementedException();
+        }
+
+        int ICollection<IList<TValue>>.Count
+        {
+            get
+            {
+                return RowCount;
+            }
+        }
+
+        bool ICollection<IList<TValue>>.IsReadOnly
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        bool ICollection<IList<TValue>>.Remove(IList<TValue> item)
+        {
+            throw new NotImplementedException(); //!!!don't allow this
+        }
+
+        #endregion
+
+        #region IEnumerable<IList<TValue>> Members
+
+        IEnumerator<IList<TValue>> IEnumerable<IList<TValue>>.GetEnumerator()
+        {
+            for (int rowIndex = 0; rowIndex < RowCount; ++rowIndex)
+            {
+                yield return new MatrixRowAsIList<TRowKey, TColKey, TValue>(this, rowIndex);
+            }
+        }
+
+        #endregion
+
+        #region IEnumerable Members
+
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+        {
+            return ((IEnumerable<IList<TValue>>)this).GetEnumerator();
+            //throw new NotImplementedExceptkion();//!!Use Values() or RowKeyValueKeyValues() or IListOfILists()
+        }
+
+        #endregion
+
+
     }
+
 
     /// <summary>
     /// A structure for representing the triple of rowKey, colKey, and value.
@@ -661,6 +785,7 @@ namespace Bio.Matrix
     /// <typeparam name="TRowKey">The type of the row key. Usually "String"</typeparam>
     /// <typeparam name="TColKey">The type of the col key. Usually "String"</typeparam>
     /// <typeparam name="TValue">The type of the value, for example, double, int, char, etc.</typeparam>
+    [Serializable]
     public struct RowKeyColKeyValue<TRowKey, TColKey, TValue>
     {
         /// <summary>
@@ -696,6 +821,21 @@ namespace Bio.Matrix
         public override string ToString()
         {
             return string.Format("<{0},{1},{2}>", RowKey, ColKey, Value);
+        }
+    }
+
+
+    /// <summary>
+    /// Defines a static Create method.
+    /// </summary>
+    static public class RowKeyColKeyValue
+    {
+        /// <summary>
+        /// Usage:  RowKeyColKeyValue.Create(rowKey, colKey, value)
+        /// </summary>
+        public static RowKeyColKeyValue<TRowKey, TColKey, TValue> Create<TRowKey, TColKey, TValue>(TRowKey rowKey, TColKey colKey, TValue value)
+        {
+            return new RowKeyColKeyValue<TRowKey, TColKey, TValue>(rowKey, colKey, value);
         }
     }
 
@@ -743,17 +883,16 @@ namespace Bio.Matrix
         }
 
         /// <summary>
-        ///     Initializes a new instance of the System.FormatException class with a specified
-        ///     error message and a referenece to the inner exception that is the cause of
-        ///     this exception.
+        /// Set the exception string with the innerException.
         /// </summary>
-        /// <param name="message">The error message that explains the reason for the exception.</param>
-        /// <param name="innerException">The exception that is the cause of the current exception. If the innerException parameter is not a null reference (Nothing in Visual Basic), the current exception is raised in a catch block that handles the inner exception.</param>
+        /// <param name="message"></param>
+        /// <param name="innerException"></param>
         public MatrixFormatException(string message, Exception innerException)
             : base(message, innerException)
         {
         }
 
+#if !SILVERLIGHT
         /// <summary>
         ///     Initializes a new instance of the System.SystemException class with serialized data.
         /// </summary>
@@ -763,6 +902,7 @@ namespace Bio.Matrix
             : base(info, context)
         {
         }
+#endif
 
         internal static void CheckCondition(bool condition, string message)
         {

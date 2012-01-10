@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using Bio.Util;
+using System;
 
 namespace Bio.Matrix
 {
@@ -12,6 +13,7 @@ namespace Bio.Matrix
     /// <typeparam name="TRowKey">The type of the row key. Usually "String"</typeparam>
     /// <typeparam name="TColKey">The type of the col key. Usually "String"</typeparam>
     /// <typeparam name="TValue">The type of the value, for example, double, int, char, etc.</typeparam>
+    [Serializable]
     public class MergeRowsView<TRowKey, TColKey, TValue> : AbstractMatrixView<TRowKey, TColKey, TValue>
     {
         TValue _missingValue;
@@ -20,6 +22,8 @@ namespace Bio.Matrix
         RestrictedAccessDictionary<TRowKey, int> _indexOfRowKey;
         RestrictedAccessDictionary<TColKey, int> _indexOfColKey;
         Dictionary<TRowKey, Matrix<TRowKey, TColKey, TValue>> _rowKeyToMatrix;
+
+
 
         /// <summary>
         /// Creates a new view in which the rows of the matrices are merged. The rows will be in the order
@@ -32,8 +36,8 @@ namespace Bio.Matrix
         /// <param name="matrices">One or more matricies with which to concatinate rows.</param>
         public MergeRowsView(bool colsMustMatch, params Matrix<TRowKey, TColKey, TValue>[] matrices)
         {
-            Helper.CheckCondition(matrices.Length > 0, Properties.Resource.ExpectedNonZeroLengthArrayOfMatrices);
-            Helper.CheckCondition(matrices.All(m => m.IsMissing(matrices[0].MissingValue)), Properties.Resource.ExpectedAllMatricesToHaveSameMissingValue);
+            Helper.CheckCondition(matrices.Length > 0, () => Properties.Resource.ExpectedNonZeroLengthArrayOfMatrices);
+            Helper.CheckCondition(matrices.All(m => m.IsMissing(matrices[0].MissingValue)), () => Properties.Resource.ExpectedAllMatricesToHaveSameMissingValue);
             _missingValue = matrices[0].MissingValue;
 
             IEnumerable<TColKey> colKeys = matrices[0].ColKeys;
@@ -46,18 +50,35 @@ namespace Bio.Matrix
             {
                 if (colsMustMatch)
                 {
-                    Helper.CheckCondition(Helper.KeysEqual(matrices[0].IndexOfColKey, matrices[i].IndexOfColKey), Properties.Resource.ExpectedColumnsToMatch);
+                    Helper.CheckCondition(Helper.KeysEqual(matrices[0].IndexOfColKey, matrices[i].IndexOfColKey), () => Properties.Resource.ExpectedColumnsToMatch);
                 }
                 else
                 {
                     colKeys = colKeys.Intersect(matrices[i].ColKeys);
                 }
 
-                rowKeys.AddRange(matrices[i].RowKeys);
-                matrices[i].RowKeys.ForEach(rowKey => _rowKeyToMatrix.Add(rowKey, matrices[i]));
+                //rowKeys.AddRange(matrices[i].RowKeys);
+                foreach (var rowKey in matrices[i].RowKeys)
+                {
+                    if (_rowKeyToMatrix.ContainsKey(rowKey))
+                    {
+                        var prevMatrix = _rowKeyToMatrix[rowKey];
+                        // check that all the values are identical. not that GetValueOrMissing().Equals is not safe because missing value may be null.
+                        Helper.CheckCondition<System.ArgumentException>(colKeys.All(colKey =>
+                            prevMatrix.IsMissing(rowKey, colKey) ?
+                                matrices[i].IsMissing(rowKey, colKey) :
+                                prevMatrix[rowKey, colKey].Equals(matrices[i].GetValueOrMissing(rowKey, colKey))), Properties.Resource.ThereAreDuplicateRowsWhichDoNotHDupRowsNonIdenticalValues);
+                    }
+                    else
+                    {
+                        _rowKeyToMatrix.Add(rowKey, matrices[i]);
+                        rowKeys.Add(rowKey);
+                    }
+                }
+                //matrices[i].RowKeys.ForEach(rowKey => _rowKeyToMatrix.Add(rowKey, matrices[i]));
             }
 
-            Helper.CheckCondition(rowKeys.Count == rowKeys.Distinct().Count(), Properties.Resource.ExpectedUniqueRowKeysInMatrix);
+            Helper.CheckCondition(rowKeys.Count == rowKeys.Distinct().Count(), () => Properties.Resource.ExpectedUniqueRowKeysInMatrix);
 
             _rowKeys = rowKeys.AsReadOnly();
             _colKeys = colKeys.ToList().AsReadOnly();
@@ -66,58 +87,65 @@ namespace Bio.Matrix
             _indexOfColKey = _colKeys.Select((key, i) => new KeyValuePair<TColKey, int>(key, i)).ToDictionary().AsRestrictedAccessDictionary();
         }
 
-        internal override void GetMatrixAndIndex(int rowIndex, int colIndex, out Matrix<TRowKey, TColKey, TValue> resultMatrix, out int mappedRowIndex, out int mappedColIndex)
+#pragma warning disable 1591
+        protected override void GetMatrixAndIndex(int rowIndex, int colIndex, out Matrix<TRowKey, TColKey, TValue> m, out int mappedRowIndex, out int mappedColIndex)
+#pragma warning restore 1591
         {
-            resultMatrix = null;
+            m = null;
             mappedColIndex = mappedRowIndex = -1;
 
             TRowKey rowKey = _rowKeys[rowIndex];
             TColKey colKey = _colKeys[colIndex];
 
-            resultMatrix = _rowKeyToMatrix[rowKey];
+            m = _rowKeyToMatrix[rowKey];
 
-            mappedRowIndex = resultMatrix.IndexOfRowKey[rowKey];
-            mappedColIndex = resultMatrix.IndexOfColKey[colKey];
+            mappedRowIndex = m.IndexOfRowKey[rowKey];
+            mappedColIndex = m.IndexOfColKey[colKey];
         }
 
-        internal override void GetMatrixAndKey(TRowKey rowKey, TColKey colKey, out Matrix<TRowKey, TColKey, TValue> m, out TRowKey mappedRowKey, out TColKey mappedColKey)
+#pragma warning disable 1591
+        protected override void GetMatrixAndKey(TRowKey rowKey, TColKey colKey, out Matrix<TRowKey, TColKey, TValue> m, out TRowKey mappedRowKey, out TColKey mappedColKey)
+#pragma warning restore 1591
         {
             mappedColKey = colKey;
             mappedRowKey = rowKey;
-            m = _rowKeyToMatrix[rowKey];
+
+            bool isOK = _rowKeyToMatrix.TryGetValue(rowKey, out m);
+            Helper.CheckCondition<KeyNotFoundException>(isOK, "RowKey '{0}' not found", rowKey);
+            //m = _rowKeyToMatrix[rowKey];
         }
 
-        #pragma warning disable 1591
+#pragma warning disable 1591
         public override ReadOnlyCollection<TRowKey> RowKeys
-        #pragma warning restore 1591
+#pragma warning restore 1591
         {
             get { return _rowKeys; }
         }
 
-        #pragma warning disable 1591
+#pragma warning disable 1591
         public override ReadOnlyCollection<TColKey> ColKeys
-        #pragma warning restore 1591
+#pragma warning restore 1591
         {
             get { return _colKeys; }
         }
 
-        #pragma warning disable 1591
+#pragma warning disable 1591
         public override IDictionary<TRowKey, int> IndexOfRowKey
-        #pragma warning restore 1591
+#pragma warning restore 1591
         {
             get { return _indexOfRowKey; }
         }
 
-        #pragma warning disable 1591
+#pragma warning disable 1591
         public override IDictionary<TColKey, int> IndexOfColKey
-        #pragma warning restore 1591
+#pragma warning restore 1591
         {
             get { return _indexOfColKey; }
         }
 
-        #pragma warning disable 1591
+#pragma warning disable 1591
         public override TValue MissingValue
-        #pragma warning restore 1591
+#pragma warning restore 1591
         {
             get { return _missingValue; }
         }

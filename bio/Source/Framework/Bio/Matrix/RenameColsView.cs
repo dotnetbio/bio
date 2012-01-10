@@ -2,6 +2,8 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using Bio.Util;
+using System;
+using System.Globalization;
 
 namespace Bio.Matrix
 {
@@ -27,7 +29,7 @@ namespace Bio.Matrix
         /// <summary>
         /// A read-only dictionary giving the mapping from the col index of this matrix to the col index of it's parent matrix
         /// </summary>
-        public ReadOnlyCollection<int> NewIndexToOldIndex { get; private set; } 
+        public ReadOnlyCollection<int> NewIndexToOldIndex { get; private set; }
         private ReadOnlyCollection<TColKey> _colKeys;
         private RestrictedAccessDictionary<TColKey, int> _indexOfColKey;
 
@@ -43,7 +45,7 @@ namespace Bio.Matrix
             NewKeyToOldKey = newNameAndOldNameSequence.ToDictionary(pair => pair.Key, pair => pair.Value).AsRestrictedAccessDictionary();
 
             var unmatchedCols = NewKeyToOldKey.Values.Except(parentMatrix.ColKeys).ToList();
-            Helper.CheckCondition(unmatchedCols.Count == 0, Properties.Resource.ExpectedEveryRemappedColKeyToBeInOriginalMatrix, unmatchedCols.StringJoin(","));
+            Helper.CheckCondition(unmatchedCols.Count == 0, () => string.Format(CultureInfo.InvariantCulture, Properties.Resource.ExpectedEveryRemappedColKeyToBeInOriginalMatrix, unmatchedCols.StringJoin(",")));
 
             ParentMatrix = parentMatrix;
 
@@ -61,61 +63,76 @@ namespace Bio.Matrix
 
         }
 
-        #pragma warning disable 1591
+#pragma warning disable 1591
         public override ReadOnlyCollection<TRowKey> RowKeys
-        #pragma warning restore 1591
+#pragma warning restore 1591
         {
             get { return ParentMatrix.RowKeys; }
         }
 
-        #pragma warning disable 1591
+#pragma warning disable 1591
         public override ReadOnlyCollection<TColKey> ColKeys
-        #pragma warning restore 1591
+#pragma warning restore 1591
         {
             get { return _colKeys; }
         }
 
-        #pragma warning disable 1591
+#pragma warning disable 1591
         public override IDictionary<TRowKey, int> IndexOfRowKey
-        #pragma warning restore 1591
+#pragma warning restore 1591
         {
             get { return ParentMatrix.IndexOfRowKey; }
         }
 
-        #pragma warning disable 1591
+#pragma warning disable 1591
         public override IDictionary<TColKey, int> IndexOfColKey
-        #pragma warning restore 1591
+#pragma warning restore 1591
         {
             get { return _indexOfColKey; }
         }
 
-        private void TryGetBaseColIndex(int colIndex, out int oldColIndex)
+        private bool TryGetBaseColIndex(int colIndex, out int oldColIndex)
         {
-            oldColIndex = NewIndexToOldIndex[colIndex];
+            if (colIndex < 0 || colIndex >= NewIndexToOldIndex.Count)
+            {
+                oldColIndex = -1;
+                return false;
+            }
+            else
+            {
+                oldColIndex = NewIndexToOldIndex[colIndex];
+                return true;
+            }
         }
 
-        private void TryGetOldColName(TColKey colKey, out TColKey oldColKey)
+        private bool TryGetOldColName(TColKey colKey, out TColKey oldColKey)
         {
-            NewKeyToOldKey.TryGetValue(colKey, out oldColKey);
+            return NewKeyToOldKey.TryGetValue(colKey, out oldColKey);
         }
 
-        internal override void GetMatrixAndIndex(int rowIndex, int colIndex, out Matrix<TRowKey, TColKey, TValue> m, out int mappedRowIndex, out int mappedColIndex)
+#pragma warning disable 1591
+        protected override void GetMatrixAndIndex(int rowIndex, int colIndex, out Matrix<TRowKey, TColKey, TValue> m, out int mappedRowIndex, out int mappedColIndex)
+#pragma warning restore 1591
         {
             m = ParentMatrix;
             mappedRowIndex = rowIndex;
-            TryGetBaseColIndex(colIndex, out mappedColIndex);
+            if (!TryGetBaseColIndex(colIndex, out mappedColIndex))
+                throw new ArgumentException(string.Format(CultureInfo.InvariantCulture, "{0} is not a mapped index.", colIndex));
         }
 
-        internal override void GetMatrixAndKey(TRowKey rowKey, TColKey colKey, out Matrix<TRowKey, TColKey, TValue> m, out TRowKey mappedRowKey, out TColKey mappedColKey)
+#pragma warning disable 1591
+        protected override void GetMatrixAndKey(TRowKey rowKey, TColKey colKey, out Matrix<TRowKey, TColKey, TValue> m, out TRowKey mappedRowKey, out TColKey mappedColKey)
+#pragma warning restore 1591
         {
             m = ParentMatrix;
             mappedRowKey = rowKey;
-            TryGetOldColName(colKey, out mappedColKey);
+            if (!TryGetOldColName(colKey, out mappedColKey))
+                throw new ArgumentException(string.Format(CultureInfo.InvariantCulture, "{0} is not a mapped key.", colKey));
         }
 
-        #pragma warning disable 1591
+#pragma warning disable 1591
         public override TValue MissingValue
-        #pragma warning restore 1591
+#pragma warning restore 1591
         {
             get { return ParentMatrix.MissingValue; }
         }

@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Bio.Util;
+using System.Globalization;
 
 namespace Bio.Matrix
 {
@@ -15,8 +16,10 @@ namespace Bio.Matrix
     /// <typeparam name="TRowKey">The type of the row key. Usually "String"</typeparam>
     /// <typeparam name="TColKey">The type of the col key. Usually "String"</typeparam>
     /// <typeparam name="TValue">The type of the value, for example, double, int, char, etc.</typeparam>
+    [Serializable]
     public class DenseMatrix<TRowKey, TColKey, TValue> : Matrix<TRowKey, TColKey, TValue>
     {
+
         internal DenseMatrix()
         {
         }
@@ -32,8 +35,9 @@ namespace Bio.Matrix
         {
             _rowKeys = new ReadOnlyCollection<TRowKey>(rowKeySequence.ToList());
             _colKeys = new ReadOnlyCollection<TColKey>(colKeySequence.ToList());
-            Helper.CheckCondition(valueArray.GetLength(0) == _rowKeys.Count, Properties.Resource.ExpectedRowKeysCountToEqualValueArrayCount, _rowKeys.Count, valueArray.GetLength(0));
-            Helper.CheckCondition(valueArray.GetLength(1) == _colKeys.Count, Properties.Resource.ExpectedColumnKeysCountToEqualValueArrayCount, _colKeys.Count,valueArray.GetLength(1));
+            var valueArray2 = valueArray;
+            Helper.CheckCondition(valueArray.GetLength(0) == _rowKeys.Count, () => string.Format(CultureInfo.InvariantCulture, Properties.Resource.ExpectedRowKeysCountToEqualValueArrayCount, _rowKeys.Count, valueArray2.GetLength(0)));
+            Helper.CheckCondition(valueArray.GetLength(1) == _colKeys.Count, () => string.Format(CultureInfo.InvariantCulture, Properties.Resource.ExpectedColumnKeysCountToEqualValueArrayCount, _colKeys.Count, valueArray2.GetLength(1)));
 
             //!!!Matrix - these lines appear in many places
             _indexOfRowKey = RowKeys.Select((key, index) => new { key, index }).ToDictionary(pair => pair.key, pair => pair.index);
@@ -182,14 +186,38 @@ namespace Bio.Matrix
         public static bool TryParseRFileWithDefaultMissing(string rFileName, TValue missingValue,
             char[] separatorArray, ParallelOptions parallelOptions, out Matrix<TRowKey, TColKey, TValue> result, out string errorMsg)
         {
+            return TryParseRFileWithDefaultMissing(rFileName.ToNamedStreamCreatorFromFileName(), missingValue, separatorArray, parallelOptions, out result, out errorMsg);
+        }
+
+
+        /// <summary>
+        /// Create a DenseMatrix from a file in RFile format.
+        /// </summary>
+        /// <param name="namedStreamCreator">a namedStreamCreator with delimited columns</param>
+        /// <param name="missingValue">The special value that represents 'missing'</param>
+        /// <param name="separatorArray">An array of character delimiters</param>
+        /// <param name="parallelOptions">A ParallelOptions instance that configures the multithreaded behavior of this operation.</param>
+        /// <param name="result">The DenseMatrix created</param>
+        /// <param name="errorMsg">If the file is not parsable, an error message about the problem.</param>
+        /// <returns>True if the file is parsable; otherwise false</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1814:PreferJaggedArraysOverMultidimensional", MessageId = "Body"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "parallelOptions"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1000:DoNotDeclareStaticMembersOnGenericTypes"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "4#")]
+        public static bool TryParseRFileWithDefaultMissing(INamedStreamCreator namedStreamCreator, TValue missingValue,
+            char[] separatorArray, ParallelOptions parallelOptions, out Matrix<TRowKey, TColKey, TValue> result, out string errorMsg)
+        {
+            if (namedStreamCreator == null)
+            {
+                throw new ArgumentNullException("namedStreamCreator");
+            }
+
             errorMsg = "";
             var matrix = new DenseMatrix<TRowKey, TColKey, TValue>();
             result = matrix;
             matrix._missingValue = missingValue;
 
-            int rowCount = FileUtils.ReadEachLine(rFileName).Count() - 1;
+            int rowCount = namedStreamCreator.ReadEachUncommentedLine().Count();
 
-            using (TextReader textReader = FileUtils.OpenTextStripComments(rFileName))
+
+            using (var textReader = namedStreamCreator.OpenUncommentedText())
             {
                 string firstLine = textReader.ReadLine();
                 //Helper.CheckCondition(null != firstLine, "Expect file to have first line. ");
@@ -202,7 +230,15 @@ namespace Bio.Matrix
 
                 List<string> unparsedRowNames = new List<string>(rowCount);
                 List<string> unparsedColNames = firstLine.Split(separatorArray).ToList();
-                matrix.ValueArray = new TValue[rowCount, unparsedColNames.Count];
+                try
+                {
+                    matrix.ValueArray = new TValue[rowCount, unparsedColNames.Count];
+                }
+                catch (Exception e)
+                {
+                    errorMsg = e.Message;
+                    return false;
+                }
                 string line;
                 int rowIndex = -1;
 
@@ -212,9 +248,9 @@ namespace Bio.Matrix
                     ++rowIndex;
                     string[] fields = line.Split(separatorArray);
                     //Helper.CheckCondition(fields.Length >= 1, string.Format("Expect each line to have at least one field (file={0}, rowIndex={1})", rFileName, rowIndex));
-                    if (fields.Length == 0)
+                    if (fields.Length < 2)
                     {
-                        errorMsg = string.Format("Expect each line to have at least one field (file={0}, rowIndex={1})", rFileName, rowIndex);
+                        errorMsg = string.Format(CultureInfo.InvariantCulture, "Expect each line to have at least two field (file={0}, rowIndex={1})", namedStreamCreator.Name, rowIndex);
                         return false;
                     }
 
@@ -230,7 +266,7 @@ namespace Bio.Matrix
                     //Helper.CheckCondition(fields.Length == matrix.ColKeys.Count + 1, string.Format("Line has {0} fields instead of the epxected {1} fields (file={2}, rowKey={3}, rowIndex={4})", fields.Length, matrix.ColKeys.Count + 1, rFileName, rowKey, rowIndex));
                     if (fields.Length != unparsedColNames.Count + 1)
                     {
-                        errorMsg = string.Format("Line has {0} fields instead of the expected {1} fields (file={2}, rowKey={3}, rowIndex={4})", fields.Length, unparsedColNames.Count + 1, rFileName, rowKey, rowIndex);
+                        errorMsg = string.Format(CultureInfo.InvariantCulture, "Line has {0} fields instead of the expected {1} fields (file={2}, rowKey={3}, rowIndex={4})", fields.Length, unparsedColNames.Count + 1, namedStreamCreator.Name, rowKey, rowIndex);
                         return false;
                     }
 
@@ -240,7 +276,7 @@ namespace Bio.Matrix
                         TValue r;
                         if (!Parser.TryParse<TValue>(fields[colIndex + 1], out r))
                         {
-                            errorMsg = string.Format("Unable to parse {0} because field {1} cannot be parsed into an instance of type {2}", rFileName, fields[colIndex + 1], typeof(TValue));
+                            errorMsg = string.Format(CultureInfo.InvariantCulture, "Unable to parse {0} because field {1} cannot be parsed into an instance of type {2}", namedStreamCreator.Name, fields[colIndex + 1], typeof(TValue));
                             return false;
                         }
                         matrix.ValueArray[rowIndex, colIndex] = r;
@@ -250,13 +286,13 @@ namespace Bio.Matrix
                 IList<TRowKey> rowKeys;
                 if (!Parser.TryParseAll<TRowKey>(unparsedRowNames, out rowKeys))
                 {
-                    errorMsg = string.Format("Unable to parse {0} because row names cannot be parsed into an instance of type {1}", rFileName, typeof(TRowKey));
+                    errorMsg = string.Format(CultureInfo.InvariantCulture, "Unable to parse {0} because row names cannot be parsed into an instance of type {1}", namedStreamCreator.Name, typeof(TRowKey));
                     return false;
                 }
                 IList<TColKey> colKeys;
                 if (!Parser.TryParseAll<TColKey>(unparsedColNames, out colKeys))
                 {
-                    errorMsg = string.Format("Unable to parse {0} because col names cannot be parsed into an instance of type {1}", rFileName, typeof(TColKey));
+                    errorMsg = string.Format(CultureInfo.InvariantCulture, "Unable to parse {0} because col names cannot be parsed into an instance of type {1}", namedStreamCreator.Name, typeof(TColKey));
                     return false;
                 }
                 matrix._rowKeys = new ReadOnlyCollection<TRowKey>(rowKeys);
@@ -266,7 +302,7 @@ namespace Bio.Matrix
             //In the case of sparse files, many of the row keys will be the same and so we return false
             if (matrix._rowKeys.Count != matrix._rowKeys.Distinct().Count())
             {
-                errorMsg = string.Format("Some rows have the same values as other (look for blank rows). " + rFileName);
+                errorMsg = string.Format(CultureInfo.InvariantCulture, "Some rows have the same values as other (look for blank rows). " + namedStreamCreator.Name);
                 return false;
             }
 
@@ -275,7 +311,6 @@ namespace Bio.Matrix
             matrix._indexOfColKey = matrix.ColKeys.Select((key, index) => new { key, index }).ToDictionary(pair => pair.key, pair => pair.index);
 
             return true;
-            //return matrix;
         }
 
         /// <summary>
@@ -291,8 +326,27 @@ namespace Bio.Matrix
             var matrix = new DenseMatrix<TRowKey, TColKey, TValue>();
             matrix._rowKeys = new ReadOnlyCollection<TRowKey>(rowKeySequence.ToList());
             matrix._colKeys = new ReadOnlyCollection<TColKey>(colKeySequence.ToList());
-            matrix._indexOfRowKey = matrix.RowKeys.Select((key, index) => new { key, index }).ToDictionary(pair => pair.key, pair => pair.index);
-            matrix._indexOfColKey = matrix.ColKeys.Select((key, index) => new { key, index }).ToDictionary(pair => pair.key, pair => pair.index);
+            try
+            {
+                matrix._indexOfRowKey = matrix.RowKeys.Select((key, index) => new { key, index }).ToDictionary(pair => pair.key, pair => pair.index);
+                matrix._indexOfColKey = matrix.ColKeys.Select((key, index) => new { key, index }).ToDictionary(pair => pair.key, pair => pair.index);
+            }
+            catch (ArgumentException)
+            {
+                var rowSet = matrix.RowKeys.ToHashSet();
+                if (rowSet.Count != matrix.RowKeys.Count)
+                {
+                    var set = new HashSet<TRowKey>();
+                    throw new ArgumentException(string.Format(CultureInfo.InvariantCulture, "The following row keys are duplicates: {0}", matrix.RowKeys.Where(key => !set.Add(key)).StringJoin(",")));
+                }
+                var colSet = matrix.ColKeys.ToHashSet();
+                if (colSet.Count != matrix.ColKeys.Count)
+                {
+                    var set = new HashSet<TColKey>();
+                    throw new ArgumentException(string.Format(CultureInfo.InvariantCulture, "The following col keys are duplicates: {0}", matrix.ColKeys.Where(key => !set.Add(key)).StringJoin(",")));
+                }
+                throw;
+            }
             matrix._missingValue = missingValue;
             matrix.ValueArray = new TValue[matrix.RowCount, matrix.ColCount];
             return matrix;

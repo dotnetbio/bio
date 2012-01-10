@@ -100,11 +100,8 @@ namespace Bio.Matrix
         public override void SetValueOrMissing(TRowKey rowKey, TColKey colKey, TValue value)
 #pragma warning restore 1591
         {
-            //First we need to confirm that these are valid keys
-            if (!ContainsRowKey(rowKey) || !ContainsColKey(colKey))
-            {
-                throw new IndexOutOfRangeException();
-            }
+            Helper.CheckCondition<IndexOutOfRangeException>(ContainsRowKey(rowKey), "{0} is not a valid row key.", rowKey);
+            Helper.CheckCondition<IndexOutOfRangeException>(ContainsColKey(colKey), "{0} is not a valid column key.", colKey);
 
             if (!IsMissing(value))
             {

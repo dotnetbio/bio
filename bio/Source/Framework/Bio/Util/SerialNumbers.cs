@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Globalization;
 
 namespace Bio.Util
 {
@@ -9,6 +10,8 @@ namespace Bio.Util
     /// </summary>
     public class SerialNumbers<T>
     {
+
+
         /// <summary>
         /// Create a SerialNumbers object for assigning serial numbers to values.
         /// </summary>
@@ -23,7 +26,7 @@ namespace Bio.Util
         /// </summary>
         /// <param name="sequence"></param>
         public SerialNumbers(IEnumerable<T> sequence)
-            :this()
+            : this()
         {
             foreach (T item in sequence)
             {
@@ -74,7 +77,7 @@ namespace Bio.Util
         /// <returns>The items serial number</returns>
         public int GetNew(T item)
         {
-            Helper.CheckCondition(!ItemToSerialNumber.ContainsKey(item), Properties.Resource.ExpectedItemToNotExist, item);
+            Helper.CheckCondition(!ItemToSerialNumber.ContainsKey(item), () => string.Format(CultureInfo.InvariantCulture, Properties.Resource.ExpectedItemToNotExist, item));
             Debug.Assert(ItemToSerialNumber.Count == ItemList.Count); // real assert
             int serialNumber = ItemToSerialNumber.Count;
             Debug.Assert(serialNumber == ItemList.Count); // real assert
@@ -91,7 +94,7 @@ namespace Bio.Util
         /// <returns>The serial number of that item.</returns>
         public int GetOld(T item)
         {
-            Helper.CheckCondition(ItemToSerialNumber.ContainsKey(item), Properties.Resource.ExpectedItemToExist, item);
+            Helper.CheckCondition(ItemToSerialNumber.ContainsKey(item), () => string.Format(CultureInfo.InvariantCulture, Properties.Resource.ExpectedItemToExist, item));
             return ItemToSerialNumber[item];
         }
 
@@ -116,6 +119,17 @@ namespace Bio.Util
         public bool TryGetOld(T item, out int serialNumber)
         {
             return ItemToSerialNumber.TryGetValue(item, out serialNumber);
+        }
+
+
+        /// <summary>
+        /// Tells if an item already has a serial number
+        /// </summary>
+        /// <param name="item">the item</param>
+        /// <returns>true if the item has previously been assigned a serial number; otherwise, false.</returns>
+        public bool Contains(T item)
+        {
+            return ItemToSerialNumber.ContainsKey(item);
         }
 
         /// <summary>

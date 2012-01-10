@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Globalization;
 
 namespace Bio.Util
 {
@@ -10,55 +11,6 @@ namespace Bio.Util
     /// </summary>
     public static class IEnumerableExtensions
     {
-        /// <summary>
-        /// Append
-        /// </summary>
-        /// <typeparam name="T">T</typeparam>
-        /// <param name="enumerable">enumerable</param>
-        /// <param name="item">item</param>
-        /// <returns></returns>
-        public static IEnumerable<T> Append<T>(this IEnumerable<T> enumerable, T item)
-        {
-            foreach (T e in enumerable)
-            {
-                yield return e;
-            }
-            yield return item;
-        }
-
-        /// <summary>
-        /// Append
-        /// </summary>
-        /// <typeparam name="T">T</typeparam>
-        /// <param name="enumerable">enumerable</param>
-        /// <param name="enumerables">enumerables</param>
-        /// <returns></returns>
-        public static IEnumerable<T> Append<T>(this IEnumerable<T> enumerable, params IEnumerable<T>[] enumerables)
-        {
-            foreach (T item in enumerable)
-            {
-                yield return item;
-            }
-
-            foreach (IEnumerable<T> e in enumerables)
-            {
-                foreach (T item in e)
-                {
-                    yield return item;
-                }
-            }
-        }
-
-        /// <summary>
-        /// AsSingletonEnumerable
-        /// </summary>
-        /// <typeparam name="T">T</typeparam>
-        /// <param name="obj">obj</param>
-        /// <returns></returns>
-        public static IEnumerable<T> AsSingletonEnumerable<T>(this T obj)
-        {
-            yield return obj;
-        }
         /// <summary>
         /// Shuffles the elements of a sequence.
         /// </summary>
@@ -144,13 +96,13 @@ namespace Bio.Util
         /// <returns>a string</returns>
         public static string StringJoin(this System.Collections.IEnumerable sequence, string separator, int maxLength, string etcString)
         {
-            Helper.CheckCondition(maxLength > 1, Properties.Resource.ExpectedMaxLengthToGreaterThanOne);
+            Helper.CheckCondition(maxLength > 1, () => Properties.Resource.ExpectedMaxLengthToGreaterThanOne);
             StringBuilder aStringBuilder = new StringBuilder();
             int i = -1;
             foreach (object obj in sequence)
             {
                 ++i;
-                if (i > 1)
+                if (i > 0)
                 {
                     aStringBuilder.Append(separator);
                 }
@@ -263,6 +215,95 @@ namespace Bio.Util
         {
             return sequence.Skip(start).Take(count);
         }
+
+        /// <summary>
+        /// Same semantics as Enumerable.Single(IEnumerable), but optimized for ILists. Throws an exception if list does not contain exactly 1 element. Otherwise returns that element.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="list"></param>
+        /// <returns></returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0")]
+        public static T Single<T>(this IList<T> list)
+        {
+            Helper.CheckCondition(list.Count == 1, () => string.Format(CultureInfo.InvariantCulture, "Expected list to contain 1 element, but it has {0}.", list.Count));
+            return list[0];
+        }
+
+        /// <summary>
+        /// Same semantics as Enumerable.First(), but optimized for ILists. Throws an exception if the list is empty.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="list"></param>
+        /// <returns></returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0")]
+        public static T First<T>(this IList<T> list)
+        {
+            return list[0];
+        }
+
+        /// <summary>
+        /// Same semantics as Enumerable.Last(), but optimized for ILists. Throws an exception if the list is empty.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="list"></param>
+        /// <returns></returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0")]
+        public static T Last<T>(this IList<T> list)
+        {
+            return list[list.Count - 1];
+        }
+
+        /// <summary>
+        /// Yield an Enumeration of the list with the item appended to the end
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="enumerable"></param>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        public static IEnumerable<T> Append<T>(this IEnumerable<T> enumerable, T item)
+        {
+            foreach (T e in enumerable)
+            {
+                yield return e;
+            }
+            yield return item;
+        }
+
+        /// <summary>
+        /// Yield a concatenation of the two Enumerable lists
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="enumerable"></param>
+        /// <param name="enumerables"></param>
+        /// <returns></returns>
+        public static IEnumerable<T> Append<T>(this IEnumerable<T> enumerable, params IEnumerable<T>[] enumerables)
+        {
+            foreach (T item in enumerable)
+            {
+                yield return item;
+            }
+
+            foreach (IEnumerable<T> e in enumerables)
+            {
+                foreach (T item in e)
+                {
+                    yield return item;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Yield this
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static IEnumerable<T> AsSingletonEnumerable<T>(this T obj)
+        {
+            yield return obj;
+        }
+
+
     }
 }
 

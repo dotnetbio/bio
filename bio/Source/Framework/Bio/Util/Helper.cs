@@ -753,7 +753,7 @@ namespace Bio.Util
         {
             if (!condition)
             {
-                throw new Exception(string.Format(messageToFormat, formatValues));
+                throw new Exception(string.Format(CultureInfo.InvariantCulture, messageToFormat, formatValues));
             }
         }
 

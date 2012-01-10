@@ -23,7 +23,7 @@ namespace Bio.Matrix
         public Matrix<TRowKey, TColKey, TValueParent> ParentMatrix { get; internal set; }
 
         /// <summary>
-        /// Convert Value View.
+        /// Parameterless constructor. Don't use without setting the member variables with, for example, the SetUp method
         /// </summary>
         protected internal ConvertValueView()
         {
@@ -41,7 +41,7 @@ namespace Bio.Matrix
         public Converter<TValueView, TValueParent> ViewValueToParentValue { get; private set; }
 
         /// <summary>
-        /// SetUp.
+        /// Set all important member variables after using the parameterless constructor.
         /// </summary>
         /// <param name="parentMatrix">parent Matrix.</param>
         /// <param name="converter">The converter.</param>

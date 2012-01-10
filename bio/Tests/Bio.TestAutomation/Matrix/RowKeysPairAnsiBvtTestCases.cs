@@ -141,8 +141,8 @@ namespace Bio.TestAutomation.Matrix
                 rkpdObj.WriteRowKeys(Constants.KeysTempFile);
             }
 
-            using (RowKeysPairAnsi rkaObj =
-                 RowKeysPairAnsi.GetInstanceFromRowKeysAnsi(
+            using (RowKeysPaddedDouble rkaObj =
+                 RowKeysPaddedDouble.GetInstanceFromRowKeys(
                  Constants.KeysTempFile, parOptObj, FileAccess.ReadWrite,
                  FileShare.ReadWrite))
             {

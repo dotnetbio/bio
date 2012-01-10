@@ -5,6 +5,7 @@ using Bio.Util;
 
 namespace Bio.Matrix
 {
+
     /// <summary>
     /// A wrapper around a parent matrix that permutes the values by column.
     /// e.g. Before m1=
@@ -39,20 +40,29 @@ namespace Bio.Matrix
         /// </summary>
         public Matrix<TRowKey, TColKey, TValue> ParentMatrix { get; internal set; }
 
-        #pragma warning disable 1591
-        override public ReadOnlyCollection<TRowKey> RowKeys { get { return ParentMatrix.RowKeys; } }
-        #pragma warning restore 1591
-        #pragma warning disable 1591
-        override public ReadOnlyCollection<TColKey> ColKeys { get { return ParentMatrix.ColKeys; } }
-        #pragma warning restore 1591
-        #pragma warning disable 1591
-        override public IDictionary<TRowKey, int> IndexOfRowKey { get { return ParentMatrix.IndexOfRowKey; } }
-        #pragma warning restore 1591
-        #pragma warning disable 1591
-        override public IDictionary<TColKey, int> IndexOfColKey { get { return ParentMatrix.IndexOfColKey; } }
-        #pragma warning restore 1591
 
-        private IList<int> IndexOfParentCol;
+
+#pragma warning disable 1591
+        override public ReadOnlyCollection<TRowKey> RowKeys { get { return ParentMatrix.RowKeys; } }
+#pragma warning restore 1591
+#pragma warning disable 1591
+        override public ReadOnlyCollection<TColKey> ColKeys { get { return ParentMatrix.ColKeys; } }
+#pragma warning restore 1591
+#pragma warning disable 1591
+        override public IDictionary<TRowKey, int> IndexOfRowKey { get { return ParentMatrix.IndexOfRowKey; } }
+#pragma warning restore 1591
+#pragma warning disable 1591
+        override public IDictionary<TColKey, int> IndexOfColKey { get { return ParentMatrix.IndexOfColKey; } }
+#pragma warning restore 1591
+
+        /// <summary>
+        /// Given a colIndex value tells the cooresponding colIndex in the parent matrix.
+        /// </summary>
+        public IList<int> IndexOfParentCol
+        {
+            get { return _indexOfParentCol; }
+        }
+        private IList<int> _indexOfParentCol;
 
 
         internal void SetUp(Matrix<TRowKey, TColKey, TValue> parentMatrix, IEnumerable<int> colIndexSequence)
@@ -60,37 +70,37 @@ namespace Bio.Matrix
             ParentMatrix = parentMatrix;
 
             //Check that there are not any missing or extra column indexes
-            IndexOfParentCol = colIndexSequence.ToList();
+            _indexOfParentCol = colIndexSequence.ToList();
 
-            Helper.CheckCondition(IndexOfParentCol.Count == ParentMatrix.ColCount, Properties.Resource.ExpectedEveryColumnToBeAMemberOfThePermutation);
+            Helper.CheckCondition(IndexOfParentCol.Count == ParentMatrix.ColCount, () => Properties.Resource.ExpectedEveryColumnToBeAMemberOfThePermutation);
             RangeCollection rangeCollection = new RangeCollection(colIndexSequence);
-            Helper.CheckCondition(rangeCollection.IsComplete(0, ParentMatrix.ColCount - 1), Properties.Resource.ExpectedEveryColumnToBeUsedOnceInThePermuation);
+            Helper.CheckCondition(rangeCollection.IsComplete(0, ParentMatrix.ColCount - 1), () => Properties.Resource.ExpectedEveryColumnToBeUsedOnceInThePermuation);
         }
 
-        #pragma warning disable 1591
+#pragma warning disable 1591
         public override bool IsMissing(TRowKey rowKey, TColKey colKey)
-        #pragma warning restore 1591
+#pragma warning restore 1591
         {
             return ParentMatrix.IsMissing(rowKey, colKey);
         }
 
-        #pragma warning disable 1591
+#pragma warning disable 1591
         public override bool TryGetValue(TRowKey rowKey, TColKey colKey, out TValue value)
-        #pragma warning restore 1591
+#pragma warning restore 1591
         {
             return TryGetValue(IndexOfRowKey[rowKey], IndexOfColKey[colKey], out value);
         }
 
-        #pragma warning disable 1591
+#pragma warning disable 1591
         public override bool TryGetValue(int rowIndex, int colIndex, out TValue value)
-        #pragma warning restore 1591
+#pragma warning restore 1591
         {
             return ParentMatrix.TryGetValue(rowIndex, IndexOfParentCol[colIndex], out value);
         }
 
-        #pragma warning disable 1591
+#pragma warning disable 1591
         public override bool Remove(TRowKey rowKey, TColKey colKey)
-        #pragma warning restore 1591
+#pragma warning restore 1591
         {
             return Remove(IndexOfRowKey[rowKey], IndexOfColKey[colKey]);
         }

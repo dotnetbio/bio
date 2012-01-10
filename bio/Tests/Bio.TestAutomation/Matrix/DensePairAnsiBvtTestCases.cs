@@ -150,7 +150,7 @@ namespace Bio.TestAutomation.Matrix
 
             var enumObj = keyValListObj.GroupBy(x => x.Key);
 
-            DensePairAnsi dpaObj = DensePairAnsi.GetInstance(enumObj, '?');
+            DensePairAnsi dpaObj = DensePairAnsi.GetInstance(enumObj);
 
             Assert.IsNotNull(dpaObj);
 
@@ -305,7 +305,7 @@ namespace Bio.TestAutomation.Matrix
 
             var enumObj = keyValListObj.GroupBy(x => x.Key);
 
-            DensePairAnsi dpaObj = DensePairAnsi.GetInstance(enumObj, '?');
+            DensePairAnsi dpaObj = DensePairAnsi.GetInstance(enumObj);
 
             ParallelOptions paObj = new ParallelOptions();
             dpaObj.WriteDensePairAnsi(Constants.FastQTempTxtFileName, paObj);
