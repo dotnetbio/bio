@@ -1040,7 +1040,7 @@ namespace Tools.VennDiagram
         //  Method: TryGetTemplatePath()
         //
         /// <summary>
-        /// Attempts to get the full path to the application's template file.
+        /// Attempts to get the full path to the NodeXL template file.
         /// </summary>
         ///
         /// <param name="application">
@@ -1068,13 +1068,14 @@ namespace Tools.VennDiagram
 
             if (IntPtr.Size == 4)
             {
-                // NodeXL is running within 32-bit Excel.
+                // We are running within a 32-bit .Net environment.
                 programFilesFolder = Environment.GetFolderPath(
                     Environment.SpecialFolder.ProgramFiles);
             }
             else
             {
-                // NodeXL is running within 64-bit Excel.
+                // We are running on a 64-bit .Net environment and 
+                // NodeXL templates are in the 32bit sub-system directory.
                 programFilesFolder = System.Environment.GetEnvironmentVariable(
                     "ProgramFiles(x86)");
             }
@@ -1085,6 +1086,11 @@ namespace Tools.VennDiagram
             }
 
             templatePath = Path.Combine(programFilesFolder, @"Microsoft Research\Microsoft NodeXL Excel Template\NodeXLGraph.xltx");
+            if (File.Exists(templatePath))
+                return true;
+
+            // Check for updated install location
+            templatePath = Path.Combine(programFilesFolder, @"Social Media Research Foundation\NodeXL Excel Template\NodeXLGraph.xltx");
             if (File.Exists(templatePath))
                 return true;
 

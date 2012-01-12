@@ -200,12 +200,12 @@ namespace BedStats
             return srg;
         }
 
-        public static void Main(string[] args)
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.Write(System.String,System.Object,System.Object,System.Object)"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.Write(System.String,System.Object[])"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.Write(System.String)"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String,System.Object[])"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String,System.Object,System.Object,System.Object)")]
+        public static int Main(string[] args)
         {
             try
             {
                 Splash();
-
                 parsedArgs = ProcessCommandLineArguments(args);
 
                 if (parsedArgs.inputFiles.Count() == 2)
@@ -218,48 +218,55 @@ namespace BedStats
 
                     VennToNodeXL.CreateSequenceRangeGroupingsForVennDiagram(srg1, srg2, out srgOnly_A, out srgOnly_B, out srgOnly_AB);
 
-                    if (fCreateVennToolInputFile || fCreateExcelWorkbook)
-                    {
-                        SequenceRangeGroupingMetrics srgmOnly_A = new SequenceRangeGroupingMetrics(srgOnly_A);
-                        SequenceRangeGroupingMetrics srgmOnly_B = new SequenceRangeGroupingMetrics(srgOnly_B);
-                        SequenceRangeGroupingMetrics srgmOnly_AB = new SequenceRangeGroupingMetrics(srgOnly_AB);
+                    SequenceRangeGroupingMetrics srgmOnly_A = new SequenceRangeGroupingMetrics(srgOnly_A);
+                    SequenceRangeGroupingMetrics srgmOnly_B = new SequenceRangeGroupingMetrics(srgOnly_B);
+                    SequenceRangeGroupingMetrics srgmOnly_AB = new SequenceRangeGroupingMetrics(srgOnly_AB);
 
-                        if (fCreateVennToolInputFile)
-                        {
-                            //SequenceRangeGroupingMetrics srgm = new SequenceRangeGroupingMetrics(srgOnly_A);
-                            StreamWriter VennOutput = new StreamWriter(VennToolInputFileFullPath);
-                            VennOutput.WriteLine("{0} {1} {2}"
+                    if (fCreateVennToolInputFile)
+                    {
+                        Console.Error.Write("\nWriting file [{0}]", VennToolInputFileFullPath);
+                        StreamWriter VennOutput = new StreamWriter(VennToolInputFileFullPath);
+                        VennOutput.WriteLine("{0} {1} {2}"
                                 , srgmOnly_A.bases
                                 , srgmOnly_B.bases
                                 , srgmOnly_AB.bases);
-                            VennOutput.Close();
-                        }
+                        VennOutput.Close();
+                        Console.Error.Write(" ... Done.");
+                    }
 
-                        if (fCreateExcelWorkbook)
+                    if (fCreateExcelWorkbook)
+                    {
+                        // create the Excel workbook with a NodeXL Venn diagram
+                        Console.Error.Write("\nWriting file [{0}]", ExcelWorkbookFullPath);
+                        VennDiagramData vdd = new VennDiagramData(srgmOnly_A.bases
+                            , srgmOnly_B.bases
+                            , srgmOnly_AB.bases);
+                        try
                         {
-                            // create the Excel workbook with a NodeXL Venn diagram
-                            VennDiagramData vdd = new VennDiagramData(srgmOnly_A.bases
-                                , srgmOnly_B.bases
-                                , srgmOnly_AB.bases);
-                            try
-                            {
-                                VennToNodeXL.CreateVennDiagramNodeXLFile(ExcelWorkbookFullPath, vdd);
-                            }
-                            catch
-                            {
-                                Environment.Exit(-1);
-                            }
+                            VennToNodeXL.CreateVennDiagramNodeXLFile(ExcelWorkbookFullPath, vdd);
+                            Console.Error.Write(" ... Done.\n");
                         }
-                        if (fVerbose)
+                        catch( Exception e )
                         {
-                            SequenceRangeGroupingToString(srgOnly_A, "srgOnly_A");
-                            SequenceRangeGroupingToString(srgOnly_B, "srgOnly_B");
-                            SequenceRangeGroupingToString(srgOnly_AB, "srgOnly_AB");
-                            Console.WriteLine("end two file dump");
+                            Console.Error.Write("Error:  Unable to create Excel workbook.");
+                            DisplayException(e);
+                            Environment.Exit(-1);
                         }
                     }
+                    if (fVerbose)
+                    {
+                        Console.Error.Write("\nDump Sequence Groupings from two files\n");
+                        SequenceRangeGroupingToString(srgOnly_A, "srgOnly_A");
+                        SequenceRangeGroupingToString(srgOnly_B, "srgOnly_B");
+                        SequenceRangeGroupingToString(srgOnly_AB, "srgOnly_AB");
+                        Console.Error.Write("\nEnd Sequence group from twoe files\n");
+                    }
+
+                    Console.Write("\nOutput basepair count for each set");
+                    Console.Write("\nGroupA,GroupB,GroupAB");
+                    Console.Write("\n{0},{1},{2}\n", srgmOnly_A.bases, srgmOnly_B.bases, srgmOnly_AB.bases);
                 }
-                if (parsedArgs.inputFiles.Count() == 3)
+                else if (parsedArgs.inputFiles.Count() == 3)
                 {
                     // TODO:  Reduce memory usage by re-using the SRGs after debugging is complete
                     //
@@ -283,21 +290,20 @@ namespace BedStats
                      * We have the set information data for the three files.  
                      * Now what?
                      */
-                    if (fCreateVennToolInputFile || fCreateExcelWorkbook)
-                    {
-                        // generate the intersection Venn metrics
-                        SequenceRangeGroupingMetrics srgmOnly_A = new SequenceRangeGroupingMetrics(srgOnly_A);
-                        SequenceRangeGroupingMetrics srgmOnly_B = new SequenceRangeGroupingMetrics(srgOnly_B);
-                        SequenceRangeGroupingMetrics srgmOnly_C = new SequenceRangeGroupingMetrics(srgOnly_C);
-                        SequenceRangeGroupingMetrics srgmOnly_AB = new SequenceRangeGroupingMetrics(srgOnly_AB);
-                        SequenceRangeGroupingMetrics srgmOnly_AC = new SequenceRangeGroupingMetrics(srgOnly_AC);
-                        SequenceRangeGroupingMetrics srgmOnly_BC = new SequenceRangeGroupingMetrics(srgOnly_BC);
-                        SequenceRangeGroupingMetrics srgmOnly_ABC = new SequenceRangeGroupingMetrics(srgOnly_ABC);
+                    // generate the intersection Venn metrics
+                    SequenceRangeGroupingMetrics srgmOnly_A = new SequenceRangeGroupingMetrics(srgOnly_A);
+                    SequenceRangeGroupingMetrics srgmOnly_B = new SequenceRangeGroupingMetrics(srgOnly_B);
+                    SequenceRangeGroupingMetrics srgmOnly_C = new SequenceRangeGroupingMetrics(srgOnly_C);
+                    SequenceRangeGroupingMetrics srgmOnly_AB = new SequenceRangeGroupingMetrics(srgOnly_AB);
+                    SequenceRangeGroupingMetrics srgmOnly_AC = new SequenceRangeGroupingMetrics(srgOnly_AC);
+                    SequenceRangeGroupingMetrics srgmOnly_BC = new SequenceRangeGroupingMetrics(srgOnly_BC);
+                    SequenceRangeGroupingMetrics srgmOnly_ABC = new SequenceRangeGroupingMetrics(srgOnly_ABC);
 
-                        if (fCreateVennToolInputFile)
-                        {
-                            StreamWriter VennOutput = new StreamWriter(VennToolInputFileFullPath);
-                            VennOutput.WriteLine("{0} {1} {2} {3} {4} {5} {6}"
+                    if (fCreateVennToolInputFile)
+                    {
+                        Console.Error.Write("\nWriting file [{0}]", VennToolInputFileFullPath);
+                        StreamWriter VennOutput = new StreamWriter(VennToolInputFileFullPath);
+                        VennOutput.WriteLine("{0} {1} {2} {3} {4} {5} {6}"
                                 , srgmOnly_A.bases
                                 , srgmOnly_B.bases
                                 , srgmOnly_C.bases
@@ -305,39 +311,64 @@ namespace BedStats
                                 , srgmOnly_AC.bases
                                 , srgmOnly_BC.bases
                                 , srgmOnly_ABC.bases);
-                            VennOutput.Close();
-                        }
+                        VennOutput.Close();
+                        Console.Error.Write(" ... Done.");
+                    }
 
-                        if (fCreateExcelWorkbook)
-                        {
-                            // create the NodeXL Venn diagram filefile
-                            VennDiagramData vdd = new VennDiagramData(srgmOnly_A.bases
+                    if (fCreateExcelWorkbook)
+                    {
+                        // create the NodeXL Venn diagram filefile
+                        VennDiagramData vdd = new VennDiagramData(srgmOnly_A.bases
                                 , srgmOnly_B.bases
                                 , srgmOnly_C.bases
                                 , srgmOnly_AB.bases
                                 , srgmOnly_AC.bases
                                 , srgmOnly_BC.bases
                                 , srgmOnly_ABC.bases);
-                            VennToNodeXL.CreateVennDiagramNodeXLFile(ExcelWorkbookFullPath, vdd);
-                        }
-                        if (fVerbose)
+                        // create the Excel workbook with a NodeXL Venn diagram
+                        Console.Error.Write("\nWriting file [{0}]", ExcelWorkbookFullPath);
+                        try
                         {
-                            SequenceRangeGroupingToString(srgOnly_A, "srgOnly_A");
-                            SequenceRangeGroupingToString(srgOnly_B, "srgOnly_B");
-                            SequenceRangeGroupingToString(srgOnly_C, "srgOnly_C");
-                            SequenceRangeGroupingToString(srgOnly_AB, "srgOnly_AB");
-                            SequenceRangeGroupingToString(srgOnly_AC, "srgOnly_AC");
-                            SequenceRangeGroupingToString(srgOnly_BC, "srgOnly_BC");
-                            SequenceRangeGroupingToString(srgOnly_ABC, "srgOnly_ABC");
-                            Console.Error.WriteLine("end three file dump");
+                            VennToNodeXL.CreateVennDiagramNodeXLFile(ExcelWorkbookFullPath, vdd);
+                            Console.Error.Write(" ... Done.\n");
+                        }
+                        catch (Exception e)
+                        {
+                            Console.Error.Write("\nError:  Unable to create Excel workbook.");
+                            DisplayException(e);
+                            Environment.Exit(-1);
                         }
                     }
+                    if (fVerbose)
+                    {
+                        Console.Error.Write("\nDump Sequence Groupings from three files\n");
+                        SequenceRangeGroupingToString(srgOnly_A, "srgOnly_A");
+                        SequenceRangeGroupingToString(srgOnly_B, "srgOnly_B");
+                        SequenceRangeGroupingToString(srgOnly_C, "srgOnly_C");
+                        SequenceRangeGroupingToString(srgOnly_AB, "srgOnly_AB");
+                        SequenceRangeGroupingToString(srgOnly_AC, "srgOnly_AC");
+                        SequenceRangeGroupingToString(srgOnly_BC, "srgOnly_BC");
+                        SequenceRangeGroupingToString(srgOnly_ABC, "srgOnly_ABC");
+                        Console.Error.Write("\nEnd Sequence group from three files\n");
+                    }
+
+                    Console.Write("\nOutput basepair count for each set");
+                    Console.Write("\nGroupA,GroupB,GroupC,GroupAB,GroupAC,GroupBC,GroupABC");
+                    Console.Write("\n{0},{1},{2},{3},{4},{5},{6}\n"
+                            , srgmOnly_A.bases
+                            , srgmOnly_B.bases
+                            , srgmOnly_C.bases
+                            , srgmOnly_AB.bases
+                            , srgmOnly_AC.bases
+                            , srgmOnly_BC.bases
+                            , srgmOnly_ABC.bases);
                 }
             }
             catch (Exception ex)
             {
                 DisplayException(ex);
             }
+            return 0;
         }
 
         /// <summary>

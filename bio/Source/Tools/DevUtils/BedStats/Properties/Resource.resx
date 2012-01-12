@@ -118,17 +118,19 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="BedStatsHelp" xml:space="preserve">
-    <value>Usage:	 BedStats.exe [options] &lt;Bed Files&gt; 		
-Description: Converts the data from BED files into a VennDiagram
+    <value>
+  Description: BedStats takes input from 2 or 3 .BED files to produce the
+    information needed to create a VennDiagram.  This is 3 or 7 numbers
+    representing sets {A, B, AB} or  {A, B, C, AB, AC, BC, ABC}
 
-Optional Parameters:
--xlFileName:&lt;string&gt;       Create an Excel file with BED stats.
+  Usage:  BedStats [options] &lt;BedFileA&gt; &lt;BedFileB&gt; [&lt;BedFileC&gt;] 		
+  Options:
+    -xlFileName:&lt;string&gt;     Create an Excel file with BED stats.
+    -outputVennTool:&lt;string&gt; Output file for use with VennTool.
+    -normalizeInputs         Bool to normalize input .BED files prior
+                             to processing or not.
+    -verbose                 Display verbose logging during processing.
 
--outputVennTool:&lt;string&gt;   Output file for use with VennTool. 
-
--normalizeInputs    	   Bool to normalize input .BED files prior to 
-                           processing or not.
-
--verbose                   Displays verbose logging during processing.</value>
+</value>
   </data>
 </root>
