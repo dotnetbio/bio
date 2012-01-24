@@ -102,7 +102,7 @@ while "yY".find(again[0]) != -1:
                 print "\nNo results have been returned from the BLAST search."
                 print "Giving up on job ID " + `job_id` + "\n"
         else:
-            print "Input sequence must have atleast 500 basepairs."
+            print "Input sequence must have at least 500 basepairs."
 
     except:
         print "An error occurred: " + `sys.exc_info()` + "\n"
