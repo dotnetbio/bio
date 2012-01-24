@@ -33,7 +33,7 @@ while "yY".find(again[0]) != -1:
    while(option < "1" or option > "6"):
         print "--------------------------------------------------------"
         print "\nPlease choose the application that you want to run:"
-        print "\n1-> Bio integerated demo"
+        print "\n1-> Bio integrated demo"
         print "\n2-> Concatenate sequences"
         print "\n3-> Strip non-alphabetic characters in a sequence"
         print "\n4-> Remove Poly-A tail from a sequence"
