@@ -16,7 +16,7 @@ from Bio.Util import *
 _kmerBuilder = SequenceToKmerBuilder()
 
 def ConcatenateSequences():
-    "Concatenates sequences present in two files into a single sequence\nEg. If Sequence1 = 'AAAATGC' and Sequence2 = 'TTTAAG', then the\nConcatenated sequence = 'AAAATGCTTTAAG'"
+    "Concatenates sequences present in two files into a single sequence\ne.g. If Sequence1 = 'AAAATGC' and Sequence2 = 'TTTAAG', then the\nConcatenated sequence = 'AAAATGCTTTAAG'"
     
     # This program accepts two file names as input. It parses these two files
     # and concatenates all the sequences present in the files
@@ -84,7 +84,7 @@ def ConcatenateSequences():
                 again = " "
 
 def StripNonAlphabets():
-    "Strip non-alphabets from a sequences including gaps\nEg. If Input sequence = 'AA-A-GC'\n\Then output sequence = 'AAAGC'"
+    "This script will strip illegal characters (not ACGT, etc.) from a sequence including gaps\ne.g. If your input sequence = 'AA-A-GC'\nThe resulting output will be = 'AAAGC'"
     
     # This program accepts a file names as input. It parses the files
     # and extracts all the sequences present in the file. On each 
@@ -146,7 +146,7 @@ def StripNonAlphabets():
                 again = " "
 
 def RemovePolyATail():
-    "Removes the Poly-A tail from a sequence when the A-tail length is greater than 5. For eg. Input Sequence = 'TGCCGAAAAAAAAAAAAA'\n Output sequence = 'TGCCG'"
+    "Removes the Poly-A tail from a sequence when the A-tail length is greater than 5. For instance \nInput Sequence = 'TGCCGAAAAAAAAAAAAA'\n Output sequence = 'TGCCG'"
     
     # This program accepts a file names as input. It parses the files
     # and extracts all the sequences present in the file. In these sequences
