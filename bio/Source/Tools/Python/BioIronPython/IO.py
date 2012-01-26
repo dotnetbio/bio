@@ -9,7 +9,7 @@ def open_seq(filename):
     "Parses a sequence file, returning a list of ISequence objects."
     filename = filename.Trim('"').Trim('\'')
     if not File.Exists(filename):
-        print "\nFile does not exists: " + filename
+        print "\nFile does not exist: " + filename
         return None
     parser = SequenceParsers.FindParserByFileName(filename)
     if parser == None:
