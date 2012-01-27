@@ -58,7 +58,7 @@ while "yY".find(again[0]) != -1:
 
         print "\nSuccessfully loaded sequence!"
         print "    ID     = " + seq.ID
-        print "    Length = " + `seq.Count` + "\n"
+        print "    Length = " + `int(seq.Count)` + "\n"
 
         if seq.Count >= 500:
             # create fragments
