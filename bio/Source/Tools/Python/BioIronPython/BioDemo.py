@@ -40,7 +40,7 @@ def BioDemo():
 
             print "\nSuccessfully loaded sequence!"
             print "    ID     = " + seq.ID
-            print "    Length = " + `seq.Count` + "\n"
+            print "    Length = " + `int(seq.Count)` + "\n"
 
             if seq.Count >= 500:
                 # create fragments
@@ -57,7 +57,7 @@ def BioDemo():
 
                 print "The fragments have been assembled into " + `len(contig_list)` + " contigs, with",
                 print `len(assembly.UnmergedSequences)` + " unmerged fragments."
-                print "The longest contig has a length of " + `contig_list[0].Length` + "."
+                print "The longest contig has a length of " + `int(contig_list[0].Length)` + "."
                 print "Let's do a BLAST search with it.  (This may also take a minute.)\n"
 
                 # run BLAST search
