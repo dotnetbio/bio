@@ -18,7 +18,7 @@ namespace Bio.IO.SAM
         /// <summary>
         /// Holds regular expression pattern of Vtype.
         /// </summary>
-        private const string VTypeRegexExprPattern = "[AifZH]";
+        private const string VTypeRegexExprPattern = "[AifZHB]";
 
         /// <summary>
         /// Holds regular expression pattern of value.

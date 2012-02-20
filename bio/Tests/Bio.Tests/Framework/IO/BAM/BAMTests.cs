@@ -28,7 +28,7 @@ namespace Bio.Tests.IO.BAM
                 parser = new BAMParser();
                 SequenceAlignmentMap alignmentMap = parser.Parse(filePath);
                 Assert.IsTrue(alignmentMap != null);
-                Assert.AreEqual(alignmentMap.Header.GetReferenceSequences().Count, 1);
+                Assert.AreEqual(alignmentMap.Header.GetReferenceSequencesInfoFromSQHeader().Count, 1);
                 Assert.AreEqual(alignmentMap.QuerySequences.Count, 2);
             }
             finally
@@ -56,7 +56,8 @@ namespace Bio.Tests.IO.BAM
                 SequenceAlignmentMap alignmentMap = parser.Parse(filePath);
 
                 Assert.IsTrue(alignmentMap != null);
-                Assert.AreEqual(alignmentMap.Header.GetReferenceSequences().Count, 1);
+                Assert.AreEqual(alignmentMap.Header.GetReferenceSequencesInfoFromSQHeader().Count, 1);
+                Assert.AreEqual(alignmentMap.Header.ReferenceSequences.Count, 1);
                 Assert.AreEqual(alignmentMap.QuerySequences.Count, 2);
 
                 formatter.Format(alignmentMap, outputfilePath);
@@ -71,19 +72,22 @@ namespace Bio.Tests.IO.BAM
                 alignmentMap = parser.Parse(outputfilePath);
 
                 Assert.IsTrue(alignmentMap != null);
-                Assert.AreEqual(alignmentMap.Header.GetReferenceSequences().Count, 1);
+                Assert.AreEqual(alignmentMap.Header.GetReferenceSequencesInfoFromSQHeader().Count, 1);
+                Assert.AreEqual(alignmentMap.Header.ReferenceSequences.Count, 1);
                 Assert.AreEqual(alignmentMap.QuerySequences.Count, 2);
 
                 alignmentMap = parser.ParseRange("BAMTests123.bam", new SequenceRange("chr20", 0, int.MaxValue));
 
                 Assert.IsTrue(alignmentMap != null);
-                Assert.AreEqual(alignmentMap.Header.GetReferenceSequences().Count, 1);
+                Assert.AreEqual(alignmentMap.Header.GetReferenceSequencesInfoFromSQHeader().Count, 1);
+                Assert.AreEqual(alignmentMap.Header.ReferenceSequences.Count, 1);
                 Assert.AreEqual(alignmentMap.QuerySequences.Count, 2);
 
                 alignmentMap = parser.ParseRange("BAMTests123.bam", new SequenceRange("chr20", 0, 28833));
 
                 Assert.IsTrue(alignmentMap != null);
-                Assert.AreEqual(alignmentMap.Header.GetReferenceSequences().Count, 1);
+                Assert.AreEqual(alignmentMap.Header.GetReferenceSequencesInfoFromSQHeader().Count, 1);
+                Assert.AreEqual(alignmentMap.Header.ReferenceSequences.Count, 1);
                 Assert.AreEqual(alignmentMap.QuerySequences.Count, 1);
             }
             finally
@@ -135,7 +139,8 @@ namespace Bio.Tests.IO.BAM
                 SequenceAlignmentMap alignmentMap = parser.Parse(inputFilePath);
 
                 Assert.IsTrue(alignmentMap != null);
-                Assert.AreEqual(alignmentMap.Header.GetReferenceSequences().Count, 1);
+                Assert.AreEqual(alignmentMap.Header.GetReferenceSequencesInfoFromSQHeader().Count, 1);
+                Assert.AreEqual(alignmentMap.Header.ReferenceSequences.Count, 1);
                 Assert.AreEqual(alignmentMap.QuerySequences.Count, 2);
 
                 formatter.CreateSortedBAMFile = true;

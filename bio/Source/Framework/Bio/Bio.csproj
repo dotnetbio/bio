@@ -316,9 +316,11 @@
     <Compile Include="IO\Phylip\PhylipParser.cs" />
     <Compile Include="IO\SAM\PairedRead.cs" />
     <Compile Include="IO\SAM\ReadOnlyList.cs" />
+    <Compile Include="IO\SAM\ReferenceSequenceInfo.cs" />
     <Compile Include="IO\SAM\SAMAlignedSequence.cs" />
     <Compile Include="IO\SAM\SAMAlignedSequenceHeader.cs" />
     <Compile Include="IO\SAM\SAMAlignmentHeader.cs" />
+    <Compile Include="IO\SAM\SAMAlphabet.cs" />
     <Compile Include="IO\SAM\SAMFlags.cs" />
     <Compile Include="IO\SAM\SAMFormatter.cs" />
     <Compile Include="IO\SAM\SAMOptionalField.cs" />

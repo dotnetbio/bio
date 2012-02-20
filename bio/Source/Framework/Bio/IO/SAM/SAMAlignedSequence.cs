@@ -141,13 +141,13 @@ namespace Bio.IO.SAM
         }
 
         /// <summary>
-        /// Gets Query length depending on CIGAR value.
+        /// Gets one based alignment end position of reference sequence depending on CIGAR Value.
         /// </summary>
-        public int QueryLength
+        public int RefEndPos
         {
             get
             {
-                return seqHeader.QueryLength;
+                return seqHeader.RefEndPos;
             }
         }
 
@@ -229,35 +229,6 @@ namespace Bio.IO.SAM
             set
             {
                 seqHeader.ISize = value;
-            }
-        }
-
-        /// <summary>
-        /// Contains the list of indices of "." symbols present in the aligned sequence.
-        /// As "." is not supported by DNA, RNA and Protien alphabets, while creating aligned 
-        /// sequence "." symbols are replaced by "N" which has the same meaning of ".".
-        /// </summary>
-        public IList<int> DotSymbolIndexes
-        {
-            get
-            {
-                return seqHeader.DotSymbolIndices;
-            }
-        }
-
-        /// <summary>
-        /// Contains the list of "=" symbol indices present in the aligned sequence.
-        /// The "=" symbol in aligned sequence indicates that the symbol at this index 
-        /// is equal to the symbol present in the reference sequence. As "=" is not 
-        /// supported by DNA, RNA and Protien alphabets, while creating aligned 
-        /// sequence "=" symbols are replaced by the symbol present in the reference 
-        /// sequence at the same index.
-        /// </summary>
-        public IList<int> EqualSymbolIndexes
-        {
-            get
-            {
-                return seqHeader.EqualSymbolIndices;
             }
         }
 

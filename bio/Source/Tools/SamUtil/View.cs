@@ -187,90 +187,15 @@ namespace SamUtil
                 }
 
                 Initialize();
-                SAMAlignmentHeader header = null;
+
 
                 if (!SAMInput)
                 {
-                    Stream stream = new FileStream(InputFilePath, FileMode.Open, FileAccess.Read);
-                    try
-                    {
-                        header = bamparser.GetHeader(stream);
-                    }
-                    catch
-                    {
-                        throw new InvalidOperationException(Resources.InvalidBAMFile);
-                    }
-
-
-                    WriteHeader(header);
-
-                    if (!HeaderOnly)
-                    {
-                        if (!string.IsNullOrEmpty(Library))
-                        {
-                            rgRecFields = header.RecordFields.Where(R => R.Typecode.ToUpper().Equals("RG")).ToList();
-                        }
-
-                        foreach (SAMAlignedSequence alignedSequence in GetAlignedSequence(stream))
-                        {
-                            WriteAlignedSequence(header, alignedSequence);
-                        }
-                    }
+                    this.ConvertFromBAMToSAM();
                 }
                 else
                 {
-                    try
-                    {
-                        header = SAMParser.ParseSAMHeader(InputFilePath);
-                    }
-                    catch
-                    {
-                        throw new InvalidOperationException(Resources.InvalidSAMFile);
-                    }
-
-                    if (header == null)
-                    {
-                        throw new InvalidOperationException("SAM file doesn't contian header");
-                    }
-
-                    WriteHeader(header);
-
-                    if (!HeaderOnly)
-                    {
-                        if (!string.IsNullOrEmpty(Library))
-                        {
-                            rgRecFields = header.RecordFields.Where(R => R.Typecode.ToUpper().Equals("RG")).ToList();
-                        }
-
-                        using (StreamReader textReader = new StreamReader(InputFilePath))
-                        {
-                            foreach (SAMAlignedSequence alignedSeq in GetAlignedSequence(textReader))
-                            {
-                                WriteAlignedSequence(header, alignedSeq);
-                            }
-                        }
-                    }
-
-                    if (UnCompressedBAM)
-                    {
-                        bamUncompressedOutStream.Flush();
-                        if (writer != null)
-                        {
-                            DisplayBAMContent(bamUncompressedOutStream);
-                        }
-                    }
-
-                    if (BAMOutput && !UnCompressedBAM)
-                    {
-                        bamUncompressedOutStream.Flush();
-                        bamUncompressedOutStream.Seek(0, SeekOrigin.Begin);
-                        bamformatter.CompressBAMFile(bamUncompressedOutStream, bamCompressedOutStream);
-                        bamCompressedOutStream.Flush();
-                        if (writer != null)
-                        {
-                            DisplayBAMContent(bamCompressedOutStream);
-                        }
-                    }
+                    this.ConvertFromSAMTOBAM();
                 }
             }
             finally
@@ -282,6 +207,177 @@ namespace SamUtil
         #endregion
 
         #region Private Methods
+        /// <summary>
+        /// Converts the input BAM to SAM file format.
+        /// </summary>
+        private void ConvertFromBAMToSAM()
+        {
+            using (Stream stream = new FileStream(InputFilePath, FileMode.Open, FileAccess.Read))
+            {
+                SAMAlignmentHeader header = null;
+                try
+                {
+                    header = bamparser.GetHeader(stream);
+                }
+                catch (Exception ex)
+                {
+                    throw new InvalidOperationException(Resources.InvalidBAMFile, ex);
+                }
+
+                WriteHeader(header);
+
+                if (!HeaderOnly)
+                {
+                    if (!string.IsNullOrEmpty(Library))
+                    {
+                        rgRecFields = header.RecordFields.Where(R => R.Typecode.ToUpper().Equals("RG")).ToList();
+                    }
+
+                    foreach (SAMAlignedSequence alignedSequence in GetAlignedSequence(stream))
+                    {
+                        WriteAlignedSequence(header, alignedSequence);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Converts the input SAM to BAM file format.
+        /// </summary>
+        private void ConvertFromSAMTOBAM()
+        {
+            SAMAlignmentHeader header = null;
+            try
+            {
+                header = SAMParser.ParseSAMHeader(InputFilePath);
+            }
+            catch(Exception ex)
+            {
+                throw new InvalidOperationException(Resources.InvalidSAMFile,ex);
+            }
+
+            if (header == null)
+            {
+                Console.Error.WriteLine("Warning: SAM file doesn't contian header");
+            }
+
+            if (HeaderOnly)
+            {
+                if (header != null)
+                {
+                    WriteHeader(header);
+                }
+            }
+            else
+            {
+                if (header == null)
+                {
+                    header = new SAMAlignmentHeader();
+                }
+
+                if (!string.IsNullOrEmpty(Library))
+                {
+                    rgRecFields = header.RecordFields.Where(R => R.Typecode.ToUpper().Equals("RG")).ToList();
+                }
+
+                if (!string.IsNullOrEmpty(ReferenceNamesAndLength))
+                {
+                    this.UpdateReferenceInformationFromFile(header);
+                }
+                else if (header.ReferenceSequences.Count == 0)
+                {
+                    this.UpdateReferenceInformationFromReads(header);
+                }
+
+                WriteHeader(header);
+                using (StreamReader textReader = new StreamReader(InputFilePath))
+                {
+                    foreach (SAMAlignedSequence alignedSeq in GetAlignedSequence(textReader))
+                    {
+                        WriteAlignedSequence(header, alignedSeq);
+                    }
+                }
+            }
+
+            if (UnCompressedBAM)
+            {
+                bamUncompressedOutStream.Flush();
+                if (writer != null)
+                {
+                    DisplayBAMContent(bamUncompressedOutStream);
+                }
+            }
+
+            if (BAMOutput && !UnCompressedBAM)
+            {
+                bamUncompressedOutStream.Flush();
+                bamUncompressedOutStream.Seek(0, SeekOrigin.Begin);
+                bamformatter.CompressBAMFile(bamUncompressedOutStream, bamCompressedOutStream);
+                bamCompressedOutStream.Flush();
+                if (writer != null)
+                {
+                    DisplayBAMContent(bamCompressedOutStream);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Updates the header with reference name from reads in input file.
+        /// </summary>
+        /// <param name="header">SAM alignment header.</param>
+        private void UpdateReferenceInformationFromReads(SAMAlignmentHeader header)
+        {
+            // If the ReferenceNamesAndLength file name is not specified and there is no @SQ header, 
+            // then get the refernece names from read information.
+            List<string> refSeqNames = new List<string>();
+            using (StreamReader textReader = new StreamReader(InputFilePath))
+            {
+                foreach (SAMAlignedSequence alignedSeq in GetAlignedSequence(textReader))
+                {
+                    if (!alignedSeq.RName.Equals("*", StringComparison.OrdinalIgnoreCase)
+                        && !refSeqNames.Contains(alignedSeq.RName, StringComparer.OrdinalIgnoreCase))
+                    {
+                        refSeqNames.Add(alignedSeq.RName);
+                    }
+                }
+            }
+
+            foreach (string refname in refSeqNames)
+            {
+                header.ReferenceSequences.Add(new ReferenceSequenceInfo(refname, 0));
+            }
+        }
+        /// <summary>
+        /// Updates the header with reference name and length from ReferenceNamesAndLength file.
+        /// </summary>
+        /// <param name="header">SAM alignment header.</param>
+        private void UpdateReferenceInformationFromFile(SAMAlignmentHeader header)
+        {
+            header.ReferenceSequences.Clear();
+
+            using (StreamReader reader = new StreamReader(ReferenceNamesAndLength))
+            {
+                header.ReferenceSequences.Clear();
+                string read = reader.ReadLine();
+                while (!string.IsNullOrEmpty(read))
+                {
+                    string[] splitRegion = read.Split(new string[] { "\t" }, StringSplitOptions.RemoveEmptyEntries);
+                    if (splitRegion.Length > 1)
+                    {
+                        string name = splitRegion[0];
+                        long len = long.Parse(splitRegion[1], CultureInfo.InvariantCulture);
+                        header.ReferenceSequences.Add(new ReferenceSequenceInfo(name, len));
+                    }
+                    else
+                    {
+                        throw new InvalidOperationException("Invalid file for reference name and length");
+                    }
+
+                    read = reader.ReadLine();
+                }
+            }
+        }
+
         /// <summary>
         ///  Initializes required parsers, formatters, input and output files based on user option.
         /// </summary>
@@ -491,9 +587,9 @@ namespace SamUtil
             while (line != null)
             {
                 // Ignore headers.
-                if(!line.StartsWith(@"@", StringComparison.OrdinalIgnoreCase))
+                if (!line.StartsWith(@"@", StringComparison.OrdinalIgnoreCase))
                 {
-                   SAMAlignedSequence alignedSequence = SAMParser.ParseSequence(line);
+                    SAMAlignedSequence alignedSequence = SAMParser.ParseSequence(line);
                     if (isFilterRequired)
                     {
                         display = Filter(alignedSequence);
@@ -661,7 +757,7 @@ namespace SamUtil
                 filter = alignedSequence.MapQ == QualityMinimumMapping;
             }
 
-            if (filter && !string.IsNullOrEmpty(Library))
+            if (filter && !string.IsNullOrEmpty(Library) && rgRecFields.Count > 0)
             {
                 filter = rgRecFields.First(
                         a => a.Tags.First(

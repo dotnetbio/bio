@@ -532,8 +532,7 @@ namespace Bio.TestAutomation.IO.SAM
                             align,
                             Alphabets.DNA,
                             null,
-                            String.Empty,
-                            null);
+                            String.Empty);
                         break;
                     case ParseOrFormatQualLength.Sequencedata:
                         align.QName = "Quality Value";
@@ -541,8 +540,7 @@ namespace Bio.TestAutomation.IO.SAM
                             align,
                             Alphabets.DNA,
                             null,
-                            String.Empty,
-                            null);
+                            String.Empty);
                         break;
                     case ParseOrFormatQualLength.Qualitydata:
                         align.QName = "Quality Value";
@@ -550,8 +548,7 @@ namespace Bio.TestAutomation.IO.SAM
                             align,
                             Alphabets.DNA,
                             null,
-                            Constants.QualitySequence,
-                            null);
+                            Constants.QualitySequence);
                         break;
                     case ParseOrFormatQualLength.QualityLength:
                         align.QName = "Quality Value";
@@ -559,8 +556,7 @@ namespace Bio.TestAutomation.IO.SAM
                             align,
                             Alphabets.DNA,
                             null,
-                            Constants.QualitySequence,
-                          new Sequence(Alphabets.DNA, Constants.QualityLength));
+                            Constants.QualitySequence);
                         break;
                     default:
                         break;

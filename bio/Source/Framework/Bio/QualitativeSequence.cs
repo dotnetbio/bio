@@ -144,13 +144,13 @@ namespace Bio
             this.sequenceData = new byte[sequence.LongLength()];
             this.qualityScores = new byte[qualityScores.LongLength()];
 
-            #if (SILVERLIGHT == false)
-		        Array.Copy(sequence, this.sequenceData, sequence.LongLength);
-                Array.Copy(qualityScores, this.qualityScores, qualityScores.LongLength);  
-            #else   
+#if (SILVERLIGHT == false)
+            Array.Copy(sequence, this.sequenceData, sequence.LongLength);
+            Array.Copy(qualityScores, this.qualityScores, qualityScores.LongLength);
+#else   
                 Array.Copy(sequence, this.sequenceData, sequence.Length);
                 Array.Copy(qualityScores, this.qualityScores, qualityScores.Length);  
-            #endif
+#endif
 
             this.Count = this.sequenceData.LongLength();
         }
@@ -737,7 +737,12 @@ namespace Bio
                 }
             }
 
-            return new QualitativeSequence(this.Alphabet, type, this.sequenceData, convertedQualityScores, false);
+
+            QualitativeSequence seq = new QualitativeSequence(this.Alphabet, type, this.sequenceData, convertedQualityScores, false);
+            seq.ID = this.ID;
+            seq.metadata = this.metadata;
+
+            return seq;
         }
 
         /// <summary>
@@ -754,7 +759,11 @@ namespace Bio
                 newQualityScores[index] = this.qualityScores[this.qualityScores.LongLength() - index - 1];
             }
 
-            return new QualitativeSequence(this.Alphabet, this.FormatType, newSequenceData, newQualityScores);
+            QualitativeSequence seq = new QualitativeSequence(this.Alphabet, this.FormatType, newSequenceData, newQualityScores);
+            seq.ID = this.ID;
+            seq.metadata = this.metadata;
+
+            return seq;
         }
 
         /// <summary>
@@ -771,13 +780,17 @@ namespace Bio
                 byte symbol = this.sequenceData[index];
                 if (!this.Alphabet.TryGetComplementSymbol(symbol, out complementedSymbol))
                 {
-                    throw new NotSupportedException(string.Format(CultureInfo.CurrentUICulture, "Complement for the symbol {0} Alphabet is not supported.", (char)symbol));
+                    throw new NotSupportedException(string.Format(CultureInfo.CurrentUICulture, Properties.Resource.ComplementNotSupportedByalphabet, (char)symbol, this.Alphabet.Name));
                 }
 
                 newSequenceData[index] = complementedSymbol;
             }
 
-            return new QualitativeSequence(this.Alphabet, this.FormatType, newSequenceData, newQualityScores);
+            QualitativeSequence seq = new QualitativeSequence(this.Alphabet, this.FormatType, newSequenceData, newQualityScores);
+            seq.ID = this.ID;
+            seq.metadata = this.metadata;
+
+            return seq;
         }
 
         /// <summary>
@@ -803,7 +816,11 @@ namespace Bio
                 newQualityScores[index] = this.qualityScores[this.qualityScores.LongLength() - index - 1];
             }
 
-            return new QualitativeSequence(this.Alphabet, this.FormatType, newSequenceData, newQualityScores);
+            QualitativeSequence seq = new QualitativeSequence(this.Alphabet, this.FormatType, newSequenceData, newQualityScores);
+            seq.ID = this.ID;
+            seq.metadata = this.metadata;
+
+            return seq;
         }
 
         /// <summary>
@@ -833,7 +850,11 @@ namespace Bio
                 newQualityScores[index] = this.qualityScores[start + index];
             }
 
-            return new QualitativeSequence(this.Alphabet, this.FormatType, newSequenceData, newQualityScores);
+            QualitativeSequence seq = new QualitativeSequence(this.Alphabet, this.FormatType, newSequenceData, newQualityScores);
+            seq.ID = this.ID;
+            seq.metadata = this.metadata;
+
+            return seq;
         }
 
         /// <summary>
@@ -931,8 +952,8 @@ namespace Bio
             else
             {
                 return string.Format(CultureInfo.CurrentCulture, Properties.Resource.QualitativeSequenceToStringFormatForSmallSequence,
-                                     new string(this.sequenceData.Take(this.sequenceData.Length).Select((a => (char) a)).ToArray()),
-                                     new string(this.qualityScores.Take(this.qualityScores.Length).Select(a => (char) a).ToArray()));
+                                     new string(this.sequenceData.Take(this.sequenceData.Length).Select((a => (char)a)).ToArray()),
+                                     new string(this.qualityScores.Take(this.qualityScores.Length).Select(a => (char)a).ToArray()));
             }
         }
 

@@ -140,7 +140,7 @@ namespace Bio.IO.SAM
         /// </summary>
         public IList<string> GetRefSequences()
         {
-            return header.GetReferenceSequences();
+            return header.ReferenceSequences.Select(N => N.Name).ToList();
         }
 
         /// <summary>

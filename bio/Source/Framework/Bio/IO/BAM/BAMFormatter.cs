@@ -25,6 +25,11 @@ namespace Bio.IO.BAM
         /// 64K = 65536 bytes.
         /// </summary>
         private const int MaxBlockSize = 65536; //64K
+
+        /// <summary>
+        /// Comma Delimiter.
+        /// </summary>
+        private static char[] Delim_Comma = ",".ToArray();
         #endregion
 
         #region Private Fields
@@ -763,9 +768,9 @@ namespace Bio.IO.BAM
             int blockSize = 20;
 
             byte[] block = new byte[blockSize];
-			// represents no data.
-			// got this value by reading Empty block from BAM file.
-            block[10] = 3; 
+            // represents no data.
+            // got this value by reading Empty block from BAM file.
+            block[10] = 3;
             using (MemoryStream memStream = new MemoryStream(blockSize))
             {
                 memStream.Write(block, 0, blockSize);
@@ -802,7 +807,7 @@ namespace Bio.IO.BAM
 
             byte[] readName = System.Text.ASCIIEncoding.ASCII.GetBytes(alignedSeq.QName);
 
-            // Cigar: op_len<<4|op. Op: MIDNSHP=>0123456
+            // Cigar: op_len<<4|op. Op: MIDNSHP=X => 012345678
             IList<uint> encodedCIGAR = GetEncodedCIGAR(alignedSeq.CIGAR);
 
             //block size
@@ -871,36 +876,24 @@ namespace Bio.IO.BAM
             ISequence seq = alignedSeq.QuerySequence;
             if (seq != null)
             {
-                if (seq.Alphabet != Alphabets.DNA)
+                if (!(seq.Alphabet is DnaAlphabet))
                 {
-                    throw new ArgumentException(Properties.Resource.SAMFormatterSupportsDNAOnly);
+                    throw new ArgumentException(Properties.Resource.BAMFormatterSupportsDNAOnly);
                 }
+
+                byte[] symbolMap = seq.Alphabet.GetSymbolValueMap();
 
                 for (int i = 0; i < seq.Count; i++)
                 {
-                    char symbol = (char)seq[i];
+                    char symbol = (char)symbolMap[seq[i]];
                     byte encodedvalue = 0;
 
-                    if (alignedSeq.DotSymbolIndexes.Count > 0)
-                    {
-                        if (alignedSeq.DotSymbolIndexes.Contains(i))
-                        {
-                            symbol = 'N';
-                            alignedSeq.DotSymbolIndexes.Remove(i);
-                        }
-                    }
-
-                    if (alignedSeq.EqualSymbolIndexes.Count > 0)
-                    {
-                        if (alignedSeq.EqualSymbolIndexes.Contains(i))
-                        {
-                            symbol = '=';
-                            alignedSeq.EqualSymbolIndexes.Remove(i);
-                        }
-                    }
-
-                    // 4-bit encoded read: =ACGTN=>0,1,2,4,8,15; the earlier base is stored in the 
+                  
+                    // 4-bit encoded read: =ACMGRSVTWYHKDBN -> 0-15; the earlier base is stored in the 
                     // high-order 4 bits of the byte.
+                    //Note:
+                    // All the other symbols which are not supported by BAM specification (other than "=ACMGRSVTWYHKDBN") are converted to 'N'
+                    // for example a '.' symbol which is supported by SAM specification will be converted to symbol 'N'
                     switch (symbol)
                     {
                         case '=':
@@ -912,11 +905,41 @@ namespace Bio.IO.BAM
                         case 'C':
                             encodedvalue = 2;
                             break;
+                        case 'M':
+                            encodedvalue = 3;
+                            break;
                         case 'G':
                             encodedvalue = 4;
                             break;
+                        case 'R':
+                            encodedvalue = 5;
+                            break;
+                        case 'S':
+                            encodedvalue = 6;
+                            break;
+                        case 'V':
+                            encodedvalue = 7;
+                            break;
                         case 'T':
                             encodedvalue = 8;
+                            break;
+                        case 'W':
+                            encodedvalue = 9;
+                            break;
+                        case 'Y':
+                            encodedvalue = 10;
+                            break;
+                        case 'H':
+                            encodedvalue = 11;
+                            break;
+                        case 'K':
+                            encodedvalue = 12;
+                            break;
+                        case 'D':
+                            encodedvalue = 13;
+                            break;
+                        case 'B':
+                            encodedvalue = 14;
                             break;
                         default:
                             encodedvalue = 15;
@@ -1002,7 +1025,7 @@ namespace Bio.IO.BAM
         // Gets encoded CIGAR operation.
         private static uint GetEncodedCIGAROperation(char operation)
         {
-            //MIDNSHP=>0123456
+            //MIDNSHP=X  -> 012345678
             switch (operation)
             {
                 case 'M':
@@ -1017,8 +1040,12 @@ namespace Bio.IO.BAM
                     return 4;
                 case 'H':
                     return 5;
-                default:
+                case 'P':
                     return 6;
+                case '=':
+                    return 7;
+                default:
+                    return 8;
             }
         }
 
@@ -1072,10 +1099,39 @@ namespace Bio.IO.BAM
                 case "Z": // printable string 
                 case "H": // HexString
                     return optionalField.Value.Length + 1;
+                case "B"://integer or numeric array
+                    char type = optionalField.Value[0];
+                    int arrayTypeSize = GetSizeOfArrayType(type);
+                    int numberofelements = optionalField.Value.Split(Delim_Comma, StringSplitOptions.RemoveEmptyEntries).Length - 1;
+                    int elementsSize = arrayTypeSize * numberofelements;
+                    int arraylen = elementsSize + 1 + 4;  // 1 to store array type and 4 to store number of values in array.
+                    return arraylen;
                 default:
                     throw new FileFormatException(Properties.Resource.BAM_InvalidOptValType);
             }
         }
+
+        private static int GetSizeOfArrayType(char arrayType)
+        {
+            switch (arrayType)
+            {
+                case 'A':  //  Printable character
+                case 'c': //signed 8-bit integer
+                case 'C': //unsigned 8-bit integer
+                    return 1;
+                case 's': // signed 16 bit integer
+                case 'S'://unsinged 16 bit integer
+                    return 2;
+                case 'i': // signed 32 bit integer
+                case 'I': // unsigned 32 bit integer
+                case 'f': // float
+                    return 4;
+                default:
+                    throw new FileFormatException(string.Format(CultureInfo.InstalledUICulture, Properties.Resource.BAM_InvalidOptValType, arrayType));
+            }
+        }
+
+
 
         /// <summary>
         /// Returns,
@@ -1222,12 +1278,78 @@ namespace Bio.IO.BAM
                     temparray.CopyTo(array, 3);
                     array[3 + temparray.Length] = (byte)'\0';
                     break;
+                case "B": // integer or numeric array.
+                    UpdateArrayType(array, field);
+                    break;
                 default:
                     throw new FileFormatException(Properties.Resource.BAM_InvalidOptValType);
             }
 
             return array;
         }
+
+        private static void UpdateArrayType(byte[] array, SAMOptionalField field)
+        {
+            byte[] temparray = new byte[4];
+            char arraytype = field.Value[0];
+            int arrayTypeSize = GetSizeOfArrayType(arraytype);
+            string[] elements = field.Value.Split(Delim_Comma, StringSplitOptions.RemoveEmptyEntries);
+            array[3] = (byte)arraytype;
+            int arrayIndex = 4;
+
+            temparray = Helper.GetLittleEndianByteArray(elements.Length - 1);
+            array[arrayIndex++] = temparray[0];
+            array[arrayIndex++] = temparray[1];
+            array[arrayIndex++] = temparray[2];
+            array[arrayIndex++] = temparray[3];
+
+
+            //elemetns[0] contains array type;
+            for (int i = 1; i < elements.Length; i++)
+            {
+                switch (arraytype)
+                {
+                    case 'A':  //  Printable character
+                        temparray[0] = (byte)elements[i][0];
+                        break;
+                    case 'c': //signed 8-bit integer
+                        temparray[0] = (byte)sbyte.Parse(elements[i], CultureInfo.InvariantCulture);
+                        break;
+                    case 'C': //unsigned 8-bit integer
+                        temparray[0] = byte.Parse(elements[i], CultureInfo.InvariantCulture);
+                        break;
+                    case 's': // signed 16 bit integer
+                        Int16 int16value = Int16.Parse(elements[i], CultureInfo.InvariantCulture);
+                        temparray = Helper.GetLittleEndianByteArray(int16value);
+                        break;
+                    case 'S'://unsinged 16 bit integer
+                        UInt16 uint16value = UInt16.Parse(elements[i], CultureInfo.InvariantCulture);
+                        temparray = Helper.GetLittleEndianByteArray(uint16value);
+                        break;
+                    case 'i': // signed 32 bit integer
+                        int int32value = int.Parse(elements[i], CultureInfo.InvariantCulture);
+                        temparray = Helper.GetLittleEndianByteArray(int32value);
+                        break;
+                    case 'I': // unsigned 32 bit integer
+                        uint uint32value = uint.Parse(elements[i], CultureInfo.InvariantCulture);
+                        temparray = Helper.GetLittleEndianByteArray(uint32value);
+                        break;
+                    case 'f': // float
+                        float floatvalue = float.Parse(elements[i], CultureInfo.InvariantCulture);
+                        temparray = Helper.GetLittleEndianByteArray(floatvalue);
+                        break;
+                    default:
+                        throw new FileFormatException(string.Format(CultureInfo.InstalledUICulture, Properties.Resource.BAM_InvalidOptValType, arraytype));
+
+                }
+
+                for (int tempIndex = 0; tempIndex < arrayTypeSize; tempIndex++)
+                {
+                    array[arrayIndex++] = temparray[tempIndex];
+                }
+            }
+        }
+
 
         // Gets CIGAR length.
         private static int GetCIGARLength(string cigar)
@@ -1237,7 +1359,7 @@ namespace Bio.IO.BAM
                 return 0;
             }
 
-            return cigar.Count(C => char.IsLetter(C));
+            return cigar.Count(C => !char.IsDigit(C));
         }
 
         // Gets ref seq index.

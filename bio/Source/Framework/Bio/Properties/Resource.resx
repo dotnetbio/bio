@@ -146,7 +146,7 @@
 The output is formatted according to the BAM file format.</value>
   </data>
   <data name="BAMParserAlphabetCantBeSet" xml:space="preserve">
-    <value>Alphabet can't be set as BAM supports only DNA alphabet.</value>
+    <value>Alphabet can't be set as BAM supports only SAMDNA alphabet.</value>
   </data>
   <data name="BAMPARSER_DESCRIPTION" xml:space="preserve">
     <value>A BAMParser reads from a source of binary data that is formatted according to the BAM 
@@ -249,7 +249,7 @@ file specification, and converts the data to in-memory SequenceAlignmentMap obje
     <value>Could not find complement for one or more symbols.</value>
   </data>
   <data name="ComplementNotSupportedByalphabet" xml:space="preserve">
-    <value>Complement for the symbol {0} is not supported by {1}.</value>
+    <value>Complement for the symbol {0} is not supported by {1} Alphabet.</value>
   </data>
   <data name="ComplementWithMorethanOneSubLocs" xml:space="preserve">
     <value>Location with Complement operator cannot contain more than one sub locations.</value>
@@ -608,7 +608,7 @@ provided. There is also a default encoding for each alphabet that may be encount
     <value>Invalid {0}: "{1}". The allowed pattern is: {2}.</value>
   </data>
   <data name="InvalidQNameLength" xml:space="preserve">
-    <value>Invalid QName value. Maximum allowed length for QName value is 254 characters.</value>
+    <value>Invalid QName value. Maximum allowed length for QName value is 255 characters.</value>
   </data>
   <data name="InvalidQualityScore" xml:space="preserve">
     <value>Invalid quality score: [{0}]</value>
@@ -984,7 +984,7 @@ provided. There is also a default encoding for each alphabet that may be encount
 according to the SAM file format.</value>
   </data>
   <data name="SAMParserAlphabetCantBeSet" xml:space="preserve">
-    <value>Alphabet can't be set as SAM supports only DNA alphabet.</value>
+    <value>Alphabet can't be set as SAM supports only SAMDNA alphabet.</value>
   </data>
   <data name="SAMPARSER_DESCRIPTION" xml:space="preserve">
     <value>A SAMParser reads from a source of text that is formatted according to the SAM 
@@ -1444,5 +1444,8 @@ Delta alignment file is corrupted. </value>
   </data>
   <data name="ThereAreDuplicateRowsWhichDoNotHDupRowsNonIdenticalValues" xml:space="preserve">
     <value>There are duplicate rows which do not have identical values.</value>
+  </data>
+  <data name="BAMFormatterSupportsDNAOnly" xml:space="preserve">
+    <value>BAM only supports SAMDNA aplhabet.</value>
   </data>
 </root>

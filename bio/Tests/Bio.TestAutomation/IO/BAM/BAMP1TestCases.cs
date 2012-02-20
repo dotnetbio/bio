@@ -337,7 +337,7 @@ namespace Bio.TestAutomation.IO.BAM
                     alignedSeqs[0].OptionalFields.Count.ToString((IFormatProvider)null));
                 Assert.AreEqual(expectedPos, alignedSeqs[0].Pos.ToString((IFormatProvider)null));
                 Assert.AreEqual(expectedQueryLength,
-                    alignedSeqs[0].QueryLength.ToString((IFormatProvider)null));
+                    alignedSeqs[0].RefEndPos.ToString((IFormatProvider)null));
                 Assert.AreEqual(expectedRName, alignedSeqs[0].RName.ToString((IFormatProvider)null));
             }
 

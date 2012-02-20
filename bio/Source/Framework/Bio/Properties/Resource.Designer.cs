@@ -368,6 +368,15 @@ namespace Bio.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to BAM only supports SAMDNA aplhabet..
+        /// </summary>
+        internal static string BAMFormatterSupportsDNAOnly {
+            get {
+                return ResourceManager.GetString("BAMFormatterSupportsDNAOnly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to A BAMParser reads from a source of binary data that is formatted according to the BAM 
         ///file specification, and converts the data to in-memory SequenceAlignmentMap object..
         /// </summary>
@@ -378,7 +387,7 @@ namespace Bio.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Alphabet can&apos;t be set as BAM supports only DNA alphabet..
+        ///   Looks up a localized string similar to Alphabet can&apos;t be set as BAM supports only SAMDNA alphabet..
         /// </summary>
         internal static string BAMParserAlphabetCantBeSet {
             get {
@@ -783,7 +792,7 @@ namespace Bio.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Complement for the symbol {0} is not supported by {1}..
+        ///   Looks up a localized string similar to Complement for the symbol {0} is not supported by {1} Alphabet..
         /// </summary>
         internal static string ComplementNotSupportedByalphabet {
             get {
@@ -2031,7 +2040,7 @@ namespace Bio.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invalid QName value. Maximum allowed length for QName value is 254 characters..
+        ///   Looks up a localized string similar to Invalid QName value. Maximum allowed length for QName value is 255 characters..
         /// </summary>
         internal static string InvalidQNameLength {
             get {
@@ -3360,7 +3369,7 @@ namespace Bio.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Alphabet can&apos;t be set as SAM supports only DNA alphabet..
+        ///   Looks up a localized string similar to Alphabet can&apos;t be set as SAM supports only SAMDNA alphabet..
         /// </summary>
         internal static string SAMParserAlphabetCantBeSet {
             get {

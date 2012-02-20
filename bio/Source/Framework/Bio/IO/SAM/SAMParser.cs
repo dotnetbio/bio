@@ -13,7 +13,7 @@ namespace Bio.IO.SAM
 {
     /// <summary>
     /// A SAMParser reads from a source of text that is formatted according to the SAM
-    /// file specification, and converts the data to in-memory SequenceAlignmentMap object.
+    /// file specification (v1.4-r985), and converts the data to in-memory SequenceAlignmentMap object.
     /// For advanced users, the ability to select an encoding for the internal memory representation is
     /// provided. There is also a default encoding for each alphabet that may be encountered.
     /// Documentation for the latest SAM file format can be found at
@@ -65,7 +65,7 @@ namespace Bio.IO.SAM
             RefSequences = new List<ISequence>();
         }
 
-        
+
         #endregion
 
         #region Public Properties
@@ -91,13 +91,13 @@ namespace Bio.IO.SAM
 
         /// <summary>
         /// The alphabet to use for sequences in parsed SequenceAlignmentMap objects.
-        /// Always returns DNA.
+        /// Always returns singleton instance of SAMDNAAlpabet.
         /// </summary>
         public IAlphabet Alphabet
         {
             get
             {
-                return Alphabets.DNA;
+                return SAMDnaAlphabet.Instance;
             }
             set
             {
@@ -154,7 +154,7 @@ namespace Bio.IO.SAM
             List<string> headerStrings = new List<string>();
             SAMAlignmentHeader samHeader = null;
             string line = ReadNextLine(reader);
-            if (line!= null && line.StartsWith(@"@", StringComparison.OrdinalIgnoreCase))
+            if (line != null && line.StartsWith(@"@", StringComparison.OrdinalIgnoreCase))
             {
                 while (line != null && line.StartsWith(@"@", StringComparison.OrdinalIgnoreCase))
                 {
@@ -174,7 +174,7 @@ namespace Bio.IO.SAM
         /// <param name="bioText">A string representing a sequence alignment text.</param>
         public static SAMAlignedSequence ParseSequence(string bioText)
         {
-            return ParseSequence(bioText, Alphabets.DNA, null);
+            return ParseSequence(bioText, SAMDnaAlphabet.Instance);
         }
 
         /// <summary>
@@ -184,8 +184,7 @@ namespace Bio.IO.SAM
         /// <param name="alphabet">Alphabet of the sequence to be created.</param>
         /// <param name="sequencedata">Sequence data.</param>
         /// <param name="qualitydata">Quality values.</param>
-        /// <param name="refSeq">Reference sequence if known.</param>
-        public static void ParseQualityNSequence(SAMAlignedSequence alignedSeq, IAlphabet alphabet, string sequencedata, string qualitydata, ISequence refSeq)
+        public static void ParseQualityNSequence(SAMAlignedSequence alignedSeq, IAlphabet alphabet, string sequencedata, string qualitydata)
         {
             if (alignedSeq == null)
             {
@@ -232,44 +231,6 @@ namespace Bio.IO.SAM
                 }
             }
 
-            // get "." symbol indexes.
-            int index = sequencedata.IndexOf('.', 0);
-            while (index > -1)
-            {
-                alignedSeq.DotSymbolIndexes.Add(index++);
-                index = sequencedata.IndexOf('.', index);
-            }
-
-            // replace "." with N
-            if (alignedSeq.DotSymbolIndexes.Count > 0)
-            {
-                sequencedata = sequencedata.Replace('.', 'N');
-            }
-
-            // get "=" symbol indexes.
-            index = sequencedata.IndexOf('=', 0);
-            while (index > -1)
-            {
-                alignedSeq.EqualSymbolIndexes.Add(index++);
-                index = sequencedata.IndexOf('=', index);
-            }
-
-            // replace "=" with corresponding symbol from refSeq.
-            if (alignedSeq.EqualSymbolIndexes.Count > 0)
-            {
-                if (refSeq == null)
-                {
-                    throw new ArgumentException(Properties.Resource.RefSequenceNofFound);
-                }
-
-                for (int i = 0; i < alignedSeq.EqualSymbolIndexes.Count; i++)
-                {
-                    index = alignedSeq.EqualSymbolIndexes[i];
-                    sequencedata = sequencedata.Remove(index, 1);
-                    sequencedata = sequencedata.Insert(index, ((char)refSeq[index]).ToString());
-                }
-            }
-
             ISequence sequence = null;
             if (isQualitativeSequence)
             {
@@ -288,7 +249,7 @@ namespace Bio.IO.SAM
         #endregion
 
         #region Private Static Methods
-       
+
         // validates header.
         private static bool ValidateHeaderLineFormat(string headerline)
         {
@@ -336,6 +297,12 @@ namespace Bio.IO.SAM
                 }
             }
 
+            IList<ReferenceSequenceInfo> referenceSeqsInfo = samHeader.GetReferenceSequencesInfoFromSQHeader();
+            foreach (var item in referenceSeqsInfo)
+            {
+                samHeader.ReferenceSequences.Add(item);
+            }
+
             string message = samHeader.IsValid();
             if (!string.IsNullOrEmpty(message))
             {
@@ -363,10 +330,10 @@ namespace Bio.IO.SAM
             List<ISequenceAlignment> alignments = new List<ISequenceAlignment>();
 
             alignments.Add(Parse(reader));
-            
+
             return alignments;
         }
-        
+
         /// <summary>
         /// Parses a list of sequence alignment texts from a file.
         /// </summary>
@@ -453,7 +420,6 @@ namespace Bio.IO.SAM
         /// <returns>A new SequenceAlignmentMap instance containing parsed data.</returns>
         protected SequenceAlignmentMap ParseOneWithSpecificFormat(TextReader reader)
         {
-
             if (reader == null)
             {
                 throw new ArgumentNullException("reader");
@@ -472,13 +438,38 @@ namespace Bio.IO.SAM
             // Parse the alignment header strings.
             SAMAlignmentHeader header = ParseSamHeader(headerStrings);
             SequenceAlignmentMap sequenceAlignmentMap = new SequenceAlignmentMap(header);
-            
+
+            List<string> refSeqNames = null;
+            bool hasSQHeader = header.ReferenceSequences.Count > 0;
+            if (!hasSQHeader)
+            {
+                refSeqNames = new List<string>();
+            }
+
             // Parse aligned sequences 
+            // If the SQ header is not present in header then get the reference sequences information from reads.
             while (line != null && !line.StartsWith(@"@", StringComparison.OrdinalIgnoreCase))
             {
-                SAMAlignedSequence alignedSeq = ParseSequence(line, Alphabet, RefSequences);
+                SAMAlignedSequence alignedSeq = ParseSequence(line, this.Alphabet);
+                if (!hasSQHeader)
+                {
+                    if (!alignedSeq.RName.Equals("*", StringComparison.OrdinalIgnoreCase)
+                        && !refSeqNames.Contains(alignedSeq.RName, StringComparer.OrdinalIgnoreCase))
+                    {
+                        refSeqNames.Add(alignedSeq.RName);
+                    }
+                }
+
                 sequenceAlignmentMap.QuerySequences.Add(alignedSeq);
                 line = ReadNextLine(reader);
+            }
+
+            if (!hasSQHeader)
+            {
+                foreach (string refname in refSeqNames)
+                {
+                    header.ReferenceSequences.Add(new ReferenceSequenceInfo(refname, 0));
+                }
             }
 
             return sequenceAlignmentMap;
@@ -492,8 +483,7 @@ namespace Bio.IO.SAM
         /// </summary>
         /// <param name="bioText">sequence alignment text.</param>
         /// <param name="alphabet">Alphabet of the sequences.</param>
-        /// <param name="referenceSequences">Reference sequences.</param>
-        private static SAMAlignedSequence ParseSequence(string bioText, IAlphabet alphabet, IList<ISequence> referenceSequences)
+        private static SAMAlignedSequence ParseSequence(string bioText, IAlphabet alphabet)
         {
             const int optionalTokenStartingIndex = 11;
             string[] tokens = bioText.Split(tabDelim, StringSplitOptions.RemoveEmptyEntries);
@@ -510,14 +500,8 @@ namespace Bio.IO.SAM
             alignedSeq.MPos = int.Parse(tokens[7], CultureInfo.InvariantCulture);
             alignedSeq.ISize = int.Parse(tokens[8], CultureInfo.InvariantCulture);
 
-            ISequence refSeq = null;
+            ParseQualityNSequence(alignedSeq, alphabet, tokens[9], tokens[10]);
 
-            if (referenceSequences != null && referenceSequences.Count > 0)
-            {
-                refSeq = referenceSequences.FirstOrDefault(R => string.Compare(R.ID, alignedSeq.RName, StringComparison.OrdinalIgnoreCase) == 0);
-            }
-
-            ParseQualityNSequence(alignedSeq, alphabet, tokens[9], tokens[10], refSeq);
             SAMOptionalField optField = null;
             string message;
             for (int i = optionalTokenStartingIndex; i < tokens.Length; i++)

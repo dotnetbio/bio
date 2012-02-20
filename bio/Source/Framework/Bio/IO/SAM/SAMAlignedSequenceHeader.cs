@@ -30,7 +30,7 @@ namespace Bio.IO.SAM
         /// <summary>
         /// Regular expression pattern for CIGAR.
         /// </summary>
-        private const string CIGARRegxExprPattern = @"([0-9]+[MIDNSHP])+|\*";
+        private const string CIGARRegxExprPattern = @"([0-9]+[MIDNSHPX=])+|\*";
 
         /// <summary>
         ///  Regular expression pattern for MRNM.
@@ -60,12 +60,12 @@ namespace Bio.IO.SAM
         /// <summary>
         /// Represents the largest possible value of ISize. This field is constant.
         /// </summary>
-        private const int ISize_MaxValue = 536870912; // ((int)Math.Pow(2, 29))
+        private const int ISize_MaxValue = 536870911; // ((int)Math.Pow(2, 29)) -1
 
         /// <summary>
         /// Represents the smallest possible value of ISize. This field is constant.
         /// </summary>
-        private const int ISize_MinValue = -536870912; // -((int)Math.Pow(2, 29))
+        private const int ISize_MinValue = -536870911; // -((int)Math.Pow(2, 29)) + 1
 
         /// <summary>
         /// Represents the largest possible value of MapQ. This field is constant.
@@ -140,9 +140,9 @@ namespace Bio.IO.SAM
         private int isize;
 
         /// <summary>
-        /// Holds read (query sequence) length depending on CIGAR value.
+        /// Holds reference sequence end position in alignment depending on CIGAR value.
         /// </summary>
-        private int readLength;
+        private int refEndPos;
 
         /// <summary>
         /// Holds CIGAR value.
@@ -167,10 +167,8 @@ namespace Bio.IO.SAM
         public SAMAlignedSequenceHeader()
         {
             OptionalFields = new List<SAMOptionalField>();
-            DotSymbolIndices = new List<int>();
-            EqualSymbolIndices = new List<int>();
             cigar = DefaultCIGAR;
-            readLength = DefaultReadLength;
+            refEndPos = DefaultReadLength;
         }
         #endregion
 
@@ -287,7 +285,7 @@ namespace Bio.IO.SAM
                 }
 
                 cigar = value;
-                readLength = GetReadLengthFromCIGAR();
+                refEndPos = GetRefSeqAlignmentLengthFromCIGAR();
                 bin = GetBin();
             }
         }
@@ -374,37 +372,20 @@ namespace Bio.IO.SAM
         }
 
         /// <summary>
-        /// Gets the query length depending on CIGAR Value.
+        /// Gets one based alignment end position of reference sequence depending on CIGAR Value.
         /// </summary>
-        public int QueryLength
+        public int RefEndPos
         {
             get
             {
-                return readLength;
+                return refEndPos;
             }
 
             internal set
             {
-                readLength = value;
+                refEndPos = value;
             }
         }
-
-        /// <summary>
-        /// Contains the list of indices of "." symbols present in the aligned sequence.
-        /// As "." is not supported by DNA, RNA and Protien alphabets, while creating aligned 
-        /// sequence "." symbols are replaced by "N" which has the same meaning of ".".
-        /// </summary>
-        public IList<int> DotSymbolIndices { get; private set; }
-
-        /// <summary>
-        /// Contains the list of "=" symbol indices present in the aligned sequence.
-        /// The "=" symbol in aligned sequence indicates that the symbol at this index 
-        /// is equal to the symbol present in the reference sequence. As "=" is not 
-        /// supported by DNA, RNA and Protien alphabets, while creating aligned 
-        /// sequence "=" symbols are replaced by the symbol present in the reference 
-        /// sequence at the same index.
-        /// </summary>
-        public IList<int> EqualSymbolIndices { get; private set; }
 
         /// <summary>
         /// Optional fields.
@@ -473,7 +454,7 @@ namespace Bio.IO.SAM
             }
 
             // validate length.
-            if (headerValue.Length > 254)
+            if (headerValue.Length > 255)
             {
                 return Properties.Resource.InvalidQNameLength;
             }
@@ -518,7 +499,7 @@ namespace Bio.IO.SAM
         /// <param name="cigar">CIGAR value to validate.</param>
         private static string IsValidCIGAR(string cigar)
         {
-            string headerName = "RName";
+            string headerName = "CIGAR";
             // Validate for the regx.
             return Helper.IsValidPatternValue(headerName, cigar, CIGARRegxExpr);
         }
@@ -559,17 +540,17 @@ namespace Bio.IO.SAM
         /// </summary>
         private int GetBin()
         {
-            // As SAM stores 1 based position and to calculte BAM Bin zero based positions are required.
+            // As SAM stores 1 based position and to calculte BAM Bin, zero based positions are required.
             int start = Pos - 1;
-            int end = start + readLength - 1;
+            int end = start + refEndPos - 1;
             return RegionToBin(start, end);
         }
 
         /// <summary>
-        /// Gets the read sequence length depending on the CIGAR value.
+        /// Gets the reference sequence alignment length depending on the CIGAR value.
         /// </summary>
-        /// <returns>Length of the read.</returns>
-        private int GetReadLengthFromCIGAR()
+        /// <returns>Length of the alignment.</returns>
+        private int GetRefSeqAlignmentLengthFromCIGAR()
         {
             if (string.IsNullOrWhiteSpace(CIGAR) || CIGAR.Equals("*"))
             {
@@ -591,7 +572,7 @@ namespace Bio.IO.SAM
                 dic.Add(chars.Count - 1, i);
             }
 
-            string CIGARforClen = "MDN";
+            string CIGARforClen = "MDNX=";
             int len = 0;
             for (int i = 0; i < chars.Count; i++)
             {

@@ -162,7 +162,7 @@ namespace SamUtil
             }
 
 
-            
+
         }
 
         /// <summary>
@@ -204,7 +204,7 @@ namespace SamUtil
         {
             string refSeqName = alignedSequence.RName;
             long startPos = alignedSequence.Pos;
-            long endPos = alignedSequence.Pos + alignedSequence.QueryLength;
+            long endPos = alignedSequence.RefEndPos;
             return new SequenceRange(refSeqName, startPos, endPos);
         }
 

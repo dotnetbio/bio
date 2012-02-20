@@ -4,6 +4,7 @@ using Bio.IO.BAM;
 using Bio.IO.SAM;
 using Bio.Util;
 using SamUtil.Properties;
+using System.Globalization;
 
 namespace SamUtil
 {
@@ -72,26 +73,26 @@ namespace SamUtil
 
             if (!string.IsNullOrEmpty(ReferenceListFile) && !File.Exists(ReferenceListFile))
             {
-                throw new InvalidOperationException("File " + ReferenceListFile + " does not exist"); 
+                throw new InvalidOperationException("File " + ReferenceListFile + " does not exist");
             }
 
             switch (FilePath.Length)
             {
                 case 1:
-                {
-                    _inputFile = FilePath[0];
-                    break;
-                }
+                    {
+                        _inputFile = FilePath[0];
+                        break;
+                    }
                 case 2:
-                {
-                    _inputFile = FilePath[1];
-                    _outputFile = FilePath[0];
-                    break;
-                }
+                    {
+                        _inputFile = FilePath[1];
+                        _outputFile = FilePath[0];
+                        break;
+                    }
                 default:
-                {
-                    throw new InvalidOperationException(Resources.ImportHelp);
-                }
+                    {
+                        throw new InvalidOperationException(Resources.ImportHelp);
+                    }
             }
 
             PerformParse();
@@ -100,19 +101,17 @@ namespace SamUtil
                 throw new InvalidOperationException(Resources.EmptyFile);
             }
 
-            if (_sequenceAlignmentMap.Header.RecordFields.Count == 0)
+            if (!string.IsNullOrEmpty(ReferenceListFile))
             {
-                if (string.IsNullOrEmpty(ReferenceListFile))
-                {
-                    throw new InvalidOperationException(Resources.HeaderAbsent);
-                }
-                else
-                {
-                    CreateHeader();
-                }
+                CreateHeader();
             }
 
             PerformFormat();
+
+            if (FilePath.Length == 1)
+            {
+                Console.WriteLine(Properties.Resources.SuccessMessageWithOutputFileName, _outputFile);
+            }
         }
 
         #endregion
@@ -131,9 +130,9 @@ namespace SamUtil
                 {
                     format.Format(_sequenceAlignmentMap, _outputFile);
                 }
-                catch
+                catch (Exception ex)
                 {
-                    throw new InvalidOperationException(Resources.WriteBAM);
+                    throw new InvalidOperationException(Resources.WriteBAM + Environment.NewLine + ex.Message);
                 }
             }
             else
@@ -143,9 +142,9 @@ namespace SamUtil
                 {
                     format.Format(_sequenceAlignmentMap, _outputFile);
                 }
-                catch
+                catch (Exception ex)
                 {
-                    throw new InvalidOperationException(Resources.WriteSAM);
+                    throw new InvalidOperationException(Resources.WriteSAM + Environment.NewLine + ex.Message);
                 }
             }
         }
@@ -155,22 +154,18 @@ namespace SamUtil
         /// </summary>
         private void CreateHeader()
         {
-            string typecode = "SQ";
-            string snTag = "SN";
-            string lnTag = "LN";
-
             using (StreamReader reader = new StreamReader(ReferenceListFile))
             {
+                _sequenceAlignmentMap.Header.ReferenceSequences.Clear();
                 string read = reader.ReadLine();
                 while (!string.IsNullOrEmpty(read))
                 {
                     string[] splitRegion = read.Split(new string[] { "\t" }, StringSplitOptions.RemoveEmptyEntries);
                     if (splitRegion.Length > 1)
                     {
-                        SAMRecordField recfield = new SAMRecordField(typecode);
-                        recfield.Tags.Add(new SAMRecordFieldTag(snTag, splitRegion[0]));
-                        recfield.Tags.Add(new SAMRecordFieldTag(lnTag, splitRegion[1]));
-                        _sequenceAlignmentMap.Header.RecordFields.Add(recfield);
+                        string name = splitRegion[0];
+                        long len = long.Parse(splitRegion[1], CultureInfo.InvariantCulture);
+                        _sequenceAlignmentMap.Header.ReferenceSequences.Add(new ReferenceSequenceInfo(name, len));
                     }
                     else
                     {
@@ -197,9 +192,9 @@ namespace SamUtil
                 {
                     _sequenceAlignmentMap = parser.Parse(_inputFile);
                 }
-                catch
+                catch (Exception ex)
                 {
-                    throw new InvalidOperationException(Resources.InvalidBAMFile);
+                    throw new InvalidOperationException(Resources.InvalidBAMFile, ex);
                 }
 
                 if (string.IsNullOrEmpty(_outputFile))
@@ -214,9 +209,9 @@ namespace SamUtil
                 {
                     _sequenceAlignmentMap = parser.Parse(_inputFile);
                 }
-                catch
+                catch (Exception ex)
                 {
-                    throw new InvalidOperationException(Resources.InvalidSAMFile);
+                    throw new InvalidOperationException(Resources.InvalidSAMFile, ex);
                 }
 
                 _isSAM = true;

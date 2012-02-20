@@ -10,10 +10,10 @@ namespace Bio.IO.SAM
 {
     /// <summary>
     /// Writes a SequenceAlignmentMap to a particular location, usually a file. 
-    /// The output is formatted according to the SAM file format. 
+    /// The output is formatted according to the SAM file format specification 1.4. 
     /// A method is also provided for quickly accessing the content in string 
     /// form for applications that do not need to first write to file.
-    /// Documentation for the latest BAM file format can be found at
+    /// Documentation for the latest SAM file format can be found at
     /// http://samtools.sourceforge.net/SAM1.pdf
     /// </summary>
     public class SAMFormatter : ISequenceAlignmentFormatter
@@ -288,41 +288,18 @@ namespace Bio.IO.SAM
             }
 
             ISequence sequence = alignedSequence.Sequences[0];
-            if (sequence.Alphabet != Alphabets.DNA)
+            if (!(sequence.Alphabet is DnaAlphabet))
             {
                 throw new ArgumentException(Properties.Resource.SAMFormatterSupportsDNAOnly);
             }
 
-            
-            List<int> dotSymbolIndices = new List<int>(alignedHeader.DotSymbolIndices);
-            List<int> equalSymbolIndices = new List<int>(alignedHeader.EqualSymbolIndices);
             string seq = "*";
             if (sequence.Count > 0)
             {
                 char[] symbols = new char[sequence.Count];
                 for (int i = 0; i < sequence.Count; i++)
                 {
-                    char symbol = (char)sequence[i];
-
-                    if (dotSymbolIndices.Count > 0)
-                    {
-                        if (dotSymbolIndices.Contains(i))
-                        {
-                            symbol = '.';
-                            dotSymbolIndices.Remove(i);
-                        }
-                    }
-
-                    if (equalSymbolIndices.Count > 0)
-                    {
-                        if (equalSymbolIndices.Contains(i))
-                        {
-                            symbol = '=';
-                            equalSymbolIndices.Remove(i);
-                        }
-                    }
-
-                    symbols[i] = symbol;
+                   symbols[i]  = (char)sequence[i];
                 }
 
                 seq = new string(symbols);
@@ -336,7 +313,6 @@ namespace Bio.IO.SAM
                 byte[] bytes = qualSeq.QualityScores.ToArray();
                 qualValues = System.Text.ASCIIEncoding.ASCII.GetString(bytes);
             }
-
           
             writer.Write(AlignedSequenceFormat,
                 alignedHeader.QName, (int)alignedHeader.Flag, alignedHeader.RName,

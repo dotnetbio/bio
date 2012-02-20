@@ -24,7 +24,12 @@ namespace Bio.IO.BAM
         /// <summary>
         /// Holds BAM optional field regular expression pattern.
         /// </summary>
-        private const string BAMOptionalFieldPattern = "[AifZHcCsSI]";
+        private const string BAMOptionalFieldPattern = "[AcCsSiIfZHB]";
+
+        /// <summary>
+        /// Symbols supported by BAM.
+        /// </summary>
+        private const string BAMAlphabet = "=ACMGRSVTWYHKDBN";
 
         /// <summary>
         /// Regular expression object for BAM optioanl field.
@@ -89,7 +94,7 @@ namespace Bio.IO.BAM
             refSeqNames = new List<string>();
             refSeqLengths = new List<int>();
         }
-        
+
         #endregion
 
         #region Properties
@@ -115,13 +120,13 @@ namespace Bio.IO.BAM
 
         /// <summary>
         /// The alphabet to use for sequences in parsed SequenceAlignmentMap objects.
-        /// Always returns DNA.
+        /// Always returns singleton instance of SAMDnaAlphabet.
         /// </summary>
         public IAlphabet Alphabet
         {
             get
             {
-                return Alphabets.DNA;
+                return SAMDnaAlphabet.Instance;
             }
             set
             {
@@ -240,6 +245,22 @@ namespace Bio.IO.BAM
                     obj = Helper.GetHexString(array, startIndex, len - 1);
                     startIndex += len;
                     break;
+                case 'B':
+                    char arrayType = (char)array[startIndex];
+                    startIndex++;
+                    int arrayLen = Helper.GetInt32(array, startIndex);
+                    startIndex += 4;
+                    StringBuilder strBuilder = new StringBuilder();
+                    strBuilder.Append(arrayType);
+                    for (int i = 0; i < arrayLen; i++)
+                    {
+                        strBuilder.Append(',');
+                        string value = GetOptionalValue(arrayType, array, ref startIndex).ToString();
+                        strBuilder.Append(value);
+                    }
+
+                    obj = strBuilder.ToString();
+                    break;
                 default:
                     throw new FileFormatException(Properties.Resource.BAM_InvalidOptValType);
             }
@@ -269,24 +290,12 @@ namespace Bio.IO.BAM
         /// <param name="encodedValue">Encoded value.</param>
         private static char GetSeqChar(int encodedValue)
         {
-            switch (encodedValue)
+            if (encodedValue >= 0 && encodedValue <= BAMAlphabet.Length)
             {
-                case 0:
-                    return '=';
-                case 1:
-                    return 'A';
-                case 2:
-                    return 'C';
-                case 4:
-                    return 'G';
-                case 8:
-                    return 'T';
-                case 15:
-                    return 'N';
-
-                default:
-                    throw new FileFormatException(Properties.Resource.BAM_InvalidEncodedSequenceValue);
+                return BAMAlphabet[encodedValue];
             }
+
+            throw new FileFormatException(Properties.Resource.BAM_InvalidEncodedSequenceValue);
         }
 
         /// <summary>
@@ -378,7 +387,7 @@ namespace Bio.IO.BAM
             return GetAlignment(reader);
         }
 
- 
+
         /// <summary>
         /// Returns a SequenceAlignmentMap object by parsing a BAM file.
         /// </summary>
@@ -446,7 +455,7 @@ namespace Bio.IO.BAM
         #region ParseRange Methods (Uses Index file)
 
         #region ParseRange with Chromosome name
-  
+
         /// <summary>
         /// Parses specified BAM file using index file.
         /// Index file is assumed to be in the same location as that of the specified bam file with the name "filename".bai
@@ -599,7 +608,7 @@ namespace Bio.IO.BAM
             }
 
         }
-        
+
         #endregion ParseRange with SequenceRange
 
         #endregion ParseRange Methods
@@ -624,7 +633,7 @@ namespace Bio.IO.BAM
             ISequenceAlignment alignment = Parse(fileName);
             return new List<ISequenceAlignment>() { alignment };
         }
-        
+
 
         /// <summary>
         /// Always throws NotSupportedException as BAM parser does not supports reading from a text reader.
@@ -645,7 +654,7 @@ namespace Bio.IO.BAM
         {
             return Parse(fileName);
         }
-     
+
         #endregion
 
         /// <summary>
@@ -790,35 +799,18 @@ namespace Bio.IO.BAM
                 }
             }
 
-            // get all ref seq names in the header.
-            IEnumerable<SAMRecordField> sqRecFields = header.RecordFields.Where(R => R.Typecode.ToUpperInvariant().Equals("SQ"));
-            IEnumerable<SAMRecordFieldTag> sqRecFieldsTags = sqRecFields.SelectMany(R1 => R1.Tags).Where(T => T.Tag.ToUpperInvariant().Equals("SN"));
-            List<string> sqHeaders = sqRecFieldsTags.Select(T => T.Value.ToUpperInvariant()).ToList();
+            header.ReferenceSequences.Clear();
 
             for (int i = 0; i < refSeqNames.Count; i++)
             {
                 string refname = refSeqNames[i];
                 int length = refSeqLengths[i];
-
-                if (!sqHeaders.Contains(refname.ToUpperInvariant()))
-                {
-                    string typecode = "SQ";
-                    string snTag = "SN";
-                    string lnTag = "LN";
-
-                    SAMRecordFieldTag snFieldTag = new SAMRecordFieldTag(snTag, refname);
-                    SAMRecordFieldTag lnFieldTag = new SAMRecordFieldTag(lnTag, length.ToString(CultureInfo.InvariantCulture));
-
-                    SAMRecordField recfield = new SAMRecordField(typecode);
-                    recfield.Tags.Add(snFieldTag);
-                    recfield.Tags.Add(lnFieldTag);
-
-                    header.RecordFields.Add(recfield);
-                }
+                header.ReferenceSequences.Add(new ReferenceSequenceInfo(refname, length));
             }
 
             return header;
         }
+
         /// <summary>
         /// Merges small chunks belongs to a bin which are in the same compressed block.
         /// This will reduce number of seek calls required.
@@ -956,7 +948,7 @@ namespace Bio.IO.BAM
                     if (alignedSeq.Bin < 4681)
                     {
                         int pos = alignedSeq.Pos > 0 ? alignedSeq.Pos - 1 : 0;
-                        int end = pos + alignedSeq.QueryLength - 1;
+                        int end = alignedSeq.RefEndPos > 0 ? alignedSeq.RefEndPos - 1 : 0;
                         pos = pos >> 14;
                         end = end >> 14;
                         if (refIndices.LinearOffsets.Count == 0)
@@ -1032,12 +1024,14 @@ namespace Bio.IO.BAM
             if (refSeqIndex == -1)
                 alignedSeq.RName = "*";
             else
-            alignedSeq.RName = refSeqNames[refSeqIndex];
+                alignedSeq.RName = refSeqNames[refSeqIndex];
 
             // 4-8 bytes
             alignedSeq.Pos = Helper.GetInt32(alignmentBlock, 4) + 1;
 
             // if there is no overlap no need to parse further.
+            //     BAMPos > closedEnd
+            // => (alignedSeq.Pos - 1) > end -1
             if (alignedSeq.Pos > end)
             {
                 return null;
@@ -1119,6 +1113,12 @@ namespace Bio.IO.BAM
                     case 6:
                         strbuilder.Append("P");
                         break;
+                    case 7:
+                        strbuilder.Append("=");
+                        break;
+                    case 8:
+                        strbuilder.Append("X");
+                        break;
                     default:
                         throw new FileFormatException(Properties.Resource.BAM_InvalidCIGAR);
                 }
@@ -1135,7 +1135,9 @@ namespace Bio.IO.BAM
             }
 
             // if there is no overlap no need to parse further.
-            if ((alignedSeq.Pos + alignedSeq.QueryLength) < start)
+            // ZeroBasedRefEnd < start
+            // => (alignedSeq.RefEndPos -1) < start
+            if (alignedSeq.RefEndPos - 1 < start)
             {
                 return null;
             }
@@ -1161,12 +1163,6 @@ namespace Bio.IO.BAM
                 strbuilder.Append(GetSeqChar(value));
             }
 
-            ISequence refSeq = null;
-            if (RefSequences != null && RefSequences.Count > 0)
-            {
-                refSeq = RefSequences.FirstOrDefault(R => string.Compare(R.ID, alignedSeq.RName, StringComparison.OrdinalIgnoreCase) == 0);
-            }
-
             startIndex = index + 1;
             string strSequence = strbuilder.ToString();
             byte[] qualValues = new byte[readLen];
@@ -1182,7 +1178,7 @@ namespace Bio.IO.BAM
                 strQualValues = System.Text.ASCIIEncoding.ASCII.GetString(qualValues);
             }
 
-            SAMParser.ParseQualityNSequence(alignedSeq, Alphabet, strSequence, strQualValues, refSeq);
+            SAMParser.ParseQualityNSequence(alignedSeq, Alphabet, strSequence, strQualValues);
 
             startIndex += readLen;
             if (alignmentBlock.Length > startIndex + 4 && alignmentBlock[startIndex] != 0x0 && alignmentBlock[startIndex + 1] != 0x0)
@@ -1367,37 +1363,27 @@ namespace Bio.IO.BAM
             SAMAlignmentHeader header = GetHeader();
 
             // verify whether the chromosome index is there in the header or not.
-            IList<string> refSeqs = header.GetReferenceSequences();
-            if (refSeqIndex < 0 || refSeqIndex >= refSeqs.Count)
+            if (refSeqIndex < 0 || refSeqIndex >= header.ReferenceSequences.Count)
             {
                 throw new ArgumentOutOfRangeException("refSeqIndex");
             }
 
-            string refSeqName = refSeqs[refSeqIndex];
-            refSeqs = null;
-
-            // verify whether there is any reads related to chromosome.
-            refSeqIndex = refSeqNames.IndexOf(refSeqName);
-
             SequenceAlignmentMap seqMap = new SequenceAlignmentMap(header);
 
-            if (refSeqIndex >= 0)
+            BAMIndex bamIndexInfo = bamIndexFile.Read();
+
+            if (bamIndexInfo.RefIndexes.Count <= refSeqIndex)
             {
-                BAMIndex bamIndexInfo = bamIndexFile.Read();
+                throw new ArgumentOutOfRangeException("refSeqIndex");
+            }
 
-                if (bamIndexInfo.RefIndexes.Count <= refSeqIndex)
-                {
-                    throw new ArgumentOutOfRangeException("refSeqIndex");
-                }
+            BAMReferenceIndexes refIndex = bamIndexInfo.RefIndexes[refSeqIndex];
+            IList<Chunk> chunks = GetChunks(refIndex);
 
-                BAMReferenceIndexes refIndex = bamIndexInfo.RefIndexes[refSeqIndex];
-                IList<Chunk> chunks = GetChunks(refIndex);
-
-                IList<SAMAlignedSequence> alignedSeqs = GetAlignedSequences(chunks, 0, int.MaxValue);
-                foreach (SAMAlignedSequence alignedSeq in alignedSeqs)
-                {
-                    seqMap.QuerySequences.Add(alignedSeq);
-                }
+            IList<SAMAlignedSequence> alignedSeqs = GetAlignedSequences(chunks, 0, int.MaxValue);
+            foreach (SAMAlignedSequence alignedSeq in alignedSeqs)
+            {
+                seqMap.QuerySequences.Add(alignedSeq);
             }
 
             readStream = null;
@@ -1416,32 +1402,24 @@ namespace Bio.IO.BAM
             ValidateReader();
             SAMAlignmentHeader header = GetHeader();
 
-            // verify whether the chromosome name is there in the header or not.
-            IList<string> refSeqs = header.GetReferenceSequences();
-            int refSeqIndex = refSeqs.IndexOf(refSeqName);
+            // verify whether there is any reads related to chromosome.
+            int refSeqIndex = refSeqNames.IndexOf(refSeqName);
             if (refSeqIndex < 0)
             {
                 string message = string.Format(CultureInfo.InvariantCulture, Properties.Resource.BAM_RefSeqNotFound, refSeqName);
                 throw new ArgumentException(message, "refSeqName");
             }
-            refSeqs = null;
-
-            // verify whether there is any reads related to chromosome.
-            refSeqIndex = refSeqNames.IndexOf(refSeqName);
 
             SequenceAlignmentMap seqMap = new SequenceAlignmentMap(header);
-            if (refSeqIndex >= 0)
+            BAMIndex bamIndexInfo = bamIndexFile.Read();
+
+            BAMReferenceIndexes refIndex = bamIndexInfo.RefIndexes[refSeqIndex];
+            IList<Chunk> chunks = GetChunks(refIndex);
+
+            IList<SAMAlignedSequence> alignedSeqs = GetAlignedSequences(chunks, 0, int.MaxValue);
+            foreach (SAMAlignedSequence alignedSeq in alignedSeqs)
             {
-                BAMIndex bamIndexInfo = bamIndexFile.Read();
-
-                BAMReferenceIndexes refIndex = bamIndexInfo.RefIndexes[refSeqIndex];
-                IList<Chunk> chunks = GetChunks(refIndex);
-
-                IList<SAMAlignedSequence> alignedSeqs = GetAlignedSequences(chunks, 0, int.MaxValue);
-                foreach (SAMAlignedSequence alignedSeq in alignedSeqs)
-                {
-                    seqMap.QuerySequences.Add(alignedSeq);
-                }
+                seqMap.QuerySequences.Add(alignedSeq);
             }
             readStream = null;
             return seqMap;
@@ -1460,32 +1438,24 @@ namespace Bio.IO.BAM
             ValidateReader();
             SAMAlignmentHeader header = GetHeader();
 
-            // verify whether the chromosome name is there in the header or not.
-            IList<string> refSeqs = header.GetReferenceSequences();
-            int refSeqIndex = refSeqs.IndexOf(refSeqName);
+            // verify whether there is any reads related to chromosome.
+            int refSeqIndex = refSeqNames.IndexOf(refSeqName);
             if (refSeqIndex < 0)
             {
                 string message = string.Format(CultureInfo.InvariantCulture, Properties.Resource.BAM_RefSeqNotFound, refSeqName);
                 throw new ArgumentException(message, "refSeqName");
             }
-            refSeqs = null;
-
-            // verify whether there is any reads related to chromosome.
-            refSeqIndex = refSeqNames.IndexOf(refSeqName);
 
             SequenceAlignmentMap seqMap = new SequenceAlignmentMap(header);
 
-            if (refSeqIndex >= 0)
-            {
-                BAMIndex bamIndexInfo = bamIndexFile.Read();
-                BAMReferenceIndexes refIndex = bamIndexInfo.RefIndexes[refSeqIndex];
-                IList<Chunk> chunks = GetChunks(refIndex, start, end);
+            BAMIndex bamIndexInfo = bamIndexFile.Read();
+            BAMReferenceIndexes refIndex = bamIndexInfo.RefIndexes[refSeqIndex];
+            IList<Chunk> chunks = GetChunks(refIndex, start, end);
 
-                IList<SAMAlignedSequence> alignedSeqs = GetAlignedSequences(chunks, start, end);
-                foreach (SAMAlignedSequence alignedSeq in alignedSeqs)
-                {
-                    seqMap.QuerySequences.Add(alignedSeq);
-                }
+            IList<SAMAlignedSequence> alignedSeqs = GetAlignedSequences(chunks, start, end);
+            foreach (SAMAlignedSequence alignedSeq in alignedSeqs)
+            {
+                seqMap.QuerySequences.Add(alignedSeq);
             }
 
             readStream = null;
@@ -1505,38 +1475,28 @@ namespace Bio.IO.BAM
             ValidateReader();
             SAMAlignmentHeader header = GetHeader();
 
-            // verify whether the chromosome index is there in the header or not.
-            IList<string> refSeqs = header.GetReferenceSequences();
-            if (refSeqIndex < 0 || refSeqIndex >= refSeqs.Count)
+            // verify whether there is any reads related to chromosome.
+            if (refSeqIndex < 0 || refSeqIndex >= header.ReferenceSequences.Count)
             {
                 throw new ArgumentOutOfRangeException("refSeqIndex");
             }
 
-            string refSeqName = refSeqs[refSeqIndex];
-            refSeqs = null;
-
-            // verify whether there is any reads related to chromosome.
-            refSeqIndex = refSeqNames.IndexOf(refSeqName);
-
             SequenceAlignmentMap seqMap = new SequenceAlignmentMap(header);
 
-            if (refSeqIndex >= 0)
+            BAMIndex bamIndexInfo = bamIndexFile.Read();
+
+            if (bamIndexInfo.RefIndexes.Count < refSeqIndex)
             {
-                BAMIndex bamIndexInfo = bamIndexFile.Read();
+                throw new ArgumentOutOfRangeException("refSeqIndex");
+            }
 
-                if (bamIndexInfo.RefIndexes.Count < refSeqIndex)
-                {
-                    throw new ArgumentOutOfRangeException("refSeqIndex");
-                }
+            BAMReferenceIndexes refIndex = bamIndexInfo.RefIndexes[refSeqIndex];
+            IList<Chunk> chunks = GetChunks(refIndex, start, end);
 
-                BAMReferenceIndexes refIndex = bamIndexInfo.RefIndexes[refSeqIndex];
-                IList<Chunk> chunks = GetChunks(refIndex, start, end);
-
-                IList<SAMAlignedSequence> alignedSeqs = GetAlignedSequences(chunks, start, end);
-                foreach (SAMAlignedSequence alignedSeq in alignedSeqs)
-                {
-                    seqMap.QuerySequences.Add(alignedSeq);
-                }
+            IList<SAMAlignedSequence> alignedSeqs = GetAlignedSequences(chunks, start, end);
+            foreach (SAMAlignedSequence alignedSeq in alignedSeqs)
+            {
+                seqMap.QuerySequences.Add(alignedSeq);
             }
 
             readStream = null;

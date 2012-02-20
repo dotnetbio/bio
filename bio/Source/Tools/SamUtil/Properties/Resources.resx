@@ -207,6 +207,9 @@ Description: It sort reads by name.
 Options:
 -n         sort by read names</value>
   </data>
+  <data name="SuccessMessageWithOutputFileName" xml:space="preserve">
+    <value>Output is successfully written to the file: {0}</value>
+  </data>
   <data name="ViewHelp" xml:space="preserve">
     <value>Usage:    SAMUtils.exe view [options] in.bam|in.sam
 

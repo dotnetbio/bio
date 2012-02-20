@@ -500,7 +500,7 @@
     <ExpectedSequence>IFYEPVEILGYDNKSSLVLVKRLITR</ExpectedSequence>
     <InputSequence>IFYEPVEILGYDNKSSLVLVKRLITR</InputSequence>
     <ReverseQualSeq>RTILRKVLVLSSKNDYGLIEVPEYFI</ReverseQualSeq>
-    <ComplementException>complement for the symbol i alphabet is not supported.</ComplementException>
+    <ComplementException>complement for the symbol I is not supported by Protein Alphabet.</ComplementException>
     <EncodedValues>71,71,67,71,67,65,67,84,84,65,67,65,67,67,67,84,65,67,65,84,67,67,65,84,84,71</EncodedValues>
     <RevComplement>CAATGGATGTAGGGTGTAAGTGCGCC</RevComplement>
   </SimpleProteinSanger>

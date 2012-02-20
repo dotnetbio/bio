@@ -48,9 +48,7 @@ namespace Bio.IO.SAM
             // Unique read group identifier. The value of the ID field is used
             // in the RG tags of alignment records.
             allowedTags.Add("ID");
-
-            // Sample (use pool name where a pool is being sequenced).
-            allowedTags.Add("SM");
+    
             MandatoryTagsForFieldTypes.Add("RG", allowedTags);
             #endregion
 
@@ -69,6 +67,7 @@ namespace Bio.IO.SAM
         {
             Comments = new List<string>();
             RecordFields = new List<SAMRecordField>();
+            ReferenceSequences = new List<ReferenceSequenceInfo>();
         }
         #endregion
 
@@ -78,6 +77,16 @@ namespace Bio.IO.SAM
         /// It holds all available record fields except comments.
         /// </summary>
         public IList<SAMRecordField> RecordFields { get; private set; }
+
+        /// <summary>
+        /// Holds the list of reference sequences name and length.
+        /// SAMParser update this property from SQ header if present, else this will be updated from the each 
+        /// alignment information in this case length of reference sequence will be unknown thus set to zero.
+        /// BAMParser update this property from reference information block and not from the SQ header.
+        /// BAMFormatter uses this information to write reference information block.
+        /// SAMFormatter does not requires this information, thus ignores this info.
+        /// </summary>
+        public IList<ReferenceSequenceInfo> ReferenceSequences { get; private set; }
 
         /// <summary>
         /// List of comment headers.
@@ -120,11 +129,25 @@ namespace Bio.IO.SAM
         }
 
         /// <summary>
-        /// Returns list of SequenceRanges objects which represents reference sequences present in this header. 
+        /// Returns list of SequenceRanges objects which represents ReferenceSequenceInfo present in this header. 
         /// </summary>
         public IList<SequenceRange> GetReferenceSequenceRanges()
         {
             List<SequenceRange> ranges = new List<SequenceRange>();
+                foreach (var item in ReferenceSequences)
+                {
+                    ranges.Add(new SequenceRange(item.Name, 0, item.Length));
+                }
+
+            return ranges;
+        }
+
+        /// <summary>
+        /// Returns list of reference sequences name and length present in SQ header. 
+        /// </summary>
+        public IList<ReferenceSequenceInfo> GetReferenceSequencesInfoFromSQHeader()
+        {
+            List<ReferenceSequenceInfo> refSequencesInfo = new List<ReferenceSequenceInfo>();
             List<SAMRecordField> fields = RecordFields.Where(R => String.Compare(R.Typecode, "SQ", StringComparison.OrdinalIgnoreCase) == 0).ToList();
             foreach (SAMRecordField field in fields)
             {
@@ -136,32 +159,12 @@ namespace Bio.IO.SAM
                     tag = field.Tags.FirstOrDefault(F => String.Compare(F.Tag, "LN", StringComparison.OrdinalIgnoreCase) == 0);
                     if (tag != null && long.TryParse(tag.Value, out length))
                     {
-                        SequenceRange range = new SequenceRange(refName, 0, length);
-                        ranges.Add(range);
+                        refSequencesInfo.Add(new ReferenceSequenceInfo(refName, length));
                     }
                 }
             }
 
-            return ranges;
-        }
-
-        /// <summary>
-        /// Returns list of reference sequences present in this header. 
-        /// </summary>
-        public IList<string> GetReferenceSequences()
-        {
-            List<string> refSequences = new List<string>();
-            List<SAMRecordField> fields = RecordFields.Where(R => String.Compare(R.Typecode, "SQ", StringComparison.OrdinalIgnoreCase) == 0).ToList();
-            foreach (SAMRecordField field in fields)
-            {
-                SAMRecordFieldTag tag = field.Tags.FirstOrDefault(F => String.Compare(F.Tag, "SN", StringComparison.OrdinalIgnoreCase) == 0);
-                if (tag != null)
-                {
-                    refSequences.Add(tag.Value);
-                }
-            }
-
-            return refSequences;
+            return refSequencesInfo;
         }
         #endregion
     }
