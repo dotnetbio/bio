@@ -122,6 +122,9 @@
 
 Li H.*, Handsaker B.*, Wysoker A., Fennell T., Ruan J., Homer N., Marth G., Abecasis G., Durbin R. and 1000 Genome Project Data Processing Subgroup (2009) The Sequence alignment/map (SAM) format and SAMtools. Bioinformatics, 25, 2078-9. [PMID: 19505943]</value>
   </data>
+  <data name="BAM_INDEXFILEEXTENSION" xml:space="preserve">
+    <value>.bai</value>
+  </data>
   <data name="ChimericRegionsHelp" xml:space="preserve">
     <value>Usage:   SAMUtils.exe Chimera [options] in.bam MeanValue StdDeviationValue
 Description: Process Chimeric regions in the parsed file.</value>
@@ -144,19 +147,22 @@ Description: DNA Possible Occurence Help</value>
     <value>Header Missing</value>
   </data>
   <data name="ImportHelp" xml:space="preserve">
-    <value>Usage:  SAMUtils.exe import [options] [out.bam|out.sam] in.sam|in.bam
+    <value>Usage:  SAMUtils.exe import [options] in.sam|in.bam
 Description:  Import converts SAM &lt;=&gt; BAM file formats.
 
 Options:
-
+-o:OutFile Output file name, by default .bam|.sam is concatenated to input filename
 -r:FILE  File path of TAB delimited file.(in.ref_list)</value>
   </data>
   <data name="IncorrectHeaderFile" xml:space="preserve">
     <value>Incorrect Header file format</value>
   </data>
   <data name="IndexHelp" xml:space="preserve">
-    <value>Usage:	SAMUtils.exe index  in.bam [out.index]
-Description: Generates Index file for given BAM file.</value>
+    <value>Usage:	SAMUtils.exe index [options] in.bam
+Description: Generates Index file for given BAM file.
+
+Options:
+-o:OutFile Output file name, by default .bai is concatenated to input filename</value>
   </data>
   <data name="InvalidBAMFile" xml:space="preserve">
     <value>Invalid BAM file.</value>
@@ -169,11 +175,12 @@ Description: Generates Index file for given BAM file.</value>
 Description: Process chromosomes for length anamoly</value>
   </data>
   <data name="MergeHelp" xml:space="preserve">
-    <value>Usage:      SAMUtils.exe [options] out.bam in1.bam in2.bam [..]
+    <value>Usage:      SAMUtils.exe Merge [options] in1.bam in2.bam [..]
 Description: Helps in merging. 
 
 Options:
 -n          sort by read names
+-o:OutFile Output file name  (out.bam)
 -h:FILE     copy the header in FILE(SAM/BAM format) to out.bam [in1.bam]
 
 Note: Samtool merge does not reconstruct the @RG dictionary in the header.
@@ -202,10 +209,11 @@ Copyright (c) 2011, The Outercurve Foundation.
 </value>
   </data>
   <data name="SortHelp" xml:space="preserve">
-    <value>Usage:     SAMUtils.exe sort [options] in.bam out.bam
+    <value>Usage:     SAMUtils.exe sort [options] in.bam
 Description: It sort reads by name.
 Options:
--n         sort by read names</value>
+-n         sort by read names
+-o:OutFile Output file name, by default .sort is concatenated to input filename</value>
   </data>
   <data name="SuccessMessageWithOutputFileName" xml:space="preserve">
     <value>Output is successfully written to the file: {0}</value>

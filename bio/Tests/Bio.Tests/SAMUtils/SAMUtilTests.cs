@@ -24,10 +24,9 @@ namespace Bio.Tests
         public void ImportTestWithBAM()
         {
             Import options = new Import();
-            options.FilePath = new string[2];
             string tempFilename = Path.GetTempFileName() + ".bam";
-            options.FilePath[0] = tempFilename;
-            options.FilePath[1] = @"TestUtils\SAM\SeqAlignment.sam";
+            options.OutputFilename = tempFilename;
+            options.InputFilename = @"TestUtils\SAM\SeqAlignment.sam";
             options.DoImport();
 
             using (SAMParser parser = new SAMParser())
@@ -51,10 +50,9 @@ namespace Bio.Tests
         public void ImportTestWithSAM()
         {
             Import options = new Import();
-            options.FilePath = new string[2];
             string tempFilename = Path.GetTempFileName();
-            options.FilePath[0] = tempFilename;
-            options.FilePath[1] = @"TestUtils\SAM\SeqAlignment.bam";
+            options.OutputFilename = tempFilename;
+            options.InputFilename = @"TestUtils\SAM\SeqAlignment.bam";
             options.DoImport();
 
             using (BAMParser parser = new BAMParser())
@@ -84,10 +82,9 @@ namespace Bio.Tests
         public void IndexTest()
         {
             Index option = new Index();
-            option.FilePath = new string[2];
-            option.FilePath[0] = @"TestUtils\SAM\SeqAlignment.bam";
+            option.InputFilename = @"TestUtils\SAM\SeqAlignment.bam";
             string tempFile = Path.GetTempFileName();
-            option.FilePath[1] = tempFile;
+            option.OutputFilename = tempFile;
             option.GenerateIndexFile();
             Assert.IsTrue(File.Exists(tempFile));
             File.Delete(tempFile);
@@ -106,10 +103,9 @@ namespace Bio.Tests
         public void SortTest()
         {
             Sort option = new Sort();
-            option.FilePaths = new string[2];
-            option.FilePaths[0] = @"TestUtils\SAM\SeqAlignment.bam";
+            option.InputFilename = @"TestUtils\SAM\SeqAlignment.bam";
             string tempFile = Path.GetTempFileName();
-            option.FilePaths[1] = tempFile;
+            option.OutputFilename = tempFile;
             option.SortByReadName = true;
             option.DoSort();
             using (BAMParser parser = new BAMParser())
@@ -137,12 +133,12 @@ namespace Bio.Tests
         public void MergeTest()
         {
             Merge options = new Merge();
-            options.FilePaths = new string[3];
+            options.FilePaths = new string[2];
             options.SortByReadName = true;
             string tempFile = Path.GetTempFileName();
-            options.FilePaths[0] = tempFile;
+            options.OutputFilename = tempFile;
+            options.FilePaths[0] = @"TestUtils\SAM\SeqAlignment.bam";
             options.FilePaths[1] = @"TestUtils\SAM\SeqAlignment.bam";
-            options.FilePaths[2] = @"TestUtils\SAM\SeqAlignment.bam";
             options.DoMerge();
             using (BAMParser parser = new BAMParser())
             {
@@ -169,7 +165,7 @@ namespace Bio.Tests
             option.InputFilePath = @"TestUtils\SAM\SeqAlignment.bam";
             option.Header = true;
             string tempFile = Path.GetTempFileName();
-            option.OutputFilePath = tempFile;
+            option.OutputFilename = tempFile;
             option.ViewResult();
             using (BAMParser parser = new BAMParser())
             {

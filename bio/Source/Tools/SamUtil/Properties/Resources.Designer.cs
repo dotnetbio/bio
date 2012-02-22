@@ -72,6 +72,15 @@ namespace SamUtil.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to .bai.
+        /// </summary>
+        internal static string BAM_INDEXFILEEXTENSION {
+            get {
+                return ResourceManager.GetString("BAM_INDEXFILEEXTENSION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Usage:   SAMUtils.exe Chimera [options] in.bam MeanValue StdDeviationValue
         ///Description: Process Chimeric regions in the parsed file..
         /// </summary>
@@ -129,11 +138,11 @@ namespace SamUtil.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Usage:  SAMUtils.exe import [options] [out.bam|out.sam] in.sam|in.bam
+        ///   Looks up a localized string similar to Usage:  SAMUtils.exe import [options] in.sam|in.bam
         ///Description:  Import converts SAM &lt;=&gt; BAM file formats.
         ///
         ///Options:
-        ///
+        ///-o:OutFile Output file name, by default .bam|.sam is concatenated to input filename
         ///-r:FILE  File path of TAB delimited file.(in.ref_list).
         /// </summary>
         internal static string ImportHelp {
@@ -152,8 +161,11 @@ namespace SamUtil.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Usage:	SAMUtils.exe index  in.bam [out.index]
-        ///Description: Generates Index file for given BAM file..
+        ///   Looks up a localized string similar to Usage:	SAMUtils.exe index [options] in.bam
+        ///Description: Generates Index file for given BAM file.
+        ///
+        ///Options:
+        ///-o:OutFile Output file name, by default .bai is concatenated to input filename.
         /// </summary>
         internal static string IndexHelp {
             get {
@@ -190,11 +202,12 @@ namespace SamUtil.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Usage:      SAMUtils.exe [options] out.bam in1.bam in2.bam [..]
+        ///   Looks up a localized string similar to Usage:      SAMUtils.exe Merge [options] in1.bam in2.bam [..]
         ///Description: Helps in merging. 
         ///
         ///Options:
         ///-n          sort by read names
+        ///-o:OutFile Output file name  (out.bam)
         ///-h:FILE     copy the header in FILE(SAM/BAM format) to out.bam [in1.bam]
         ///
         ///Note: Samtool merge does not reconstruct the @RG dictionary in the header.
@@ -253,10 +266,11 @@ namespace SamUtil.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Usage:     SAMUtils.exe sort [options] in.bam out.bam
+        ///   Looks up a localized string similar to Usage:     SAMUtils.exe sort [options] in.bam
         ///Description: It sort reads by name.
         ///Options:
-        ///-n         sort by read names.
+        ///-n         sort by read names
+        ///-o:OutFile Output file name, by default .sort is concatenated to input filename.
         /// </summary>
         internal static string SortHelp {
             get {

@@ -62,9 +62,9 @@ namespace SamUtil
         public string ReferenceSequenceFile;
 
         /// <summary>
-        /// Path of output file.
+        /// Output file name
         /// </summary>
-        public string OutputFilePath;
+        public string OutputFilename;
 
         /// <summary>
         /// Only output alignments with all bits in INT present in the FLAG field. 
@@ -389,7 +389,7 @@ namespace SamUtil
             bamUncompressedOutStream = null;
             bamCompressedOutStream = null;
 
-            if (string.IsNullOrEmpty(OutputFilePath))
+            if (string.IsNullOrEmpty(OutputFilename))
             {
                 writer = Console.Out;
             }
@@ -401,16 +401,16 @@ namespace SamUtil
 
                     if (UnCompressedBAM)
                     {
-                        bamUncompressedOutStream = new FileStream(OutputFilePath, FileMode.Create, FileAccess.ReadWrite);
+                        bamUncompressedOutStream = new FileStream(OutputFilename, FileMode.Create, FileAccess.ReadWrite);
                     }
                     else
                     {
-                        bamCompressedOutStream = new FileStream(OutputFilePath, FileMode.Create, FileAccess.ReadWrite);
+                        bamCompressedOutStream = new FileStream(OutputFilename, FileMode.Create, FileAccess.ReadWrite);
                     }
                 }
                 else
                 {
-                    writer = new StreamWriter(OutputFilePath);
+                    writer = new StreamWriter(OutputFilename);
                 }
             }
 

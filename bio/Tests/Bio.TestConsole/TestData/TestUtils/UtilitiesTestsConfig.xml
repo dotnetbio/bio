@@ -217,31 +217,31 @@
     <ExpectedOutputFile>TestUtils\LisUtilExpectedOutputShowMatchingStr.txt</ExpectedOutputFile>
   </LisUtilWithShowMatchingStr>
   <SamUtilsWithImportSAMtoBAM>
-    <Command>SAMUtils.exe import "TestUtils\SAMBAMTestData\ActualOutputMediumSizeBam.bam" "TestUtils\SAMBAMTestData\MediumSizeSam.Sam"</Command>
+    <Command>SAMUtils.exe import -o:"TestUtils\SAMBAMTestData\ActualOutputMediumSizeBam.bam" "TestUtils\SAMBAMTestData\MediumSizeSam.Sam"</Command>
     <ConsoleCommand></ConsoleCommand>
     <ActualOutputFile>TestUtils\SAMBAMTestData\ActualOutputMediumSizeBam.bam</ActualOutputFile>
     <ExpectedOutputFile>TestUtils\SAMBAMTestData\ExpectedOutputMediumSizedBam.txt</ExpectedOutputFile>
   </SamUtilsWithImportSAMtoBAM>
   <SamUtilsWithImportBAMtoSAM>
-    <Command>SAMUtils.exe import "TestUtils\SAMBAMTestData\ActualOutputMediumSizeSam.sam" "TestUtils\SAMBAMTestData\MediumSizeBam.bam"</Command>
+    <Command>SAMUtils.exe import -o:"TestUtils\SAMBAMTestData\ActualOutputMediumSizeSam.sam" "TestUtils\SAMBAMTestData\MediumSizeBam.bam"</Command>
     <ConsoleCommand></ConsoleCommand>
     <ActualOutputFile>TestUtils\SAMBAMTestData\ActualOutputMediumSizeSam.sam</ActualOutputFile>
     <ExpectedOutputFile>TestUtils\SAMBAMTestData\ExpectedOutputMediumSizedSam.txt</ExpectedOutputFile>
   </SamUtilsWithImportBAMtoSAM>
   <SamUtilsWithSort>
-    <Command>SAMUtils.exe sort "TestUtils\SAMBAMTestData\MediumSizeBam.bam" "TestUtils\SAMBAMTestData\ActualOutputSortedBam.bam"</Command>
+    <Command>SAMUtils.exe sort -o:"TestUtils\SAMBAMTestData\ActualOutputSortedBam.bam" "TestUtils\SAMBAMTestData\MediumSizeBam.bam"</Command>
     <ConsoleCommand></ConsoleCommand>
     <ActualOutputFile>TestUtils\SAMBAMTestData\ActualOutputSortedBam.bam</ActualOutputFile>
     <ExpectedOutputFile>TestUtils\SAMBAMTestData\ExpectedOutputSortedBam.bam</ExpectedOutputFile>
   </SamUtilsWithSort>
   <SamUtilsWithSortByReadNames>
-    <Command>SAMUtils.exe sort -n "TestUtils\SAMBAMTestData\MediumSizeBam.bam" "TestUtils\SAMBAMTestData\ActualOutputSortedBamByReadNames.bam"</Command>
+    <Command>SAMUtils.exe sort -n -o:"TestUtils\SAMBAMTestData\ActualOutputSortedBamByReadNames.bam" "TestUtils\SAMBAMTestData\MediumSizeBam.bam"</Command>
     <ConsoleCommand></ConsoleCommand>
     <ActualOutputFile>TestUtils\SAMBAMTestData\ActualOutputSortedBamByReadNames.bam</ActualOutputFile>
     <ExpectedOutputFile>TestUtils\SAMBAMTestData\ExpectedOutputSortedBamByReadNames.bam</ExpectedOutputFile>
   </SamUtilsWithSortByReadNames>
   <SamUtilsWithIndex>
-    <Command>SAMUtils.exe index "TestUtils\SAMBAMTestData\MediumSizeBam.bam" "TestUtils\SAMBAMTestData\ActualOutputBAMIndex.index"</Command>
+    <Command>SAMUtils.exe index -o:"TestUtils\SAMBAMTestData\ActualOutputBAMIndex.index" "TestUtils\SAMBAMTestData\MediumSizeBam.bam"</Command>
     <ConsoleCommand></ConsoleCommand>
     <ActualOutputFile>TestUtils\SAMBAMTestData\ActualOutputBAMIndex.index</ActualOutputFile>
     <ExpectedOutputFile>TestUtils\SAMBAMTestData\ExpectedBAMIndex.index</ExpectedOutputFile>

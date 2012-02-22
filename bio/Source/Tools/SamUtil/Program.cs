@@ -117,7 +117,7 @@ namespace SamUtil
             parser.Parameter(ArgumentType.Optional, "ReferenceNamesAndLength", ArgumentValueType.String, "t",
                 "List of reference names and lengths in a tab limited file rest all field will be ignored.");
             parser.Parameter(ArgumentType.Optional, "ReferenceSequenceFile", ArgumentValueType.String, "T", "Reference sequence file");
-            parser.Parameter(ArgumentType.Optional, "OutputFilePath", ArgumentValueType.String, "o", "Output file path");
+            parser.Parameter(ArgumentType.Optional, "OutputFilename", ArgumentValueType.String, "o", "Output file name");
             parser.Parameter(ArgumentType.Optional, "FlagRequired", ArgumentValueType.Int, "f", "Required flag");
             parser.Parameter(ArgumentType.Optional, "FilteringFlag", ArgumentValueType.Int, "F", "Filtering flag");
             parser.Parameter(ArgumentType.Optional, "QualityMinimumMapping", ArgumentValueType.Int, "q", "Minimum mapping quality");
@@ -130,7 +130,7 @@ namespace SamUtil
                         "          or ‘chr2:1,000,000-2,000,000’\n" +
                         "          (region between 1,000,000 and 2,000,000bp including the end points).\n" +
                         "          The coordinate is 1-based.\n");
-            parser.Parameter(ArgumentType.Optional, "Help", ArgumentValueType.Bool, "", "");
+            parser.Parameter(ArgumentType.Optional, "Help", ArgumentValueType.Bool, "?", "");
             parser.Parameter(ArgumentType.DefaultArgument, "InputFilePath", ArgumentValueType.String, "", "Input SAM/BAM file path");
 
             if (args.Length > 0)
@@ -170,7 +170,8 @@ namespace SamUtil
             CommandLineArguments parser = new CommandLineArguments();
 
             // Add the parameters
-            parser.Parameter(ArgumentType.DefaultArgument, "FilePath", ArgumentValueType.MultipleUniqueStrings, "", "Input BAM file path");
+            parser.Parameter(ArgumentType.DefaultArgument, "InputFilename", ArgumentValueType.String, "", "Input BAM file name");
+            parser.Parameter(ArgumentType.Optional, "OutputFilename", ArgumentValueType.String, "o", "Output file name");
             parser.Parameter(ArgumentType.Optional, "Help", ArgumentValueType.Bool, "", "");
 
             if (args.Length > 0)
@@ -210,9 +211,10 @@ namespace SamUtil
             CommandLineArguments parser = new CommandLineArguments();
 
             // Add the parameters
-            parser.Parameter(ArgumentType.DefaultArgument, "FilePath", ArgumentValueType.MultipleUniqueStrings, "", "File path");
+            parser.Parameter(ArgumentType.DefaultArgument, "InputFilename", ArgumentValueType.String, "", "Input filename");
             parser.Parameter(ArgumentType.Optional, "Help", ArgumentValueType.Bool, "", "");
             parser.Parameter(ArgumentType.Optional, "ReferenceListFile", ArgumentValueType.String, "r", "Tab delimited file");
+            parser.Parameter(ArgumentType.Optional, "OutputFilename", ArgumentValueType.String, "o", "Output file name");
 
             if (args != null && args.Length > 0)
             {
@@ -252,12 +254,13 @@ namespace SamUtil
             CommandLineArguments parser = new CommandLineArguments();
 
             //Add the parameters
-            parser.Parameter(ArgumentType.DefaultArgument, "FilePaths", ArgumentValueType.MultipleUniqueStrings, "", "File Paths");
             parser.Parameter(ArgumentType.Optional, "SortByReadName", ArgumentValueType.Bool, "n", "Sort by read name");
-            parser.Parameter(ArgumentType.Optional, "HeaderFile", ArgumentValueType.String, "h", "Copy the Header from ths file");
+            parser.Parameter(ArgumentType.Optional, "HeaderFile", ArgumentValueType.String, "h", "Copy the Header from this file");
             parser.Parameter(ArgumentType.Optional, "Help", ArgumentValueType.Bool, "", "");
+            parser.Parameter(ArgumentType.Optional, "OutputFilename", ArgumentValueType.String, "o", "Output file name");
+            parser.Parameter(ArgumentType.DefaultArgument, "FilePaths", ArgumentValueType.MultipleUniqueStrings, "", "File Paths");
 
-            if (args != null && args.Length > 2)
+            if (args != null && args.Length >= 2)
             {
                 try
                 {
@@ -294,9 +297,10 @@ namespace SamUtil
             CommandLineArguments parser = new CommandLineArguments();
 
             // Add the parameters
-            parser.Parameter(ArgumentType.DefaultArgument, "FilePaths", ArgumentValueType.MultipleUniqueStrings, "", "File Paths");
+            parser.Parameter(ArgumentType.DefaultArgument, "InputFilename", ArgumentValueType.String, "", "File Paths");
             parser.Parameter(ArgumentType.Optional, "SortByReadName", ArgumentValueType.Bool, "n", "Sort by read name");
             parser.Parameter(ArgumentType.Optional, "Help", ArgumentValueType.Bool, "", "");
+            parser.Parameter(ArgumentType.Optional, "OutputFilename", ArgumentValueType.String, "o", "Output file name");
 
             if (args.Length > 0)
             {
