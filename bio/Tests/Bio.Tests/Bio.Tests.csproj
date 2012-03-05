@@ -88,6 +88,7 @@
     <Compile Include="Framework\MUMmer\MUMmerAlignerTests.cs" />
     <Compile Include="Framework\QualitativeSequenceTest.cs" />
     <Compile Include="Framework\RnaAlphabetTests.cs" />
+    <Compile Include="Framework\SequenceStatisticsTests.cs" />
     <Compile Include="Framework\SequenceTests.cs" />
     <Compile Include="Framework\SparseSequenceTests.cs" />
     <Compile Include="Framework\TestSequencesCopyToForBio.cs" />

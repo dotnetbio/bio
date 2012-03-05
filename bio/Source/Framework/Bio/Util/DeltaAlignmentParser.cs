@@ -81,14 +81,16 @@ namespace Bio.Util
         /// </summary>
         public IEnumerable<long> GetPositions()
         {
-            StreamReader streamReader = new StreamReader(this.DeltaFilename);
-            while (!streamReader.EndOfStream)
+            using (StreamReader streamReader = new StreamReader(this.DeltaFilename))
             {
-                string line = streamReader.ReadLine();
-                if (line.StartsWith("@"))
+                while (!streamReader.EndOfStream)
                 {
-                    line = line.Substring(1);
-                    yield return long.Parse(line);
+                    string line = streamReader.ReadLine();
+                    if (line.StartsWith("@"))
+                    {
+                        line = line.Substring(1);
+                        yield return long.Parse(line);
+                    }
                 }
             }
         }
@@ -241,37 +243,35 @@ namespace Bio.Util
         /// </summary>
         public IEnumerable<Tuple<string, string>> GetQuerySeqIds()
         {
-            StreamReader reader = new StreamReader(this.DeltaFilename);
-            while (!reader.EndOfStream)
+            using (StreamReader reader = new StreamReader(this.DeltaFilename))
             {
-                string line = ReadNextLine(reader);
-                if (line == null || !line.StartsWith("@", StringComparison.OrdinalIgnoreCase))
+                while (!reader.EndOfStream)
                 {
-                    string message = string.Format(
-                       CultureInfo.InvariantCulture,
-                       Properties.Resource.INVALID_INPUT_FILE,
-                       this.DeltaFilename);
+                    string line = ReadNextLine(reader);
+                    if (line == null || !line.StartsWith("@", StringComparison.OrdinalIgnoreCase))
+                    {
+                        string message = string.Format(
+                           CultureInfo.InvariantCulture,
+                           Properties.Resource.INVALID_INPUT_FILE,
+                           this.DeltaFilename);
+                        throw new FileFormatException(message);
+                    }
 
-                    throw new FileFormatException(message);
-                }
+                    string id = line;
+                    line = ReadNextLine(reader);
+                    if (line == null || !line.StartsWith(">", StringComparison.OrdinalIgnoreCase))
+                    {
+                        string message = string.Format(
+                            CultureInfo.InvariantCulture,
+                            Properties.Resource.INVALID_INPUT_FILE,
+                            this.DeltaFilename);
+                        throw new FileFormatException(message);
+                    }
 
-                string id = line;
-                line = ReadNextLine(reader);
-                if (line == null || !line.StartsWith(">", StringComparison.OrdinalIgnoreCase))
-                {
-                    string message = string.Format(
-                        CultureInfo.InvariantCulture,
-                        Properties.Resource.INVALID_INPUT_FILE,
-                        this.DeltaFilename);
-
-                    throw new FileFormatException(message);
-                }
-
-                line = ReadNextLine(reader);
-                yield return new Tuple<string, string>(id, line);
+                    line = ReadNextLine(reader);
+                    yield return new Tuple<string, string>(id, line);
+                } 
             }
-
-            reader.Close();
         }
 
         /// <summary>

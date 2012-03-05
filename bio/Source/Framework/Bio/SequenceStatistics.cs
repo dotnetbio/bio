@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Text;
 
 namespace Bio
@@ -14,7 +15,7 @@ namespace Bio
         #region Fields
 
         private IAlphabet alphabet;
-        private Dictionary<char, int> countHash;
+        private Dictionary<char, long> countHash;
         private double totalCount; // double so we don't need to cast when dividing
 
         #endregion
@@ -28,8 +29,7 @@ namespace Bio
         internal SequenceStatistics(IAlphabet alphabet)
         {
             this.alphabet = alphabet;
-
-            countHash = new Dictionary<char, int>();
+            countHash = new Dictionary<char, long>();
             totalCount = 0;
         }
 
@@ -44,10 +44,10 @@ namespace Bio
                 throw new ArgumentNullException("sequence");
             }
 
-            alphabet = sequence.Alphabet;
+            this.alphabet = sequence.Alphabet;
 
             // Counting with an array is way faster than using a dictionary.
-            int[] symbolCounts = new int[256];
+            long[] symbolCounts = new long[256];
             foreach (byte item in sequence)
             {
                 if (item == 0)
@@ -58,28 +58,66 @@ namespace Bio
                 symbolCounts[item]++;
             }
 
-            LoadFromIntArray(symbolCounts);
+            LoadFromLongArray(symbolCounts);
         }
 
-        private void LoadFromIntArray(int[] symbolCounts)
+        /// <summary>
+        /// This method takes an array of symbol counts and loads our dictionary.
+        /// It collapses upper/lower case differences.
+        /// </summary>
+        /// <param name="symbolCounts"></param>
+        private void LoadFromLongArray(long[] symbolCounts)
         {
             if (symbolCounts.Length != 256)
             {
                 throw new ArgumentOutOfRangeException("symbolCounts", "Array of symbol counts should have length of 256.");
             }
 
-            countHash = new Dictionary<char, int>();
+            countHash = new Dictionary<char, long>();
             totalCount = 0;
 
             for (int i = 0; i < symbolCounts.Length; i++)
             {
                 if (symbolCounts[i] > 0)
                 {
-                    countHash.Add((char)i, symbolCounts[i]);
+                    char value = char.ToUpper((char)i, CultureInfo.InvariantCulture);
+                    
+                    if (countHash.ContainsKey(value))
+                        countHash[value] += symbolCounts[i];
+                    else
+                        countHash.Add(value, symbolCounts[i]);
 
                     totalCount += symbolCounts[i];
                 }
             }
+        }
+
+        #endregion
+
+        #region Public Properties
+
+        /// <summary>
+        /// The total number of elements counted in this statistics set
+        /// </summary>
+        public long TotalCount
+        {
+            get { return (long) totalCount; }
+        }
+
+        /// <summary>
+        /// The alphabet used for the values in this statistics set
+        /// </summary>
+        public IAlphabet Alphabet
+        {
+            get { return alphabet; }
+        }
+
+        /// <summary>
+        /// The set of values counted (so it can be enumerated easily)
+        /// </summary>
+        public IEnumerable<Tuple<char,long>> SymbolCounts
+        {
+            get { return countHash.Select(kvp => Tuple.Create(kvp.Key, kvp.Value)); }
         }
 
         #endregion
@@ -95,22 +133,14 @@ namespace Bio
         /// </summary>
         /// <param name="symbol">The char representation of a symbol.</param>
         /// <returns>The number of occurrences of the given symbol.</returns>
-        public int GetCount(char symbol)
+        public long GetCount(char symbol)
         {
-            int result = 0;
+            long result = 0;
 
             symbol = char.ToUpper(symbol, CultureInfo.InvariantCulture);
-
             if (countHash.ContainsKey(symbol))
             {
                 result = countHash[symbol];
-            }
-
-            symbol = char.ToLower(symbol, CultureInfo.InvariantCulture);
-
-            if (countHash.ContainsKey(symbol))
-            {
-                result += countHash[symbol];
             }
 
             return result;
@@ -125,7 +155,7 @@ namespace Bio
         /// </summary>
         /// <param name="item">A byte of sequence.</param>
         /// <returns>The number of occurrences of the given a byte of sequence.</returns>
-        public int GetCount(byte item)
+        public long GetCount(byte item)
         {
             if (item == byte.MinValue)
             {
@@ -170,7 +200,7 @@ namespace Bio
         public override string ToString()
         {
             StringBuilder builder = new StringBuilder();
-            foreach (KeyValuePair<char, int> valuePair in countHash)
+            foreach (KeyValuePair<char, long> valuePair in countHash)
             {
                 builder.AppendLine(string.Format(CultureInfo.CurrentCulture, Properties.Resource.SequenceStatisticsToStringFormat, valuePair.Key, valuePair.Value));
             }
@@ -208,7 +238,9 @@ namespace Bio
         /// <param name="symbol">The char to remove.</param>
         internal void Remove(char symbol)
         {
-            countHash[symbol]--;
+            if (--countHash[symbol] == 0)
+                countHash.Remove(symbol);
+            
             totalCount--;
         }
         #endregion
