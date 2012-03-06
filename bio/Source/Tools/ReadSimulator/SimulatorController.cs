@@ -12,27 +12,21 @@ namespace ReadSimulator
     /// <summary>
     /// Provides the glue logic between the UI and the data model
     /// </summary>
-    internal class SimulatorController
+    public class SimulatorController
     {
-        private ISequence sequence;
-        private List<ISequence> generatedSequenceList;
-        private Random random = new Random();
+        private readonly SimulatorSettings simulatorSettings = new SimulatorSettings();
 
         /// <summary>
         /// The loaded in sequence to be split
         /// </summary>
-        internal ISequence SequenceToSplit
-        {
-            get { return sequence; }
-            set { sequence = value; }
-        }
+        public ISequence SequenceToSplit { get; set; }
 
         /// <summary>
-        /// Default constructor
+        /// Currently held data settings for simulation runs.
         /// </summary>
-        internal SimulatorController()
+        public SimulatorSettings Settings
         {
-
+            get { return simulatorSettings; }
         }
 
         /// <summary>
@@ -40,33 +34,35 @@ namespace ReadSimulator
         /// appropriate parser based on the file name.
         /// </summary>
         /// <param name="fileName">The path of the file to be parsed for a sequence</param>
-        internal void ParseSequence(string fileName)
+        public void ParseSequence(string fileName)
         {
             ISequenceParser parser = SequenceParsers.FindParserByFileName(fileName);
             if (parser == null)
                 throw new ArgumentException("Could not find an appropriate parser for " + fileName);
-            
-            IEnumerable<ISequence> sequences = parser.Parse();
-            if (sequences == null)
-                throw new ArgumentException("Unable to parse a sequence from file " + fileName);
-            
-            SequenceToSplit = sequences.ElementAt(0);
+
+            // Get the first sequence from the file
+            SequenceToSplit = parser.Parse().FirstOrDefault();
             parser.Close();
+
+            if (SequenceToSplit == null)
+                throw new ArgumentException("Unable to parse a sequence from file " + fileName);
         }
 
         /// <summary>
         /// Does the logic behind the sequence simulation
         /// </summary>
-        internal void DoSimulation(SimulatorWindow window, string outputFileName, SimulatorSettings settings)
+        public void DoSimulation(string outputFileName, Action<long,long> updateSimulationStats, Action<string> simulationComplete)
         {
+            const string filePostfix = "_{0}.fa";
+
             FileInfo file = new FileInfo(outputFileName);
             if (!file.Directory.Exists)
                 throw new ArgumentException("Could not write to the output directory for " + outputFileName);
 
-            if(settings.OutputSequenceCount <=0)
+            if (simulatorSettings.OutputSequenceCount <= 0)
                 throw new ArgumentException("'Max Output Sequences Per File' should be greater than zero.");
 
-            if (settings.SequenceLength <= 0)
+            if (simulatorSettings.SequenceLength <= 0)
                 throw new ArgumentException("'Mean Output Length' should be greater than zero.");
 
             string filePrefix;
@@ -75,28 +71,22 @@ namespace ReadSimulator
             else
                 filePrefix = file.FullName.Substring(0, file.FullName.IndexOf(file.Extension));
 
-            string filePostfix = "_{0}.fa";
-
-            long seqCount = (settings.DepthOfCoverage * SequenceToSplit.Count) / settings.SequenceLength;
-            long fileCount = seqCount / settings.OutputSequenceCount;
-            if (seqCount % settings.OutputSequenceCount!= 0)
+            long seqCount = (simulatorSettings.DepthOfCoverage * SequenceToSplit.Count) / simulatorSettings.SequenceLength;
+            long fileCount = seqCount / simulatorSettings.OutputSequenceCount;
+            if (seqCount % simulatorSettings.OutputSequenceCount != 0)
                 fileCount++;
 
-            window.UpdateSimulationStats(seqCount, fileCount);
-
-            if (generatedSequenceList == null)
-                generatedSequenceList = new List<ISequence>();
-            else
-                generatedSequenceList.Clear();
+            // Update the UI
+            updateSimulationStats(seqCount, fileCount);
 
             int fileIndex = 1;
             FastAFormatter formatter = null;
+            List<ISequence> generatedSequenceList = new List<ISequence>();
 
             for (long i = 0; i < seqCount; i++)
             {
-                generatedSequenceList.Add(CreateSubsequence(settings, i));
-
-                if (generatedSequenceList.Count >= settings.OutputSequenceCount)
+                generatedSequenceList.Add(CreateSubsequence(i, SequenceToSplit, Settings));
+                if (generatedSequenceList.Count >= simulatorSettings.OutputSequenceCount)
                 {
                     FileInfo outFile = new FileInfo(filePrefix + string.Format(filePostfix, fileIndex++));
                     formatter = new FastAFormatter(outFile.FullName);
@@ -109,6 +99,7 @@ namespace ReadSimulator
                 }
             }
 
+            // Pick off any remaining sequences into the final file.
             if (generatedSequenceList.Count > 0)
             {
                 FileInfo outFile = new FileInfo(filePrefix + string.Format(filePostfix, fileIndex++));
@@ -118,30 +109,39 @@ namespace ReadSimulator
                     formatter.Write(seq);
                 }
                 formatter.Close();
-                window.NotifySimulationComplete(formatter.Name);
+                simulationComplete(formatter.Name);
             }
+
+            // Either we ended exactly on the boundary with no additional sequences
+            // generated, OR we never generated any files.
             else
             {
-                window.NotifySimulationComplete(string.Empty);
+                simulationComplete(formatter != null ? formatter.Name : string.Empty);
             }
-            
         }
 
-        // Creates a subsequence from a source sequence given the settings provided
-        private ISequence CreateSubsequence(SimulatorSettings settings, long index)
+        /// <summary>
+        /// Creates a subsequence from a source sequence given the settings provided
+        /// </summary>
+        /// <param name="index"></param>
+        /// <param name="SequenceToSplit"></param>
+        /// <param name="simulatorSettings"></param>
+        /// <returns></returns>
+        private static ISequence CreateSubsequence(long index, ISequence SequenceToSplit, SimulatorSettings simulatorSettings)
         {
-            double err = (double)settings.ErrorFrequency;
+            Random random = new Random();
+            double err = (double)simulatorSettings.ErrorFrequency;
 
             // Set the length using the appropriate random number distribution type
-            long subLength = settings.SequenceLength;
-            if (settings.DistributionType == (int)Distribution.Uniform)
+            long subLength = simulatorSettings.SequenceLength;
+            if (simulatorSettings.DistributionType == (int)Distribution.Uniform)
             {
-                subLength += random.Next(settings.LengthVariation * 2) - settings.LengthVariation;
+                subLength += random.Next(simulatorSettings.LengthVariation * 2) - simulatorSettings.LengthVariation;
             }
-            else if (settings.DistributionType == (int)Distribution.Normal)
+            else if (simulatorSettings.DistributionType == (int)Distribution.Normal)
             {
-                subLength = (long)Math.Floor(Bio.Util.Helper.GetNormalRandom((double)settings.SequenceLength,
-                    (double)settings.LengthVariation));
+                subLength = (long)Math.Floor(Bio.Util.Helper.GetNormalRandom((double)simulatorSettings.SequenceLength,
+                    (double)simulatorSettings.LengthVariation));
             }
 
             // Quick sanity checks on the length of the subsequence
@@ -160,9 +160,9 @@ namespace ReadSimulator
             // Get ambiguity symbols
             List<byte> errorSource = null;
             //= Sequence.Alphabet.LookupAll(true, false, settings.AllowAmbiguities, false);
-            if (settings.AllowAmbiguities &&
-                (SequenceToSplit.Alphabet == DnaAlphabet.Instance || SequenceToSplit.Alphabet == RnaAlphabet.Instance || SequenceToSplit.Alphabet == ProteinAlphabet.Instance)
-               )
+            if (simulatorSettings.AllowAmbiguities &&
+                (SequenceToSplit.Alphabet == DnaAlphabet.Instance || SequenceToSplit.Alphabet == RnaAlphabet.Instance 
+                    || SequenceToSplit.Alphabet == ProteinAlphabet.Instance))
             {
                 resultSequenceAlphabet = Alphabets.AmbiguousAlphabetMap[SequenceToSplit.Alphabet];
             }
@@ -196,7 +196,7 @@ namespace ReadSimulator
             generatedSequence.ID = SequenceToSplit.ID + " (Split " + (index + 1) + ", " + generatedSequence.Count + "bp)";
 
             // Reverse Sequence if applicable
-            if (settings.ReverseHalf && random.NextDouble() < 0.5f)
+            if (simulatorSettings.ReverseHalf && random.NextDouble() < 0.5f)
             {
                 return new DerivedSequence(generatedSequence, true, false);
             }
@@ -209,16 +209,10 @@ namespace ReadSimulator
         /// to figure out the parsers supported by the framwork.
         /// </summary>
         /// <returns>List of all parsers and the file extensions the parsers support.</returns>
-        internal Collection<string> QuerySupportedFileType()
+        public IEnumerable<string> QuerySupportedFileType()
         {
-            Collection<string> fileExtensions = new Collection<string>();
-            foreach (ISequenceParser parser in SequenceParsers.All)
-            {
-                // Add to filters collection after formatting it properly to user as a filter for FileDialogs
-                fileExtensions.Add(parser.Name + "|" + parser.SupportedFileTypes.Replace(".", "*.").Replace(',', ';'));
-            }
-
-            return fileExtensions;
+            return SequenceParsers.All
+                .Select(parser => parser.Name + "|" + parser.SupportedFileTypes.Replace(".", "*.").Replace(',', ';'));
         }
     }
 }
