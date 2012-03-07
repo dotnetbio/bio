@@ -6,8 +6,10 @@ using System.Linq;
 using Bio;
 using Bio.Algorithms.Assembly;
 using Bio.Algorithms.Assembly.Padena;
+using Bio.IO;
 using Bio.IO.FastA;
 using Bio.Util;
+using PadenaUtil.Properties;
 
 namespace PadenaUtil
 {
@@ -54,11 +56,6 @@ namespace PadenaUtil
         public int ContigCoverageThreshold = -1;
 
         /// <summary>
-        /// Enable removal of low coverage contigs.
-        /// </summary>
-        public bool LowCoverageContigRemovalEnabled = false;
-
-        /// <summary>
         /// Help.
         /// </summary>
         public bool Help = false;
@@ -77,6 +74,11 @@ namespace PadenaUtil
         /// Display verbose logging during processing.
         /// </summary>
         public bool Verbose = false;
+
+        /// <summary>
+        /// Quiet flag (no logging)
+        /// </summary>
+        public bool Quiet = false;
 
         #endregion
 
@@ -97,13 +99,15 @@ namespace PadenaUtil
             runAlgorithm.Stop();
             algorithmSpan = algorithmSpan.Add(runAlgorithm.Elapsed);
 
+            Output.WriteLine(OutputLevel.Information, Resources.AssemblyStarting);
+
             if (this.Verbose)
             {
-                Console.Error.WriteLine();
-                Console.Error.WriteLine("  Processed read file: {0}", Path.GetFullPath(this.Filename));
-                Console.Error.WriteLine("            Read/Processing time: {0}", runAlgorithm.Elapsed);
-                Console.Error.WriteLine("            File Size           : {0}", refFileLength);
-                Console.Error.WriteLine("            k-mer Length        : {0}", this.KmerLength);
+                Output.WriteLine(OutputLevel.Verbose);
+                Output.WriteLine(OutputLevel.Verbose, "Processed read file: {0}", Path.GetFullPath(this.Filename));
+                Output.WriteLine(OutputLevel.Verbose, "   Read/Processing time: {0}", runAlgorithm.Elapsed);
+                Output.WriteLine(OutputLevel.Verbose, "   File Size           : {0}", refFileLength);
+                Output.WriteLine(OutputLevel.Verbose, "   k-mer Length        : {0}", this.KmerLength);
             }
 
             runAlgorithm.Restart();
@@ -112,17 +116,20 @@ namespace PadenaUtil
 
             if (this.Verbose)
             {
-                Console.Error.WriteLine();
-                Console.Error.WriteLine("  Time taken for Validating reads: {0}", runAlgorithm.Elapsed);
+                Output.WriteLine(OutputLevel.Verbose);
+                Output.WriteLine(OutputLevel.Verbose, "Time taken for Validating reads: {0}", runAlgorithm.Elapsed);
             }
 
             using (ParallelDeNovoAssembler assembler = new ParallelDeNovoAssembler())
             {
-                assembler.StatusChanged += new EventHandler<StatusChangedEventArgs>(this.AssemblerStatusChanged);
+                assembler.StatusChanged += this.AssemblerStatusChanged;
                 assembler.AllowErosion = this.AllowErosion;
                 assembler.AllowKmerLengthEstimation = this.AllowKmerLengthEstimation;
-                assembler.AllowLowCoverageContigRemoval = this.LowCoverageContigRemovalEnabled;
-                assembler.ContigCoverageThreshold = this.ContigCoverageThreshold;
+                if (ContigCoverageThreshold != -1)
+                {
+                    assembler.AllowLowCoverageContigRemoval = true;
+                    assembler.ContigCoverageThreshold = ContigCoverageThreshold;
+                }
                 assembler.DanglingLinksThreshold = this.DangleThreshold;
                 assembler.ErosionThreshold = this.ErosionThreshold;
                 if (!this.AllowKmerLengthEstimation)
@@ -137,8 +144,8 @@ namespace PadenaUtil
                 algorithmSpan = algorithmSpan.Add(runAlgorithm.Elapsed);
                 if (this.Verbose)
                 {
-                    Console.Error.WriteLine();
-                    Console.Error.WriteLine("  Compute time: {0}", runAlgorithm.Elapsed);
+                    Output.WriteLine(OutputLevel.Verbose);
+                    Output.WriteLine(OutputLevel.Verbose, "Compute time: {0}", runAlgorithm.Elapsed);
                 }
 
                 runAlgorithm.Restart();
@@ -147,9 +154,9 @@ namespace PadenaUtil
                 algorithmSpan = algorithmSpan.Add(runAlgorithm.Elapsed);
                 if (this.Verbose)
                 {
-                    Console.Error.WriteLine();
-                    Console.Error.WriteLine("  Write contigs time: {0}", runAlgorithm.Elapsed);
-                    Console.Error.WriteLine("  Total runtime: {0}", algorithmSpan);
+                    Output.WriteLine(OutputLevel.Verbose);
+                    Output.WriteLine(OutputLevel.Verbose, "Write contigs time: {0}", runAlgorithm.Elapsed);
+                    Output.WriteLine(OutputLevel.Verbose, "Total runtime: {0}", algorithmSpan);
                 }
             }
         }
@@ -163,6 +170,14 @@ namespace PadenaUtil
         /// <param name="assembly">IDeNovoAssembly parameter is the result of running De Novo Assembly on a set of two or more sequences. </param>
         protected void WriteContigs(IDeNovoAssembly assembly)
         {
+            if (assembly.AssembledSequences.Count == 0)
+            {
+                Output.WriteLine(OutputLevel.Results, "No sequences assembled.");
+                return;
+            }
+
+            EnsureContigNames(assembly.AssembledSequences);
+
             if (!string.IsNullOrEmpty(this.OutputFile))
             {
                 using (FastAFormatter formatter = new FastAFormatter(this.OutputFile))
@@ -174,14 +189,32 @@ namespace PadenaUtil
                         formatter.Write(seq);
                     }
                 }
+                Output.WriteLine(OutputLevel.Information, "Wrote {0} sequences to {1}", assembly.AssembledSequences.Count, this.OutputFile);
             }
             else
             {
+                Output.WriteLine(OutputLevel.Information, "Assembled Sequence Results:");
                 foreach (ISequence seq in assembly.AssembledSequences)
                 {
-                    Console.WriteLine(seq.ID);
-                    Console.WriteLine(new string(seq.Select(a => (char)a).ToArray()));
+                    Output.WriteLine(OutputLevel.Results, seq.ID);
+                    Output.WriteLine(OutputLevel.Results, new string(seq.Select(a => (char)a).ToArray()));
                 }
+            }
+        }
+
+        /// <summary>
+        /// Ensures the sequence contigs have a valid ID. If no ID is present
+        /// then one is generated from the index and filename.
+        /// </summary>
+        /// <param name="sequences"></param>
+        private void EnsureContigNames(IList<ISequence> sequences)
+        {
+            string filename = Path.GetFileNameWithoutExtension(Filename) + "_{0}";
+            for (int index = 0; index < sequences.Count; index++)
+            {
+                ISequence inputSequence = sequences[index];
+                if (string.IsNullOrEmpty(inputSequence.ID))
+                    inputSequence.ID = string.Format(filename, index+1);
             }
         }
 
@@ -190,18 +223,42 @@ namespace PadenaUtil
         /// </summary>
         protected IEnumerable<ISequence> ParseFile()
         {
-            // TODO: Add other parsers.
-            FastAParser parser = new FastAParser(this.Filename);
+            return ParseFile(this.Filename);
+        }
+
+        /// <summary>
+        /// Helper method to parse the given filename into a set
+        /// of ISequence elements. This routine will load sequences from
+        /// any support sequence parser in .NET Bio.
+        /// </summary>
+        /// <param name="fileName">Filename to load data from</param>
+        /// <returns>Enumerable set of ISequence elements</returns>
+        internal static IEnumerable<ISequence> ParseFile(string fileName)
+        {
+            ISequenceParser parser = SequenceParsers.FindParserByFileName(fileName);
+            if (parser == null)
+                throw new Exception("Could not locate an appropriate sequence parser for " + fileName);
+
             return parser.Parse();
         }
+
 
         /// <summary>
         /// Method to handle status changed event.
         /// </summary>
-        /// <param name="statusMessage">Status message.</param>
         protected void AssemblerStatusChanged(object sender, StatusChangedEventArgs statusEventArgs)
         {
-            Console.Error.Write(statusEventArgs.StatusMessage);
+            if (Verbose)
+                Output.WriteLine(OutputLevel.Verbose,  statusEventArgs.StatusMessage);
+            else if (!Quiet)
+            {
+                if (statusEventArgs.StatusMessage.StartsWith("Step")
+                    && statusEventArgs.StatusMessage.Contains("Start"))
+                {
+                    int pos = statusEventArgs.StatusMessage.IndexOf(" - ");
+                    Output.WriteLine(OutputLevel.Information, statusEventArgs.StatusMessage.Substring(0,pos-1));
+                }
+            }
         }
 
         /// <summary>
@@ -210,13 +267,8 @@ namespace PadenaUtil
         /// <param name="reads">Input reads.</param>
         protected static void ValidateAmbiguousReads(IEnumerable<ISequence> reads)
         {
-            foreach (ISequence seq in reads)
-            {
-                if (seq.Alphabet.HasAmbiguity)
-                {
-                    throw new ArgumentException(Properties.Resources.AmbiguousReadsNotSupported);
-                }
-            }
+            if (reads.Any(s => s.Alphabet.HasAmbiguity))
+                throw new ArgumentException(Properties.Resources.AmbiguousReadsNotSupported);
         }
         #endregion
     }

@@ -686,13 +686,13 @@ provided. There is also a default encoding for each alphabet that may be encount
     <value>Length of MUM</value>
   </data>
   <data name="LibraryExist" xml:space="preserve">
-    <value>Library doesn't exist</value>
+    <value>Clone Library '{0}' doesn't exist</value>
   </data>
   <data name="LibraryInvalidParameters" xml:space="preserve">
-    <value>Library - Invalid Parameters</value>
+    <value>Clone Library - Invalid Parameters</value>
   </data>
   <data name="LIST_EMPTY" xml:space="preserve">
-    <value>List is empty. Should contain atleast one element!</value>
+    <value>List is empty. Should contain at least one element!</value>
   </data>
   <data name="LogFileName" xml:space="preserve">
     <value>Bio.log</value>

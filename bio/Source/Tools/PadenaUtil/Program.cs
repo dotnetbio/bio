@@ -15,18 +15,19 @@ namespace PadenaUtil
         /// <param name="args">Arguments to the main function.</param>
         public static void Main(string[] args)
         {
-            DisplayErrorMessage(Resources.PadenaSplashScreen);
+            Output.WriteLine(OutputLevel.Required, Resources.PadenaSplashScreen);
+
             try
             {
                 if ((args == null) || (args.Length < 1))
                 {
-                    DisplayErrorMessage(Resources.PadenaUtilHelp);
+                    Output.WriteLine(OutputLevel.Required, Resources.PadenaUtilHelp);
                 }
                 else
                 {
                     if (args[0].Equals("Help", StringComparison.InvariantCultureIgnoreCase))
                     {
-                        DisplayErrorMessage(Resources.PadenaUtilHelp);
+                        Output.WriteLine(OutputLevel.Required, Resources.PadenaUtilHelp);
                     }
                     else if (args[0].Equals("Assemble", StringComparison.InvariantCultureIgnoreCase))
                     {
@@ -42,7 +43,8 @@ namespace PadenaUtil
                     }
                     else
                     {
-                        DisplayErrorMessage(Resources.PadenaUtilHelp);
+                        Output.WriteLine(OutputLevel.Error, string.Format(Resources.UnknownCommand, args[0]));
+                        Output.WriteLine(OutputLevel.Required, Resources.PadenaUtilHelp);
                     }
                 }
             }
@@ -62,7 +64,7 @@ namespace PadenaUtil
         {
             if (ex.InnerException == null || string.IsNullOrEmpty(ex.InnerException.Message))
             {
-                DisplayErrorMessage(ex.Message);
+                Output.WriteLine(OutputLevel.Error, "Error: " + ex.Message);
             }
             else
             {
@@ -80,6 +82,7 @@ namespace PadenaUtil
             CommandLineArguments parser = new CommandLineArguments();
 
             // Add the parameters
+            parser.Parameter(ArgumentType.Optional, "Quiet", ArgumentValueType.Bool, "q", "Display minimal output during processing.");
             parser.Parameter(ArgumentType.Required, "KmerLength", ArgumentValueType.OptionalInt, "k", "Length of k-mer");
             parser.Parameter(ArgumentType.Optional, "Help", ArgumentValueType.Bool, "h", "");
             parser.Parameter(ArgumentType.Optional, "OutputFile", ArgumentValueType.String, "o", "Output file");
@@ -99,27 +102,31 @@ namespace PadenaUtil
                 }
                 catch (ArgumentParserException ex)
                 {
-                    Console.Error.WriteLine(ex.Message);
-                    Console.Error.WriteLine(Resources.ScaffoldHelp);
+                    Output.WriteLine(OutputLevel.Error, ex.Message);
+                    Output.WriteLine(OutputLevel.Required, Resources.ScaffoldHelp);
                     Environment.Exit(-1);
                 }
                 if (options.Help)
                 {
-                    DisplayErrorMessage(Resources.ScaffoldHelp);
+                    Output.WriteLine(OutputLevel.Required, Resources.ScaffoldHelp);
                 }
                 else if (options.FileNames != null)
                 {
+                    if (options.Verbose)
+                        Output.TraceLevel = OutputLevel.Information | OutputLevel.Verbose;
+                    else if (!options.Quiet)
+                        Output.TraceLevel = OutputLevel.Information;
                     options.GenerateScaffold();
                 }
                 else
                 {
-                    DisplayErrorMessage(Resources.ScaffoldHelp);
+                    Output.WriteLine(OutputLevel.Required, Resources.ScaffoldHelp);
                 }
 
             }
             else
             {
-                DisplayErrorMessage(Resources.ScaffoldHelp);
+                Output.WriteLine(OutputLevel.Required, Resources.ScaffoldHelp);
             }
         }
 
@@ -150,23 +157,27 @@ namespace PadenaUtil
                 }
                 catch (ArgumentParserException ex)
                 {
-                    DisplayErrorMessage(ex.Message);
-                    DisplayErrorMessage(Resources.AssembleWithScaffoldHelp);
+                    Output.WriteLine(OutputLevel.Error, ex.Message);
+                    Output.WriteLine(OutputLevel.Required, Resources.AssembleWithScaffoldHelp);
                     Environment.Exit(-1);
                 }
 
                 if (options.Help)
                 {
-                    DisplayErrorMessage(Resources.AssembleWithScaffoldHelp);
+                    Output.WriteLine(OutputLevel.Required, Resources.AssembleWithScaffoldHelp);
                 }
                 else
                 {
+                    if (options.Verbose)
+                        Output.TraceLevel = OutputLevel.Information | OutputLevel.Verbose;
+                    else if (!options.Quiet)
+                        Output.TraceLevel = OutputLevel.Information;
                     options.AssembleSequences();
                 }
             }
             else
             {
-                DisplayErrorMessage(Resources.AssembleWithScaffoldHelp);
+                Output.WriteLine(OutputLevel.Required, Resources.AssembleWithScaffoldHelp);
             }
         }
 
@@ -189,29 +200,34 @@ namespace PadenaUtil
                 }
                 catch (ArgumentParserException ex)
                 {
-                    DisplayErrorMessage(ex.Message);
-                    DisplayErrorMessage(Resources.AssembleHelp);
+                    Output.WriteLine(OutputLevel.Error, ex.Message);
+                    Output.WriteLine(OutputLevel.Required, Resources.AssembleHelp);
                     Environment.Exit(-1);
                 }
                 if (options.Help)
                 {
-                    DisplayErrorMessage(Resources.AssembleHelp);
+                    Output.WriteLine(OutputLevel.Required, Resources.AssembleHelp);
                 }
                 else
                 {
+                    if (options.Verbose)
+                        Output.TraceLevel = OutputLevel.Information | OutputLevel.Verbose;
+                    else if (!options.Quiet)
+                        Output.TraceLevel = OutputLevel.Information;
                     options.AssembleSequences();
                 }
               
             }
             else
             {
-                DisplayErrorMessage(Resources.AssembleHelp);
+                Output.WriteLine(OutputLevel.Required, Resources.AssembleHelp);
             }
         }
 
         private static void AddAssembleParameters(CommandLineArguments parser)
         {
             // Add the parameters to be parsed
+            parser.Parameter(ArgumentType.Optional, "Quiet", ArgumentValueType.Bool, "q", "Display minimal output during processing.");
             parser.Parameter(ArgumentType.Optional, "KmerLength", ArgumentValueType.OptionalInt, "k", "Length of k-mer");
             parser.Parameter(ArgumentType.Optional, "DangleThreshold", ArgumentValueType.OptionalInt, "d", "Threshold for removing dangling ends in graph");
             parser.Parameter(ArgumentType.Optional, "RedundantPathLengthThreshold", ArgumentValueType.OptionalInt, "r", "Length Threshold for removing redundant paths in graph");
@@ -219,20 +235,10 @@ namespace PadenaUtil
             parser.Parameter(ArgumentType.Optional, "AllowErosion", ArgumentValueType.Bool, "i", "Bool to do erosion or not.");
             parser.Parameter(ArgumentType.Optional, "AllowKmerLengthEstimation", ArgumentValueType.Bool, "a", "Whether to estimate kmer length.");
             parser.Parameter(ArgumentType.Optional, "ContigCoverageThreshold", ArgumentValueType.Int, "c", "Threshold used for removing low-coverage contigs.");
-            parser.Parameter(ArgumentType.Optional, "LowCoverageContigRemovalEnabled", ArgumentValueType.Bool, "l", "Enable removal of low coverage contigs.");
             parser.Parameter(ArgumentType.Optional, "Help", ArgumentValueType.Bool, "h", "");
             parser.Parameter(ArgumentType.Optional, "OutputFile", ArgumentValueType.String, "o", "Output file");
             parser.Parameter(ArgumentType.Optional, "Verbose", ArgumentValueType.Bool, "v", "Display verbose logging during processing.");
             parser.Parameter(ArgumentType.DefaultArgument, "Filename", ArgumentValueType.String, "", "Input file of reads");
-        }
-
-        /// <summary>
-        /// Display error message on console.
-        /// </summary>
-        /// <param name="message">Error message.</param>
-        private static void DisplayErrorMessage(string message)
-        {
-            Console.Write(message);
         }
 
         /// <summary>

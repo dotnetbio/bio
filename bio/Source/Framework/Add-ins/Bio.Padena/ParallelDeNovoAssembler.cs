@@ -439,15 +439,17 @@ namespace Bio.Algorithms.Assembly.Padena
             // Step 4: Remove redundant paths from graph
             this.RemoveRedundancyStarted();
             this.RemoveRedundancy();
-            this.RemoveRedundancyEnded();
 
             // Perform dangling link purger step once more.
             // This is done to remove any links created by redundant paths purger.
-            this.statusMessage = string.Format(CultureInfo.CurrentCulture, "\n UndangleGraph - Start time: {0}", DateTime.Now);
+            this.statusMessage = string.Format(CultureInfo.CurrentCulture, Properties.Resource.SecondaryUndangleGraphStarted, DateTime.Now);
             this.RaiseStatusEvent();
             this.UnDangleGraph();
-            this.statusMessage = string.Format(CultureInfo.CurrentCulture, "\n UndangleGraph - End time: {0}", DateTime.Now);
+            this.statusMessage = string.Format(CultureInfo.CurrentCulture, Properties.Resource.SecondaryUndangleGraphEnded, DateTime.Now);
             this.RaiseStatusEvent();
+
+            // Report end after undangle
+            this.RemoveRedundancyEnded();
 
             // Step 5: Build Contigs
             this.BuildContigsStarted();
@@ -838,18 +840,24 @@ namespace Bio.Algorithms.Assembly.Padena
                         if (!this.graphBuildCompleted)
                         {
                             this.graphBuildCompleted = this.graph.GraphBuildCompleted;
-                            this.statusMessage = string.Format(CultureInfo.CurrentCulture, Properties.Resource.GenerateLinkStarted, this.graph.ProcessedSequencesCount);
+                            this.statusMessage = string.Format(CultureInfo.CurrentCulture, Properties.Resource.GraphBuilt, this.graph.ProcessedSequencesCount);
+                            this.RaiseStatusEvent();
+
+                            this.statusMessage = string.Format(CultureInfo.CurrentCulture, Properties.Resource.GenerateLinkStarted);
                         }
                         else
+                        {
                             if (!this.linkGenerationCompleted && this.graph.LinkGenerationCompleted)
                             {
                                 this.linkGenerationCompleted = this.graph.LinkGenerationCompleted;
-                                this.statusMessage = string.Format(CultureInfo.CurrentCulture, Properties.Resource.GenerateLinkEnded);
+                                this.statusMessage = string.Format(CultureInfo.CurrentCulture,
+                                                                   Properties.Resource.GenerateLinkEnded);
                             }
                             else
                             {
                                 this.statusMessage = Properties.Resource.DefaultSubStatus;
                             }
+                        }
                     }
 
                     this.RaiseStatusEvent();
@@ -882,7 +890,11 @@ namespace Bio.Algorithms.Assembly.Padena
             if (!this.graphBuildCompleted)
             {
                 this.graphBuildCompleted = this.graph.GraphBuildCompleted;
-                this.statusMessage = string.Format(CultureInfo.CurrentCulture, Properties.Resource.GenerateLinkStarted, this.graph.ProcessedSequencesCount);
+                this.statusMessage = string.Format(CultureInfo.CurrentCulture, Properties.Resource.GraphBuilt, this.graph.ProcessedSequencesCount);
+                this.RaiseStatusEvent();
+
+                this.graphBuildCompleted = this.graph.GraphBuildCompleted;
+                this.statusMessage = string.Format(CultureInfo.CurrentCulture, Properties.Resource.GenerateLinkStarted);
                 this.RaiseStatusEvent();
             }
 

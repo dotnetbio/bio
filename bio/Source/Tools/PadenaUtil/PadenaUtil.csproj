@@ -73,6 +73,7 @@
   <ItemGroup>
     <Compile Include="AssembleArguments.cs" />
     <Compile Include="AssembleWithScaffoldArguments.cs" />
+    <Compile Include="Output.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

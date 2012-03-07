@@ -6,6 +6,7 @@ using System.Linq;
 using Bio;
 using Bio.Algorithms.Assembly.Padena.Scaffold;
 using Bio.IO.FastA;
+using PadenaUtil.Properties;
 
 namespace PadenaUtil
 {
@@ -66,6 +67,11 @@ namespace PadenaUtil
         /// </summary>
         public bool Verbose = false;
 
+        /// <summary>
+        /// Quiet flag (no logging)
+        /// </summary>
+        public bool Quiet = false;
+
         #endregion
 
         #region Public Methods
@@ -75,15 +81,18 @@ namespace PadenaUtil
         /// </summary>
         public void GenerateScaffold()
         {
-            if (!string.IsNullOrEmpty(this.CloneLibraryName))
-            {
-                CloneLibrary.Instance.AddLibrary(this.CloneLibraryName, (float)this.MeanLengthOfInsert, (float)this.StandardDeviationOfInsert);
-            }
+            Output.WriteLine(OutputLevel.Information, Resources.ScaffoldStarting);
 
             if (this.FileNames.Length != 2)
             {
-                Console.Error.WriteLine("\nError: A reference file and 1 query file are required.");
-                Environment.Exit(-1);
+                Output.WriteLine(OutputLevel.Error, "\nError: A reference file and 1 query file are required.");
+                Output.WriteLine(OutputLevel.Required, Resources.ScaffoldHelp);
+                return;
+            }
+
+            if (!string.IsNullOrEmpty(this.CloneLibraryName))
+            {
+                CloneLibrary.Instance.AddLibrary(this.CloneLibraryName, (float)this.MeanLengthOfInsert, (float)this.StandardDeviationOfInsert);
             }
 
             TimeSpan algorithmSpan = new TimeSpan();
@@ -96,32 +105,32 @@ namespace PadenaUtil
                 long refFileLength = refFileinfo.Length;
 
                 runAlgorithm.Restart();
-                IEnumerable<ISequence> contigs = this.ParseFile(this.FileNames[0]);
+                IEnumerable<ISequence> contigs = AssembleArguments.ParseFile(this.FileNames[0]);
                 runAlgorithm.Stop();
                 algorithmSpan = algorithmSpan.Add(runAlgorithm.Elapsed);
 
                 if (this.Verbose)
                 {
-                    Console.Error.WriteLine();
-                    Console.Error.WriteLine("  Processed contigs file: {0}", Path.GetFullPath(this.FileNames[0]));
-                    Console.Error.WriteLine("            Read/Processing time: {0}", runAlgorithm.Elapsed);
-                    Console.Error.WriteLine("            File Size           : {0}", refFileLength);
+                    Output.WriteLine(OutputLevel.Verbose);
+                    Output.WriteLine(OutputLevel.Verbose, "Processed contigs file : {0}", Path.GetFullPath(this.FileNames[0]));
+                    Output.WriteLine(OutputLevel.Verbose, "   Read/Processing time: {0}", runAlgorithm.Elapsed);
+                    Output.WriteLine(OutputLevel.Verbose, "   File Size           : {0}", refFileLength);
                 }
 
                 refFileinfo = new FileInfo(this.FileNames[1]);
                 refFileLength = refFileinfo.Length;
 
                 runAlgorithm.Restart();
-                IEnumerable<ISequence> reads = this.ParseFile(this.FileNames[1]);
+                IEnumerable<ISequence> reads = AssembleArguments.ParseFile(this.FileNames[1]);
                 runAlgorithm.Stop();
                 algorithmSpan = algorithmSpan.Add(runAlgorithm.Elapsed);
 
                 if (this.Verbose)
                 {
-                    Console.Error.WriteLine();
-                    Console.Error.WriteLine("  Processed reads file: {0}", Path.GetFullPath(this.FileNames[1]));
-                    Console.Error.WriteLine("            Read/Processing time: {0}", runAlgorithm.Elapsed);
-                    Console.Error.WriteLine("            File Size           : {0}", refFileLength);
+                    Output.WriteLine(OutputLevel.Verbose);
+                    Output.WriteLine(OutputLevel.Verbose, "Processed reads file   : {0}", Path.GetFullPath(this.FileNames[1]));
+                    Output.WriteLine(OutputLevel.Verbose, "   Read/Processing time: {0}", runAlgorithm.Elapsed);
+                    Output.WriteLine(OutputLevel.Verbose, "   File Size           : {0}", refFileLength);
                 }
 
                 runAlgorithm.Restart();
@@ -130,18 +139,18 @@ namespace PadenaUtil
 
                 if (this.Verbose)
                 {
-                    Console.Error.WriteLine();
-                    Console.Error.WriteLine("  Time taken for Validating reads: {0}", runAlgorithm.Elapsed);
+                    Output.WriteLine(OutputLevel.Verbose);
+                    Output.WriteLine(OutputLevel.Verbose, "Time taken for Validating reads: {0}", runAlgorithm.Elapsed);
                 }
 
                 runAlgorithm.Restart();
-                IEnumerable<ISequence> scaffolds = scaffoldBuilder.BuildScaffold(reads, contigs.ToList(), this.KmerLength, this.Depth, this.Redundancy);
+                IList<ISequence> scaffolds = scaffoldBuilder.BuildScaffold(reads, contigs.ToList(), this.KmerLength, this.Depth, this.Redundancy);
                 runAlgorithm.Stop();
                 algorithmSpan = algorithmSpan.Add(runAlgorithm.Elapsed);
                 if (this.Verbose)
                 {
-                    Console.Error.WriteLine();
-                    Console.Error.WriteLine("  Compute time: {0}", runAlgorithm.Elapsed);
+                    Output.WriteLine(OutputLevel.Verbose);
+                    Output.WriteLine(OutputLevel.Verbose, "Compute time: {0}", runAlgorithm.Elapsed);
                 }
 
                 runAlgorithm.Restart();
@@ -150,11 +159,10 @@ namespace PadenaUtil
                 algorithmSpan = algorithmSpan.Add(runAlgorithm.Elapsed);
                 if (this.Verbose)
                 {
-                    Console.Error.WriteLine();
-                    Console.Error.WriteLine("  Write time: {0}", runAlgorithm.Elapsed);
-                    Console.Error.WriteLine("  Total runtime: {0}", algorithmSpan);
+                    Output.WriteLine(OutputLevel.Verbose);
+                    Output.WriteLine(OutputLevel.Verbose, "Write time: {0}", runAlgorithm.Elapsed);
+                    Output.WriteLine(OutputLevel.Verbose, "Total runtime: {0}", algorithmSpan);
                 }
-
             }
         }
 
@@ -166,8 +174,16 @@ namespace PadenaUtil
         /// It writes Contigs to the file.
         /// </summary>
         /// <param name="scaffolds">The list of scaffolds sequence.</param>
-        private void WriteContigs(IEnumerable<ISequence> scaffolds)
+        private void WriteContigs(IList<ISequence> scaffolds)
         {
+            if (scaffolds.Count == 0)
+            {
+                Output.WriteLine(OutputLevel.Information, "No Scaffolds generated.");
+                return;
+            }
+
+            EnsureContigNames(scaffolds);
+
             if (!string.IsNullOrEmpty(this.OutputFile))
             {
                 using (FastAFormatter formatter = new FastAFormatter(this.OutputFile))
@@ -179,25 +195,33 @@ namespace PadenaUtil
                         formatter.Write(seq);
                     }
                 }
+                Output.WriteLine(OutputLevel.Information, "Wrote {0} scaffolds to {1}", scaffolds.Count, this.OutputFile);
             }
             else
             {
+                Output.WriteLine(OutputLevel.Information, "Scaffolds Results:");
                 foreach (ISequence seq in scaffolds)
                 {
-                    Console.WriteLine(seq.ID);
-                    Console.WriteLine(new string(seq.Select(a => (char)a).ToArray()));
+                    Output.WriteLine(OutputLevel.Results, seq.ID);
+                    Output.WriteLine(OutputLevel.Results, new string(seq.Select(a => (char)a).ToArray()));
                 }
             }
         }
 
         /// <summary>
-        /// It parses the file.
+        /// Ensures the sequence contigs have a valid ID. If no ID is present
+        /// then one is generated from the index and filename.
         /// </summary>
-        private IEnumerable<ISequence> ParseFile(string fileName)
+        /// <param name="sequences"></param>
+        private void EnsureContigNames(IList<ISequence> sequences)
         {
-            // TODO: Add other parsers.
-            FastAParser parser = new FastAParser(fileName);
-            return parser.Parse();
+            string filename = Path.GetFileNameWithoutExtension(this.FileNames[1]) + "_{0}";
+            for (int index = 0; index < sequences.Count; index++)
+            {
+                ISequence inputSequence = sequences[index];
+                if (string.IsNullOrEmpty(inputSequence.ID))
+                    inputSequence.ID = string.Format(filename, index + 1);
+            }
         }
 
         /// <summary>
@@ -206,13 +230,8 @@ namespace PadenaUtil
         /// <param name="reads">Input reads.</param>
         private static void ValidateAmbiguousReads(IEnumerable<ISequence> reads)
         {
-            foreach (ISequence seq in reads)
-            {
-                if (seq.Alphabet.HasAmbiguity)
-                {
-                    throw new ArgumentException(Properties.Resources.AmbiguousReadsNotSupported);
-                }
-            }
+            if (reads.Any(s => s.Alphabet.HasAmbiguity))
+                throw new ArgumentException(Properties.Resources.AmbiguousReadsNotSupported);
         }
         #endregion
     }

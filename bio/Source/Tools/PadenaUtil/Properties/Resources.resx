@@ -125,6 +125,11 @@
 Description: Assemble reads into contigs (No matepair information required.) 
 
 Optional Parameters:
+
+-h                 Help
+
+-q                 Display minimal output during processing.
+
 -k:&lt;int&gt;           Length of k-mer.
 
 -d:&lt;int&gt;           Threshold for removing 
@@ -138,14 +143,10 @@ Optional Parameters:
 
 -a                 Whether to estimate kmer length.
 
--c:&lt;int&gt;         	   Threshold used for removing 
+-c:&lt;int&gt;           Threshold used for removing 
                    low-coverage contigs.
 
--l                 Enable removal of low coverage contigs.
-
--h                 Help
-
--o:&lt;string&gt;          Output file
+-o:&lt;string&gt;        Output file
 
 -v                 Displays verbose logging during processing.</value>
   </data>
@@ -154,6 +155,10 @@ Optional Parameters:
 Description: Assemblewithscaffolds merges reads into scaffolds using matepair information.
 
 Optional Parameters:
+
+-h             Help
+
+-q             Display minimal output during processing.
 
 -n:&lt;string&gt;    Clone Library Name.
 
@@ -183,24 +188,26 @@ Optional Parameters:
 -c:&lt;int&gt;       Threshold used for removing 
                low-coverage contigs.
 
--l             Enable removal of low coverage contigs. 
-
--h             Help
-
--o:&lt;string&gt;      Output file
+-o:&lt;string&gt;    Output file
 
 -v                 Displays verbose logging during processing.</value>
+  </data>
+  <data name="AssemblyScaffoldStarting" xml:space="preserve">
+    <value>Beginning assembly and scaffold processing.</value>
+  </data>
+  <data name="AssemblyStarting" xml:space="preserve">
+    <value>Beginning assembly processing.</value>
   </data>
   <data name="PadenaSplashScreen" xml:space="preserve">
     <value>Padena Utility v1.0
 Copyright (c) 2011, The Outercurve Foundation.
-
 </value>
   </data>
   <data name="PadenaUtilHelp" xml:space="preserve">
     <value>Usage:	   PadenaUtil.exe command [options]
 Description: Assembles reads into Contigs or scaffold 
 using mate pair information.
+
 Command:   
 
 Assemble:              Assemble reads into contigs 
@@ -227,7 +234,9 @@ Optional Parameters:
 
 -h                 Help.
 
--o:&lt;string&gt;      Output file.
+-q                 Display minimal output during processing.
+
+-o:&lt;string&gt;        Output file.
 
 -n:&lt;string&gt;        Clone Library Name.
 
@@ -241,5 +250,12 @@ Optional Parameters:
 -d:&lt;int&gt;           Depth for graph traversal.
 
 -v                 Displays verbose logging during processing.</value>
+  </data>
+  <data name="ScaffoldStarting" xml:space="preserve">
+    <value>Beginning scaffold processing.</value>
+  </data>
+  <data name="UnknownCommand" xml:space="preserve">
+    <value>Unknown command: {0}
+</value>
   </data>
 </root>

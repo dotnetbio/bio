@@ -121,49 +121,38 @@
     <value>At least one sequence should not contain Gap/Ambiguous character</value>
   </data>
   <data name="BuildContigsEnded" xml:space="preserve">
-    <value>
-Step5: BuildContigs - End time: {0}</value>
+    <value>Step 5: BuildContigs - End time: {0:yyyy-MM-dd-HH:mm:ss.fff}</value>
     <comment>Status Message</comment>
   </data>
   <data name="BuildContigsStarted" xml:space="preserve">
-    <value>
-Step5: BuildContigs - Start time: {0}
-</value>
+    <value>Step 5: BuildContigs - Start time: {0:yyyy-MM-dd-HH:mm:ss.fff}</value>
     <comment>Status Message</comment>
   </data>
   <data name="BuildScaffoldEnded" xml:space="preserve">
-    <value>
-Step6: BuildScaffolds - End time: {0}</value>
+    <value>Step 6: BuildScaffolds - End time: {0:yyyy-MM-dd-HH:mm:ss.fff}</value>
     <comment>Status Message</comment>
   </data>
   <data name="BuildScaffoldStarted" xml:space="preserve">
-    <value>
-Step6: BuildScaffolds - Start time: {0}
-</value>
+    <value>Step 6: BuildScaffolds - Start time: {0:yyyy-MM-dd-HH:mm:ss.fff}</value>
     <comment>Status Message</comment>
   </data>
   <data name="CannotAssembleSequenceType" xml:space="preserve">
-    <value>Cannot Assemble RNA or Protein Sequences </value>
+    <value>Cannot Assemble RNA or Protein Sequences</value>
   </data>
   <data name="CreateGraphEnded" xml:space="preserve">
-    <value>
-Step1&amp;2: Create Kmer and Graph - End time: {0}</value>
+    <value>Step 1 &amp; 2: Create Kmer and Graph - End time: {0:yyyy-MM-dd-HH:mm:ss.fff}</value>
     <comment>Status Message</comment>
   </data>
   <data name="CreateGraphStarted" xml:space="preserve">
-    <value>
-Step1&amp;2: Create Kmer and Graph - Start time: {0}
-</value>
+    <value>Step 1 &amp; 2: Create Kmer and Graph - Start time: {0:yyyy-MM-dd-HH:mm:ss.fff}</value>
     <comment>Status Message</comment>
   </data>
   <data name="CreateGraphSubStatus" xml:space="preserve">
-    <value>
-{0} sequence(s) skipped outof {1} processed sequences.</value>
+    <value>{0} sequence(s) skipped outof {1} processed sequences.</value>
     <comment>Status Message</comment>
   </data>
   <data name="CreateGraphSubStatusWithoutSkipped" xml:space="preserve">
-    <value>
-{0} sequence(s) processed.</value>
+    <value>{0} sequence(s) processed.</value>
     <comment>Status Message</comment>
   </data>
   <data name="DanglingLinksPurger" xml:space="preserve">
@@ -183,41 +172,34 @@ Step1&amp;2: Create Kmer and Graph - Start time: {0}
     <value>Duplicate read found. Id:{0}</value>
   </data>
   <data name="EstimateDefaultValuesEnded" xml:space="preserve">
-    <value>
-Estimating default values - End time: {0}</value>
+    <value>   Estimating default values - End time: {0:yyyy-MM-dd-HH:mm:ss.fff}</value>
     <comment>Status Message</comment>
   </data>
   <data name="EstimateDefaultValuesStarted" xml:space="preserve">
-    <value>
-Estimating default values - Start time: {0}
-</value>
+    <value>   Estimating default values - Start time: {0:yyyy-MM-dd-HH:mm:ss.fff}</value>
     <comment>Status Message</comment>
   </data>
-  <data name="GenerateLinkEnded" xml:space="preserve">
-    <value>
-    Generate Links Ended.</value>
+  <data name="GraphBuilt" xml:space="preserve">
+    <value>   Graph built successfully - Processed {0} sequences.</value>
     <comment>Status Message</comment>
   </data>
   <data name="GenerateLinkStarted" xml:space="preserve">
-    <value>
-Processed total {0} sequencecs.
-    Graph built successfully. 
-    GenerateLinks Started.
-</value>
+    <value>   Generate Links Started.</value>
+    <comment>Status Message</comment>
+  </data>
+  <data name="GenerateLinkEnded" xml:space="preserve">
+    <value>   Generate Links Ended.</value>
     <comment>Status Message</comment>
   </data>
   <data name="InappropriateKmerLength" xml:space="preserve">
     <value>Kmer length must be less than the length of the shortest sequence, and should be greater than half the length of the longest sequence.</value>
   </data>
   <data name="InitializingEnded" xml:space="preserve">
-    <value>
-Initializing - End time: {0}</value>
+    <value>Initializing - End time: {0:yyyy-MM-dd-HH:mm:ss.fff}</value>
     <comment>Status Message</comment>
   </data>
   <data name="InitializingStarted" xml:space="preserve">
-    <value>
-Initializing - Start time: {0}
-</value>
+    <value>Initializing - Start time: {0:yyyy-MM-dd-HH:mm:ss.fff}</value>
     <comment>Status Message</comment>
   </data>
   <data name="InputSequenceCannotBeNull" xml:space="preserve">
@@ -251,14 +233,11 @@ Initializing - Start time: {0}
     <value>Graph error correction by removal of redundant paths</value>
   </data>
   <data name="RemoveReducndancyEnded" xml:space="preserve">
-    <value>
-Step4: RemoveRedundancy - End time: {0}</value>
+    <value>Step 4: RemoveRedundancy - End time: {0:yyyy-MM-dd-HH:mm:ss.fff}</value>
     <comment>Status Message</comment>
   </data>
   <data name="RemoveReducndancyStarted" xml:space="preserve">
-    <value>
-Step4: RemoveRedundancy - Start time: {0}
-</value>
+    <value>Step 4: RemoveRedundancy - Start time: {0:yyyy-MM-dd-HH:mm:ss.fff}</value>
     <comment>Status Message</comment>
   </data>
   <data name="SimplePathContigBuilder" xml:space="preserve">
@@ -268,14 +247,19 @@ Step4: RemoveRedundancy - Start time: {0}
     <value>Builds contigs from simple paths in the de bruijn graph</value>
   </data>
   <data name="UndangleGraphEnded" xml:space="preserve">
-    <value>
-Step3: UndangleGraph - End time: {0}</value>
+    <value>Step 3: UndangleGraph - End time: {0:yyyy-MM-dd-HH:mm:ss.fff}</value>
     <comment>Status Message</comment>
   </data>
   <data name="UndangleGraphStarted" xml:space="preserve">
-    <value>
-Step3: UndangleGraph - Start time: {0}
-</value>
+    <value>Step 3: UndangleGraph - Start time: {0:yyyy-MM-dd-HH:mm:ss.fff}</value>
+    <comment>Status Message</comment>
+  </data>
+  <data name="SecondaryUndangleGraphEnded" xml:space="preserve">
+    <value>  Secondary UndangleGraph - End time: {0:yyyy-MM-dd-HH:mm:ss.fff}</value>
+    <comment>Status Message</comment>
+  </data>
+  <data name="SecondaryUndangleGraphStarted" xml:space="preserve">
+    <value>  Secondary UndangleGraph - Start time: {0:yyyy-MM-dd-HH:mm:ss.fff}</value>
     <comment>Status Message</comment>
   </data>
 </root>

@@ -5,7 +5,7 @@ using System.IO;
 using Bio;
 using Bio.Algorithms.Assembly;
 using Bio.Algorithms.Assembly.Padena;
-using Bio.Util;
+using PadenaUtil.Properties;
 
 namespace PadenaUtil
 {
@@ -55,6 +55,8 @@ namespace PadenaUtil
             FileInfo refFileinfo = new FileInfo(this.Filename);
             long refFileLength = refFileinfo.Length;
 
+            Output.WriteLine(OutputLevel.Information, Resources.AssemblyScaffoldStarting);
+
             if (!string.IsNullOrEmpty(this.CloneLibraryName))
             {
                 CloneLibrary.Instance.AddLibrary(this.CloneLibraryName, (float)this.MeanLengthOfInsert, (float)this.StandardDeviationOfInsert);
@@ -67,10 +69,10 @@ namespace PadenaUtil
 
             if (this.Verbose)
             {
-                Console.Error.WriteLine();
-                Console.Error.WriteLine("  Processed read file: {0}", Path.GetFullPath(this.Filename));
-                Console.Error.WriteLine("            Read/Processing time: {0}", runAlgorithm.Elapsed);
-                Console.Error.WriteLine("            File Size           : {0}", refFileLength);
+                Output.WriteLine(OutputLevel.Verbose);
+                Output.WriteLine(OutputLevel.Verbose, "Processed read file: {0}", Path.GetFullPath(this.Filename));
+                Output.WriteLine(OutputLevel.Verbose, "   Read/Processing time: {0}", runAlgorithm.Elapsed);
+                Output.WriteLine(OutputLevel.Verbose, "   File Size           : {0}", refFileLength);
             }
 
             runAlgorithm.Restart();
@@ -79,16 +81,19 @@ namespace PadenaUtil
 
             if (this.Verbose)
             {
-                Console.Error.WriteLine();
-                Console.Error.WriteLine("  Time taken for Validating reads: {0}", runAlgorithm.Elapsed);
+                Output.WriteLine(OutputLevel.Verbose);
+                Output.WriteLine(OutputLevel.Verbose, "Time taken for Validating reads: {0}", runAlgorithm.Elapsed);
             }
 
             ParallelDeNovoAssembler assembler = new ParallelDeNovoAssembler();
-            assembler.StatusChanged += new EventHandler<StatusChangedEventArgs>(this.AssemblerStatusChanged);
+            assembler.StatusChanged += this.AssemblerStatusChanged;
             assembler.AllowErosion = AllowErosion;
             assembler.AllowKmerLengthEstimation = AllowKmerLengthEstimation;
-            assembler.AllowLowCoverageContigRemoval = LowCoverageContigRemovalEnabled;
-            assembler.ContigCoverageThreshold = ContigCoverageThreshold;
+            if (ContigCoverageThreshold != -1)
+            {
+                assembler.AllowLowCoverageContigRemoval = true;
+                assembler.ContigCoverageThreshold = ContigCoverageThreshold;
+            }
             assembler.DanglingLinksThreshold = DangleThreshold;
             assembler.ErosionThreshold = ErosionThreshold;
             if (!this.AllowKmerLengthEstimation)
@@ -103,8 +108,8 @@ namespace PadenaUtil
             algorithmSpan = algorithmSpan.Add(runAlgorithm.Elapsed);
             if (this.Verbose)
             {
-                Console.Error.WriteLine();
-                Console.Error.WriteLine("  Compute time: {0}", runAlgorithm.Elapsed);
+                Output.WriteLine(OutputLevel.Verbose);
+                Output.WriteLine(OutputLevel.Verbose, "Compute time: {0}", runAlgorithm.Elapsed);
             }
 
             runAlgorithm.Restart();
@@ -113,9 +118,9 @@ namespace PadenaUtil
             algorithmSpan = algorithmSpan.Add(runAlgorithm.Elapsed);
             if (this.Verbose)
             {
-                Console.Error.WriteLine();
-                Console.Error.WriteLine("  Write time: {0}", runAlgorithm.Elapsed);
-                Console.Error.WriteLine("  Total runtime: {0}", algorithmSpan);
+                Output.WriteLine(OutputLevel.Verbose);
+                Output.WriteLine(OutputLevel.Verbose, "Write time: {0}", runAlgorithm.Elapsed);
+                Output.WriteLine(OutputLevel.Verbose, "Total runtime: {0}", algorithmSpan);
             }
         }
 

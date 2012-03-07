@@ -101,7 +101,7 @@ namespace Bio
 
             if (!this.libraries.TryGetValue(libraryName, out cloneLibrary))
             {
-                throw new ArgumentException(Properties.Resource.LibraryExist);
+                throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, Properties.Resource.LibraryExist, libraryName));
             }
 
             return cloneLibrary;
