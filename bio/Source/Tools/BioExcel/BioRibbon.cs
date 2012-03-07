@@ -3743,6 +3743,7 @@
         /// <param name="args"></param>
         private void DoExportSequence(List<ISequence> sequences, params object[] args)
         {
+            bool openedFormatter = false;
             ISequenceFormatter formatter = args[0] as ISequenceFormatter;
             System.Windows.Forms.SaveFileDialog saveDialog = new System.Windows.Forms.SaveFileDialog();
 
@@ -3764,6 +3765,8 @@
 
                     // Get a textwriter to the file which will append text to it.
                     formatter.Open(saveDialog.FileName);
+                    openedFormatter = true;
+
                     // Check the formatter chosen, Loop through if there are multiple sequences selected and append to the file
                     if (formatter is FastAFormatter || formatter is FastQFormatter || formatter is GenBankFormatter)
                     {
@@ -3793,7 +3796,8 @@
             }
             finally
             {
-                formatter.Close();
+                if (openedFormatter)
+                    formatter.Close();
             }
         }
 
