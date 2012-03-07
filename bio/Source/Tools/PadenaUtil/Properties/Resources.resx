@@ -190,7 +190,7 @@ Optional Parameters:
 
 -o:&lt;string&gt;    Output file
 
--v                 Displays verbose logging during processing.</value>
+-v             Displays verbose logging during processing.</value>
   </data>
   <data name="AssemblyScaffoldStarting" xml:space="preserve">
     <value>Beginning assembly and scaffold processing.</value>
