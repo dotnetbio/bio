@@ -119,7 +119,7 @@ namespace Bio.Tests
             qualityScores[1] = (byte)'A';
             qualityScores[2] = (byte)'A';
             qualityScores[3] = (byte)'B';
-            QualitativeSequence seq = new QualitativeSequence(Alphabets.DNA, FastQFormatType.Illumina, seqData, qualityScores);
+            QualitativeSequence seq = new QualitativeSequence(Alphabets.DNA, FastQFormatType.Illumina_v1_3, seqData, qualityScores);
             string actualString = seq.ToString();
             string expectedString = "ATCG\r\nAAAB";
             Assert.AreEqual(actualString, expectedString);

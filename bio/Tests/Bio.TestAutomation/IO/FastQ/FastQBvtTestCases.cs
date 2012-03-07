@@ -362,7 +362,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
             // Parse a FastQ file.
             using (FastQParser fastQParserObj = new FastQParser(filePath))
             {
-                fastQParserObj.AutoDetectFastQFormat = false;
                 IEnumerable<QualitativeSequence> qualSequenceList = null;
                 qualSequenceList = fastQParserObj.Parse();
 
@@ -408,7 +407,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
                 // Parse a FastQ file.
                 using (FastQParser fastQParserObj = new FastQParser())
                 {
-                    fastQParserObj.AutoDetectFastQFormat = false;
                     qualSequence = fastQParserObj.Parse(reader);                
                     qualSequenceList = qualSequence.ToList();                
                 }
@@ -455,7 +453,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
             // Parse a FastQ file using parseOne method.
             using (FastQParser fastQParserObj = new FastQParser(filePath))
             {
-                fastQParserObj.AutoDetectFastQFormat = false;
                 IEnumerable<QualitativeSequence> qualSequence = null;
                 qualSequence = fastQParserObj.Parse();
 
@@ -537,7 +534,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
             // Parse a FastQ file using parseOne method.
             using (FastQParser fastQParserObj = new FastQParser(filePath))
             {
-                fastQParserObj.AutoDetectFastQFormat = false;
                 qualSequence = fastQParserObj.Parse();
 
                 // New Sequence after formatting file.                

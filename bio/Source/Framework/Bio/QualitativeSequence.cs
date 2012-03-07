@@ -15,49 +15,99 @@ namespace Bio
     {
         #region Member variables
         /// <summary>
-        /// Minimum quality score for Sanger type.
+        /// Phred minimum quality score: 0
         /// </summary>
-        public const byte SangerMinQualScore = 33;
+        public const int Phred_MinQualityScore = 0;
 
         /// <summary>
-        /// Minimum quality score for Solexa type.
+        /// Phred maximum quality score: 93
         /// </summary>
-        public const byte SolexaMinQualScore = 59;
+        public const int Phred_MaxQualityScore = 93;
 
         /// <summary>
-        /// Minimum quality score for Illumina type.
+        /// Solexa minimum quality score: -5
         /// </summary>
-        public const byte IlluminaMinQualScore = 64;
+        public const int Solexa_MinQualityScore = -5;
 
         /// <summary>
-        /// Maximum quality score for Sanger type.
+        /// Solexa maximum quality score: 62
         /// </summary>
-        public const byte SangerMaxQualScore = 126;
+        public const int Solexa_MaxQualityScore = 62;
 
         /// <summary>
-        /// Maximum quality score for Solexa type.
+        /// Minimum encoded quality score for Sanger format: 33
         /// </summary>
-        public const byte SolexaMaxQualScore = 126;
+        public const byte Sanger_MinEncodedQualScore = 33;
 
         /// <summary>
-        /// Maximum quality score for Illumina type.
+        /// Maximum encoded quality score for Sanger format: 126
         /// </summary>
-        public const byte IlluminaMaxQualScore = 126;
+        public const byte Sanger_MaxEncodedQualScore = 126;
 
         /// <summary>
-        /// ASCII Base value for encoding quality scores in Sanger format.
+        /// Minimum encoded quality score for Solexa/Illumina v1.0 format: 59
         /// </summary>
-        private const int SangerAsciiBaseValue = 33;
+        public const byte Solexa_Illumina_v1_0_MinEncodedQualScore = 59;
 
         /// <summary>
-        /// ASCII Base value for encoding quality scores in Solexa/Illumina 1.0 format.
+        /// Maximum encoded quality score for Solexa/Illumina v1.0 format: 126
         /// </summary>
-        private const int SolexaAsciiBaseValue = 64;
+        public const byte Solexa_Illumina_v1_0_MaxEncodedQualScore = 126;
 
         /// <summary>
-        /// ASCII Base value for encoding quality scores in Illumina 1.3 format.
+        /// Minimum encoded quality score for Illumina v1.3 format: 64
         /// </summary>
-        private const int IlluminaAsciiBaseValue = 64;
+        public const byte Illumina_v1_3_MinEncodedQualScore = 64;
+
+        /// <summary>
+        /// Maximum encoded quality score for Illumina v1.3 format: 126
+        /// </summary>
+        public const byte Illumina_v1_3_MaxEncodedQualScore = 126;
+
+        /// <summary>
+        /// Minimum encoded quality score for Illumina v1.5 format: 64
+        /// </summary>
+        public const byte Illumina_v1_5_MinEncodedQualScore = 64;
+
+        /// <summary>
+        /// Maximum encoded quality score for Illumina v1.5 format: 126
+        /// </summary>
+        public const byte Illumina_v1_5_MaxEncodedQualScore = 126;
+
+        /// <summary>
+        /// Minimum encoded quality score for Illumina v1.8 format: 33
+        /// </summary>
+        public const byte Illumina_v1_8_MinEncodedQualScore = 33;
+
+        /// <summary>
+        /// Maximum encoded quality score for Illumina v1.8 format: 126
+        /// </summary>
+        public const byte Illumina_v1_8_MaxEncodedQualScore = 126;
+
+        /// <summary>
+        /// ASCII Base value for encoding quality scores in Sanger format: 33
+        /// </summary>
+        private const int Sanger_AsciiBaseValue = 33;
+
+        /// <summary>
+        /// ASCII Base value for encoding quality scores in Solexa/Illumina 1.0 format: 64
+        /// </summary>
+        private const int Solexa_Illumina_v1_0_AsciiBaseValue = 64;
+
+        /// <summary>
+        /// ASCII Base value for encoding quality scores in Illumina v1.3 format: 64
+        /// </summary>
+        private const int Illumina_v1_3_AsciiBaseValue = 64;
+
+        /// <summary>
+        /// ASCII Base value for encoding quality scores in Illumina v1.5 format: 64
+        /// </summary>
+        private const int Illumina_v1_5_AsciiBaseValue = 64;
+
+        /// <summary>
+        /// ASCII Base value for encoding quality scores in Illumina 1.8 format: 33
+        /// </summary>
+        private const int Illumina_v1_8_AsciiBaseValue = 33;
 
         /// <summary>
         /// Default quality score.
@@ -70,9 +120,9 @@ namespace Bio
         private byte[] sequenceData;
 
         /// <summary>
-        /// Holds quality scores.
+        /// Holds decoded quality scores
         /// </summary>
-        private byte[] qualityScores;
+        private sbyte[] qualityScores;
 
         /// <summary>
         /// Metadata is features or references or related things of a sequence.
@@ -83,29 +133,29 @@ namespace Bio
         #region Constructors
         /// <summary>
         /// Initializes a new instance of the QualitativeSequence class with specified alphabet, quality score type,
-        /// byte array representing symbols and quality scores.
+        /// byte array representing symbols and encoded quality scores.
         /// Sequence and quality scores are validated with the specified alphabet and specified fastq format respectively.
         /// </summary>
         /// <param name="alphabet">Alphabet to which this instance should conform.</param>
         /// <param name="fastQFormatType">FastQ format type.</param>
         /// <param name="sequence">An array of bytes representing the symbols.</param>
-        /// <param name="qualityScores">An array of bytes representing the quality scores.</param>
-        public QualitativeSequence(IAlphabet alphabet, FastQFormatType fastQFormatType, byte[] sequence, byte[] qualityScores)
-            : this(alphabet, fastQFormatType, sequence, qualityScores, true)
+        /// <param name="encodedQualityScores">An array of bytes representing the encoded quality scores.</param>
+        public QualitativeSequence(IAlphabet alphabet, FastQFormatType fastQFormatType, byte[] sequence, byte[] encodedQualityScores)
+            : this(alphabet, fastQFormatType, sequence, encodedQualityScores, true)
         {
         }
 
         /// <summary>
         /// Initializes a new instance of the QualitativeSequence class with specified alphabet, quality score type,
-        /// byte array representing symbols and quality scores.
+        /// byte array representing symbols and encoded quality scores.
         /// </summary>
         /// <param name="alphabet">Alphabet to which this instance should conform.</param>
         /// <param name="fastQFormatType">FastQ format type.</param>
         /// <param name="sequence">An array of bytes representing the symbols.</param>
-        /// <param name="qualityScores">An array of bytes representing the quality scores.</param>
+        /// <param name="encodedQualityScores">An array of bytes representing the encoded quality scores.</param>
         /// <param name="validate">If this flag is true then validation will be done to see whether the data is valid or not,
         /// else validation will be skipped.</param>
-        public QualitativeSequence(IAlphabet alphabet, FastQFormatType fastQFormatType, byte[] sequence, byte[] qualityScores, bool validate)
+        public QualitativeSequence(IAlphabet alphabet, FastQFormatType fastQFormatType, byte[] sequence, byte[] encodedQualityScores, bool validate)
         {
             if (alphabet == null)
             {
@@ -117,9 +167,9 @@ namespace Bio
                 throw new ArgumentNullException("sequence");
             }
 
-            if (qualityScores == null)
+            if (encodedQualityScores == null)
             {
-                throw new ArgumentNullException("qualityScores");
+                throw new ArgumentNullException("encodedQualityScores");
             }
 
             this.Alphabet = alphabet;
@@ -128,58 +178,67 @@ namespace Bio
 
             if (validate)
             {
+                if (sequence.LongLength() != encodedQualityScores.LongLength())
+                {
+                    string message = string.Format(CultureInfo.CurrentUICulture,
+                                                Properties.Resource.DifferenceInSequenceAndQualityScoresLengthMessage,
+                                                sequence.LongLength(),
+                                                encodedQualityScores.LongLength());
+                    throw new ArgumentException(message);
+                }
+
                 // Validate sequence data
                 if (!this.Alphabet.ValidateSequence(sequence, 0, sequence.LongLength()))
                 {
                     throw new ArgumentOutOfRangeException("sequence");
                 }
 
+                byte invalidEncodedQualityScore;
                 // Validate quality scores
-                if (!ValidateQualScore(qualityScores, this.FormatType))
+                if (!ValidateQualScores(encodedQualityScores, this.FormatType, out invalidEncodedQualityScore))
                 {
-                    throw new ArgumentOutOfRangeException("qualityScores");
+                    string message = string.Format(CultureInfo.CurrentUICulture,
+                                        Properties.Resource.InvalidEncodedQualityScoreFound,
+                                        (char)invalidEncodedQualityScore,
+                                        this.FormatType);
+                    throw new ArgumentOutOfRangeException("encodedQualityScores", message);
                 }
             }
 
             this.sequenceData = new byte[sequence.LongLength()];
-            this.qualityScores = new byte[qualityScores.LongLength()];
+            this.qualityScores = new sbyte[encodedQualityScores.LongLength()];
 
-#if (SILVERLIGHT == false)
-            Array.Copy(sequence, this.sequenceData, sequence.LongLength);
-            Array.Copy(qualityScores, this.qualityScores, qualityScores.LongLength);
-#else   
-                Array.Copy(sequence, this.sequenceData, sequence.Length);
-                Array.Copy(qualityScores, this.qualityScores, qualityScores.Length);  
-#endif
+            Helper.Copy(sequence, this.sequenceData, sequence.LongLength());
+            this.qualityScores = GetDecodedQualScoresInSignedBytes(encodedQualityScores, this.FormatType);
 
             this.Count = this.sequenceData.LongLength();
         }
 
         /// <summary>
         /// Initializes a new instance of the QualitativeSequence class with specified alphabet, quality score type,
-        /// string representing symbols and quality scores.
+        /// string representing symbols and encoded quality scores.
         /// Sequence and quality scores are validated with the specified alphabet and specified fastq format respectively.
         /// </summary>
         /// <param name="alphabet">Alphabet to which this instance should conform.</param>
         /// <param name="fastQFormatType">FastQ format type.</param>
         /// <param name="sequence">A string representing the symbols.</param>
-        /// <param name="qualityScores">A string representing the quality scores.</param>
-        public QualitativeSequence(IAlphabet alphabet, FastQFormatType fastQFormatType, string sequence, string qualityScores)
-            : this(alphabet, fastQFormatType, sequence, qualityScores, true)
+        /// <param name="encodedQualityScores">A string representing the encoded quality scores.</param>
+        public QualitativeSequence(IAlphabet alphabet, FastQFormatType fastQFormatType, string sequence, string encodedQualityScores)
+            : this(alphabet, fastQFormatType, sequence, encodedQualityScores, true)
         {
         }
 
         /// <summary>
         /// Initializes a new instance of the QualitativeSequence class with specified alphabet, quality score type,
-        /// string representing symbols and quality scores.
+        /// string representing symbols and encoded quality scores.
         /// </summary>
         /// <param name="alphabet">Alphabet to which this instance should conform.</param>
         /// <param name="fastQFormatType">FastQ format type.</param>
         /// <param name="sequence">A string representing the symbols.</param>
-        /// <param name="qualityScores">A string representing the quality scores.</param>
+        /// <param name="encodedQualityScores">A string representing the encoded quality scores.</param>
         /// <param name="validate">If this flag is true then validation will be done to see whether the data is valid or not,
         /// else validation will be skipped.</param>
-        public QualitativeSequence(IAlphabet alphabet, FastQFormatType fastQFormatType, string sequence, string qualityScores, bool validate)
+        public QualitativeSequence(IAlphabet alphabet, FastQFormatType fastQFormatType, string sequence, string encodedQualityScores, bool validate)
         {
             if (alphabet == null)
             {
@@ -194,28 +253,188 @@ namespace Bio
                 throw new ArgumentNullException("sequence");
             }
 
-            if (qualityScores == null)
+            if (encodedQualityScores == null)
             {
-                throw new ArgumentNullException("qualityScores");
+                throw new ArgumentNullException("encodedQualityScores");
             }
 
             this.FormatType = fastQFormatType;
             this.sequenceData = UTF8Encoding.UTF8.GetBytes(sequence);
-            this.qualityScores = UTF8Encoding.UTF8.GetBytes(qualityScores);
+            byte[] encodedQualityScoresarray = UTF8Encoding.UTF8.GetBytes(encodedQualityScores);
 
             if (validate)
             {
+                if (this.sequenceData.LongLength() != encodedQualityScoresarray.LongLength())
+                {
+                    string message = string.Format(CultureInfo.CurrentUICulture,
+                                                Properties.Resource.DifferenceInSequenceAndQualityScoresLengthMessage,
+                                                 this.sequenceData.LongLength(),
+                                                encodedQualityScoresarray.LongLength());
+                    throw new ArgumentException(message);
+                }
+
                 // Validate sequence data
                 if (!this.Alphabet.ValidateSequence(this.sequenceData, 0, this.sequenceData.LongLength()))
                 {
                     throw new ArgumentOutOfRangeException("sequence");
                 }
 
+                byte invalidEncodedQualityScore;
                 // Validate quality scores
-                if (!ValidateQualScore(this.qualityScores, this.FormatType))
+                if (!ValidateQualScores(encodedQualityScoresarray, this.FormatType, out invalidEncodedQualityScore))
                 {
-                    throw new ArgumentOutOfRangeException("qualityScores");
+                    string message = string.Format(CultureInfo.CurrentUICulture,
+                                            Properties.Resource.InvalidEncodedQualityScoreFound,
+                                            (char)invalidEncodedQualityScore,
+                                            this.FormatType);
+                    throw new ArgumentOutOfRangeException("encodedQualityScores", message);
                 }
+            }
+
+            this.qualityScores = GetDecodedQualScoresInSignedBytes(encodedQualityScoresarray, this.FormatType);
+            this.Count = this.sequenceData.LongLength();
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the QualitativeSequence class with specified alphabet, quality score type,
+        /// byte array representing symbols and signed byte array representing base quality scores 
+        /// (Phred or Solexa base according to the FastQ format type).
+        /// </summary>
+        /// <param name="alphabet">Alphabet to which this instance should conform.</param>
+        /// <param name="fastQFormatType">FastQ format type.</param>
+        /// <param name="sequence">An array of bytes representing the symbols.</param>
+        /// <param name="qualityScores">An array of signed bytes representing the base quality scores 
+        /// (Phred or Solexa base according to the FastQ format type).</param>
+        /// <param name="validate">If this flag is true then validation will be done to see whether the data is valid or not,
+        /// else validation will be skipped.</param>
+        public QualitativeSequence(IAlphabet alphabet, FastQFormatType fastQFormatType, byte[] sequence, sbyte[] qualityScores, bool validate)
+        {
+            if (alphabet == null)
+            {
+                throw new ArgumentNullException("alphabet");
+            }
+
+            if (sequence == null)
+            {
+                throw new ArgumentNullException("sequence");
+            }
+
+            if (qualityScores == null)
+            {
+                throw new ArgumentNullException("qualityScores");
+            }
+
+            this.Alphabet = alphabet;
+            this.ID = string.Empty;
+            this.FormatType = fastQFormatType;
+            if (validate)
+            {
+                if (sequence.LongLength() != qualityScores.LongLength())
+                {
+                    string message = string.Format(CultureInfo.CurrentUICulture,
+                                                Properties.Resource.DifferenceInSequenceAndQualityScoresLengthMessage,
+                                                sequence.LongLength(),
+                                                qualityScores.LongLength());
+                    throw new ArgumentException(message);
+                }
+
+                // Validate sequence data
+                if (!this.Alphabet.ValidateSequence(sequence, 0, sequence.LongLength()))
+                {
+                    throw new ArgumentOutOfRangeException("sequence");
+                }
+
+                sbyte invalidQualityScore;
+
+                // Validate quality scores
+                if (!ValidateQualScores(qualityScores, this.FormatType, out invalidQualityScore))
+                {
+                    string message = string.Format(CultureInfo.CurrentUICulture,
+                                            Properties.Resource.InvalidQualityScoreFound,
+                                            invalidQualityScore,
+                                            this.FormatType);
+                    throw new ArgumentOutOfRangeException("qualityScores", message);
+                }
+            }
+
+            this.sequenceData = new byte[sequence.LongLength()];
+            this.qualityScores = new sbyte[qualityScores.LongLength()];
+            Helper.Copy(sequence, this.sequenceData, sequence.LongLength());
+            Helper.Copy(qualityScores, this.qualityScores, qualityScores.LongLength());
+
+            this.Count = this.sequenceData.LongLength();
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the QualitativeSequence class with specified alphabet, quality score type,
+        /// byte array representing symbols and integer array representing base quality scores 
+        /// (Phred or Solexa base according to the FastQ format type).
+        /// </summary>
+        /// <param name="alphabet">Alphabet to which this instance should conform.</param>
+        /// <param name="fastQFormatType">FastQ format type.</param>
+        /// <param name="sequence">An array of bytes representing the symbols.</param>
+        /// <param name="qualityScores">An array of integers representing the base quality scores 
+        /// (Phred or Solexa base according to the FastQ format type).</param>
+        /// <param name="validate">If this flag is true then validation will be done to see whether the data is valid or not,
+        /// else validation will be skipped.</param>
+        public QualitativeSequence(IAlphabet alphabet, FastQFormatType fastQFormatType, byte[] sequence, int[] qualityScores, bool validate)
+        {
+            if (alphabet == null)
+            {
+                throw new ArgumentNullException("alphabet");
+            }
+
+            if (sequence == null)
+            {
+                throw new ArgumentNullException("sequence");
+            }
+
+            if (qualityScores == null)
+            {
+                throw new ArgumentNullException("qualityScores");
+            }
+
+            this.Alphabet = alphabet;
+            this.ID = string.Empty;
+            this.FormatType = fastQFormatType;
+            if (validate)
+            {
+                if (sequence.LongLength() != qualityScores.LongLength())
+                {
+                    string message = string.Format(CultureInfo.CurrentUICulture,
+                                                Properties.Resource.DifferenceInSequenceAndQualityScoresLengthMessage,
+                                                sequence.LongLength(),
+                                                qualityScores.LongLength());
+                    throw new ArgumentException(message);
+                }
+
+                // Validate sequence data
+                if (!this.Alphabet.ValidateSequence(sequence, 0, sequence.LongLength()))
+                {
+                    throw new ArgumentOutOfRangeException("sequence");
+                }
+
+                int invalidQualityScore;
+
+                // Validate quality scores
+                if (!ValidateQualScores(qualityScores, this.FormatType, out invalidQualityScore))
+                {
+                    string message = string.Format(CultureInfo.CurrentUICulture,
+                                            Properties.Resource.InvalidQualityScoreFound,
+                                            invalidQualityScore,
+                                            this.FormatType);
+                    throw new ArgumentOutOfRangeException("qualityScores", message);
+                }
+            }
+
+            long len = qualityScores.LongLength();
+            this.sequenceData = new byte[sequence.LongLength()];
+            this.qualityScores = new sbyte[len];
+            Helper.Copy(sequence, this.sequenceData, sequence.LongLength());
+
+            for (long i = 0; i < len; i++)
+            {
+                this.qualityScores[i] = (sbyte)qualityScores[i];
             }
 
             this.Count = this.sequenceData.LongLength();
@@ -243,17 +462,6 @@ namespace Bio
         /// Ex: Illumina/Solexa/Sanger.
         /// </summary>
         public FastQFormatType FormatType { get; private set; }
-
-        /// <summary>
-        /// Gets an enumerator to the bytes representing quality scores in this sequence.
-        /// </summary>
-        public IEnumerable<byte> QualityScores
-        {
-            get
-            {
-                return this.qualityScores;
-            }
-        }
 
         /// <summary>
         /// <para>
@@ -323,291 +531,195 @@ namespace Bio
 
         #region Methods
         /// <summary>
-        /// Converts Sanger quality score to Illumina quality score.
+        /// Converts Quality score from to specified format.
         /// </summary>
-        /// <param name="qualScore">Sanger quality score.</param>
-        /// <returns>Returns Illumina quality score.</returns>
-        public static byte ConvertFromSangerToIllumina(byte qualScore)
+        /// <param name="fromFormatType">from fastq format.</param>
+        /// <param name="toFormatType">to fastq format.</param>
+        /// <param name="qualScore">Quality score.</param>
+        public static int ConvertQualityScore(FastQFormatType fromFormatType, FastQFormatType toFormatType, int qualScore)
         {
-            if (!ValidateQualScore(qualScore, FastQFormatType.Sanger))
+            int result;
+            int invalidQualScore;
+
+            if (!ValidateQualScores(new int[] { qualScore }, fromFormatType, out invalidQualScore))
             {
-                string message = string.Format(CultureInfo.CurrentCulture, Properties.Resource.InvalidQualityScore, qualScore);
+                string message = string.Format(CultureInfo.CurrentUICulture, Properties.Resource.InvalidQualityScore, invalidQualScore);
                 throw new ArgumentOutOfRangeException("qualScore", message);
             }
 
-            return (byte)Math.Min(
-                IlluminaMaxQualScore,
-                GetEncodedQualScore(GetQualScore(qualScore, FastQFormatType.Sanger), FastQFormatType.Illumina));
-        }
 
-        /// <summary>
-        /// Converts Sanger quality score to Solexa quality score.
-        /// </summary>
-        /// <param name="qualScore">Sanger quality score.</param>
-        /// <returns>Returns Solexa quality score.</returns>
-        public static byte ConvertFromSangerToSolexa(byte qualScore)
-        {
-            if (!ValidateQualScore(qualScore, FastQFormatType.Sanger))
+            if (fromFormatType == toFormatType)
             {
-                string message = string.Format(CultureInfo.CurrentCulture, Properties.Resource.InvalidQualityScore, qualScore);
-                throw new ArgumentOutOfRangeException("qualScore", message);
+                result = qualScore;
+            }
+            else
+            {
+                BaseQualityScoreType fromQualityType = GetQualityScoreType(fromFormatType);
+                BaseQualityScoreType toQualityType = GetQualityScoreType(toFormatType);
+                if (fromQualityType == toQualityType)
+                {
+                    result = qualScore;
+                }
+                else
+                {
+                    result = Convert(fromQualityType, toQualityType, qualScore);
+                }
             }
 
-            return (byte)Math.Min(
-                SolexaMaxQualScore,
-              GetEncodedQualScore(ConvertFromPhredToSolexa(GetQualScore(qualScore, FastQFormatType.Sanger)), FastQFormatType.Solexa));
+            return result;
         }
 
         /// <summary>
-        /// Converts Solexa quality score to Sanger quality score.
+        /// Converts Quality scores from to specified format.
         /// </summary>
-        /// <param name="qualScore">Solexa quality score.</param>
-        /// <returns>Returns Sanger quality score.</returns>
-        public static byte ConvertFromSolexaToSanger(byte qualScore)
-        {
-            if (!ValidateQualScore(qualScore, FastQFormatType.Solexa))
-            {
-                string message = string.Format(CultureInfo.CurrentCulture, Properties.Resource.InvalidQualityScore, qualScore);
-                throw new ArgumentOutOfRangeException("qualScore", message);
-            }
-
-            return (byte)Math.Min(
-                SangerMaxQualScore,
-              GetEncodedQualScore(ConvertFromSolexaToPhared(GetQualScore(qualScore, FastQFormatType.Solexa)), FastQFormatType.Sanger));
-        }
-
-        /// <summary>
-        /// Converts Solexa quality score to Illumina quality score.
-        /// </summary>
-        /// <param name="qualScore">Solexa quality score.</param>
-        /// <returns>Returns Illumina quality score.</returns>
-        public static byte ConvertFromSolexaToIllumina(byte qualScore)
-        {
-            if (!ValidateQualScore(qualScore, FastQFormatType.Solexa))
-            {
-                string message = string.Format(CultureInfo.CurrentCulture, Properties.Resource.InvalidQualityScore, qualScore);
-                throw new ArgumentOutOfRangeException("qualScore", message);
-            }
-
-            return (byte)Math.Min(
-                IlluminaMaxQualScore,
-              GetEncodedQualScore(ConvertFromSolexaToPhared(GetQualScore(qualScore, FastQFormatType.Solexa)), FastQFormatType.Illumina));
-        }
-
-        /// <summary>
-        /// Converts Illumina quality score to Sanger quality score.
-        /// </summary>
-        /// <param name="qualScore">Illumina quality score.</param>
-        /// <returns>Returns Sanger quality score.</returns>
-        public static byte ConvertFromIlluminaToSanger(byte qualScore)
-        {
-            if (!ValidateQualScore(qualScore, FastQFormatType.Illumina))
-            {
-                string message = string.Format(CultureInfo.CurrentCulture, Properties.Resource.InvalidQualityScore, qualScore);
-                throw new ArgumentOutOfRangeException("qualScore", message);
-            }
-
-            return (byte)Math.Min(
-                SangerMaxQualScore,
-              GetEncodedQualScore(GetQualScore(qualScore, FastQFormatType.Illumina), FastQFormatType.Sanger));
-        }
-
-        /// <summary>
-        /// Converts Illumina quality score to Solexa quality score.
-        /// </summary>
-        /// <param name="qualScore">Illumina quality score.</param>
-        /// <returns>Returns Solexa quality score.</returns>
-        public static byte ConvertFromIlluminaToSolexa(byte qualScore)
-        {
-            if (!ValidateQualScore(qualScore, FastQFormatType.Illumina))
-            {
-                string message = string.Format(CultureInfo.CurrentCulture, Properties.Resource.InvalidQualityScore, qualScore);
-                throw new ArgumentOutOfRangeException("qualScore", message);
-            }
-
-            return (byte)Math.Min(
-                SolexaMaxQualScore,
-              GetEncodedQualScore(ConvertFromPhredToSolexa(GetQualScore(qualScore, FastQFormatType.Illumina)), FastQFormatType.Solexa));
-        }
-
-        /// <summary>
-        /// Converts Sanger quality scores to Solexa quality scores.
-        /// </summary>
-        /// <param name="qualScores">Sanger quality scores.</param>
-        /// <returns>Returns Solexa quality scores.</returns>
-        public static byte[] ConvertFromSangerToSolexa(byte[] qualScores)
+        /// <param name="fromFormatType">from fastq format.</param>
+        /// <param name="toFormatType">to fastq format.</param>
+        /// <param name="qualScores">Quality scores.</param>
+        public static int[] ConvertQualityScores(FastQFormatType fromFormatType, FastQFormatType toFormatType, int[] qualScores)
         {
             if (qualScores == null)
             {
                 throw new ArgumentNullException("qualScores");
             }
 
-            int length = qualScores.Length;
-            byte[] newQualScores = new byte[length];
-
-            for (int i = 0; i < length; i++)
+            int invalidQualScore;
+            if (!ValidateQualScores(qualScores, fromFormatType, out invalidQualScore))
             {
-                byte qualScore = qualScores[i];
-                if (!ValidateQualScore(qualScore, FastQFormatType.Sanger))
-                {
-                    string message = string.Format(CultureInfo.CurrentCulture, Properties.Resource.InvalidQualityScore, qualScore);
-                    throw new ArgumentOutOfRangeException("qualScores", message);
-                }
-
-                newQualScores[i] = ConvertFromSangerToSolexa(qualScore);
+                string message = string.Format(CultureInfo.CurrentUICulture, Properties.Resource.InvalidQualityScore, invalidQualScore);
+                throw new ArgumentOutOfRangeException("qualScores", message);
             }
 
-            return newQualScores;
+            int[] result;
+            if (fromFormatType == toFormatType)
+            {
+                result = new int[qualScores.LongLength()];
+                Helper.Copy(qualScores, result, qualScores.LongLength());
+            }
+            else
+            {
+                BaseQualityScoreType fromQualityType = GetQualityScoreType(fromFormatType);
+                BaseQualityScoreType toQualityType = GetQualityScoreType(toFormatType);
+                if (fromQualityType == toQualityType)
+                {
+                    result = new int[qualScores.LongLength()];
+                    Helper.Copy(qualScores, result, qualScores.LongLength());
+                }
+                else
+                {
+                    result = Convert(fromQualityType, toQualityType, qualScores);
+                }
+            }
+
+            return result;
         }
 
         /// <summary>
-        /// Converts Sanger quality scores to Illumina quality scores.
+        /// Converts Quality scores from to specified format.
         /// </summary>
-        /// <param name="qualScores">Sanger quality scores.</param>
-        /// <returns>Returns Illumina quality scores.</returns>
-        public static byte[] ConvertFromSangerToIllumina(byte[] qualScores)
+        /// <param name="fromFormatType">from fastq format.</param>
+        /// <param name="toFormatType">to fastq format.</param>
+        /// <param name="qualScores">Quality scores.</param>
+        public static sbyte[] ConvertQualityScores(FastQFormatType fromFormatType, FastQFormatType toFormatType, sbyte[] qualScores)
         {
             if (qualScores == null)
             {
                 throw new ArgumentNullException("qualScores");
             }
 
-            int length = qualScores.Length;
-            byte[] newQualScores = new byte[length];
-
-            for (int i = 0; i < length; i++)
+            sbyte invalidQualScore;
+            if (!ValidateQualScores(qualScores, fromFormatType, out invalidQualScore))
             {
-                byte qualScore = qualScores[i];
-                if (!ValidateQualScore(qualScore, FastQFormatType.Sanger))
-                {
-                    string message = string.Format(CultureInfo.CurrentCulture, Properties.Resource.InvalidQualityScore, qualScore);
-                    throw new ArgumentOutOfRangeException("qualScores", message);
-                }
-
-                newQualScores[i] = ConvertFromSangerToIllumina(qualScore);
+                string message = string.Format(CultureInfo.CurrentUICulture, Properties.Resource.InvalidQualityScore, invalidQualScore);
+                throw new ArgumentOutOfRangeException("qualScores", message);
             }
 
-            return newQualScores;
+            sbyte[] result;
+            if (fromFormatType == toFormatType)
+            {
+                result = new sbyte[qualScores.LongLength()];
+                Helper.Copy(qualScores, result, qualScores.LongLength());
+            }
+            else
+            {
+                BaseQualityScoreType fromQualityType = GetQualityScoreType(fromFormatType);
+                BaseQualityScoreType toQualityType = GetQualityScoreType(toFormatType);
+                if (fromQualityType == toQualityType)
+                {
+                    result = new sbyte[qualScores.LongLength()];
+                    Helper.Copy(qualScores, result, qualScores.LongLength());
+                }
+                else
+                {
+                    result = Convert(fromQualityType, toQualityType, qualScores);
+                }
+            }
+
+            return result;
         }
 
         /// <summary>
-        /// Converts Solexa quality scores to Sanger quality scores.
+        /// Converts Encoded quality score from to specified format.
         /// </summary>
-        /// <param name="qualScores">Solexa quality scores.</param>
-        /// <returns>Returns Sanger quality scores.</returns>
-        public static byte[] ConvertFromSolexaToSanger(byte[] qualScores)
+        /// <param name="fromFormatType">from fastq format.</param>
+        /// <param name="toFormatType">to fastq format.</param>
+        /// <param name="encodedqualScore">Encoded quality score.</param>
+        public static byte ConvertEncodedQualityScore(FastQFormatType fromFormatType, FastQFormatType toFormatType, byte encodedqualScore)
         {
-            if (qualScores == null)
+            byte result;
+            byte invalidQualScore;
+            if (!ValidateQualScores(new byte[] {encodedqualScore}, fromFormatType, out invalidQualScore))
             {
-                throw new ArgumentNullException("qualScores");
+                string message = string.Format(CultureInfo.CurrentUICulture, Properties.Resource.InvalidQualityScore, (char)invalidQualScore);
+                throw new ArgumentOutOfRangeException("encodedqualScore", message);
             }
 
-            int length = qualScores.Length;
-            byte[] newQualScores = new byte[length];
-
-            for (int i = 0; i < length; i++)
+            if (fromFormatType == toFormatType)
             {
-                byte qualScore = qualScores[i];
-                if (!ValidateQualScore(qualScore, FastQFormatType.Solexa))
-                {
-                    string message = string.Format(CultureInfo.CurrentCulture, Properties.Resource.InvalidQualityScore, qualScore);
-                    throw new ArgumentOutOfRangeException("qualScores", message);
-                }
-
-                newQualScores[i] = ConvertFromSolexaToSanger(qualScore);
+                result = encodedqualScore;
+            }
+            else
+            {
+                int fromQualScore = GetDecodedQualScore(encodedqualScore, fromFormatType);
+                int toQualScore = ConvertQualityScore(fromFormatType, toFormatType, fromQualScore);
+                result = GetEncodedQualScore(toQualScore, toFormatType);
             }
 
-            return newQualScores;
+            return result;
         }
 
         /// <summary>
-        /// Converts Solexa quality scores to Illumina quality scores.
+        /// Converts Encoded quality scores from to specified format.
         /// </summary>
-        /// <param name="qualScores">Solexa quality scores.</param>
-        /// <returns>Returns Illumina quality scores.</returns>
-        public static byte[] ConvertFromSolexaToIllumina(byte[] qualScores)
+        /// <param name="fromFormatType">from fastq format.</param>
+        /// <param name="toFormatType">to fastq format.</param>
+        /// <param name="encodedqualScores">Encoded quality scores.</param>
+        public static byte[] ConvertEncodedQualityScore(FastQFormatType fromFormatType, FastQFormatType toFormatType, byte[] encodedqualScores)
         {
-            if (qualScores == null)
+            if (encodedqualScores == null)
             {
-                throw new ArgumentNullException("qualScores");
+                throw new ArgumentNullException("encodedqualScores");
+            }
+            byte invalidQualScore;
+            if (!ValidateQualScores(encodedqualScores, fromFormatType, out invalidQualScore))
+            {
+                string message = string.Format(CultureInfo.CurrentUICulture, Properties.Resource.InvalidQualityScore,(char) invalidQualScore);
+                throw new ArgumentOutOfRangeException("encodedqualScores", message);
             }
 
-            int length = qualScores.Length;
-            byte[] newQualScores = new byte[length];
-
-            for (int i = 0; i < length; i++)
+            byte[] result;
+            if (fromFormatType == toFormatType)
             {
-                byte qualScore = qualScores[i];
-                if (!ValidateQualScore(qualScore, FastQFormatType.Solexa))
-                {
-                    string message = string.Format(CultureInfo.CurrentCulture, Properties.Resource.InvalidQualityScore, qualScore);
-                    throw new ArgumentOutOfRangeException("qualScores", message);
-                }
-
-                newQualScores[i] = ConvertFromSolexaToIllumina(qualScore);
+                result = new byte[encodedqualScores.LongLength()];
+                Helper.Copy(encodedqualScores, result, encodedqualScores.LongLength());
+            }
+            else
+            {
+                int[] fromQualScore = GetDecodedQualScores(encodedqualScores, fromFormatType);
+                int[] toQualScore = ConvertQualityScores(fromFormatType, toFormatType, fromQualScore);
+                result = GetEncodedQualScores(toQualScore, toFormatType);
             }
 
-            return newQualScores;
-        }
-
-        /// <summary>
-        /// Converts Illumina quality scores to Sanger quality scores.
-        /// </summary>
-        /// <param name="qualScores">Illumina quality scores.</param>
-        /// <returns>Returns Sanger quality scores.</returns>
-        public static byte[] ConvertFromIlluminaToSanger(byte[] qualScores)
-        {
-            if (qualScores == null)
-            {
-                throw new ArgumentNullException("qualScores");
-            }
-
-            int length = qualScores.Length;
-            byte[] newQualScores = new byte[length];
-
-            for (int i = 0; i < length; i++)
-            {
-                byte qualScore = qualScores[i];
-                if (!ValidateQualScore(qualScore, FastQFormatType.Illumina))
-                {
-                    string message = string.Format(CultureInfo.CurrentCulture, Properties.Resource.InvalidQualityScore, qualScore);
-                    throw new ArgumentOutOfRangeException("qualScores", message);
-                }
-
-                newQualScores[i] = ConvertFromIlluminaToSanger(qualScore);
-            }
-
-            return newQualScores;
-        }
-
-        /// <summary>
-        /// Converts Illumina quality scores to Solexa quality scores.
-        /// </summary>
-        /// <param name="qualScores">Illumina quality scores.</param>
-        /// <returns>Returns Solexa quality scores.</returns>
-        public static byte[] ConvertFromIlluminaToSolexa(byte[] qualScores)
-        {
-            if (qualScores == null)
-            {
-                throw new ArgumentNullException("qualScores");
-            }
-
-            int length = qualScores.Length;
-            byte[] newQualScores = new byte[length];
-
-            for (int i = 0; i < length; i++)
-            {
-                byte qualScore = qualScores[i];
-                if (!ValidateQualScore(qualScore, FastQFormatType.Illumina))
-                {
-                    string message = string.Format(CultureInfo.CurrentCulture, Properties.Resource.InvalidQualityScore, qualScore);
-                    throw new ArgumentOutOfRangeException("qualScores", message);
-                }
-
-                newQualScores[i] = ConvertFromIlluminaToSolexa(qualScore);
-            }
-
-            return newQualScores;
+            return result;
         }
 
         /// <summary>
@@ -617,128 +729,213 @@ namespace Bio
         /// <returns>Quality score.</returns>
         public static byte GetDefaultQualScore(FastQFormatType type)
         {
-            if (type == FastQFormatType.Sanger)
-            {
-                return (byte)(SangerAsciiBaseValue + DefaultQualScore);
-            }
-            else if (type == FastQFormatType.Solexa)
-            {
-                return (byte)(SolexaAsciiBaseValue + DefaultQualScore);
-            }
-            else
-            {
-                return (byte)(IlluminaAsciiBaseValue + DefaultQualScore);
-            }
+            return (byte)(GetEncodedQualScore(DefaultQualScore, type));
         }
 
         /// <summary>
-        /// Gets the maximum quality score for the specified FastQFormatType.
+        /// Gets the maximum encoded quality score for the specified FastQFormatType.
         /// </summary>
-        ///  /// <param name="type">FastQ format type.</param>
+        ///  /// <param name="formatType">FastQ format type.</param>
         /// <returns>Quality score.</returns>
-        public static byte GetMaxQualScore(FastQFormatType type)
+        public static byte GetMaxEncodedQualScore(FastQFormatType formatType)
         {
-            if (type == FastQFormatType.Solexa)
+            byte result;
+            switch (formatType)
             {
-                return SolexaMaxQualScore;
+                case FastQFormatType.Sanger:
+                    result = Sanger_MaxEncodedQualScore;
+                    break;
+                case FastQFormatType.Solexa_Illumina_v1_0:
+                    result = Solexa_Illumina_v1_0_MaxEncodedQualScore;
+                    break;
+                case FastQFormatType.Illumina_v1_3:
+                    result = Illumina_v1_3_MaxEncodedQualScore;
+                    break;
+                case FastQFormatType.Illumina_v1_5:
+                    result = Illumina_v1_5_MaxEncodedQualScore;
+                    break;
+                default:
+                    result = Illumina_v1_8_MaxEncodedQualScore;
+                    break;
             }
-            else if (type == FastQFormatType.Sanger)
-            {
-                return SangerMaxQualScore;
-            }
-            else
-            {
-                return IlluminaMaxQualScore;
-            }
+
+            return result;
         }
 
         /// <summary>
-        /// Gets the minimum quality score for the specified FastQFormatType.
+        /// Gets the minimum encoded quality score for the specified FastQFormatType.
         /// </summary>
-        /// <param name="type">FastQ format type.</param>
+        /// <param name="formatType">FastQ format type.</param>
         /// <returns>Quality score.</returns>
-        public static byte GetMinQualScore(FastQFormatType type)
+        public static byte GetMinEncodedQualScore(FastQFormatType formatType)
         {
-            if (type == FastQFormatType.Solexa)
+            byte result;
+            switch (formatType)
             {
-                return SolexaMinQualScore;
+                case FastQFormatType.Sanger:
+                    result = Sanger_MinEncodedQualScore;
+                    break;
+                case FastQFormatType.Solexa_Illumina_v1_0:
+                    result = Solexa_Illumina_v1_0_MinEncodedQualScore;
+                    break;
+                case FastQFormatType.Illumina_v1_3:
+                    result = Illumina_v1_3_MinEncodedQualScore;
+                    break;
+                case FastQFormatType.Illumina_v1_5:
+                    result = Illumina_v1_5_MinEncodedQualScore;
+                    break;
+                default:
+                    result = Illumina_v1_8_MinEncodedQualScore;
+                    break;
             }
-            else if (type == FastQFormatType.Sanger)
-            {
-                return SangerMinQualScore;
-            }
-            else
-            {
-                return IlluminaMinQualScore;
-            }
+
+            return result;
         }
 
         /// <summary>
-        /// Gets the quality score found at the specified index if within bounds. Note that the index value start at 0.
+        /// Gets the encoded quality score found at the specified index if within bounds. Note that the index value start at 0.
         /// </summary>
         /// <param name="index">Index at which the symbol is required.</param>
         /// <returns>Quality Score at the given index.</returns>
-        public byte GetQualityScore(long index)
+        public byte GetEncodedQualityScore(long index)
+        {
+            return GetEncodedQualScore(this.qualityScores[index], this.FormatType);
+        }
+
+        /// <summary>
+        /// Gets the encoded quality scores.
+        /// </summary>
+        public byte[] GetEncodedQualityScores()
+        {
+            return GetEncodedQualScores(this.qualityScores, this.FormatType);
+        }
+
+        /// <summary>
+        /// Returns base quality scores at specified index.
+        /// Returns Solexa quality scores if the FastQFormat type of this instance is Solexa Illumina v1.0,
+        /// else returns Phred quality scores.
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        public int GetQualityScore(long index)
         {
             return this.qualityScores[index];
+        }
+
+        /// <summary>
+        /// Returns base quality scores.
+        /// Returns Solexa quality scores if the FastQFormat type of this instance is Solexa Illumina v1.0,
+        /// else returns Phred quality scores.
+        /// </summary>
+        public int[] GetQualityScores()
+        {
+            long count = this.qualityScores.LongLength();
+            int[] baseQualityScores = new int[count];
+            Helper.Copy(this.qualityScores, baseQualityScores, count);
+
+            return baseQualityScores;
+        }
+
+        /// <summary>
+        /// Gets the Phred base quality score.
+        /// </summary>
+        /// <param name="index">Index of the required score.</param>
+        /// <returns>Returns an integer value representing Phred quality score.</returns>
+        public int GetPhredQualityScore(long index)
+        {
+            int phredQualityScore;
+            if (this.FormatType == FastQFormatType.Solexa_Illumina_v1_0)
+            {
+                int solexaQualityScore = this.qualityScores[index];
+                phredQualityScore = ConvertSolexaToPhred(solexaQualityScore);
+            }
+            else
+            {
+                phredQualityScore = this.qualityScores[index];
+            }
+
+            return phredQualityScore;
+        }
+
+        /// <summary>
+        /// Gets the Phred base quality scores.
+        /// </summary>
+        public int[] GetPhredQualityScores()
+        {
+            long count = this.qualityScores.LongLength();
+            int[] phredQualityScores = new int[count];
+            BaseQualityScoreType fromQualityScoreType = GetQualityScoreType(this.FormatType);
+            BaseQualityScoreType toQualityScoreType = BaseQualityScoreType.PhredBaseQualityScore;
+            if (fromQualityScoreType == toQualityScoreType)
+            {
+                Helper.Copy(this.qualityScores, phredQualityScores, count);
+            }
+            else
+            {
+                for (long i = 0; i < count; i++)
+                {
+                    phredQualityScores[i] = Convert(fromQualityScoreType, toQualityScoreType, this.qualityScores[i]);
+                }
+            }
+
+            return phredQualityScores;
+        }
+
+        /// <summary>
+        /// Gets the Solexa base quality score.
+        /// </summary>
+        /// <param name="index">Index of the required score.</param>
+        /// <returns>Returns an integer value representing Solexa quality score.</returns>
+        public int GetSolexaQualityScore(long index)
+        {
+            int solexaQualityScore;
+            if (this.FormatType == FastQFormatType.Solexa_Illumina_v1_0)
+            {
+                solexaQualityScore = this.qualityScores[index];
+            }
+            else
+            {
+                int pharedQualityScore = this.qualityScores[index];
+                solexaQualityScore = ConvertPhredToSolexa(pharedQualityScore);
+            }
+
+            return solexaQualityScore;
+        }
+
+        /// <summary>
+        /// Gets the solexa base quality scores.
+        /// </summary>
+        public int[] GetSolexaQualityScores()
+        {
+            long count = this.qualityScores.LongLength();
+            int[] solexaQualityScores = new int[count];
+            BaseQualityScoreType fromQualityScoreType = GetQualityScoreType(this.FormatType);
+            BaseQualityScoreType toQualityScoreType = BaseQualityScoreType.SolexaBaseQualityScore;
+            if (fromQualityScoreType == toQualityScoreType)
+            {
+                Helper.Copy(this.qualityScores, solexaQualityScores, count);
+            }
+            else
+            {
+                for (long i = 0; i < count; i++)
+                {
+                    solexaQualityScores[i] = Convert(fromQualityScoreType, toQualityScoreType, this.qualityScores[i]);
+                }
+            }
+
+            return solexaQualityScores;
         }
 
         /// <summary>
         /// Converts the current instance to the specified FastQ format type 
         /// and returns a new instance of QualitativeSequence.
         /// </summary>
-        /// <param name="type">FastQ format type to convert.</param>
-        public QualitativeSequence ConvertTo(FastQFormatType type)
+        /// <param name="formatType">FastQ format type to convert.</param>
+        public QualitativeSequence ConvertTo(FastQFormatType formatType)
         {
-            byte[] convertedQualityScores = null;
+            sbyte[] convertedQualityScores = ConvertQualityScores(this.FormatType, formatType, this.qualityScores);
 
-            if (this.FormatType == type)
-            {
-                convertedQualityScores = this.qualityScores;
-            }
-
-            if (this.FormatType == FastQFormatType.Sanger)
-            {
-                if (type == FastQFormatType.Illumina)
-                {
-                    // Sanger to Illumina.
-                    convertedQualityScores = ConvertFromSangerToIllumina(this.qualityScores);
-                }
-                else if (type == FastQFormatType.Solexa)
-                {
-                    // Sanger To Solexa.
-                    convertedQualityScores = ConvertFromSangerToSolexa(this.qualityScores);
-                }
-            }
-            else if (this.FormatType == FastQFormatType.Solexa)
-            {
-                if (type == FastQFormatType.Sanger)
-                {
-                    // Solexa to Sanger.
-                    convertedQualityScores = ConvertFromSolexaToSanger(this.qualityScores);
-                }
-                else if (type == FastQFormatType.Illumina)
-                {
-                    // Solexa to Illumina.
-                    convertedQualityScores = ConvertFromSolexaToIllumina(this.qualityScores);
-                }
-            }
-            else
-            {
-                if (type == FastQFormatType.Sanger)
-                {
-                    // Illumina to Sanger.
-                    convertedQualityScores = ConvertFromIlluminaToSanger(this.qualityScores);
-                }
-                else if (type == FastQFormatType.Solexa)
-                {
-                    // Illumina to Solexa.
-                    convertedQualityScores = ConvertFromIlluminaToSolexa(this.qualityScores);
-                }
-            }
-
-
-            QualitativeSequence seq = new QualitativeSequence(this.Alphabet, type, this.sequenceData, convertedQualityScores, false);
+            QualitativeSequence seq = new QualitativeSequence(this.Alphabet, formatType, this.sequenceData, convertedQualityScores, false);
             seq.ID = this.ID;
             seq.metadata = this.metadata;
 
@@ -751,15 +948,15 @@ namespace Bio
         public ISequence GetReversedSequence()
         {
             byte[] newSequenceData = new byte[this.sequenceData.LongLength()];
-            byte[] newQualityScores = new byte[this.qualityScores.LongLength()];
+            sbyte[] newQualityScores = new sbyte[this.qualityScores.LongLength()];
 
             for (long index = 0; index < this.sequenceData.LongLength(); index++)
             {
                 newSequenceData[index] = this.sequenceData[this.sequenceData.LongLength() - index - 1];
-                newQualityScores[index] = this.qualityScores[this.qualityScores.LongLength() - index - 1];
+                newQualityScores[index] = (this.qualityScores[this.qualityScores.LongLength() - index - 1]);
             }
 
-            QualitativeSequence seq = new QualitativeSequence(this.Alphabet, this.FormatType, newSequenceData, newQualityScores);
+            QualitativeSequence seq = new QualitativeSequence(this.Alphabet, this.FormatType, newSequenceData, newQualityScores, false);
             seq.ID = this.ID;
             seq.metadata = this.metadata;
 
@@ -772,7 +969,7 @@ namespace Bio
         public ISequence GetComplementedSequence()
         {
             byte[] newSequenceData = new byte[this.sequenceData.LongLength()];
-            byte[] newQualityScores = this.qualityScores;
+            sbyte[] newQualityScores = this.qualityScores;
 
             for (long index = 0; index < this.sequenceData.LongLength(); index++)
             {
@@ -786,7 +983,7 @@ namespace Bio
                 newSequenceData[index] = complementedSymbol;
             }
 
-            QualitativeSequence seq = new QualitativeSequence(this.Alphabet, this.FormatType, newSequenceData, newQualityScores);
+            QualitativeSequence seq = new QualitativeSequence(this.Alphabet, this.FormatType, newSequenceData, newQualityScores, false);
             seq.ID = this.ID;
             seq.metadata = this.metadata;
 
@@ -799,7 +996,7 @@ namespace Bio
         public ISequence GetReverseComplementedSequence()
         {
             byte[] newSequenceData = new byte[this.sequenceData.LongLength()];
-            byte[] newQualityScores = new byte[this.qualityScores.LongLength()];
+            sbyte[] newQualityScores = new sbyte[this.qualityScores.LongLength()];
 
             for (long index = 0; index < this.sequenceData.LongLength(); index++)
             {
@@ -816,7 +1013,7 @@ namespace Bio
                 newQualityScores[index] = this.qualityScores[this.qualityScores.LongLength() - index - 1];
             }
 
-            QualitativeSequence seq = new QualitativeSequence(this.Alphabet, this.FormatType, newSequenceData, newQualityScores);
+            QualitativeSequence seq = new QualitativeSequence(this.Alphabet, this.FormatType, newSequenceData, newQualityScores, false);
             seq.ID = this.ID;
             seq.metadata = this.metadata;
 
@@ -842,7 +1039,7 @@ namespace Bio
             }
 
             byte[] newSequenceData = new byte[length];
-            byte[] newQualityScores = new byte[length];
+            sbyte[] newQualityScores = new sbyte[length];
 
             for (long index = 0; index < length; index++)
             {
@@ -850,7 +1047,7 @@ namespace Bio
                 newQualityScores[index] = this.qualityScores[start + index];
             }
 
-            QualitativeSequence seq = new QualitativeSequence(this.Alphabet, this.FormatType, newSequenceData, newQualityScores);
+            QualitativeSequence seq = new QualitativeSequence(this.Alphabet, this.FormatType, newSequenceData, newQualityScores, false);
             seq.ID = this.ID;
             seq.metadata = this.metadata;
 
@@ -946,14 +1143,14 @@ namespace Bio
                 return string.Format(CultureInfo.CurrentCulture, Properties.Resource.QualitativeSequenceToStringFormatForLongSequence,
                                      new string(this.sequenceData.Take(Helper.AlphabetsToShowInToString).Select((a => (char)a)).ToArray()),
                                      (this.Count - Helper.AlphabetsToShowInToString),
-                                     new string(this.qualityScores.Take(Helper.AlphabetsToShowInToString).Select(a => (char)a).ToArray()),
+                                     new string(this.qualityScores.Take(Helper.AlphabetsToShowInToString).Select(a => (char)GetEncodedQualScore(a, this.FormatType)).ToArray()),
                                      (this.Count - Helper.AlphabetsToShowInToString));
             }
             else
             {
                 return string.Format(CultureInfo.CurrentCulture, Properties.Resource.QualitativeSequenceToStringFormatForSmallSequence,
                                      new string(this.sequenceData.Take(this.sequenceData.Length).Select((a => (char)a)).ToArray()),
-                                     new string(this.qualityScores.Take(this.qualityScores.Length).Select(a => (char)a).ToArray()));
+                                     new string(this.qualityScores.Take(this.qualityScores.Length).Select(a => (char)GetEncodedQualScore(a, this.FormatType)).ToArray()));
             }
         }
 
@@ -979,159 +1176,411 @@ namespace Bio
         }
 
         /// <summary>
-        /// Gets the quality score from the ASCII encoded quality score.
+        /// Gets the Ascii base value for the specified format.
         /// </summary>
-        /// <param name="qualScore">ASCII Encoded quality score.</param>
-        /// <param name="type">FastQ format type.</param>
-        /// <returns>Returns quality score.</returns>
-        private static int GetQualScore(byte qualScore, FastQFormatType type)
+        /// <param name="formatType">FastQ format.</param>
+        private static int GetAsciiBaseValue(FastQFormatType formatType)
         {
-            if (type == FastQFormatType.Sanger)
+            int result;
+            switch (formatType)
             {
-                return qualScore - SangerAsciiBaseValue;
+                case FastQFormatType.Sanger:
+                    result = Sanger_AsciiBaseValue;
+                    break;
+                case FastQFormatType.Solexa_Illumina_v1_0:
+                    result = Solexa_Illumina_v1_0_AsciiBaseValue;
+                    break;
+                case FastQFormatType.Illumina_v1_3:
+                    result = Illumina_v1_3_AsciiBaseValue;
+                    break;
+                case FastQFormatType.Illumina_v1_5:
+                    result = Illumina_v1_5_AsciiBaseValue;
+                    break;
+                default:
+                    result = Illumina_v1_8_AsciiBaseValue;
+                    break;
             }
-            else if (type == FastQFormatType.Solexa)
+
+            return result;
+        }
+
+        /// <summary>
+        /// Gets the quality score type for the specified format.
+        /// </summary>
+        /// <param name="formatType">FastQ format.</param>
+        private static BaseQualityScoreType GetQualityScoreType(FastQFormatType formatType)
+        {
+            BaseQualityScoreType result;
+            switch (formatType)
             {
-                return qualScore - SolexaAsciiBaseValue;
+                case FastQFormatType.Solexa_Illumina_v1_0:
+                    result = BaseQualityScoreType.SolexaBaseQualityScore;
+                    break;
+                default:
+                    result = BaseQualityScoreType.PhredBaseQualityScore;
+                    break;
             }
-            else
+
+            return result;
+        }
+
+        /// <summary>
+        /// Gets the decoded quality score from the ASCII encoded quality score.
+        /// </summary>
+        /// <param name="encodedQualScore">ASCII Encoded quality score.</param>
+        /// <param name="formatType">FastQ format type.</param>
+        /// <returns>Returns quality score.</returns>
+        private static int GetDecodedQualScore(byte encodedQualScore, FastQFormatType formatType)
+        {
+            return DecodeQualityScore(encodedQualScore, GetAsciiBaseValue(formatType));
+        }
+
+        /// <summary>
+        /// Gets the decoded quality scores from the ASCII encoded quality score.
+        /// </summary>
+        /// <param name="encodedQualScores">ASCII Encoded quality score.</param>
+        /// <param name="formatType">FastQ format type.</param>
+        /// <returns>Returns quality scores.</returns>
+        private static int[] GetDecodedQualScores(byte[] encodedQualScores, FastQFormatType formatType)
+        {
+            int baseValue = GetAsciiBaseValue(formatType);
+            long count = encodedQualScores.LongLength();
+            int[] result = new int[count];
+            for (long i = 0; i < count; i++)
             {
-                return qualScore - IlluminaAsciiBaseValue;
+                result[i] = DecodeQualityScore(encodedQualScores[i], baseValue);
             }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Gets the decoded quality scores from the ASCII encoded quality score.
+        /// </summary>
+        /// <param name="encodedQualScores">ASCII Encoded quality score.</param>
+        /// <param name="formatType">FastQ format type.</param>
+        /// <returns>Returns quality scores.</returns>
+        private static sbyte[] GetDecodedQualScoresInSignedBytes(byte[] encodedQualScores, FastQFormatType formatType)
+        {
+            int baseValue = GetAsciiBaseValue(formatType);
+            long count = encodedQualScores.LongLength();
+            sbyte[] result = new sbyte[count];
+            for (long i = 0; i < count; i++)
+            {
+                result[i] = (sbyte)DecodeQualityScore(encodedQualScores[i], baseValue);
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Decodes the specified encoded quality score using base value.
+        /// </summary>
+        /// <param name="encodedQualityScore">Encoded quality score.</param>
+        /// <param name="baseValue">Base value used for encoding.</param>
+        private static int DecodeQualityScore(byte encodedQualityScore, int baseValue)
+        {
+            return encodedQualityScore - baseValue;
+        }
+
+        /// <summary>
+        /// Encodes the specified quality score using base value.
+        /// </summary>
+        /// <param name="qualityScore">Quality score.</param>
+        /// <param name="baseValue">Base value to use for encoding.</param>
+        private static byte EncodeQualityScore(int qualityScore, int baseValue)
+        {
+            return (byte)(qualityScore + baseValue);
         }
 
         /// <summary>
         /// Gets the ASCII encoded quality score for the given quality score.
         /// </summary>
         /// <param name="qualScore">Quality Score.</param>
-        /// <param name="type">FastQ format type.</param>
+        /// <param name="formatType">FastQ format type.</param>
         /// <returns>ASCII encoded quality score.</returns>
-        private static byte GetEncodedQualScore(int qualScore, FastQFormatType type)
+        private static byte GetEncodedQualScore(int qualScore, FastQFormatType formatType)
         {
-            if (type == FastQFormatType.Sanger)
+            return EncodeQualityScore(qualScore, GetAsciiBaseValue(formatType));
+        }
+
+        /// <summary>
+        /// Gets the ASCII encoded quality scores for the given quality score.
+        /// </summary>
+        /// <param name="qualScores">Quality Score.</param>
+        /// <param name="formatType">FastQ format type.</param>
+        /// <returns>ASCII encoded quality scores.</returns>
+        private static byte[] GetEncodedQualScores(int[] qualScores, FastQFormatType formatType)
+        {
+            int baseValue = GetAsciiBaseValue(formatType);
+            long count = qualScores.LongLength();
+            byte[] result = new byte[count];
+            for (long i = 0; i < count; i++)
             {
-                return (byte)(qualScore + SangerAsciiBaseValue);
+                result[i] = EncodeQualityScore(qualScores[i], baseValue);
             }
-            else if (type == FastQFormatType.Solexa)
+
+            return result;
+        }
+
+        /// <summary>
+        /// Gets the ASCII encoded quality scores for the given quality score.
+        /// </summary>
+        /// <param name="qualScores">Quality Score.</param>
+        /// <param name="formatType">FastQ format type.</param>
+        /// <returns>ASCII encoded quality scores.</returns>
+        private static byte[] GetEncodedQualScores(sbyte[] qualScores, FastQFormatType formatType)
+        {
+            int baseValue = GetAsciiBaseValue(formatType);
+            long count = qualScores.LongLength();
+            byte[] result = new byte[count];
+            for (long i = 0; i < count; i++)
             {
-                return (byte)(qualScore + SolexaAsciiBaseValue);
+                result[i] = EncodeQualityScore(qualScores[i], baseValue);
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Converts quality score from fromQualityScore type to toQualityScore type
+        /// Ex: Phred to Solexa or Solexa to Phred
+        /// </summary>
+        /// <param name="fromQualityScoreType">from quality score type.</param>
+        /// <param name="toQualityScoreType">to quality score type.</param>
+        /// <param name="qualScore">Quality score</param>
+        private static int Convert(BaseQualityScoreType fromQualityScoreType, BaseQualityScoreType toQualityScoreType, int qualScore)
+        {
+            int result;
+            if (fromQualityScoreType == toQualityScoreType)
+            {
+                result = qualScore;
             }
             else
             {
-                return (byte)(qualScore + IlluminaAsciiBaseValue);
+                if (fromQualityScoreType == BaseQualityScoreType.PhredBaseQualityScore)
+                {
+                    result = ConvertPhredToSolexa(qualScore);
+                }
+                else
+                {
+                    result = ConvertSolexaToPhred(qualScore);
+                }
             }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Converts quality scores from fromQualityScore type to toQualityScore type
+        /// Ex: Phred to Solexa or Solexa to Phred
+        /// </summary>
+        /// <param name="fromQualityScoreType">from quality score type.</param>
+        /// <param name="toQualityScoreType">to quality score type.</param>
+        /// <param name="qualScores">Quality scores</param>
+        private static sbyte[] Convert(BaseQualityScoreType fromQualityScoreType, BaseQualityScoreType toQualityScoreType, sbyte[] qualScores)
+        {
+            long count = qualScores.LongLength();
+            sbyte[] result = new sbyte[count];
+            if (fromQualityScoreType == toQualityScoreType)
+            {
+                Helper.Copy(qualScores, result, qualScores.LongLength());
+            }
+            else
+            {
+                if (fromQualityScoreType == BaseQualityScoreType.PhredBaseQualityScore)
+                {
+                    for (long i = 0; i < count; i++)
+                    {
+                        result[i] = (sbyte)ConvertPhredToSolexa(qualScores[i]);
+                    }
+                }
+                else
+                {
+                    for (long i = 0; i < count; i++)
+                    {
+                        result[i] = (sbyte)ConvertSolexaToPhred(qualScores[i]);
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Converts quality scores from fromQualityScore type to toQualityScore type
+        /// Ex: Phred to Solexa or Solexa to Phred
+        /// </summary>
+        /// <param name="fromQualityScoreType">from quality score type.</param>
+        /// <param name="toQualityScoreType">to quality score type.</param>
+        /// <param name="qualScores">Quality scores</param>
+        private static int[] Convert(BaseQualityScoreType fromQualityScoreType, BaseQualityScoreType toQualityScoreType, int[] qualScores)
+        {
+            long count = qualScores.LongLength();
+            int[] result = new int[count];
+            if (fromQualityScoreType == toQualityScoreType)
+            {
+                Helper.Copy(qualScores, result, qualScores.LongLength());
+            }
+            else
+            {
+                if (fromQualityScoreType == BaseQualityScoreType.PhredBaseQualityScore)
+                {
+                    for (long i = 0; i < count; i++)
+                    {
+                        result[i] = ConvertPhredToSolexa(qualScores[i]);
+                    }
+                }
+                else
+                {
+                    for (long i = 0; i < count; i++)
+                    {
+                        result[i] = ConvertSolexaToPhred(qualScores[i]);
+                    }
+                }
+            }
+
+            return result;
         }
 
         /// <summary>
         /// Converts Phred quality score to Solexa quality score.
         /// </summary>
-        /// <param name="qualScore">Quality score to be converted.</param>
-        /// <returns>Solexa quality score.</returns>
-        private static int ConvertFromPhredToSolexa(int qualScore)
+        /// <param name="phredQualityScore">Phred quality score.</param>
+        private static int ConvertPhredToSolexa(int phredQualityScore)
         {
-            if (qualScore == 0)
+            int result;
+            if (phredQualityScore == Phred_MinQualityScore)
             {
-                return -5;
+                result = Solexa_MinQualityScore;
+            }
+            else
+            {
+                result = Math.Min(Solexa_MaxQualityScore, Math.Max(Solexa_MinQualityScore, (int)Math.Round(10 * Math.Log10(Math.Pow(10, (phredQualityScore / 10.0)) - 1), 0)));
             }
 
-            int minQualvalue = GetQualScore(SolexaMinQualScore, FastQFormatType.Solexa);
-            int maxQualValue = GetQualScore(SolexaMaxQualScore, FastQFormatType.Solexa);
-
-            return Math.Min(maxQualValue, Math.Max(minQualvalue, (int)Math.Round(10 * Math.Log10(Math.Pow(10, (qualScore / 10.0)) - 1), 0)));
+            return result;
         }
 
         /// <summary>
         /// Converts Solexa quality score to Phred quality score.
         /// </summary>
-        /// <param name="qualScore">Quality score to be converted.</param>
-        /// <returns>Phred quality score.</returns>
-        private static int ConvertFromSolexaToPhared(int qualScore)
+        /// <param name="solexaQualityScore">Solexa quality score.</param>
+        private static int ConvertSolexaToPhred(int solexaQualityScore)
         {
-            if (qualScore == -5)
+            int result;
+            if (solexaQualityScore == Solexa_MinQualityScore)
             {
-                return 0;
-            }
-
-            int minQualvalue = GetQualScore(SangerMinQualScore, FastQFormatType.Sanger);
-            int maxQualValue = GetQualScore(SangerMaxQualScore, FastQFormatType.Sanger);
-
-            return Math.Min(maxQualValue, Math.Max(minQualvalue, (int)Math.Round(10 * Math.Log10(Math.Pow(10, (qualScore / 10.0)) + 1), 0)));
-        }
-
-        /// <summary>
-        /// Validates whether the specified quality score is within the FastQFormatType limit or not.
-        /// </summary>
-        /// <param name="qualScore">Quality score.</param>
-        /// <param name="type">Fastq format type.</param>
-        /// <returns>Returns true if the specified quality score is with in the limit, otherwise false.</returns>
-        private static bool ValidateQualScore(byte qualScore, FastQFormatType type)
-        {
-            if (type == FastQFormatType.Sanger)
-            {
-                return qualScore >= SangerMinQualScore && qualScore <= SangerMaxQualScore;
-            }
-            else if (type == FastQFormatType.Solexa)
-            {
-                return qualScore >= SolexaMinQualScore && qualScore <= SolexaMaxQualScore;
+                result = Phred_MinQualityScore;
             }
             else
             {
-                return qualScore >= IlluminaMinQualScore && qualScore <= IlluminaMaxQualScore;
+                result = Math.Min(Phred_MaxQualityScore, Math.Max(Phred_MinQualityScore, (int)Math.Round(10 * Math.Log10(Math.Pow(10, (solexaQualityScore / 10.0)) + 1), 0)));
             }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Validates whether the specified encoded quality scores are within the FastQFormatType limit or not.
+        /// </summary>
+        /// <param name="encodedQualScore">Encoded quality scores.</param>
+        /// <param name="formatType">Fastq format type.</param>
+        /// <param name="invalidQualScore">returns invalid encoded quality score if found.</param>
+        /// <returns>Returns true if the specified encoded quality scores are with in the limit, otherwise false.</returns>
+        private static bool ValidateQualScores(byte[] encodedQualScore, FastQFormatType formatType, out byte invalidQualScore)
+        {
+            bool result = true;
+            invalidQualScore = 0;
+            int minScore = GetMinEncodedQualScore(formatType);
+            int maxScore = GetMaxEncodedQualScore(formatType);
+            long count = encodedQualScore.LongLength();
+            for (long index = 0; index < count; index++)
+            {
+                byte qualScore = encodedQualScore[index];
+                if (qualScore < minScore || qualScore > maxScore)
+                {
+                    result = false;
+                    invalidQualScore = qualScore;
+                    break;
+                }
+            }
+
+            return result;
         }
 
         /// <summary>
         /// Validates whether the specified quality scores are within the FastQFormatType limit or not.
         /// </summary>
-        /// <param name="qualScores">Quality scores.</param>
-        /// <param name="type">Fastq format type.</param>
+        /// <param name="qualScores">Quality scores in base type.</param>
+        /// <param name="formatType">Fastq format type.</param>
+        /// <param name="invalidQualScore">returns invalid quality score if found.</param>
         /// <returns>Returns true if the specified quality scores are with in the limit, otherwise false.</returns>
-        private static bool ValidateQualScore(byte[] qualScores, FastQFormatType type)
+        private static bool ValidateQualScores(sbyte[] qualScores, FastQFormatType formatType, out sbyte invalidQualScore)
         {
             bool result = true;
-
-            switch (type)
+            invalidQualScore = 0;
+            int minScore = GetDecodedQualScore(GetMinEncodedQualScore(formatType), formatType);
+            int maxScore = GetDecodedQualScore(GetMaxEncodedQualScore(formatType), formatType);
+            long count = qualScores.LongLength();
+            for (long index = 0; index < count; index++)
             {
-                case FastQFormatType.Sanger:
-                    for (long index = 0; index < qualScores.LongLength(); index++)
-                    {
-                        byte qualScore = qualScores[index];
-                        if (qualScore < SangerMinQualScore || qualScore > SangerMaxQualScore)
-                        {
-                            result = false;
-                            break;
-                        }
-                    }
-
+                sbyte qualScore = qualScores[index];
+                if (qualScore < minScore || qualScore > maxScore)
+                {
+                    result = false;
+                    invalidQualScore = qualScore;
                     break;
-                case FastQFormatType.Solexa:
-                    for (long index = 0; index < qualScores.LongLength(); index++)
-                    {
-                        byte qualScore = qualScores[index];
-                        if (qualScore < SolexaMinQualScore || qualScore > SolexaMaxQualScore)
-                        {
-                            result = false;
-                            break;
-                        }
-                    }
+                }
+            }
 
-                    break;
-                case FastQFormatType.Illumina:
-                    for (long index = 0; index < qualScores.LongLength(); index++)
-                    {
-                        byte qualScore = qualScores[index];
-                        if (qualScore < IlluminaMinQualScore || qualScore > IlluminaMaxQualScore)
-                        {
-                            result = false;
-                            break;
-                        }
-                    }
+            return result;
+        }
 
+        /// <summary>
+        /// Validates whether the specified quality scores are within the FastQFormatType limit or not.
+        /// </summary>
+        /// <param name="qualScores">Quality scores in base type.</param>
+        /// <param name="formatType">Fastq format type.</param>
+        /// <param name="invalidQualScore">returns invalid quality score if found.</param>
+        /// <returns>Returns true if the specified quality scores are with in the limit, otherwise false.</returns>
+        private static bool ValidateQualScores(int[] qualScores, FastQFormatType formatType, out int invalidQualScore)
+        {
+            bool result = true;
+            invalidQualScore = 0;
+            int minScore = GetDecodedQualScore(GetMinEncodedQualScore(formatType), formatType);
+            int maxScore = GetDecodedQualScore(GetMaxEncodedQualScore(formatType), formatType);
+            long count = qualScores.LongLength();
+            for (long index = 0; index < count; index++)
+            {
+                int qualScore = qualScores[index];
+                if (qualScore < minScore || qualScore > maxScore)
+                {
+                    result = false;
+                    invalidQualScore = qualScore;
                     break;
+                }
             }
 
             return result;
         }
         #endregion
+
+        /// <summary>
+        /// Base quality score type used in FastQ formats
+        /// </summary>
+        private enum BaseQualityScoreType
+        {
+            /// <summary>
+            /// Phred base quality score.
+            /// </summary>
+            PhredBaseQualityScore = 0,
+
+            /// <summary>
+            /// Solexa base quality score
+            /// </summary>
+            SolexaBaseQualityScore
+        }
+
     }
 }

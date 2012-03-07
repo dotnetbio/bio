@@ -1448,4 +1448,13 @@ Delta alignment file is corrupted. </value>
   <data name="BAMFormatterSupportsDNAOnly" xml:space="preserve">
     <value>BAM only supports SAMDNA aplhabet.</value>
   </data>
+  <data name="DifferenceInSequenceAndQualityScoresLengthMessage" xml:space="preserve">
+    <value>Sequence and quality scores lengths are not same. Sequence length: {0}, Quality scores length: {1}</value>
+  </data>
+  <data name="InvalidEncodedQualityScoreFound" xml:space="preserve">
+    <value>Invalid encoded quality score found. {0} is not supported in {1} format.</value>
+  </data>
+  <data name="InvalidQualityScoreFound" xml:space="preserve">
+    <value>Invalid quality score found. {0} is not supported in {1} format.</value>
+  </data>
 </root>

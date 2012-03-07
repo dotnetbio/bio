@@ -19,7 +19,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Bio;
 
 #if (SILVERLIGHT == false)
-    namespace Bio.TestAutomation
+namespace Bio.TestAutomation
 #else
     namespace Bio.Silverlight.TestAutomation
 #endif
@@ -60,7 +60,7 @@ using Bio;
 
         #region Global Variables
 
-        Utility utilityObj = new Utility(@"TestUtils\QualitativeTestsConfig.xml");        
+        Utility utilityObj = new Utility(@"TestUtils\QualitativeTestsConfig.xml");
 
         #endregion Global Variables
 
@@ -669,8 +669,6 @@ using Bio;
                 nodeName, Constants.QSequenceCount);
             string inputScoreforIUPAC = utilityObj.xmlUtil.GetTextValue(
                 nodeName, Constants.MaxScoreNode);
-            string expectedOuptutScore = utilityObj.xmlUtil.GetTextValue(
-                nodeName, Constants.InputScoreNode);
             string inputQuality = utilityObj.xmlUtil.GetTextValue(
                 nodeName, Constants.InputByteArrayNode);
             byte[] byteArray = UTF8Encoding.UTF8.GetBytes(inputQuality);
@@ -681,19 +679,19 @@ using Bio;
             {
                 case QualitativeSequenceParameters.Score:
                     createdQualitativeSequence = new QualitativeSequence(alphabet, expectedFormatType,
-                        inputSequence, ((char)QualitativeSequence.GetDefaultQualScore(expectedFormatType)).ToString());
+                        inputSequence, Utility.GetDefaultEncodedQualityScores(expectedFormatType, inputSequence.Length));
                     // Validate score
-                    foreach (byte qualScore in createdQualitativeSequence.QualityScores)
+                    foreach (byte qualScore in createdQualitativeSequence.GetEncodedQualityScores())
                     {
                         Assert.AreEqual(qualScore, Convert.ToInt32(inputScoreforIUPAC, (IFormatProvider)null));
                     }
                     break;
                 case QualitativeSequenceParameters.ByteArray:
                     createdQualitativeSequence = new QualitativeSequence(alphabet, expectedFormatType,
-                       UTF8Encoding.UTF8.GetBytes(inputSequence), new byte[] { byte.Parse(expectedOuptutScore, (IFormatProvider)null) });
+                       UTF8Encoding.UTF8.GetBytes(inputSequence), byteArray);
 
                     // Validate score
-                    foreach (byte qualScore in createdQualitativeSequence.QualityScores)
+                    foreach (byte qualScore in createdQualitativeSequence.GetEncodedQualityScores())
                     {
                         Assert.AreEqual(qualScore, Convert.ToInt32(byteArray[index], (IFormatProvider)null));
                         index++;
@@ -717,7 +715,7 @@ using Bio;
 
             Console.WriteLine(string.Format((IFormatProvider)null,
                 "Qualitative Sequence P1:Qualitative Sequence Score {0} is as expected.",
-                createdQualitativeSequence.QualityScores.ToString()));
+                createdQualitativeSequence.GetEncodedQualityScores().ToString()));
 
             Console.WriteLine(string.Format((IFormatProvider)null,
                 "Qualitative Sequence P1:Qualitative format type {0} is as expected.",
@@ -752,7 +750,7 @@ using Bio;
             // Create a qualitative Sequence.
             createdQualitativeSequence = new QualitativeSequence(
                 alphabet, expectedFormatType, inputSequence,
-                ((char)QualitativeSequence.GetDefaultQualScore(expectedFormatType)).ToString());
+                 Utility.GetDefaultEncodedQualityScores(expectedFormatType, inputSequence.Length));
 
             // Get a Index of qualitative sequence items
             switch (indexParam)
@@ -811,76 +809,86 @@ using Bio;
                  nodeName, Constants.DefaultMinScore);
 
             QualitativeSequence createdQualitativeSequence = null;
-
+            string qualityScoresString = Utility.GetDefaultEncodedQualityScores(expectedFormatType, inputSequence.Length);
+            byte[] expectedMaxScores = Utility.GetEncodedQualityScores((byte)int.Parse(expectedMaxScore, null as IFormatProvider), inputSequence.Length);
+            byte[] expectedMinScores = Utility.GetEncodedQualityScores((byte)int.Parse(expectedMinScore, null as IFormatProvider), inputSequence.Length);
+            int i = 0;
             switch (parameters)
             {
                 case QualitativeSequenceParameters.DefaultScoreWithAlphabets:
                     createdQualitativeSequence = new QualitativeSequence(
                         alphabet, expectedFormatType, inputSequence,
-                        ((char)QualitativeSequence.GetDefaultQualScore(expectedFormatType)).ToString());
+                         qualityScoresString);
 
                     // Validate default score.
-                    foreach (byte qualitativeScore in createdQualitativeSequence.QualityScores)
+                    i = 0;
+                    foreach (byte qualitativeScore in createdQualitativeSequence.GetEncodedQualityScores())
                     {
                         Assert.AreEqual(qualitativeScore,
-                            QualitativeSequence.GetDefaultQualScore(expectedFormatType));
+                            (byte)(qualityScoresString[i]));
+                        i++;
                     }
 
                     // Log VSTest GUI.
                     Console.WriteLine(string.Format((IFormatProvider)null,
                         "Qualitative Sequence P1:Qualitative Sequence Default score {0} is as expected.",
-                        QualitativeSequence.GetDefaultQualScore(expectedFormatType)));
+                        qualityScoresString[0]));
                     break;
                 case QualitativeSequenceParameters.DefaultScoreWithSequence:
                     createdQualitativeSequence = new QualitativeSequence(alphabet,
                         expectedFormatType, inputSequence,
-                        ((char)QualitativeSequence.GetDefaultQualScore(expectedFormatType)).ToString());
+                        qualityScoresString);
 
+                    i = 0;
                     // Validate default score.
-                    foreach (byte qualitativeScore in createdQualitativeSequence.QualityScores)
+                    foreach (byte qualitativeScore in createdQualitativeSequence.GetEncodedQualityScores())
                     {
                         Assert.AreEqual(qualitativeScore,
-                            QualitativeSequence.GetDefaultQualScore(expectedFormatType));
+                            (byte)(qualityScoresString[i]));
+                        i++;
                     }
 
                     // Log VSTest GUI.
                     Console.WriteLine(string.Format((IFormatProvider)null,
                         "Qualitative Sequence P1:Qualitative Sequence Default score {0} is as expected.",
-                        QualitativeSequence.GetDefaultQualScore(expectedFormatType)));
+                        qualityScoresString[0]));
                     break;
                 case QualitativeSequenceParameters.MaxDefaultScore:
                     createdQualitativeSequence = new QualitativeSequence(
-                        alphabet, expectedFormatType, UTF8Encoding.UTF8.GetBytes(inputSequence),                       
-                        new byte[] { byte.Parse(expectedMaxScore, (IFormatProvider)null) });
-
+                        alphabet, expectedFormatType, UTF8Encoding.UTF8.GetBytes(inputSequence),
+                        expectedMaxScores);
+                    i = 0;
                     // Validate default maximum score.
-                    foreach (byte qualitativeScore in createdQualitativeSequence.QualityScores)
+                    foreach (byte qualitativeScore in createdQualitativeSequence.GetEncodedQualityScores())
                     {
                         Assert.AreEqual(qualitativeScore,
-                            QualitativeSequence.GetMaxQualScore(expectedFormatType));
+                            expectedMaxScores[i]);
+                        i++;
                     }
 
                     // Log VSTest GUI.
                     Console.WriteLine(string.Format((IFormatProvider)null,
                         "Qualitative Sequence P1:Qualitative Sequence Maximum score {0} is as expected.",
-                        QualitativeSequence.GetMaxQualScore(expectedFormatType)));
+                        QualitativeSequence.GetMaxEncodedQualScore(expectedFormatType)));
                     break;
                 case QualitativeSequenceParameters.MinDefaultScore:
                     createdQualitativeSequence = new QualitativeSequence(
                         alphabet, expectedFormatType, UTF8Encoding.UTF8.GetBytes(inputSequence),
-                        new byte[] { byte.Parse(expectedMinScore, (IFormatProvider)null) });
+                       expectedMinScores);
 
+                    i = 0;
                     // Validate default minimum score.
-                    foreach (byte qualitativeScore in createdQualitativeSequence.QualityScores)
+                    foreach (byte qualitativeScore in createdQualitativeSequence.GetEncodedQualityScores())
                     {
                         Assert.AreEqual(qualitativeScore,
-                            QualitativeSequence.GetMinQualScore(expectedFormatType));
+                            expectedMinScores[i]);
+                        i++;
                     }
 
                     // Log VSTest GUI.
                     Console.WriteLine(string.Format((IFormatProvider)null,
                         "Qualitative Sequence P1:Qualitative Sequence Minimum score {0} is as expected.",
-                        QualitativeSequence.GetMinQualScore(expectedFormatType)));
+                        QualitativeSequence.GetMinEncodedQualScore(expectedFormatType)));
                     break;
                 default:
                     break;

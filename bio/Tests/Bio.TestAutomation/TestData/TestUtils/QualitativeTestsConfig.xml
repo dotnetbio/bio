@@ -11,7 +11,7 @@
     <MinScore></MinScore>
     <ExpectedSequenceAfterAdd></ExpectedSequenceAfterAdd>
     <InputSequence>GGCGCACTTACACCCTACATCCATTG</InputSequence>
-    <InputByteArray>hhhWhhhhhhhRhhhUhhDhhIhhhRhhhhhhhXhhhh</InputByteArray>
+    <InputByteArray>hhhWhhhhhhhRhhhUhhDhhIhhXR</InputByteArray>
     <InvalidQualityScore>Invalid quality score: 200Parameter name: qualScore</InvalidQualityScore>
   </SimpleDNA>
   <SolexaType>
@@ -24,7 +24,7 @@
     <MaxScore>126</MaxScore>
     <ExpectedSequenceAfterAdd></ExpectedSequenceAfterAdd>
     <InputSequence>TTTGATGAACCGTTTCATCATTGCAGACGCGAGTAAGTGTGTTGGTTGTGGT</InputSequence>
-    <InputByteArray>hhhWhhhhhhhRhhhUhhDhhIhhhRhhhhhhhXhhhh</InputByteArray>
+    <InputByteArray>hhhWhhhhhhhRhhhUhhDhhIhhhRhhhhhhhXhhhhhhhhhhhhhhhhhh</InputByteArray>
   </SolexaType>
   <IlluminaType>
     <Score>0</Score>
@@ -36,7 +36,7 @@
     <MaxScore>126</MaxScore>
     <ExpectedSequenceAfterAdd></ExpectedSequenceAfterAdd>
     <InputSequence>GGCGCACTTACACCCTACATCCATTG</InputSequence>
-    <InputByteArray>hhhWhhhhhhhRhhhUhhDhhIhhhRhhhhhhhXhhhh</InputByteArray>
+    <InputByteArray>hhhWhhhhhhhRhhhUhhDhhIhhhR</InputByteArray>
   </IlluminaType>
   <SimpleDNASanger>
     <Score>26</Score>
@@ -55,8 +55,8 @@
     <LastIndex>25</LastIndex>
     <firstItemIndex>0</firstItemIndex>
     <AlphabetNullException>Value cannot be null.Parameter name: alphabet</AlphabetNullException>
-    <InvalidQualityScore>value cannot be null.parameter name: qualityscores</InvalidQualityScore>
-    <InvalidByteQualScore>specified argument was out of the range of valid values.parameter name: qualityscores</InvalidByteQualScore>
+    <InvalidQualityScore>value cannot be null.parameter name: encodedqualityscores</InvalidQualityScore>
+    <InvalidByteQualScore>invalid encoded quality score found. è is not supported in sanger format.parameter name: encodedqualityscores</InvalidByteQualScore>
     <AlphabetMapError>specified argument was out of the range of valid values.parameter name: sequence</AlphabetMapError>
     <EncodingError>Specified encoding "NCBIeaa" is not valid for the DNA Alphabet.</EncodingError>
     <ReadOnlyException>Can not modify a read only sequence</ReadOnlyException>
@@ -82,13 +82,13 @@
     <InputSequence>GGCGCACTTACACCCTACATCCATTG</InputSequence>
     <InputByteArray>a\a\ab`W[[]\\aa[P\ZZ\DXZ\a</InputByteArray>
     <SeqWithinRange>GGCGC</SeqWithinRange>
-    <InvalidQualityScore>value cannot be null.parameter name: qualityscores</InvalidQualityScore>
-    <InvalidByteQualScore>specified argument was out of the range of valid values.parameter name: qualityscores</InvalidByteQualScore>
+    <InvalidQualityScore>value cannot be null.parameter name: encodedQualityScores</InvalidQualityScore>
+    <InvalidByteQualScore>Invalid encoded quality score found. è is not supported in FORMATTYPE format.parameter name: encodedQualityScores</InvalidByteQualScore>
     <EncodedValues>0123</EncodedValues>
     <RevComplement>CAATGGATGTAGGGTGTAAGTGCGCC</RevComplement>
   </SimpleDNAIllumina>
   <SimpleDNAIlluminaByteArray>
-    <Score>38</Score>
+    <Score>37</Score>
     <AlphabetName>Dna</AlphabetName>
     <FormatType>Illumina</FormatType>
     <SequenceCount>37</SequenceCount>
@@ -99,7 +99,7 @@
     <ExpectedSequenceAfterAdd></ExpectedSequenceAfterAdd>
     <ExpectedSequence>CTCTCCCATTATTCCTAGAACAGGCGACCTGCGACTC</ExpectedSequence>
     <InputSequence>CTCTCCCATTATTCCTAGAACAGGCGACCTGCGACTC</InputSequence>
-    <InputByteArray>hhhWhhhhhhhRhhhUhhDhhIhhhRhhhhhhhXhhhh</InputByteArray>
+    <InputByteArray>hhhWhhhhhhhRhhhUhhDhhIhhhRhhhhhhhXhhh</InputByteArray>
     <SeqWithinRange>GGCGC</SeqWithinRange>
     <InvalidQualityScore>Invalid quality score: 200Parameter name: qualScore</InvalidQualityScore>
     <EncodedValues>0123</EncodedValues>
@@ -129,8 +129,8 @@
     <SequenceAferReplaceItem>GGGGCACTTACACCCTACATCCATTG</SequenceAferReplaceItem>
     <SequenceAfterReplaceSeq>GGCATACTTACACCCTACATCCATTG</SequenceAfterReplaceSeq>
     <SequenceAfterRemovewithRange>ACTTACACCCTACATCCATTG</SequenceAfterRemovewithRange>
-    <InvalidQualityScore>value cannot be null.parameter name: qualityscores</InvalidQualityScore>
-    <InvalidByteQualScore>specified argument was out of the range of valid values.parameter name: qualityscores</InvalidByteQualScore>
+    <InvalidQualityScore>value cannot be null.parameter name: encodedqualityscores</InvalidQualityScore>
+    <InvalidByteQualScore>invalid encoded quality score found. è is not supported in solexa_illumina_v1_0 format.parameter name: encodedqualityscores</InvalidByteQualScore>
     <SeqWithinRange>GGCGC</SeqWithinRange>
     <length>5</length>
     <EncodedValues>0123</EncodedValues>
@@ -553,9 +553,9 @@
     <ReplaceChar>E</ReplaceChar>
   </SimpleProteinSolexa>
   <FormatTypeConvertionErros>
-    <NullExceptionError>Value cannot be null.Parameter name: qualScores</NullExceptionError>
-    <InvalidScoreError>invalid quality score: [12]parameter name: qualscores</InvalidScoreError>
-    <InvalidByteScoreError>invalid quality score: [12]parameter name: qualscore</InvalidByteScoreError>
+    <NullExceptionError>Value cannot be null.Parameter name: encodedqualscores</NullExceptionError>
+    <InvalidScoreError>invalid quality score: [-12]parameter name: qualScores</InvalidScoreError>
+    <InvalidByteScoreError>invalid quality score: [-12]parameter name: qualScore</InvalidByteScoreError>
   </FormatTypeConvertionErros>
   <QualitativeSequenceInsertSeqItem>
     <InputSequence>ACGT</InputSequence>
@@ -572,7 +572,7 @@
     <InvalidItemException>Value cannot be null.Parameter name: item</InvalidItemException>
     <InvalidPositionError>Specified argument was out of the range it must be non negative and less than the count of this sequence.Parameter name: position</InvalidPositionError>
     <InvalidSeq>Value cannot be null.Parameter name: sequence</InvalidSeq>
-    <NullExceptionError>value cannot be null.parameter name: qualityscores</NullExceptionError>
+    <NullExceptionError>value cannot be null.parameter name: encodedQualityscores</NullExceptionError>
     <SequenceAfterReplace>TCGT</SequenceAfterReplace>
   </QualitativeSequenceInsertSeqItem>
   <SingleSequenceSangerFastQ>

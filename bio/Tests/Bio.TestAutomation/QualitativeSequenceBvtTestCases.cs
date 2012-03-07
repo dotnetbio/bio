@@ -284,10 +284,10 @@ using Bio;
 
             // Convert Sanger to Solexa.
             QualitativeSequence solexaQualSequence = sangerQualSequence.ConvertTo(
-                FastQFormatType.Solexa);
+                FastQFormatType.Solexa_Illumina_v1_0);
 
-            byte[] sangerToSolexa = QualitativeSequence.ConvertFromSangerToSolexa(scoreValue);
-            var scores = solexaQualSequence.QualityScores.ToArray();
+            byte[] sangerToSolexa = QualitativeSequence.ConvertEncodedQualityScore(FastQFormatType.Sanger, FastQFormatType.Solexa_Illumina_v1_0, scoreValue);
+            var scores = solexaQualSequence.GetEncodedQualityScores();
             solexaQualScore = UTF8Encoding.UTF8.GetString(scores, 0, scores.Length);
 
             // Validate converted solexa score.            
@@ -309,11 +309,11 @@ using Bio;
 
             // Convert Sanger to Illumina.
             QualitativeSequence illuminaQualSequence = sangerQualSequence.ConvertTo(
-                FastQFormatType.Illumina);
-            scores = illuminaQualSequence.QualityScores.ToArray();
+                FastQFormatType.Illumina_v1_3);
+            scores = illuminaQualSequence.GetEncodedQualityScores();
             illuminaQualScore = UTF8Encoding.UTF8.GetString(scores, 0, scores.Length);
 
-            byte[] sangerToIllumina = QualitativeSequence.ConvertFromSangerToIllumina(scoreValue);
+            byte[] sangerToIllumina = QualitativeSequence.ConvertEncodedQualityScore(FastQFormatType.Sanger, FastQFormatType.Illumina_v1_3, scoreValue);
             string illuminaQualSeq = new string(illuminaQualSequence.Select(a => (char)a).ToArray());
 
             //// Validate converted illumina score.
@@ -370,12 +370,12 @@ using Bio;
 
             // Create a Solexa qualitative sequence.
             QualitativeSequence solexaQualSequence = new QualitativeSequence(Alphabets.DNA,
-                FastQFormatType.Solexa, solexaSequenceinBytes, byteValue);
+                FastQFormatType.Solexa_Illumina_v1_0, solexaSequenceinBytes, byteValue);
 
             // Convert Solexa to Sanger.
             QualitativeSequence sangerQualSequence = solexaQualSequence.ConvertTo(
                 FastQFormatType.Sanger);
-            var scores = sangerQualSequence.QualityScores.ToArray();
+            var scores = sangerQualSequence.GetEncodedQualityScores();
             sangerQualScore = UTF8Encoding.UTF8.GetString(scores, 0, scores.Length);
 
             Assert.AreEqual(expectedSangerQualScore, sangerQualScore);
@@ -390,8 +390,8 @@ using Bio;
 
             // Convert Solexa to Illumina.
             QualitativeSequence illuminaQualSequence =
-               solexaQualSequence.ConvertTo(FastQFormatType.Illumina);
-            scores = illuminaQualSequence.QualityScores.ToArray();
+               solexaQualSequence.ConvertTo(FastQFormatType.Illumina_v1_3);
+            scores = illuminaQualSequence.GetEncodedQualityScores();
             illuminaQualScore = UTF8Encoding.UTF8.GetString(scores, 0, scores.Length);
             Assert.AreEqual(expectedIlluminaQualScore, illuminaQualScore);
             
@@ -431,7 +431,7 @@ using Bio;
 
             byte[] illuminaSequenceinBytes = UTF8Encoding.UTF8.GetBytes(illuminaSequence);
             byte[] illuminaQualScoreinBytes = UTF8Encoding.UTF8.GetBytes(illuminaQualScore);
-            byte[] sangerQualScore = QualitativeSequence.ConvertFromIlluminaToSanger(illuminaQualScoreinBytes);
+            byte[] sangerQualScore = QualitativeSequence.ConvertEncodedQualityScore(FastQFormatType.Illumina_v1_3,FastQFormatType.Sanger, illuminaQualScoreinBytes);
 
             string qualSequenceSanger = new string(UTF8Encoding.UTF8.GetChars(sangerQualScore));
 
@@ -441,7 +441,7 @@ using Bio;
             ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                 "Qualitative Sequence BVT:Qualitative Sanger score type {0} is as expected.",
                 sangerQualScore));
-            byte[] solexaQualScore = QualitativeSequence.ConvertFromIlluminaToSolexa(illuminaQualScoreinBytes);
+            byte[] solexaQualScore = QualitativeSequence.ConvertEncodedQualityScore(FastQFormatType.Illumina_v1_3, FastQFormatType.Solexa_Illumina_v1_0, illuminaQualScoreinBytes);
 
             string qualSequenceSolexa = new string(UTF8Encoding.UTF8.GetChars(solexaQualScore));
 
@@ -492,7 +492,7 @@ using Bio;
                     inputSequence, inputQuality);
                     int count = 0;
                     // Validate score
-                    foreach (byte qualScore in createdQualitativeSequence.QualityScores)
+                    foreach (byte qualScore in createdQualitativeSequence.GetEncodedQualityScores())
                     {
                         Assert.AreEqual(qualScore, inputScoreArray[count]);
                         count++;
@@ -505,7 +505,7 @@ using Bio;
                     scoreValue, inputScoreArray);
 
                     // Validate score
-                    foreach (byte qualScore in createdQualitativeSequence.QualityScores)
+                    foreach (byte qualScore in createdQualitativeSequence.GetEncodedQualityScores())
                     {
                         Assert.AreEqual(qualScore, inputScoreArray[index]);
                         index++;
@@ -522,7 +522,7 @@ using Bio;
             Assert.AreEqual(alphabet, createdQualitativeSequence.Alphabet);
             Assert.AreEqual(expectedSequence, qualitativeSequence);
             Assert.AreEqual(expectedSequenceCount, createdQualitativeSequence.Count.ToString((IFormatProvider)null));
-            Assert.AreEqual(expectedScore, createdQualitativeSequence.QualityScores.Count().ToString((IFormatProvider)null));
+            Assert.AreEqual(expectedScore, createdQualitativeSequence.GetEncodedQualityScores().Count().ToString((IFormatProvider)null));
             Assert.AreEqual(expectedFormatType, createdQualitativeSequence.FormatType);
 
             // Logs to the VSTest GUI (Console.Out) window

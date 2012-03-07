@@ -1412,5 +1412,39 @@ namespace Bio.Util
             return builder.ToString();
         }
 #endif
+
+        /// <summary>
+        /// Copies source array to destination array.
+        /// In case of silverlight Length will be converted to integer before copying.
+        /// </summary>
+        /// <param name="sourceArray">Source array</param>
+        /// <param name="destinationArray">Destination array</param>
+        /// <param name="length">No of elements to copy</param>
+        public static void Copy(Array sourceArray, Array destinationArray, long length)
+        {
+#if (SILVERLIGHT == false)
+            Array.Copy(sourceArray, destinationArray, length);
+#else
+            Array.Copy(sourceArray, destinationArray, (int)length);
+#endif
+        }
+
+        /// <summary>
+        ///  Copies source array to destination array.
+        /// In case of silverlight Length will be converted to integer before copying.
+        /// </summary>
+        /// <param name="sourceArray">Source array</param>
+        /// <param name="sourceIndex">Source stating index.</param>
+        /// <param name="destinationArray">Destination array</param>
+        /// <param name="destinationIndex">Destination stating index.</param>
+        /// <param name="length">No of elements to copy</param>
+        public static void Copy(Array sourceArray, long sourceIndex, Array destinationArray, long destinationIndex, long length)
+        {
+#if (SILVERLIGHT == false)
+            Array.Copy(sourceArray, sourceIndex, destinationArray, destinationIndex, length);
+#else
+            Array.Copy(sourceArray, (int)sourceIndex, destinationArray, (int)destinationIndex, (int)length);
+#endif
+        }
     }
 }

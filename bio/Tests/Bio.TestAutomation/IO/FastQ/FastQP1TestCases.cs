@@ -1260,16 +1260,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
             try
             {
-                switch (fastQProperty)
-                {
-                    case FastQPropertyParameters.AlphabetProperty:
-                        fastQParserObj.AutoDetectFastQFormat = true;
-                        break;
-                    default:
-                        fastQParserObj.AutoDetectFastQFormat = true;
-                        break;
-                }
-
                 IEnumerable<QualitativeSequence> qualSequenceList = null;
                 qualSequenceList = fastQParserObj.Parse();
 
@@ -1322,8 +1312,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
             // Parse a multiple sequence FastQ file.
             using (FastQParser fastQParserObj = new FastQParser(filePath))
             {
-                fastQParserObj.AutoDetectFastQFormat = true;
-
                 IEnumerable<QualitativeSequence> qualSequenceList = null;
                 qualSequenceList = fastQParserObj.Parse();
 
@@ -1462,7 +1450,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
             // Parse a FastQ file.
             using (FastQParser fastQParserObj = new FastQParser(filePath))
             {
-                fastQParserObj.AutoDetectFastQFormat = true;
                 FastQParser fastQParserObjNew = null;
                 IEnumerable<QualitativeSequence> seqsNew = null;
                 IEnumerable<QualitativeSequence> qualSequenceList = null;
@@ -1530,7 +1517,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
             // Parse a FastQ file.
             using (FastQParser fastQParserObj = new FastQParser(filePath))
             {
-                fastQParserObj.AutoDetectFastQFormat = true;
                 IEnumerable<QualitativeSequence> qualSequenceList = null;
                 IEnumerable<QualitativeSequence> seqsNew = null;
                 IEnumerable<QualitativeSequence> secondSeqsNew = null;

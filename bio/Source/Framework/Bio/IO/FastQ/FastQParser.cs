@@ -19,7 +19,7 @@ namespace Bio.IO.FastQ
         /// </summary>
         public FastQParser()
         {
-            this.AutoDetectFastQFormat = true;
+            this.FormatType = FastQFormatType.Illumina_v1_8;
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace Bio.IO.FastQ
         /// <param name="filename">Name of the File.</param>
         public FastQParser(string filename)
         {
-            this.AutoDetectFastQFormat = true;
+            this.FormatType = FastQFormatType.Illumina_v1_8;
             this.Open(filename);
         }
         #endregion
@@ -85,26 +85,9 @@ namespace Bio.IO.FastQ
         public IAlphabet Alphabet { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether this parser should detect 
-        /// the format type or use the format type from the FormatType property.
-        /// <para></para>
-        /// In other words,
-        /// <para></para>
-        /// If this flag is true then FastQParser will ignore the FormatType property 
-        /// and try to identify the FastQFormatType for each sequence data it parses.
-        /// By default this property is set to true.
-        /// <para></para>
-        /// If this flag is false then FastQParser will parse the sequence data 
-        /// according to the FastQFormatType specified in FormatType property.
-        /// </summary>
-        public bool AutoDetectFastQFormat { get; set; }
-
-        /// <summary>
         /// Gets or sets the format type to be used.
         /// The FastQFormatType to be used for parsed QualitativeSequence objects.
-        /// Set AutoDetectFastQFormat property to false, otherwise the FastQ parser
-        /// will ignore this property and try to identify the FastQFormatType for 
-        /// each sequence data it parses.
+        /// Default value is Illumina_v1_8
         /// </summary>
         public FastQFormatType FormatType { get; set; }
         #endregion
@@ -165,9 +148,10 @@ namespace Bio.IO.FastQ
         {
             using (StreamReader streamReader = new StreamReader(this.Filename))
             {
+                FastQFormatType formatType = this.FormatType;
                 do
                 {
-                    yield return ParseOne(streamReader);
+                    yield return ParseOne(streamReader, formatType);
                 }
                 while (!streamReader.EndOfStream);
             }
@@ -180,9 +164,10 @@ namespace Bio.IO.FastQ
         /// <returns>Returns the QualitativeSequences.</returns>
         public IEnumerable<QualitativeSequence> Parse(StreamReader reader)
         {
+            FastQFormatType formatType = this.FormatType;
             do
             {
-                yield return ParseOne(reader);
+                yield return ParseOne(reader, formatType);
             }
             while (!reader.EndOfStream);
         }
@@ -191,12 +176,12 @@ namespace Bio.IO.FastQ
         /// Gets the IEnumerable of QualitativeSequences from the stream being parsed.
         /// </summary>
         /// <param name="streamReader">Stream to be parsed.</param>
+        /// <param name="formatType">Fastq format type.</param>
         /// <returns>Returns a QualitativeSequence.</returns>
-        private QualitativeSequence ParseOne(StreamReader streamReader)
+        private QualitativeSequence ParseOne(StreamReader streamReader, FastQFormatType formatType)
         {
             IAlphabet alphabet = this.Alphabet;
-            bool autoDetectFastQFormat = this.AutoDetectFastQFormat;
-            FastQFormatType formatType = this.FormatType;
+
             bool skipBlankLine = true;
 
             bool tryAutoDetectAlphabet;
@@ -221,13 +206,7 @@ namespace Bio.IO.FastQ
 
             string message = string.Empty;
 
-            string line = streamReader.ReadLine();
-
-            // Continue reading if blank line found.
-            while (skipBlankLine && line != null && string.IsNullOrEmpty(line))
-            {
-                line = streamReader.ReadLine();
-            }
+            string line = ReadNextLine(streamReader, skipBlankLine);
 
             if (line == null || !line.StartsWith("@", StringComparison.Ordinal))
             {
@@ -238,13 +217,7 @@ namespace Bio.IO.FastQ
             // Process header line.
             string id = line.Substring(1).Trim();
 
-            line = streamReader.ReadLine();
-
-            // Continue reading if blank line found.
-            while (skipBlankLine && line != null && string.IsNullOrEmpty(line))
-            {
-                line = streamReader.ReadLine();
-            }
+            line = ReadNextLine(streamReader, skipBlankLine);
 
             if (string.IsNullOrEmpty(line))
             {
@@ -257,13 +230,7 @@ namespace Bio.IO.FastQ
             byte[] sequenceData = UTF8Encoding.UTF8.GetBytes(line);
 
             // Goto third line.
-            line = streamReader.ReadLine();
-
-            // Continue reading if blank line found.
-            while (skipBlankLine && line != null && string.IsNullOrEmpty(line))
-            {
-                line = streamReader.ReadLine();
-            }
+            line = ReadNextLine(streamReader, skipBlankLine);
 
             // Check for '+' symbol in the third line.
             if (line == null || !line.StartsWith("+", StringComparison.Ordinal))
@@ -283,13 +250,7 @@ namespace Bio.IO.FastQ
             }
 
             // Goto fourth line.
-            line = streamReader.ReadLine();
-
-            // Continue reading if blank line found.
-            while (skipBlankLine && line != null && string.IsNullOrEmpty(line))
-            {
-                line = streamReader.ReadLine();
-            }
+            line = ReadNextLine(streamReader, skipBlankLine);
 
             if (string.IsNullOrEmpty(line))
             {
@@ -326,19 +287,8 @@ namespace Bio.IO.FastQ
                 }
             }
 
-            // Identify fastq format type if AutoDetectFastQFormat property is set to true.
-            if (autoDetectFastQFormat)
-            {
-                formatType = IdentifyFastQFormatType(qualScores);
-            }
-
             QualitativeSequence qualitativeSequence = new QualitativeSequence(alphabet, formatType, sequenceData, qualScores, false);
-
             qualitativeSequence.ID = id;
-
-            // Update the propeties so that next parse will use this data.
-            this.FormatType = formatType;
-
             return qualitativeSequence;
         }
 
@@ -360,64 +310,23 @@ namespace Bio.IO.FastQ
         }
 
         /// <summary>
-        /// Identifies Alphabet for the sepecified quality scores.
-        /// This method returns,
-        ///  Illumina - if the quality scores are in the range of 64 to 104
-        ///  Solexa   - if the quality scores are in the range of 59 to 104
-        ///  Sanger   - if the quality scores are in the range of 33 to 126.
+        /// Gets the next available line from the specified stream reader.
         /// </summary>
-        /// <param name="qualScores">Quality scores.</param>
-        /// <returns>Returns appropriate FastQFormatType for the specified quality scores.</returns>
-        private static FastQFormatType IdentifyFastQFormatType(byte[] qualScores)
+        /// <param name="streamReader">Stream reader.</param>
+        /// <param name="skipBlankLine">Flag to skip blank lines. If true this method returns 
+        /// first non blank line available from the current position, else returns next available line.</param>
+        /// <returns></returns>
+        private static string ReadNextLine(StreamReader streamReader, bool skipBlankLine)
         {
-            FastQFormatType formatType = FastQFormatType.Illumina;
-            foreach (byte qualScore in qualScores.Distinct())
+            string line = streamReader.ReadLine();
+
+            // Continue reading if blank line found.
+            while (skipBlankLine && line != null && string.IsNullOrEmpty(line))
             {
-                if (qualScore >= QualitativeSequence.SangerMinQualScore && qualScore <= QualitativeSequence.SangerMaxQualScore)
-                {
-                    if (formatType == FastQFormatType.Illumina)
-                    {
-                        if (qualScore >= QualitativeSequence.IlluminaMinQualScore && qualScore <= QualitativeSequence.IlluminaMaxQualScore)
-                        {
-                            continue;
-                        }
-
-                        if (qualScore >= QualitativeSequence.SolexaMinQualScore && qualScore <= QualitativeSequence.SolexaMaxQualScore)
-                        {
-                            formatType = FastQFormatType.Solexa;
-                            continue;
-                        }
-
-                        if (qualScore >= QualitativeSequence.SangerMinQualScore && qualScore <= QualitativeSequence.SangerMaxQualScore)
-                        {
-                            formatType = FastQFormatType.Sanger;
-                            continue;
-                        }
-                    }
-
-                    if (formatType == FastQFormatType.Solexa)
-                    {
-                        if (qualScore >= QualitativeSequence.SolexaMinQualScore && qualScore <= QualitativeSequence.SolexaMaxQualScore)
-                        {
-                            continue;
-                        }
-
-                        if (qualScore >= QualitativeSequence.SangerMinQualScore && qualScore <= QualitativeSequence.SangerMaxQualScore)
-                        {
-                            formatType = FastQFormatType.Sanger;
-                            continue;
-                        }
-                    }
-                }
-                else
-                {
-                    string message1 = string.Format(CultureInfo.CurrentCulture, Properties.Resource.InvalidQualityScore, qualScore);
-                    string message = string.Format(CultureInfo.CurrentCulture, Properties.Resource.IOFormatErrorMessage, Properties.Resource.FastQName, message1);
-                    throw new FileFormatException(message);
-                }
+                line = streamReader.ReadLine();
             }
 
-            return formatType;
+            return line;
         }
         #endregion
     }

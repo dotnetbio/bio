@@ -310,7 +310,14 @@ namespace Bio.IO.SAM
             QualitativeSequence qualSeq = sequence as QualitativeSequence;
             if (qualSeq != null)
             {
-                byte[] bytes = qualSeq.QualityScores.ToArray();
+                byte[] bytes = qualSeq.GetEncodedQualityScores();
+
+                // if FormatType is not sanger then convert the quality scores to sanger.
+                if (qualSeq.FormatType != FastQFormatType.Sanger)
+                {
+                    bytes = QualitativeSequence.ConvertEncodedQualityScore(qualSeq.FormatType, FastQFormatType.Sanger, bytes);
+                }
+
                 qualValues = System.Text.ASCIIEncoding.ASCII.GetString(bytes);
             }
           

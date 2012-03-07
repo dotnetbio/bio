@@ -128,18 +128,18 @@ namespace Bio.TestConsole.Util
         /// <returns>FastQFormat</returns>
         internal static FastQFormatType GetFastQFormatType(string formatType)
         {
-            FastQFormatType format = FastQFormatType.Illumina;
+            FastQFormatType format = FastQFormatType.Illumina_v1_3;
 
             switch (formatType)
             {
                 case "Illumina":
-                    format = FastQFormatType.Illumina;
+                    format = FastQFormatType.Illumina_v1_3;
                     break;
                 case "Sanger":
                     format = FastQFormatType.Sanger;
                     break;
                 case "Solexa":
-                    format = FastQFormatType.Solexa;
+                    format = FastQFormatType.Solexa_Illumina_v1_0;
                     break;
                 default:
                     break;

@@ -20,7 +20,7 @@ using Bio.IO;
 using Bio.IO.FastQ;
 
 #if (SILVERLIGHT == false)
-   namespace Bio.TestAutomation
+namespace Bio.TestAutomation
 #else
    namespace Bio.Silverlight.TestAutomation
 #endif
@@ -66,7 +66,7 @@ using Bio.IO.FastQ;
 
         #region Global Variables
 
-        Utility utilityObj = new Utility(@"TestUtils\QualitativeTestsConfig.xml");        
+        Utility utilityObj = new Utility(@"TestUtils\QualitativeTestsConfig.xml");
 
         #endregion Global Variables
 
@@ -258,7 +258,7 @@ using Bio.IO.FastQ;
             try
             {
                 qualSeq = new QualitativeSequence(Alphabets.DNA, FastQFormatType.Sanger, "AGTZ",
-                    ((Char)QualitativeSequence.GetDefaultQualScore(FastQFormatType.Sanger)).ToString());
+                    Utility.GetDefaultEncodedQualityScores(FastQFormatType.Sanger,4));
                 Assert.Fail();
             }
             catch (ArgumentException ex)
@@ -748,13 +748,13 @@ using Bio.IO.FastQ;
             FastQFormatType expectedFormatType = Utility.GetFastQFormatType(
                 utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FastQFormatType));
             string expectedErrorMessage = utilityObj.xmlUtil.GetTextValue(
-                nodeName, errorMessage);
+                nodeName, errorMessage).Replace("FORMATTYPE", expectedFormatType.ToString());
             string inputSequence = utilityObj.xmlUtil.GetTextValue(
                 nodeName, Constants.inputSequenceNode);
             string actualError = string.Empty;
             string updatedActualError = string.Empty;
             QualitativeSequence qualSeq = null;
-            byte[] byteArray = { 65, 64, 66, 68, 69, 67, 65, 65, 65, 65, 65,
+            byte[] scoreArray = { 65, 64, 66, 68, 69, 67, 65, 65, 65, 65, 65,
                                    200, 3, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 4 };
             switch (qualPam)
             {
@@ -780,7 +780,7 @@ using Bio.IO.FastQ;
                     try
                     {
                         qualSeq = new QualitativeSequence(Alphabets.DNA, expectedFormatType,
-                            UTF8Encoding.UTF8.GetBytes(inputSequence), byteArray);
+                            UTF8Encoding.UTF8.GetBytes(inputSequence), scoreArray);
                         Assert.Fail();
                     }
                     catch (ArgumentException ex)
@@ -818,12 +818,12 @@ using Bio.IO.FastQ;
             string inputSequence = utilityObj.xmlUtil.GetTextValue(
                 nodeName, Constants.inputSequenceNode);
             string inputQuality = utilityObj.xmlUtil.GetTextValue(
-                nodeName, Constants.InputByteArrayNode);            
+                nodeName, Constants.InputByteArrayNode);
             byte[] byteArray = UTF8Encoding.UTF8.GetBytes(inputQuality);
 
             // Create a Qualitative Sequence.
             createdQualitativeSequence = new QualitativeSequence(
-                alphabet, expectedFormatType,UTF8Encoding.UTF8.GetBytes(inputSequence), byteArray);
+                alphabet, expectedFormatType, UTF8Encoding.UTF8.GetBytes(inputSequence), byteArray);
 
             return createdQualitativeSequence;
         }
@@ -861,7 +861,7 @@ using Bio.IO.FastQ;
                       UTF8Encoding.UTF8.GetBytes(inputSequence), byteArray);
 
                     // Validate score
-                    foreach (byte qualScore in createdQualitativeSequence.QualityScores)
+                    foreach (byte qualScore in createdQualitativeSequence.GetEncodedQualityScores())
                     {
                         Assert.AreEqual(qualScore, Convert.ToInt32(byteArray[index], (IFormatProvider)null));
                         index++;
@@ -885,7 +885,7 @@ using Bio.IO.FastQ;
 
             Console.WriteLine(string.Format((IFormatProvider)null,
                 "Qualitative Sequence P2:Qualitative Sequence Score {0} is as expected.",
-                createdQualitativeSequence.QualityScores.ToString()));
+                createdQualitativeSequence.GetEncodedQualityScores().ToString()));
 
             Console.WriteLine(string.Format((IFormatProvider)null,
                 "Qualitative Sequence P2:Qualitative format type {0} is as expected.",
@@ -939,13 +939,13 @@ using Bio.IO.FastQ;
             string expectedInvalidQualityScoreError = utilityObj.xmlUtil.GetTextValue(
                 Constants.FormatTypeConvertionErrosNode,
                 Constants.InvalidByteScoreErrorNode);
-            byte[] byteArray = { 12, 24 };
-            byte qualScore = 12;
+            int[] scoreArray = { -12, 24 };
+            int qualScore = -12;
             string actualError = null;
 
             try
             {
-                QualitativeSequence.ConvertFromSangerToSolexa(null);
+                QualitativeSequence.ConvertEncodedQualityScore(FastQFormatType.Sanger, FastQFormatType.Solexa_Illumina_v1_0, null);
                 Assert.Fail();
             }
             catch (ArgumentNullException ex)
@@ -959,7 +959,7 @@ using Bio.IO.FastQ;
             // Validate an expected error message for invalid qual score array.
             try
             {
-                QualitativeSequence.ConvertFromSangerToSolexa(byteArray);
+                QualitativeSequence.ConvertQualityScores(FastQFormatType.Sanger, FastQFormatType.Solexa_Illumina_v1_0, scoreArray);
                 Assert.Fail();
             }
             catch (ArgumentOutOfRangeException ex)
@@ -973,7 +973,7 @@ using Bio.IO.FastQ;
             // Validate an expected error message for invalid qual scores.
             try
             {
-                QualitativeSequence.ConvertFromSangerToSolexa(qualScore);
+                QualitativeSequence.ConvertQualityScore(FastQFormatType.Sanger, FastQFormatType.Solexa_Illumina_v1_0, qualScore);
                 Assert.Fail();
             }
             catch (ArgumentOutOfRangeException ex)
@@ -1000,13 +1000,13 @@ using Bio.IO.FastQ;
             string expectedInvalidQualityScoreError = utilityObj.xmlUtil.GetTextValue(
                 Constants.FormatTypeConvertionErrosNode,
                 Constants.InvalidByteScoreErrorNode);
-            byte[] byteArray = { 12, 24 };
-            byte qualScore = 12;
+            int[] scoreArray = { -12, 24 };
+            int qualScore = -12;
             string actualError = null;
 
             try
             {
-                QualitativeSequence.ConvertFromSangerToIllumina(null);
+                QualitativeSequence.ConvertEncodedQualityScore(FastQFormatType.Sanger, FastQFormatType.Illumina_v1_3, null);
                 Assert.Fail();
             }
             catch (ArgumentNullException ex)
@@ -1020,7 +1020,7 @@ using Bio.IO.FastQ;
             // Validate an expected error message for invalid qual score array.
             try
             {
-                QualitativeSequence.ConvertFromSangerToIllumina(byteArray);
+                QualitativeSequence.ConvertQualityScores(FastQFormatType.Sanger, FastQFormatType.Illumina_v1_3, scoreArray);
                 Assert.Fail();
             }
             catch (ArgumentOutOfRangeException ex)
@@ -1034,7 +1034,7 @@ using Bio.IO.FastQ;
             // Validate an expected error message for invalid qual scores.
             try
             {
-                QualitativeSequence.ConvertFromSangerToIllumina(qualScore);
+                QualitativeSequence.ConvertQualityScore(FastQFormatType.Sanger, FastQFormatType.Illumina_v1_3, qualScore);
                 Assert.Fail();
             }
             catch (ArgumentOutOfRangeException ex)
@@ -1061,13 +1061,13 @@ using Bio.IO.FastQ;
             string expectedInvalidQualityScoreError = utilityObj.xmlUtil.GetTextValue(
                 Constants.FormatTypeConvertionErrosNode,
                 Constants.InvalidByteScoreErrorNode);
-            byte[] byteArray = { 12, 24 };
-            byte qualScore = 12;
+            int[] scoreArray = { -12, 24 };
+            int qualScore = -12;
             string actualError = null;
 
             try
             {
-                QualitativeSequence.ConvertFromSolexaToIllumina(null);
+                QualitativeSequence.ConvertEncodedQualityScore(FastQFormatType.Solexa_Illumina_v1_0, FastQFormatType.Illumina_v1_3, null);
                 Assert.Fail();
             }
             catch (ArgumentNullException ex)
@@ -1081,7 +1081,7 @@ using Bio.IO.FastQ;
             // Validate an expected error message for invalid qual score array.
             try
             {
-                QualitativeSequence.ConvertFromSolexaToIllumina(byteArray);
+                QualitativeSequence.ConvertQualityScores(FastQFormatType.Solexa_Illumina_v1_0, FastQFormatType.Illumina_v1_3, scoreArray);
                 Assert.Fail();
             }
             catch (ArgumentOutOfRangeException ex)
@@ -1095,7 +1095,7 @@ using Bio.IO.FastQ;
             // Validate an expected error message for invalid qual scores.
             try
             {
-                QualitativeSequence.ConvertFromSolexaToIllumina(qualScore);
+                QualitativeSequence.ConvertQualityScore(FastQFormatType.Solexa_Illumina_v1_0, FastQFormatType.Illumina_v1_3, qualScore);
                 Assert.Fail();
             }
             catch (ArgumentOutOfRangeException ex)
@@ -1122,13 +1122,13 @@ using Bio.IO.FastQ;
             string expectedInvalidQualityScoreError = utilityObj.xmlUtil.GetTextValue(
                 Constants.FormatTypeConvertionErrosNode,
                 Constants.InvalidByteScoreErrorNode);
-            byte[] byteArray = { 12, 24 };
-            byte qualScore = 12;
+            int[] scoreArray = { -12, 24 };
+            int qualScore = -12;
             string actualError = null;
 
             try
             {
-                QualitativeSequence.ConvertFromIlluminaToSanger(null);
+                QualitativeSequence.ConvertEncodedQualityScore(FastQFormatType.Illumina_v1_3, FastQFormatType.Sanger, null);
                 Assert.Fail();
             }
             catch (ArgumentNullException ex)
@@ -1142,7 +1142,7 @@ using Bio.IO.FastQ;
             // Validate an expected error message for invalid qual score array.
             try
             {
-                QualitativeSequence.ConvertFromIlluminaToSanger(byteArray);
+                QualitativeSequence.ConvertQualityScores(FastQFormatType.Illumina_v1_3, FastQFormatType.Sanger, scoreArray);
                 Assert.Fail();
             }
             catch (ArgumentOutOfRangeException ex)
@@ -1156,7 +1156,7 @@ using Bio.IO.FastQ;
             // Validate an expected error message for invalid qual scores.
             try
             {
-                QualitativeSequence.ConvertFromIlluminaToSanger(qualScore);
+                QualitativeSequence.ConvertQualityScore(FastQFormatType.Illumina_v1_3, FastQFormatType.Sanger, qualScore);
                 Assert.Fail();
             }
             catch (ArgumentOutOfRangeException ex)
@@ -1183,13 +1183,13 @@ using Bio.IO.FastQ;
             string expectedInvalidQualityScoreError = utilityObj.xmlUtil.GetTextValue(
                 Constants.FormatTypeConvertionErrosNode,
                 Constants.InvalidByteScoreErrorNode);
-            byte[] byteArray = { 12, 24 };
-            byte qualScore = 12;
+            int[] scoreArray = { -12, 24 };
+            int qualScore = -12;
             string actualError = null;
 
             try
             {
-                QualitativeSequence.ConvertFromIlluminaToSolexa(null);
+                QualitativeSequence.ConvertEncodedQualityScore(FastQFormatType.Illumina_v1_3, FastQFormatType.Solexa_Illumina_v1_0, null);
                 Assert.Fail();
             }
             catch (ArgumentNullException ex)
@@ -1203,7 +1203,7 @@ using Bio.IO.FastQ;
             // Validate an expected error message for invalid qual score array.
             try
             {
-                QualitativeSequence.ConvertFromIlluminaToSolexa(byteArray);
+                QualitativeSequence.ConvertQualityScores(FastQFormatType.Illumina_v1_3, FastQFormatType.Solexa_Illumina_v1_0, scoreArray);
                 Assert.Fail();
             }
             catch (ArgumentOutOfRangeException ex)
@@ -1217,7 +1217,7 @@ using Bio.IO.FastQ;
             // Validate an expected error message for invalid qual scores.
             try
             {
-                QualitativeSequence.ConvertFromIlluminaToSolexa(qualScore);
+                QualitativeSequence.ConvertQualityScore(FastQFormatType.Illumina_v1_3, FastQFormatType.Solexa_Illumina_v1_0, qualScore);
                 Assert.Fail();
             }
             catch (ArgumentOutOfRangeException ex)
@@ -1244,13 +1244,13 @@ using Bio.IO.FastQ;
             string expectedInvalidQualityScoreError = utilityObj.xmlUtil.GetTextValue(
                 Constants.FormatTypeConvertionErrosNode,
                 Constants.InvalidByteScoreErrorNode);
-            byte[] byteArray = { 12, 24 };
-            byte qualScore = 12;
+            int[] scoreArray = { -12, 24 };
+            int qualScore = -12;
             string actualError = null;
 
             try
             {
-                QualitativeSequence.ConvertFromSolexaToSanger(null);
+                QualitativeSequence.ConvertEncodedQualityScore(FastQFormatType.Solexa_Illumina_v1_0, FastQFormatType.Sanger, null);
                 Assert.Fail();
             }
             catch (ArgumentNullException ex)
@@ -1264,7 +1264,7 @@ using Bio.IO.FastQ;
             // Validate an expected error message for invalid qual score array.
             try
             {
-                QualitativeSequence.ConvertFromSolexaToSanger(byteArray);
+                QualitativeSequence.ConvertQualityScores(FastQFormatType.Solexa_Illumina_v1_0, FastQFormatType.Sanger, scoreArray);
                 Assert.Fail();
             }
             catch (ArgumentOutOfRangeException ex)
@@ -1278,7 +1278,7 @@ using Bio.IO.FastQ;
             // Validate an expected error message for invalid qual scores.
             try
             {
-                QualitativeSequence.ConvertFromSolexaToSanger(qualScore);
+                QualitativeSequence.ConvertQualityScore(FastQFormatType.Solexa_Illumina_v1_0, FastQFormatType.Sanger, qualScore);
                 Assert.Fail();
             }
             catch (ArgumentOutOfRangeException ex)

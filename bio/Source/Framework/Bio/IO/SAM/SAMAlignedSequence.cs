@@ -307,18 +307,34 @@ namespace Bio.IO.SAM
 
         #region Public Methods
         /// <summary>
-        /// Gets quality values.
+        /// Gets encoded quality scores.
         /// </summary>
-        public byte[] GetQualityValues()
+        public byte[] GetEncodedQualityScores()
         {
             QualitativeSequence seq = QuerySequence as QualitativeSequence;
             if (seq != null)
             {
-                return seq.QualityScores.ToArray();
+                return seq.GetEncodedQualityScores();
             }
             else
             {
                 return new byte[0];
+            }
+        }
+
+        /// <summary>
+        /// Gets Phred base quality scores.
+        /// </summary>
+        public int[] GetQualityScores()
+        {
+            QualitativeSequence seq = QuerySequence as QualitativeSequence;
+            if (seq != null)
+            {
+                return seq.GetPhredQualityScores();
+            }
+            else
+            {
+                return new int[0];
             }
         }
 

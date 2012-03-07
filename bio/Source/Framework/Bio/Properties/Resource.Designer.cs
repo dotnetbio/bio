@@ -937,6 +937,15 @@ namespace Bio.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sequence and quality scores lengths are not same. Sequence length: {0}, Quality scores length: {1}.
+        /// </summary>
+        internal static string DifferenceInSequenceAndQualityScoresLengthMessage {
+            get {
+                return ResourceManager.GetString("DifferenceInSequenceAndQualityScoresLengthMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dna.
         /// </summary>
         internal static string DnaAlphabetName {
@@ -1977,6 +1986,15 @@ namespace Bio.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid encoded quality score found. {0} is not supported in {1} format..
+        /// </summary>
+        internal static string InvalidEncodedQualityScoreFound {
+            get {
+                return ResourceManager.GetString("InvalidEncodedQualityScoreFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid end data [{0}].
         /// </summary>
         internal static string InvalidEndData {
@@ -2054,6 +2072,15 @@ namespace Bio.Properties {
         internal static string InvalidQualityScore {
             get {
                 return ResourceManager.GetString("InvalidQualityScore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid quality score found. {0} is not supported in {1} format..
+        /// </summary>
+        internal static string InvalidQualityScoreFound {
+            get {
+                return ResourceManager.GetString("InvalidQualityScoreFound", resourceCulture);
             }
         }
         

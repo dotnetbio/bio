@@ -234,7 +234,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
             // Create a FastQ Parser object.
             FastQParser fastQParserObj = new FastQParser(filePath);
 
-            fastQParserObj.AutoDetectFastQFormat = true;
             IEnumerable<QualitativeSequence> parse = null;
             try
             {
@@ -266,7 +265,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
             // Parse a FastQ file.
             using (FastQParser fastQParser = new FastQParser(filepath))
             {
-                fastQParser.AutoDetectFastQFormat = true;
                 IEnumerable<QualitativeSequence> sequence = null;
                 FastQFormatter fastQFormatter = null;
 

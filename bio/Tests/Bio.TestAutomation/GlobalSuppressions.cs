@@ -1432,3 +1432,4 @@
 [assembly: SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic", Scope = "member", Target = "Bio.TestAutomation.Util.NamedStreamCreatorBvtTestCases.#ValidateWriteToStream()")]
 [assembly: SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic", Scope = "member", Target = "Bio.TestAutomation.Util.ParallelOptionsScopeBvtTestCases.#ValidateCreateForParallelOptions()")]
 [assembly: SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic", Scope = "member", Target = "Bio.TestAutomation.BioUtil.Distribute.CommandAppBvtTestCases.#ValidateRun()")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "fastQProperty", Scope = "member", Target = "Bio.TestAutomation.IO.FastQ.FastQP1TestCases.#ValidateFastQParser(System.String,Bio.TestAutomation.IO.FastQ.FastQP1TestCases+FastQPropertyParameters)")]

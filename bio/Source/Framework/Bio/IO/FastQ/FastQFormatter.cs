@@ -24,6 +24,7 @@ namespace Bio.IO.FastQ
         /// </summary>
         public FastQFormatter()
         {
+            this.FormatType = FastQFormatType.Illumina_v1_8;
         }
 
         /// <summary>
@@ -32,6 +33,7 @@ namespace Bio.IO.FastQ
         /// <param name="filename">FastQ filename.</param>
         public FastQFormatter(string filename)
         {
+            this.FormatType = FastQFormatType.Illumina_v1_8;
             this.Open(filename);
         }
         #endregion
@@ -76,6 +78,13 @@ namespace Bio.IO.FastQ
                 return Properties.Resource.FASTQ_FILEEXTENSION;
             }
         }
+
+        /// <summary>
+        /// Gets or sets the format type to be used.
+        /// The FastQFormatType to be used for formatting QualitativeSequence objects.
+        /// Default value is Illumina_v1_8
+        /// </summary>
+        public FastQFormatType FormatType { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether the FastQFormatter will flush its buffer 
@@ -166,7 +175,7 @@ namespace Bio.IO.FastQ
             byte[] sequenceBytes = qualitativeSequence.ToArray();
             this.streamWriter.WriteLine(UTF8Encoding.UTF8.GetString(sequenceBytes, 0, sequenceBytes.Length));
             this.streamWriter.WriteLine("+" + header);
-            byte[] qualityValues = qualitativeSequence.QualityScores.ToArray();
+            byte[] qualityValues = QualitativeSequence.ConvertEncodedQualityScore(qualitativeSequence.FormatType, this.FormatType, qualitativeSequence.GetEncodedQualityScores());
             this.streamWriter.WriteLine(UTF8Encoding.UTF8.GetString(qualityValues, 0, qualityValues.Length));
 
             if (this.AutoFlush)

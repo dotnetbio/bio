@@ -968,10 +968,6 @@ namespace Bio.IO.BAM
         {
             byte[] qualityValues = new byte[sequence.Count];
             QualitativeSequence qualitativeSeq = sequence as QualitativeSequence;
-            if (qualitativeSeq != null)
-            {
-                qualityValues = qualitativeSeq.QualityScores.ToArray();
-            }
 
             for (int i = 0; i < qualityValues.Length; i++)
             {
@@ -981,7 +977,7 @@ namespace Bio.IO.BAM
                 }
                 else
                 {
-                    qualityValues[i] -= 33;
+                    qualityValues[i] =(byte)qualitativeSeq.GetPhredQualityScore(i);
                 }
             }
 

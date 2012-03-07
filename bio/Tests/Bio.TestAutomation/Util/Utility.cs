@@ -124,24 +124,56 @@ namespace Bio.TestAutomation.Util
         /// <returns>FastQFormat</returns>
         internal static FastQFormatType GetFastQFormatType(string formatType)
         {
-            FastQFormatType format = FastQFormatType.Illumina;
+            FastQFormatType format = FastQFormatType.Illumina_v1_3;
 
             switch (formatType)
             {
                 case "Illumina":
-                    format = FastQFormatType.Illumina;
+                    format = FastQFormatType.Illumina_v1_3;
                     break;
                 case "Sanger":
                     format = FastQFormatType.Sanger;
                     break;
                 case "Solexa":
-                    format = FastQFormatType.Solexa;
+                    format = FastQFormatType.Solexa_Illumina_v1_0;
                     break;
                 default:
                     break;
             }
 
             return format;
+        }
+
+        /// <summary>
+        /// Gets default encoded quality scores.
+        /// </summary>
+        /// <param name="encodedQualityScore">ecoded quality score.</param>
+        /// <param name="length">No of quality scores required.</param>
+        internal static byte[] GetEncodedQualityScores(byte encodedQualityScore, int length)
+        {
+            byte[] encodedQualityScores = new byte[length];
+            for (int i = 0; i < length; i++)
+            {
+                encodedQualityScores[i] = encodedQualityScore;
+            }
+
+            return encodedQualityScores;
+        }
+
+        /// <summary>
+        /// Gets default encoded quality scores.
+        /// </summary>
+        /// <param name="formatType">Fastq format type.</param>
+        /// <param name="length">No of quality scores required.</param>
+        internal static string GetDefaultEncodedQualityScores(FastQFormatType formatType, int length)
+        {
+            char[] encodedQualityScores = new char[length];
+            for (int i = 0; i < length; i++)
+            {
+                encodedQualityScores[i] = (char)QualitativeSequence.GetDefaultQualScore(formatType);
+            }
+
+            return new string(encodedQualityScores);
         }
 
     }

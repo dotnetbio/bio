@@ -41,7 +41,6 @@ namespace Bio.Tests.IO.FastQ
 
             using (FastQParser fqParser = new FastQParser(filepath))
             {
-                fqParser.AutoDetectFastQFormat = false;
                 fqParser.FormatType = FastQFormatType.Sanger;
                 fqParser.Alphabet = Alphabets.DNA;
                 QualitativeSequence qualSeq = fqParser.Parse().First();
@@ -102,8 +101,8 @@ namespace Bio.Tests.IO.FastQ
                     Assert.AreEqual(seqsOriginal[i].ID, seqsNew[i].ID);
                     string orgSeq = ASCIIEncoding.ASCII.GetString(seqsOriginal[i].ToArray());
                     string newSeq = ASCIIEncoding.ASCII.GetString(seqsNew[i].ToArray());
-                    string orgscores = ASCIIEncoding.ASCII.GetString(seqsOriginal[i].QualityScores.ToArray());
-                    string newscores = ASCIIEncoding.ASCII.GetString(seqsNew[i].QualityScores.ToArray());
+                    string orgscores = ASCIIEncoding.ASCII.GetString(seqsOriginal[i].GetEncodedQualityScores());
+                    string newscores = ASCIIEncoding.ASCII.GetString(seqsNew[i].GetEncodedQualityScores());
                     Assert.AreEqual(orgSeq, newSeq);
                     Assert.AreEqual(orgscores, newscores);
                 }
@@ -178,8 +177,8 @@ namespace Bio.Tests.IO.FastQ
                     Assert.AreEqual(seqsOriginal[i].ID, seqsNew[i].ID);
                     string orgSeq = ASCIIEncoding.ASCII.GetString(seqsOriginal[i].ToArray());
                     string newSeq = ASCIIEncoding.ASCII.GetString(seqsNew[i].ToArray());
-                    string orgscores = ASCIIEncoding.ASCII.GetString(seqsOriginal[i].QualityScores.ToArray());
-                    string newscores = ASCIIEncoding.ASCII.GetString(seqsNew[i].QualityScores.ToArray());
+                    string orgscores = ASCIIEncoding.ASCII.GetString(seqsOriginal[i].GetEncodedQualityScores());
+                    string newscores = ASCIIEncoding.ASCII.GetString(seqsNew[i].GetEncodedQualityScores());
                     Assert.AreEqual(orgSeq, newSeq);
                     Assert.AreEqual(orgscores, newscores);
                 }
@@ -253,7 +252,7 @@ namespace Bio.Tests.IO.FastQ
         {
             using (FastQParser parser = new FastQParser())
             {
-                Assert.AreEqual(parser.FormatType, FastQFormatType.Illumina);
+                Assert.AreEqual(parser.FormatType, FastQFormatType.Illumina_v1_8);
             }
         }
     }

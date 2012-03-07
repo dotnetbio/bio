@@ -72,7 +72,7 @@
         /// <returns>string array with quality values</returns>
         public static string[,] FastQQualityValuesToRange(QualitativeSequence sequence, int maxColumns)
         {
-            var qualityScoreArray = sequence.QualityScores.ToArray();
+            var qualityScoreArray = sequence.GetEncodedQualityScores();
             long rowCount = (int)Math.Ceiling((decimal)qualityScoreArray.Length / (decimal)maxColumns);
             long columnCount = sequence.Count > maxColumns ? maxColumns : sequence.Count;
             string[,] rangeData = new string[rowCount, columnCount];
