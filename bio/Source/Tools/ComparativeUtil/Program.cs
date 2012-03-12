@@ -1,6 +1,7 @@
 ﻿using System;
 using Bio.Util.ArgumentParser;
 using ComparativeUtil.Properties;
+using PadenaUtil;
 
 namespace ComparativeUtil
 {
@@ -15,19 +16,19 @@ namespace ComparativeUtil
         /// <param name="args">Arguments to the main function.</param>
         public static void Main(string[] args)
         {
-            DisplayErrorMessage(Resources.ComparativeSplashScreen);
-            DisplayErrorMessage("\n");
+            Output.WriteLine(OutputLevel.Required, Resources.ComparativeSplashScreen);
+
             try
             {
                 if ((args == null) || (args.Length < 1))
                 {
-                    DisplayErrorMessage(Resources.AssembleHelp);
+                    Output.WriteLine(OutputLevel.Required, Resources.AssembleHelp);
                 }
                 else
                 {
                     if (args[0].Equals("Help", StringComparison.OrdinalIgnoreCase))
                     {
-                        DisplayErrorMessage(Resources.AssembleHelp);
+                        Output.WriteLine(OutputLevel.Required, Resources.AssembleHelp);
                     }
                     else
                     {
@@ -51,7 +52,7 @@ namespace ComparativeUtil
         {
             if (ex.InnerException == null || string.IsNullOrEmpty(ex.InnerException.Message))
             {
-                DisplayErrorMessage(ex.Message);
+                Output.WriteLine(OutputLevel.Error, "Error: " + ex.Message);
             }
             else
             {
@@ -77,32 +78,28 @@ namespace ComparativeUtil
                 }
                 catch (ArgumentParserException ex)
                 {
-                    DisplayErrorMessage(ex.Message);
-                    DisplayErrorMessage(Resources.AssembleHelp);
+                    Output.WriteLine(OutputLevel.Error, ex.Message);
+                    Output.WriteLine(OutputLevel.Required, Resources.AssembleHelp);
                     Environment.Exit(-1);
                 }
 
-                if (options.Help)
+                if (options.Help || options.FilePath == null)
                 {
-                    DisplayErrorMessage(Resources.AssembleHelp);
+                    Output.WriteLine(OutputLevel.Required, Resources.AssembleHelp);
                 }
                 else
                 {
-                    if (options.FilePath != null)
-                    {
-                        options.AssembleSequences();
-                    }
+                    if (options.Verbose)
+                        Output.TraceLevel = OutputLevel.Information | OutputLevel.Verbose;
                     else
-                    {
-                        DisplayErrorMessage(Resources.AssembleHelp);
-                        Environment.Exit(-1);
-                    }
+                        Output.TraceLevel = OutputLevel.Information;
 
+                    options.AssembleSequences();
                 }
             }
             else
             {
-                DisplayErrorMessage(Resources.AssembleHelp);
+                Output.WriteLine(OutputLevel.Required, Resources.AssembleHelp);
             }
         }
 
@@ -118,15 +115,6 @@ namespace ComparativeUtil
             parser.Parameter(ArgumentType.Optional, "MeanLengthOfInsert", ArgumentValueType.Int, "i", "Mean Length of clone library.");
             parser.Parameter(ArgumentType.Optional, "StandardDeviationOfInsert", ArgumentValueType.Int, "sd", "Standard Deviation of Clone Library.");
             parser.Parameter(ArgumentType.Optional, "Verbose", ArgumentValueType.Bool, "v", "Display verbose logging during processing.");
-        }
-
-        /// <summary>
-        /// Display error message on console.
-        /// </summary>
-        /// <param name="message">Error message.</param>
-        private static void DisplayErrorMessage(string message)
-        {
-            Console.Write(message);
         }
 
         #endregion

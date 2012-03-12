@@ -5,9 +5,11 @@ using System.IO;
 using System.Linq;
 using Bio;
 using Bio.Algorithms.Assembly.Comparative;
+using Bio.IO;
 using Bio.IO.FastA;
 using Bio.Util;
 using ComparativeUtil.Properties;
+using PadenaUtil;
 
 namespace ComparativeUtil
 {
@@ -78,8 +80,8 @@ namespace ComparativeUtil
         {
             if (this.FilePath.Length != 2)
             {
-                Console.Error.WriteLine("\nError: A reference file and 1 query file are required.");
-                Environment.Exit(-1);
+                Output.WriteLine(OutputLevel.Error, "Error: A reference file and 1 query file are required.");
+                return;
             }
 
             TimeSpan timeSpan = new TimeSpan();
@@ -94,16 +96,17 @@ namespace ComparativeUtil
             }
 
             runAlgorithm.Restart();
+
             // Parse input files
-            IEnumerable<ISequence> referenceSequences = new FastAParser(this.FilePath[0]).Parse();
+            IEnumerable<ISequence> referenceSequences = ParseFile(this.FilePath[0]);
             runAlgorithm.Stop();
 
             if (this.Verbose)
             {
-                Console.Error.WriteLine();
-                Console.Error.WriteLine("  Processed reference file: {0}", Path.GetFullPath(this.FilePath[0]));
-                Console.Error.WriteLine("            Read/Processing time: {0}", runAlgorithm.Elapsed);
-                Console.Error.WriteLine("            File Size           : {0}", inputFileLength);
+                Output.WriteLine(OutputLevel.Verbose);
+                Output.WriteLine(OutputLevel.Verbose, "Processed reference file: {0}", Path.GetFullPath(this.FilePath[0]));
+                Output.WriteLine(OutputLevel.Verbose, "   Read/Processing time : {0}", runAlgorithm.Elapsed);
+                Output.WriteLine(OutputLevel.Verbose, "   File Size            : {0}", inputFileLength);
             }
 
             inputFileinfo = new FileInfo(this.FilePath[1]);
@@ -116,10 +119,10 @@ namespace ComparativeUtil
 
             if (this.Verbose)
             {
-                Console.Error.WriteLine();
-                Console.Error.WriteLine("  Processed reads file: {0}", Path.GetFullPath(this.FilePath[1]));
-                Console.Error.WriteLine("            Read/Processing time: {0}", runAlgorithm.Elapsed);
-                Console.Error.WriteLine("            File Size           : {0}", inputFileLength);
+                Output.WriteLine(OutputLevel.Verbose);
+                Output.WriteLine(OutputLevel.Verbose, "Processed reads file   : {0}", Path.GetFullPath(this.FilePath[1]));
+                Output.WriteLine(OutputLevel.Verbose, "   Read/Processing time: {0}", runAlgorithm.Elapsed);
+                Output.WriteLine(OutputLevel.Verbose, "   File Size           : {0}", inputFileLength);
             }
 
             runAlgorithm.Restart();
@@ -128,13 +131,14 @@ namespace ComparativeUtil
 
             if (this.Verbose)
             {
-                Console.Error.WriteLine();
-                Console.Error.WriteLine("  Time taken for Validating reads: {0}", runAlgorithm.Elapsed);
+                Output.WriteLine(OutputLevel.Verbose);
+                Output.WriteLine(OutputLevel.Verbose, "Time taken for Validating reads: {0}", runAlgorithm.Elapsed);
+                Output.WriteLine(OutputLevel.Verbose);
             }
 
             runAlgorithm.Restart();
             ComparativeGenomeAssembler assembler = new ComparativeGenomeAssembler();
-            assembler.StatusChanged += new EventHandler<StatusChangedEventArgs>(this.AssemblerStatusChanged);
+            assembler.StatusChanged += this.AssemblerStatusChanged;
             assembler.ScaffoldingEnabled = this.Scaffold;
             assembler.KmerLength = this.KmerLength;
             assembler.LengthOfMum = this.MumLength;
@@ -144,23 +148,13 @@ namespace ComparativeUtil
 
             runAlgorithm.Restart();
 
-            if (this.OutputFile == null)
-            {
-                // Write output to console.
-                this.WriteContigs(assemblerResult, Console.Out);
-            }
-            else
-            {
-                // Write output to the specified file.
-                this.WriteContigs(assemblerResult, null);
-                Console.WriteLine(Resources.OutPutWrittenToFileSpecified);
-            }
+            this.WriteContigs(assemblerResult);
             runAlgorithm.Stop();
 
             if (this.Verbose)
             {
-                Console.Error.WriteLine("  Assemble time: {0}", timeSpan);
-                Console.Error.WriteLine("  Write() time: {0}", runAlgorithm.Elapsed);
+                Output.WriteLine(OutputLevel.Verbose, "Assemble time: {0}", timeSpan);
+                Output.WriteLine(OutputLevel.Verbose, "Write time: {0}", runAlgorithm.Elapsed);
             }
         }
 
@@ -169,11 +163,26 @@ namespace ComparativeUtil
         #region Protected Members
 
         /// <summary>
+        /// Helper method to parse the given filename into a set
+        /// of ISequence elements. This routine will load sequences from
+        /// any support sequence parser in .NET Bio.
+        /// </summary>
+        /// <param name="fileName">Filename to load data from</param>
+        /// <returns>Enumerable set of ISequence elements</returns>
+        protected static IEnumerable<ISequence> ParseFile(string fileName)
+        {
+            ISequenceParser parser = SequenceParsers.FindParserByFileName(fileName);
+            if (parser == null)
+                throw new Exception("Could not locate an appropriate sequence parser for " + fileName);
+
+            return parser.Parse();
+        }
+
+        /// <summary>
         /// It Writes the contigs to the file.
         /// </summary>
         /// <param name="assembly">IDeNovoAssembly parameter is the result of running De Novo Assembly on a set of two or more sequences. </param>
-        /// <param name="outputWriter">A TextWriter to which the output will be written to.</param>
-        protected void WriteContigs(IEnumerable<ISequence> assembly, TextWriter outputWriter)
+        protected void WriteContigs(IEnumerable<ISequence> assembly)
         {
             if (!string.IsNullOrEmpty(this.OutputFile))
             {
@@ -186,13 +195,15 @@ namespace ComparativeUtil
                         formatter.Write(seq);
                     }
                 }
+                Console.WriteLine(Resources.OutPutWrittenToFileSpecified);
             }
             else
             {
+                Output.WriteLine(OutputLevel.Information, "Assembled Sequence Results:");
                 foreach (ISequence seq in assembly)
                 {
-                    outputWriter.WriteLine(seq.ID);
-                    outputWriter.WriteLine(new string(seq.Select(a => (char)a).ToArray()));
+                    Output.WriteLine(OutputLevel.Results, seq.ID);
+                    Output.WriteLine(OutputLevel.Results, new string(seq.Select(a => (char)a).ToArray()));
                 }
             }
         }
@@ -204,7 +215,17 @@ namespace ComparativeUtil
         /// <param name="statusEventArgs">Status message.</param>
         protected void AssemblerStatusChanged(object sender, StatusChangedEventArgs statusEventArgs)
         {
-            Console.Error.Write(statusEventArgs.StatusMessage);
+            if (Verbose)
+                Output.WriteLine(OutputLevel.Verbose, statusEventArgs.StatusMessage);
+            else
+            {
+                if (statusEventArgs.StatusMessage.StartsWith("Step")
+                    && statusEventArgs.StatusMessage.Contains("Start"))
+                {
+                    int pos = statusEventArgs.StatusMessage.IndexOf(" - ");
+                    Output.WriteLine(OutputLevel.Information, statusEventArgs.StatusMessage.Substring(0, pos - 1));
+                }
+            }
         }
 
         /// <summary>
@@ -213,13 +234,8 @@ namespace ComparativeUtil
         /// <param name="reads">Input reads.</param>
         private static void ValidateAmbiguousReads(IEnumerable<ISequence> reads)
         {
-            foreach (ISequence seq in reads)
-            {
-                if (seq.Alphabet.HasAmbiguity)
-                {
-                    throw new ArgumentException(Properties.Resources.AmbiguousReadsNotSupported);
-                }
-            }
+            if (reads.Any(s => s.Alphabet.HasAmbiguity))
+                throw new ArgumentException(Properties.Resources.AmbiguousReadsNotSupported);
         }
         #endregion
     }

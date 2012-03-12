@@ -118,25 +118,19 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ConsensusGenerationEnded" xml:space="preserve">
-    <value>
-Step4: Consensus Generation - End time: {0}</value>
+    <value>Step 4: Consensus Generation - End time: {0:yyyy-MM-dd-HH:mm:ss.fff}</value>
   </data>
   <data name="ConsensusGenerationStarted" xml:space="preserve">
-    <value>
-Step4: Consensus Generation- Start time: {0}
-</value>
+    <value>Step 4: Consensus Generation - Start time: {0:yyyy-MM-dd-HH:mm:ss.fff}</value>
   </data>
   <data name="DefaultSubStatus" xml:space="preserve">
     <value>.</value>
   </data>
   <data name="LayoutRefinementEnded" xml:space="preserve">
-    <value>
-Step3: Layout Refinement - End time: {0}</value>
+    <value>Step 3: Layout Refinement - End time: {0:yyyy-MM-dd-HH:mm:ss.fff}</value>
   </data>
   <data name="LayoutRefinementStarted" xml:space="preserve">
-    <value>
-Step3: Layout Refinement- Start time: {0}
-</value>
+    <value>Step 3: Layout Refinement - Start time: {0:yyyy-MM-dd-HH:mm:ss.fff}</value>
   </data>
   <data name="PcaDescription" xml:space="preserve">
     <value>A parallelized comparative geonme assembler.</value>
@@ -145,39 +139,27 @@ Step3: Layout Refinement- Start time: {0}
     <value>Parallel Comparative Genome Assembler</value>
   </data>
   <data name="ReadAlignmentEnded" xml:space="preserve">
-    <value>
-Step1: Read Alignment - End time: {0}</value>
+    <value>Step 1: Read Alignment - End time: {0:yyyy-MM-dd-HH:mm:ss.fff}</value>
   </data>
   <data name="ReadAlignmentStarted" xml:space="preserve">
-    <value>
-Step1: Read Alignment - Start time: {0}
-</value>
+    <value>Step 1: Read Alignment - Start time: {0:yyyy-MM-dd-HH:mm:ss.fff}</value>
   </data>
   <data name="RepeatResolutionEnded" xml:space="preserve">
-    <value>
-Step2: Repeat Resolution - End time: {0}</value>
+    <value>Step 2: Repeat Resolution - End time: {0:yyyy-MM-dd-HH:mm:ss.fff}</value>
   </data>
   <data name="RepeatResolutionStarted" xml:space="preserve">
-    <value>
-Step2: Repeat Resolution - Start time: {0}
-</value>
+    <value>Step 2: Repeat Resolution - Start time: {0:yyyy-MM-dd-HH:mm:ss.fff}</value>
   </data>
   <data name="ScaffoldGenerationEnded" xml:space="preserve">
-    <value>
-Step5: Scaffold Generation - End time: {0}</value>
+    <value>Step 5: Scaffold Generation - End time: {0:yyyy-MM-dd-HH:mm:ss.fff}</value>
   </data>
   <data name="ScaffoldGenerationStarted" xml:space="preserve">
-    <value>
-Step5: Scaffold Generation- Start time: {0}
-</value>
+    <value>Step 5: Scaffold Generation - Start time: {0:yyyy-MM-dd-HH:mm:ss.fff}</value>
   </data>
   <data name="SortingResolvedDeltasEnded" xml:space="preserve">
-    <value>
-Sorting Resolved Deltas - End time: {0}</value>
+    <value>Sorting Resolved Deltas - End time: {0:yyyy-MM-dd-HH:mm:ss.fff}</value>
   </data>
   <data name="SortingResolvedDeltasStarted" xml:space="preserve">
-    <value>
-Sorting Resolved Deltas- Start time: {0}
-</value>
+    <value>Sorting Resolved Deltas - Start time: {0:yyyy-MM-dd-HH:mm:ss.fff}</value>
   </data>
 </root>
