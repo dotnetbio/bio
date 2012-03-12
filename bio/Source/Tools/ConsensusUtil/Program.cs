@@ -15,18 +15,18 @@ namespace ConsensusUtil
         /// <param name="args">Arguments to the main method.</param>
         public static void Main(string[] args)
         {
-            DisplayErrorMessage(Resources.ConsensusSplashScreen);
+            Output.WriteLine(OutputLevel.Required, Resources.ConsensusSplashScreen);
             try
             {
                 if ((args == null) || (args.Length < 1))
                 {
-                    DisplayErrorMessage(Resources.ConsensusUtilHelp);
+                    Output.WriteLine(OutputLevel.Required, Resources.ConsensusUtilHelp);
                 }
                 else
                 {
                     if (args[0].Equals("Help", StringComparison.OrdinalIgnoreCase))
                     {
-                        DisplayErrorMessage(Resources.ConsensusUtilHelp);
+                        Output.WriteLine(OutputLevel.Required, Resources.ConsensusUtilHelp);
                     }
                     else
                     {
@@ -50,7 +50,7 @@ namespace ConsensusUtil
         {
             if (ex.InnerException == null || string.IsNullOrEmpty(ex.InnerException.Message))
             {
-                DisplayErrorMessage(ex.Message);
+                Output.WriteLine(OutputLevel.Error, "Error: " + ex.Message);
             }
             else
             {
@@ -81,53 +81,24 @@ namespace ConsensusUtil
                 }
                 catch (ArgumentException ex)
                 {
-                    DisplayErrorMessage(ex.Message);
-                    DisplayErrorMessage(Resources.ConsensusUtilHelp);
+                    Output.WriteLine(OutputLevel.Error, ex.Message);
+                    Output.WriteLine(OutputLevel.Required, Resources.ConsensusUtilHelp);
                     Environment.Exit(-1);
                 }
 
-                if (arguments.Help)
+                if (arguments.Help || arguments.FilePath.Length != 2)
                 {
-                    DisplayErrorMessage(Resources.ConsensusUtilHelp);
-                }
-                else if (arguments.FilePath.Length == 2)
-                {
-                    arguments.GenerateConsensus();
+                    Output.WriteLine(OutputLevel.Required, Resources.ConsensusUtilHelp);
                 }
                 else
                 {
-                    DisplayErrorMessage(Resources.ConsensusUtilHelp);
+                    arguments.GenerateConsensus();
                 }
             }
             else
             {
-                DisplayErrorMessage(Resources.ConsensusUtilHelp);
+                Output.WriteLine(OutputLevel.Required, Resources.ConsensusUtilHelp);
             }
-        }
-
-        /// <summary>
-        /// Display error message on console.
-        /// </summary>
-        /// <param name="message">Error message.</param>
-        private static void DisplayErrorMessage(string message)
-        {
-            Console.Write(message);
-        }
-
-        /// <summary>
-        /// Removes the command line.
-        /// </summary>
-        /// <param name="args">Arguments to remove.</param>
-        /// <returns>Returns the arguments.</returns>
-        private static string[] RemoveCommandLine(string[] args)
-        {
-            string[] arguments = new string[args.Length - 1];
-            for (int index = 0; index < args.Length - 1; index++)
-            {
-                arguments[index] = args[index + 1];
-            }
-
-            return arguments;
         }
 
         #endregion

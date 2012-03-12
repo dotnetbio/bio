@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using Bio;
 using Bio.Algorithms.Assembly.Comparative;
+using Bio.IO;
 using Bio.IO.FastA;
 using Bio.Util;
 
@@ -57,10 +58,10 @@ namespace ConsensusUtil
 
             if (this.Verbose)
             {
-                Console.Error.WriteLine();
-                Console.Error.WriteLine("  Processed Query FastA file: {0}", Path.GetFullPath(this.FilePath[1]));
-                Console.Error.WriteLine("            Read/Processing time: {0}", runAlgorithm.Elapsed);
-                Console.Error.WriteLine("            File Size           : {0}", inputFileLength);
+                Output.WriteLine(OutputLevel.Verbose);
+                Output.WriteLine(OutputLevel.Verbose, "Processed Query FastA file: {0}", Path.GetFullPath(this.FilePath[1]));
+                Output.WriteLine(OutputLevel.Verbose, "   Read/Processing time  : {0}", runAlgorithm.Elapsed);
+                Output.WriteLine(OutputLevel.Verbose, "   File Size             : {0}", inputFileLength);
             }
 
             inputFileinfo = new FileInfo(this.FilePath[0]);
@@ -74,10 +75,10 @@ namespace ConsensusUtil
 
                 if (this.Verbose)
                 {
-                    Console.Error.WriteLine();
-                    Console.Error.WriteLine("  Processed DeltaAlignment file: {0}", Path.GetFullPath(this.FilePath[0]));
-                    Console.Error.WriteLine("            Read/Processing time: {0}", runAlgorithm.Elapsed);
-                    Console.Error.WriteLine("            File Size           : {0}", inputFileLength);
+                    Output.WriteLine(OutputLevel.Verbose);
+                    Output.WriteLine(OutputLevel.Verbose, "Processed DeltaAlignment file: {0}", Path.GetFullPath(this.FilePath[0]));
+                    Output.WriteLine(OutputLevel.Verbose, "   Read/Processing time      : {0}", runAlgorithm.Elapsed);
+                    Output.WriteLine(OutputLevel.Verbose, "   File Size                 : {0}", inputFileLength);
                 }
 
                 runAlgorithm.Restart();
@@ -92,15 +93,14 @@ namespace ConsensusUtil
 
             if (this.Verbose)
             {
-                Console.Error.WriteLine("  Compute time: {0}", timeSpan);
-                Console.Error.WriteLine("  Write() time: {0}", runAlgorithm.Elapsed);
+                Output.WriteLine(OutputLevel.Verbose, "Compute time: {0}", timeSpan);
+                Output.WriteLine(OutputLevel.Verbose, "Write() time: {0}", runAlgorithm.Elapsed);
             }
         }
 
         #endregion
 
         #region Private Methods
-
 
         /// <summary>
         /// Write sequences to the file
@@ -110,19 +110,26 @@ namespace ConsensusUtil
         {
             if (!string.IsNullOrEmpty(this.OutputFile))
             {
-                using (FastAFormatter ff = new FastAFormatter(this.OutputFile))
+                int count = 0;
+                using (var formatter = new FastAFormatter(this.OutputFile))
                 {
+                    formatter.AutoFlush = true;
                     foreach (ISequence sequence in sequences)
                     {
-                        ff.Write(sequence);
+                        count++;
+                        formatter.Write(sequence);
                     }
                 }
+                Output.WriteLine(OutputLevel.Information, "Wrote {0} sequences to {1}.", count, this.OutputFile);
             }
             else
             {
-                foreach (ISequence sequence in sequences)
+                Output.WriteLine(OutputLevel.Information, "Results:");
+
+                foreach (ISequence seq in sequences)
                 {
-                    Console.WriteLine(new string(sequence.Select(a => (char)a).ToArray()));
+                    Output.WriteLine(OutputLevel.Results, seq.ID);
+                    Output.WriteLine(OutputLevel.Results, new string(seq.Select(a => (char)a).ToArray()));
                 }
             }
         }

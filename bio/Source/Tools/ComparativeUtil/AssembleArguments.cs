@@ -194,7 +194,7 @@ namespace ComparativeUtil
                         formatter.Write(seq);
                     }
                 }
-                Console.WriteLine(Resources.OutPutWrittenToFileSpecified);
+                Output.WriteLine(OutputLevel.Information, Resources.OutPutWrittenToFileSpecified);
             }
             else
             {
