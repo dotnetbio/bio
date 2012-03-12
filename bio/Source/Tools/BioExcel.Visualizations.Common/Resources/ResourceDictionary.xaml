@@ -67,4 +67,12 @@
     <system:String x:Uid="MaxColumnsDialog:Header" x:Key="MaxColumnsDialog_Header">Max Columns</system:String>
     <system:String x:Uid="MaxColumnsDialog:MaximumColumns" x:Key="MaxColumnsDialog_Maximum_Columns">Enter maximum number of columns:</system:String>
     <system:String x:Uid="MaxColumnsDialog:AlignAllSheets" x:Key="MaxColumnsDialog_Align_All_Sheets">Align all Sequence data worksheets</system:String>
+
+    <system:String x:Key="ImportConfiguration_Header">Import Configuration</system:String>
+    <system:String x:Key="ImportConfiguration_SequencesPerRow">Sequences Per Row</system:String>
+    <system:String x:Key="ImportConfiguration_OnePerSheet">Create a new worksheet for each sequence</system:String>
+    <system:String x:Key="ImportConfiguration_MultiPerSheet">Include multiple sequences on a worksheet</system:String>
+    <system:String x:Key="ImportConfiguration_AllInOne">Include all sequences on one worksheet</system:String>
+    <system:String x:Key="ImportConfiguration_CountPerWorksheet"># of sequences per worksheet</system:String>
+    <system:String x:Key="ImportConfiguration_FutureImports">This setting will affect future imports</system:String>
 </ResourceDictionary>

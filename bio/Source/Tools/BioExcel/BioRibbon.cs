@@ -1,4 +1,6 @@
-﻿namespace BiodexExcel
+﻿using BiodexExcel.Visualizations.Common.DialogBox;
+
+namespace BiodexExcel
 {
     #region -- Using Directive --
 
@@ -276,6 +278,11 @@
         private Dictionary<byte, Color> colorMap = new Dictionary<byte, Color>();
 
         /// <summary>
+        /// Holds the number of sequences we import onto a single worksheet.
+        /// </summary>
+        private int sequencesPerWorksheet = 1;
+
+        /// <summary>
         /// Stores information regarding the enabled state of 
         /// Cancel button in Blast Search (btnCancelSearch)
         /// </summary>
@@ -344,6 +351,7 @@
             this.btnIntersect.Click += new RibbonControlEventHandler(this.OnIntersectClick);
             this.btnSubtract.Click += new RibbonControlEventHandler(this.OnSubtractClick);
             this.btnConfigureColor.Click += new RibbonControlEventHandler(this.OnConfigureColorClick);
+            this.btnConfigureImport.Click += new RibbonControlEventHandler(this.OnConfigureImportOptions);
             this.btnVennDiagram.Click += new RibbonControlEventHandler(OnVennDiagramClick);
             this.btnHomePage.Click += new RibbonControlEventHandler(OnHomePageClick);
             this.btnAssemble.Click += new RibbonControlEventHandler(OnAssembleClick);
@@ -769,6 +777,27 @@
             if (this.colorMap.ContainsKey(alphabet))
             {
                 this.colorMap[alphabet] = defaultCColor;
+            }
+        }
+
+        /// <summary>
+        /// This method pops up a dialog for the user to change import
+        /// options.
+        /// </summary>
+        /// <param name="sender">Configure import options button</param>
+        /// <param name="e">Event data</param>
+        private void OnConfigureImportOptions(object sender, RibbonControlEventArgs e)
+        {
+            this.ResetStatus();
+            Globals.ThisAddIn.Application.Cursor = XlMousePointer.xlWait;
+
+            ImportConfiguration configuration = new ImportConfiguration() { SequencesPerWorksheet = sequencesPerWorksheet };
+            System.Windows.Interop.WindowInteropHelper helper = new System.Windows.Interop.WindowInteropHelper(configuration);
+            helper.Owner = (IntPtr)Globals.ThisAddIn.Application.Hwnd;
+            configuration.Activated += new EventHandler(OnWPFWindowActivated);
+            if (configuration.ShowDialog() == true)
+            {
+                sequencesPerWorksheet = configuration.SequencesPerWorksheet;
             }
         }
 
@@ -1977,7 +2006,7 @@
                 button.Click += new RibbonControlEventHandler(this.ReadSequenceFiles);
                 button.Label = string.Format(parser.Name.ToUpper(CultureInfo.CurrentCulture));
                 button.ShowImage = true;
-                button.Tag = parser.Name;
+                button.Tag = parser;
                 button.ScreenTip = string.Format(Resources.SCREEN_TIP_IMPORT_MENU, button.Label);
                 this.splitImport.Items.Add(button);
             }
@@ -2660,25 +2689,43 @@
         /// <param name="e">Event data</param>
         private void ReadSequenceFiles(object sender, RibbonControlEventArgs e)
         {
+            IParser parser = (sender as RibbonButton).Tag as IParser;
+            if (parser == null)
+                return;
+
             this.ResetStatus();
-            System.Windows.Forms.OpenFileDialog openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            openFileDialog1.Multiselect = true;
+            var openFileDialog1 = new System.Windows.Forms.OpenFileDialog
+            {
+                Multiselect = true,
+                Filter = string.Format("{0} ({1})|{1}|All Files (*.*)|*.*", parser.Name,
+                                        parser.SupportedFileTypes.Replace(".", "*.").Replace(',', ';'))
+            };
+
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
+                int currentRow = 1;
                 foreach (string fileName in openFileDialog1.FileNames)
                 {
                     try
                     {
                         this.ScreenUpdate(false);
-                        ISequenceParser parser = SequenceParsers.FindParserByName(fileName, (sender as RibbonButton).Tag as string);
-                        if (parser != null)
-                        {
-                            this.ReadSequences(parser, fileName);
-                        }
 
-                        ISequenceRangeParser rangeParser = (sender as RibbonButton).Tag as ISequenceRangeParser;
-                        if (rangeParser != null)
+                        ISequenceParser sequenceParser = parser as ISequenceParser;
+                        if (sequenceParser != null)
                         {
+                            try
+                            {
+                                sequenceParser.Open(fileName);
+                                this.ReadSequences(sequenceParser, fileName, ref currentRow);
+                            }
+                            finally
+                            {
+                                sequenceParser.Close();
+                            }
+                        }
+                        else
+                        {
+                            ISequenceRangeParser rangeParser = parser as ISequenceRangeParser;
                             this.ReadRangeSequence(rangeParser, fileName);
                         }
                     }
@@ -2702,114 +2749,224 @@
         /// </summary>
         /// <param name="parser">SequenceParser instance.</param>
         /// <param name="fileName">Name of the file</param>
-        private void ReadSequences(ISequenceParser parser, string fileName)
+        /// <param name="currentRow">Current row of insertion</param>
+        private void ReadSequences(ISequenceParser parser, string fileName, ref int currentRow)
         {
             ScreenUpdate(false);
 
-            IEnumerable<ISequence> sequences = parser.Parse();
-
-            Workbook workBook = Globals.ThisAddIn.Application.ActiveWorkbook;
-            foreach (ISequence sequence in sequences)
+            if (sequencesPerWorksheet == 1)
             {
-                Worksheet worksheet = workBook.Worksheets.Add(Type.Missing, workBook.Worksheets.get_Item(workBook.Worksheets.Count), Type.Missing, Type.Missing) as Worksheet;
-
-                string validName = sequence.ID;
-                if (string.IsNullOrEmpty(sequence.ID))
-                {
-                    validName = this.GetValidFileNames(Path.GetFileNameWithoutExtension(fileName));
-                }
-                else
-                {
-                    validName = this.GetValidFileNames(sequence.ID);
-                }
-
-                // If sequence ID cannot be used as a sheet name, update the sequence DisplayID with the string used as sheet name.
-                if (0 != string.Compare(sequence.ID, validName, false))
-                {
-                    Sequence sequenceWriteable = sequence as Sequence;
-                    if (null != sequenceWriteable)
-                    {
-                        sequenceWriteable.ID = validName;
-                    }
-                    else
-                    {
-                        SparseSequence sparseSequenceWriteable = sequence as SparseSequence;
-                        if (null != sparseSequenceWriteable)
-                        {
-                            sparseSequenceWriteable.ID = validName;
-                        }
-                        else
-                        {
-                            QualitativeSequence qualitativeSequenceWriteable = sequence as QualitativeSequence;
-                            if (null != qualitativeSequenceWriteable)
-                            {
-                                qualitativeSequenceWriteable.ID = validName;
-                            }
-                        }
-                    }
-                }
-
-                worksheet.Name = sequence.ID;
-                ((Microsoft.Office.Interop.Excel._Worksheet)worksheet).Activate();
-                Globals.ThisAddIn.Application.ActiveWindow.Zoom = ZoomLevel;
-                Globals.ThisAddIn.Application.EnableEvents = false;
-                try
-                {
-                    Range dataRange = null;
-                    int currentRow = 0;
-                    if (sequence.Count > 0)
-                    {
-                        currentRow = this.WriteSequence(worksheet, sequence, out dataRange);
-                    }
-
-                    if (dataRange != null)
-                        dataRange.Columns.AutoFit(); // Autofit columns with sequence data
-
-                    // Write quality values if file is FastQ
-                    if (parser is Bio.IO.FastQ.FastQParser)
-                    {
-                        (worksheet.Cells[currentRow + 1, 1] as Range).Value2 = Resources.Sequence_QualityScores;
-                        currentRow = WriteQualityValues(sequence as QualitativeSequence, worksheet, currentRow + 1, 2, out dataRange);
-                        dataRange.Columns.AutoFit(); // Autofit columns with quality scores
-                    }
-
-                    Range metadataRange;
-                    this.WriteMetadata(sequence, parser, worksheet, currentRow + 1, out metadataRange);
-                    if (metadataRange != null)
-                    {
-                        metadataRange.WrapText = false;
-                    }
-
-                    this.currentFileNumber++;
-
-                    (worksheet.Cells[1, 1] as Range).EntireColumn.AutoFit(); // Autofit first column
-
-                    this.EnableAllControls();
-                }
-                finally
-                {
-                    Globals.ThisAddIn.Application.EnableEvents = true;
-                    parser.Close();
-                }
+                ImportSequencesOnePerSheet(parser, fileName);
+            }
+            else if (sequencesPerWorksheet <= 0)
+            {
+                ImportSequencesAllInOneSheet(parser, fileName, ref currentRow);
+            }
+            else if (sequencesPerWorksheet > 0)
+            {
+                ImportSequencesAcrossSheets(parser, fileName, ref currentRow);
             }
 
             ScreenUpdate(true);
         }
 
         /// <summary>
+        /// This method breaks the sequences across multiple worksheets.
+        /// </summary>
+        /// <param name="parser"></param>
+        /// <param name="fileName"></param>
+        /// <param name="currentRow"></param>
+        private void ImportSequencesAcrossSheets(ISequenceParser parser, string fileName, ref int currentRow)
+        {
+            Workbook workBook = Globals.ThisAddIn.Application.ActiveWorkbook;
+            int sequenceCount = 0;
+            Worksheet worksheet = null;
+
+            Globals.ThisAddIn.Application.ActiveWindow.Zoom = ZoomLevel;
+            Globals.ThisAddIn.Application.EnableEvents = false;
+
+            try
+            {
+                foreach (ISequence sequence in parser.Parse())
+                {
+                    if (worksheet == null || sequenceCount++ >= sequencesPerWorksheet)
+                    {
+                        if(worksheet != null)
+                            worksheet.Cells[1, 1].EntireColumn.AutoFit(); // Autofit first column
+
+                        currentRow = 1;
+                        sequenceCount = 1;
+                        worksheet = workBook.Worksheets.Add(Type.Missing, workBook.Worksheets.Item[workBook.Worksheets.Count], Type.Missing, Type.Missing) as Worksheet;
+                        if (worksheet == null)
+                            return;
+
+                        // Get a name for the worksheet.
+                        string validName = GetValidFileNames(string.IsNullOrEmpty(sequence.ID)
+                                ? Path.GetFileNameWithoutExtension(fileName)
+                                : sequence.ID);
+                        worksheet.Name = validName;
+                        ((_Worksheet)worksheet).Activate();
+                    }
+
+
+                    // If sequence ID cannot be used as a sheet name, update the sequence DisplayID with the string used as sheet name.
+                    if (string.IsNullOrEmpty(sequence.ID))
+                        sequence.ID = Path.GetFileNameWithoutExtension(fileName) + "_" + sequenceCount;
+
+                    WriteOneSequenceToWorksheet(parser, ref currentRow, sequence, worksheet);
+                }
+                
+                if (worksheet != null)
+                    worksheet.Cells[1, 1].EntireColumn.AutoFit(); // Autofit first column
+            }
+            finally
+            {
+                this.EnableAllControls();
+                Globals.ThisAddIn.Application.EnableEvents = true;
+            }
+        }
+
+        /// <summary>
+        /// This method imports a set of sequences, one per worksheet.
+        /// </summary>
+        /// <param name="parser">SequenceParser instance.</param>
+        /// <param name="fileName">Name of the file</param>
+        private void ImportSequencesOnePerSheet(ISequenceParser parser, string fileName)
+        {
+            Workbook workBook = Globals.ThisAddIn.Application.ActiveWorkbook;
+            foreach (ISequence sequence in parser.Parse())
+            {
+                Worksheet worksheet = workBook.Worksheets.Add(Type.Missing, workBook.Worksheets.Item[workBook.Worksheets.Count], Type.Missing, Type.Missing) as Worksheet;
+                if (worksheet == null)
+                    return;
+
+                string validName = GetValidFileNames(
+                    string.IsNullOrEmpty(sequence.ID) 
+                        ? Path.GetFileNameWithoutExtension(fileName) 
+                        : sequence.ID);
+
+                // If sequence ID cannot be used as a sheet name, update the sequence DisplayID with the string used as sheet name.
+                if (string.IsNullOrEmpty(sequence.ID))
+                    sequence.ID = validName;
+
+                worksheet.Name = validName;
+                ((_Worksheet)worksheet).Activate();
+                Globals.ThisAddIn.Application.ActiveWindow.Zoom = ZoomLevel;
+                Globals.ThisAddIn.Application.EnableEvents = false;
+
+                try
+                {
+                    int currentRow = 1;
+                    WriteOneSequenceToWorksheet(parser, ref currentRow, sequence, worksheet);
+                    currentFileNumber++;
+                }
+                finally
+                {
+                    worksheet.Cells[1, 1].EntireColumn.AutoFit(); // Autofit first column
+                    this.EnableAllControls();
+                    Globals.ThisAddIn.Application.EnableEvents = true;
+                }
+            }
+        }
+
+        /// <summary>
+        /// This method imports a set of sequences, one sequence per row.
+        /// </summary>
+        /// <param name="parser">SequenceParser instance.</param>
+        /// <param name="fileName">Name of the file</param>
+        /// <param name="currentRow">Next row of insertion</param>
+        private void ImportSequencesAllInOneSheet(ISequenceParser parser, string fileName, ref int currentRow)
+        {
+            Workbook workBook = Globals.ThisAddIn.Application.ActiveWorkbook;
+            Worksheet worksheet = workBook.Worksheets.Add(Type.Missing, workBook.Worksheets.Item[workBook.Worksheets.Count], Type.Missing, Type.Missing) as Worksheet;
+            worksheet.Name = this.GetValidFileNames(Path.GetFileNameWithoutExtension(fileName));
+            ((_Worksheet)worksheet).Activate();
+            Globals.ThisAddIn.Application.ActiveWindow.Zoom = ZoomLevel;
+            Globals.ThisAddIn.Application.EnableEvents = false;
+
+            try
+            {
+                int sequenceCount = 0;
+                foreach (ISequence sequence in parser.Parse())
+                {
+                    sequenceCount++;
+                    if (string.IsNullOrEmpty(sequence.ID))
+                        sequence.ID = Path.GetFileNameWithoutExtension(fileName) + "_" + sequenceCount;
+                    WriteOneSequenceToWorksheet(parser, ref currentRow, sequence, worksheet);
+                    currentFileNumber++;
+                }
+            }
+            finally
+            {
+                worksheet.Cells[1, 1].EntireColumn.AutoFit(); // Autofit first column
+                this.EnableAllControls();
+                Globals.ThisAddIn.Application.EnableEvents = true;
+            }
+        }
+
+        /// <summary>
+        /// This writes out a single sequence with header, data, quality scores and metadata into the worksheet.
+        /// </summary>
+        /// <param name="parser"></param>
+        /// <param name="currentRow"></param>
+        /// <param name="sequence"></param>
+        /// <param name="worksheet"></param>
+        private void WriteOneSequenceToWorksheet(ISequenceParser parser, ref int currentRow, ISequence sequence, Worksheet worksheet)
+        {
+            // Write the header (sequence id)
+            if (!string.IsNullOrEmpty(sequence.ID))
+            {
+                string[,] formattedMetadata = ExcelImportFormatter.SequenceIDHeaderToRange(sequence);
+                Range range = WriteToSheet(worksheet, formattedMetadata, currentRow, 1);
+                if (range != null)
+                {
+                    range.WrapText = false;
+                    currentRow += range.Rows.Count;
+                }
+            }
+
+            // Write out the data
+            Range dataRange;
+            if (sequence.Count > 0)
+            {
+                currentRow = WriteSequence(worksheet, sequence, currentRow, out dataRange);
+                if (dataRange != null)
+                    dataRange.Columns.AutoFit(); // Autofit columns with sequence data
+            }
+
+            // Write quality values if file is FastQ
+            if (sequence is QualitativeSequence)
+            {
+                currentRow++;
+                worksheet.Cells[currentRow, 1].Value2 = Resources.Sequence_QualityScores;
+                currentRow = WriteQualityValues(sequence as QualitativeSequence, worksheet, currentRow, 2, out dataRange);
+                if (dataRange != null)
+                    dataRange.Columns.AutoFit(); // Autofit columns with quality scores
+            }
+
+            // Write out the metadata 
+            Range metadataRange;
+            WriteMetadata(sequence, parser, worksheet, currentRow, out metadataRange);
+            if (metadataRange != null)
+            {
+                metadataRange.WrapText = false;
+                currentRow += metadataRange.Rows.Count;
+            }
+
+            currentRow++; // Add space row between sequences
+        }
+
+        /// <summary>
         /// Formats the metadata depending on the sequence type and displays it.
         /// </summary>
         /// <param name="sequence">Sequence which is holding the metadata</param>
+        /// <param name="parserUsed">Parser used to read data</param>
         /// <param name="worksheet">Sheet on to which the metadata should be written.</param>
-        /// <param name="range">Will have the range to which the metadata was written</param>
+        /// <param name="startingRow">Row we are on</param>
+        /// <param name="metadataRange">Will have the range to which the metadata was written</param>
         private void WriteMetadata(ISequence sequence, ISequenceParser parserUsed, Worksheet worksheet, int startingRow, out Range metadataRange)
         {
-            if (parserUsed is Bio.IO.FastQ.FastQParser || parserUsed is Bio.IO.FastA.FastAParser)
-            {
-                string[,] formattedMetadata = ExcelImportFormatter.FastAMetadataToRange(sequence);
-                metadataRange = WriteToSheet(worksheet, formattedMetadata, startingRow, 1);
-            }
-            else if (parserUsed is Bio.IO.GenBank.GenBankParser)
+            if (parserUsed is GenBankParser)
             {
                 if (sequence.Metadata.ContainsKey(GenbankMetadataKey))
                 {
@@ -2821,7 +2978,7 @@
                     metadataRange = null;
                 }
             }
-            else if (parserUsed is Bio.IO.Gff.GffParser)
+            else if (parserUsed is GffParser)
             {
                 string[,] formattedMetadata = ExcelImportFormatter.GffMetaDataToRange(sequence);
                 metadataRange = WriteToSheet(worksheet, formattedMetadata, startingRow, 1);
@@ -2829,7 +2986,8 @@
             else
             {
                 metadataRange = null;
-                MessageBox.Show(Properties.Resources.MetadataFormatError, Properties.Resources.CAPTION, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                // No error on this.
+                //MessageBox.Show(Resources.MetadataFormatError, Resources.CAPTION, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
 
@@ -2839,6 +2997,8 @@
         /// <param name="sequence">Sequence of which the quality scores should be written</param>
         /// <param name="worksheet">Worksheet to which to write</param>
         /// <param name="startingRow">Starting row</param>
+        /// <param name="startingColumn">Column we wrote to</param>
+        /// <param name="dataRange">Range where quality values were written</param>
         /// <returns>Index of row after last written row</returns>
         private int WriteQualityValues(QualitativeSequence sequence, Worksheet worksheet, int startingRow, int startingColumn, out Range dataRange)
         {
@@ -2857,8 +3017,8 @@
         /// <param name="col">Starting col</param>
         private Range WriteToSheet(Worksheet worksheet, string[,] data, int row, int col)
         {
-            Range range = worksheet.get_Range(GetColumnString(col) + (row).ToString(), Type.Missing);
-            range = range.get_Resize(data.GetLength(0), data.GetLength(1));
+            Range range = worksheet.Range[GetColumnString(col) + (row).ToString(), Type.Missing];
+            range = range.Resize[data.GetLength(0), data.GetLength(1)];
             range.set_Value(Missing.Value, data);
 
             return range;
@@ -2869,45 +3029,39 @@
         /// </summary>
         /// <param name="worksheet">The worksheet instance</param>
         /// <param name="sequence">The sequence which has to be imported into the excel sheet.</param>
-        /// <param name="initialRowNumber">The row number from where the sequence rendering has to begin</param>
+        /// <param name="initialRowNumber">Initial row number</param>
+        /// <param name="sequenceDataRange">The row number from where the sequence rendering has to begin</param>
         /// <returns>Index of last row where sequence data was written</returns>
-        private int WriteSequence(Worksheet worksheet, ISequence sequence, out Range sequenceDataRange)
+        private int WriteSequence(Worksheet worksheet, ISequence sequence, int initialRowNumber, out Range sequenceDataRange)
         {
             int counts = 0;
             int maxColumnNumber = 0;
-            int initialRowNumber = 1;
 
-            Range heading = worksheet.get_Range("A" + initialRowNumber.ToString(CultureInfo.CurrentCulture), Type.Missing);
-            WriteRangeValue(heading, Properties.Resources.SEQUENCE_DATA);
+            Range heading = worksheet.Range["A" + initialRowNumber.ToString(CultureInfo.CurrentCulture), Type.Missing];
+            WriteRangeValue(heading, Resources.SEQUENCE_DATA);
 
             int rowNumber = initialRowNumber;
-            int rowCount = (int)Math.Ceiling((decimal)sequence.Count / (decimal)maxNumberOfCharacters);
+            int rowCount = (int)Math.Ceiling((decimal)sequence.Count / maxNumberOfCharacters);
             long columnCount = sequence.Count > maxNumberOfCharacters ? maxNumberOfCharacters : sequence.Count;
-            string[,] rangeData = new string[rowCount, columnCount];
+            var rangeData = new string[rowCount, columnCount];
 
+            // Put the data into the rows.
             while (counts < sequence.Count)
             {
                 int columnNumber = 1;
-                for (int i = 0; (i < maxNumberOfCharacters) && (counts < sequence.Count); i++)
-                {
-                    rangeData[rowNumber - initialRowNumber, i] = new string(new char[] { (char)sequence[counts] });
-
-                    counts++;
-                    columnNumber++;
-                }
+                for (int i = 0; (i < maxNumberOfCharacters) && (counts < sequence.Count); i++, counts++, columnNumber++)
+                    rangeData[rowNumber - initialRowNumber, i] = new string(new[] { (char)sequence[counts] });
 
                 if (columnNumber > maxColumnNumber)
-                {
                     maxColumnNumber = columnNumber;
-                }
 
                 rowNumber++;
             }
 
             if (sequence.Count > 0)
             {
-                Range range = worksheet.get_Range("B" + initialRowNumber.ToString(CultureInfo.CurrentCulture), Type.Missing);
-                range = range.get_Resize(rowCount, columnCount);
+                Range range = worksheet.Range["B" + initialRowNumber.ToString(CultureInfo.CurrentCulture), Type.Missing];
+                range = range.Resize[rowCount, columnCount];
                 range.set_Value(Missing.Value, rangeData);
 
                 this.FillBackGroundColor(range);
@@ -2921,9 +3075,10 @@
                 sb.Append(GetColumnString(maxColumnNumber) + "$" + (rowNumber - 1).ToString(CultureInfo.CurrentCulture));
                 string formula = sb.ToString();
 
-                worksheet.Names.Add(Properties.Resources.SEQUENCEDATA_PRESELECTION + sequence.ID, formula, true, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
+                worksheet.Names.Add(Resources.SEQUENCEDATA_PRESELECTION + GetValidFileNames(sequence.ID), 
+                    formula, true, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
 
-                Range fullSelection = worksheet.get_Range("B" + initialRowNumber.ToString(CultureInfo.CurrentCulture), GetColumnString(maxColumnNumber) + (rowNumber - 1).ToString(CultureInfo.CurrentCulture));
+                Range fullSelection = worksheet.Range["B" + initialRowNumber.ToString(CultureInfo.CurrentCulture), GetColumnString(maxColumnNumber) + (rowNumber - 1).ToString(CultureInfo.CurrentCulture)];
                 fullSelection.Select();
                 sequenceDataRange = fullSelection;
                 //added default from UI as auto detect and ignore space

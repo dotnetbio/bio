@@ -57,6 +57,7 @@ namespace BiodexExcel
             this.splitConfiguration = this.Factory.CreateRibbonSplitButton();
             this.btnMaxColumn = this.Factory.CreateRibbonButton();
             this.btnConfigureColor = this.Factory.CreateRibbonButton();
+            this.btnConfigureImport = this.Factory.CreateRibbonButton();
             this.groupAbout = this.Factory.CreateRibbonGroup();
             this.btnHomePage = this.Factory.CreateRibbonButton();
             this.btnUserManual = this.Factory.CreateRibbonButton();
@@ -283,6 +284,7 @@ namespace BiodexExcel
             this.splitConfiguration.Image = global::BiodexExcel.Properties.Resources.FromExcel;
             this.splitConfiguration.Items.Add(this.btnMaxColumn);
             this.splitConfiguration.Items.Add(this.btnConfigureColor);
+            this.splitConfiguration.Items.Add(this.btnConfigureImport);
             this.splitConfiguration.ItemSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
             this.splitConfiguration.KeyTip = "C";
             this.splitConfiguration.Label = "Configure";
@@ -306,6 +308,15 @@ namespace BiodexExcel
             this.btnConfigureColor.Label = "Change color scheme for molecules";
             this.btnConfigureColor.Name = "btnConfigureColor";
             this.btnConfigureColor.ShowImage = true;
+            // 
+            // btnConfigureImport
+            // 
+            this.btnConfigureImport.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.btnConfigureImport.Description = "Change how sequences are imported into spreadsheet";
+            this.btnConfigureImport.Image = global::BiodexExcel.Properties.Resources.FromExcel;
+            this.btnConfigureImport.Label = "Change import options";
+            this.btnConfigureImport.Name = "btnConfigureImport";
+            this.btnConfigureImport.ShowImage = true;
             // 
             // groupAbout
             // 
@@ -405,9 +416,7 @@ namespace BiodexExcel
         internal Microsoft.Office.Tools.Ribbon.RibbonButton btnMerge;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton btnIntersect;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton btnConfigureColor;
-
-
-
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton btnConfigureImport;
     }
 
     partial class ThisRibbonCollection : Microsoft.Office.Tools.Ribbon.RibbonReadOnlyCollection

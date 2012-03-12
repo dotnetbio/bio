@@ -177,7 +177,7 @@ using Bio;
         {
             BedParser parserObj = new BedParser();
             Assert.AreEqual(Constants.BedDescription, parserObj.Description);
-            Assert.AreEqual(Constants.BedFileTypes, parserObj.FileTypes);
+            Assert.AreEqual(Constants.BedFileTypes, parserObj.SupportedFileTypes);
             Assert.AreEqual(Constants.BedName, parserObj.Name);
         }
 

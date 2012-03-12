@@ -237,4 +237,7 @@ intervals that overlap with the second query.</value>
   <data name="Subtrtact_img2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\subtrtact_img2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="INVALID_SEQ_PER_SHEET" xml:space="preserve">
+    <value>The number of sequences per sheet must be numeric.</value>
+  </data>
 </root>

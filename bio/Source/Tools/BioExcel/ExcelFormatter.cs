@@ -52,15 +52,11 @@
         /// <summary>
         /// Convert fasta sequence id to a string array
         /// </summary>
-        public static string[,] FastAMetadataToRange(ISequence sequence)
+        public static string[,] SequenceIDHeaderToRange(ISequence sequence)
         {
-            string[,] formattedData;
-
-            formattedData = new string[1, 2];
-
+            var formattedData = new string[1,2];
             formattedData[0, 0] = Properties.Resources.Sequence_ID;
             formattedData[0, 1] = sequence.ID;
-
             return formattedData;
         }
 
@@ -361,6 +357,7 @@
         /// <param name="indent">Number of columns to indent on the left</param>
         /// <param name="name">name of metadata</param>
         /// <param name="value">value of metadata</param>
+        /// <param name="values">Additional values</param>
         private static void AddNameValuePair(
                 List<string[]> excelData,
                 int indent,

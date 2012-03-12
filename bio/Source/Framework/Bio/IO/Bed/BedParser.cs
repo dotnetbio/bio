@@ -124,7 +124,7 @@ namespace Bio.IO.Bed
         {
             SequenceRangeGrouping result = new SequenceRangeGrouping(ParseRange(reader));
 
-            if (null == result.GroupIDs || 0 == result.GroupIDs.Count())
+            if (null == result.GroupIDs || !result.GroupIDs.Any())
             {
                 string message = string.Format(CultureInfo.CurrentCulture, Properties.Resource.INVALID_INPUT_FILE, this.Name);
                 throw new InvalidDataException(message);
@@ -152,7 +152,7 @@ namespace Bio.IO.Bed
         /// <summary>
         /// Known file extensions for BED files
         /// </summary>
-        public string FileTypes
+        public string SupportedFileTypes
         {
             get { return Properties.Resource.BedFileFormats; }
         }
