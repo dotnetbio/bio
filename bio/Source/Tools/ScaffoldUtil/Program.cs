@@ -50,7 +50,7 @@ namespace ScaffoldUtil
         {
             if (ex.InnerException == null || string.IsNullOrEmpty(ex.InnerException.Message))
             {
-                DisplayErrorMessage(ex.Message);
+                Console.Error.WriteLine("Error: " + ex.Message);
             }
             else
             {
