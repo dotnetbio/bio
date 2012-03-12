@@ -123,14 +123,11 @@ Copyright (c) 2011, The Outercurve Foundation.
 </value>
   </data>
   <data name="UsageHelp" xml:space="preserve">
-    <value>Usage:    FileFormatConverter.exe inFile outFile
+    <value>Usage: FileFormatConverter.exe &lt;inFile&gt; &lt;outFile&gt;
 
-Default:  This command requires an input file and an output file.  The application will parse the input file based on the file's extension and then convert the input format to the output format based on the output file's extension.
-
-Options:
-
--I:FILE    Input file name, casing is required
--O:FILE  Output file name, casing is required
--U          Show usage information, casing is required</value>
-  </data>
+This command requires an input file and an output file.  The application will parse the input file based on the file's extension 
+and then convert the input format to the output format based on the output file's extension.  Note that some formatters require
+specific sequence input data to be used, for example FastQ requires quality scores.
+</value>
+</data>
 </root>

@@ -1,7 +1,5 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Bio.Util.ArgumentParser;
 using FileFormatConverter.Properties;
 
@@ -15,33 +13,27 @@ namespace FileFormatConverter
         /// <param name="args"></param>
         static void Main(string[] args)
         {
-            DisplayErrorMessage(Resources.SplashScreen);
+            Console.WriteLine(Resources.SplashScreen);
             try
             {
                 if (args == null || args.Length < 1)
                 {
-                    DisplayErrorMessage(Resources.UsageHelp);
+                    Console.WriteLine(Resources.UsageHelp);
                 }
                 else
                 {
-                    string[] arguments = new string[args.Length];
-                    for (int index = 0; index < args.Length; index++)
-                    {
-                        arguments[index] = args[index];
-                    }
-
-                    ConvertFileFormat(arguments);
+                    ConvertFileFormat(args.ToArray());
                 }
             }
             catch (Exception ex)
             {
                 if (ex.InnerException != null && !string.IsNullOrEmpty(ex.InnerException.Message))
                 {
-                    DisplayErrorMessage(ex.InnerException.Message);
+                    Console.WriteLine(ex.InnerException.Message);
                 }
                 else
                 {
-                    DisplayErrorMessage(ex.Message);
+                    Console.WriteLine(ex.Message);
                 }
             }
         }
@@ -59,9 +51,7 @@ namespace FileFormatConverter
             CommandLineArguments parser = new CommandLineArguments();
 
             //add parameters
-            parser.Parameter(ArgumentType.Optional, "Help", ArgumentValueType.Bool, "h", "Print the help information.");
-            parser.Parameter(ArgumentType.Optional, "OutputFile", ArgumentValueType.String, "o", "Output file formatted as specified.");
-            parser.Parameter(ArgumentType.Optional, "InputFile", ArgumentValueType.String, "i", "Input file");
+            parser.Parameter(ArgumentType.DefaultArgument, "FileList", ArgumentValueType.MultipleUniqueStrings, "", "Input and Output files.");
 
             if (args.Length > 0)
             {
@@ -71,34 +61,27 @@ namespace FileFormatConverter
                 }
                 catch (ArgumentException ex)
                 {
-                    DisplayErrorMessage(ex.Message);
-                    DisplayErrorMessage(Resources.UsageHelp);
+                    Console.WriteLine(ex.Message);
+                    Console.WriteLine(Resources.UsageHelp);
                     Environment.Exit(-1);
                 }
-                if (ffc.Help)
+
+                if (ffc.FileList.Length != 2)
                 {
-                    string usage = GetUsageMessage(ffc);
-                    DisplayErrorMessage(usage);
+                    Console.WriteLine(GetUsageMessage(ffc));
                 }
                 else
                 {
+                    ffc.InputFile = ffc.FileList[0];
+                    ffc.OutputFile = ffc.FileList[1];
+
                     ffc.ConvertFile();
                 }
             }
             else
             {
-                string usage = GetUsageMessage(ffc);
-                DisplayErrorMessage(usage);
+                Console.WriteLine(GetUsageMessage(ffc));
             }
-        }
-
-        /// <summary>
-        /// Display error message on console.
-        /// </summary>
-        /// <param name="message">Error message.</param>
-        private static void DisplayErrorMessage(string message)
-        {
-            Console.Write(message);
         }
 
         /// <summary>
