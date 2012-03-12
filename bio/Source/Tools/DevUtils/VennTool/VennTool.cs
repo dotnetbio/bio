@@ -10,7 +10,12 @@ namespace VennTool
         /// <summary>
         /// Display Verbose output during processing
         /// </summary>
-        public bool verbose;
+        public bool Verbose;
+
+        /// <summary>
+        /// Help
+        /// </summary>
+        public bool Help = false;
 
         /// <summary>
         /// PreSort .BED files prior to processing
@@ -34,7 +39,7 @@ namespace VennTool
 
         public VennToolArguments()
         {
-            verbose = false;
+            Verbose = false;
             preSort = false;
             polar = false;
             regionArray = new double[0];
@@ -51,6 +56,7 @@ namespace VennTool
         {
             // Display the program's splash screen
             Console.WriteLine("VennTool V1.0 - Copyright (c) 2011, The Outercurve Foundation.");
+            Console.WriteLine();
         }
 
         public static VennToolArguments ProcessCommandLineArguments(string[] args)
@@ -64,7 +70,8 @@ namespace VennTool
             parser.Parameter(ArgumentType.Optional, "xl", ArgumentValueType.String, "", "XL OutputFile");
             parser.Parameter(ArgumentType.Optional, "polar", ArgumentValueType.Bool, "", "Write result using polar coordinates");
             parser.Parameter(ArgumentType.Optional, "presort", ArgumentValueType.Bool, "", "PreSort .BED files prior to processing");
-            parser.Parameter(ArgumentType.Optional, "verbose", ArgumentValueType.Bool, "", "Display Verbose output during processing");
+            parser.Parameter(ArgumentType.Optional, "Verbose", ArgumentValueType.Bool, "v", "Display Verbose output during processing");
+            parser.Parameter(ArgumentType.Optional, "Help", ArgumentValueType.Bool, "h", "Print the help information.");
 
             try
             {
@@ -72,8 +79,14 @@ namespace VennTool
             }
             catch(ArgumentParserException ex)
             {
-                Console.Error.WriteLine("\nProcessCommandLineArguments Failed to parse properly.");
                 Console.Error.WriteLine(ex.Message);
+                DisplayHelpScreen();
+                Environment.Exit(-1);
+            }
+
+            if (parsedArgs.Help)
+            {
+                DisplayHelpScreen();
                 Environment.Exit(-1);
             }
 
@@ -88,9 +101,9 @@ namespace VennTool
                 Environment.Exit(-1);
             }
 
-            if (parsedArgs.verbose)
+            if (parsedArgs.Verbose)
             {
-                Console.WriteLine(parsedArgs.verbose);
+                Console.WriteLine(parsedArgs.Verbose);
                 Console.Write("RegionArray Size: {0}\n   [", parsedArgs.regionArray.Length);
                 for (int i = 0; i < parsedArgs.regionArray.Length; ++i)
                 {
@@ -103,6 +116,26 @@ namespace VennTool
             }
 
             return parsedArgs;
+        }
+
+        /// <summary>
+        /// Show the help screen.
+        /// </summary>
+        private static void DisplayHelpScreen()
+        {
+            Console.WriteLine("Usage:  VennTool [options] <A B AB> or <A B C AB AC BC ABC>");
+            Console.WriteLine("Where <A B AB> and <A B C AB AC BC ABC> are 3 or 7 values for regions in chart.");
+            Console.WriteLine();
+            Console.WriteLine("Description: VennTool generates a Venn Diagram from a region array.");
+            Console.WriteLine();
+
+            Console.WriteLine("Optional Parameters:");
+            Console.WriteLine();
+            Console.WriteLine("-xl:<string>   XL OutputFile");
+            Console.WriteLine("-polar         Write result using polar coordinates");
+            Console.WriteLine("-presort       PreSort .BED files prior to processing");
+            Console.WriteLine("-v             Display Verbose output during processing");
+            Console.WriteLine("-h             Print the help information.");
         }
 
         public static void Main(string[] args)
