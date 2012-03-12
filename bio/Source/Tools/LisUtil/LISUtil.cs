@@ -162,7 +162,7 @@ namespace LisUtil
             Console.Write("> {0}", displayID);
             if (myArgs.DisplayQueryLength)
             {
-                Console.Write(" {1}", querySequence.Count);
+                Console.Write(" "+querySequence.Count);
             }
 
             Console.WriteLine();
