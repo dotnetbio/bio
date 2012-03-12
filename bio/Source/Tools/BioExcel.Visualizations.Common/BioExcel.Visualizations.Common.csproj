@@ -48,7 +48,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.Office.Interop.Excel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c">
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="PresentationCore" />
@@ -63,6 +63,10 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="DialogBox\ImportConfiguration.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="DialogBox\OfficeColorPicker.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -120,6 +124,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Compile Include="CallbackDefinitions.cs" />
+    <Compile Include="DialogBox\ImportConfiguration.xaml.cs">
+      <DependentUpon>ImportConfiguration.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DialogBox\OfficeColorPicker.xaml.cs">
       <DependentUpon>OfficeColorPicker.xaml</DependentUpon>
     </Compile>
