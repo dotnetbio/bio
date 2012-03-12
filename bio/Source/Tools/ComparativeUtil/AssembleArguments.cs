@@ -9,7 +9,6 @@ using Bio.IO;
 using Bio.IO.FastA;
 using Bio.Util;
 using ComparativeUtil.Properties;
-using PadenaUtil;
 
 namespace ComparativeUtil
 {

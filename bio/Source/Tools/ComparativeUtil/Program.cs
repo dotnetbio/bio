@@ -1,7 +1,6 @@
 ﻿using System;
 using Bio.Util.ArgumentParser;
 using ComparativeUtil.Properties;
-using PadenaUtil;
 
 namespace ComparativeUtil
 {

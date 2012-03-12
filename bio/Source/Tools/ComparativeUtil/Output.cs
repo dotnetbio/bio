@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PadenaUtil
+namespace ComparativeUtil
 {
     /// <summary>
     /// Internal logging class used by utility
