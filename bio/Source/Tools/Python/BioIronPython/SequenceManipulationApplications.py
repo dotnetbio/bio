@@ -48,6 +48,27 @@ def ConcatenateSequences():
             if secondSet == None:
                 return None
         
+        # Check the alphabet - all sequences must be using same alphabet.
+        alphabet = Alphabets.DNA
+        selectedAlphabet = 0
+        for sequence in firstSet:
+           if selectedAlphabet == 0:
+              alphabet = sequence.Alphabet
+              selectedAlphabet = 1
+           elif sequence.Alphabet != alphabet:
+              print "Alphabet mismatch found in sequences (" + sequence.Alphabet.Name + " vs. " + alphabet.Name + "). Cannot concatenate."
+              return None
+        for sequence in secondSet:
+           if selectedAlphabet == 0:
+              alphabet = sequence.Alphabet
+              selectedAlphabet = 1
+           elif sequence.Alphabet != alphabet:
+              print "Alphabet mismatch found in sequences (" + sequence.Alphabet.Name + " vs. " + alphabet.Name + "). Cannot concatenate."
+              return None
+
+        # Output progress
+        print "Using alphabet: " + alphabet.Name
+
         # Get the output file name
         outPutFile = GetInputFileName("\nPlease enter the target sequence filename: ")
         
@@ -69,7 +90,7 @@ def ConcatenateSequences():
         finalSet = firstSetConcatenated + secondSetConcatenated
         
         # Create a new sequence object
-        concatenatedSeqence = Sequence(Alphabets.DNA, finalSet);
+        concatenatedSeqence = Sequence(alphabet, finalSet);
         
         # Save the sequence to the outputFile
         save_seq(concatenatedSeqence, outPutFile)
