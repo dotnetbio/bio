@@ -256,7 +256,7 @@ namespace PadenaUtil
                     && statusEventArgs.StatusMessage.Contains("Start"))
                 {
                     int pos = statusEventArgs.StatusMessage.IndexOf(" - ");
-                    Output.WriteLine(OutputLevel.Information, statusEventArgs.StatusMessage.Substring(0,pos-1));
+                    Output.WriteLine(OutputLevel.Information, statusEventArgs.StatusMessage.Substring(0,pos));
                 }
             }
         }
