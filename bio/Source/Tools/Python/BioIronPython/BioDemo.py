@@ -1,6 +1,7 @@
 import clr
 import sys
 import time
+import traceback
 
 # Adding the dll reference will throw an exception if we're debugging in VS from the Python
 # development dir, instead of the standard non-dev method of running from the bin\Debug dir or an
@@ -88,7 +89,9 @@ def BioDemo():
                 print "Input sequence must have at least 500 basepairs."
 
         except:
-            print "An error occurred: " + `sys.exc_info()` + "\n"
+            print "An error occurred:"
+            traceback.print_exc()
+            print "\n"
 
         # prompt to go again
         again = " "
