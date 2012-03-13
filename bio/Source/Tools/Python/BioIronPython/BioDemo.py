@@ -59,10 +59,14 @@ def BioDemo():
                 print "The fragments have been assembled into " + `len(contig_list)` + " contigs, with",
                 print `len(assembly.UnmergedSequences)` + " unmerged fragments."
                 print "The longest contig has a length of " + `int(contig_list[0].Length)` + "."
-                print "Let's do a BLAST search with it.  (This may also take a minute.)\n"
-
+                print "Let's do a BLAST search with it. (This may also take a minute.)\n"
+                  
                 # run BLAST search
-                job_id = submit_blast_search(contig_list[0].Consensus)
+                try:
+                   job_id = submit_blast_search(contig_list[0].Consensus, 1)
+                except:
+                   print "Browser proxy failed, attempting direct BLAST search request. "
+                   job_id = submit_blast_search(contig_list[0].Consensus, 0)
 
                 # wait for response
                 for i in range(1, 13):

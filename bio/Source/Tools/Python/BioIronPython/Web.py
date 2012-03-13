@@ -7,11 +7,7 @@ from System.IO import *
 
 _service = NCBIBlastHandler()
 
-_config_params = ConfigParameters()
-_config_params.UseBrowserProxy = 1
-_service.Configuration = _config_params
-
-def submit_blast_search(seq):
+def submit_blast_search(seq, useProxy):
     "Submits a BLAST search for the given sequence.\n\
     Returns a job ID to use in polling the service."
 
@@ -20,6 +16,10 @@ def submit_blast_search(seq):
     _search_params.Add("Database", "nr")
     _search_params.Add("Expect", "1e-10")
     _search_params.Add("CompositionBasedStatistics", "0")
+
+    _config_params = ConfigParameters()
+    _config_params.UseBrowserProxy = useProxy 
+    _service.Configuration = _config_params
 
     job_id = _service.SubmitRequest(seq, _search_params)
     status = _service.GetRequestStatus(job_id)
