@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using System.IO;
 
 namespace Bio.IO
@@ -8,6 +9,7 @@ namespace Bio.IO
     /// Implementations of this interface are designed to parse a file from a particular file
     /// format to produce an ISequence or collection of ISequence.
     /// </summary>
+    [InheritedExport(".NetBioSequenceParsersExport", typeof(ISequenceParser))]
     public interface ISequenceParser : IParser, IDisposable
     {
         /// <summary>

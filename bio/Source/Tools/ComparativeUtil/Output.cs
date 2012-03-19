@@ -5,7 +5,7 @@ namespace ComparativeUtil
     /// <summary>
     /// Internal logging class used by utility
     /// </summary>
-    internal static class Output
+    public static class Output
     {
         private static OutputLevel _traceLevel;
 
@@ -59,12 +59,27 @@ namespace ComparativeUtil
     /// The output level requested
     /// </summary>
     [Flags]
-    internal enum OutputLevel
+    public enum OutputLevel
     {
+        /// <summary>
+        /// Required
+        /// </summary>
         Required = 1,
+        /// <summary>
+        /// Error
+        /// </summary>
         Error = 2,
+        /// <summary>
+        /// Info
+        /// </summary>
         Information = 4,
+        /// <summary>
+        /// Verbose (all)
+        /// </summary>
         Verbose = 8,
+        /// <summary>
+        /// Output results
+        /// </summary>
         Results = 16,
     }
 }

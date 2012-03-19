@@ -237,7 +237,7 @@ namespace PadenaUtil
         {
             ISequenceParser parser = SequenceParsers.FindParserByFileName(fileName);
             if (parser == null)
-                throw new Exception("Could not locate an appropriate sequence parser for " + fileName);
+                parser = new FastAParser(fileName);
 
             return parser.Parse();
         }
@@ -252,10 +252,10 @@ namespace PadenaUtil
                 Output.WriteLine(OutputLevel.Verbose,  statusEventArgs.StatusMessage);
             else if (!Quiet)
             {
-                if (statusEventArgs.StatusMessage.StartsWith("Step")
+                if (statusEventArgs.StatusMessage.StartsWith("Step", StringComparison.OrdinalIgnoreCase)
                     && statusEventArgs.StatusMessage.Contains("Start"))
                 {
-                    int pos = statusEventArgs.StatusMessage.IndexOf(" - ");
+                    int pos = statusEventArgs.StatusMessage.IndexOf(" - ", StringComparison.OrdinalIgnoreCase);
                     Output.WriteLine(OutputLevel.Information, statusEventArgs.StatusMessage.Substring(0,pos));
                 }
             }

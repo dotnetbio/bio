@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Bio.IO.FastA;
 using Bio.IO.FastQ;
@@ -50,32 +51,26 @@ namespace Bio.IO
             genBank
         };
 
-        #if (SILVERLIGHT == false)
-		    /// <summary>
-            /// Initializes static members of the SequenceFormatters class.
-            /// </summary>
-            static SequenceFormatters()
+		/// <summary>
+        /// Initializes static members of the SequenceFormatters class.
+        /// </summary>
+#if (SILVERLIGHT == false)
+        static SequenceFormatters()
+		{
+            // get the registered formatter
+            IList<ISequenceFormatter> registeredFormatters = GetSequenceFormatters();
+            if (null != registeredFormatters)
             {
-                // get the registered formatter
-                IList<ISequenceFormatter> registeredFormatters = GetSequenceFormatters(true);
-
-                if (null != registeredFormatters && registeredFormatters.Count > 0)
+                foreach (ISequenceFormatter formatter in registeredFormatters.Where(
+                    formatter => formatter != null && 
+                        !all.Any(rfm => 
+                            string.Compare(rfm.Name,formatter.Name,StringComparison.OrdinalIgnoreCase) == 0)))
                 {
-                    foreach (ISequenceFormatter formatter in registeredFormatters)
-                    {
-                        if (formatter != null && all.FirstOrDefault(IA => string.Compare(
-                            IA.Name,
-                            formatter.Name,
-                            StringComparison.OrdinalIgnoreCase) == 0) == null)
-                        {
-                            all.Add(formatter);
-                        }
-                    }
-
-                    registeredFormatters.Clear();
+                    all.Add(formatter);
                 }
-            }  
-        #endif
+            }
+        }
+#endif
 
         /// <summary>
         /// Gets an instance of FastaFormatter class which is capable of
@@ -165,7 +160,17 @@ namespace Bio.IO
                 }
                 else
                 {
-                    formatter = null;
+                    // Do a search through the known formatters to pick up custom formatters added through add-in.
+                    string fileExtension = Path.GetExtension(fileName);
+                    if (!string.IsNullOrEmpty(fileExtension))
+                    {
+                        formatter = All.FirstOrDefault(p => p.SupportedFileTypes.Contains(fileExtension));
+                        // If we found a match based on extension, then open the file - this 
+                        // matches the above behavior where a specific formatter was created for
+                        // the passed filename - the formatter is opened automatically in the constructor.
+                        if (formatter != null)
+                            formatter.Open(fileName);
+                    }
                 }
             }
 
@@ -202,7 +207,13 @@ namespace Bio.IO
                 }
                 else
                 {
-                    formatter = null;
+                    // Do a search through the known formatters to pick up custom formatters added through add-in.
+                    formatter = All.FirstOrDefault(p => p.Name == formatterName);
+                    // If we found a match based on extension, then open the file - this 
+                    // matches the above behavior where a specific formatter was created for
+                    // the passed filename - the formatter is opened automatically in the constructor.
+                    if (formatter != null)
+                        formatter.Open(fileName);
                 }
             }
 
@@ -248,38 +259,29 @@ namespace Bio.IO
             return Helper.IsGenBank(fileName);
         }
 
-        #if (SILVERLIGHT == false)
-		    /// <summary>
-            /// Gets all registered formatters in core folder and addins (optional) folders.
-            /// </summary>
-            /// <param name="includeAddinFolder">Include add-ins folder or not.</param>
-            /// <returns>List of registered formatters.</returns>
-            private static IList<ISequenceFormatter> GetSequenceFormatters(bool includeAddinFolder)
+#if (SILVERLIGHT == false)
+		/// <summary>
+        /// Gets all registered formatters in core folder and addins (optional) folders.
+        /// </summary>
+        /// <returns>List of registered formatters.</returns>
+        private static IList<ISequenceFormatter> GetSequenceFormatters()
+        {
+            IList<ISequenceFormatter> registeredFormatters = new List<ISequenceFormatter>();
+
+            IList<ISequenceFormatter> addInFormatters = Registration.RegisteredAddIn.GetComposedInstancesFromAssemblyPath<ISequenceFormatter>(
+                            ".NetBioSequenceFormattersExport", Registration.RegisteredAddIn.AddinFolderPath, Registration.RegisteredAddIn.DLLFilter);
+            if (null != addInFormatters && addInFormatters.Count > 0)
             {
-                IList<ISequenceFormatter> registeredFormatters = new List<ISequenceFormatter>();
-
-                if (includeAddinFolder)
+                foreach (ISequenceFormatter formatter in addInFormatters.Where(
+                    formatter => formatter != null && !registeredFormatters.Any(rfm => 
+                        string.Compare(rfm.Name, formatter.Name, StringComparison.OrdinalIgnoreCase) == 0)))
                 {
-                    IList<ISequenceFormatter> addInFormatters;
-                    if (null != Bio.Registration.RegisteredAddIn.AddinFolderPath)
-                    {
-                        addInFormatters = Bio.Registration.RegisteredAddIn.GetInstancesFromAssemblyPath<ISequenceFormatter>(Bio.Registration.RegisteredAddIn.AddinFolderPath, Bio.Registration.RegisteredAddIn.DLLFilter);
-                        if (null != addInFormatters && addInFormatters.Count > 0)
-                        {
-                            foreach (ISequenceFormatter formatter in addInFormatters)
-                            {
-                                if (formatter != null && registeredFormatters.FirstOrDefault(IA => string.Compare(
-                                    IA.Name, formatter.Name, StringComparison.OrdinalIgnoreCase) == 0) == null)
-                                {
-                                    registeredFormatters.Add(formatter);
-                                }
-                            }
-                        }
-                    }
+                    registeredFormatters.Add(formatter);
                 }
-
-                return registeredFormatters;
             }
-        #endif
+
+		    return registeredFormatters;
+        }
+#endif
     }
 }

@@ -41,10 +41,10 @@ namespace Bio.Algorithms.Alignment
         /// </summary>
         private static List<ISequenceAligner> all = new List<ISequenceAligner>() 
         { 
-            SequenceAligners.smithAlign, 
-            SequenceAligners.needlemanAlign,
-            SequenceAligners.mummerAlign,
-            SequenceAligners.nucmerAlign
+            smithAlign, 
+            needlemanAlign,
+            mummerAlign,
+            nucmerAlign
         };
 
         /// <summary>
@@ -54,23 +54,16 @@ namespace Bio.Algorithms.Alignment
         static SequenceAligners()
         {
             // Get the registered aligners
-            IList<ISequenceAligner> registeredAligners = GetAligners(true);
+            IList<ISequenceAligner> registeredAligners = GetAligners();
 
-            if (null != registeredAligners && registeredAligners.Count > 0)
+            if (null != registeredAligners)
             {
-                foreach (ISequenceAligner aligner in registeredAligners)
+                foreach (ISequenceAligner aligner in registeredAligners.Where(
+                    aligner => aligner != null && !all.Any(
+                        sa => string.Compare(sa.Name, aligner.Name, StringComparison.OrdinalIgnoreCase) == 0)))
                 {
-                    if (aligner != null && all.FirstOrDefault(IA => 
-                        string.Compare(
-                        IA.Name,
-                        aligner.Name, 
-                        StringComparison.OrdinalIgnoreCase) == 0) == null)
-                    {
-                        all.Add(aligner);
-                    }
+                    all.Add(aligner);
                 }
-
-                registeredAligners.Clear();
             }
         }
 
@@ -136,30 +129,19 @@ namespace Bio.Algorithms.Alignment
         /// <summary>
         /// Gets all registered aligners in core folder and addins (optional) folders
         /// </summary>
-        /// <param name="includeAddinFolder">include add-ins folder or not</param>
         /// <returns>List of registered aligners</returns>
-        private static IList<ISequenceAligner> GetAligners(bool includeAddinFolder)
+        private static IList<ISequenceAligner> GetAligners()
         {
             IList<ISequenceAligner> registeredAligners = new List<ISequenceAligner>();
-
-            if (includeAddinFolder)
+            IList<ISequenceAligner> addInAligners = RegisteredAddIn.GetComposedInstancesFromAssemblyPath<ISequenceAligner>(
+                "NetBioSequenceAlignersExport", RegisteredAddIn.AddinFolderPath, RegisteredAddIn.DLLFilter);
+            if (null != addInAligners && addInAligners.Count > 0)
             {
-                IList<ISequenceAligner> addInAligners;
-                if (null != RegisteredAddIn.AddinFolderPath)
+                foreach (ISequenceAligner aligner in addInAligners.Where(
+                    aligner => aligner != null && !registeredAligners.Any(
+                        sa => string.Compare(sa.Name, aligner.Name, StringComparison.OrdinalIgnoreCase) == 0)))
                 {
-                    addInAligners = RegisteredAddIn.GetInstancesFromAssemblyPath<ISequenceAligner>(RegisteredAddIn.AddinFolderPath, RegisteredAddIn.DLLFilter);
-                    if (null != addInAligners && addInAligners.Count > 0)
-                    {
-                        foreach (ISequenceAligner aligner in addInAligners)
-                        {
-                            if (aligner != null &&
-                                registeredAligners.FirstOrDefault(IA => string.Compare(IA.Name, aligner.Name,
-                                    StringComparison.OrdinalIgnoreCase) == 0) == null)
-                            {
-                                registeredAligners.Add(aligner);
-                            }
-                        }
-                    }
+                    registeredAligners.Add(aligner);
                 }
             }
             return registeredAligners;

@@ -5,7 +5,7 @@ namespace ConsensusUtil
     /// <summary>
     /// Internal logging class used by utility
     /// </summary>
-    internal static class Output
+    public static class Output
     {
         private static OutputLevel _traceLevel;
 
@@ -59,7 +59,7 @@ namespace ConsensusUtil
     /// The output level requested
     /// </summary>
     [Flags]
-    internal enum OutputLevel
+    public enum OutputLevel
     {
         Required = 1,
         Error = 2,

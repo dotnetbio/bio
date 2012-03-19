@@ -15,18 +15,18 @@ namespace LayoutRefinementUtil
         /// <param name="args">Arguments to the main method.</param>
         public static void Main(string[] args)
         {
-            DisplayErrorMessage(Resources.LayoutRefinementSplashScreen);
+            Output.WriteLine(OutputLevel.Required, Resources.LayoutRefinementSplashScreen);
             try
             {
                 if ((args == null) || (args.Length < 2))
                 {
-                    DisplayErrorMessage(Resources.LayoutRefinementUtilHelp);
+                    Output.WriteLine(OutputLevel.Required, Resources.LayoutRefinementUtilHelp);
                 }
                 else
                 {
                     if (args[0].Equals("Help", StringComparison.OrdinalIgnoreCase))
                     {
-                        DisplayErrorMessage(Resources.LayoutRefinementUtilHelp);
+                        Output.WriteLine(OutputLevel.Required, Resources.LayoutRefinementUtilHelp);
                     }
                     else
                     {
@@ -50,7 +50,7 @@ namespace LayoutRefinementUtil
         {
             if (ex.InnerException == null || string.IsNullOrEmpty(ex.InnerException.Message))
             {
-                DisplayErrorMessage(ex.Message);
+                Output.WriteLine(OutputLevel.Error, "Error: " + ex.Message);
             }
             else
             {
@@ -72,6 +72,7 @@ namespace LayoutRefinementUtil
             parser.Parameter(ArgumentType.Optional, "Help", ArgumentValueType.Bool, "h", "Print the help information.");
             parser.Parameter(ArgumentType.Optional, "OutputFile", ArgumentValueType.String, "o", "Output file");
             parser.Parameter(ArgumentType.Optional, "Verbose", ArgumentValueType.Bool, "v", "Display verbose logging during processing.");
+
             if (args.Length > 1)
             {
                 try
@@ -80,53 +81,29 @@ namespace LayoutRefinementUtil
                 }
                 catch (ArgumentException ex)
                 {
-                    DisplayErrorMessage(ex.Message);
-                    DisplayErrorMessage(Resources.LayoutRefinementUtilHelp);
-                    Environment.Exit(-1);
+                    Output.WriteLine(OutputLevel.Error, ex.Message);
+                    Output.WriteLine(OutputLevel.Required, Resources.LayoutRefinementUtilHelp);
+                    return;
                 }
 
-                if (arguments.Help)
+                if (arguments.Help || arguments.FilePath.Length != 2)
                 {
-                    DisplayErrorMessage(Resources.LayoutRefinementUtilHelp);
-                }
-                else if (arguments.FilePath.Length == 2)
-                {
-                    arguments.RefineLayout();
+                    Output.WriteLine(OutputLevel.Required, Resources.LayoutRefinementUtilHelp);
                 }
                 else
                 {
-                    DisplayErrorMessage(Resources.LayoutRefinementUtilHelp);
+                    if (arguments.Verbose)
+                        Output.TraceLevel = OutputLevel.Information | OutputLevel.Verbose;
+                    else
+                        Output.TraceLevel = OutputLevel.Information;
+
+                    arguments.RefineLayout();
                 }
             }
             else
             {
-                DisplayErrorMessage(Resources.LayoutRefinementUtilHelp);
+                Output.WriteLine(OutputLevel.Required, Resources.LayoutRefinementUtilHelp);
             }
-        }
-
-        /// <summary>
-        /// Display error message on console.
-        /// </summary>
-        /// <param name="message">Error message.</param>
-        private static void DisplayErrorMessage(string message)
-        {
-            Console.Write(message);
-        }
-
-        /// <summary>
-        /// Removes the command line.
-        /// </summary>
-        /// <param name="args">Arguments to remove.</param>
-        /// <returns>Returns the arguments.</returns>
-        private static string[] RemoveCommandLine(string[] args)
-        {
-            string[] arguments = new string[args.Length - 1];
-            for (int index = 0; index < args.Length - 1; index++)
-            {
-                arguments[index] = args[index + 1];
-            }
-
-            return arguments;
         }
 
         #endregion

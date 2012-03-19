@@ -4,7 +4,6 @@ using System.IO;
 using Bio.Algorithms.Alignment;
 using Bio.Algorithms.Assembly.Comparative;
 using Bio.Util;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace LayoutRefinementUtil
@@ -62,10 +61,10 @@ namespace LayoutRefinementUtil
 
             if (this.Verbose)
             {
-                Console.Error.WriteLine();
-                Console.Error.WriteLine("  Processed Query FastA file: {0}", Path.GetFullPath(this.FilePath[1]));
-                Console.Error.WriteLine("            Read/Processing time: {0}", runAlgorithm.Elapsed);
-                Console.Error.WriteLine("            File Size           : {0}", inputFileLength);
+                Output.WriteLine(OutputLevel.Verbose);
+                Output.WriteLine(OutputLevel.Verbose, "Processed Query FastA file: {0}", Path.GetFullPath(this.FilePath[1]));
+                Output.WriteLine(OutputLevel.Verbose, "   Read/Processing time   : {0}", runAlgorithm.Elapsed);
+                Output.WriteLine(OutputLevel.Verbose, "   File Size              : {0}", inputFileLength);
             }
 
             inputFileinfo = new FileInfo(this.FilePath[0]);
@@ -78,10 +77,10 @@ namespace LayoutRefinementUtil
 
                 if (this.Verbose)
                 {
-                    Console.Error.WriteLine();
-                    Console.Error.WriteLine("  Processed DeltaAlignment file: {0}", Path.GetFullPath(this.FilePath[0]));
-                    Console.Error.WriteLine("            Read/Processing time: {0}", runAlgorithm.Elapsed);
-                    Console.Error.WriteLine("            File Size           : {0}", inputFileLength);
+                    Output.WriteLine(OutputLevel.Verbose);
+                    Output.WriteLine(OutputLevel.Verbose, "Processed DeltaAlignment file: {0}", Path.GetFullPath(this.FilePath[0]));
+                    Output.WriteLine(OutputLevel.Verbose, "   Read/Processing time      : {0}", runAlgorithm.Elapsed);
+                    Output.WriteLine(OutputLevel.Verbose, "   File Size                 : {0}", inputFileLength);
                 }
 
                 runAlgorithm.Restart();
@@ -98,8 +97,9 @@ namespace LayoutRefinementUtil
 
             if (this.Verbose)
             {
-                Console.Error.WriteLine("  Compute time: {0}", timeSpan);
-                Console.Error.WriteLine("  Write() time: {0}", runAlgorithm.Elapsed);
+                Output.WriteLine(OutputLevel.Verbose);
+                Output.WriteLine(OutputLevel.Verbose, "Compute time: {0}", timeSpan);
+                Output.WriteLine(OutputLevel.Verbose, "Write time: {0}", runAlgorithm.Elapsed);
             }
         }
 
@@ -112,7 +112,7 @@ namespace LayoutRefinementUtil
         /// </summary>
         /// <param name="sorter">Sorter instance.</param>
         /// <param name="unsortedDeltaFilename">Unsorted Delta Filename.</param>
-        /// <param name="queryFilename">Query/read sequences filename.</param>
+        /// <param name="queryParser">Query/Read parser</param>
         /// <param name="outputfilename">Output file name.</param>
         private static void WriteSortedDelta(DeltaAlignmentSorter sorter, string unsortedDeltaFilename, FastASequencePositionParser queryParser, string outputfilename)
         {
@@ -124,6 +124,7 @@ namespace LayoutRefinementUtil
                 {
                     if (!string.IsNullOrEmpty(outputfilename))
                     {
+                        Output.WriteLine(OutputLevel.Required);
                         streamWriterConsoleOut = new StreamWriter(outputfilename);
                         Console.SetOut(streamWriterConsoleOut);
                     }
@@ -143,11 +144,7 @@ namespace LayoutRefinementUtil
                 finally
                 {
                     if (streamWriterConsoleOut != null)
-                    {
                         streamWriterConsoleOut.Dispose();
-                        streamWriterConsoleOut = null;
-                    }
-
                     Console.SetOut(textWriterConsoleOutSave);
                 }
             }
@@ -157,6 +154,7 @@ namespace LayoutRefinementUtil
         /// Writes delta for query sequences.
         /// </summary>
         /// <param name="deltaAlignments">Delta alignments to write.</param>
+        /// <param name="sorter"> </param>
         /// <param name="filename">File name to write.</param>
         private static void WriteDelta(IEnumerable<DeltaAlignment> deltaAlignments, DeltaAlignmentSorter sorter, string filename)
         {

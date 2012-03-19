@@ -38,3 +38,4 @@
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope = "member", Target = "LISUtil.Utils.Parser.#IsValidElementType(System.Type)")]
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1824:MarkAssembliesWithNeutralResourcesLanguage")]
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1505:AvoidUnmaintainableCode", Scope = "member", Target = "LisUtil.LISUtil.#Main(System.String[])")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.Write(System.String)", Scope = "member", Target = "LisUtil.LISUtil.#WriteMums(System.Collections.Generic.IEnumerable`1<Bio.Algorithms.SuffixTree.Match>,Bio.ISequence,Bio.ISequence,LisUtil.LISUtil+CommandLineOptions)")]

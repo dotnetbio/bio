@@ -57,7 +57,7 @@ namespace FileFormatConverter
                     outputFormatter.Write(sequence);
                 }
             }
-            catch (Exception ex)
+            catch
             {
                 throw new OperationCanceledException(
                     string.Format("Unable to convert sequences from {0} to {1} - verify that the input sequences have the appropriate type of data to convert to the output formatter.",

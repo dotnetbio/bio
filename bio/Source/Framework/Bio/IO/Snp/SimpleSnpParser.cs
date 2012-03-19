@@ -1,14 +1,15 @@
-﻿namespace Bio.IO.Snp
-{
+﻿using System.ComponentModel.Composition;
 
+namespace Bio.IO.Snp
+{
     /// <summary>
     /// Simple SNP Parser that uses an XsvSnpReader for parsing files with 
     /// chromosome number, position, allele 1 and allele 2 in tab separated 
     /// columns into sequences with the first allele.
     /// </summary>
+    [PartNotDiscoverable]
     public class SimpleSnpParser : SnpParser
     {
-
         #region Constructor
         /// <summary>
         /// Creates a SimpleSnpParser which generates parsed sequences that use the the 
@@ -18,7 +19,6 @@
         public SimpleSnpParser(IAlphabet alphabet)
             : base(alphabet)
         {
-
         }
 
         /// <summary>
@@ -66,6 +66,5 @@
         }
 
         #endregion
-
     }
 }

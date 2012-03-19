@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.Composition;
 
 namespace Bio
 {
@@ -13,6 +14,7 @@ namespace Bio
     /// definition remains ambiguous are all allowed.
     /// </para>
     /// </summary>
+    [InheritedExport("NetBioAlphabetsExport", typeof(IAlphabet))]
     public interface IAlphabet : IEnumerable<byte>
     {
         /// <summary>

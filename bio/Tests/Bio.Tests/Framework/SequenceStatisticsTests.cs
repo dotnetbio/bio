@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bio.Tests.Framework
+namespace Bio.Tests
 {
     /// <summary>
     /// Sequence statistics tests

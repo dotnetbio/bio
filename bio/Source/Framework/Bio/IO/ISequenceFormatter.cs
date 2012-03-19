@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.Composition;
 using System.IO;
 
 namespace Bio.IO
@@ -7,6 +8,7 @@ namespace Bio.IO
     /// Implementations of this interface write an ISequence to a particular location, usually a
     /// file. The output is formatted according to the particular file format.
     /// </summary>
+    [InheritedExport(".NetBioSequenceFormattersExport", typeof(ISequenceFormatter))]
     public interface ISequenceFormatter : IFormatter, IDisposable
     {
         /// <summary>

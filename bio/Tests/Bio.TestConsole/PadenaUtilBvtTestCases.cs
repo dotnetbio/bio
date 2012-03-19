@@ -72,6 +72,17 @@ namespace Bio.TestConsole
         }
 
         /// <summary>
+        /// Validate PadenaUtil with AssembleWithScaffold command and validate the expected results file.
+        /// </summary>
+        [TestMethod]
+        [Priority(0)]
+        [TestCategory("Priority0")]
+        public void ValidatePadenaUtilAssembleWithScaffoldAndQuiet()
+        {
+            //ValidatePadenaUtil(Constants.PadenaUtilAssembleWithScaffoldNode, false);
+        }
+
+        /// <summary>
         /// Validate PadenaUtil with Assemble command on E-Coli data and validate the expected results file.
         /// </summary>
         /// Due to capacity improvement, this test cases are now taking more than 30 mins. So commenting this test case
@@ -95,10 +106,10 @@ namespace Bio.TestConsole
             string utilCommand = utilityObj.xmlUtil.GetTextValue(
                 Constants.HelpValidationNodeName, Constants.PadenaUtilHelpCommandNodeName);
             Utility.RunProcess(@".\TestUtils\RunUtil.cmd", utilCommand);
-            string output = Utility.commandOutput;
+            string output = Utility.standardOut.Replace("\r", "").Replace("\n", "").Replace("\t", "").Replace(" ", "");
             string expectedHelpFile = utilityObj.xmlUtil.GetTextValue(
                 Constants.HelpValidationNodeName, Constants.PadenaUtilExpectedHelpNodeName);
-            string expectedOutput = File.ReadAllText(expectedHelpFile);
+            string expectedOutput = File.ReadAllText(expectedHelpFile).Replace("\r", "").Replace("\n", "").Replace("\t", "").Replace(" ", "");
             Assert.IsTrue(output.Contains(expectedOutput.Trim()));
         }
 
@@ -130,11 +141,10 @@ namespace Bio.TestConsole
 
             if (verbose)
             {
-                string expectedVerbose = utilityObj.xmlUtil.GetTextValue(
-                        nodeName, Constants.VerboseResultNode);
+                string expectedVerbose = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.VerboseResultNode);
                 string expectedVerboseResult = expectedVerbose.Replace(" ", "");
                 string[] verboseExpected = expectedVerboseResult.Split(',');
-                string actualVerboseString = Utility.verboseOutput.Replace("\t", "").Replace("\r", "").Replace("\n", "").Replace(" ", "").Trim();
+                string actualVerboseString = Utility.standardOut.Replace("\t", "").Replace("\r", "").Replace("\n", "").Replace(" ", "").Trim();
 
                 for (int i = 0; i < verboseExpected.Length; i++)
                 {

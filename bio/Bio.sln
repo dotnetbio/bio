@@ -84,9 +84,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BioExcel.Visualizations.Com
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileFormatConverter", "Source\Tools\FileFormatConverter\FileFormatConverter.csproj", "{A60BA4EA-5EF2-4CDD-BAEA-2B08815A76B5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bio.IO", "Source\Framework\Bio.IO\Bio.IO.csproj", "{A35052D0-B35E-4FD7-B44F-D98AF21FE05A}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 38
+		SccNumberOfProjects = 39
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs09
 		SccLocalPath0 = .
@@ -201,6 +203,9 @@ Global
 		SccProjectUniqueName37 = Tests\\Bio.TestUtils\\Bio.TestUtils.csproj
 		SccProjectName37 = Tests/Bio.TestUtils
 		SccLocalPath37 = Tests\\Bio.TestUtils
+		SccProjectUniqueName38 = Source\\Framework\\Bio.IO\\Bio.IO.csproj
+		SccProjectName38 = Source/Framework/Bio.IO
+		SccLocalPath38 = Source\\Framework\\Bio.IO
 	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = Bio1.vsmdi
@@ -358,6 +363,10 @@ Global
 		{A60BA4EA-5EF2-4CDD-BAEA-2B08815A76B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A60BA4EA-5EF2-4CDD-BAEA-2B08815A76B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A60BA4EA-5EF2-4CDD-BAEA-2B08815A76B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A35052D0-B35E-4FD7-B44F-D98AF21FE05A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A35052D0-B35E-4FD7-B44F-D98AF21FE05A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A35052D0-B35E-4FD7-B44F-D98AF21FE05A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A35052D0-B35E-4FD7-B44F-D98AF21FE05A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

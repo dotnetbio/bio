@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.Composition;
 using Bio.Algorithms.Assembly;
 
 namespace Bio.IO.Xsv
@@ -18,6 +19,7 @@ namespace Bio.IO.Xsv
     /// 4,T
     /// 14,G
     /// </summary>
+    [PartNotDiscoverable]
     public class XsvContigFormatter : XsvSparseFormatter 
     {
         /// <summary>

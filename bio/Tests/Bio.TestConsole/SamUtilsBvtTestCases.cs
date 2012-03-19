@@ -183,7 +183,7 @@ namespace Bio.TestConsole
             string utilCommand = utilityObj.xmlUtil.GetTextValue(
                 Constants.HelpValidationNodeName, Constants.SamUtilsHelpCommandNodeName);
             Utility.RunProcess(@".\TestUtils\RunUtil.cmd", utilCommand);
-            string output = Utility.commandOutput;
+            string output = Utility.standardOut;
             string expectedHelpFile = utilityObj.xmlUtil.GetTextValue(
                 Constants.HelpValidationNodeName, Constants.SamUtilsExpectedHelpNodeName);
             string expectedOutput = File.ReadAllText(expectedHelpFile);
@@ -201,7 +201,7 @@ namespace Bio.TestConsole
             string utilCommand = utilityObj.xmlUtil.GetTextValue(
                 Constants.HelpValidationNodeName, Constants.SamUtilsImportHelpCommandNodeName);
             Utility.RunProcess(@".\TestUtils\RunUtil.cmd", utilCommand);
-            string output = Utility.commandOutput;
+            string output = Utility.standardOut;
             string expectedHelpFile = utilityObj.xmlUtil.GetTextValue(
                 Constants.HelpValidationNodeName, Constants.SamUtilsImportExpectedHelpNodeName);
             string expectedOutput = File.ReadAllText(expectedHelpFile);
@@ -219,7 +219,7 @@ namespace Bio.TestConsole
             string utilCommand = utilityObj.xmlUtil.GetTextValue(
                 Constants.HelpValidationNodeName, Constants.SamUtilsMergeHelpCommandNodeName);
             Utility.RunProcess(@".\TestUtils\RunUtil.cmd", utilCommand);
-            string output = Utility.commandOutput;
+            string output = Utility.standardOut;
             string expectedHelpFile = utilityObj.xmlUtil.GetTextValue(
                 Constants.HelpValidationNodeName, Constants.SamUtilsMergeExpectedHelpNodeName);
             string expectedOutput = File.ReadAllText(expectedHelpFile);
@@ -237,7 +237,7 @@ namespace Bio.TestConsole
             string utilCommand = utilityObj.xmlUtil.GetTextValue(
                 Constants.HelpValidationNodeName, Constants.SamUtilsIndexHelpCommandNodeName);
             Utility.RunProcess(@".\TestUtils\RunUtil.cmd", utilCommand);
-            string output = Utility.commandOutput;
+            string output = Utility.standardOut;
             string expectedHelpFile = utilityObj.xmlUtil.GetTextValue(
                 Constants.HelpValidationNodeName, Constants.SamUtilsIndexExpectedHelpNodeName);
             string expectedOutput = File.ReadAllText(expectedHelpFile);
@@ -255,7 +255,7 @@ namespace Bio.TestConsole
             string utilCommand = utilityObj.xmlUtil.GetTextValue(
                 Constants.HelpValidationNodeName, Constants.SamUtilsViewHelpCommandNodeName);
             Utility.RunProcess(@".\TestUtils\RunUtil.cmd", utilCommand);
-            string output = Utility.commandOutput;
+            string output = Utility.standardOut;
             string expectedHelpFile = utilityObj.xmlUtil.GetTextValue(
                 Constants.HelpValidationNodeName, Constants.SamUtilsViewExpectedHelpNodeName);
             string expectedOutput = File.ReadAllText(expectedHelpFile);
@@ -273,7 +273,7 @@ namespace Bio.TestConsole
             string utilCommand = utilityObj.xmlUtil.GetTextValue(
                 Constants.HelpValidationNodeName, Constants.SamUtilsSortHelpCommandNodeName);
             Utility.RunProcess(@".\TestUtils\RunUtil.cmd", utilCommand);
-            string output = Utility.commandOutput;
+            string output = Utility.standardOut;
             string expectedHelpFile = utilityObj.xmlUtil.GetTextValue(
                 Constants.HelpValidationNodeName, Constants.SamUtilsSortExpectedHelpNodeName);
             string expectedOutput = File.ReadAllText(expectedHelpFile);

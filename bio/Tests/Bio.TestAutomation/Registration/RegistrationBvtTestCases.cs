@@ -126,6 +126,7 @@ namespace Bio.TestAutomation.Registration
             DeleteAddinsFolder();
         }
 
+#if FALSE
         /// <summary>
         /// Validates Registered Alphabets.
         /// Input : Register One Alphabet.
@@ -141,7 +142,7 @@ namespace Bio.TestAutomation.Registration
             finalValue.Add(new TestAutomationAlphabet());
 
             // Gets the registered Alphabets
-            IList<IAlphabet> registeredAlphabets = RegisteredAddIn.GetAlphabets(true);
+            IList<IAlphabet> registeredAlphabets = Alphabets.GetAlphabets();
             if (null != registeredAlphabets && registeredAlphabets.Count > 0)
             {
                 foreach (IAlphabet alphabet in finalValue)
@@ -169,6 +170,7 @@ namespace Bio.TestAutomation.Registration
             }
             DeleteAddinsFolder();
         }
+#endif
 
         /// <summary>
         /// Validates Registered Formatter.
@@ -949,7 +951,8 @@ namespace Bio.TestAutomation.Registration
         /// </summary>
         /// <param name="includeAddinFolder">include add-ins folder or not</param>
         /// <returns>List of registered classes</returns>
-        private static IList<T> GetClasses<T>(bool includeAddinFolder)
+        private static IList<T> GetClasses<T>(bool includeAddinFolder) 
+            where T : class
         {
             IList<T> registeredAligners = new List<T>();
 

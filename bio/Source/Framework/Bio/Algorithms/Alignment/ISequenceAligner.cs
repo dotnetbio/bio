@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using Bio.SimilarityMatrices;
 
 namespace Bio.Algorithms.Alignment
@@ -7,6 +8,7 @@ namespace Bio.Algorithms.Alignment
     /// A sequence aligner is an algorithm which takes N sequences as input and produces an 
     /// alignment of the sequences as output.
     /// </summary>
+    [InheritedExport("NetBioSequenceAlignersExport", typeof(ISequenceAligner))]
     public interface ISequenceAligner
     {
         /// <summary>

@@ -56,7 +56,7 @@
         {
             var formattedData = new string[1,2];
             formattedData[0, 0] = Properties.Resources.Sequence_ID;
-            formattedData[0, 1] = sequence.ID;
+            formattedData[0, 1] = (sequence != null) ? sequence.ID : "";
             return formattedData;
         }
 

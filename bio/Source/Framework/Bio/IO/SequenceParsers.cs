@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Bio.IO.FastA;
 using Bio.IO.FastQ;
@@ -47,33 +48,25 @@ namespace Bio.IO
         #endregion
 
         #region Constructors
-
-        #if (SILVERLIGHT == false)
-		    /// <summary>
-            /// Initializes static members of the SequenceParsers class.
-            /// </summary>
-            static SequenceParsers()
+#if !SILVERLIGHT
+        /// <summary>
+        /// Initializes static members of the SequenceParsers class.
+        /// </summary>
+        static SequenceParsers()
+		{
+            // get the registered parsers
+            IList<ISequenceParser> registeredParsers = GetSequenceParsers();
+            if (null != registeredParsers)
             {
-                // get the registered parsers
-                IList<ISequenceParser> registeredParsers = GetSequenceParsers(true);
-
-                if (null != registeredParsers && registeredParsers.Count > 0)
+                foreach (ISequenceParser parser in registeredParsers.Where(
+                    parser => parser != null && !All.Any(sp => 
+                        string.Compare(sp.Name, parser.Name, StringComparison.OrdinalIgnoreCase) == 0)))
                 {
-                    foreach (ISequenceParser parser in registeredParsers)
-                    {
-                        if (parser != null && all.FirstOrDefault(IA => string.Compare(
-                            IA.Name,
-                            parser.Name,
-                            StringComparison.OrdinalIgnoreCase) == 0) == null)
-                        {
-                            all.Add(parser);
-                        }
-                    }
-
-                    registeredParsers.Clear();
+                    all.Add(parser);
                 }
-            }  
-        #endif
+            }
+        }
+#endif
         #endregion
 
         #region Properties
@@ -130,11 +123,9 @@ namespace Bio.IO
         /// </summary>
         public static IList<ISequenceParser> All
         {
-            get
-            {
-                return all.AsReadOnly();
-            }
+            get { return all.AsReadOnly(); }
         }
+
         #endregion
 
         #region Methods
@@ -142,7 +133,7 @@ namespace Bio.IO
         /// Finds a suitable parser that supports the specified file, opens the file and returns the parser.
         /// </summary>
         /// <param name="fileName">File name for which the parser is required.</param>
-        /// <returns>If found returns the parser as ISequenceParser else returns null.</returns>
+        /// <returns>If found returns the open parser as ISequenceParser else returns null.</returns>
         public static ISequenceParser FindParserByFileName(string fileName)
         {
             ISequenceParser parser = null;
@@ -167,7 +158,17 @@ namespace Bio.IO
                 }
                 else
                 {
-                    parser = null;
+                    // Do a search through the known parsers to pick up custom parsers added through add-in.
+                    string fileExtension = Path.GetExtension(fileName);
+                    if (!string.IsNullOrEmpty(fileExtension))
+                    {
+                        parser = All.FirstOrDefault(p => p.SupportedFileTypes.Contains(fileExtension));
+                        // If we found a match based on extension, then open the file - this 
+                        // matches the above behavior where a specific parser was created for
+                        // the passed filename - the parser is opened automatically in the constructor.
+                        if (parser != null)
+                            parser.Open(fileName);
+                    }
                 }
             }
 
@@ -179,12 +180,12 @@ namespace Bio.IO
         /// </summary>
         /// <param name="fileName">File name for which the parser is required.</param>
         /// <param name="parserName">Name of the parser to use.</param>
-        /// <returns>If found returns the parser as IParser else returns null.</returns>
+        /// <returns>If found returns the open parser as ISequenceParser else returns null.</returns>
         public static ISequenceParser FindParserByName(string fileName, string parserName)
         {
             ISequenceParser parser = null;
 
-            if (!string.IsNullOrEmpty(fileName))
+            if (!string.IsNullOrEmpty(fileName) && !string.IsNullOrEmpty(parserName))
             {
                 if (parserName == Properties.Resource.FastAName)
                 {
@@ -204,7 +205,13 @@ namespace Bio.IO
                 }
                 else
                 {
-                    parser = null;
+                    // Do a search through the known parsers to pick up custom parsers added through add-in.
+                    parser = All.FirstOrDefault(p => p.Name == parserName);
+                    // If we found a match based on extension, then open the file - this 
+                    // matches the above behavior where a specific parser was created for
+                    // the passed filename - the parser is opened automatically in the constructor.
+                    if (parser != null)
+                        parser.Open(fileName);
                 }
             }
 
@@ -250,39 +257,32 @@ namespace Bio.IO
             return Helper.IsGenBank(fileName);
         }
 
-        #if (SILVERLIGHT == false)
-            /// <summary>
-            /// Gets all registered parsers in core folder and addins (optional) folders.
-            /// </summary>
-            /// <param name="includeAddinFolder">Include add-ins folder or not.</param>
-            /// <returns>List of registered parsers.</returns>
-            private static IList<ISequenceParser> GetSequenceParsers(bool includeAddinFolder)
+#if !SILVERLIGHT
+        /// <summary>
+        /// Gets all registered parsers in core folder and addins (optional) folders.
+        /// </summary>
+        /// <returns>List of registered parsers.</returns>
+        private static IList<ISequenceParser> GetSequenceParsers()
+        {
+            IList<ISequenceParser> registeredParsers = new List<ISequenceParser>();
+
+            IList<ISequenceParser> addInParsers = Registration.RegisteredAddIn.GetComposedInstancesFromAssemblyPath<ISequenceParser>(
+                        ".NetBioSequenceParsersExport", Registration.RegisteredAddIn.AddinFolderPath, Registration.RegisteredAddIn.DLLFilter);
+            if (null != addInParsers && addInParsers.Count > 0)
             {
-                IList<ISequenceParser> registeredParsers = new List<ISequenceParser>();
-
-                if (includeAddinFolder)
+                foreach (ISequenceParser parser in 
+                    addInParsers.Where(parser => parser != null 
+                        && !registeredParsers.Any(sp => 
+                            string.Compare(sp.Name, parser.Name, 
+                                StringComparison.OrdinalIgnoreCase) == 0)))
                 {
-                    IList<ISequenceParser> addInParsers;
-                    if (null != Bio.Registration.RegisteredAddIn.AddinFolderPath)
-                    {
-                        addInParsers = Bio.Registration.RegisteredAddIn.GetInstancesFromAssemblyPath<ISequenceParser>(Bio.Registration.RegisteredAddIn.AddinFolderPath, Bio.Registration.RegisteredAddIn.DLLFilter);
-                        if (null != addInParsers && addInParsers.Count > 0)
-                        {
-                            foreach (ISequenceParser parser in addInParsers)
-                            {
-                                if (parser != null && registeredParsers.FirstOrDefault(IA => string.Compare(
-                                    IA.Name, parser.Name, StringComparison.OrdinalIgnoreCase) == 0) == null)
-                                {
-                                    registeredParsers.Add(parser);
-                                }
-                            }
-                        }
-                    }
+                    registeredParsers.Add(parser);
                 }
+            }
 
-                return registeredParsers;
-            }  
-        #endif
+            return registeredParsers;
+        }  
+#endif
         #endregion
     }
 }

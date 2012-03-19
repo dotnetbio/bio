@@ -20,35 +20,33 @@
         /// <returns></returns>
         public static string BioInstallationPath
         {
-           get
-           {
-              // NOTE: Previous implementation abused the try / catch handling instead of just
-              // checking for null.
+            get
+            {
+                // NOTE: Previous implementation abused the try / catch handling instead of just
+                // checking for null.
 
-              // typical path is
-              // \Program Files\.NET Bio\
-              // it needs to get it from installer.
-              // for any exe under Bio.
-              var assembly = Assembly.GetEntryAssembly();
+                // typical path is
+                // \Program Files\.NET Bio\
+                // it needs to get it from installer.
+                // for any exe under Bio.
+                var assembly = Assembly.GetEntryAssembly();
+                if (assembly != null)
+                    return Path.GetDirectoryName(assembly.Location);
 
-              if (assembly != null)
-              {
-                  return Path.GetDirectoryName(assembly.Location);
-              }
+                string codeBase = Assembly.GetCallingAssembly().CodeBase;
+                Uri uri = new Uri(codeBase);
 
-              string codeBase = Assembly.GetCallingAssembly().CodeBase.ToString();
-              Uri uri = new Uri(codeBase);
+                // just for excel specific
+                if (codeBase.Contains("exce..vsto"))
+                {
+                    // look into [HKEY_CURRENT_USER\Software\Microsoft\Office\Excel\Addins\ExcelWorkbench]
+                    RegistryKey regKeyAppRoot = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Office\Excel\Addins\ExcelWorkbench");
+                    if (regKeyAppRoot != null)
+                        uri = new Uri(regKeyAppRoot.GetValue("Manifest").ToString());
+                }
 
-              // just for excel specific
-              if (codeBase.Contains("exce..vsto"))
-              {
-                 // look into [HKEY_CURRENT_USER\Software\Microsoft\Office\Excel\Addins\ExcelWorkbench]
-                 RegistryKey regKeyAppRoot = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Office\Excel\Addins\ExcelWorkbench");
-                 uri = new Uri(regKeyAppRoot.GetValue("Manifest").ToString());
-              }
-
-              return Uri.UnescapeDataString(Path.GetDirectoryName(uri.AbsolutePath));
-           }
+                return Uri.UnescapeDataString(Path.GetDirectoryName(uri.AbsolutePath));
+            }
         }
                 
         /// <summary>
@@ -68,18 +66,10 @@
         /// <returns>List of objects.</returns>
         public static IList<object> Resolve(string assemblyName)
         {
-            Assembly assembly;
-            string excutingAssemblyPath = Path.GetFileName(
-                Assembly.GetExecutingAssembly().GetName().CodeBase);
-            if (assemblyName.IndexOf(
-                excutingAssemblyPath, StringComparison.OrdinalIgnoreCase) > 0)
-            {
-                assembly = Assembly.GetExecutingAssembly();
-            }
-            else
-            {
-                assembly = Assembly.LoadFrom(assemblyName);
-            }
+            string excutingAssemblyPath = Path.GetFileName(Assembly.GetExecutingAssembly().GetName().CodeBase);
+            Assembly assembly = assemblyName.IndexOf(excutingAssemblyPath, StringComparison.OrdinalIgnoreCase) > 0 
+                ? Assembly.GetExecutingAssembly() 
+                : Assembly.LoadFrom(assemblyName);
 
             return Resolve(assembly);
         }
@@ -94,14 +84,12 @@
         /// <returns>List of objects.</returns>
         private static IList<object> Resolve(Assembly assembly)         
         {
-            RegistrableAttribute registrableAttribute;
             List<object> resolvedTypes = new List<object>();
-
             Type[] availableTypes = assembly.GetExportedTypes();
 
             foreach (Type availableType in availableTypes)
             {
-                registrableAttribute = (RegistrableAttribute)Attribute.GetCustomAttribute(
+                RegistrableAttribute registrableAttribute = (RegistrableAttribute)Attribute.GetCustomAttribute(
                     availableType, typeof(RegistrableAttribute));
                 if (registrableAttribute != null)
                 {

@@ -66,7 +66,9 @@
     <Compile Include="Framework\IO\AppliedBiosystems\AbiTests.cs" />
     <Compile Include="Framework\IO\AppliedBiosystems\TestAb1Data.cs" />
     <Compile Include="Framework\IO\BAM\BAMTests.cs" />
+    <Compile Include="Framework\IO\SFF\SFFParserTests.cs" />
     <Compile Include="Framework\IO\Snp\SnpParserTests.cs" />
+    <Compile Include="Framework\IO\SequenceParserTests.cs" />
     <Compile Include="Framework\IO\Wiggle\WiggleTests.cs" />
     <Compile Include="Framework\Matrix\BioMatrixTests.cs" />
     <Compile Include="Framework\Algorithms\StringSearch\BoyerMooreTests.cs" />
@@ -152,6 +154,10 @@
       <Project>{1FF9E7F1-4571-495B-AF7A-CE1151C4EDC1}</Project>
       <Name>Bio.Hpc</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Source\Framework\Bio.IO\Bio.IO.csproj">
+      <Project>{A35052D0-B35E-4FD7-B44F-D98AF21FE05A}</Project>
+      <Name>Bio.IO</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Source\Framework\Bio.WebServiceHandlers\Bio.WebServiceHandlers.csproj">
       <Project>{C5A9B65E-98FB-4879-8699-69E8AB6A4BAA}</Project>
       <Name>Bio.WebServiceHandlers</Name>
@@ -208,6 +214,7 @@
     <None Include="TestData\TestUtils\BED\Subtract\Subtract_ref.BED" />
     <None Include="TestData\TestUtils\BOX032Small.xml.afa" />
     <None Include="TestData\TestUtils\ClustalW\AlignmentData.aln" />
+    <None Include="TestData\TestUtils\dummy.sff" />
     <None Include="TestData\TestUtils\Fasta\186972391.fasta" />
     <None Include="TestData\TestUtils\Fasta\5_sequences.fasta" />
     <None Include="TestData\TestUtils\Fasta\EmptySequenceWithID.fasta" />
@@ -293,6 +300,7 @@
     <None Include="TestData\TestUtils\SAM\SeqAlignment.bam" />
     <None Include="TestData\TestUtils\SAM\SeqAlignment.sam" />
     <None Include="TestData\TestUtils\SAM\SeqAlignment1.sam" />
+    <None Include="TestData\TestUtils\SFF\E3MFGYR02_random_10_reads.sff" />
     <None Include="TestData\TestUtils\SnpFile.tsv" />
     <None Include="TestData\TestUtils\Wiggle\fixed.wig" />
     <None Include="TestData\TestUtils\Wiggle\variable.wig" />

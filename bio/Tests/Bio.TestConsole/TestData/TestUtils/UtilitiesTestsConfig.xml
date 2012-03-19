@@ -136,7 +136,7 @@
     <Command>ComparativeUtil.exe "TestUtils\ComparativeTestData\DNA-Medium-Ref.fasta" "TestUtils\ComparativeTestData\DNA-Medium-RefReads-WithError_1.fa" -v -o:TestUtils\ComparativeTestData\ComparativeActualOutputDefaultParams.txt</Command>
     <ActualOutputFile>TestUtils\ComparativeTestData\ComparativeActualOutputDefaultParams.txt</ActualOutputFile>
     <ExpectedOutputFile>TestUtils\ComparativeTestData\ComparativeExpectedOutputDefaultParams.txt</ExpectedOutputFile>
-    <VerboseResult>Processed reference file,Read/Processing time,File Size,Read/Processing time,Assemble time,Write() time</VerboseResult>
+    <VerboseResult>Processed reference file,Read/Processing time,File Size,Processed reads file,Read/Processing time,File Size,Time taken for Validating reads,Output written,Assemble time,Write time</VerboseResult>
   </ComparativeUtilVerbose>
   <ComparativeUtilWithKmerAndMum>
     <Command>ComparativeUtil.exe /k:7 /m:10 "TestUtils\ComparativeTestData\DNA-Medium-Ref.fasta" "TestUtils\ComparativeTestData\DNA-Medium-RefReads-WithError_1.fa" -o:TestUtils\ComparativeTestData\ComparativeActualOutputWithKmerAndMum.txt</Command>

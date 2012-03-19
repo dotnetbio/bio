@@ -55,3 +55,4 @@
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields", Scope = "member", Target = "VennTool.VennToolArguments.#preSort")]
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1806:DoNotIgnoreMethodResults", MessageId = "CommandLine.Parser.GetConsoleScreenBufferInfo(System.Int32,CommandLine.Parser+CONSOLE_SCREEN_BUFFER_INFO@)", Scope = "member", Target = "CommandLine.Parser.#GetConsoleWindowWidth()")]
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope = "member", Target = "CommandLine.Parser.#IsValidElementType(System.Type)")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)", Scope = "member", Target = "VennTool.VennTool.#DisplayHelpScreen()")]

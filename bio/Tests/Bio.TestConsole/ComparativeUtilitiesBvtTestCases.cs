@@ -106,7 +106,7 @@ namespace Bio.TestConsole
             string utilCommand = utilityObj.xmlUtil.GetTextValue(
                 Constants.HelpValidationNodeName, Constants.ScaffoldUtilHelpCommandNodeName);
             Utility.RunProcess(@".\TestUtils\RunUtil.cmd", utilCommand);
-            string output = Utility.commandOutput;
+            string output = Utility.standardOut;
             string expectedHelpFile = utilityObj.xmlUtil.GetTextValue(
                 Constants.HelpValidationNodeName, Constants.ScaffoldUtilExpectedHelpNodeName);
             string expectedOutput = File.ReadAllText(expectedHelpFile);
@@ -124,7 +124,7 @@ namespace Bio.TestConsole
             string utilCommand = utilityObj.xmlUtil.GetTextValue(
                 Constants.HelpValidationNodeName, Constants.ConsensusUtilHelpCommandNodeName);
             Utility.RunProcess(@".\TestUtils\RunUtil.cmd", utilCommand);
-            string output = Utility.commandOutput;
+            string output = Utility.standardOut;
             string expectedHelpFile = utilityObj.xmlUtil.GetTextValue(
                 Constants.HelpValidationNodeName, Constants.ConsensusUtilExpectedHelpNodeName);
             string expectedOutput = File.ReadAllText(expectedHelpFile);
@@ -142,7 +142,7 @@ namespace Bio.TestConsole
             string utilCommand = utilityObj.xmlUtil.GetTextValue(
                 Constants.HelpValidationNodeName, Constants.LayoutRefinementUtilHelpCommandNodeName);
             Utility.RunProcess(@".\TestUtils\RunUtil.cmd", utilCommand);
-            string output = Utility.commandOutput;
+            string output = Utility.standardOut;
             string expectedHelpFile = utilityObj.xmlUtil.GetTextValue(
                 Constants.HelpValidationNodeName, Constants.LayoutRefinementUtilExpectedHelpNodeName);
             string expectedOutput = File.ReadAllText(expectedHelpFile);
@@ -160,7 +160,7 @@ namespace Bio.TestConsole
             string utilCommand = utilityObj.xmlUtil.GetTextValue(
                 Constants.HelpValidationNodeName, Constants.RepeatResolutionUtilHelpCommandNodeName);
             Utility.RunProcess(@".\TestUtils\RunUtil.cmd", utilCommand);
-            string output = Utility.commandOutput;
+            string output = Utility.standardOut;
             string expectedHelpFile = utilityObj.xmlUtil.GetTextValue(
                 Constants.HelpValidationNodeName, Constants.RepeatResolutionUtilExpectedHelpNodeName);
             string expectedOutput = File.ReadAllText(expectedHelpFile);

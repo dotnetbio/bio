@@ -218,10 +218,10 @@ namespace ComparativeUtil
                 Output.WriteLine(OutputLevel.Verbose, statusEventArgs.StatusMessage);
             else
             {
-                if (statusEventArgs.StatusMessage.StartsWith("Step")
+                if (statusEventArgs.StatusMessage.StartsWith("Step", StringComparison.OrdinalIgnoreCase)
                     && statusEventArgs.StatusMessage.Contains("Start"))
                 {
-                    int pos = statusEventArgs.StatusMessage.IndexOf(" - ");
+                    int pos = statusEventArgs.StatusMessage.IndexOf(" - ", StringComparison.OrdinalIgnoreCase);
                     Output.WriteLine(OutputLevel.Information, statusEventArgs.StatusMessage.Substring(0, pos));
                 }
             }

@@ -121,11 +121,11 @@ namespace Bio.TestConsole
             string utilCommand = utilityObj.xmlUtil.GetTextValue(
                 Constants.HelpValidationNodeName, Constants.ComparativeUtilHelpCommandNodeName);
             Utility.RunProcess(@".\TestUtils\RunUtil.cmd", utilCommand);
-            string output = Utility.commandOutput.Replace('\r',' ').Replace('\n',' ').Replace('\t',' ');
+            string output = Utility.standardOut.Replace("\r", "").Replace("\n", "").Replace("\t", "").Replace(" ", "");
 
             string expectedHelpFile = utilityObj.xmlUtil.GetTextValue(
                 Constants.HelpValidationNodeName, Constants.ComparativeUtilExpectedHelpNodeName);
-            string expectedOutput = File.ReadAllText(expectedHelpFile);
+            string expectedOutput = File.ReadAllText(expectedHelpFile).Replace("\r", "").Replace("\n", "").Replace("\t", "").Replace(" ", "");
             Assert.IsTrue(output.Contains(expectedOutput.Trim()));
         }
 
@@ -159,15 +159,14 @@ namespace Bio.TestConsole
 
             if (verbose)
             {
-                string expectedVerbose = utilityObj.xmlUtil.GetTextValue(
-                        nodeName, Constants.VerboseResultNode);
+                string expectedVerbose = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.VerboseResultNode);
                 string expectedVerboseResult = expectedVerbose.Replace(" ", "");
                 string[] verboseExpected = expectedVerboseResult.Split(',');
-                string actualVerboseString = Utility.verboseOutput.Replace("\t", "").Replace("\r", "").Replace("\n", "").Replace(" ", "").Trim();
+                string actualVerboseString = Utility.standardOut.Replace("\t", "").Replace("\r", "").Replace("\n", "").Replace(" ", "").Trim();
 
                 for (int i = 0; i < verboseExpected.Length; i++)
                 {
-                    Assert.IsTrue(actualVerboseString.Contains(verboseExpected[i]));
+                    Assert.IsTrue(actualVerboseString.Contains(verboseExpected[i]), "Could not find expectation: '" + verboseExpected[i] + "' in output.");
                 }
             }
             

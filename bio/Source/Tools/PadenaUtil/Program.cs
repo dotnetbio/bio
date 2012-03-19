@@ -25,7 +25,11 @@ namespace PadenaUtil
                 }
                 else
                 {
-                    if (args[0].Equals("Help", StringComparison.InvariantCultureIgnoreCase))
+                    if (args[0].Equals("Help", StringComparison.InvariantCultureIgnoreCase) 
+                        || args[0].Equals("/h", StringComparison.CurrentCultureIgnoreCase)
+                        || args[0].Equals("/help", StringComparison.CurrentCultureIgnoreCase)
+                        || args[0].Equals("-h", StringComparison.CurrentCultureIgnoreCase)
+                        || args[0].Equals("-help", StringComparison.CurrentCultureIgnoreCase))
                     {
                         Output.WriteLine(OutputLevel.Required, Resources.PadenaUtilHelp);
                     }

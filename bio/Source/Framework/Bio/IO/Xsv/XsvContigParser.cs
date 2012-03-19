@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using System.IO;
 using Bio.Algorithms.Assembly;
 
@@ -10,6 +11,7 @@ namespace Bio.IO.Xsv
     /// a contig from a list of sparse sequences, where the first sequence is the
     /// consensus and the rest are sequences aligned to it.
     /// </summary>
+    [PartNotDiscoverable]
     public class XsvContigParser : XsvSparseParser
     {
         #region Private Fields

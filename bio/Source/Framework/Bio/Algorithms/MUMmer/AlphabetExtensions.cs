@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.ComponentModel.Composition;
 
 namespace Bio.Algorithms.MUMmer
 {
@@ -17,7 +15,7 @@ namespace Bio.Algorithms.MUMmer
         /// <returns>Corresponding mummer alphabet</returns>
         public static IAlphabet GetMummerAlphabet(IAlphabet alphabet)
         {
-            if(alphabet == MummerDnaAlphabet.Instance)
+            if (alphabet == MummerDnaAlphabet.Instance || alphabet == MummerRnaAlphabet.Instance || alphabet == MummerProteinAlphabet.Instance)
             {
                 return alphabet;
             }
@@ -41,8 +39,9 @@ namespace Bio.Algorithms.MUMmer
     }
 
     /// <summary>
-    /// Alphabet for use by MUMmer to support concatenation charector '+'
+    /// Alphabet for use by MUMmer to support concatenation character '+'
     /// </summary>
+    [PartNotDiscoverable]
     public class MummerDnaAlphabet : AmbiguousDnaAlphabet
     {
         /// <summary>
@@ -63,14 +62,15 @@ namespace Bio.Algorithms.MUMmer
         }
 
         /// <summary>
-        /// Gets the Concatenation charector
+        /// Gets the Concatenation character
         /// </summary>
         public byte ConcatenationChar { get; private set; }
     }
 
     /// <summary>
-    /// Alphabet for use by MUMmer to support concatenation charector '+'
+    /// Alphabet for use by MUMmer to support concatenation character '+'
     /// </summary>
+    [PartNotDiscoverable]
     public class MummerRnaAlphabet : AmbiguousRnaAlphabet
     {
         /// <summary>
@@ -99,14 +99,15 @@ namespace Bio.Algorithms.MUMmer
         }
 
         /// <summary>
-        /// Gets the Concatenation charector
+        /// Gets the Concatenation character
         /// </summary>
         public byte ConcatenationChar { get; private set; }
     }
 
     /// <summary>
-    /// Alphabet for use by MUMmer to support concatenation charector '+'
+    /// Alphabet for use by MUMmer to support concatenation character '+'
     /// </summary>
+    [PartNotDiscoverable]
     public class MummerProteinAlphabet : AmbiguousProteinAlphabet
     {
         /// <summary>
@@ -135,7 +136,7 @@ namespace Bio.Algorithms.MUMmer
         }
 
         /// <summary>
-        /// Gets the Concatenation charector
+        /// Gets the Concatenation character
         /// </summary>
         public byte ConcatenationChar { get; private set; }
     }

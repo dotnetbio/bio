@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using System.Globalization;
 using System.IO;
 
@@ -19,6 +20,7 @@ namespace Bio.IO.Xsv
     /// 2,G
     /// #0,10, A sparse sequence of length 15 with no items
     /// </summary>
+    [PartNotDiscoverable]
     public class XsvSparseFormatter : ISequenceFormatter
     {
         #region fields

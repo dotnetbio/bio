@@ -21,11 +21,11 @@ namespace Bio.TestConsole.Util
     internal class Utility
     {
         internal XmlUtility xmlUtil;
-        internal static string commandOutput = string.Empty;
-        internal static string verboseOutput = string.Empty;
+        internal static string standardOut = string.Empty;
+        internal static string standardErr = string.Empty;
 
         /// <summary>
-        /// Constructor which sets the filepath
+        /// Constructor which sets the file path
         /// </summary>
         /// <param name="filePath"></param>
         internal Utility(string filePath)
@@ -97,7 +97,7 @@ namespace Bio.TestConsole.Util
 
         /// <summary>
         /// Gets the file content for the file path passed. 
-        /// If the file doesnt exist throw the exception.
+        /// If the file doesn't exist throw the exception.
         /// </summary>
         /// <param name="filePath">File path, the content of which to be read.</param>
         /// <returns>Content of the Text file.</returns>
@@ -175,11 +175,11 @@ namespace Bio.TestConsole.Util
 
                 ApplicationLog.WriteLine("");
 
-                commandOutput = p.StandardOutput.ReadToEnd();
-                verboseOutput = p.StandardError.ReadToEnd();
+                standardOut = p.StandardOutput.ReadToEnd();
+                standardErr = p.StandardError.ReadToEnd();
 
-                ApplicationLog.WriteLine(commandOutput);
-                ApplicationLog.WriteLine(verboseOutput);
+                ApplicationLog.WriteLine(standardOut);
+                ApplicationLog.WriteLine(standardErr);
 
                 p.WaitForExit();
 
@@ -196,7 +196,7 @@ namespace Bio.TestConsole.Util
         internal static void OnOutputDataReceived(object sender, SD.DataReceivedEventArgs e)
         {
             ApplicationLog.WriteLine(e.Data);
-            commandOutput = commandOutput + e.Data;
+            standardOut = standardOut + e.Data;
         }
 
         /// <summary>

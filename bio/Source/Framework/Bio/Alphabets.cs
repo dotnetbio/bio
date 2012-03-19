@@ -1,6 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Bio.Properties;
+#if !SILVERLIGHT
+using Bio.Algorithms.MUMmer;
+using Bio.Registration;
+#endif
 
 namespace Bio
 {
@@ -67,7 +72,7 @@ namespace Bio
         /// Auto detection starts from top of the list.
         /// </summary>
         private static List<IAlphabet> alphabetPriorityList = new List<IAlphabet>
-        {
+                                                                  {
             DnaAlphabet.Instance,
             AmbiguousDnaAlphabet.Instance,
             RnaAlphabet.Instance,
@@ -81,24 +86,19 @@ namespace Bio
         /// </summary>
         static Alphabets()
         {
-
-            #if (SILVERLIGHT == false)
-		        // get the registered alphabets.
-                IList<IAlphabet> registeredAlphabets = Bio.Registration.RegisteredAddIn.GetAlphabets(true);
-
-                if (null != registeredAlphabets && registeredAlphabets.Count > 0)
+#if (SILVERLIGHT == false)
+		    // get the registered alphabets.
+            IList<IAlphabet> registeredAlphabets = GetAlphabets();
+            if (null != registeredAlphabets)
+            {
+                foreach (IAlphabet alphabet in registeredAlphabets.Where(
+                    alphabet => alphabet != null && !all.Any(
+                        ra => String.Compare(ra.Name, alphabet.Name, StringComparison.OrdinalIgnoreCase) == 0)))
                 {
-                    foreach (IAlphabet alphabet in registeredAlphabets)
-                    {
-                        if (alphabet != null && all.FirstOrDefault(IA => string.Compare(IA.Name, alphabet.Name, StringComparison.OrdinalIgnoreCase) == 0) == null)
-                        {
-                            all.Add(alphabet);
-                        }
-                    }
-
-                    registeredAlphabets.Clear();
-                }  
-            #endif
+                    all.Add(alphabet);
+                }
+            }
+#endif
 
             AmbiguousAlphabetMap = new Dictionary<IAlphabet, IAlphabet>();
             MapAlphabetToAmbiguousAlphabet(DnaAlphabet.Instance, AmbiguousDnaAlphabet.Instance);
@@ -112,11 +112,11 @@ namespace Bio
             MapAlphabetToBaseAlphabet(AmbiguousRnaAlphabet.Instance, RnaAlphabet.Instance);
             MapAlphabetToBaseAlphabet(AmbiguousProteinAlphabet.Instance, ProteinAlphabet.Instance);
 
-            #if (SILVERLIGHT == false)
-		        MapAlphabetToBaseAlphabet(Bio.Algorithms.MUMmer.MummerDnaAlphabet.Instance, DnaAlphabet.Instance);
-                MapAlphabetToBaseAlphabet(Bio.Algorithms.MUMmer.MummerRnaAlphabet.Instance, RnaAlphabet.Instance);
-                MapAlphabetToBaseAlphabet(Bio.Algorithms.MUMmer.MummerProteinAlphabet.Instance, ProteinAlphabet.Instance);  
-            #endif
+#if (SILVERLIGHT == false)
+		    MapAlphabetToBaseAlphabet(MummerDnaAlphabet.Instance, DnaAlphabet.Instance);
+            MapAlphabetToBaseAlphabet(MummerRnaAlphabet.Instance, RnaAlphabet.Instance);
+            MapAlphabetToBaseAlphabet(MummerProteinAlphabet.Instance, ProteinAlphabet.Instance);  
+#endif
         }
 
         /// <summary>
@@ -193,7 +193,7 @@ namespace Bio
                 // Increment priority index and validate boundary condition
                 if (++currentPriorityIndex == alphabetPriorityList.Count)
                 {
-                    throw new ArgumentException(Properties.Resource.CouldNotRecognizeAlphabet, "identifiedAlphabetType");
+                    throw new ArgumentException(Resource.CouldNotRecognizeAlphabet, "identifiedAlphabetType");
                 }
             }
 
@@ -203,7 +203,8 @@ namespace Bio
                 // Increment priority index and validate boundary condition
                 if (++currentPriorityIndex == alphabetPriorityList.Count)
                 {
-                    return null;
+                    // Last ditch effort - look at all registered alphabets and see if any contain all the located symbols.
+                    return All.FirstOrDefault(alphabet => alphabet.ValidateSequence(symbols, offset, length));
                 }
             }
 
@@ -231,5 +232,30 @@ namespace Bio
         {
             AmbiguousAlphabetMap.Add(alphabet, ambiguousAlphabet);
         }
+
+#if !SILVERLIGHT
+        /// <summary>
+        /// Gets all registered alphabets in core folder and addins (optional) folders.
+        /// </summary>
+        /// <returns>List of registered alphabets.</returns>
+        private static IList<IAlphabet> GetAlphabets()
+        {
+            IList<IAlphabet> registeredAlphabets = new List<IAlphabet>();
+
+            IList<IAlphabet> addInAlphabets = RegisteredAddIn.GetComposedInstancesFromAssemblyPath<IAlphabet>(
+                "NetBioAlphabetsExport", RegisteredAddIn.AddinFolderPath, RegisteredAddIn.DLLFilter);
+            if (null != addInAlphabets)
+            {
+                foreach (IAlphabet alphabet in addInAlphabets.Where(
+                    alphabet => alphabet != null && !registeredAlphabets.Any(
+                        ra => String.Compare(ra.Name, alphabet.Name, StringComparison.OrdinalIgnoreCase) == 0)))
+                {
+                    registeredAlphabets.Add(alphabet);
+                }
+            }
+
+            return registeredAlphabets;
+        }
+#endif
     }
 }

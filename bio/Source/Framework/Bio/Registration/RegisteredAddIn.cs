@@ -1,10 +1,13 @@
-﻿namespace Bio.Registration
-{
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Linq;
+﻿using System.ComponentModel.Composition.Hosting;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.Composition.Primitives;
+using System.IO;
+using System.Linq;
+using System.Reflection;
 
+namespace Bio.Registration
+{
     /// <summary>
     /// Self registration is used to get the collection of object which uses the 
     /// specific custom attribute as part of registration process with Bio.
@@ -25,6 +28,12 @@
         /// The core folder.
         /// </summary>
         private const string CoreFolder = @"..\..\Microsoft Biology Framework";
+
+        /// <summary>
+        /// Container we used to locate types
+        /// </summary>
+        private static CompositionContainer container = null;
+
         #region -- Public Properties--
         /// <summary>
         /// Gets the AddIns folder from Bio installation. 
@@ -32,16 +41,9 @@
         public static string AddinFolderPath
         {
             get
-            {    
+            {
                 string path = Path.Combine(AssemblyResolver.BioInstallationPath, AddinFolder);
-                if (Directory.Exists(path))
-                {
-                    return path;
-                }
-                else
-                {
-                    return null;
-                }
+                return Directory.Exists(path) ? path : null;
             }
         }
 
@@ -53,14 +55,7 @@
             get
             {
                 string path = Path.Combine(AssemblyResolver.BioInstallationPath, CoreFolder);
-                if (Directory.Exists(path))
-                {
-                    return path;
-                }
-                else
-                {
-                    return null;
-                }
+                return Directory.Exists(path) ? path : null;
             }
         }
 
@@ -68,35 +63,19 @@
 
         #region -- Public Methods --
         /// <summary>
-        /// Gets all registered alphabets in core folder and addins (optional) folders.
+        /// Gets the instances for both primary folder as well as any add-in folder.
         /// </summary>
-        /// <param name="includeAddinFolder">Include add-ins folder or not.</param>
-        /// <returns>List of registered alphabets.</returns>
-        public static IList<IAlphabet> GetAlphabets(bool includeAddinFolder)
+        /// <typeparam name="T">Type to look for</typeparam>
+        /// <param name="contractName">MEF contract name</param>
+        /// <param name="assemblyPath">Assembly path</param>
+        /// <param name="filter">Filter</param>
+        /// <returns>Located elements (T)</returns>
+        internal static IList<T> GetComposedInstancesFromAssemblyPath<T>(string contractName, string assemblyPath, string filter)
+            where T : class
         {
-            IList<IAlphabet> registeredAlphabets = new List<IAlphabet>();
-
-            if (includeAddinFolder)
-            {
-                IList<IAlphabet> addInAlphabets;
-                if (null != AddinFolderPath)
-                {
-                    addInAlphabets = GetInstancesFromAssemblyPath<IAlphabet>(AddinFolderPath, DLLFilter);
-                    if (null != addInAlphabets && addInAlphabets.Count > 0)
-                    {
-                        foreach (IAlphabet alphabet in addInAlphabets)
-                        {
-                            if (alphabet != null && registeredAlphabets.FirstOrDefault(IA => string.Compare(
-                                IA.Name, alphabet.Name, StringComparison.OrdinalIgnoreCase) == 0) == null)
-                            {
-                                registeredAlphabets.Add(alphabet);
-                            }
-                        }
-                    }
-                }
-            }
-
-            return registeredAlphabets;
+            List<T> instances = Compose<T>(contractName, assemblyPath, filter);
+            instances.AddRange(GetInstancesFromAssemblyPath<T>(assemblyPath, filter));
+            return instances;
         }
 
         /// <summary>
@@ -107,20 +86,23 @@
         /// <param name="filter">File filter.</param>
         /// <returns>List of Ts.</returns>
         public static IList<T> GetInstancesFromAssemblyPath<T>(string assemblyPath, string filter)
+            where T : class
         {
-            IList<T> instances = new List<T>();
-            foreach (string filename in Directory.GetFiles(assemblyPath, filter))
+            List<T> instances = new List<T>();
+
+            if (!string.IsNullOrEmpty(assemblyPath))
             {
-                IList<object> registeredInstances = AssemblyResolver.Resolve(filename);
-                IList<T> instancesT = Register<T>(registeredInstances);
-                foreach (T obj in instancesT)
+                // Next, search the add-ins directly for the proper attributes
+                foreach (string filename in Directory.GetFiles(assemblyPath, filter))
                 {
-                    if (obj != null && instances.FirstOrDefault(IA => string.Compare(
-                        IA.GetType().FullName, 
-                        obj.GetType().FullName, 
-                        StringComparison.OrdinalIgnoreCase) == 0) == null)
+                    IList<object> registeredInstances = AssemblyResolver.Resolve(filename);
+                    IList<T> instancesT = Register<T>(registeredInstances);
+                    foreach (T obj in instancesT.Where(
+                        obj => obj != null
+                            && !instances.Any(at =>
+                                string.Compare(at.GetType().FullName, obj.GetType().FullName, StringComparison.OrdinalIgnoreCase) == 0)))
                     {
-                        instances.Add((T)obj);
+                        instances.Add(obj);
                     }
                 }
             }
@@ -155,6 +137,62 @@
         #region -- Private Methods --
 
         /// <summary>
+        /// This uses MEF to perform a compose operation.
+        /// </summary>
+        /// <typeparam name="T">Type to look for</typeparam>
+        /// <param name="contractName">MEF contract name</param>
+        /// <param name="assemblyPath">Assembly path</param>
+        /// <param name="filter">Filter for files</param>
+        /// <returns></returns>
+        private static List<T> Compose<T>(string contractName, string assemblyPath, string filter) 
+            where T : class
+        {
+            if (container == null)
+            {
+                ComposablePartCatalog partCatalog;
+
+                var assembly = Assembly.GetEntryAssembly();
+                if (assembly != null)
+                {
+                    partCatalog = new AggregateCatalog(
+                        new AssemblyCatalog(assembly),
+                        new DirectoryCatalog(AssemblyResolver.BioInstallationPath, DLLFilter));
+                }
+                else
+                    partCatalog = new DirectoryCatalog(AssemblyResolver.BioInstallationPath, DLLFilter);
+
+                // Add the add-in folder if we have one
+                if (!string.IsNullOrEmpty(assemblyPath) && Directory.Exists(assemblyPath))
+                {
+                    var directoryCatalog = new DirectoryCatalog(assemblyPath, filter);
+                    var defaultCatalogEp = new CatalogExportProvider(partCatalog);
+                    container = new CompositionContainer(directoryCatalog, defaultCatalogEp);
+                    defaultCatalogEp.SourceProvider = container;
+                }
+                else
+                    container = new CompositionContainer(partCatalog);
+            }
+
+            List<T> availableTypes = new List<T>();
+            var exportList = container.GetExports<T>(contractName).ToList();
+            foreach (Lazy<T> foundType in exportList)
+            {
+                try
+                {
+                    T value = foundType.Value;
+                    if (value != null)
+                        availableTypes.Add(value);
+                }
+                catch (Exception)
+                {
+                    // Ignore if can't create.
+                }
+            }
+
+            return availableTypes;
+        }
+
+        /// <summary>
         /// Registers the set of registerable objects into collection.
         /// </summary>
         /// <typeparam name="T">Type of param.</typeparam>
@@ -180,3 +218,4 @@
         #endregion -- Private Methods --
     }
 }
+    

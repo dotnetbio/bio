@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using System.Globalization;
 using System.IO;
 using Bio.Properties;
-using Bio.Util.Logging;
 using System;
 using System.Text;
-using System.Linq;
 
 namespace Bio.IO.Text
 {
@@ -15,17 +14,26 @@ namespace Bio.IO.Text
     /// Example, tab-delimited sequence file contains two columns:
     /// First column contain sequence id and second column contains the sequence.
     /// </summary>
+    [PartNotDiscoverable]
     public sealed class FieldTextFileParser : ISequenceParser
     {
-
         #region Constructors and Properties
+
+        /// <summary>
+        /// Initialize instance of for Tab (default) parser class.
+        /// </summary>
+        public FieldTextFileParser()
+        {
+            ContainsHeader = true;
+            Delimiter = '\t';
+        }
 
         /// <summary>
         /// Initializes a new instance of the FastAParser class by 
         /// loading the specified filename.
         /// </summary>
         /// <param name="filename">Name of the File.</param>
-        public FieldTextFileParser(string filename)
+        public FieldTextFileParser(string filename) : this()
         {
             this.Open(filename);
         }
@@ -34,16 +42,6 @@ namespace Bio.IO.Text
         /// Gets the filename.
         /// </summary>
         public string Filename { get; private set; }
-
-        /// <summary>
-        /// Initialize instance of for Tab (default) parser class.
-        /// </summary>
-        public FieldTextFileParser()
-        {
-            //_commonSequenceParser = new CommonSequenceParser();
-            ContainsHeader = true;
-            Delimiter = '\t';
-        }
 
         /// <summary>
         /// Gets or sets value whether file contains header.
@@ -69,7 +67,7 @@ namespace Bio.IO.Text
             // if the file is already open throw invalid 
             if (!string.IsNullOrEmpty(this.Filename))
             {
-                throw new InvalidOperationException(string.Format(CultureInfo.CurrentCulture, Properties.Resource.FileAlreadyOpen, this.Filename));
+                throw new InvalidOperationException(string.Format(CultureInfo.CurrentCulture, Resource.FileAlreadyOpen, this.Filename));
             }
 
             // Validate the file - by try to open.
@@ -94,7 +92,6 @@ namespace Bio.IO.Text
         public void Dispose()
         {
             this.Close();
-            GC.SuppressFinalize(this);
         }
 
         /// <summary>
@@ -103,7 +100,19 @@ namespace Bio.IO.Text
         /// <returns>The parsed ISequence objects.</returns>
         public IEnumerable<ISequence> Parse()
         {
-            return Parse(this.Filename);
+            using (var reader = new StreamReader(this.Filename))
+            {
+                string fileLine = reader.ReadLine();
+
+                if (ContainsHeader)
+                    fileLine = reader.ReadLine();
+
+                while (!string.IsNullOrEmpty(fileLine))
+                {
+                    yield return ParseLine(fileLine);
+                    fileLine = reader.ReadLine();
+                }
+            }
         }
 
         /// <summary>
@@ -114,37 +123,17 @@ namespace Bio.IO.Text
         public IEnumerable<ISequence> Parse(StreamReader reader)
         {
             if (reader == null)
-            {
                 throw new ArgumentNullException("reader");
-            }
 
             string fileLine = reader.ReadLine();
-            IList<ISequence> sequences = new List<ISequence>();
 
             if (ContainsHeader)
-            {
                 fileLine = reader.ReadLine();
-            }
 
             while (!string.IsNullOrEmpty(fileLine))
             {
-                sequences.Add(ParseLine(fileLine));
+                yield return ParseLine(fileLine);
                 fileLine = reader.ReadLine();
-            }
-
-            return sequences;
-        }
-
-        /// <summary>
-        /// Parses a list of biological sequence texts from a file.
-        /// </summary>
-        /// <param name="filename">The name of a biological sequence file.</param>
-        /// <returns>The list of parsed ISequence objects.</returns>
-        private IEnumerable<ISequence> Parse(string filename)
-        {
-            using (StreamReader reader = new StreamReader(filename))
-            {
-                return Parse(reader);
             }
         }
 
@@ -196,39 +185,34 @@ namespace Bio.IO.Text
 
         #region Private Region
 
+        /// <summary>
+        /// Parses one line from the text file.
+        /// </summary>
+        /// <param name="line"></param>
+        /// <returns></returns>
         private ISequence ParseLine(string line)
         {
             string[] splitLine = line.Split(Delimiter);
             string message;
             if (splitLine.Length != 2)
             {
-                message = string.Format(CultureInfo.InvariantCulture,
-                        Resource.INVALID_INPUT_FILE,
-                        line);
-                Trace.Report(message);
+                message = string.Format(CultureInfo.InvariantCulture, Resource.INVALID_INPUT_FILE, line);
                 throw new FileFormatException(message);
             }
 
             IAlphabet alphabet = Alphabet;
             if (alphabet == null)
             {
-                byte[] byteArray = UTF8Encoding.UTF8.GetBytes(splitLine[1]);
+                byte[] byteArray = Encoding.UTF8.GetBytes(splitLine[1]);
                 alphabet = Alphabets.AutoDetectAlphabet(byteArray, 0, byteArray.Length, null);
-
                 if (alphabet == null)
                 {
-                    message = string.Format(CultureInfo.InvariantCulture,
-                            Resource.InvalidSymbolInString,
-                            splitLine[1]);
-                    Trace.Report(message);
+                    message = string.Format(CultureInfo.InvariantCulture, Resource.InvalidSymbolInString, splitLine[1]);
                     throw new FileFormatException(message);
                 }
             }
 
-            Sequence sequence;
-            sequence = new Sequence(alphabet, splitLine[1]) { ID = splitLine[0]};
-            
-            return sequence;
+            return new Sequence(alphabet, splitLine[1]) { ID = splitLine[0]};
         }
 
         #endregion

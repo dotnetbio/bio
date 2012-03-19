@@ -63,8 +63,6 @@ namespace Bio.TestAutomation.IO.Wiggle
         [TestCategory("Priority0")]
         public void ValidateWiggleParserPublicProperties()
         {
-            WiggleAnnotation annotation = null;
-
             // Gets the filepath  from the Xml
             string filePath = utilityObj.xmlUtil.GetTextValue(Constants.
                               SimpleWiggleWithFixedStepNodeName, Constants.FilePathNode);
@@ -85,14 +83,15 @@ namespace Bio.TestAutomation.IO.Wiggle
             WiggleParser parser = new WiggleParser();
 
             //Parse the file
-            annotation = parser.Parse(filePath);
+            var annotation = parser.Parse(filePath);
 
+            Assert.IsNotNull(annotation);
             Assert.AreEqual(expectedDescription, parser.Description);
             Assert.AreEqual(expectedName, parser.Name);
             Assert.AreEqual(expectedFileType, parser.FileTypes);
 
             ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                "Wiggle Parser BVT: Validation of all public properties is successfull"));
+                "Wiggle Parser BVT: Validation of all public properties is successful"));
         }
 
         /// <summary>

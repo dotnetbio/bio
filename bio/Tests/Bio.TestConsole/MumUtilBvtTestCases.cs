@@ -117,7 +117,7 @@ namespace Bio.TestConsole
             string utilCommand = utilityObj.xmlUtil.GetTextValue(
                 Constants.HelpValidationNodeName, Constants.MumUtilHelpCommandNodeName);
             Utility.RunProcess(@".\TestUtils\RunUtil.cmd", utilCommand);
-            string output = Utility.commandOutput;
+            string output = Utility.standardOut;
             string expectedHelpFile = utilityObj.xmlUtil.GetTextValue(
                 Constants.HelpValidationNodeName, Constants.MumUtilExpectedHelpNodeName);
             string expectedOutput = File.ReadAllText(expectedHelpFile);
@@ -157,7 +157,7 @@ namespace Bio.TestConsole
                         nodeName, Constants.VerboseResultNode);
                 string expectedVerboseResult = expectedVerbose.Replace(" ", "");
                 string[] verboseExpected=expectedVerboseResult.Split(',');
-                string actualVerboseString = Utility.verboseOutput.Replace("\t", "").Replace("\r", "").Replace("\n", "").Replace(" ", "").Trim();
+                string actualVerboseString = Utility.standardErr.Replace("\t", "").Replace("\r", "").Replace("\n", "").Replace(" ", "").Trim();
 
                 for (int i = 0; i < verboseExpected.Length; i++)
                 {

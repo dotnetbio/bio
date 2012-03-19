@@ -48,6 +48,7 @@ namespace Bio.Tests.Web
         /// Suppressed the message as this test case will be enabled in future
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic")]
         [TestMethod]
+        [Ignore]
         public void BeginAsyncRequestTest()
         {
             status = new ServiceRequestInformation();
@@ -79,7 +80,7 @@ namespace Bio.Tests.Web
             WebAccessor target = new WebAccessor();
             target.GetBrowserProxy();
             target.BeginAsyncRequest(input);
-            WaitHandle.WaitAny(new WaitHandle[] { requestSubmitWait });
+            WaitHandle.WaitAny(new WaitHandle[] {requestSubmitWait});
 
             Assert.IsFalse(string.IsNullOrEmpty(requestIdentifier));
 
