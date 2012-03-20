@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using Bio;
@@ -209,13 +210,27 @@ namespace PadenaUtil
         /// <param name="sequences"></param>
         private void EnsureContigNames(IList<ISequence> sequences)
         {
-            string filename = Path.GetFileNameWithoutExtension(Filename) + "_{0}";
             for (int index = 0; index < sequences.Count; index++)
             {
                 ISequence inputSequence = sequences[index];
                 if (string.IsNullOrEmpty(inputSequence.ID))
-                    inputSequence.ID = string.Format(filename, index+1);
+                    inputSequence.ID = GenerateSequenceId(index+1);
             }
+        }
+
+        /// <summary>
+        /// Generates a sequence Id using the output filename, or first input file.
+        /// </summary>
+        /// <param name="counter">Sequence counter</param>
+        /// <returns>Auto-generated sequence id</returns>
+        private string GenerateSequenceId(int counter)
+        {
+            string filename = Path.GetFileNameWithoutExtension(this.OutputFile);
+            if (string.IsNullOrEmpty(filename))
+                filename = Path.GetFileNameWithoutExtension(this.Filename);
+            filename = filename.Replace(" ", "");
+            Debug.Assert(!string.IsNullOrEmpty(filename));
+            return string.Format(CultureInfo.InvariantCulture, "{0}_{1}", filename, counter);
         }
 
         /// <summary>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using Bio;
@@ -178,11 +179,27 @@ namespace ComparativeUtil
         }
 
         /// <summary>
+        /// Generates a sequence Id using the output filename, or first input file.
+        /// </summary>
+        /// <param name="counter">Sequence counter</param>
+        /// <returns>Auto-generated sequence id</returns>
+        private string GenerateSequenceId(int counter)
+        {
+            string filename = Path.GetFileNameWithoutExtension(this.OutputFile);
+            if (string.IsNullOrEmpty(filename))
+                filename = Path.GetFileNameWithoutExtension(this.FilePath[0]);
+            filename = filename.Replace(" ", "");
+            Debug.Assert(!string.IsNullOrEmpty(filename));
+            return string.Format(CultureInfo.InvariantCulture, "{0}_{1}", filename, counter);
+        }
+
+        /// <summary>
         /// It Writes the contigs to the file.
         /// </summary>
         /// <param name="assembly">IDeNovoAssembly parameter is the result of running De Novo Assembly on a set of two or more sequences. </param>
         protected void WriteContigs(IEnumerable<ISequence> assembly)
         {
+            int counter = 1;
             if (!string.IsNullOrEmpty(this.OutputFile))
             {
                 using (FastAFormatter formatter = new FastAFormatter(this.OutputFile))
@@ -191,7 +208,10 @@ namespace ComparativeUtil
 
                     foreach (ISequence seq in assembly)
                     {
+                        if (string.IsNullOrEmpty(seq.ID))
+                            seq.ID = GenerateSequenceId(counter);
                         formatter.Write(seq);
+                        counter++;
                     }
                 }
                 Output.WriteLine(OutputLevel.Information, Resources.OutPutWrittenToFileSpecified);
@@ -201,8 +221,11 @@ namespace ComparativeUtil
                 Output.WriteLine(OutputLevel.Information, "Assembled Sequence Results:");
                 foreach (ISequence seq in assembly)
                 {
+                    if (string.IsNullOrEmpty(seq.ID))
+                        seq.ID = GenerateSequenceId(counter);
                     Output.WriteLine(OutputLevel.Results, seq.ID);
                     Output.WriteLine(OutputLevel.Results, new string(seq.Select(a => (char)a).ToArray()));
+                    counter++;
                 }
             }
         }
