@@ -98,12 +98,6 @@ namespace SampleClusterApp
             }
         }
 
-        private static string SplashString()
-        {
-            const string SplashString = "\nSampleClusterApp v1.0 - Sample distributable application to calculate GC content of given Sequence"
-                                      + "\n  Copyright (c) 2011, The Outercurve Foundation.\n";
-            return (SplashString);
-        }
         /// <summary>
         /// Main method
         /// Sample args :-InputFile InputFile("(C:\Temp\hpc.fasta)")
@@ -112,8 +106,21 @@ namespace SampleClusterApp
         /// <param name="args"></param>
         static void Main(string[] args)
         {
-            Console.WriteLine(SplashString());
-            CommandArguments.ConstructAndRun<SequenceContent>(args);
+            Console.Error.WriteLine(Properties.Resources.SampleClusterApp_Splash);
+            try
+            {
+                CommandArguments.ConstructAndRun<SequenceContent>(args, false);
+            }
+            catch (HelpException)
+            {
+                Console.Error.WriteLine(Properties.Resources.SampleClusterApp_Help);
+                Environment.ExitCode = 10022;
+            }
+            catch (Exception e)
+            {
+                Console.Error.WriteLine(e);
+                Environment.ExitCode = -532462766; // general failure.
+            }
         }
 
         /// <summary>

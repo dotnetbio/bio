@@ -1203,7 +1203,7 @@ file specification, and converts the data to in-memory PhylogeneticTree object.<
     <value>A condition failed.</value>
   </data>
   <data name="ExpectedArguments" xml:space="preserve">
-    <value>{3}Expected {0} required arguments after parsing named arguments (which may include required), but there are {1}:\n{2}</value>
+    <value>{3} Expected {0} required argument(s) after parsing named arguments (which may include required), but found {1}. ({2})</value>
   </data>
   <data name="ParsingError" xml:space="preserve">
     <value>Error parsing {0}:</value>

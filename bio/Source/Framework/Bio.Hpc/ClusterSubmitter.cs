@@ -540,7 +540,7 @@ namespace Bio.Hpc
 
             string exeName = distributableJob is DistributableWrapper ? clusterArgs.ExeName : distributeExe.GetType().Assembly.GetName().Name;
 
-            string taskCommandLine = string.Format("{0}\\{1} {2}", clusterArgs.ExeRelativeDirectoryName, exeName, CreateTaskString(distributeExe, clusterArgs.MinimalCommandLine));
+            string taskCommandLine = string.Format("{0}\\{1} {2}", clusterArgs.ExeRelativeDirectoryName, exeName, CreateTaskString(distributeExe));
             cleanupTask.CommandLine = taskCommandLine;
 
             if (!clusterArgs.OnlyDoCleanup)
@@ -608,7 +608,7 @@ namespace Bio.Hpc
                 Distributor = local
             };
 
-            string taskArgString = CreateTaskString(distributeExe, clusterArgs.MinimalCommandLine);
+            string taskArgString = CreateTaskString(distributeExe);
             string exeName = distributeExe.Distributable is DistributableWrapper ? clusterArgs.ExeName : distributeExe.GetType().Assembly.GetName().Name;
 
             string taskCommandLine = null;
@@ -664,15 +664,15 @@ namespace Bio.Hpc
             return timeString;
         }
 
-        private static string CreateTaskString(DistributeApp.Distribute distributeExe, bool suppressDefaults)
+        private static string CreateTaskString(DistributeApp.Distribute distributeExe)
         {
             DistributableWrapper wrapper = distributeExe.Distributable as DistributableWrapper;
             if (wrapper != null)
             {
                 Locally local = (Locally)distributeExe.Distributor;
 
-                string result = string.Format("{0} -TaskCount {1} -Tasks {2} -Cleanup {3}",
-                    wrapper.ToString(),
+                string result = string.Format(CultureInfo.CurrentCulture, "{0} -TaskCount {1} -Tasks {2} -Cleanup {3}",
+                    wrapper,
                     local.TaskCount,
                     local.Tasks == null ? "*" : local.Tasks.ToString(),
                     local.Cleanup);

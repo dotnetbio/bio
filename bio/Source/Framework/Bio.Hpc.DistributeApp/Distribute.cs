@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Linq;
+using Bio.DistributeApp.Properties;
 using Bio.Util.ArgumentParser;
-using Bio.Util;
 using Bio.Util.Distribute;
 
-namespace Bio.Hpc.DistributeApp
+namespace Bio.DistributeApp
 {
     /// <summary>
     /// class Distribute
@@ -37,24 +36,22 @@ namespace Bio.Hpc.DistributeApp
         /// <param name="args">arguments</param>
         static void Main(string[] args)
         {
-            Console.Error.WriteLine(SplashString());
+            Console.Error.WriteLine(Resources.DistributeApp_SplashScreen);
+
             try
             {
-                Console.WriteLine(args.Select(s => "\"" + s + "\"").StringJoin(" "));
-                CommandArguments.ConstructAndRun<Distribute>(args);
+                CommandArguments.ConstructAndRun<Distribute>(args, false);
+            }
+            catch (HelpException)
+            {
+                Console.Error.WriteLine(Properties.Resources.DistributeApp_Help);
+                Environment.ExitCode = 10022; 
             }
             catch (Exception e)
             {
                 Console.Error.WriteLine(e);
                 Environment.ExitCode = -532462766; // general failure.
             }
-        }
-
-        private static string SplashString()
-        {
-            const string SplashString = "\n.NET Bio Hpc Distribute Application v1.0"
-                                      + "\n  Copyright (c) 2011, The Outercurve Foundation.";
-            return (SplashString);
         }
     }
 }

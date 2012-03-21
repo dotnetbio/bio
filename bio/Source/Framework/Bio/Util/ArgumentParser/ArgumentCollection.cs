@@ -28,6 +28,11 @@ namespace Bio.Util.ArgumentParser
         public string SubtypeName { get; set; }
 
         /// <summary>
+        /// True/False whether to generate help page
+        /// </summary>
+        public bool GenerateHelpPage { get; set; }
+
+        /// <summary>
         /// Count in Argument List.
         /// </summary>
         public int Count
@@ -499,8 +504,13 @@ namespace Bio.Util.ArgumentParser
             }
             catch (HelpException help)
             {
-                Console.Error.WriteLine(help.Message);
-                Environment.ExitCode = 10022; // "The operation was canceled by the user"
+                if (GenerateHelpPage)
+                {
+                    Console.Error.WriteLine(help.Message);
+                    Environment.ExitCode = 10022; // "The operation was canceled by the user"
+                }
+                else
+                    throw; // Rethrow
             }
             catch (ParseException parse)
             {
@@ -615,10 +625,11 @@ namespace Bio.Util.ArgumentParser
         /// <returns>True if displayed.</returns>
         private bool HelpIsRequested()
         {
-            return ExtractOptionalFlag("help") || _argList.Any(arg => arg.Equals("help!", StringComparison.CurrentCultureIgnoreCase));
+            // Allow for "/h", "/help", "help!", "-help" or "-h"
+            return ExtractOptionalFlag("help") 
+                || ExtractOptionalFlag("h") 
+                || _argList.Any(arg => arg.Equals("help!", StringComparison.CurrentCultureIgnoreCase));
         }
-
-
 
         //private bool IsParsable(Type type)
         //{

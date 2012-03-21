@@ -55,7 +55,20 @@ namespace Bio.Util.ArgumentParser
         /// <param name="commandArgs">Command line arguments.</param>
         public static void ConstructAndRun<T>(string[] commandArgs) where T : IRunnable
         {
+            ConstructAndRun<T>(commandArgs, true);
+        }
+
+        /// <summary>
+        /// Constructs and instance of T, then runs it. This convenience method creates an instance of CommandArguments, then
+        /// call ConstructAndRun on that result.
+        /// </summary>
+        /// <typeparam name="T">A //[Parsable] type that implements IExecutable.</typeparam>
+        /// <param name="commandArgs">Command line arguments.</param>
+        /// <param name="generateHelpPage">True/False whether to generate help or throw HelpException</param>
+        public static void ConstructAndRun<T>(string[] commandArgs, bool generateHelpPage) where T : IRunnable
+        {
             CommandArguments command = new CommandArguments(commandArgs);
+            command.GenerateHelpPage = generateHelpPage;
             command.ConstructAndRun<T>();
         }
 
