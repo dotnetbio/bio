@@ -280,7 +280,7 @@ namespace MumUtil
                     StringBuilder sb = new StringBuilder((int)match.Length);
                     for (int i = 0; i < match.Length; ++i)
                     {
-                        sb.Append(querySequence[match.QuerySequenceOffset + i]);
+                        sb.Append((char)querySequence[match.QuerySequenceOffset + i]);
                     }
 
                     Console.WriteLine(sb.ToString());
