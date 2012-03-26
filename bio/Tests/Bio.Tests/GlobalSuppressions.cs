@@ -273,3 +273,7 @@
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "foundParser", Scope = "member", Target = "Bio.Tests.IO.SequenceParserTests.#TestMissingDirectory()")]
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1020:AvoidNamespacesWithFewTypes", Scope = "namespace", Target = "Bio.Tests.IO.SFF")]
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1020:AvoidNamespacesWithFewTypes", Scope = "namespace", Target = "Bio.Tests.IO")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "theString", Scope = "member", Target = "Bio.Tests.Extensions.SequenceExtensionTests.#CheckForOutOfRangeExceptionOnInvalidStartIndex()")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "theString", Scope = "member", Target = "Bio.Tests.Extensions.SequenceExtensionTests.#CheckForOutOfRangeExceptionOnInvalidLength()")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "theString", Scope = "member", Target = "Bio.Tests.Extensions.SequenceExtensionTests.#CheckForNullException()")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1020:AvoidNamespacesWithFewTypes", Scope = "namespace", Target = "Bio.Tests.Extensions")]

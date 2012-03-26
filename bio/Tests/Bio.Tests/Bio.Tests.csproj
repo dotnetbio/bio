@@ -45,12 +45,20 @@
     <CodeAnalysisRuleSet>..\..\Source\BioFramework_Code_Rules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web.Services" />
     <Reference Include="System.XML" />
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
@@ -59,8 +67,10 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Framework\Extensions\AlphabetExtensionsTest.cs" />
     <Compile Include="Framework\AlphabetsFriendlyNameTest.cs" />
     <Compile Include="Framework\DeriveSequenceTests.cs" />
+    <Compile Include="Framework\Extensions\SequenceExtensionTests.cs" />
     <Compile Include="Framework\IO\AppliedBiosystems\Ab1DataValidator.cs" />
     <Compile Include="Framework\IO\AppliedBiosystems\Ab1Examples.cs" />
     <Compile Include="Framework\IO\AppliedBiosystems\AbiTests.cs" />

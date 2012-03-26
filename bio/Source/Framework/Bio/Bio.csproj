@@ -165,6 +165,8 @@
     <Compile Include="Distributions\SufficientStatistics.cs" />
     <Compile Include="Distributions\WriteType.cs" />
     <Compile Include="DnaAlphabet.cs" />
+    <Compile Include="Extensions\AlphabetExtensions.cs" />
+    <Compile Include="Extensions\SequenceExtensions.cs" />
     <Compile Include="FastQFormatType.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="IAlphabet.cs" />
