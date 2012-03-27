@@ -47,10 +47,10 @@ namespace Bio.Algorithms.Alignment.MultipleSequenceAlignment
         #region Fields
 
         // Aligned sequences in the three stages.
-        private List<ISequence> _alignedSequencesA = null, _alignedSequencesB = null, _alignedSequencesC = null;
+        private List<ISequence> _alignedSequencesA, _alignedSequencesB, _alignedSequencesC;
 
         // The final aligned sequences.
-        private List<ISequence> _alignedSequences = null;
+        private List<ISequence> _alignedSequences;
 
         // The alignment score
         private float _alignmentScore = float.MinValue;
@@ -58,24 +58,8 @@ namespace Bio.Algorithms.Alignment.MultipleSequenceAlignment
         // The alignment score in the three stages.
         private float _alignmentScoreA = float.MinValue, _alignmentScoreB = float.MinValue, _alignmentScoreC = float.MinValue;
 
-        // Positive integer of kmer length
-        private int _kmerLength;
-
-        // The alphabet of this class
+        // The alphabet of this class - assigned from the first input sequence
         private IAlphabet _alphabet;
-
-        // enum: distance function name
-        private DistanceFunctionTypes _distanceFunctionName;
-
-        // enum: cluster update method
-        private UpdateDistanceMethodsTypes _hierarchicalClusteringMethodName;
-
-        // enum: profile-profile aligner name
-        private ProfileAlignerNames _profileAlignerName;
-
-        // enum: profile-profile distance function
-        private ProfileScoreFunctionNames _profileProfileFunctionName;
-
 
         // The number of partitions for parallelization
         // It is set to 1 for non-parallelization, and set to the number of processor cores for parallelization.
@@ -87,6 +71,31 @@ namespace Bio.Algorithms.Alignment.MultipleSequenceAlignment
         #endregion
 
         #region Properties
+
+        /// <summary>
+        /// Distance function name (enum)
+        /// </summary>
+        public DistanceFunctionTypes DistanceFunctionName { get; set; }
+
+        /// <summary>
+        /// Cluster update method (enum)
+        /// </summary>
+        public UpdateDistanceMethodsTypes HierarchicalClusteringMethodName { get; set; }
+
+        /// <summary>
+        /// Profile Aligner name (enum)
+        /// </summary>
+        public ProfileAlignerNames ProfileAlignerName { get; set; }
+
+        /// <summary>
+        /// Profile distance function (enum)
+        /// </summary>
+        public ProfileScoreFunctionNames ProfileProfileFunctionName { get; set; }
+
+        /// <summary>
+        /// Kmer Length
+        /// </summary>
+        public int KmerLength { get; set; }
 
         /// <summary>
         /// Gets or sets the object that will be used to compute the alignment's consensus.
@@ -206,63 +215,56 @@ namespace Bio.Algorithms.Alignment.MultipleSequenceAlignment
         /// <summary>
         /// Switch controls whether sequence weights are used
         /// </summary>
-        static public bool UseWeights
-        {
-            get;
-            set;
-        }
+        static public bool UseWeights { get; set; }
 
         /// <summary>
         /// Control the number of cores used in parallel extensions
         /// </summary>
-        static public int NumberOfCores
-        {
-            get;
-            set;
-        }
+        static public int NumberOfCores { get; set; }
 
         /// <summary>
         /// Switch controls whether faster version PAMSAM is used.
         /// </summary>
-        static public bool FasterVersion
-        {
-            get;
-            set;
-        }
+        static public bool FasterVersion { get; set; }
 
         /// <summary>
         ///  Switch controls whether stage 2 is used
         /// </summary>
-        static public bool UseStageB
-        {
-            get;
-            set;
-        }
+        static public bool UseStageB { get; set; }
 
         /// <summary>
         /// Set parallel options
         /// </summary>
-        static public ParallelOptions parallelOption
-        {
-            get;
-            set;
-        }
+        static public ParallelOptions parallelOption { get; set; }
         #endregion
 
         #region Constructors
 
         /// <summary>
-        /// default constructor
+        /// Constructor used to add PAMSAM algorithm to SequenceAligners.All
         /// </summary>
         public PAMSAMMultipleSequenceAligner()
         {
-            //This constructor is added for the purpose of 
-            //self registeration.
+            // Set parallel extension option
+            //_degreeOfParallelism = Environment.ProcessorCount;
+            parallelOption = new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount };
+            _numberOfPartitions = Environment.ProcessorCount * 2;
+
+            // Initialize parameters to general defaults - must override by setting property values prior 
+            // to calling Align.
+            KmerLength = 3;
+            DistanceFunctionName = DistanceFunctionTypes.EuclideanDistance;
+            HierarchicalClusteringMethodName = UpdateDistanceMethodsTypes.Average;
+            ProfileAlignerName = ProfileAlignerNames.NeedlemanWunschProfileAligner;
+            ProfileProfileFunctionName = ProfileScoreFunctionNames.WeightedInnerProduct;
+            GapOpenCost = -4;
+            GapExtensionCost = -1;
+
+            // SimularityMatrix will be assigned in Align if it's not set prior through property.
         }
 
-
         /// <summary>
-        /// Construct an aligner
+        /// Construct an aligner and run the alignment.
         /// </summary>
         /// <param name="sequences">input sequences</param>
         /// <param name="kmerLength">positive integer of kmer length</param>
@@ -305,7 +307,9 @@ namespace Bio.Algorithms.Alignment.MultipleSequenceAlignment
             {
                 throw new ArgumentException("Invalid parallel degree parameter");
             }
-            PAMSAMMultipleSequenceAligner.parallelOption = new ParallelOptions { MaxDegreeOfParallelism = degreeOfParallelism };
+
+            //_degreeOfParallelism = degreeOfParallelism;
+            parallelOption = new ParallelOptions { MaxDegreeOfParallelism = degreeOfParallelism };
 
             if (numberOfPartitions <= 0)
             {
@@ -313,64 +317,15 @@ namespace Bio.Algorithms.Alignment.MultipleSequenceAlignment
             }
             _numberOfPartitions = numberOfPartitions;
 
-            // Validate data type
-            _alphabet = sequences[0].Alphabet;
-            Parallel.For(1, sequences.Count, PAMSAMMultipleSequenceAligner.parallelOption, i =>
-            {
-                if (!Alphabets.CheckIsFromSameBase(sequences[i].Alphabet, _alphabet))
-                {
-                    throw new ArgumentException("Inconsistent sequence alphabet");
-                }
-            });
-
-            List<String> similarityMatrixDNA = new List<String>();
-            similarityMatrixDNA.Add("AmbiguousDNA");
-
-            List<String> similarityMatrixRNA = new List<String>();
-            similarityMatrixRNA.Add("AmbiguousRNA");
-
-            List<String> similarityMatrixProtein = new List<String>();
-            similarityMatrixProtein.Add("BLOSUM45");
-            similarityMatrixProtein.Add("BLOSUM50");
-            similarityMatrixProtein.Add("BLOSUM62");
-            similarityMatrixProtein.Add("BLOSUM80");
-            similarityMatrixProtein.Add("BLOSUM90");
-            similarityMatrixProtein.Add("PAM250");
-            similarityMatrixProtein.Add("PAM30");
-            similarityMatrixProtein.Add("PAM70");
-
-            if (_alphabet is DnaAlphabet)
-            {
-                if (!similarityMatrixDNA.Contains(similarityMatrix.Name))
-                {
-                    throw new ArgumentException("Inconsistent similarity matrix");
-                }
-            }
-            else if (_alphabet is ProteinAlphabet)
-            {
-                if (!similarityMatrixProtein.Contains(similarityMatrix.Name))
-                {
-                    throw new ArgumentException("Inconsistent similarity matrix");
-                }
-            }
-            else if (_alphabet is RnaAlphabet)
-            {
-                if (!similarityMatrixRNA.Contains(similarityMatrix.Name))
-                {
-                    throw new ArgumentException("Inconsistent similarity matrix");
-                }
-            }
-            else
-            {
-                throw new ArgumentException("Invalid alphabet");
-            }
+            // Assign the alphabet
+            SetAlphabet(sequences, similarityMatrix);
 
             // Initialize parameters
-            _kmerLength = kmerLength;
-            _distanceFunctionName = distanceFunctionName;
-            _hierarchicalClusteringMethodName = hierarchicalClusteringMethodName;
-            _profileAlignerName = profileAlignerMethodName;
-            _profileProfileFunctionName = profileFunctionName;
+            KmerLength = kmerLength;
+            DistanceFunctionName = distanceFunctionName;
+            HierarchicalClusteringMethodName = hierarchicalClusteringMethodName;
+            ProfileAlignerName = profileAlignerMethodName;
+            ProfileProfileFunctionName = profileFunctionName;
             SimilarityMatrix = similarityMatrix;
             GapOpenCost = gapOpenPenalty;
             GapExtensionCost = gapExtendPenalty;
@@ -380,7 +335,7 @@ namespace Bio.Algorithms.Alignment.MultipleSequenceAlignment
             Performance.Snapshot("Start Aligning");
 
             // Work...
-            Align(sequences);
+            DoAlignment(sequences);
         }
         #endregion
 
@@ -399,14 +354,131 @@ namespace Bio.Algorithms.Alignment.MultipleSequenceAlignment
         /// <summary>
         /// Performs Stage 1, 2, and 3 as described in class description.
         /// </summary>
-        /// <param name="inputSequences"></param>
-        /// <returns></returns>
-        public IList<Bio.Algorithms.Alignment.ISequenceAlignment> Align(IEnumerable<ISequence> inputSequences)
+        /// <param name="inputSequences">Input sequences</param>
+        /// <returns>Alignment results</returns>
+        public IList<Alignment.ISequenceAlignment> Align(IEnumerable<ISequence> inputSequences)
         {
             List<ISequence> sequences = inputSequences.ToList();
+            if (sequences.Count == 0)
+            {
+                throw new ArgumentException("Empty input sequences");
+            }
+
+            Performance.Start();
+
+            // Assign the alphabet
+            SetAlphabet(sequences, SimilarityMatrix);
+            MsaUtils.SetProfileItemSets(_alphabet);
+
+            Performance.Snapshot("Start Aligning");
+
+            // Work...
+            DoAlignment(sequences);
+
+            // just for the purpose of integrating PW and MSA with the same output
+            var alignment = new Alignment.SequenceAlignment();
+            IAlignedSequence aSequence = new AlignedSequence();
+            foreach (var alignedSequence in AlignedSequences)
+                aSequence.Sequences.Add(alignedSequence);
+            foreach (var inputSequence in sequences)
+                alignment.Sequences.Add(inputSequence);
+            alignment.AlignedSequences.Add(aSequence);
+            return new List<Alignment.ISequenceAlignment>() {alignment};
+        }
+
+
+        /// <summary>
+        /// This method assigns the alphabet from the input sequences
+        /// </summary>
+        /// <param name="sequences">Input sequences</param>
+        /// <param name="similarityMatrix">Matrix to use for similarity comparisons</param>
+        private void SetAlphabet(IList<ISequence> sequences, SimilarityMatrix similarityMatrix)
+        {
+            if (sequences.Count == 0)
+            {
+                throw new ArgumentException("Empty input sequences");
+            }
+
+            // Validate data type
+            _alphabet = sequences[0].Alphabet;
+            Parallel.For(1, sequences.Count, PAMSAMMultipleSequenceAligner.parallelOption, i =>
+            {
+                if (!Alphabets.CheckIsFromSameBase(sequences[i].Alphabet, _alphabet))
+                {
+                    throw new ArgumentException("Inconsistent sequence alphabet");
+                }
+            });
+
+            // Check or assign the similarity matrix.
+            if (similarityMatrix == null)
+            {
+                if (_alphabet is DnaAlphabet)
+                {
+                    SimilarityMatrix = new SimilarityMatrix(SimilarityMatrix.StandardSimilarityMatrix.AmbiguousDna);
+                }
+                else if (_alphabet is RnaAlphabet)
+                {
+                    SimilarityMatrix = new SimilarityMatrix(SimilarityMatrix.StandardSimilarityMatrix.AmbiguousRna);
+                }
+                else if (_alphabet is ProteinAlphabet)
+                {
+                    SimilarityMatrix = new SimilarityMatrix(SimilarityMatrix.StandardSimilarityMatrix.DiagonalScoreMatrix);
+                }
+                else
+                {
+                    throw new ArgumentException("Invalid alphabet");
+                }
+            }
+            else
+            {
+                List<String> similarityMatrixDNA = new List<String> { "AmbiguousDNA" };
+                List<String> similarityMatrixRNA = new List<String> { "AmbiguousRNA" };
+                List<String> similarityMatrixProtein = new List<String> { "BLOSUM45", "BLOSUM50", "BLOSUM62", "BLOSUM80", "BLOSUM90", "PAM250", "PAM30", "PAM70" };
+
+                if (_alphabet is DnaAlphabet)
+                {
+                    if (!similarityMatrixDNA.Contains(similarityMatrix.Name))
+                    {
+                        throw new ArgumentException("Inconsistent similarity matrix");
+                    }
+                }
+                else if (_alphabet is ProteinAlphabet)
+                {
+                    if (!similarityMatrixProtein.Contains(similarityMatrix.Name))
+                    {
+                        throw new ArgumentException("Inconsistent similarity matrix");
+                    }
+                }
+                else if (_alphabet is RnaAlphabet)
+                {
+                    if (!similarityMatrixRNA.Contains(similarityMatrix.Name))
+                    {
+                        throw new ArgumentException("Inconsistent similarity matrix");
+                    }
+                }
+                else
+                {
+                    throw new ArgumentException("Invalid alphabet");
+                }
+            }
+        }
+
+        /// <summary>
+        /// Performs Stage 1, 2, and 3 as described in class description.
+        /// </summary>
+        /// <param name="sequences">Input sequences</param>
+        /// <returns>Alignment results</returns>
+        private void DoAlignment(IList<ISequence> sequences)
+        {
             // Initializations
             if (sequences.Count > 0)
             {
+                // Assign the alphabet from the input sequences if it was not set.
+                if (_alphabet == null)
+                {
+                    _alphabet = sequences[0].Alphabet;
+                }
+
                 if (ConsensusResolver == null)
                 {
                     ConsensusResolver = new SimpleConsensusResolver(_alphabet);
@@ -419,31 +491,31 @@ namespace Bio.Algorithms.Alignment.MultipleSequenceAlignment
 
             // Get ProfileAligner ready
             IProfileAligner profileAligner = null;
-            switch (_profileAlignerName)
+            switch (ProfileAlignerName)
             {
                 case (ProfileAlignerNames.NeedlemanWunschProfileAligner):
                     if (_degreeOfParallelism == 1)
                     {
                         profileAligner = new NeedlemanWunschProfileAlignerSerial(
-                            SimilarityMatrix, _profileProfileFunctionName, GapOpenCost, GapExtensionCost, _numberOfPartitions);
+                            SimilarityMatrix, ProfileProfileFunctionName, GapOpenCost, GapExtensionCost, _numberOfPartitions);
                     }
                     else
                     {
                         profileAligner = new NeedlemanWunschProfileAlignerParallel(
-                            SimilarityMatrix, _profileProfileFunctionName, GapOpenCost, GapExtensionCost, _numberOfPartitions);
+                            SimilarityMatrix, ProfileProfileFunctionName, GapOpenCost, GapExtensionCost, _numberOfPartitions);
                     }
                     break;
                 case (ProfileAlignerNames.SmithWatermanProfileAligner):
                     if (_degreeOfParallelism == 1)
                     {
                         profileAligner = new SmithWatermanProfileAlignerSerial(
-                        SimilarityMatrix, _profileProfileFunctionName, GapOpenCost, GapExtensionCost, _numberOfPartitions);
+                        SimilarityMatrix, ProfileProfileFunctionName, GapOpenCost, GapExtensionCost, _numberOfPartitions);
 
                     }
                     else
                     {
                         profileAligner = new SmithWatermanProfileAlignerParallel(
-                    SimilarityMatrix, _profileProfileFunctionName, GapOpenCost, GapExtensionCost, _numberOfPartitions);
+                    SimilarityMatrix, ProfileProfileFunctionName, GapOpenCost, GapExtensionCost, _numberOfPartitions);
 
                     }
                     break;
@@ -459,12 +531,12 @@ namespace Bio.Algorithms.Alignment.MultipleSequenceAlignment
             Performance.Snapshot("Stage 1");
             // Generate DistanceMatrix
             KmerDistanceMatrixGenerator kmerDistanceMatrixGenerator =
-                new KmerDistanceMatrixGenerator(sequences, _kmerLength, _alphabet, _distanceFunctionName);
+                new KmerDistanceMatrixGenerator(sequences, KmerLength, _alphabet, DistanceFunctionName);
 
             // Hierarchical clustering
             IHierarchicalClustering hierarcicalClustering =
                 new HierarchicalClusteringParallel
-                    (kmerDistanceMatrixGenerator.DistanceMatrix, _hierarchicalClusteringMethodName);
+                    (kmerDistanceMatrixGenerator.DistanceMatrix, HierarchicalClusteringMethodName);
 
             // Generate Guide Tree
             BinaryGuideTree binaryGuideTree =
@@ -505,16 +577,13 @@ namespace Bio.Algorithms.Alignment.MultipleSequenceAlignment
                     Performance.Snapshot("Stage 2");
                     // Generate DistanceMatrix from Multiple Sequence Alignment
 
-                    int iterateTime = 0;
-
                     while (true)
                     {
-                        ++iterateTime;
                         kimuraDistanceMatrixGenerator.GenerateDistanceMatrix(_alignedSequences);
 
                         // Hierarchical clustering
                         hierarcicalClusteringB = new HierarchicalClusteringParallel
-                                (kimuraDistanceMatrixGenerator.DistanceMatrix, _hierarchicalClusteringMethodName);
+                                (kimuraDistanceMatrixGenerator.DistanceMatrix, HierarchicalClusteringMethodName);
 
                         // Generate Guide Tree
                         binaryGuideTreeB = new BinaryGuideTree(hierarcicalClusteringB);
@@ -554,7 +623,6 @@ namespace Bio.Algorithms.Alignment.MultipleSequenceAlignment
                 // STAGE 3
                 Performance.Snapshot("Stage 3");
                 // refinement
-                //int maxRefineMentTime = sequences.Count * 2 - 2;
                 int maxRefineMentTime = 1;
                 if (sequences.Count == 2)
                 {
@@ -565,13 +633,12 @@ namespace Bio.Algorithms.Alignment.MultipleSequenceAlignment
                 _alignedSequencesC = new List<ISequence>(sequences.Count);
                 for (int i = 0; i < sequences.Count; ++i)
                 {
-                    _alignedSequencesC.Add(
-                        new Sequence(Alphabets.GetAmbiguousAlphabet(_alphabet),
+                    _alignedSequencesC.Add(new Sequence(Alphabets.GetAmbiguousAlphabet(_alphabet),
                             _alignedSequences[i].ToArray())
-                            {
-                                ID = _alignedSequences[i].ID,
-                                Metadata = _alignedSequences[i].Metadata
-                            });
+                        {
+                            ID = _alignedSequences[i].ID,
+                            Metadata = _alignedSequences[i].Metadata
+                        });
                 }
 
                 List<int>[] leafNodeIndices = null;
@@ -582,7 +649,7 @@ namespace Bio.Algorithms.Alignment.MultipleSequenceAlignment
                 while (refinementTime < maxRefineMentTime)
                 {
                     ++refinementTime;
-                    Performance.Snapshot("Refinement iter " + refinementTime.ToString());
+                    Performance.Snapshot("Refinement iter " + refinementTime);
                     bool needRefinement = false;
                     for (int edgeIndex = 0; edgeIndex < binaryGuideTreeB.NumberOfEdges; ++edgeIndex)
                     {
@@ -612,7 +679,7 @@ namespace Bio.Algorithms.Alignment.MultipleSequenceAlignment
                             {
                                 //Sequence seq = new Sequence(_alphabet, "");
                                 List<byte> seqBytes = new List<byte>();
-                                
+
                                 int indexAllIndel = 0;
                                 for (int j = 0; j < _alignedSequencesC[i].Count; ++j)
                                 {
@@ -642,9 +709,9 @@ namespace Bio.Algorithms.Alignment.MultipleSequenceAlignment
                             // recreate the tree
                             kimuraDistanceMatrixGenerator.GenerateDistanceMatrix(_alignedSequencesC);
                             hierarcicalClusteringB = new HierarchicalClusteringParallel
-                                    (kimuraDistanceMatrixGenerator.DistanceMatrix, _hierarchicalClusteringMethodName);
+                                    (kimuraDistanceMatrixGenerator.DistanceMatrix, HierarchicalClusteringMethodName);
 
-                            binaryGuideTreeB = new BinaryGuideTree(hierarcicalClusteringB); 
+                            binaryGuideTreeB = new BinaryGuideTree(hierarcicalClusteringB);
                             break;
                         }
                     }
@@ -662,10 +729,6 @@ namespace Bio.Algorithms.Alignment.MultipleSequenceAlignment
                 }
                 Performance.Snapshot("Stop Stage 3");
             }
-
-            //just for the purpose of integrating PW and MSA with the same output
-            IList<Bio.Algorithms.Alignment.ISequenceAlignment> results = new List<Bio.Algorithms.Alignment.ISequenceAlignment>();
-            return results;
         }
         #endregion
     }
