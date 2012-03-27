@@ -204,7 +204,22 @@ namespace Bio
                 if (++currentPriorityIndex == alphabetPriorityList.Count)
                 {
                     // Last ditch effort - look at all registered alphabets and see if any contain all the located symbols.
-                    return All.FirstOrDefault(alphabet => alphabet.ValidateSequence(symbols, offset, length));
+                    foreach (var alphabet in All)
+                    {
+                        // Make sure alphabet supports validation -- if not, ignore it.
+                        try
+                        {
+                            if (alphabet.ValidateSequence(symbols, offset, length))
+                                return alphabet;
+                        }
+                        catch (NotImplementedException)
+                        {
+                            continue;
+                        }
+                    }
+
+                    // No alphabet found.
+                    return null;
                 }
             }
 

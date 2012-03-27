@@ -103,10 +103,10 @@
 
             if (metadata.Locus != null)
             {
-                excelData.Add(new string[] { Properties.Resources.GenbankMetadataLocus });
+                excelData.Add(new[] { Properties.Resources.GenbankMetadataLocus });
                 AddNameValuePair(excelData, 1, Properties.Resources.GenbankMetadataName, metadata.Locus.Name);
                 AddNameValuePair(excelData, 1, Properties.Resources.GenbankMetadataSeqLength, metadata.Locus.SequenceLength.ToString());
-                AddNameValuePair(excelData, 1, Properties.Resources.GenbankMetadataSeqType, metadata.Locus.SequenceType.ToString());
+                AddNameValuePair(excelData, 1, Properties.Resources.GenbankMetadataSeqType, metadata.Locus.SequenceType);
                 AddNameValuePair(excelData, 1, Properties.Resources.GenbankMetadataStrandType, Helper.GetStrandType(metadata.Locus.Strand));
                 AddNameValuePair(excelData, 1, Properties.Resources.GenbankMetadataMoleculeType, metadata.Locus.MoleculeType.ToString());
                 AddNameValuePair(excelData, 1, Properties.Resources.GenbankMetadataStrandTopology, Helper.GetStrandTopology(metadata.Locus.StrandTopology));
@@ -146,10 +146,8 @@
 
             if (metadata.Version != null)
             {
-                AddNameValuePair(excelData, 0, Properties.Resources.GenbankMetadataVersion, "",
-                                (metadata.Version.Accession == null ? string.Empty : metadata.Version.Accession) + "." +
-                                (metadata.Version.Version == null ? string.Empty : metadata.Version.Version) + " " +
-                                Properties.Resources.GenbankMetadataGI + (metadata.Version.GiNumber == null ? string.Empty : metadata.Version.GiNumber));
+                AddNameValuePair(excelData, 0, Properties.Resources.GenbankMetadataVersion, "", (metadata.Version.Accession ?? string.Empty) + "." + 
+                                    (metadata.Version.Version ?? string.Empty) + " " + Properties.Resources.GenbankMetadataGI + (metadata.Version.GiNumber ?? string.Empty));
             }
 
             if (metadata.Segment != null)
@@ -161,13 +159,9 @@
 
             if (metadata.Source != null)
             {
-                AddNameValuePair(excelData, 0, Properties.Resources.GenbankMetadataSource, "",
-                    metadata.Source.CommonName == null ? string.Empty : metadata.Source.CommonName);
-                AddNameValuePair(excelData, 1, Properties.Resources.GenbankMetadataOrganism,
-                    (metadata.Source.Organism.Genus == null ? string.Empty : metadata.Source.Organism.Genus) + " " +
-                    (metadata.Source.Organism.Species == null ? string.Empty : metadata.Source.Organism.Species));
-                AddNameValuePair(excelData, 1, Properties.Resources.GenbankMetadataClassLevels,
-                    metadata.Source.Organism.ClassLevels == null ? string.Empty : metadata.Source.Organism.ClassLevels);
+                AddNameValuePair(excelData, 0, Properties.Resources.GenbankMetadataSource, "", metadata.Source.CommonName ?? string.Empty);
+                AddNameValuePair(excelData, 1, Properties.Resources.GenbankMetadataOrganism, (metadata.Source.Organism.Genus ?? string.Empty) + " " + (metadata.Source.Organism.Species ?? string.Empty));
+                AddNameValuePair(excelData, 1, Properties.Resources.GenbankMetadataClassLevels, metadata.Source.Organism.ClassLevels ?? string.Empty);
             }
 
             foreach (CitationReference reference in metadata.References)
@@ -224,7 +218,7 @@
                     LocationBuilder locBuilder = new LocationBuilder();
                     // Add the feature headers
                     excelRow.Add(featureItem.Key);
-                    excelRow.Add(""); // skip one column
+                    //excelRow.Add(""); // skip one column
                     excelRow.Add(locBuilder.GetLocationString(featureItem.Location));
                     excelData.Add(excelRow.ToArray());
                     excelRow.Clear();
@@ -250,47 +244,38 @@
         /// <summary>
         /// Gives out string array of metadata and features just below metadata.
         /// </summary>
-        /// <param name="sequence">Sequece object</param>
+        /// <param name="sequence">Sequence object</param>
         /// <returns>string array of metadata</returns>
         public static string[,] GffMetaDataToRange(ISequence sequence)
         {
-            List<string[]> excelData = new List<string[]>();
-            List<string> excelRow = new List<string>();
-
             if (sequence.Metadata.Keys.Contains(FEATURES))
             {
-                List<MetadataListItem<List<string>>> listItems =
-                    sequence.Metadata[FEATURES] as List<MetadataListItem<List<string>>>;
-
-                // Add the metadata headers
-                excelData.Add(new string[] { Properties.Resources.GffColumnName,
-                                             Properties.Resources.GffColumnSource, 
-                                             Properties.Resources.GffColumnType, 
-                                             Properties.Resources.GffColumnStart, 
-                                             Properties.Resources.GffColumnEnd, 
-                                             Properties.Resources.GffColumnScore, 
-                                             Properties.Resources.GffColumnStrand, 
-                                             Properties.Resources.GffColumnFrame, 
-                                             Properties.Resources.GffColumnGroup});
-
-                // Add metadata
-                foreach (MetadataListItem<List<string>> listItem in listItems)
+                var listItems = sequence.Metadata[FEATURES] as List<MetadataListItem<List<string>>>;
+                if (listItems != null)
                 {
-                    excelRow.Add(sequence.ID == null ? string.Empty : sequence.ID); // Name
-                    excelRow.Add(GetGFFColumnValue(listItem, GFF_SOURCE));
-                    excelRow.Add(listItem.Key == null ? string.Empty : listItem.Key); // Type
-                    excelRow.Add(GetGFFColumnValue(listItem, GFF_START));
-                    excelRow.Add(GetGFFColumnValue(listItem, GFF_END));
-                    excelRow.Add(GetGFFColumnValue(listItem, GFF_SCORE));
-                    excelRow.Add(GetGFFColumnValue(listItem, GFF_STRAND));
-                    excelRow.Add(GetGFFColumnValue(listItem, GFF_FRAME));
-                    excelRow.Add(listItem.FreeText == null ? string.Empty : listItem.FreeText); // Group
+                    var excelData = new List<string[]>();
+                    var excelRow = new List<string>();
 
-                    excelData.Add(excelRow.ToArray());
-                    excelRow.Clear();
+                    // Add metadata
+                    foreach (MetadataListItem<List<string>> listItem in listItems)
+                    {
+                        excelRow.Add(GetGFFColumnValue(listItem, GFF_SOURCE));
+                        StringBuilder sb = new StringBuilder();
+                        sb.AppendFormat("{0} = {1}\n", Properties.Resources.GffColumnType, listItem.Key ?? string.Empty);
+                        sb.AppendFormat("{0} = {1}\n", Properties.Resources.GffColumnStart, GetGFFColumnValue(listItem, GFF_START));
+                        sb.AppendFormat("{0} = {1}\n", Properties.Resources.GffColumnEnd, GetGFFColumnValue(listItem, GFF_END));
+                        sb.AppendFormat("{0} = {1}\n", Properties.Resources.GffColumnScore, GetGFFColumnValue(listItem, GFF_SCORE));
+                        sb.AppendFormat("{0} = {1}\n", Properties.Resources.GffColumnStrand, GetGFFColumnValue(listItem, GFF_STRAND));
+                        sb.AppendFormat("{0} = {1}\n", Properties.Resources.GffColumnFrame, GetGFFColumnValue(listItem, GFF_FRAME));
+                        sb.AppendFormat("{0} = {1}", Properties.Resources.GffColumnGroup, listItem.FreeText ?? string.Empty);
+                        excelRow.Add(sb.ToString());
+
+                        excelData.Add(excelRow.ToArray());
+                        excelRow.Clear();
+                    }
+
+                    return ConvertToArray(excelData);
                 }
-
-                return ConvertToArray(excelData);
             }
 
             return null;
@@ -303,28 +288,17 @@
         /// <returns>2-D array representation of the given list.</returns>
         private static string[,] ConvertToArray(List<string[]> excelData)
         {
-            int colCount = 0;
             // Get the length of the longest string in the list
-            foreach (string[] row in excelData)
-            {
-                if (row.Length > colCount)
-                {
-                    colCount = row.Length;
-                }
-            }
-
+            int colCount = excelData.Max(r => r.Length);
             string[,] finalMetadata = new string[excelData.Count, colCount];
 
-            int curRow = 0, curCol = 0;
-            foreach (string[] row in excelData)
+            for (int curRow = 0; curRow < excelData.Count; curRow++)
             {
-                foreach (string item in row)
+                string[] row = excelData[curRow];
+                for (int curCol = 0; curCol < row.Length; curCol++)
                 {
                     finalMetadata[curRow, curCol] = row[curCol];
-                    curCol++;
                 }
-                curCol = 0;
-                curRow++;
             }
 
             return finalMetadata;
@@ -365,6 +339,11 @@
                 string value,
                 params string[] values)
         {
+            // Never perform an indent of the values - so the Key is always
+            // in column 1. This breaks the tree relationship visually but was requested
+            // in order to make the layout correct.
+            indent = 0;
+
             if (!string.IsNullOrEmpty(value) || values.Length > 0)
             {
                 if (string.IsNullOrEmpty(value) && values.Length == 1 && string.IsNullOrWhiteSpace(values[0]))
@@ -382,10 +361,9 @@
                 }
 
                 excelRow.Add(name);
-                excelRow.Add(value);
-
-                for (int i = 0; i < values.Length; i++)
-                    excelRow.Add(values[i]);
+                if (!string.IsNullOrEmpty(value))
+                    excelRow.Add(value);
+                excelRow.AddRange(values);
 
                 excelData.Add(excelRow.ToArray());
             }

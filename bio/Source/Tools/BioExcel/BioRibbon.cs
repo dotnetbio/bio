@@ -2939,7 +2939,7 @@ namespace BiodexExcel
             {
                 currentRow++;
                 worksheet.Cells[currentRow, 1].Value2 = Resources.Sequence_QualityScores;
-                currentRow = WriteQualityValues(sequence as QualitativeSequence, worksheet, currentRow, 2, out dataRange);
+                currentRow = WriteQualityValues(sequence as QualitativeSequence, worksheet, currentRow, 3, out dataRange);
                 if (dataRange != null)
                     dataRange.Columns.AutoFit(); // Autofit columns with quality scores
             }
@@ -2949,7 +2949,6 @@ namespace BiodexExcel
             WriteMetadata(sequence, parser, worksheet, currentRow, out metadataRange);
             if (metadataRange != null)
             {
-                metadataRange.WrapText = false;
                 currentRow += metadataRange.Rows.Count;
             }
 
@@ -2972,6 +2971,11 @@ namespace BiodexExcel
                 {
                     string[,] formattedMetadata = ExcelImportFormatter.GenBankMetadataToRange(sequence.Metadata[GenbankMetadataKey] as GenBankMetadata);
                     metadataRange = WriteToSheet(worksheet, formattedMetadata, startingRow, 1);
+                    if (metadataRange != null)
+                    {
+                        // Turn off wrapping for metadata values.
+                        metadataRange.WrapText = false;
+                    }
                 }
                 else
                 {
@@ -2982,6 +2986,15 @@ namespace BiodexExcel
             {
                 string[,] formattedMetadata = ExcelImportFormatter.GffMetaDataToRange(sequence);
                 metadataRange = WriteToSheet(worksheet, formattedMetadata, startingRow, 1);
+                if (metadataRange != null)
+                {
+                    metadataRange.Columns.VerticalAlignment = Microsoft.Office.Interop.Excel.XlVAlign.xlVAlignTop;
+                    metadataRange.WrapText = false;
+                    // Now wrap data columns
+                    metadataRange.Columns[2].AutoFit();
+                    metadataRange.Columns[2].WrapText = true;
+                    metadataRange.Columns[2].AutoFit();
+                }
             }
             else
             {
@@ -3048,7 +3061,7 @@ namespace BiodexExcel
             // Put the data into the rows.
             while (counts < sequence.Count)
             {
-                int columnNumber = 1;
+                int columnNumber = 2;
                 for (int i = 0; (i < maxNumberOfCharacters) && (counts < sequence.Count); i++, counts++, columnNumber++)
                     rangeData[rowNumber - initialRowNumber, i] = new string(new[] { (char)sequence[counts] });
 
@@ -3060,7 +3073,7 @@ namespace BiodexExcel
 
             if (sequence.Count > 0)
             {
-                Range range = worksheet.Range["B" + initialRowNumber.ToString(CultureInfo.CurrentCulture), Type.Missing];
+                Range range = worksheet.Range["C" + initialRowNumber.ToString(CultureInfo.CurrentCulture), Type.Missing];
                 range = range.Resize[rowCount, columnCount];
                 range.set_Value(Missing.Value, rangeData);
 
@@ -3070,7 +3083,7 @@ namespace BiodexExcel
                 sb.Append("='");
                 sb.Append(worksheet.Name);
                 sb.Append("'!");
-                sb.Append("$B$" + initialRowNumber);
+                sb.Append("$C$" + initialRowNumber);
                 sb.Append(":$");
                 sb.Append(GetColumnString(maxColumnNumber) + "$" + (rowNumber - 1).ToString(CultureInfo.CurrentCulture));
                 string formula = sb.ToString();
@@ -3078,7 +3091,7 @@ namespace BiodexExcel
                 worksheet.Names.Add(Resources.SEQUENCEDATA_PRESELECTION + GetValidFileNames(sequence.ID), 
                     formula, true, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
 
-                Range fullSelection = worksheet.Range["B" + initialRowNumber.ToString(CultureInfo.CurrentCulture), GetColumnString(maxColumnNumber) + (rowNumber - 1).ToString(CultureInfo.CurrentCulture)];
+                Range fullSelection = worksheet.Range["C" + initialRowNumber.ToString(CultureInfo.CurrentCulture), GetColumnString(maxColumnNumber) + (rowNumber - 1).ToString(CultureInfo.CurrentCulture)];
                 fullSelection.Select();
                 sequenceDataRange = fullSelection;
                 //added default from UI as auto detect and ignore space

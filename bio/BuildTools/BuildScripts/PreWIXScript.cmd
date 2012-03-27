@@ -42,35 +42,36 @@ echo ************************************************************
 echo Copying Add-ins Binaries
 echo ************************************************************
 
+XCopy /y /i %SourceFolder%\Binaries\Release\Bio.IO.dll %BioFolder%\Framework\
 XCopy /y /i %SourceFolder%\Binaries\Release\Bio.Padena.dll %BioFolder%\Framework\
 XCopy /y /i %SourceFolder%\Binaries\Release\Bio.Pamsam.dll %BioFolder%\Framework\
 XCopy /y /i %SourceFolder%\Binaries\Release\Bio.Comparative.dll %BioFolder%\Framework\
 XCopy /y /i %SourceFolder%\Binaries\Release\Bio.Hpc.dll %BioFolder%\Framework\
-XCopy /y /i %SourceFolder%\Binaries\Release\Bio.Hpc.DistributeApp.exe %BioFolder%\Framework\
-XCopy /y /i %SourceFolder%\Binaries\Release\Bio.Hpc.DistributeApp.exe.config %BioFolder%\Framework\
 XCopy /y /i %SourceFolder%\Binaries\Release\HpcLibSettings.local.xml %BioFolder%\Framework\
 XCopy /y /i %SourceFolder%\Binaries\Release\HpcLibSettings.xml %BioFolder%\Framework\
 
 echo ************************************************************
 echo Copying Tools Binaries
 echo ************************************************************
-XCopy /y /i %SourceFolder%\Binaries\Release\ReadSimulator.exe %BioFolder%\Framework\
-XCopy /y /i %SourceFolder%\Binaries\Release\SAMUtils.exe %BioFolder%\Framework\
-XCopy /y /i %SourceFolder%\Binaries\Release\Bio.Workflow.dll %BioFolder%\Framework\
-XCopy /y /i %SourceFolder%\Binaries\Release\MumUtil.exe %BioFolder%\Framework\
+XCopy /y /i %SourceFolder%\Binaries\Release\BedStats.exe %BioFolder%\Framework\
+XCopy /y /i %SourceFolder%\Binaries\Release\ComparativeUtil.exe %BioFolder%\Framework\
+XCopy /y /i %SourceFolder%\Binaries\Release\ConsensusUtil.exe %BioFolder%\Framework\
+XCopy /y /i %SourceFolder%\Binaries\Release\DistributeApp.exe %BioFolder%\Framework\
+XCopy /y /i %SourceFolder%\Binaries\Release\FileFormatConverter.exe %BioFolder%\Framework\
+XCopy /y /i %SourceFolder%\Binaries\Release\FilterReadsUtil.exe %BioFolder%\Framework\
+XCopy /y /i %SourceFolder%\Binaries\Release\LayoutRefinementUtil.exe %BioFolder%\Framework\
 XCopy /y /i %SourceFolder%\Binaries\Release\LISUtil.exe %BioFolder%\Framework\
+XCopy /y /i %SourceFolder%\Binaries\Release\MumUtil.exe %BioFolder%\Framework\
 XCopy /y /i %SourceFolder%\Binaries\Release\NucmerUtil.exe %BioFolder%\Framework\
 XCopy /y /i %SourceFolder%\Binaries\Release\PadenaUtil.exe %BioFolder%\Framework\
+XCopy /y /i %SourceFolder%\Binaries\Release\ReadSimulator.exe %BioFolder%\Framework\
 XCopy /y /i %SourceFolder%\Binaries\Release\RepeatResolutionUtil.exe %BioFolder%\Framework\
-XCopy /y /i %SourceFolder%\Binaries\Release\LayoutRefinementUtil.exe %BioFolder%\Framework\
-XCopy /y /i %SourceFolder%\Binaries\Release\ConsensusUtil.exe %BioFolder%\Framework\
-XCopy /y /i %SourceFolder%\Binaries\Release\ScaffoldUtil.exe %BioFolder%\Framework\
-XCopy /y /i %SourceFolder%\Binaries\Release\ComparativeUtil.exe %BioFolder%\Framework\
-XCopy /y /i %SourceFolder%\Binaries\Release\FilterReadsUtil.exe %BioFolder%\Framework\
 XCopy /y /i %SourceFolder%\Binaries\Release\SampleClusterApp.exe %BioFolder%\Framework\
-XCopy /y /i %SourceFolder%\Binaries\Release\Tools.VennToNodeXL.dll %BioFolder%\Framework\
-XCopy /y /i %SourceFolder%\Binaries\Release\BedStats.exe %BioFolder%\Framework\
+XCopy /y /i %SourceFolder%\Binaries\Release\SAMUtils.exe %BioFolder%\Framework\
+XCopy /y /i %SourceFolder%\Binaries\Release\ScaffoldUtil.exe %BioFolder%\Framework\
 XCopy /y /i %SourceFolder%\Binaries\Release\VennTool.exe %BioFolder%\Framework\
+XCopy /y /i %SourceFolder%\Binaries\Release\Bio.Workflow.dll %BioFolder%\Framework\
+XCopy /y /i %SourceFolder%\Binaries\Release\Tools.VennToNodeXL.dll %BioFolder%\Framework\
 
 echo ************************************************************
 echo Copying SDK
@@ -92,20 +93,17 @@ echo ************************************************************
 MD %BioFolder%\SDK\Docs
 
 XCopy /y /i %SourceFolder%\docs\Bio.chm %BioFolder%\SDK\Docs
-Xcopy /y /i %SourceFolder%\docs\Becoming_A_Committer_v2.docx %BioFolder%\SDK\Docs\
 Xcopy /y /i %SourceFolder%\docs\".Net Bio_Coding_Conventions.docx" %BioFolder%\SDK\Docs\
 Xcopy /y /i %SourceFolder%\docs\".Net Bio_Commenting_Conventions.docx" %BioFolder%\SDK\Docs\
-Xcopy /y /i %SourceFolder%\docs\".Net Bio_Committer_Guide.docx" %BioFolder%\SDK\Docs\
-Xcopy /y /i %SourceFolder%\docs\".Net Bio_Committer_Onboarding.docx" %BioFolder%\SDK\Docs\
 Xcopy /y /i %SourceFolder%\docs\".Net Bio_Comparative_Assembly_Technical_Guide.docx" %BioFolder%\SDK\Docs\
 Xcopy /y /i %SourceFolder%\docs\".Net Bio_Contribution_Documentation_Template.docx" %BioFolder%\SDK\Docs\
-Xcopy /y /i %SourceFolder%\docs\".Net Bio_Contributor_Guide.docx" %BioFolder%\SDK\Docs\
+Xcopy /y /i %SourceFolder%\docs\".Net Bio_Contribution_Guide.docx" %BioFolder%\SDK\Docs\
 Xcopy /y /i %SourceFolder%\docs\".Net Bio_Getting_Started.docx" %BioFolder%\SDK\Docs\
-Xcopy /y /i %SourceFolder%\docs\".Net Bio_Overview.docx" %BioFolder%\SDK\Docs\
 Xcopy /y /i %SourceFolder%\docs\".Net Bio_Parallel_de_Novo_Assembler_Technical_Guide.docx" %BioFolder%\SDK\Docs\
 Xcopy /y /i %SourceFolder%\docs\".Net Bio_Programming_Guide.docx" %BioFolder%\SDK\Docs\
 Xcopy /y /i %SourceFolder%\docs\".Net Bio_Sample_for_IronPython_Programming_Guide.docx" %BioFolder%\SDK\Docs\
 Xcopy /y /i %SourceFolder%\docs\".Net Bio_Testing_Guide.docx" %BioFolder%\SDK\Docs\
+Xcopy /y /i %SourceFolder%\docs\"Onboarding using Visual Studio with .NET Bio.docx" %BioFolder%\SDK\Docs\
 
 echo ************************************************************
 echo Copying Framework source code
@@ -126,7 +124,6 @@ echo ************************************************************
 
 MD %BioFolder%\SDK\Tools\IronPython\BioIronPython
 XCopy /y /i %SourceFolder%\Source\Tools\Python\BioDebug.py %BioFolder%\SDK\Tools\IronPython\
-XCopy /y /i %SourceFolder%\Source\Tools\Python\BioDemo.py %BioFolder%\SDK\Tools\IronPython\
 XCopy /y /i %SourceFolder%\Source\Tools\Python\BioMenu.py %BioFolder%\SDK\Tools\IronPython\
 XCopy /s /y /i %SourceFolder%\Source\Tools\Python\BioIronPython\*.* %BioFolder%\SDK\Tools\IronPython\BioIronPython\
 
@@ -292,6 +289,7 @@ XCopy /y /i %SourceFolder%\Binaries\Release\BioSequenceAssembler.exe %SequenceAs
 XCopy /y /i %SourceFolder%\Binaries\Release\Bio.Pamsam.dll %SequenceAssemblerFolder%\
 XCopy /y /i %SourceFolder%\Binaries\Release\Bio.Padena.dll %SequenceAssemblerFolder%\
 XCopy /y /i %SourceFolder%\Binaries\Release\Bio.Comparative.dll %SequenceAssemblerFolder%\
+XCopy /y /i %SourceFolder%\Binaries\Release\Bio.IO.dll %SequenceAssemblerFolder%\
 
 echo ************************************************************
 echo Copying .Net Bio SequenceAssembler Document

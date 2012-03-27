@@ -109,10 +109,11 @@ namespace Bio.Algorithms.Assembly.Comparative
         /// </summary>
         /// <param name="curReadDeltas">Deltas from a read</param>
         /// <param name="mateDeltas">Deltas from mate pair</param>
+        /// <param name="libraryName">Clone Library name to use</param>
         /// <returns>Selected delta out of all given deltas</returns>
         private static List<DeltaAlignment> ResolveRepeatUsingMatePair(List<DeltaAlignment> curReadDeltas, List<DeltaAlignment> mateDeltas, string libraryName)
         {
-            // Check if all mate pairs are completly aligned, else return null (cannot resolve)
+            // Check if all mate pairs are completely aligned, else return null (cannot resolve)
             if (mateDeltas.Any(a =>
                 {
                     return a.SecondSequenceEnd != a.QuerySequence.Count - 1;

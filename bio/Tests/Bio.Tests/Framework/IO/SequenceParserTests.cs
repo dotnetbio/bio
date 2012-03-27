@@ -125,8 +125,8 @@ namespace Bio.Tests.IO
             string filepath = @"TestUtils\BLOSUM50.txt";
 
             ISequenceParser foundParser = SequenceParsers.FindParserByFileName(filepath);
-            Assert.IsNotNull(foundParser);
-            Assert.IsInstanceOfType(foundParser, typeof(FieldTextFileParser));
+            Assert.IsNull(foundParser);
+            // Should not auto-locate FieldTextParser.
         }
 
         /// <summary>

@@ -208,7 +208,7 @@ namespace Bio.Algorithms.Assembly.Comparative
         /// Assemble the input sequences into the largest possible contigs. 
         /// </summary>
         /// <param name="referenceSequence">The sequence used as backbone for assembly.</param>
-        /// <param name="readsFastAFilename">The FastA filename which contains sequences to assemble.</param>
+        /// <param name="queryParser">The parser to load the sequences to assemble.</param>
         /// <returns>IComparativeAssembly instance which contains list of assembled sequences.</returns>
         public IEnumerable<ISequence> Assemble(IEnumerable<ISequence> referenceSequence, FastASequencePositionParser queryParser)
         {
@@ -344,7 +344,7 @@ namespace Bio.Algorithms.Assembly.Comparative
         /// </summary>
         /// <param name="sorter">Sorter instance.</param>
         /// <param name="unsortedDeltaFilename">Unsorted Delta Filename.</param>
-        /// <param name="queryFilename">Query/read sequences filename.</param>
+        /// <param name="queryParser">Query/read sequences parser.</param>
         /// <param name="outputfilename">Output file name.</param>
         public static void WriteSortedDelta(DeltaAlignmentSorter sorter, string unsortedDeltaFilename, FastASequencePositionParser queryParser, string outputfilename)
         {

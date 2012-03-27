@@ -44,7 +44,7 @@
     <Optimize>false</Optimize>
     <OutputPath>..\..\..\Build\Binaries\Debug\</OutputPath>
     <DefineConstants>TRACE;DEBUG;CODE_ANALYSIS</DefineConstants>
-    <DocumentationFile>..\..\..\Build\Binaries\Debug\Bio.XML</DocumentationFile>
+    <DocumentationFile>..\..\..\Build\Binaries\Debug\Bio.HPC.XML</DocumentationFile>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <RunCodeAnalysis>true</RunCodeAnalysis>
