@@ -1,5 +1,5 @@
 .NET Bio Sequence Assembler: Readme.txt
-Version 1.0 , June 2011
+Version 1.01, March 2012
 
 The .NET Bio Sequence Assembler is a proof-of-concept-application that demonstrates how the .NET Bio Framework can be used to create applications for bioinformatics research. It uses rich UI elements to enable the manipulation and visualization of genomic data. 
 
@@ -9,11 +9,9 @@ The .NET Bio Sequence Assembler is available at http://bio.codeplex.com.  It is 
 
 The SilverMap visualization component can be found at http://qutbio.codeplex.com/.  It is  licensed under the OSI approved MS-PL, which can be found here:  http://qutbio.codeplex.com/license.
 
-
 KNOWN ISSUES
 ============
-
-- “Canceling” an algorithm while in progress will give the impression that the processing has stopped, but in fact the algorithm will continue to process and consume CPU/memory resources until completed. The application will act as if it is cancelled by ignoring any response (success or failure), but performance may be impacted until the process is completed.
+- "Canceling" an algorithm while in progress will give the impression that the processing has stopped, but in fact the algorithm will continue to process and consume CPU/memory resources until completed. The application will act as if it is cancelled by ignoring any response (success or failure), but performance may be impacted until the process is completed.
 
 - We currently have a limit of 1000 sequences to be read in the .NET Bio Sequence Assembler.
 
@@ -23,4 +21,4 @@ KNOWN ISSUES
 
 - When using NUCMer to perform sequence alignment, un-aligned sequences will not be reported the application's tree view.
 
-- When using the PaDeNa Assembler, un-aligned regions of sequences in contgs will be displayed in lower-case, while the aligned regions will remain in upper case.
+- When using the PaDeNa Assembler, un-aligned regions of sequences in contigs will be displayed in lower-case, while the aligned regions will remain in upper case.
