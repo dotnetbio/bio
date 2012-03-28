@@ -118,13 +118,13 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="SFF_Description" xml:space="preserve">
-    <value>A SFFParser reads from a source of binary text that is formatted according to the SFF flat
+    <value>A SFFParser reads from a source of binary text that is formatted according to the Standard Flowgram Format binary
 file specification, and converts the data to in-memory ISequence objects.</value>
   </data>
   <data name="SFF_Extensions" xml:space="preserve">
     <value>.sff</value>
   </data>
   <data name="SFF_Name" xml:space="preserve">
-    <value>SFFParser</value>
+    <value>Standard Flowgram Format</value>
   </data>
 </root>
