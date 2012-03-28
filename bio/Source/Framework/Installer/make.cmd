@@ -15,7 +15,7 @@ echo ************************************************************
 
 REM ** Set product version number (this is used internally by Wix)**
 SET ProductMajorVersion=1
-SET ProductMinorVersion=1
+SET ProductMinorVersion=01
 SET ProductBuildVersion=0
 SET ProductVersion=%ProductMajorVersion%.%ProductMinorVersion%
 
