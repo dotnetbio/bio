@@ -44,7 +44,7 @@
                         <TextBlock Text="{DynamicResource SequenceAssembly_SequenceAssembler}" TextWrapping="Wrap" FontSize="18" FontWeight="Bold" Height="26" />
                         <StackPanel Orientation="Horizontal" Height="auto" HorizontalAlignment="Left" Margin="2,-3,0,0" Opacity=".7">
                             <TextBlock Text="{DynamicResource StartupScreen:VersionText}" FontSize="10" Margin="0,0,2,0" />
-                            <TextBlock x:Name="versionNumber" Text="1.0.0.23254" FontSize="10" />
+                            <TextBlock x:Name="versionNumber" Text="1.01.0.0" FontSize="10" />
                         </StackPanel>
                     </StackPanel>
                 </StackPanel>

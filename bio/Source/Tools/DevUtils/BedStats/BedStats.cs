@@ -64,7 +64,7 @@ namespace BedStats
         static void Splash()
         {
             // Display the program's splash screene
-            Console.WriteLine("\nBedStats V1.0 - Copyright (c) 2011, The Outercurve Foundation.\n");
+            Console.WriteLine("\nBedStats V1.01 - Copyright (c) 2011, The Outercurve Foundation.\n");
         }
 
         public static BedStatsArguments ProcessCommandLineArguments( string[] args )

@@ -7,85 +7,88 @@
     <Directory Id="TARGETDIR" Name="SourceDir">
       <!--Directory: Root directory for .NET Bio-->
       <Directory Id="FRAMEWORKFOLDER">
-        <Component Id="cmpAF6CEE42CB834476197C946A5A6FF534" Guid="886BA30F-C33C-490A-95F2-316DF5807A73">
+        <Component Id="cmpAF6CEE42CB834476197C946A5A6FF534" Guid="91748D5E-7E7E-449B-A8AA-2BF3E7BA9ABA">
           <File Id="fil592FC16DA8E3A75EACF99BF4DBE0BE97" KeyPath="yes" Source="SourceDir\BedStats.exe" />
         </Component>
-        <Component Id="cmp56A0FC9EE29C01ECA14007FA73C52A24" Guid="3D3E0AEB-3CB3-42D7-8679-16DE541A9ED0">
+        <Component Id="cmp56A0FC9EE29C01ECA14007FA73C52A24" Guid="CB9EDE16-E7C5-4AF0-91B1-3D39123B227A">
           <File Id="filCAB4A6A8B6B001599BB0539EBF7638E4" KeyPath="yes" Source="SourceDir\Bio.Comparative.dll" />
         </Component>
-        <Component Id="cmp231ED58A4F8E8CFBB5D7D072E28537B8" Guid="21E9D0C3-061E-4E93-AC99-047094C7D88C">
+        <Component Id="cmp231ED58A4F8E8CFBB5D7D072E28537B8" Guid="478B1071-582F-43A2-94CF-EA4750EA2B04">
           <File Id="fil675B488729DA21B25EA19CD45BC6034F" KeyPath="yes" Source="SourceDir\Bio.dll" />
         </Component>
-        <Component Id="cmpD2F0D141F3606CBC543A2873AAE39932" Guid="3E6FD3DD-8890-4BE2-B338-F97F22FA1CD8">
-          <File Id="filE8A5BE2FBC2252634719E68AEEAC72B6" KeyPath="yes" Source="SourceDir\Bio.Hpc.DistributeApp.exe" />
-        </Component>
-        <Component Id="cmpAFAF300EF9ECAD9A9AC5526E3C039161" Guid="9A708E9A-C9CD-49AD-89F4-6F0C8CDA6308">
-          <File Id="filD845A39A7281B46891E40768F62C98BD" KeyPath="yes" Source="SourceDir\Bio.Hpc.DistributeApp.exe.config" />
-        </Component>
-        <Component Id="cmpA5DCED87BEBEA9AD7AE8B6C4ADCFCBCA" Guid="5B73D368-4ED1-4D8E-8E6A-584E5B05418F">
+        <Component Id="cmpA5DCED87BEBEA9AD7AE8B6C4ADCFCBCA" Guid="88D9AEAB-7F61-467C-B995-0491922EB317">
           <File Id="filECECF08711FD203EBD37B048F03FBA64" KeyPath="yes" Source="SourceDir\Bio.Hpc.dll" />
         </Component>
-        <Component Id="cmp8318400794D10C6AE6CBB882DC1DFC18" Guid="166808E7-30DB-45E6-B909-829021165EE6">
+        <Component Id="cmpD9EAB28F254F246F9D055BDD8A07A41F" Guid="1DBBD100-211A-4FB9-8516-35278A81678C">
+          <File Id="fil96934BBD2F81138C369D895B36B79D8B" KeyPath="yes" Source="SourceDir\Bio.IO.dll" />
+        </Component>
+        <Component Id="cmp8318400794D10C6AE6CBB882DC1DFC18" Guid="F7839644-7FAA-4F23-9D98-EA7D0D3DE182">
           <File Id="fil785F9B92806AA0F0EF3B43E973B0CD6A" KeyPath="yes" Source="SourceDir\Bio.Padena.dll" />
         </Component>
-        <Component Id="cmp06D11E0BEDD436819F9930363F7A2C62" Guid="426EE4EA-401A-4309-BC7D-3F5AD5F8D56F">
+        <Component Id="cmp06D11E0BEDD436819F9930363F7A2C62" Guid="26F62600-405B-4ADF-8BEF-115403E746EC">
           <File Id="fil635E743E55C8175F2393FB90D6BCC2C3" KeyPath="yes" Source="SourceDir\Bio.Pamsam.dll" />
         </Component>
-        <Component Id="cmpD31AA9A1874948CC4E1E317D72589B99" Guid="11032815-B1FA-4FE2-8D52-39E0346A28CD">
+        <Component Id="cmpD31AA9A1874948CC4E1E317D72589B99" Guid="A3B25BAF-927E-4CCF-B980-EB1F6704FF4C">
           <File Id="filF8540D066920C6E9ADF11899E192CDED" KeyPath="yes" Source="SourceDir\Bio.WebServiceHandlers.dll" />
         </Component>
-        <Component Id="cmpCF2DBFCFCACBF090B46FEA0AE7AD6832" Guid="32474CA1-A49E-4C47-AA94-7AEA989A5970">
+        <Component Id="cmpCF2DBFCFCACBF090B46FEA0AE7AD6832" Guid="D7178CD1-188B-453F-8361-62A414BC5632">
           <File Id="fil5FD121CF58C9B2C2359B2708C6E11BFB" KeyPath="yes" Source="SourceDir\Bio.Workflow.dll" />
         </Component>
-        <Component Id="cmp13F3DBA1297BC5D75824FBFD8F55D9B3" Guid="3996A1B1-E6F1-4E85-8655-EBA457AF61BE">
+        <Component Id="cmp13F3DBA1297BC5D75824FBFD8F55D9B3" Guid="78499D25-91BA-40C5-9862-49E5A4AFFF15">
           <File Id="fil4B7234B9B73ADADBD7F23E65F4EA1B47" KeyPath="yes" Source="SourceDir\ComparativeUtil.exe" />
         </Component>
-        <Component Id="cmpC93D7B8AABB99F198F25689BCAB83A9A" Guid="C2DFDF29-F3EF-4452-97B7-8A3BE74C7942">
+        <Component Id="cmpC93D7B8AABB99F198F25689BCAB83A9A" Guid="A13CE305-3B94-4011-A4F0-1FC272D0741E">
           <File Id="fil029FC72FE972F1268DA24A84F4289337" KeyPath="yes" Source="SourceDir\ConsensusUtil.exe" />
         </Component>
-        <Component Id="cmp1AD03AA46F70B94F7043B882B656FBAE" Guid="66361848-3493-4C23-B274-168902BC4BB7">
+        <Component Id="cmp88ADAE1C080A3FBD1BD265299157788F" Guid="80F7F7E7-0F9A-4746-8C57-A9DAC6FD7043">
+          <File Id="filE8BA4B64495D76DDE269770A5DD97E80" KeyPath="yes" Source="SourceDir\DistributeApp.exe" />
+        </Component>
+        <Component Id="cmpFA4B4D377D3B4503DAD97F87F7C29D4B" Guid="3E09582C-C162-4882-8C1B-3DD8206EB05B">
+          <File Id="filA1598965BC6A1301AE16EBF764677D0A" KeyPath="yes" Source="SourceDir\FileFormatConverter.exe" />
+        </Component>
+        <Component Id="cmp1AD03AA46F70B94F7043B882B656FBAE" Guid="1FA86502-172A-4221-936B-A30D504AE59D">
           <File Id="filFC810F0FD202A5E51B16BC447BA1D5A2" KeyPath="yes" Source="SourceDir\FilterReadsUtil.exe" />
         </Component>
-        <Component Id="cmpD54362809080C30A3DC30EB5DA2C2EAF" Guid="901A5F79-68C2-40F3-A184-DB079F1438D4">
+        <Component Id="cmpD54362809080C30A3DC30EB5DA2C2EAF" Guid="C58B24DF-7609-4959-A80F-D045510E509D">
           <File Id="fil601414EEE7BBB625C4B15D1D1C6C5A31" KeyPath="yes" Source="SourceDir\HpcLibSettings.local.xml" />
         </Component>
-        <Component Id="cmp1EF66E935F88C86804F458DF6D44F098" Guid="128CC9F7-91D3-43F1-8D47-112C87119434">
+        <Component Id="cmp1EF66E935F88C86804F458DF6D44F098" Guid="AD967F37-A267-4E2F-BD7B-C118476146D2">
           <File Id="fil05E119054C56681FAF902BF86281A299" KeyPath="yes" Source="SourceDir\HpcLibSettings.xml" />
         </Component>
-        <Component Id="cmp3E160C852E6DCF99177FC25360D8BE0A" Guid="EC9AB61A-C362-46BB-A88C-702E7ACD9E38">
+        <Component Id="cmp3E160C852E6DCF99177FC25360D8BE0A" Guid="702DECC2-3B94-4713-8EBF-69CC78E93E09">
           <File Id="fil074A87C214AD98E4F2E021A15EAA5EDB" KeyPath="yes" Source="SourceDir\LayoutRefinementUtil.exe" />
         </Component>
-        <Component Id="cmp4E2AC22D72422BB8572890D747177104" Guid="364F100C-0DBC-43BB-B133-21B525F67429">
+        <Component Id="cmp4E2AC22D72422BB8572890D747177104" Guid="0CE58814-B22F-4E2A-A798-7D3633310BFB">
           <File Id="filC8FF0431BE6648A8776289774F053BF0" KeyPath="yes" Source="SourceDir\LISUtil.exe" />
         </Component>
-        <Component Id="cmp1807F33621479FCA7042DCAEE2FFDE6B" Guid="2DB443A5-9044-492F-8D0E-40A46002292D">
+        <Component Id="cmp1807F33621479FCA7042DCAEE2FFDE6B" Guid="C56FDA42-01C8-474A-BA9A-79523A22743D">
           <File Id="fil5D3386DCF037CB33316EC5FCF3F30589" KeyPath="yes" Source="SourceDir\MumUtil.exe" />
         </Component>
-        <Component Id="cmp069AD3E38C97BA31F3514F0F0946CD1E" Guid="863BDE86-A419-4215-943D-DEC4A150B430">
+        <Component Id="cmp069AD3E38C97BA31F3514F0F0946CD1E" Guid="2F1A1190-19B5-4A4E-9935-71B26F66D899">
           <File Id="fil0DEF4F7F2A87431AFAB1FB4B4813BFA4" KeyPath="yes" Source="SourceDir\NucmerUtil.exe" />
         </Component>
-        <Component Id="cmp3B17E408D07C8D1C4E68781BB4534923" Guid="BF4B6845-434A-4706-85CF-FA40679A84A1">
+        <Component Id="cmp3B17E408D07C8D1C4E68781BB4534923" Guid="10ECF295-768A-4137-BE5E-DABC899B48E2">
           <File Id="fil099FEA528DC7D33055A318C0D6A89DAA" KeyPath="yes" Source="SourceDir\PadenaUtil.exe" />
         </Component>
-        <Component Id="cmp600C93B95F921B8BA06D2E1B2BA0D7C3" Guid="9A6EB958-DE8F-45E1-B561-2D4875A7B938">
+        <Component Id="cmp600C93B95F921B8BA06D2E1B2BA0D7C3" Guid="8D40A4FC-D29A-482F-ADDB-08ADA962E1CD">
           <File Id="fil6A3E699B4445C90F9793E3B28D4DACF6" KeyPath="yes" Source="SourceDir\ReadSimulator.exe" />
         </Component>
-        <Component Id="cmp471929EE637A8A3E7EF1612A8F7485C1" Guid="324B8624-AA84-439F-B8FE-7A92E91805FA">
+        <Component Id="cmp471929EE637A8A3E7EF1612A8F7485C1" Guid="B173FE0A-7FCB-49D8-BC0D-57FD94220235">
           <File Id="fil51E0F3CBE19DB5F56DBCC9669C5F99AB" KeyPath="yes" Source="SourceDir\RepeatResolutionUtil.exe" />
         </Component>
-        <Component Id="cmp6392B928FE542BAA00D4BD9DB9064106" Guid="CFF8F222-36FD-412E-85CF-0EFBF4C95398">
+        <Component Id="cmp6392B928FE542BAA00D4BD9DB9064106" Guid="73AA2B59-7819-4855-91CA-99D94ED54FA2">
           <File Id="fil33E2A99CBEC15CA287A8FC2C5B0272FC" KeyPath="yes" Source="SourceDir\SampleClusterApp.exe" />
         </Component>
-        <Component Id="cmp597839F9A9711ABA5E87DA0B01F47993" Guid="28A04FFD-70D3-4832-B778-D0E3AD359BA2">
+        <Component Id="cmp597839F9A9711ABA5E87DA0B01F47993" Guid="B3A984CE-582B-45BA-9B7B-B95F58B5A7B3">
           <File Id="fil0D4AE60A614CAEF9AAF9BFE8ED48CBF7" KeyPath="yes" Source="SourceDir\SAMUtils.exe" />
         </Component>
-        <Component Id="cmp58675EDAB133C28BB8C1BA9311315B4C" Guid="2FB63EB0-57E4-495A-8AC6-76E5C38CFF9F">
+        <Component Id="cmp58675EDAB133C28BB8C1BA9311315B4C" Guid="552C97EB-2F3D-421C-A3B5-DF6AB036D994">
           <File Id="fil22B1450D7718C16D97E6A5A6F4B3788A" KeyPath="yes" Source="SourceDir\ScaffoldUtil.exe" />
         </Component>
-        <Component Id="cmp070D616AF16A4A5C6322D7A87DE8425E" Guid="F5FA2670-C527-49B7-95A7-6EE372262C55">
+        <Component Id="cmp070D616AF16A4A5C6322D7A87DE8425E" Guid="90244ABF-8CFE-4003-B97C-402A875FFE81">
           <File Id="fil9874F90BC06A7B3258BCD908F13F16F4" KeyPath="yes" Source="SourceDir\Tools.VennToNodeXL.dll" />
         </Component>
-        <Component Id="cmp1D28480DAC764CBCD185D4210C32DD39" Guid="7D444DEF-EA03-4FAC-AAC9-F9D94B4B059C">
+        <Component Id="cmp1D28480DAC764CBCD185D4210C32DD39" Guid="2D0E4AB0-CF76-4F2D-AF18-2E94E6A4FD4B">
           <File Id="fil8A0572B3EBCED0E8DC6761DE332BFD18" KeyPath="yes" Source="SourceDir\VennTool.exe" />
         </Component>
       </Directory>

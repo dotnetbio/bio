@@ -113,7 +113,7 @@ namespace LisUtil
 
         private static string SplashString()
         {
-            const string SplashString = "\nLisUtil v1.0 - Longest Increasing Subsequence Utility"
+            const string SplashString = "\nLisUtil v1.01 - Longest Increasing Subsequence Utility"
                                       + "\n  Copyright (c) 2011, The Outercurve Foundation.";
             return (SplashString);
         }

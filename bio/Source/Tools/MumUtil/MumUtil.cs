@@ -148,7 +148,7 @@ namespace MumUtil
 
         static string SplashString()
         {
-            const string splashString = "\nMumUtil v1.0 - Maximal Unique Match Utility"
+            const string splashString = "\nMumUtil v1.01 - Maximal Unique Match Utility"
                                       + "\nCopyright (c) 2011, The Outercurve Foundation.\n\n"
                                       + "NucmerUtil and MummerUtil are .NET re-implementations of MUMmer3.0, which was supported in part by the National Science Foundation under grants IIS-9902923 and IIS-9820497, and by the National Institutes of Health under grants R01-LM06845 and N01-AI-15447.  The development of the original reference was a joint effort by Stefan Kurtz of the University of Hamburg and Adam Phillippy, Art Delcher and Steven Salzberg at TIGR.\n";
             return (splashString);

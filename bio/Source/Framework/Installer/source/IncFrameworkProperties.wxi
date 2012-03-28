@@ -9,10 +9,10 @@
     <!--Update Info-->
     <Property Id="ARPURLUPDATEINFO" Value="http://bio.codeplex.com/" />
     
-    <Property Id='INSTALLLEVEL' Value='1'/>
+    <Property Id='INSTALLLEVEL' Value='2'/>
     <Property Id='_BrowseProperty' Value='ProgramFilesFolder' />
     <Property Id='WIXUI_INSTALLDIR'>ProgramFilesFolder</Property>
-    <Property Id="WixUI_InstallMode" Value="InstallDefault"/>
+    <Property Id="WixUI_InstallMode" Value="InstallComplete"/>
     <Property Id="WIXUI_EXITDIALOGOPTIONALCHECKBOXTEXT" Value="!(loc.ExitDialogOptionalCheckboxText)" />
     <Property Id="WIXUI_EXITDIALOGOPTIONALCHECKBOX" Value="1" />
     <Property Id="DISABLENEXTBUTTON" Value="0"/>

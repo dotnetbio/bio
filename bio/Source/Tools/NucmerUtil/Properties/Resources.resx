@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="NUCmerSplashScreen" xml:space="preserve">
-    <value>NUCmer Utility v1.0
+    <value>NUCmer Utility v1.01
 Copyright (c) 2011, The Outercurve Foundation.
 
 NucmerUtil and MummerUtil are .NET re-implementations of MUMmer3.0, which was supported in part by the National Science Foundation under grants IIS-9902923 and IIS-9820497, and by the National Institutes of Health under grants R01-LM06845 and N01-AI-15447.  The development of the original reference was a joint effort by Stefan Kurtz of the University of Hamburg and Adam Phillippy, Art Delcher and Steven Salzberg at TIGR.

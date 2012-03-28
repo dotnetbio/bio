@@ -78,7 +78,7 @@ namespace SampleClusterApp.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SampleClusterApp v1.0 - Sample distributable application to calculate GC
+        ///   Looks up a localized string similar to SampleClusterApp v1.01 - Sample distributable application to calculate GC
         ///content of given Sequence
         ///Copyright (c) 2011, The Outercurve Foundation.
         ///.

@@ -145,7 +145,7 @@ Options:
     <value>Cannot locate sequence [{0}] in query file [{1}]</value>
   </data>
   <data name="LayoutRefinementSplashScreen" xml:space="preserve">
-    <value>LayoutRefinement Utility v1.0
+    <value>LayoutRefinement Utility v1.01
 Copyright (c) 2011, The Outercurve Foundation.
 </value>
   </data>

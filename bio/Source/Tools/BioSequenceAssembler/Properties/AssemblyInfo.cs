@@ -14,5 +14,5 @@ using System.Reflection;
 [assembly: NeutralResourcesLanguageAttribute("en-US", UltimateResourceFallbackLocation.MainAssembly)]
 [assembly: ComVisibleAttribute(false)]
 
-[assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyVersion("1.01.0.0")]
+[assembly: AssemblyFileVersion("1.01.0.0")]

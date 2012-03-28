@@ -205,8 +205,8 @@
     <String Id="ResumeDlgTitle" Overridable="yes">{\WixUI_Font_Title}Resuming the [ProductName] Setup Wizard</String>
 
     <String Id="SetupTypeDlg_Title">[ProductName] Setup</String>
-    <String Id="SetupTypeDlgDefaultButton">&amp;Default</String>
-    <String Id="SetupTypeDlgDefaultButtonTooltip">Default Installation</String>
+    <String Id="SetupTypeDlgDefaultButton">&amp;Minimum</String>
+    <String Id="SetupTypeDlgDefaultButtonTooltip">Minimum Installation</String>
     <String Id="SetupTypeDlgCustomButton">C&amp;ustom</String>
     <String Id="SetupTypeDlgCustomButtonTooltip">Custom Installation</String>
     <String Id="SetupTypeDlgCompleteButton">C&amp;omplete</String>
@@ -640,7 +640,7 @@
   <String Id="FeatureDisabled" Overridable="yes">This feature is already installed on your machine.</String>
   <String Id="AlreadyInstalled" Overridable="yes">(already installed)</String>
 
-  <String Id="ProductName">.NET Bio 1.0</String>
+  <String Id="ProductName">.NET Bio 1.01</String>
   <String Id="ApplicationDocumentsFolderName">Documents</String>
   <String Id="ReadSimulator">Sequence Read Simulator</String>
   <String Id="ReadSimulatorDescription">Launch Read Simulator</String>

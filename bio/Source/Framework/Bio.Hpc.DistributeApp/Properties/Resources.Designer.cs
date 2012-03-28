@@ -79,7 +79,7 @@ namespace Bio.DistributeApp.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .NET HPC Cluster Distribute Application v1.0
+        ///   Looks up a localized string similar to .NET HPC Cluster Distribute Application v1.01
         ///Copyright (c) 2011, The Outercurve Foundation.
         ///.
         /// </summary>
