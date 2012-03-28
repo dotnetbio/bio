@@ -307,6 +307,8 @@ SET ExcelFolder=%ToolsFolder%"\Excel Biology Extension"
 MD %ExcelFolder%
 
 Copy /y %SourceFolder%\Binaries\Release\Bio.dll %ExcelFolder%\Bio.dll
+Copy /y %SourceFolder%\Binaries\Release\Bio.IO.dll %ExcelFolder%\Bio.IO.dll
+Copy /y %SourceFolder%\Binaries\Release\Bio.Pamsam.dll %ExcelFolder%\Bio.Pamsam.dll
 Copy /y %SourceFolder%\Binaries\Release\BioExcel.Visualizations.Common.dll %ExcelFolder%\BioExcel.Visualizations.Common.dll
 Copy /y %SourceFolder%\Binaries\Release\BioExcel.dll %ExcelFolder%\BioExcel.dll
 Copy /y %SourceFolder%\Binaries\Release\Bio.WebServiceHandlers.dll %ExcelFolder%\Bio.WebServiceHandlers.dll
