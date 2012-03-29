@@ -1,4 +1,6 @@
 ﻿
+using Microsoft.Office.Tools.Ribbon;
+
 namespace BiodexExcel
 {
     partial class BioRibbon : Microsoft.Office.Tools.Ribbon.RibbonBase
@@ -74,6 +76,7 @@ namespace BiodexExcel
             // 
             // tabBio
             // 
+            this.tabBio.ControlId.ControlIdType = RibbonControlIdType.Office;
             this.tabBio.Groups.Add(this.groupImportExport);
             this.tabBio.Groups.Add(this.groupAlignment);
             this.tabBio.Groups.Add(this.groupAssembly);
