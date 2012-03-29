@@ -338,9 +338,12 @@ namespace Bio.Web.Blast
                 throw new ArgumentNullException("parameters");
             }
 
-            if (!string.IsNullOrEmpty(parameters.Settings[ParameterEmail]))
+            string tempEmail;
+
+            if (parameters.Settings.TryGetValue(ParameterEmail, out tempEmail) && 
+                !string.IsNullOrEmpty(tempEmail))
             {
-                emailAddress = parameters.Settings[ParameterEmail];
+                emailAddress = tempEmail;
             }
 
             string requestIdentifier = string.Empty;
