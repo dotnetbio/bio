@@ -156,17 +156,17 @@ namespace Bio.Registration
                 {
                     partCatalog = new AggregateCatalog(
                         new AssemblyCatalog(assembly),
-                        new DirectoryCatalog(AssemblyResolver.BioInstallationPath, DLLFilter));
+                        GetCatalogForDirectoryFileSpec(AssemblyResolver.BioInstallationPath, DLLFilter));
                 }
                 else
-                    partCatalog = new DirectoryCatalog(AssemblyResolver.BioInstallationPath, DLLFilter);
+                    partCatalog = GetCatalogForDirectoryFileSpec(AssemblyResolver.BioInstallationPath, DLLFilter);
 
                 // Add the add-in folder if we have one
                 if (!string.IsNullOrEmpty(assemblyPath) && Directory.Exists(assemblyPath))
                 {
-                    var directoryCatalog = new DirectoryCatalog(assemblyPath, filter);
+                    var addinCatalog = GetCatalogForDirectoryFileSpec(assemblyPath, filter);
                     var defaultCatalogEp = new CatalogExportProvider(partCatalog);
-                    container = new CompositionContainer(directoryCatalog, defaultCatalogEp);
+                    container = new CompositionContainer(addinCatalog, defaultCatalogEp);
                     defaultCatalogEp.SourceProvider = container;
                 }
                 else
@@ -174,7 +174,7 @@ namespace Bio.Registration
             }
 
             List<T> availableTypes = new List<T>();
-            var exportList = container.GetExports<T>(contractName).ToList();
+            var exportList = container.GetExports<T>(contractName);
             foreach (Lazy<T> foundType in exportList)
             {
                 try
@@ -190,6 +190,47 @@ namespace Bio.Registration
             }
 
             return availableTypes;
+        }
+
+        /// <summary>
+        /// This method creates an aggregate catalog for each located assembly
+        /// in the specified directory.  We internally handle exceptions here so
+        /// unloadable assemblies are ignored.
+        /// </summary>
+        /// <param name="directoryName">Directory to probe</param>
+        /// <param name="fileSpec">File specification</param>
+        /// <returns>Catalog</returns>
+        private static AggregateCatalog GetCatalogForDirectoryFileSpec(string directoryName, string fileSpec)
+        {
+            string[] files = Directory.GetFiles(directoryName, fileSpec, SearchOption.TopDirectoryOnly);
+
+            AggregateCatalog aggCat = new AggregateCatalog();
+            foreach (string file in files)
+            {
+                try
+                {
+                    var name = AssemblyName.GetAssemblyName(file);
+                    if (name != null)
+                    {
+                        var asm = Assembly.Load(name);
+                        if (asm != null)
+                        {
+                            // Create an assembly catalog -- only keep it around if we have
+                            // parts to resolve or needed parts inside it.
+                            var catalog = new AssemblyCatalog(asm);
+                            if (catalog.Parts.Any())
+                                aggCat.Catalogs.Add(catalog);
+                            else
+                                catalog.Dispose();
+                        }
+                    }
+                }
+                catch (Exception)
+                {
+                    // Ignore if we cannot load the assembly.
+                }
+            }
+            return aggCat;
         }
 
         /// <summary>

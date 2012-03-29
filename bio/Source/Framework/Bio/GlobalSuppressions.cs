@@ -1591,3 +1591,5 @@
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1800:DoNotCastUnnecessarily", Scope = "member", Target = "Bio.Extensions.SequenceExtensions.#ConvertToString(Bio.ISequence,System.Int64,System.Int64)")]
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed", Scope = "member", Target = "Bio.Extensions.SequenceExtensions.#ConvertToString(Bio.ISequence,System.Int64,System.Int64)")]
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1020:AvoidNamespacesWithFewTypes", Scope = "namespace", Target = "Bio.Extensions")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Scope = "member", Target = "Bio.Registration.RegisteredAddIn.#GetCatalogForDirectoryFileSpec(System.String,System.String)")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope", Scope = "member", Target = "Bio.Registration.RegisteredAddIn.#GetCatalogForDirectoryFileSpec(System.String,System.String)")]
