@@ -21,17 +21,18 @@
     <FrameworkVersion>4.0.30319</FrameworkVersion>
     <DocumentationSources>
       <DocumentationSource sourceFile="..\..\Build\LocalBuild\tmp\Bio.Comparative.dll" />
-<DocumentationSource sourceFile="..\..\Build\LocalBuild\tmp\Bio.Comparative.xml" />
-<DocumentationSource sourceFile="..\..\Build\LocalBuild\tmp\Bio.dll" />
-<DocumentationSource sourceFile="..\..\Build\LocalBuild\tmp\Bio.IO.dll" />
-<DocumentationSource sourceFile="..\..\Build\LocalBuild\tmp\Bio.IO.xml" />
-<DocumentationSource sourceFile="..\..\Build\LocalBuild\tmp\Bio.Padena.dll" />
-<DocumentationSource sourceFile="..\..\Build\LocalBuild\tmp\Bio.Padena.xml" />
-<DocumentationSource sourceFile="..\..\Build\LocalBuild\tmp\Bio.Pamsam.dll" />
-<DocumentationSource sourceFile="..\..\Build\LocalBuild\tmp\Bio.Pamsam.xml" />
-<DocumentationSource sourceFile="..\..\Build\LocalBuild\tmp\Bio.WebServiceHandlers.dll" />
-<DocumentationSource sourceFile="..\..\Build\LocalBuild\tmp\Bio.WebServiceHandlers.xml" />
-<DocumentationSource sourceFile="..\..\Build\LocalBuild\tmp\Bio.xml" /></DocumentationSources>
+      <DocumentationSource sourceFile="..\..\Build\LocalBuild\tmp\Bio.Comparative.xml" />
+      <DocumentationSource sourceFile="..\..\Build\LocalBuild\tmp\Bio.dll" />
+      <DocumentationSource sourceFile="..\..\Build\LocalBuild\tmp\Bio.IO.dll" />
+      <DocumentationSource sourceFile="..\..\Build\LocalBuild\tmp\Bio.IO.xml" />
+      <DocumentationSource sourceFile="..\..\Build\LocalBuild\tmp\Bio.Padena.dll" />
+      <DocumentationSource sourceFile="..\..\Build\LocalBuild\tmp\Bio.Padena.xml" />
+      <DocumentationSource sourceFile="..\..\Build\LocalBuild\tmp\Bio.Pamsam.dll" />
+      <DocumentationSource sourceFile="..\..\Build\LocalBuild\tmp\Bio.Pamsam.xml" />
+      <DocumentationSource sourceFile="..\..\Build\LocalBuild\tmp\Bio.WebServiceHandlers.dll" />
+      <DocumentationSource sourceFile="..\..\Build\LocalBuild\tmp\Bio.WebServiceHandlers.xml" />
+      <DocumentationSource sourceFile="..\..\Build\LocalBuild\tmp\Bio.xml" />
+    </DocumentationSources>
     <ProjectSummary>.NET Bio is a language-neutral bioinformatics toolkit built using the Microsoft 4.0 .NET Framework to help developers, researchers, and scientists. This open-source platform is a library of commonly-used bioinformatics functions. Applications written for this platform can be implemented in a variety of .NET languages, including C#, F#, Visual Basic&amp;#174%3b, .NET, and IronPython.</ProjectSummary>
     <CopyrightText>Copyright %28C%29 Outercurve Foundation</CopyrightText>
     <CopyrightHref>http://www.outercurve.org/</CopyrightHref>
@@ -95,6 +96,7 @@
     </NamespaceSummaries>
     <FeedbackEMailLinkText>http://bio.codeplex.com/</FeedbackEMailLinkText>
     <HelpFileVersion>1.1.0.0</HelpFileVersion>
+    <MissingTags>AutoDocumentCtors, AutoDocumentDispose</MissingTags>
   </PropertyGroup>
   <!-- There are no properties for these groups.  AnyCPU needs to appear in
        order for Visual Studio to perform the build.  The others are optional

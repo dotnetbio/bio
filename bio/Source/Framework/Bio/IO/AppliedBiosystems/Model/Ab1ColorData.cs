@@ -16,8 +16,8 @@ namespace Bio.IO.AppliedBiosystems.Model
         /// <summary>
         /// Create a new color data with the specified data and peak locations.
         /// </summary>
-        /// <param name="peakLocations"></param>
-        /// <param name="data"></param>
+        /// <param name="peakLocations">Peak locations</param>
+        /// <param name="data">Calculated reading</param>
         public Ab1ColorData(short[] peakLocations, short[] data)
         {
             LoadResidueColorData(peakLocations, data);
@@ -38,8 +38,8 @@ namespace Bio.IO.AppliedBiosystems.Model
         /// <summary>
         /// Converts the color data to a byte array.  Does not include redundant information only the color data.
         /// </summary>
-        /// <param name="data"></param>
-        /// <returns></returns>
+        /// <param name="data">Color Data</param>
+        /// <returns>Readings</returns>
         public static byte[] ToByteArray(Ab1ColorData data)
         {
             if (data == null) throw new ArgumentNullException("data");
@@ -62,7 +62,7 @@ namespace Bio.IO.AppliedBiosystems.Model
         }
 
         /// <summary>
-        /// Converts the byte arry to an array of shorts
+        /// Converts the byte array to an array of shorts
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
@@ -142,7 +142,7 @@ namespace Bio.IO.AppliedBiosystems.Model
         }
 
         /// <summary>
-        /// Adds a new color data definition fora residue to <see cref="DataByResidue"/>.
+        /// Adds a new color data definition for a residue to <see cref="DataByResidue"/>.
         /// </summary>
         /// <param name="peakIndex"></param>
         /// <param name="residueDataIndex"></param>
@@ -155,7 +155,7 @@ namespace Bio.IO.AppliedBiosystems.Model
                     {
                         //
                         // There appears to be situations in AB1 files where 2 residues share the same peak index, this breaks the logic below by assigning
-                        // the peakindex a negative value, so we can avoid that by maxing to 0.
+                        // the peak index a negative value, so we can avoid that by maxing to 0.
                         //
 
                         PeakIndex = Math.Max(0, peakIndex - residueDataIndex),
