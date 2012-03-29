@@ -30,7 +30,6 @@ namespace BiodexExcel
         private void InitializeComponent()
         {
             this.tabBio = this.Factory.CreateRibbonTab();
-            this.groupDummy = this.Factory.CreateRibbonGroup();
             this.groupImportExport = this.Factory.CreateRibbonGroup();
             this.splitImport = this.Factory.CreateRibbonSplitButton();
             this.splitExport = this.Factory.CreateRibbonSplitButton();
@@ -75,7 +74,6 @@ namespace BiodexExcel
             // 
             // tabBio
             // 
-            this.tabBio.Groups.Add(this.groupDummy);
             this.tabBio.Groups.Add(this.groupImportExport);
             this.tabBio.Groups.Add(this.groupAlignment);
             this.tabBio.Groups.Add(this.groupAssembly);
@@ -88,12 +86,6 @@ namespace BiodexExcel
             this.tabBio.KeyTip = "B";
             this.tabBio.Label = ".NET Bio";
             this.tabBio.Name = "tabBio";
-            // 
-            // groupDummy
-            // 
-            this.groupDummy.Label = "Dummy";
-            this.groupDummy.Name = "groupDummy";
-            this.groupDummy.Visible = false;
             // 
             // groupImportExport
             // 
@@ -388,7 +380,6 @@ namespace BiodexExcel
         internal Microsoft.Office.Tools.Ribbon.RibbonGroup groupAssembly;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton btnAssemble;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton btnCancelAssemble;
-        internal Microsoft.Office.Tools.Ribbon.RibbonGroup groupDummy;
         internal Microsoft.Office.Tools.Ribbon.RibbonGroup groupImportExport;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton btnHomePage;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton btnUserManual;
