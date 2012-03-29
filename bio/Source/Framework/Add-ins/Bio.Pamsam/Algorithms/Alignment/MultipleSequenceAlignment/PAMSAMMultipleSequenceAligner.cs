@@ -630,20 +630,17 @@ namespace Bio.Algorithms.Alignment.MultipleSequenceAlignment
                 }
 
                 int refinementTime = 0;
-                _alignedSequencesC = new List<ISequence>(sequences.Count);
-                for (int i = 0; i < sequences.Count; ++i)
+                _alignedSequencesC = new List<ISequence>(_alignedSequences.Count);
+                foreach (ISequence t in _alignedSequences)
                 {
-                    _alignedSequencesC.Add(new Sequence(Alphabets.GetAmbiguousAlphabet(_alphabet),
-                            _alignedSequences[i].ToArray())
+                    _alignedSequencesC.Add(new Sequence(Alphabets.GetAmbiguousAlphabet(_alphabet), t.ToArray())
                         {
-                            ID = _alignedSequences[i].ID,
-                            Metadata = _alignedSequences[i].Metadata
+                            ID = t.ID,
+                            Metadata = t.Metadata
                         });
                 }
 
-                List<int>[] leafNodeIndices = null;
                 List<int>[] allIndelPositions = null;
-                IProfileAlignment[] separatedProfileAlignments = null;
                 List<int>[] eStrings = null;
 
                 while (refinementTime < maxRefineMentTime)
@@ -653,11 +650,11 @@ namespace Bio.Algorithms.Alignment.MultipleSequenceAlignment
                     bool needRefinement = false;
                     for (int edgeIndex = 0; edgeIndex < binaryGuideTreeB.NumberOfEdges; ++edgeIndex)
                     {
-                        leafNodeIndices = binaryGuideTreeB.SeparateSequencesByCuttingTree(edgeIndex);
+                        List<int>[] leafNodeIndices = binaryGuideTreeB.SeparateSequencesByCuttingTree(edgeIndex);
 
                         allIndelPositions = new List<int>[2];
 
-                        separatedProfileAlignments = ProfileAlignment.ProfileExtraction(_alignedSequencesC, leafNodeIndices[0], leafNodeIndices[1], out allIndelPositions);
+                        IProfileAlignment[] separatedProfileAlignments = ProfileAlignment.ProfileExtraction(_alignedSequencesC, leafNodeIndices[0], leafNodeIndices[1], out allIndelPositions);
                         eStrings = new List<int>[2];
 
                         if (separatedProfileAlignments[0].NumberOfSequences < separatedProfileAlignments[1].NumberOfSequences)

@@ -984,7 +984,12 @@ namespace Bio.Algorithms.Alignment.MultipleSequenceAlignment
                     }
                 }
             }
-            return  new Sequence(seq.Alphabet, seqbytes.ToArray());
+            return  new Sequence(seq.Alphabet, seqbytes.ToArray())
+            {
+                ID = seq.ID,
+                Metadata = seq.Metadata
+            };
+
         }
         #endregion
 
