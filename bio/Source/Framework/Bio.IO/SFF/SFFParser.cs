@@ -69,8 +69,7 @@ namespace Bio.IO.SFF
         /// <param name="dataSource">Filename to read data from</param>
         public void Open(string dataSource)
         {
-            if (!string.IsNullOrEmpty(_dataSource))
-                throw new InvalidOperationException("Parser already has open file.");
+            // Must supply filename
             if (string.IsNullOrEmpty(dataSource))
                 throw new ArgumentNullException("dataSource");
 
