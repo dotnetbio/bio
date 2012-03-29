@@ -55,6 +55,11 @@ External Dependencies that must be installed and met:
       downloaded from
         http://msdn.microsoft.com/en-us/netframework/aa569263.aspx
 
+  Sandcastle Help File Builder -
+      Used to generate the .chm from the created binaries. You will only
+	  need this if you plan to build the complete install from the command line.
+	  The installer can be downloaded from http://shfb.codeplex.com/
+
 ----------
 
 KNOWN ISSUES
