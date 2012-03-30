@@ -124,7 +124,10 @@
     <value>Kmer counting distance matrix generator</value>
   </data>
   <data name="MuscleMultipleAlignmentMethodName" xml:space="preserve">
-    <value>MUSCLE multiple sequence alignment</value>
+    <value>PAMSAM (MUSCLE)</value>
+  </data>
+  <data name="MuscleMultipleAlignmentMethodDescription" xml:space="preserve">
+    <value>Multiple sequence alignment</value>
   </data>
   <data name="NeedlemanWunschProfileAlignerName" xml:space="preserve">
     <value>Needleman-Wunsch profile aligner</value>

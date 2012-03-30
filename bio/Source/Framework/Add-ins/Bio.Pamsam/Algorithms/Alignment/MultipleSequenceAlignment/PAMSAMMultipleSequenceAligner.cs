@@ -184,7 +184,7 @@ namespace Bio.Algorithms.Alignment.MultipleSequenceAlignment
         {
             get
             {
-                return Resource.MuscleMultipleAlignmentMethodName;
+                return Resource.MuscleMultipleAlignmentMethodDescription;
             }
         }
 
