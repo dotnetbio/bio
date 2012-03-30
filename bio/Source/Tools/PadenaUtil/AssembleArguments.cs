@@ -198,7 +198,7 @@ namespace PadenaUtil
                 using (FastAFormatter formatter = new FastAFormatter())
                 {
                     formatter.Open(new StreamWriter(Console.OpenStandardOutput()));
-                    formatter.MaxSymbolsAllowedPerLine = Console.WindowWidth-2;
+                    formatter.MaxSymbolsAllowedPerLine = Math.Min(80, Console.WindowWidth - 2);
                     formatter.AutoFlush = true;
 
                     foreach (ISequence seq in assembly.AssembledSequences)
