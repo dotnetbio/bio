@@ -194,11 +194,17 @@ namespace PadenaUtil
             }
             else
             {
-                Output.WriteLine(OutputLevel.Information, "Assembled Sequence Results:");
-                foreach (ISequence seq in assembly.AssembledSequences)
+                Output.WriteLine(OutputLevel.Information, "Assembled Sequence Results: {0} sequences", assembly.AssembledSequences.Count);
+                using (FastAFormatter formatter = new FastAFormatter())
                 {
-                    Output.WriteLine(OutputLevel.Results, seq.ID);
-                    Output.WriteLine(OutputLevel.Results, new string(seq.Select(a => (char)a).ToArray()));
+                    formatter.Open(new StreamWriter(Console.OpenStandardOutput()));
+                    formatter.MaxSymbolsAllowedPerLine = Console.WindowWidth-2;
+                    formatter.AutoFlush = true;
+
+                    foreach (ISequence seq in assembly.AssembledSequences)
+                    {
+                        formatter.Write(seq);
+                    }
                 }
             }
         }
