@@ -253,7 +253,7 @@
     <String Id="WelcomeDlg_Title" Overridable="yes">[ProductName] Setup</String>
     <String Id="WelcomeDlgBitmap" Overridable="yes">WixUI_Bmp_Dialog</String>
     <String Id="WelcomeDlgExclam" Overridable="yes">WixUI_Bmp_Exclam</String>
-    <String Id="WelcomeDlgDescription" Overridable="yes">This program will install the [ProductName] on your machine.  An option to install the Software Development Kit (SDK) will also be provided, but is not required for use of the library.</String>
+    <String Id="WelcomeDlgDescription" Overridable="yes">This program will install [ProductName] on your machine.  An option to install the Software Development Kit (SDK) will also be provided, but is not required for use of the library.</String>
     <String Id="WelcomeDlgTitle" Overridable="yes">{\WixUI_Font_Title}Welcome to the [ProductName] Setup Wizard</String>
 
     <String Id="WelcomeEulaDlg_Title" Overridable="yes">[ProductName] Setup</String>
