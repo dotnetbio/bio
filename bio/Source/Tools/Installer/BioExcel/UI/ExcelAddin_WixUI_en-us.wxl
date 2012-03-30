@@ -132,7 +132,7 @@
     <String Id="LicenseAgreementDlgLicenseAcceptedCheckBox" Overridable="yes">I &amp;accept the terms in the License Agreement</String>
     <String Id="LicenseAgreementDlgBannerBitmap" Overridable="yes">WixUI_Bmp_Banner</String>
     <String Id="LicenseAgreementDlgDescription" Overridable="yes">You must agree to the license agreement in order to proceed.</String>
-    <String Id="LicenseAgreementDlgTitle" Overridable="yes">{\WixUI_Font_Title}BioExcel License Agreement</String>
+    <String Id="LicenseAgreementDlgTitle" Overridable="yes">{\WixUI_Font_Title}[ProductName] License Agreement</String>
 
     <String Id="MaintenanceTypeDlg_Title" Overridable="yes">[ProductName] Setup</String>
     <String Id="MaintenanceTypeDlgChangeButton" Overridable="yes">C&amp;hange</String>
