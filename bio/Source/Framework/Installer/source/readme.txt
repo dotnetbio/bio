@@ -1,22 +1,22 @@
 .NET Bio: Readme.txt
 Version 1.01, March 2012 
 
-.NET Bio is an open source, reusable .NET library and application programming interface (API) for bioinformatics research.
+.NET Bio is an open source, reusable .NET library and application programming interface (API) for bioinformatics.
 
-.NET Bio is available at http://bio.codeplex.com. It is licensed under the OSI approved Apache 2.0 License, which may be found here: http://bio.codeplex.com/license. 
+.NET Bio is available at http://bio.codeplex.com. It is licensed under the OSI approved Apache 2.0 License, a copy of which may be found here: http://bio.codeplex.com/license. 
 
 KNOWN ISSUES
 ============
 - Current issues are listed here: http://bio.codeplex.com/workitem/list/advanced
 
-- We currently have a single sequence limit of 2GB in length. This is not a data size limit for the assembly process. So any single RNA, DNA, or protein sequence in .NET Bio is limited to 2 billion characters. The largest human chromosome is 250MB so the single sequence limit should NOT be a limiting factor in your development. If you experiences issues related with this limit please post on the issue tracker tab on the Codeplex site.
+- Any single RNA, DNA, or protein sequence in .NET Bio is limited to a length of 2 billion characters. The largest human chromosome is 250Mbp so the single sequence limit should NOT be a limiting factor in your development. If you experience issues related with this limit please post on the issue tracker tab on the Codeplex site. This is not a data size limit for the assembly process. 
 
 CHANGES FROM VERSION 1.0 TO VERSION 1.01
 ========================================
 
 Breaking Changes
 
-- .NET Bio no longer autodetects the FASTQ file subtypes. This is due to a change in quality scoring in the Illumina file format. Version 1.5 and 1.8 are now indistinguishable and as such we have changed the auto detect to no longer assume FASTQ. The result is that we do correctly parse V1.5 and V1.8 quality scores on Illumina generated data.
+- .NET Bio no longer autodetects the subtype of a FASTQ file. This is due to a change in quality scoring between versions 1.5 and 1.8 of the Illumina FASTQ file format, preventing .NET Bio from automatically distinguishing between these formats.
 
 - The ISequenceRangeParser has renamed the FileTypes property to SupportedFileTypes for the interface and single implementation (BedParser). 
 
@@ -42,3 +42,5 @@ Non-breaking changes
 	IAlphabet.GetFriendlyName(char)
 
 - SAMBAM parser and formatter have been updated to support new CIGAR and additional optional fields according to specification 1.4.
+
+- Several bugs from 1.0 were resolved in this release.
