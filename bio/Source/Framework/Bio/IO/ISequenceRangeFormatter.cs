@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.ComponentModel.Composition;
 
 
 namespace Bio.IO
@@ -7,6 +8,7 @@ namespace Bio.IO
     /// <summary>
     /// Writes out SequenceRange lists or groupings to a file.
     /// </summary>
+    [InheritedExport(".NetBioSequenceRangeFormattersExport", typeof(ISequenceRangeFormatter))]
     public interface ISequenceRangeFormatter
     {
         /// <summary>

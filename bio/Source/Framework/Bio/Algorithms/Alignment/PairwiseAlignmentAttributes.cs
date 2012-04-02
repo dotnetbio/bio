@@ -65,7 +65,7 @@ namespace Bio.Algorithms.Alignment
                     Properties.Resource.GAP_COST_NAME,
                     Properties.Resource.GAP_COST_DESCRIPTION,
                     true,
-                    "-8",
+                    "-10",
                     AlignmentInfo.IntType,
                     null);
             attributes.Add(GapOpenCost, alignmentAttribute);

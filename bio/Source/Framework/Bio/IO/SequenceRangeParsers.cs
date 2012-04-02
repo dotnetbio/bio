@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using Bio.IO.Bed;
+using System;
+using System.Linq;
 
 namespace Bio.IO
 {
@@ -42,5 +44,53 @@ namespace Bio.IO
                 return all.AsReadOnly();
             }
         }
+
+        #region Constructors
+#if !SILVERLIGHT
+        /// <summary>
+        /// Initializes static members of the SequenceRangeParsers class.
+        /// </summary>
+        static SequenceRangeParsers()
+        {
+            // get the registered parsers
+            IList<ISequenceRangeParser> registeredParsers = GetSequenceRangeParsers();
+            if (null != registeredParsers)
+            {
+                foreach (var parser in registeredParsers.Where(parser => 
+                        parser != null && !all.Any(sp => string.Compare(sp.Name, parser.Name, StringComparison.OrdinalIgnoreCase) == 0)))
+                {
+                    all.Add(parser);
+                }
+            }
+        }
+#endif
+        #endregion
+
+#if !SILVERLIGHT
+        /// <summary>
+        /// Gets all registered parsers in core folder and addins (optional) folders.
+        /// </summary>
+        /// <returns>List of registered parsers.</returns>
+        private static IList<ISequenceRangeParser> GetSequenceRangeParsers()
+        {
+            IList<ISequenceRangeParser> registeredParsers = new List<ISequenceRangeParser>();
+
+            IList<ISequenceRangeParser> addInParsers = Registration.RegisteredAddIn.GetComposedInstancesFromAssemblyPath<ISequenceRangeParser>(
+                        ".NetBioSequenceRangeParsersExport", Registration.RegisteredAddIn.AddinFolderPath, Registration.RegisteredAddIn.DLLFilter);
+            if (null != addInParsers && addInParsers.Count > 0)
+            {
+                foreach (ISequenceRangeParser parser in
+                    addInParsers.Where(parser => parser != null
+                        && !registeredParsers.Any(sp =>
+                            string.Compare(sp.Name, parser.Name,
+                                StringComparison.OrdinalIgnoreCase) == 0)))
+                {
+                    registeredParsers.Add(parser);
+                }
+            }
+
+            return registeredParsers;
+        }
+#endif
     }
 }

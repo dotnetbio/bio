@@ -257,8 +257,6 @@ namespace Bio.Algorithms.Alignment.MultipleSequenceAlignment
             HierarchicalClusteringMethodName = UpdateDistanceMethodsTypes.Average;
             ProfileAlignerName = ProfileAlignerNames.NeedlemanWunschProfileAligner;
             ProfileProfileFunctionName = ProfileScoreFunctionNames.WeightedInnerProduct;
-            GapOpenCost = -4;
-            GapExtensionCost = -1;
 
             // SimularityMatrix will be assigned in Align if it's not set prior through property.
         }
@@ -318,7 +316,7 @@ namespace Bio.Algorithms.Alignment.MultipleSequenceAlignment
             _numberOfPartitions = numberOfPartitions;
 
             // Assign the alphabet
-            SetAlphabet(sequences, similarityMatrix);
+            SetAlphabet(sequences, similarityMatrix, false);
 
             // Initialize parameters
             KmerLength = kmerLength;
@@ -364,10 +362,16 @@ namespace Bio.Algorithms.Alignment.MultipleSequenceAlignment
                 throw new ArgumentException("Empty input sequences");
             }
 
+            // Assign the gap open/extension cost if it hasn't been assigned.
+            if (GapOpenCost == 0)
+                GapOpenCost = -4;
+            if (GapExtensionCost == 0)
+                GapExtensionCost = -1;
+
             Performance.Start();
 
             // Assign the alphabet
-            SetAlphabet(sequences, SimilarityMatrix);
+            SetAlphabet(sequences, SimilarityMatrix, true);
             MsaUtils.SetProfileItemSets(_alphabet);
 
             Performance.Snapshot("Start Aligning");
@@ -392,7 +396,8 @@ namespace Bio.Algorithms.Alignment.MultipleSequenceAlignment
         /// </summary>
         /// <param name="sequences">Input sequences</param>
         /// <param name="similarityMatrix">Matrix to use for similarity comparisons</param>
-        private void SetAlphabet(IList<ISequence> sequences, SimilarityMatrix similarityMatrix)
+        /// <param name="fixSimilarityMatrixErrors">True to fix any similarity matrix issue related to the alphabet.</param>
+        private void SetAlphabet(IList<ISequence> sequences, SimilarityMatrix similarityMatrix, bool fixSimilarityMatrixErrors)
         {
             if (sequences.Count == 0)
             {
@@ -400,7 +405,7 @@ namespace Bio.Algorithms.Alignment.MultipleSequenceAlignment
             }
 
             // Validate data type
-            _alphabet = sequences[0].Alphabet;
+            _alphabet = Alphabets.GetAmbiguousAlphabet(sequences[0].Alphabet);
             Parallel.For(1, sequences.Count, PAMSAMMultipleSequenceAligner.parallelOption, i =>
             {
                 if (!Alphabets.CheckIsFromSameBase(sequences[i].Alphabet, _alphabet))
@@ -409,25 +414,27 @@ namespace Bio.Algorithms.Alignment.MultipleSequenceAlignment
                 }
             });
 
+            SimilarityMatrix bestSimilarityMatrix = null;
+
+            if (_alphabet is DnaAlphabet)
+            {
+                bestSimilarityMatrix = new SimilarityMatrix(SimilarityMatrix.StandardSimilarityMatrix.AmbiguousDna);
+            }
+            else if (_alphabet is RnaAlphabet)
+            {
+                bestSimilarityMatrix = new SimilarityMatrix(SimilarityMatrix.StandardSimilarityMatrix.AmbiguousRna);
+            }
+            else if (_alphabet is ProteinAlphabet)
+            {
+                bestSimilarityMatrix = new SimilarityMatrix(SimilarityMatrix.StandardSimilarityMatrix.Blosum50);
+            }
+
             // Check or assign the similarity matrix.
             if (similarityMatrix == null)
             {
-                if (_alphabet is DnaAlphabet)
-                {
-                    SimilarityMatrix = new SimilarityMatrix(SimilarityMatrix.StandardSimilarityMatrix.AmbiguousDna);
-                }
-                else if (_alphabet is RnaAlphabet)
-                {
-                    SimilarityMatrix = new SimilarityMatrix(SimilarityMatrix.StandardSimilarityMatrix.AmbiguousRna);
-                }
-                else if (_alphabet is ProteinAlphabet)
-                {
-                    SimilarityMatrix = new SimilarityMatrix(SimilarityMatrix.StandardSimilarityMatrix.DiagonalScoreMatrix);
-                }
-                else
-                {
-                    throw new ArgumentException("Invalid alphabet");
-                }
+                SimilarityMatrix = bestSimilarityMatrix;
+                if (SimilarityMatrix == null)
+                    throw new ArgumentException("Unknown alphabet - could not choose SimilarityMatrix.");
             }
             else
             {
@@ -439,21 +446,30 @@ namespace Bio.Algorithms.Alignment.MultipleSequenceAlignment
                 {
                     if (!similarityMatrixDNA.Contains(similarityMatrix.Name))
                     {
-                        throw new ArgumentException("Inconsistent similarity matrix");
+                        if (fixSimilarityMatrixErrors)
+                            SimilarityMatrix = bestSimilarityMatrix;
+                        else
+                            throw new ArgumentException("Inappropriate Similarity Matrix for DNA.");
                     }
                 }
                 else if (_alphabet is ProteinAlphabet)
                 {
                     if (!similarityMatrixProtein.Contains(similarityMatrix.Name))
                     {
-                        throw new ArgumentException("Inconsistent similarity matrix");
+                        if (fixSimilarityMatrixErrors)
+                            SimilarityMatrix = bestSimilarityMatrix;
+                        else
+                            throw new ArgumentException("Inappropriate Similarity Matrix for Protein.");
                     }
                 }
                 else if (_alphabet is RnaAlphabet)
                 {
                     if (!similarityMatrixRNA.Contains(similarityMatrix.Name))
                     {
-                        throw new ArgumentException("Inconsistent similarity matrix");
+                        if (fixSimilarityMatrixErrors)
+                            SimilarityMatrix = bestSimilarityMatrix;
+                        else
+                            throw new ArgumentException("Inappropriate Similarity Matrix for RNA.");
                     }
                 }
                 else

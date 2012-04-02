@@ -183,19 +183,19 @@ namespace BiodexExcel
         private Color transparentColor;
 
         /// <summary>
-        /// Refrences the background thread which will performs sequence assembly
+        /// References the background thread which will performs sequence assembly
         /// in the background.
         /// </summary>
         private BackgroundWorker assemblerThread;
 
         /// <summary>
-        /// Refrences the background thread which will performs sequence alignment
+        /// References the background thread which will performs sequence alignment
         /// in the background.
         /// </summary>
         private BackgroundWorker alignerThread;
 
         /// <summary>
-        /// Name of the webservice currently running.
+        /// Name of the web service currently running.
         /// </summary>
         private string webserviceName;
 
@@ -251,29 +251,12 @@ namespace BiodexExcel
         private string requestIdentifier = string.Empty;
 
         /// <summary>
-        /// Stores a list of all the controls which have to be enabled when a sheet
-        /// which containing a sequence is being viewed.
-        /// </summary>
-        private List<RibbonControl> sequenceDataEnabledControls = new List<RibbonControl>();
-
-        /// <summary>
-        /// Stores a list of all the controls which have to be enabled when a sheet
-        /// which containing a sequence-range is being viewed.
-        /// </summary>
-        private List<RibbonControl> sequenceRangeEnabledControls = new List<RibbonControl>();
-
-        /// <summary>
-        /// Stores a list of all the controls which have to be enabled when a sheet conatining contigs is being viewed.
-        /// </summary>
-        private List<RibbonControl> contigEnabledControls = new List<RibbonControl>();
-
-        /// <summary>
         /// Indicates a value whether all sequence sheet should be re-aligned or not.
         /// </summary>
         private bool alignAllSequenceSheet = false;
 
         /// <summary>
-        /// Stores mapping of a particulat molecule name and the colors used. 
+        /// Stores mapping of a particular molecule name and the colors used. 
         /// </summary>
         private Dictionary<byte, Color> colorMap = new Dictionary<byte, Color>();
 
@@ -331,8 +314,6 @@ namespace BiodexExcel
 
         #endregion -- Private Members --
 
-        #region -- Constructor --
-
         /// <summary>
         /// Initializes a new instance of the BioRibbon class.
         /// </summary>
@@ -340,7 +321,18 @@ namespace BiodexExcel
             : base(Globals.Factory.GetRibbonFactory())
         {
             InitializeComponent();
+
+            // Create a dummy 1st group -- this is to correct a bug
+            // related to Excel add-ins where the first group disappears when
+            // you start Excel with a file (vs. just starting a blank worksheet).
+            var dummyGroup = Factory.CreateRibbonGroup();
+            dummyGroup.Label = "Dummy";
+            dummyGroup.Visible = false;
+
+            this.tabBio.Groups.Insert(0, dummyGroup);
+
             this.BuildRibbonTabs();
+
             this.btnCancelAlign.Click += new RibbonControlEventHandler(this.OnCancelAlignClicked);
             this.btnCancelAssemble.Click += new RibbonControlEventHandler(this.OnCancelAssembleClicked);
             this.btnCancelSearch.Click += new RibbonControlEventHandler(this.OnCancelSearchClicked);
@@ -356,12 +348,8 @@ namespace BiodexExcel
             this.btnHomePage.Click += new RibbonControlEventHandler(OnHomePageClick);
             this.btnAssemble.Click += new RibbonControlEventHandler(OnAssembleClick);
 
-            this.BuildColorScheme();
-
             this.SetScreenTips();
         }
-
-        #endregion -- Constructor --
 
         #region -- Private Static Methods --
 
@@ -468,9 +456,9 @@ namespace BiodexExcel
         }
 
         /// <summary>
-        /// Assign the aligner specific paramaters
+        /// Assign the aligner specific parameters
         /// </summary>
-        /// <param name="sequenceAligner">Sequece Aligner object</param>
+        /// <param name="sequenceAligner">Sequence Aligner object</param>
         /// <param name="alignerInput">Aligner Input object</param>
         private static void AssignAlignerParameter(
             ISequenceAligner sequenceAligner,
@@ -652,8 +640,10 @@ namespace BiodexExcel
         /// <param name="e">Event data.</param>
         private void OnRibbonLoad(object sender, RibbonUIEventArgs e)
         {
+            this.BuildColorScheme();
+
             this.CheckForNodeXL();
-            EnableAllControls();
+            this.EnableAllControls();
 
             // Adds a event handler every time a new sheet is selected.
             Globals.ThisAddIn.Application.WorkbookActivate += new AppEvents_WorkbookActivateEventHandler(this.OnWorkBookOpen);
@@ -732,7 +722,6 @@ namespace BiodexExcel
 
             foreach (byte nucleotide in RnaAlphabet.Instance)
             {
-                string nucleotideString = new string(new char[] { (char)nucleotide });
                 if (!this.colorMap.ContainsKey(nucleotide))
                 {
                     this.colorMap.Add(nucleotide, this.transparentColor);
@@ -741,7 +730,6 @@ namespace BiodexExcel
 
             foreach (byte acid in ProteinAlphabet.Instance)
             {
-                string nucleotideString = new string(new char[] { (char)acid });
                 if (!this.colorMap.ContainsKey(acid))
                 {
                     this.colorMap.Add(acid, this.transparentColor);
@@ -833,7 +821,6 @@ namespace BiodexExcel
         /// <summary>
         /// This method enables the given list of controls.
         /// </summary>
-        /// <param name="controlsList">List of controls which have to be enabled</param>
         private void EnableAllControls()
         {
             List<RibbonGroup> groups = new List<RibbonGroup>();
@@ -845,6 +832,7 @@ namespace BiodexExcel
             groups.Add(this.grpGenomicInterval);
             groups.Add(this.groupConfig);
             groups.Add(this.groupAssembly);
+            groups.Add(this.groupNodeXL);
 
             foreach (RibbonGroup group in groups)
             {
@@ -934,7 +922,6 @@ namespace BiodexExcel
             this.ScreenUpdate(false);
 
             Workbook currentWorkbook = Globals.ThisAddIn.Application.ActiveWorkbook;
-            Sheets sheets = currentWorkbook.Worksheets;
             IntersectOutputType intersectOutputType = IntersectOutputType.OverlappingIntervals;
             List<SequenceRangeGrouping> result = new List<SequenceRangeGrouping>();
 
@@ -1000,7 +987,6 @@ namespace BiodexExcel
             this.ScreenUpdate(false);
 
             Workbook currentWorkbook = Globals.ThisAddIn.Application.ActiveWorkbook;
-            Sheets allSheets = currentWorkbook.Worksheets;
             SubtractOutputType subtractOutputType = SubtractOutputType.NonOverlappingPiecesOfIntervals;
             SequenceRangeGrouping result = null;
 
@@ -1811,8 +1797,6 @@ namespace BiodexExcel
         /// <summary>
         /// Call venn diagram module to create the diagran and display it using NodeXL
         /// </summary>
-        /// <param name="selectedSequences">List of two or three sequenceRangeGrouping objects depending on the user selection</param>
-        /// <param name="args">Any custom argument passed</param>
         private void DoDrawVenn(InputSequenceRangeSelectionEventArg e)
         {
             // Call VennToNodeXL which will do the calculations and add the NodeXL workbook to the application object passed.
@@ -1926,14 +1910,14 @@ namespace BiodexExcel
         /// </summary>
         private void BuildRibbonTabs()
         {
-            this.AddWebServiceDropDowns();
             this.AddParsersDropDowns();
             this.AddFormattersDropDowns();
             this.AddAlignersDropDown();
+            this.AddWebServiceDropDowns();
         }
 
         /// <summary>
-        /// This method retrives all the supported aligners in the framework and
+        /// This method retrieves all the supported aligners in the framework and
         /// populates the Align drop down.
         /// </summary>
         private void AddAlignersDropDown()
@@ -1960,7 +1944,7 @@ namespace BiodexExcel
         }
 
         /// <summary>
-        /// This method retrives all the supported formatters in the framework and
+        /// This method retrieves all the supported formatters in the framework and
         /// populates the formatters drop down.
         /// </summary>
         private void AddFormattersDropDowns()
@@ -1993,7 +1977,7 @@ namespace BiodexExcel
         }
 
         /// <summary>
-        /// This method retrives all the supported parsers in the framework and
+        /// This method retrieves all the supported parsers in the framework and
         /// populates the parsers drop down.
         /// </summary>
         private void AddParsersDropDowns()
@@ -2273,7 +2257,7 @@ namespace BiodexExcel
                 }
                 if (alignedResult.Count > 0)
                 {
-                    e.Result = alignedResult;
+                    e.Result = Tuple.Create(alignedResult, alignerInput);
                 }
                 else
                 {
@@ -2298,6 +2282,7 @@ namespace BiodexExcel
         /// <summary>
         /// Display the alignment result on sheet
         /// </summary>
+        /// <param name="sender">Sender</param>
         /// <param name="e">Results of alignment</param>
         private void OnAlignerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
@@ -2308,7 +2293,11 @@ namespace BiodexExcel
 
             try
             {
-                BuildAlignmentResultView(e.Result as IList<ISequenceAlignment>);
+                var results = e.Result as Tuple<IList<ISequenceAlignment>, AlignerInputEventArgs>;
+                if (results.Item2.Aligner is Bio.Algorithms.Alignment.MultipleSequenceAlignment.IMultipleSequenceAligner)
+                    BuildMultipleAlignmentResultView(results);
+                else
+                    BuildAlignmentResultView(results);
             }
             catch (Exception ex)
             {
@@ -2321,11 +2310,14 @@ namespace BiodexExcel
         }
 
         /// <summary>
-        /// This method displays the output of a assembly process.
+        /// This method displays the output of a pair-wise alignment or alignment of many sequences.
         /// </summary>
-        /// <param name="assemblerResult">Result of the assembly process.</param>
-        private void BuildAlignmentResultView(IList<ISequenceAlignment> alignedResult)
+        /// <param name="results">Result of the alignment process.</param>
+        private void BuildAlignmentResultView(Tuple<IList<ISequenceAlignment>, AlignerInputEventArgs> results)
         {
+            IList<ISequenceAlignment> alignedResult = results.Item1;
+            AlignerInputEventArgs alignerInput = results.Item2;
+
             if (alignedResult.Count == 0 || alignedResult[0].AlignedSequences.Count == 0)
             {
                 MessageBox.Show(Resources.NO_RESULT, Resources.CAPTION, MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -2342,113 +2334,119 @@ namespace BiodexExcel
             currentsheet.Cells.Font.Name = "Courier New";
             this.currentAlignResultSheetNumber++;
 
+            int rowNumber = 1;
+
+            Range header = currentsheet.get_Range("A" + rowNumber, Type.Missing);
+            WriteRangeValue(header, Resources.ID);
+            header.WrapText = true;
+
+            header = currentsheet.get_Range("B" + rowNumber, Type.Missing);
+            WriteRangeValue(header, Resources.Alignment_StartOffsetString);
+            header.WrapText = true;
+
+            header = currentsheet.get_Range("C" + rowNumber, Type.Missing);
+            WriteRangeValue(header, Resources.Alignment_EndOffsetString);
+            header.WrapText = true;
+            currentsheet.Rows[rowNumber].Font.Bold = true;
+
+            rowNumber++;
+
             foreach (ISequenceAlignment sequenceAlignment in alignedResult)
             {
-                int startingColumn = 3;
-                int rowNumber = 1;
+                const int startingColumn = 4;
 
                 foreach (IAlignedSequence alignedSequence in sequenceAlignment.AlignedSequences)
                 {
-                    string[,] rangeData;
                     int alignResultNumber = 1, sequenceNumber = 1;
-                    int columnIndex = 0;
-                    Range currentRange;
 
-                    Range header = currentsheet.get_Range("B" + rowNumber.ToString(), Type.Missing);
-                    WriteRangeValue(header, Resources.Alignment_StartOffsetString);
-
-                    rowNumber++;
-
-                    #region get max length of all sequences selected
+                    // Get max length of all sequences selected
                     long numberofCharacters = 1;
-                    long maxSequenceLength = 0;
-                    foreach (ISequence currSeq in alignedSequence.Sequences)
-                    {
-                        if (maxSequenceLength < currSeq.Count)
-                        {
-                            maxSequenceLength = currSeq.Count;
-                        }
-                    }
+                    long maxSequenceLength = alignedSequence.Sequences.Max(s => s.Count);
 
                     // calculate number of alphabets in one cell
                     if (maxSequenceLength > MaxExcelColumns)
                     {
-                        if (maxSequenceLength % MaxExcelColumns == 0)
-                        {
-                            numberofCharacters = maxSequenceLength / MaxExcelColumns;
-                        }
-                        else
-                        {
-                            numberofCharacters = maxSequenceLength / MaxExcelColumns;
-                            numberofCharacters++;
-                        }
+                        numberofCharacters = maxSequenceLength%MaxExcelColumns == 0
+                                                 ? maxSequenceLength/MaxExcelColumns
+                                                 : 1 + (maxSequenceLength/MaxExcelColumns);
                     }
-                    #endregion
 
                     // write to sheet
                     int currentSequenceIndex = 0;
-                    List<int> startOffsets = null;
-                    List<int> endOffsets = null;
+                    List<long> startOffsets = null;
+                    List<long> endOffsets = null;
 
                     if (alignedSequence.Metadata.ContainsKey(StartOffsetString))
-                    {
-                        startOffsets = alignedSequence.Metadata[StartOffsetString] as List<int>;
-                    }
+                        startOffsets = alignedSequence.Metadata[StartOffsetString] as List<long>;
 
                     if (startOffsets == null)
-                    {
-                        startOffsets = new List<int>();
-                    }
+                        startOffsets = new List<long>();
 
                     if (alignedSequence.Metadata.ContainsKey(EndOffsetString))
-                    {
-                        endOffsets = alignedSequence.Metadata[EndOffsetString] as List<int>;
-                    }
+                        endOffsets = alignedSequence.Metadata[EndOffsetString] as List<long>;
 
                     if (endOffsets == null)
-                    {
-                        endOffsets = new List<int>();
-                    }
-
+                        endOffsets = new List<long>();
 
                     foreach (ISequence currSeq in alignedSequence.Sequences)
                     {
-                        // write header
-                        header = currentsheet.get_Range("A" + rowNumber.ToString(), Type.Missing);
-                        if (string.IsNullOrWhiteSpace(currSeq.ID))
+                        // Write the ID
+                        header = currentsheet.get_Range("A" + rowNumber, Type.Missing);
+
+                        string id = null;
+                        if (!string.IsNullOrEmpty(currSeq.ID))
+                            id = currSeq.ID;
+                        else
+                            id = alignerInput.Sequences[sequenceNumber-1].ID;
+
+                        if (string.IsNullOrEmpty(id))
                         {
-                            WriteRangeValue(header, Resources.Alignment_AlignedSequencesHeading + "_" + (currentSequenceIndex + 1));
+                            id = Resources.Alignment_AlignedSequencesHeading + "_" + (currentSequenceIndex + 1);
+                        }
+
+                        // Attempt to link back to original value
+                        object seqAddress;
+                        if ((currSeq.Metadata.TryGetValue(Resources.EXCEL_CELL_LINK, out seqAddress) && seqAddress != null)
+                            || (alignerInput.Sequences[sequenceNumber - 1].Metadata.TryGetValue(Resources.EXCEL_CELL_LINK, out seqAddress) && seqAddress != null))
+                        {
+                            currentsheet.Hyperlinks.Add(header, string.Empty, seqAddress, "Jump to Original Sequence", id);
                         }
                         else
                         {
-                            WriteRangeValue(header, currSeq.ID);
+                            WriteRangeValue(header, id);
                         }
 
-                        int startOffset = -1;
-
+                        // Write the start offset for this sequence
+                        long startOffset = -1;
                         if (startOffsets.Count > currentSequenceIndex)
                         {
                             startOffset = startOffsets[currentSequenceIndex] + 1;
-                            header = currentsheet.get_Range("B" + rowNumber.ToString(), Type.Missing);
+                            header = currentsheet.get_Range("B" + rowNumber, Type.Missing);
                             WriteRangeValue(header, startOffset.ToString());
                         }
 
-                        rangeData = new string[1, maxSequenceLength > MaxExcelColumns
-                                                    ? MaxExcelColumns
-                                                    : maxSequenceLength];
+                        // Write the end offset for this sequence
+                        long endOffset = -1;
+                        if (endOffsets.Count > currentSequenceIndex)
+                        {
+                            endOffset = endOffsets[currentSequenceIndex] + 1;
+                            header = currentsheet.get_Range("C" + rowNumber, Type.Missing);
+                            WriteRangeValue(header, endOffset.ToString());
+                        }
 
-                        columnIndex = 0;
+                        // Build the data
+                        string[,] rangeData = new string[1, maxSequenceLength > MaxExcelColumns ? MaxExcelColumns : maxSequenceLength];
+
+                        int columnIndex = 0;
 
                         for (long i = 0; i < currSeq.Count; i += numberofCharacters, columnIndex++)
                         {
                             var tempSeq = currSeq.GetSubSequence(i, numberofCharacters);
-                            //tempSeqToLoop.RangeStart = i;
-                            //tempSeqToLoop.RangeLength = numberofCharacters;
                             rangeData[0, columnIndex] = tempSeq.ConvertToString();
                         }
 
                         // dump to sheet
-                        currentRange = currentsheet.get_Range(GetColumnString(startingColumn) + rowNumber.ToString(), Type.Missing);
+                        Range currentRange = currentsheet.get_Range(GetColumnString(startingColumn) + rowNumber, Type.Missing);
                         if (columnIndex > 1)
                         {
                             currentRange = currentRange.get_Resize(1, columnIndex);
@@ -2456,16 +2454,7 @@ namespace BiodexExcel
 
                             this.FillBackGroundColor(currentRange);
 
-                            int endOffset = -1;
-
-                            if (endOffsets.Count > currentSequenceIndex)
-                            {
-                                endOffset = endOffsets[currentSequenceIndex] + 1;
-                                header = currentsheet.get_Range(GetColumnString(startingColumn + columnIndex) + rowNumber.ToString(), Type.Missing);
-                                WriteRangeValue(header, endOffset.ToString());
-                            }
-
-                            string rangeName = "AlignedSeq_" + alignResultNumber.ToString() + "_" + currSeq.ID + "_" + sequenceNumber;
+                            string rangeName = "AlignedSeq_" + alignResultNumber + "_" + currSeq.ID + "_" + sequenceNumber;
                             CreateNamedRange(currentsheet, currentRange, rangeName, startingColumn, rowNumber, columnIndex, 1);
                         }
 
@@ -2474,10 +2463,130 @@ namespace BiodexExcel
 
                         currentSequenceIndex++;
                     }
-                    header = currentsheet.get_Range(GetColumnString(startingColumn + columnIndex) + (rowNumber - currentSequenceIndex - 1).ToString(), Type.Missing);
-                    WriteRangeValue(header, Resources.Alignment_EndOffsetString);
 
-                    rowNumber += 3;
+                    rowNumber++; // blank line between alignments
+                    alignResultNumber++;
+                }
+            }
+            currentsheet.Columns.AutoFit();
+        }
+
+        /// <summary>
+        /// This method displays the output of a multi-sequence alignment process.
+        /// </summary>
+        /// <param name="results">Result of the alignment process.</param>
+        private void BuildMultipleAlignmentResultView(Tuple<IList<ISequenceAlignment>, AlignerInputEventArgs> results)
+        {
+            IList<ISequenceAlignment> alignedResult = results.Item1;
+            AlignerInputEventArgs alignerInput = results.Item2;
+
+            if (alignedResult.Count == 0 || alignedResult[0].AlignedSequences.Count == 0)
+            {
+                MessageBox.Show(Resources.NO_RESULT, Resources.CAPTION, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            Workbook activeWorkBook = (Workbook)Globals.ThisAddIn.Application.ActiveWorkbook;
+            Worksheet activesheet = (Worksheet)Globals.ThisAddIn.Application.ActiveSheet;
+            Worksheet currentsheet = (Worksheet)activeWorkBook.Worksheets.Add(Type.Missing, activesheet, Type.Missing, Type.Missing);
+
+            ((Microsoft.Office.Interop.Excel._Worksheet)currentsheet).Activate();
+            currentsheet.Name = this.GetValidFileNames(
+                    Resources.Alignment_AlignedSequencesHeading + this.currentAlignResultSheetNumber.ToString(CultureInfo.CurrentCulture));
+            currentsheet.Cells.Font.Name = "Courier New";
+            this.currentAlignResultSheetNumber++;
+
+            int rowNumber = 1;
+
+            Range header = currentsheet.get_Range("A" + rowNumber, Type.Missing);
+            WriteRangeValue(header, Resources.ID);
+            header.WrapText = true;
+            header.Font.Bold = true;
+
+            rowNumber++;
+
+            foreach (ISequenceAlignment sequenceAlignment in alignedResult)
+            {
+                const int startingColumn = 2;
+
+                foreach (IAlignedSequence alignedSequence in sequenceAlignment.AlignedSequences)
+                {
+                    int alignResultNumber = 1, sequenceNumber = 1;
+
+                    // Get max length of all sequences selected
+                    long numberofCharacters = 1;
+                    long maxSequenceLength = alignedSequence.Sequences.Max(s => s.Count);
+
+                    // calculate number of alphabets in one cell
+                    if (maxSequenceLength > MaxExcelColumns)
+                    {
+                        numberofCharacters = maxSequenceLength % MaxExcelColumns == 0
+                                                 ? maxSequenceLength / MaxExcelColumns
+                                                 : 1 + (maxSequenceLength / MaxExcelColumns);
+                    }
+
+                    // write to sheet
+                    int currentSequenceIndex = 0;
+
+                    foreach (ISequence currSeq in alignedSequence.Sequences)
+                    {
+                        // Write the ID
+                        header = currentsheet.get_Range("A" + rowNumber, Type.Missing);
+
+                        string id = null;
+                        if (!string.IsNullOrEmpty(currSeq.ID))
+                            id = currSeq.ID;
+                        else
+                            id = alignerInput.Sequences[sequenceNumber - 1].ID;
+
+                        if (string.IsNullOrEmpty(id))
+                        {
+                            id = Resources.Alignment_AlignedSequencesHeading + "_" + (currentSequenceIndex + 1);
+                        }
+
+                        // Attempt to link back to original value
+                        object seqAddress;
+                        if ((currSeq.Metadata.TryGetValue(Resources.EXCEL_CELL_LINK, out seqAddress) && seqAddress != null)
+                            || (alignerInput.Sequences[sequenceNumber - 1].Metadata.TryGetValue(Resources.EXCEL_CELL_LINK, out seqAddress) && seqAddress != null))
+                        {
+                            currentsheet.Hyperlinks.Add(header, string.Empty, seqAddress, "Jump to Original Sequence", id);
+                        }
+                        else
+                        {
+                            WriteRangeValue(header, id);
+                        }
+
+                        // Build the data
+                        string[,] rangeData = new string[1, maxSequenceLength > MaxExcelColumns ? MaxExcelColumns : maxSequenceLength];
+
+                        int columnIndex = 0;
+
+                        for (long i = 0; i < currSeq.Count; i += numberofCharacters, columnIndex++)
+                        {
+                            var tempSeq = currSeq.GetSubSequence(i, numberofCharacters);
+                            rangeData[0, columnIndex] = tempSeq.ConvertToString();
+                        }
+
+                        // dump to sheet
+                        Range currentRange = currentsheet.get_Range(GetColumnString(startingColumn) + rowNumber, Type.Missing);
+                        if (columnIndex > 1)
+                        {
+                            currentRange = currentRange.get_Resize(1, columnIndex);
+                            currentRange.set_Value(Missing.Value, rangeData);
+
+                            this.FillBackGroundColor(currentRange);
+
+                            string rangeName = "AlignedSeq_" + alignResultNumber + "_" + currSeq.ID + "_" + sequenceNumber;
+                            CreateNamedRange(currentsheet, currentRange, rangeName, startingColumn, rowNumber, columnIndex, 1);
+                        }
+
+                        rowNumber++;
+                        sequenceNumber++;
+
+                        currentSequenceIndex++;
+                    }
+
+                    rowNumber += 2;
                     alignResultNumber++;
                 }
             }
@@ -2527,6 +2636,14 @@ namespace BiodexExcel
         /// <param name="args">Any arguments passed when calling the selection model</param>
         private void DoAssembly(List<ISequence> selectedSequences, params object[] args)
         {
+            // Verify none of the sequences are protein - we cannot assembly these because we 
+            // cannot align them (no complements).
+            if (selectedSequences.Any(s => s.Alphabet is ProteinAlphabet))
+            {
+                MessageBox.Show(Properties.Resources.PROTEIN_NOT_SUPPORTED, Properties.Resources.CAPTION, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             Globals.ThisAddIn.Application.Cursor = XlMousePointer.xlWait;
             AssemblyInputDialog assemblerDialog = new AssemblyInputDialog(false, selectedSequences[0].Alphabet);
             System.Windows.Interop.WindowInteropHelper assemblyInputHelper = new System.Windows.Interop.WindowInteropHelper(assemblerDialog);

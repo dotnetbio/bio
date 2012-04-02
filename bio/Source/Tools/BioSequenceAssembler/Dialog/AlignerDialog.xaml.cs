@@ -86,7 +86,6 @@
             {
                 cmbAlgorithms.Items.Add(aligner.Name);
             }
-            cmbAlgorithms.Items.Add("PAMSAM");
 
             this.cmbAlgorithms.SelectedIndex = 0;
 
@@ -328,9 +327,9 @@
 
 
         /// <summary>
-        /// Get the aligner input paramater from the controls in stack panel
+        /// Get the aligner input parameter from the controls in stack panel
         /// </summary>
-        /// <param name="stkPanel">Stack panel objec</param>
+        /// <param name="stkPanel">Stack panel object</param>
         /// <param name="assemblyInput">aligner input object</param>
         /// <param name="alphabet"> Alphabet of the Selected sequences.</param>
         /// <returns>Are parameters valid</returns>
@@ -574,7 +573,7 @@
         /// </summary>
         /// <param name="value">Value to be parsed.</param>
         /// <param name="result">The result of the parse operation.</param>
-        /// <returns>Indicates whether the parsing was succesful or not.</returns>
+        /// <returns>Indicates whether the parsing was successful or not.</returns>
         private static bool ParseValue(string value, out double result)
         {
             if (double.TryParse(value, out result))
@@ -587,11 +586,11 @@
 
         /// <summary>
         /// Parses a string value and converts it into
-        /// int value.
+        /// integer value.
         /// </summary>
         /// <param name="value">Value to be parsed.</param>
         /// <param name="result">The result of the parse operation.</param>
-        /// <returns>Indicates whether the parsing was succesful or not.</returns>
+        /// <returns>Indicates whether the parsing was successful or not.</returns>
         private static bool ParseValue(string value, out int result)
         {
             if (int.TryParse(value, out result))
@@ -728,7 +727,7 @@
         /// This method would create text field.
         /// </summary>
         /// <param name="alignmentAttribute">Alignment parameter</param>
-        /// <param name="parentPanel">Stack panel, the field will be added to this stackpanel</param>
+        /// <param name="parentPanel">Stack panel, the field will be added to this stack panel</param>
         /// <param name="tag">Tag of the control object</param>
         private void CreateTextField(
                 AlignmentInfo alignmentAttribute,

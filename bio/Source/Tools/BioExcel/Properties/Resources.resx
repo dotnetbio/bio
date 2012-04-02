@@ -745,4 +745,10 @@
   <data name="CannotFindMatchingAlphabet" xml:space="preserve">
     <value>Could not detect alphabet type for the given sequence.</value>
   </data>
+  <data name="PROTEIN_NOT_SUPPORTED" xml:space="preserve">
+    <value>Protein Sequences are not supported for this operation.</value>
+  </data>
+  <data name="EXCEL_CELL_LINK" xml:space="preserve">
+    <value>ExcelMetadata_CellLink</value>
+  </data>
 </root>

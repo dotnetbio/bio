@@ -300,6 +300,10 @@
     <EmbeddedResource Include="Resources\FromWeb.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Framework\Add-ins\Bio.Pamsam\Bio.Pamsam.csproj">
+      <Project>{0416DD4D-DA84-4BBF-B698-892CF04D3DFB}</Project>
+      <Name>Bio.Pamsam</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Framework\Bio.WebServiceHandlers\Bio.WebServiceHandlers.csproj">
       <Project>{C5A9B65E-98FB-4879-8699-69E8AB6A4BAA}</Project>
       <Name>Bio.WebServiceHandlers</Name>

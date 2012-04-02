@@ -274,7 +274,7 @@
     <value>Start Offset</value>
   </data>
   <data name="PAMSAM" xml:space="preserve">
-    <value>PAMSAM</value>
+    <value>PAMSAM (MUSCLE)</value>
   </data>
   <data name="TreeViewLoadTimeOut" xml:space="preserve">
     <value>Too many scaffolds generated, please increase the K-mer length and retry.</value>

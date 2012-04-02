@@ -53,7 +53,7 @@
         /// <summary>
         /// Similarity Matrix
         /// </summary>
-        public const string SimilarityMatrix = "SimilarityMatrix";
+        public const string SimilarityMatrix = "Similarity Matrix";
 
         /// <summary>
         /// Gap Open Penalty
@@ -155,7 +155,7 @@
 
             alignmentAttribute = new AlignmentInfo(
                 SimilarityMatrix,
-                "Similarity Matrix",
+                "Describes matrix that determines the score for any possible pair of symbols",
                 true,
                 SM.StandardSimilarityMatrix.AmbiguousDna.ToString(),
                 AlignmentInfo.StringListType,
@@ -173,7 +173,7 @@
 
             alignmentAttribute = new AlignmentInfo(
                 GapExtendPenalty,
-                "Gap Extention Penalty",
+                "Gap Extension Penalty",
                 true,
                 "-1",
                 AlignmentInfo.IntType,

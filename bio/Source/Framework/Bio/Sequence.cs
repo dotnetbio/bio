@@ -286,6 +286,11 @@ namespace Bio
         /// </summary>
         public ISequence GetReverseComplementedSequence()
         {
+            if (!this.Alphabet.IsComplementSupported)
+            {
+                throw new InvalidOperationException(Properties.Resource.ComplementNotFound);
+            }
+
             byte[] reverseComplemented = new byte[this.Count];
             this.Alphabet.TryGetComplementSymbol(this.sequenceData, out reverseComplemented);
             Array.Reverse(reverseComplemented);

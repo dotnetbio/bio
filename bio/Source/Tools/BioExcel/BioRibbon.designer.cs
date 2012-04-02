@@ -8,7 +8,7 @@ namespace BiodexExcel
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;       
+        private System.ComponentModel.IContainer components = null;
 
         /// <summary> 
         /// Clean up any resources being used.
@@ -76,7 +76,7 @@ namespace BiodexExcel
             // 
             // tabBio
             // 
-            this.tabBio.ControlId.ControlIdType = RibbonControlIdType.Office;
+            this.tabBio.ControlId.ControlIdType = Microsoft.Office.Tools.Ribbon.RibbonControlIdType.Office;
             this.tabBio.Groups.Add(this.groupImportExport);
             this.tabBio.Groups.Add(this.groupAlignment);
             this.tabBio.Groups.Add(this.groupAssembly);
@@ -374,7 +374,6 @@ namespace BiodexExcel
             this.groupConfig.PerformLayout();
             this.groupAbout.ResumeLayout(false);
             this.groupAbout.PerformLayout();
-
         }
 
         #endregion
@@ -413,7 +412,7 @@ namespace BiodexExcel
         internal Microsoft.Office.Tools.Ribbon.RibbonButton btnConfigureImport;
     }
 
-    partial class ThisRibbonCollection : Microsoft.Office.Tools.Ribbon.RibbonReadOnlyCollection
+    partial class ThisRibbonCollection
     {
         internal BioRibbon Ribbon1
         {

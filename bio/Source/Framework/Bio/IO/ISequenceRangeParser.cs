@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.ComponentModel.Composition;
 
 
 namespace Bio.IO
@@ -8,6 +9,7 @@ namespace Bio.IO
     /// The interface defining the methods for parsing ISequenceRange
     /// objects from files or readers.
     /// </summary>
+    [InheritedExport(".NetBioSequenceRangeParsersExport", typeof(ISequenceRangeParser))]
     public interface ISequenceRangeParser : IParser
     {
         /// <summary>

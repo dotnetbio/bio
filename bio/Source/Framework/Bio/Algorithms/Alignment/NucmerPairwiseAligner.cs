@@ -143,7 +143,7 @@ namespace Bio.Algorithms.Alignment
                 throw new ArgumentException(Properties.Resource.MinimumTwoSequences);
             }
 
-            return Alignment(new List<ISequence> { GetReferenceSequnece(inputSequences, 0) }, GetQuerySequneces(inputSequences, 0)).ToList().ConvertAll(SA => SA as ISequenceAlignment);
+            return Alignment(new List<ISequence> { GetReferenceSequence(inputSequences, 0) }, GetQuerySequences(inputSequences, 0)).ToList().ConvertAll(SA => SA as ISequenceAlignment);
         }
 
         /// <summary>
@@ -160,7 +160,7 @@ namespace Bio.Algorithms.Alignment
                 throw new ArgumentException(Properties.Resource.MinimumTwoSequences);
             }
 
-            return Alignment(new List<ISequence> { GetReferenceSequnece(inputSequences, 0) }, GetQuerySequneces(inputSequences, 0)).ToList().ConvertAll(SA => SA as ISequenceAlignment);
+            return Alignment(new List<ISequence> { GetReferenceSequence(inputSequences, 0) }, GetQuerySequences(inputSequences, 0)).ToList().ConvertAll(SA => SA as ISequenceAlignment);
         }
 
         /// <summary>
@@ -492,7 +492,7 @@ namespace Bio.Algorithms.Alignment
         /// </summary>
         /// <param name="sequences">IEnumerable of Sequences.</param>
         /// <param name="referenceIndex">Reference sequence index.</param>
-        private static ISequence GetReferenceSequnece(IEnumerable<ISequence> sequences, long referenceIndex)
+        private static ISequence GetReferenceSequence(IEnumerable<ISequence> sequences, long referenceIndex)
         {
             long index = 0;
             foreach (ISequence sequence in sequences)
@@ -513,7 +513,7 @@ namespace Bio.Algorithms.Alignment
         /// </summary>
         /// <param name="sequences">IEnumerable of Sequences.</param>
         /// <param name="referenceIndex">Reference sequence index.</param>
-        private static IEnumerable<ISequence> GetQuerySequneces(IEnumerable<ISequence> sequences, long referenceIndex)
+        private static IEnumerable<ISequence> GetQuerySequences(IEnumerable<ISequence> sequences, long referenceIndex)
         {
             long index = 0;
             foreach (ISequence sequence in sequences)

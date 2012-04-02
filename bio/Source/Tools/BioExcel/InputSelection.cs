@@ -375,7 +375,7 @@
         /// Takes care of parsing the selections and returning the result to the user.
         /// In case there was an error parsing, it will show the input selection dialog again with the sequence highlighted.
         /// </summary>
-        /// <param name="selectionDialog">InputSequenceDialog object which raised this event</param>
+        /// <param name="dialog">InputSequenceDialog object which raised this event</param>
         private void OnInputSequenceDialogSubmit(ISelectionDialog dialog)
         {
             InputSelectionDialog selectionDialog = dialog as InputSelectionDialog;
@@ -394,16 +394,27 @@
                         {
                             ISequence sequenceForCurrentItem;
                             sequenceForCurrentItem = SequenceCache.TryGetSequence(rangesInCurrentSequenceItem, selectionDialog.InputParamsAsKey) as ISequence; // get from cache
+
+                            string id = currentSequenceItem.SequenceName;
+                            if (string.IsNullOrEmpty(id))
+                            {
+                                id = currentSequenceItem.SequenceAddress;
+                                int pos = id.IndexOf('!');
+                                if (pos > 0)
+                                    id = id.Substring(0, pos);
+                            }
+
                             if (sequenceForCurrentItem == null) // if not in cache
                             {
-                                sequenceForCurrentItem = ExcelSelectionParser.RangeToSequence(rangesInCurrentSequenceItem, selectionDialog.TreatBlankCellsAsGaps, selectionDialog.MoleculeType, currentSequenceItem.SequenceName);
-
+                                sequenceForCurrentItem = ExcelSelectionParser.RangeToSequence(rangesInCurrentSequenceItem, selectionDialog.TreatBlankCellsAsGaps, selectionDialog.MoleculeType, id);
+                                sequenceForCurrentItem.Metadata[Resources.EXCEL_CELL_LINK] = currentSequenceItem.SequenceAddress;
                                 SequenceCache.Add(rangesInCurrentSequenceItem, sequenceForCurrentItem, selectionDialog.InputParamsAsKey);
                             }
                             else
                             {
                                 // Set the ID
-                                sequenceForCurrentItem = SetSequenceID(sequenceForCurrentItem, currentSequenceItem.SequenceName);
+                                sequenceForCurrentItem = SetSequenceID(sequenceForCurrentItem, id);
+                                sequenceForCurrentItem.Metadata[Resources.EXCEL_CELL_LINK] = currentSequenceItem.SequenceAddress;
                             }
 
                             parsedSequences.Add(sequenceForCurrentItem);
