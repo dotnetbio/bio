@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.Composition;
 using System.Globalization;
 using System.IO;
 using System.ServiceModel;
@@ -18,6 +19,7 @@ namespace Bio.Web.Blast
     /// operation required by the interface. Each method necessarily 
     /// invokes/instantiates an atomic operation on the server (Azure Blast server).
     /// </summary>
+    [PartNotDiscoverable]
     public class AzureBlastHandler : IBlastServiceHandler, IDisposable
     {
         #region Constants

@@ -25,9 +25,18 @@
         private static Dictionary<string, CachedSequenceData> cache = new Dictionary<string, CachedSequenceData>();
 
         /// <summary>
-        /// Trys to get a sequence from the cache for the given range
+        /// Field to indicate if we've initialized the sequence cache.
+        /// </summary>
+        public static bool IsInitialized
+        {
+            get; private set;
+        }
+
+        /// <summary>
+        /// Tries to get a sequence from the cache for the given range
         /// </summary>
         /// <param name="selectedRange">Range for which the request is made</param>
+        /// <param name="inputParamsAsKey"></param>
         /// <returns>Returns the sequence object or null if not found</returns>
         public static object TryGetSequence(Range selectedRange, string inputParamsAsKey)
         {
@@ -42,17 +51,15 @@
                     seq.LastAccessTime = DateTime.Now;
                     return seq.CachedData;
                 }
-                else
-                {
-                    return null;
-                }
+                return null;
             }
         }
 
         /// <summary>
-        /// Trys to get a sequence from the cache for the given range list
+        /// Tries to get a sequence from the cache for the given range list
         /// </summary>
-        /// <param name="range">Range list for which the request is made</param>
+        /// <param name="selectedRanges">Range list for which the request is made</param>
+        /// <param name="inputParamsAsKey"></param>
         /// <returns>Returns the sequence object or null if not found</returns>
         public static object TryGetSequence(IEnumerable<Range> selectedRanges, string inputParamsAsKey)
         {
@@ -65,11 +72,8 @@
                 seq.LastAccessTime = DateTime.Now;
                 return seq.CachedData;
             }
-            else
-            {
-                return null;
-            }
 
+            return null;
         }
 
 
@@ -102,7 +106,7 @@
         /// <summary>
         /// Add a new item to the cache
         /// </summary>
-        /// <param name="range">Range to use as the key for caching</param>
+        /// <param name="selectedRanges">Range to use as the key for caching</param>
         /// <param name="dataToCache">Object to be cached</param>
         /// <param name="inputParamsAsKey">Input param names as key</param>
         /// <returns>True if caching was successful</returns>
@@ -124,10 +128,9 @@
 
         public static void Initialize()
         {
-            foreach (Worksheet currentSheet in Globals.ThisAddIn.Application.Worksheets)
-            {
-                activeSheets.Add(currentSheet.Name);
-            }
+            IsInitialized = true;
+            activeSheets.AddRange(Globals.ThisAddIn.Application.Worksheets
+                        .Cast<Worksheet>().Select(ws => ws.Name));
         }
 
         #region Cache cleanup section
@@ -150,32 +153,21 @@
         /// </summary>
         private static void RemoveDirtyItems()
         {
-            List<string> currentSheets = new List<string>();
-            foreach (Worksheet currentSheet in Globals.ThisAddIn.Application.Worksheets) // load all sheets present now
-            {
-                currentSheets.Add(currentSheet.Name);
-            }
+            // Get the currently loaded worksheets.
+            var currentSheets = new List<string>(Globals.ThisAddIn.Application.Worksheets
+                                                        .Cast<Worksheet>().Select(ws => ws.Name));
 
-            foreach (string currentSheet in activeSheets) // mark dirt on those sheets those are removed after the revious operation
-            {
-                if (!currentSheets.Contains(currentSheet))
-                    dirtySheets.Add(currentSheet);
-            }
-            activeSheets = currentSheets; // swap active sheets with latest set of sheets
+            // Mark any previously known sheets as dirty.
+            dirtySheets.AddRange(activeSheets.Where(ws => !currentSheets.Contains(ws)));
 
-            foreach (string changedSheet in dirtySheets.Distinct())
-            {
-                List<string> keysToRemove = new List<string>();
-                foreach (string key in cache.Keys)
-                {
-                    if (key.Contains(changedSheet))
-                        keysToRemove.Add(key);
-                }
-                foreach (string key in keysToRemove)
-                {
-                    cache.Remove(key);
-                }
-            }
+            // Swap active sheets with latest set of sheets
+            activeSheets = currentSheets; 
+
+            foreach (string key in dirtySheets.Distinct()
+                .Select(changedSheet => cache.Keys.Where(key => key.Contains(changedSheet)).ToList())
+                .SelectMany(keysToRemove => keysToRemove))
+                cache.Remove(key);
+
             dirtySheets.Clear();
         }
 
@@ -264,7 +256,7 @@
             key.Append("R-"); // to denote row indexes
             foreach (Range r in targetRange.Rows)
             {
-                if (r.EntireRow.Hidden == true)
+                if (((bool)r.EntireRow.Hidden) == true)
                 {
                     if (!enteredHiddenSection) // If previous row was not hidden
                     {
@@ -292,7 +284,7 @@
             key.Append("C-"); // to denote column indexes
             foreach (Range r in targetRange.Columns)
             {
-                if (r.EntireColumn.Hidden == true)
+                if (((bool)r.EntireColumn.Hidden) == true)
                 {
                     if (!enteredHiddenSection) // If previous column was not hidden
                     {

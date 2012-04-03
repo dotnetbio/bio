@@ -1,4 +1,6 @@
-﻿namespace BiodexExcel
+﻿using System;
+using System.Windows.Forms;
+namespace BiodexExcel
 {
     /// <summary>
     /// ThisAddIn represents the entire add-in.
@@ -30,7 +32,16 @@
         /// <returns></returns>
         protected override Microsoft.Office.Tools.Ribbon.IRibbonExtension[] CreateRibbonObjects()
         {
-            return new[] { new BioRibbon() };
+            try
+            {
+                return new[] { new BioRibbon() };
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to create ribbon for .NET Bio: " + ex.Message);
+            }
+
+            return new Microsoft.Office.Tools.Ribbon.IRibbonExtension[0];
         }
 
         #region VSTO generated code

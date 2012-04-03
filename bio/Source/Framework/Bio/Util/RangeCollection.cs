@@ -935,9 +935,17 @@ namespace Bio.Util
             }
         }
 
+        /// <summary>
+        /// Count of range items as an integer. If the count exceeds the 
+        /// size storage for an integer we return zero.
+        /// </summary>
         int ICollection<long>.Count
         {
-            get { return (int) this.Count(); }
+            get
+            {
+                int count = (int) this.Count();
+                return (count > 0) ? count : 0;
+            }
         }
 
         /// <summary>

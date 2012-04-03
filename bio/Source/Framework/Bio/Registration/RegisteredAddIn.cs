@@ -5,6 +5,7 @@ using System.ComponentModel.Composition.Primitives;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Diagnostics;
 
 namespace Bio.Registration
 {
@@ -183,9 +184,10 @@ namespace Bio.Registration
                     if (value != null)
                         availableTypes.Add(value);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     // Ignore if can't create.
+                    Debug.WriteLine(ex.ToString());
                 }
             }
 
@@ -225,9 +227,10 @@ namespace Bio.Registration
                         }
                     }
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     // Ignore if we cannot load the assembly.
+                    Debug.WriteLine(ex.ToString());
                 }
             }
             return aggCat;

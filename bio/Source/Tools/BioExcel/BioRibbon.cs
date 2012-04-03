@@ -641,15 +641,13 @@ namespace BiodexExcel
         private void OnRibbonLoad(object sender, RibbonUIEventArgs e)
         {
             this.BuildColorScheme();
-
             this.CheckForNodeXL();
             this.EnableAllControls();
 
             // Adds a event handler every time a new sheet is selected.
-            Globals.ThisAddIn.Application.WorkbookActivate += new AppEvents_WorkbookActivateEventHandler(this.OnWorkBookOpen);
-            Globals.ThisAddIn.Application.SheetChange += new AppEvents_SheetChangeEventHandler(SequenceCache.OnSheetDataChanged);
-            Globals.ThisAddIn.Application.WorkbookDeactivate += new AppEvents_WorkbookDeactivateEventHandler(this.OnWorkbookDeactivate);
-            SequenceCache.Initialize();
+            Globals.ThisAddIn.Application.WorkbookActivate += this.OnWorkBookOpen;
+            Globals.ThisAddIn.Application.SheetChange += SequenceCache.OnSheetDataChanged;
+            Globals.ThisAddIn.Application.WorkbookDeactivate += this.OnWorkbookDeactivate;
         }
 
         /// <summary>
@@ -892,8 +890,10 @@ namespace BiodexExcel
         /// <param name="workBook">Workbook being opened.</param>
         private void OnWorkBookOpen(Workbook workBook)
         {
-            this.EnableAllControls();
+            if (!SequenceCache.IsInitialized)
+                SequenceCache.Initialize();
 
+            this.EnableAllControls();
             this.LoadSheetNames(Globals.ThisAddIn.Application.ActiveWorkbook);
         }
 

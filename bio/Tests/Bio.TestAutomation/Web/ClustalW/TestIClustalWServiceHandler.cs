@@ -8,6 +8,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.Composition;
 using System.Globalization;
 using System.IO;
 using System.Text;
@@ -23,8 +24,9 @@ using Bio.Web.ClustalW;
 namespace Bio.TestAutomation.Web.ClustalW
 {
     /// <summary>
-    /// Implemetation of interface IClustalWServiceHandler
+    /// Implementation of interface IClustalWServiceHandler
     /// </summary>
+    [PartNotDiscoverable]
     class TestIClustalWServiceHandler : IClustalWServiceHandler
     {
         #region Constants
