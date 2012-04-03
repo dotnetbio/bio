@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Bio.Registration;
 using Bio.SimilarityMatrices;
 using System.Linq;
+using System.Diagnostics;
 
 namespace Bio.Algorithms.Alignment.MultipleSequenceAlignment
 {
@@ -356,6 +357,11 @@ namespace Bio.Algorithms.Alignment.MultipleSequenceAlignment
         /// <returns>Alignment results</returns>
         public IList<Alignment.ISequenceAlignment> Align(IEnumerable<ISequence> inputSequences)
         {
+            // Reset all our data in case this same instance is used multiple times.
+            _alignedSequences = _alignedSequencesA = _alignedSequencesB = _alignedSequencesC = null;
+            _alignmentScore = _alignmentScoreA = _alignmentScoreB = _alignmentScoreC = float.MinValue;
+
+            // Get our list of sequences.
             List<ISequence> sequences = inputSequences.ToList();
             if (sequences.Count == 0)
             {
@@ -486,24 +492,14 @@ namespace Bio.Algorithms.Alignment.MultipleSequenceAlignment
         /// <returns>Alignment results</returns>
         private void DoAlignment(IList<ISequence> sequences)
         {
-            // Initializations
-            if (sequences.Count > 0)
-            {
-                // Assign the alphabet from the input sequences if it was not set.
-                if (_alphabet == null)
-                {
-                    _alphabet = sequences[0].Alphabet;
-                }
+            Debug.Assert(_alphabet != null);
+            Debug.Assert(sequences.Count > 0);
 
-                if (ConsensusResolver == null)
-                {
-                    ConsensusResolver = new SimpleConsensusResolver(_alphabet);
-                }
-                else
-                {
-                    ConsensusResolver.SequenceAlphabet = _alphabet;
-                }
-            }
+            // Initializations
+            if (ConsensusResolver == null)
+                ConsensusResolver = new SimpleConsensusResolver(_alphabet);
+            else
+                ConsensusResolver.SequenceAlphabet = _alphabet;
 
             // Get ProfileAligner ready
             IProfileAligner profileAligner = null;

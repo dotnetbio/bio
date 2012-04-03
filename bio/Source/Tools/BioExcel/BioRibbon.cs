@@ -1132,12 +1132,15 @@ namespace BiodexExcel
                 SequenceRangeGrouping sheetGroup = null;
                 int sheetCount = 0;
                 Range activeRange = null;
+                
                 Worksheet resultWorksheet = resultWorkbook.Worksheets.Add(
                         Type.Missing,
                         resultWorkbook.Worksheets.get_Item(resultWorkbook.Worksheets.Count),
                         Type.Missing,
                         Type.Missing) as Worksheet;
                 ((Microsoft.Office.Interop.Excel._Worksheet)resultWorksheet).Activate();
+                Globals.ThisAddIn.Application.ActiveWindow.Zoom = ZoomLevel;
+
                 resultWorksheet.Name = resultSheetname;
                 activeRange = resultWorksheet.get_Range(GetColumnString(baseColumnIndex) + baseRowIndex, Type.Missing);
 
@@ -2234,6 +2237,12 @@ namespace BiodexExcel
             }
         }
 
+        /// <summary>
+        /// This method runs a specific alignment algorithm against a selected set of sequence(s).
+        /// This is called by a BackgroundWorker thread.
+        /// </summary>
+        /// <param name="sender">Sender</param>
+        /// <param name="e">BackgroundWorker event args</param>
         private void OnRunAlignerAlgorithm(object sender, DoWorkEventArgs e)
         {
             AlignerInputEventArgs alignerInput = e.Argument as AlignerInputEventArgs;
@@ -2329,9 +2338,8 @@ namespace BiodexExcel
             Worksheet currentsheet = (Worksheet)activeWorkBook.Worksheets.Add(Type.Missing, activesheet, Type.Missing, Type.Missing);
 
             ((Microsoft.Office.Interop.Excel._Worksheet)currentsheet).Activate();
-            currentsheet.Name = this.GetValidFileNames(
-                    Resources.Alignment_AlignedSequencesHeading + this.currentAlignResultSheetNumber.ToString(CultureInfo.CurrentCulture));
-            currentsheet.Cells.Font.Name = "Courier New";
+            Globals.ThisAddIn.Application.ActiveWindow.Zoom = ZoomLevel;
+            currentsheet.Name = this.GetValidFileNames(Resources.Alignment_AlignedSequencesHeading + this.currentAlignResultSheetNumber.ToString(CultureInfo.CurrentCulture));
             this.currentAlignResultSheetNumber++;
 
             int rowNumber = 1;
@@ -2436,7 +2444,6 @@ namespace BiodexExcel
 
                         // Build the data
                         string[,] rangeData = new string[1, maxSequenceLength > MaxExcelColumns ? MaxExcelColumns : maxSequenceLength];
-
                         int columnIndex = 0;
 
                         for (long i = 0; i < currSeq.Count; i += numberofCharacters, columnIndex++)
@@ -2451,7 +2458,7 @@ namespace BiodexExcel
                         {
                             currentRange = currentRange.get_Resize(1, columnIndex);
                             currentRange.set_Value(Missing.Value, rangeData);
-
+                            currentRange.Columns.AutoFit();
                             this.FillBackGroundColor(currentRange);
 
                             string rangeName = "AlignedSeq_" + alignResultNumber + "_" + currSeq.ID + "_" + sequenceNumber;
@@ -2491,9 +2498,9 @@ namespace BiodexExcel
             Worksheet currentsheet = (Worksheet)activeWorkBook.Worksheets.Add(Type.Missing, activesheet, Type.Missing, Type.Missing);
 
             ((Microsoft.Office.Interop.Excel._Worksheet)currentsheet).Activate();
+            Globals.ThisAddIn.Application.ActiveWindow.Zoom = ZoomLevel;
             currentsheet.Name = this.GetValidFileNames(
                     Resources.Alignment_AlignedSequencesHeading + this.currentAlignResultSheetNumber.ToString(CultureInfo.CurrentCulture));
-            currentsheet.Cells.Font.Name = "Courier New";
             this.currentAlignResultSheetNumber++;
 
             int rowNumber = 1;
@@ -2573,7 +2580,7 @@ namespace BiodexExcel
                         {
                             currentRange = currentRange.get_Resize(1, columnIndex);
                             currentRange.set_Value(Missing.Value, rangeData);
-
+                            currentRange.Columns.AutoFit();
                             this.FillBackGroundColor(currentRange);
 
                             string rangeName = "AlignedSeq_" + alignResultNumber + "_" + currSeq.ID + "_" + sequenceNumber;
@@ -2711,6 +2718,7 @@ namespace BiodexExcel
             Workbook workBook = Globals.ThisAddIn.Application.ActiveWorkbook;
             Worksheet workSheet = workBook.Worksheets.Add(Type.Missing, workBook.Worksheets.get_Item(workBook.Worksheets.Count), Type.Missing, Type.Missing) as Worksheet;
             ((Microsoft.Office.Interop.Excel._Worksheet)workSheet).Activate();
+            Globals.ThisAddIn.Application.ActiveWindow.Zoom = ZoomLevel;
 
             string validName = this.GetValidFileNames(Path.GetFileNameWithoutExtension(fileName));
             workSheet.Name = validName;
@@ -2899,7 +2907,6 @@ namespace BiodexExcel
             int sequenceCount = 0;
             Worksheet worksheet = null;
 
-            Globals.ThisAddIn.Application.ActiveWindow.Zoom = ZoomLevel;
             Globals.ThisAddIn.Application.EnableEvents = false;
 
             try
@@ -2923,6 +2930,7 @@ namespace BiodexExcel
                                 : sequence.ID);
                         worksheet.Name = validName;
                         ((_Worksheet)worksheet).Activate();
+                        Globals.ThisAddIn.Application.ActiveWindow.Zoom = ZoomLevel;
                     }
 
 
@@ -3164,11 +3172,28 @@ namespace BiodexExcel
         /// <returns>Index of last row where sequence data was written</returns>
         private int WriteSequence(Worksheet worksheet, ISequence sequence, int initialRowNumber, out Range sequenceDataRange)
         {
+            Range heading = worksheet.Range["A" + initialRowNumber.ToString(CultureInfo.CurrentCulture), Type.Missing];
+            WriteRangeValue(heading, Resources.SEQUENCE_DATA);
+
+            return WriteSequenceDataIntoSheet(worksheet, sequence, initialRowNumber, 3, Resources.SEQUENCEDATA_PRESELECTION + GetValidFileNames(sequence.ID), out sequenceDataRange);
+        }
+
+        /// <summary>
+        /// This method writes a sequence to a given worksheet.
+        /// </summary>
+        /// <param name="worksheet">The worksheet instance</param>
+        /// <param name="sequence">The sequence which has to be imported into the excel sheet.</param>
+        /// <param name="initialRowNumber">Initial row number</param>
+        /// <param name="initialColumnNumber">Initial column number</param>
+        /// <param name="rangeName">Name to use for range</param>
+        /// <param name="sequenceDataRange">The row number from where the sequence rendering has to begin</param>
+        /// <returns>Index of last row where sequence data was written</returns>
+        private int WriteSequenceDataIntoSheet(Worksheet worksheet, ISequence sequence, int initialRowNumber, int initialColumnNumber, string rangeName, out Range sequenceDataRange)
+        {
             int counts = 0;
             int maxColumnNumber = 0;
 
-            Range heading = worksheet.Range["A" + initialRowNumber.ToString(CultureInfo.CurrentCulture), Type.Missing];
-            WriteRangeValue(heading, Resources.SEQUENCE_DATA);
+            string columnPos = GetColumnString(initialColumnNumber);
 
             int rowNumber = initialRowNumber;
             int rowCount = (int)Math.Ceiling((decimal)sequence.Count / maxNumberOfCharacters);
@@ -3178,7 +3203,7 @@ namespace BiodexExcel
             // Put the data into the rows.
             while (counts < sequence.Count)
             {
-                int columnNumber = 2;
+                int columnNumber = initialColumnNumber-1;
                 for (int i = 0; (i < maxNumberOfCharacters) && (counts < sequence.Count); i++, counts++, columnNumber++)
                     rangeData[rowNumber - initialRowNumber, i] = new string(new[] { (char)sequence[counts] });
 
@@ -3190,25 +3215,29 @@ namespace BiodexExcel
 
             if (sequence.Count > 0)
             {
-                Range range = worksheet.Range["C" + initialRowNumber.ToString(CultureInfo.CurrentCulture), Type.Missing];
+                Range range = worksheet.Range[columnPos + initialRowNumber.ToString(CultureInfo.CurrentCulture), Type.Missing];
                 range = range.Resize[rowCount, columnCount];
                 range.set_Value(Missing.Value, rangeData);
 
                 this.FillBackGroundColor(range);
 
-                StringBuilder sb = new StringBuilder();
-                sb.Append("='");
-                sb.Append(worksheet.Name);
-                sb.Append("'!");
-                sb.Append("$C$" + initialRowNumber);
-                sb.Append(":$");
-                sb.Append(GetColumnString(maxColumnNumber) + "$" + (rowNumber - 1).ToString(CultureInfo.CurrentCulture));
-                string formula = sb.ToString();
+                // Add a range name to this selected sequence.
+                if (!string.IsNullOrEmpty(rangeName))
+                {
+                    StringBuilder sb = new StringBuilder();
+                    sb.Append("='");
+                    sb.Append(worksheet.Name);
+                    sb.Append("'!");
+                    sb.Append("$" + columnPos + "$" + initialRowNumber);
+                    sb.Append(":$");
+                    sb.Append(GetColumnString(maxColumnNumber) + "$" + (rowNumber - 1).ToString(CultureInfo.CurrentCulture));
+                    string formula = sb.ToString();
 
-                worksheet.Names.Add(Resources.SEQUENCEDATA_PRESELECTION + GetValidFileNames(sequence.ID), 
-                    formula, true, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
+                    worksheet.Names.Add(rangeName,
+                        formula, true, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
+                }
 
-                Range fullSelection = worksheet.Range["C" + initialRowNumber.ToString(CultureInfo.CurrentCulture), GetColumnString(maxColumnNumber) + (rowNumber - 1).ToString(CultureInfo.CurrentCulture)];
+                Range fullSelection = worksheet.Range[columnPos + initialRowNumber.ToString(CultureInfo.CurrentCulture), GetColumnString(maxColumnNumber) + (rowNumber - 1).ToString(CultureInfo.CurrentCulture)];
                 fullSelection.Select();
                 sequenceDataRange = fullSelection;
                 //added default from UI as auto detect and ignore space
@@ -3568,9 +3597,9 @@ namespace BiodexExcel
                 int rowCount, rowIndex, columnIndex;
 
                 ((Microsoft.Office.Interop.Excel._Worksheet)currentsheet).Activate();
-                currentsheet.Name = this.GetValidFileNames(
-                        "ConsensusView" + this.currentConsensusSheetNumber.ToString(CultureInfo.CurrentCulture));
-                currentsheet.Cells.Font.Name = "Courier New";
+                Globals.ThisAddIn.Application.ActiveWindow.Zoom = ZoomLevel;
+
+                currentsheet.Name = this.GetValidFileNames("ConsensusView" + this.currentConsensusSheetNumber.ToString(CultureInfo.CurrentCulture));
                 this.currentConsensusSheetNumber++;
                 foreach (Contig contig in overlapAssemblerResult.Contigs)
                 {
@@ -3730,7 +3759,7 @@ namespace BiodexExcel
                         {
                             currentRange = currentRange.get_Resize(1, columnCount - 1);
                             currentRange.set_Value(Missing.Value, rangeData);
-
+                            currentRange.Columns.AutoFit();
                             this.FillBackGroundColor(currentRange);
 
                             formulaBuilder = new StringBuilder();
