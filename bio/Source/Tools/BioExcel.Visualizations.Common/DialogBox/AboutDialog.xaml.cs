@@ -6,6 +6,7 @@
     using System.Reflection;
     using System.Windows;
     using System.Windows.Media.Imaging;
+    using System;
 
     #endregion -- Using Directives --
 
@@ -40,26 +41,28 @@
 
             this.imgAbout.Source = image;
             this.btnOk.Focus();
-            this.GetDllVersion();
+
+            // Assign the version
+            txtVersionNumber.Text = string.Format(" {0}, using Bio.dll {1}", GetDllVersion("BioExcel"), GetDllVersion(bioDll));
         }
 
         /// <summary>
         /// Gets the version of Bio.dll and displays that as the version of 
         /// the excel workbench.
         /// </summary>
-        private void GetDllVersion()
+        private string GetDllVersion(string dllName)
         {
-            Assembly asm = Assembly.GetExecutingAssembly();
-
-            AssemblyName[] referencedAssemblies = asm.GetReferencedAssemblies();
-            foreach (AssemblyName referencedAssembly in referencedAssemblies)
+            var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+            foreach (Assembly referencedAssembly in assemblies)
             {
-                if (referencedAssembly.Name.Equals(bioDll))
+                AssemblyName assemblyName = referencedAssembly.GetName();
+
+                if (assemblyName.Name.Equals(dllName))
                 {
-                    txtVersionNumber.Text = referencedAssembly.Version.ToString();
-                    break;
+                    return assemblyName.Version.ToString();
                 }
             }
+            return "(n/a)";
         }
 
         #endregion -- Constructor --

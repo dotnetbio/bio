@@ -20,7 +20,7 @@
         public AboutScreen()
         {
             InitializeComponent();
-            versionNumber.Text = GetDllVersion(bioDll);
+            versionNumber.Text = string.Format(" {0}, using Bio.dll {1}", Assembly.GetExecutingAssembly().GetName().Version, GetDllVersion(bioDll));
         }
 
         /// <summary>

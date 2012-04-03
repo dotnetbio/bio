@@ -33,8 +33,8 @@ using System.Security;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("2.0.*")]
-[assembly: AssemblyVersion("1.01.0.0")]
-[assembly: AssemblyFileVersion("1.01.0.0")]
+[assembly: AssemblyVersion("1.01.*")]
+[assembly: AssemblyFileVersion("1.01.403.0")]
 
 internal static class DesignTimeConstants {
     internal const string Version = "10.0.0.0";

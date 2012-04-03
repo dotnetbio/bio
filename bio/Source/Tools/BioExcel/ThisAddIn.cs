@@ -23,6 +23,16 @@
         {
         }
 
+        /// <summary>
+        /// This is called to get the ribbon(s) for the add-in.  We override it
+        /// to avoid the reflection scan Excel will normally perform.
+        /// </summary>
+        /// <returns></returns>
+        protected override Microsoft.Office.Tools.Ribbon.IRibbonExtension[] CreateRibbonObjects()
+        {
+            return new[] { new BioRibbon() };
+        }
+
         #region VSTO generated code
 
         /// <summary>
@@ -34,7 +44,7 @@
             this.Startup += new System.EventHandler(ThisAddIn_Startup);
             this.Shutdown += new System.EventHandler(ThisAddIn_Shutdown);
         }
-        
+
         #endregion
     }
 }
