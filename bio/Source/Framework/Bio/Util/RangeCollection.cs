@@ -148,7 +148,7 @@ namespace Bio.Util
         }
 
         /// <summary>
-        /// Make the set emtpy
+        /// Make the set empty
         /// </summary>
         public void Clear()
         {
@@ -164,8 +164,6 @@ namespace Bio.Util
         {
             return Count(long.MinValue, long.MaxValue);
         }
-
-
 
         /// <summary>
         /// The number of long elements in the RangeCollection between min and max (inclusive)
@@ -295,7 +293,7 @@ namespace Bio.Util
         }
 
         /// <summary>
-        /// Add a sequence of intergers to the RangeCollection. Each may or may not already be in the RangeCollection.
+        /// Add a sequence of integers to the RangeCollection. Each may or may not already be in the RangeCollection.
         /// </summary>
         /// <param name="itemList">The sequence of longs to add</param>
         public void AddRange(IEnumerable<long> itemList)
@@ -307,7 +305,7 @@ namespace Bio.Util
         }
 
         /// <summary>
-        /// Add a sequence of intergers to the RangeCollection. Each may or may not already be in the RangeCollection.
+        /// Add a sequence of integers to the RangeCollection. Each may or may not already be in the RangeCollection.
         /// </summary>
         /// <param name="itemList">The sequence of longs to add</param>
         public void AddRange(IEnumerable<int> itemList)
@@ -450,7 +448,7 @@ namespace Bio.Util
         }
 
         /// <summary>
-        /// Returns true iff item is within the ranges of this RangeCollection.
+        /// Returns true if item is within the ranges of this RangeCollection.
         /// </summary>
         public bool Contains(long item)
         {
@@ -599,8 +597,6 @@ namespace Bio.Util
             return b;
         }
 
-
-
         /// <summary>
         /// Tells if the range collection includes all longs from firstItem to lastItem (inclusive)
         /// </summary>
@@ -679,9 +675,9 @@ namespace Bio.Util
         }
 
         /// <summary>
-        /// Returns a collection of elements at what would be the i'th element for i \in rangeCollectionOfIndeces. 
+        /// Returns a collection of elements at what would be the nth element for i \in rangeCollectionOfIndeces. 
         /// </summary>
-        /// <param name="rangeCollectionOfIndeces">0-based indeces.</param>
+        /// <param name="rangeCollectionOfIndeces">0-based indices.</param>
         public RangeCollection ElementsAt(RangeCollection rangeCollectionOfIndeces)
         {
             RangeCollection result = new RangeCollection();
@@ -728,7 +724,7 @@ namespace Bio.Util
         }
 
         /// <summary>
-        /// Returns what would be the i'th element if each element were enumerated.
+        /// Returns what would be the nth element if each element were enumerated.
         /// </summary>
         /// <param name="i">0-based index.</param>
         public long ElementAt(long i)
@@ -921,37 +917,50 @@ namespace Bio.Util
 
         #region ICollection<long> Members
 
-
-
-#pragma warning disable 1591
+        /// <summary>
+        /// Copies the contents of the range into an array.
+        /// </summary>
+        /// <param name="array">Destination array</param>
+        /// <param name="arrayIndex">Index in destination to copy data into</param>
         public void CopyTo(long[] array, int arrayIndex)
-#pragma warning restore 1591
         {
-            throw new NotImplementedException();
+            if (array == null)
+                throw new ArgumentNullException("array", "Array cannot be null.");
+            if (array.Length + arrayIndex < Count())
+                throw new ArgumentException("Array will not hold all the elements.", "array");
+
+            foreach (long item in this)
+            {
+                array[arrayIndex++] = item;
+            }
         }
 
         int ICollection<long>.Count
         {
-            get { throw new NotImplementedException(); }
+            get { return (int) this.Count(); }
         }
 
-#pragma warning disable 1591
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1065:DoNotRaiseExceptionsInUnexpectedLocations")]
+        /// <summary>
+        /// Returns whether this collection is considered read-only.
+        /// The Range is not changeable through ICollection.
+        /// </summary>
         public bool IsReadOnly
-#pragma warning restore 1591
         {
-            get { throw new NotImplementedException(); }
+            get { return true; }
         }
 
-#pragma warning disable 1591
+        /// <summary>
+        /// Remove an item from the collection. This is not supported
+        /// with the RangeCollection.
+        /// </summary>
+        /// <param name="item">Item to remove</param>
+        /// <returns>Exception</returns>
         public bool Remove(long item)
-#pragma warning restore 1591
         {
             throw new NotImplementedException();
         }
 
         #endregion
-
 
         #region IEnumerable<long> Members
 

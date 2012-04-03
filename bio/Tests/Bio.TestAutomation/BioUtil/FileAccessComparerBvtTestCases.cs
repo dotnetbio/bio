@@ -62,7 +62,8 @@ namespace Bio.TestAutomation.Util
             File.Delete(filename1);
 
             //check with null file info
-            Assert.AreEqual(0, faComparer.GetHashCode(null));
+            // this throws ArgumentNullException .. not valid.
+            //Assert.AreEqual(0, faComparer.GetHashCode(null));
         }
 
         #endregion Bvt Test cases

@@ -86,7 +86,7 @@ using Bio;
             refAlphabets.Add(AmbiguousProteinAlphabet.Instance);
             IList<IAlphabet> allAphabets = Alphabets.All;
 
-            for (int i = 0; i < allAphabets.Count(); i++)
+            for (int i = 0; i < refAlphabets.Count(); i++)
             {
                 Assert.AreEqual(refAlphabets[i].Name, allAphabets[i].Name);
             }

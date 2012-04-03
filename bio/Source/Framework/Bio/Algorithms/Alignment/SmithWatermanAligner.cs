@@ -29,7 +29,7 @@ namespace Bio.Algorithms.Alignment
 
         /// <summary>
         /// Gets the Description of the current Alignment algorithm used.
-        /// This is a overriden property from the abstract parent.
+        /// This is a overridden property from the abstract parent.
         /// This property returns a simple description of what 
         /// SmithWatermanAligner class implements.
         /// </summary>
