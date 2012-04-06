@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Bio.Algorithms.Alignment;
 using Bio.Util.Logging;
 
@@ -124,8 +123,10 @@ namespace Bio.Algorithms.Assembly
                 throw new ArgumentNullException(Properties.Resource.ParameterNameInputSequences);
             }
 
+            int sequenceCount = inputSequences.Count();
+
             // Initializations
-            if (inputSequences.Count() > 0)
+            if (sequenceCount > 0)
             {
                 _sequenceAlphabet = inputSequences.First().Alphabet;
 
@@ -156,10 +157,10 @@ namespace Bio.Algorithms.Assembly
             // to save an iteration, we'll also find the best global score as we go.
             ItemScore globalBest = new ItemScore(-1, -1, false, false, 0, 0);
             int globalBestLargerIndex = -1;
-            int unconsumedCount = inputSequences.Count();
+            int unconsumedCount = sequenceCount;
 
             // Compute alignment scores for all combinations between input sequences
-            // Store these scores in the poolItem correspodning to each sequence
+            // Store these scores in the poolItem corresponding to each sequence
             for (int newSeq = 0; newSeq < pool.Count; ++newSeq)
             {
                 PoolItem newItem = pool[newSeq];
@@ -199,7 +200,6 @@ namespace Bio.Algorithms.Assembly
 
                 MergeLowerIndexedSequence(newContig, globalBest, mergeItem1.Sequence);
                 MergeHigherIndexedSequence(newContig, globalBest, mergeItem2.Sequence);
-
                 MakeConsensus(newContig);
 
                 // Set ConsumedBy value and 
@@ -214,8 +214,6 @@ namespace Bio.Algorithms.Assembly
                 while (unconsumedCount > 1)
                 {
                     // Compute scores for each unconsumed sequence with new contig
-                    globalBest = new ItemScore(-1, -1, false, false, 0, 0);
-                    globalBestLargerIndex = -1;
                     int newSeq = pool.Count - 1;
                     PoolItem newItem = pool[newSeq];
                     for (int oldSeq = 0; oldSeq < pool.Count - 1; ++oldSeq)
@@ -704,10 +702,7 @@ namespace Bio.Algorithms.Assembly
         /// <returns>List of Sequence alignment</returns>
         private IList<ISequenceAlignment> RunAlignSimple(ISequence sequence1, ISequence sequence2)
         {
-            List<ISequence> inputSequences = new List<ISequence>();
-            inputSequences.Add(sequence1);
-            inputSequences.Add(sequence2);
-            return OverlapAlgorithm.AlignSimple(inputSequences);
+            return OverlapAlgorithm.AlignSimple(new[] { sequence1, sequence2 });
         }
 
         /// <summary>
