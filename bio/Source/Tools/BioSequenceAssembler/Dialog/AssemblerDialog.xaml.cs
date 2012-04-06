@@ -131,7 +131,9 @@
         /// <summary>
         /// Initializes a new instance of the AssemblerDialog class.
         /// </summary>
-        /// <param name="alignmentAttributes">Alignment parameters</param>
+        /// <param name="algorithms">Algorithms</param>
+        /// <param name="defaultSM">Default similarity matrix</param>
+        /// <param name="sequences">Sequences to assemble</param>
         public AssemblerDialog(IEnumerable<string> algorithms, string defaultSM, IList<ISequence> sequences)
         {
             InitializeComponent();
@@ -576,20 +578,28 @@
         }
 
         /// <summary>
-        /// This method will display the list of avaliable alignment
+        /// This method will display the list of available alignment
         /// algorithms to the user.
         /// </summary>
         /// <param name="algorithms">List of alignment algorithms.</param>
         public void InitializeAlignmentAlgorithms(IEnumerable<string> algorithms)
         {
-            if (algorithms.Count() > 0)
+            if (algorithms != null)
             {
+                int index = 0, count = 0;
+                
                 foreach (string algorithm in algorithms)
                 {
+                    // See if Smith Waterman is present, if so use that as our default
+                    // alignment algorithm.
+                    if (string.Compare("Smith-Waterman", algorithm, StringComparison.OrdinalIgnoreCase) == 0)
+                        index = count;
+                    count++;
                     cmbAlgorithms.Items.Add(algorithm);
                 }
 
-                cmbAlgorithms.SelectedIndex = 0;
+                if (cmbAlgorithms.Items.Count > 0)
+                    cmbAlgorithms.SelectedIndex = index;
             }
         }
 

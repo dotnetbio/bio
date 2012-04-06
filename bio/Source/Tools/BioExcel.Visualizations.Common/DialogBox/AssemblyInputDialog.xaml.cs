@@ -1,4 +1,6 @@
-﻿namespace BiodexExcel.Visualizations.Common
+﻿using System.Linq;
+
+namespace BiodexExcel.Visualizations.Common
 {
     #region -- Using Directive --
 
@@ -80,7 +82,7 @@
             }
 
             // Add aligners to the drop down
-            foreach (ISequenceAligner aligner in SequenceAligners.All)
+            foreach (ISequenceAligner aligner in SequenceAligners.All.OrderBy(sa => sa.Name))
             {
                 if (!IsAlignment)
                 {
@@ -93,11 +95,27 @@
 
                 alignerDropDown.Items.Add(aligner.Name);
             }
-            this.alignerDropDown.SelectedIndex = 0;
-            if (selectedAligner != null)
+
+            // Select Smith-Waterman by default.
+            if (selectedAligner == null)
+            {
+                selectedAligner =
+                    SequenceAligners.All.FirstOrDefault(
+                        sa => string.Compare(sa.Name, "Smith-Waterman", StringComparison.OrdinalIgnoreCase) == 0);
+            }
+
+            // Ensure aligner is in our list.
+            if (selectedAligner != null && alignerDropDown.Items.Contains(selectedAligner.Name))
             {
                 alignerDropDown.Text = selectedAligner.Name;
             }
+            // If not, select the first algorithm present.
+            else
+            {
+                alignerDropDown.SelectedIndex = 0;
+            }
+
+            // Load our parameters.
             LoadAlignmentArguments(alignerDropDown.Text);
 
             this.btnSubmit.Click += new RoutedEventHandler(this.OnSubmitButtonClicked);

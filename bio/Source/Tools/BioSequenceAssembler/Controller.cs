@@ -286,7 +286,7 @@
 
         /// <summary>
         /// This method will query the Framework abstraction
-        /// to figure out the parsers supported by the framwork.
+        /// to figure out the parsers supported by the framework.
         /// </summary>
         /// <returns>List of all parsers and the file extensions the parsers support.</returns>
         private static Collection<string> QuerySupportedFileType()
@@ -304,11 +304,11 @@
         /// This method will query the Framework abstraction
         /// to figure out the alignment algorithms supported by the framework.
         /// </summary>
-        /// <returns>List of all alignment algorithms supported by the framwork.</returns>
+        /// <returns>List of all alignment algorithms supported by the framework.</returns>
         private static IEnumerable<string> QueryAlignmentAlgorithm(bool pairwiseAlignersOnly = false)
         {
             Collection<string> algorithms = new Collection<string>();
-            foreach (ISequenceAligner aligner in SequenceAligners.All)
+            foreach (ISequenceAligner aligner in SequenceAligners.All.OrderBy(sa => sa.Name))
             {
                 if (!pairwiseAlignersOnly)
                 {
@@ -330,9 +330,9 @@
 
         /// <summary>
         /// This method will query the Framework abstraction
-        /// to figure out the different webservices supported by the framework.
+        /// to figure out the different web services supported by the framework.
         /// </summary>
-        /// <returns>List of all webservices supported by the framework.</returns>
+        /// <returns>List of all web services supported by the framework.</returns>
         private static IEnumerable<string> QueryWebServiceNames()
         {
             Collection<string> webserviceNames = new Collection<string>();

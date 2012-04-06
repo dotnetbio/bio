@@ -429,7 +429,7 @@
         }
 
         /// <summary>
-        /// This method will display the list of avaliable alignment
+        /// This method will display the list of available alignment
         /// algorithms to the user.
         /// </summary>
         /// <param name="algorithms">List of alignment algorithms.</param>

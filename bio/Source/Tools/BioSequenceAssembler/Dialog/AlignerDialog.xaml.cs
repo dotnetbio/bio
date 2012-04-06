@@ -75,7 +75,7 @@
         /// <summary>
         /// Initializes a new instance of the AssemblerDialog class.
         /// </summary>
-        /// <param name="alignmentAttributes">Alignment parameters</param>
+        /// <param name="defaultSM">default similarity matrix name</param>
         public AlignerDialog(string defaultSM)
         {
             InitializeComponent();
