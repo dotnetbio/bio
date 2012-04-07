@@ -534,12 +534,12 @@
                 assemble.OverlapAlgorithm = ChooseAlgorithm(input.Algorithm);
 
                 // Special casing for SW alignment.
-                if (assemble.OverlapAlgorithm is SmithWatermanAligner)
-                {
-                    // If we set the Threshold value lesser than the Max score, then the result will be “JUNK”.
-                    // So setting the threshold value to 25 approximately supports sequence length of 15,0000.
-                    mergeThreshold = 25;
-                }
+                //if (assemble.OverlapAlgorithm is SmithWatermanAligner)
+                //{
+                //    // If we set the Threshold value lesser than the Max score, then the result will be “JUNK”.
+                //    // So setting the threshold value to 25 approximately supports sequence length of 15,0000.
+                //    mergeThreshold = 25;
+                //}
 
                 assemble.MergeThreshold = mergeThreshold;
                 if (null == input.AlignerInput.SimilarityMatrix)
@@ -555,7 +555,6 @@
                 assemble.OverlapAlgorithm.GapExtensionCost = input.AlignerInput.GapExtensionCost;
                 assemble.ConsensusResolver = new SimpleConsensusResolver(input.ConsensusThreshold);
                 assemble.AssumeStandardOrientation = false;
-
                 AssignAlignerParameter(assemble.OverlapAlgorithm, input.AlignerInput);
 
                 IOverlapDeNovoAssembly assemblyOutput = (IOverlapDeNovoAssembly)assemble.Assemble(sequence);
