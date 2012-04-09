@@ -193,7 +193,9 @@
 	<system:String x:Uid="AssemblerDialog:HeadingAlignerInput" x:Key="AssemblerDialog_HeadingAlignerInput">Aligner Input Parameters</system:String>
 	<system:String x:Uid="AssemblerDialog:MatchScore" x:Key="AssemblerDialog_MatchScore">Match Score</system:String>
 	<system:String x:Uid="AssemblerDialog:MismatchScore" x:Key="AssemblerDialog_MismatchScore">Mismatch Score</system:String>
-	<system:String x:Uid="AssemblerDialog:GapCost" x:Key="AssemblerDialog_GapCost">Gap Cost</system:String>
+    <system:String x:Uid="AssemblerDialog:MatchScoreToolTip" x:Key="AssemblerDialog_MatchScore_ToolTip">Match Score used for Diagonal (Match x Mismatch) Similarity Matrix</system:String>
+    <system:String x:Uid="AssemblerDialog:MismatchScoreToolTip" x:Key="AssemblerDialog_MismatchScore_ToolTip">Mismatch Score used for Diagonal (Match x Mismatch) Similarity Matrix</system:String>
+    <system:String x:Uid="AssemblerDialog:GapCost" x:Key="AssemblerDialog_GapCost">Gap Cost</system:String>
 	<system:String x:Uid="AssemblerDialog:MergeThreshold" x:Key="AssemblerDialog_MergeThreshold">Merge Threshold</system:String>
 	<system:String x:Uid="AssemblerDialog:ConsensusThreshold" x:Key="AssemblerDialog_ConsensusThreshold">Consensus Threshold</system:String>
 
