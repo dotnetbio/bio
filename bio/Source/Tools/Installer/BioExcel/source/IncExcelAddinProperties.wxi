@@ -38,26 +38,27 @@
     <UIRef Id="WixUI_CustomErrorProgressText" />
 
   <!--Prerequisite checks-->
+  <!-- Removed NodeXL check (MCS 5/2012) -->
 	<!--Detect supported versions of NodeXL-->
-	<Upgrade Id="87DDE855-47E5-48B2-9D6E-03B84139823A">
+	<!--<Upgrade Id="87DDE855-47E5-48B2-9D6E-03B84139823A">
 		<UpgradeVersion Minimum="1.0.105" IncludeMinimum="yes" OnlyDetect="yes" Property="NODEXLVALID"/>
-	</Upgrade>
+	</Upgrade>-->
 
 	<!--Detect unsupported versions of NodeXL-->
-	<Upgrade Id="87DDE855-47E5-48B2-9D6E-03B84139823A">
+	<!--<Upgrade Id="87DDE855-47E5-48B2-9D6E-03B84139823A">
 		<UpgradeVersion Minimum="0" Maximum="1.0.105" IncludeMaximum="no" OnlyDetect="yes" Property="NODEXLINVALID"/>
-	</Upgrade>
+	</Upgrade>-->
 
 	<!--Detect NodeXL by component GUID (to enable per-machine installation detection)-->
 	<!--GUID is for Microsoft.NodeXL.Core.dll-->
-	<Property Id="NODEXLCOMPONENT">
+	<!--<Property Id="NODEXLCOMPONENT">
 		<ComponentSearch Id="FindNodeXlByComponentId" Guid="{1FDC8093-C665-59DA-F22D-3E31143059FF}"/>
-	</Property>
+	</Property>-->
 
 	<!--Mark NodeXL as found if valid version detected OR component guid found and invalid version not detected-->
-	<SetProperty Id="NODEXL" After="AppSearch" Value="1">
+	<!--<SetProperty Id="NODEXL" After="AppSearch" Value="1">
 		NODEXLVALID OR (NODEXLCOMPONENT AND (NOT NODEXLINVALID))
-	</SetProperty>
+	</SetProperty>-->
 	
   <!--Check for .NET 4.0 Full profile-->
   <Property Id="NETFRAMEWORK40VERSION" Secure="yes">
