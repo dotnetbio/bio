@@ -153,20 +153,20 @@ namespace Bio.Algorithms.Kmer
         /// <summary>
         /// Compares this instance to a specified instance of IKmerData and returns an indication of their relative values.
         /// </summary>
-        /// <param name="kmer">Instance of the IKmerData to compare.</param>
+        /// <param name="other">Instance of the IKmerData to compare.</param>
         /// <returns>
         /// A signed number indicating the relative values of this instance. Zero This
         /// instance is equal to value. Greater than zero This instance is greater than
         /// value.
         /// </returns>
-        public int CompareTo(IKmerData kmer)
+        public int CompareTo(IKmerData other)
         {
-            if (kmer == null)
+            if (other == null)
             {
-                throw new ArgumentNullException("kmer");
+                throw new ArgumentNullException("other");
             }
 
-            ulong compValue = ((KmerData32)kmer).kmerData;
+            ulong compValue = ((KmerData32)other).kmerData;
             if (this.kmerData == compValue)
             {
                 return 0;
@@ -184,15 +184,15 @@ namespace Bio.Algorithms.Kmer
         /// <summary>
         /// Compares this instance to a specified instance of object and returns an indication of their relative values.
         /// </summary>
-        /// <param name="obj">Instance of the object to compare.</param>
+        /// <param name="value">Instance of the object to compare.</param>
         /// <returns>
         ///  A signed number indicating the relative values of this instance. Zero This
         ///  instance is equal to value. Greater than zero This instance is greater than
         ///  value.
         /// </returns>
-        public int CompareTo(object obj)
+        public int CompareTo(object value)
         {
-            KmerData32 kmer = (KmerData32)obj;
+            KmerData32 kmer = (KmerData32)value;
             return this.kmerData.CompareTo(kmer.kmerData);
         }
 

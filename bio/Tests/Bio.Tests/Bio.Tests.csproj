@@ -67,6 +67,8 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Framework\AATreeTests.cs" />
+    <Compile Include="Framework\BigArrayTests.cs" />
     <Compile Include="Framework\Extensions\AlphabetExtensionsTest.cs" />
     <Compile Include="Framework\AlphabetsFriendlyNameTest.cs" />
     <Compile Include="Framework\DeriveSequenceTests.cs" />

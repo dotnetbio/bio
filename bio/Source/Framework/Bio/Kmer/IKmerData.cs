@@ -5,7 +5,7 @@ namespace Bio.Algorithms.Kmer
     /// <summary>
     /// Interface to store the node value.
     /// </summary>
-    public interface IKmerData : IComparable
+    public interface IKmerData : IComparable<IKmerData>
     {
         /// <summary>
         /// Returns the kmer data of the node value.
@@ -72,16 +72,5 @@ namespace Bio.Algorithms.Kmer
         /// <param name="orientation">Orientation of connecting edge.</param>
         /// <returns>Returns the last symbol of the sequence.</returns>
         byte GetLastSymbol(int kmerLength, bool orientation);
-
-        /// <summary>
-        /// Compares this instance to a specified instance of IKmerData and returns an indication of their relative values.
-        /// </summary>
-        /// <param name="kmer">Instance of the IKmerData to compare.</param>
-        /// <returns>
-        /// A signed number indicating the relative values of this instance. Zero This
-        /// instance is equal to value. Greater than zero This instance is greater than
-        /// value.
-        /// </returns>
-        int CompareTo(IKmerData kmer);
     }
 }

@@ -1,6 +1,8 @@
 ﻿using System;
 using PadenaUtil.Properties;
 using Bio.Util.ArgumentParser;
+using System.Globalization;
+using System.Diagnostics;
 
 namespace PadenaUtil
 {
@@ -9,10 +11,15 @@ namespace PadenaUtil
     /// </summary>
     public class Program
     {
+       private const double KB = 1024;
+       private const double MB = KB * KB;
+       private const double GB = MB * KB;
+
         /// <summary>
         /// Main function of program class.
         /// </summary>
         /// <param name="args">Arguments to the main function.</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2122:DoNotIndirectlyExposeMethodsWithLinkDemands")]
         public static void Main(string[] args)
         {
             Output.WriteLine(OutputLevel.Required, Resources.PadenaSplashScreen);
@@ -56,9 +63,46 @@ namespace PadenaUtil
             {
                 CatchInnerException(ex);
             }
+
+            Process p = Process.GetCurrentProcess();
+            Console.WriteLine(Resources.PeakWorkingSet64, FormatMemorySize(p.PeakWorkingSet64));
+            Console.WriteLine(Resources.TotalProcessorTime, p.TotalProcessorTime);
+            Debug.Print(Resources.PeakVirtualMemorySize64, FormatMemorySize(p.PeakVirtualMemorySize64));
+            Debug.Print(Resources.PeakPagedMemorySize64, FormatMemorySize(p.PeakPagedMemorySize64));
         }
 
         #region Private Methods
+        /// <summary>
+        /// Formats the specified memory in bytes to appropriate string.
+        /// for example, 
+        ///  if the value is less than one KB then it returns a string representing memory in bytes.
+        ///  if the value is less than one MB then it returns a string representing memory in KB.
+        ///  if the value is less than one GB then it returns a string representing memory in MB.
+        ///  else it returns memory in GB.
+        /// </summary>
+        /// <param name="value">value in bytes</param>
+        private static string FormatMemorySize(long value)
+        {
+            string result = null;
+            if (value > GB)
+            {
+                result = (Math.Round(value / GB, 2)).ToString(CultureInfo.InvariantCulture) + " GB";
+            }
+            else if (value > MB)
+            {
+                result = (Math.Round(value / MB, 2)).ToString(CultureInfo.InvariantCulture) + " MB";
+            }
+            else if (value > KB)
+            {
+                result = (Math.Round(value / KB, 2)).ToString(CultureInfo.InvariantCulture) + " KB";
+            }
+            else
+            {
+                result = value.ToString(CultureInfo.InvariantCulture) + " Bytes";
+            }
+
+            return result;
+        }
 
         /// <summary>
         /// Catches Inner Exception Messages.

@@ -67,6 +67,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AATree.cs" />
     <Compile Include="Algorithms\Alignment\AlignedSequence.cs" />
     <Compile Include="Algorithms\Alignment\AlignmentInfo.cs" />
     <Compile Include="Algorithms\Alignment\DynamicProgrammingPairwiseAligner.cs" />
@@ -115,6 +116,9 @@
     <Compile Include="Assembly\Graph\DeBruijnNode.cs" />
     <Compile Include="Assembly\Graph\DeBruijnPath.cs" />
     <Compile Include="Assembly\Graph\DeBruijnPathList.cs" />
+    <Compile Include="Assembly\Graph\Edge.cs" />
+    <Compile Include="Assembly\Graph\Graph.cs" />
+    <Compile Include="Assembly\Graph\Vertex.cs" />
     <Compile Include="Assembly\IDeBruijnDeNovoAssembler.cs" />
     <Compile Include="Assembly\IDeBruijnDeNovoAssembly.cs" />
     <Compile Include="Assembly\IDeNovoAssembler.cs" />
@@ -145,6 +149,8 @@
     <Compile Include="Assembly\Padena\Scaffold\ReadMap.cs" />
     <Compile Include="Assembly\Padena\Scaffold\ScaffoldPath.cs" />
     <Compile Include="Assembly\Padena\Scaffold\ValidMatePair.cs" />
+    <Compile Include="BigArray.cs" />
+    <Compile Include="BigList.cs" />
     <Compile Include="CloneLibrary\CloneLibrary.cs" />
     <Compile Include="CloneLibrary\CloneLibraryInformation.cs" />
     <Compile Include="CloneLibrary\Resources\LibraryResource.Designer.cs" />
@@ -437,6 +443,7 @@
     <Compile Include="Util\Distribute\Locally.cs" />
     <Compile Include="Util\Distribute\RaiseError.cs" />
     <Compile Include="Util\Distribute\SelfDistributable.cs" />
+    <Compile Include="Util\LongSerialNumbers.cs" />
     <Compile Include="Util\NamedStreamCreator.cs" />
     <Compile Include="Util\ParallelOptionsScope.cs" />
     <Compile Include="Util\ArgumentParser\ArgumentCollection.cs" />

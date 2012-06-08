@@ -7,6 +7,9 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Bio.Algorithms.Kmer;
+using Bio.Util;
+using System.Diagnostics;
+using System.Globalization;
 
 namespace Bio.Algorithms.Assembly.Graph
 {
@@ -15,8 +18,13 @@ namespace Bio.Algorithms.Assembly.Graph
     /// Graph is encoded as a collection of de Bruijn nodes.
     /// The nodes themselves hold the adjacency information.
     /// </summary>
-    public class DeBruijnGraph
+    public class DeBruijnGraph : Graph<DeBruijnNode, object>
     {
+        //Note: DeBruijnGraph is not using Edge data structure of the Graph. It is using Graph to hold the DeBruijnNodes.
+        // DebruijnNode it self holds the reference to other nodes.
+        //TODO: Use the  Edge and store the data to link two DeBruijnNode in the edge 
+        // this requires to Modify DeBuijnNode and DeBruijnGraph and other rquired places.
+
         /// <summary>
         /// Holds dna symbols.
         /// </summary>
@@ -32,10 +40,7 @@ namespace Bio.Algorithms.Assembly.Graph
         /// </summary>
         private long nodeCount = 0;
 
-        /// <summary>
-        /// Holds the root node.
-        /// </summary>
-        private DeBruijnNode root = null;
+        private LongSerialNumbers<IKmerData> kmerManager;
 
         /// <summary>
         /// Holds kmer length.
@@ -59,6 +64,7 @@ namespace Bio.Algorithms.Assembly.Graph
         public DeBruijnGraph(int kmerLength)
         {
             this.kmerLength = kmerLength;
+            kmerManager = new LongSerialNumbers<IKmerData>();
         }
 
         /// <summary>
@@ -83,14 +89,6 @@ namespace Bio.Algorithms.Assembly.Graph
         public int KmerLength
         {
             get { return this.kmerLength; }
-        }
-
-        /// <summary>
-        /// Gets the root node of the graph.
-        /// </summary>
-        public DeBruijnNode Root
-        {
-            get { return this.root; }
         }
 
         /// <summary>
@@ -166,132 +164,124 @@ namespace Bio.Algorithms.Assembly.Graph
             BlockingCollection<DeBruijnNode> kmerDataCollection = new BlockingCollection<DeBruijnNode>();
 
             Task createKmers = Task.Factory.StartNew(() =>
+            {
+                Thread.BeginCriticalRegion();
+                IAlphabet alphabet = Alphabets.DNA;
+
+                HashSet<byte> gapSymbols;
+                alphabet.TryGetGapSymbols(out gapSymbols);
+
+                // Generate the kmers from the sequences
+                foreach (ISequence sequence in sequences)
                 {
-                    IAlphabet alphabet = Alphabets.DNA;
-
-                    HashSet<byte> gapSymbols;
-                    alphabet.TryGetGapSymbols(out gapSymbols);
-
-                    // Generate the kmers from the sequences
-                    foreach (ISequence sequence in sequences)
+                    // if the sequence alphabet is not of type DNA then ignore it.
+                    if (sequence.Alphabet != Alphabets.DNA)
                     {
-                        // if the sequence alphabet is not of type DNA then ignore it.
-                        if (sequence.Alphabet != Alphabets.DNA)
-                        {
-                            Interlocked.Increment(ref this.skippedSequencesCount);
-                            Interlocked.Increment(ref this.processedSequencesCount);
-                            continue;
-                        }
+                        Interlocked.Increment(ref this.skippedSequencesCount);
+                        Interlocked.Increment(ref this.processedSequencesCount);
+                        continue;
+                    }
 
-                        // if the sequence contains any gap symbols then ignore the sequence.
-                        bool skipSequence = false;
-                        foreach (byte symbol in gapSymbols)
+                    // if the sequence contains any gap symbols then ignore the sequence.
+                    bool skipSequence = false;
+                    foreach (byte symbol in gapSymbols)
+                    {
+                        for (long index = 0; index < sequence.Count; ++index)
                         {
-                            for (long index = 0; index < sequence.Count; ++index)
+                            if (sequence[index] == symbol)
                             {
-                                if (sequence[index] == symbol)
-                                {
-                                    skipSequence = true;
-                                    break;
-                                }
-                            }
-
-                            if (skipSequence)
-                            {
+                                skipSequence = true;
                                 break;
                             }
                         }
 
                         if (skipSequence)
                         {
-                            Interlocked.Increment(ref this.skippedSequencesCount);
-                            Interlocked.Increment(ref this.processedSequencesCount);
-                            continue;
+                            break;
                         }
-
-                        // if the blocking collection count is exceeding 2 million wait for 5 sec 
-                        // so that the task can remove some kmers and creat the nodes. 
-                        // This will avoid OutofMemoryException
-                        while (kmerDataCollection.Count > 2000000)
-                        {
-                            System.Threading.Thread.Sleep(5);
-                        }
-
-                        long count = sequence.Count;
-
-                        // generate the kmers from each sequence
-                        for (long i = 0; i <= count - this.kmerLength; ++i)
-                        {
-                            IKmerData kmerData = this.GetNewKmerData();
-                            bool orientation = kmerData.SetKmerData(sequence, i, this.kmerLength);
-                            kmerDataCollection.Add(new DeBruijnNode(kmerData, orientation, 1));
-                        }
-
-                        Interlocked.Increment(ref this.processedSequencesCount);
                     }
 
-                    kmerDataCollection.CompleteAdding();
-                });
+                    if (skipSequence)
+                    {
+                        Interlocked.Increment(ref this.skippedSequencesCount);
+                        Interlocked.Increment(ref this.processedSequencesCount);
+                        continue;
+                    }
+
+                    // if the blocking collection count is exceeding 2 million wait for 5 sec 
+                    // so that the task can remove some kmers and creat the nodes. 
+                    // This will avoid OutofMemoryException
+                    while (kmerDataCollection.Count > 2000000)
+                    {
+                        System.Threading.Thread.Sleep(5);
+                    }
+
+                    long count = sequence.Count;
+
+                    // generate the kmers from each sequence
+                    for (long i = 0; i <= count - this.kmerLength; ++i)
+                    {
+                        IKmerData kmerData = this.GetNewKmerData();
+                        bool orientation = kmerData.SetKmerData(sequence, i, this.kmerLength);
+                        kmerDataCollection.Add(new DeBruijnNode(kmerData, orientation, 1));
+                    }
+
+                    Interlocked.Increment(ref this.processedSequencesCount);
+                }
+
+                kmerDataCollection.CompleteAdding();
+                Thread.EndCriticalRegion();
+            });
 
             Task buildKmers = Task.Factory.StartNew(() =>
             {
+                Thread.BeginCriticalRegion();
                 while (!kmerDataCollection.IsCompleted)
                 {
                     DeBruijnNode newNode = null;
                     if (kmerDataCollection.TryTake(out newNode, -1))
                     {
-                        // Tree Node Creation
-
-                        // create a new node
-                        if (this.root == null) // first element being added
+                        // Create Vertex
+                        long newVertexId = base.TotalVertexCount;
+                        long kmerId = this.kmerManager.GetNewOrOld(newNode.NodeValue);
+                        if (kmerId == newVertexId)
                         {
-                            this.root = newNode; // set node as root of the tree
-                            this.NodeCount++;
-                            newNode = null;
-                            continue;
-                        }
-
-                        int result = 0;
-                        DeBruijnNode temp = this.root;
-                        DeBruijnNode parent = this.root;
-
-                        // Search the tree where the new node should be inserted
-                        while (temp != null)
-                        {
-                            result = newNode.NodeValue.CompareTo(temp.NodeValue);
-                            if (result == 0)
-                            {
-                                if (temp.KmerCount <= 255)
-                                {
-                                    temp.KmerCount++;
-                                    break;
-                                }
-                            }
-                            else if (result > 0) // move to right sub-tree
-                            {
-                                parent = temp;
-                                temp = temp.Right;
-                            }
-                            else if (result < 0) // move to left sub-tree
-                            {
-                                parent = temp;
-                                temp = temp.Left;
-                            }
-                        }
-
-                        // position found
-                        if (result > 0) // add as right child
-                        {
-                            parent.Right = newNode;
+                            // new kmer, Add vertex
+                            base.AddVertex(newNode);
                             NodeCount++;
                         }
-                        else if (result < 0) // add as left child
+                        else if (kmerId < newVertexId)
                         {
-                            parent.Left = newNode;
-                            NodeCount++;
+                            // Kmer already exists.
+                            var vertex = base.GetVertex(kmerId);
+                            if (vertex == null)
+                            {
+                                throw new Exception(string.Format(CultureInfo.CurrentCulture, "Unexpected Error, Null vertex found for vertex id: {0}", kmerId));
+                            }
+
+                            if (vertex.Data.NodeValue.CompareTo(newNode.NodeValue) != 0)
+                            {
+                                throw new Exception(string.Format(CultureInfo.CurrentCulture,
+                                  "Vertex Id should be sync with Kmer Id but Vertex Id {0} contains Kmer: {1} instead of kmer: {2}",
+                                  vertex.Id, vertex.Data.NodeValue.ToString(), newNode.NodeValue.ToString()));
+                            }
+
+                            if (vertex.Data.KmerCount <= 255)
+                            {
+                                vertex.Data.KmerCount++;
+                            }
                         }
+                        else
+                        {
+                            throw new Exception(string.Format(CultureInfo.CurrentCulture,
+                               "Vertex Id should be sync with Kmer Id, but the newKmer id: {0} and new Vertex Id:{1}",
+                               kmerId, newVertexId));
+                        }
+
                     } // End of tree node creation.
                 }
+
+                Thread.EndCriticalRegion();
             });
 
             Task.WaitAll(createKmers, buildKmers);
@@ -310,35 +300,14 @@ namespace Bio.Algorithms.Assembly.Graph
         /// <returns>Actual node in the tree.</returns>
         public DeBruijnNode SearchTree(IKmerData kmerValue)
         {
-            // this should never happen.
-            if (kmerValue == null)
+            long kmerId;
+            DeBruijnNode node = null;
+            if (kmerValue != null && this.kmerManager.TryGetOld(kmerValue, out kmerId))
             {
-                return null;
+                node = base.GetVertex(kmerId).Data;
             }
 
-            DeBruijnNode startNode = this.root;
-
-            while (startNode != null)
-            {
-                int result = kmerValue.CompareTo(startNode.NodeValue);
-
-                // parameter value found
-                if (result == 0)
-                {
-                    break;
-                }
-                else if (result < 0)
-                {
-                    // Search left if the value is smaller than the current node
-                    startNode = startNode.Left; // search left
-                }
-                else
-                {
-                    startNode = startNode.Right; // search right
-                }
-            }
-
-            return startNode;
+            return node;
         }
 
         /// <summary>
@@ -348,26 +317,14 @@ namespace Bio.Algorithms.Assembly.Graph
         /// <returns>The list of all available nodes in the graph.</returns>
         public IEnumerable<DeBruijnNode> GetNodes()
         {
-            Stack<DeBruijnNode> traversalStack = new Stack<DeBruijnNode>();
-            DeBruijnNode current;
-
-            traversalStack.Push(this.root);
-            while (traversalStack.Count > 0)
+            foreach (var vertex in base.GetVertices())
             {
-                current = traversalStack.Pop();
-                if (current != null)
+                DeBruijnNode node = vertex.Data;
+                if (node != null && !node.IsDeleted)
                 {
-                    traversalStack.Push(current.Right);
-                    traversalStack.Push(current.Left);
-
-                    if (!current.IsDeleted)
-                    {
-                        yield return current;
-                    }
+                    yield return node;
                 }
             }
-
-            traversalStack.TrimExcess();
         }
 
         /// <summary>
@@ -448,6 +405,34 @@ namespace Bio.Algorithms.Assembly.Graph
             else
             {
                 return nextSequence.First();
+            }
+        }
+
+        /// <summary>
+        /// Gets outgoing Vertices of a given vertex.
+        /// </summary>
+        /// <param name="vertex">Vertex</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures")]
+        public IEnumerable<Vertex<DeBruijnNode>> GetOutgoingVertices(Vertex<DeBruijnNode> vertex)
+        {
+            for (int i = 0; i < vertex.OutgoingEdgeCount; i++)
+            {
+                var edge = this.GetEdge(vertex.GetOutgoingEdge(i));
+                yield return this.GetVertex(edge.VertexId2);
+            }
+        }
+
+        /// <summary>
+        /// Gets incoming Vertices of a given vertex.
+        /// </summary>
+        /// <param name="vertex">Vertex</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures")]
+        public IEnumerable<Vertex<DeBruijnNode>> GetIncomingVertices(Vertex<DeBruijnNode> vertex)
+        {
+            for (int i = 0; i < vertex.IncomingEdgeCount; i++)
+            {
+                var edge = this.GetEdge(vertex.GetIncomingEdge(i));
+                yield return this.GetVertex(edge.VertexId1);
             }
         }
 
@@ -551,26 +536,13 @@ namespace Bio.Algorithms.Assembly.Graph
         /// <returns>List of DeBruin node that are maked for deletion.</returns>
         private IEnumerable<DeBruijnNode> GetMarkedNodes()
         {
-            Stack<DeBruijnNode> traversalStack = new Stack<DeBruijnNode>();
-            DeBruijnNode current;
-
-            traversalStack.Push(this.root);
-            while (traversalStack.Count > 0)
+            foreach (var node in this.GetNodes())
             {
-                current = traversalStack.Pop();
-                if (current != null)
+                if (node.IsMarkedForDelete)
                 {
-                    traversalStack.Push(current.Right);
-                    traversalStack.Push(current.Left);
-
-                    if (current.IsMarkedForDelete && !current.IsDeleted)
-                    {
-                        yield return current;
-                    }
+                    yield return node;
                 }
             }
-
-            traversalStack.TrimExcess();
         }
     }
 }

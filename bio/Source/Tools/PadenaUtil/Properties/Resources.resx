@@ -219,6 +219,15 @@ Scaffold:     	       Scaffold uses mate pair information
 AssembleWithScaffold:  Assemble reads into scaffolds using 
                        matepair information.</value>
   </data>
+  <data name="PeakPagedMemorySize64" xml:space="preserve">
+    <value>Peak memory in the virtual memory paging file used: {0}</value>
+  </data>
+  <data name="PeakVirtualMemorySize64" xml:space="preserve">
+    <value>Peak virtual memory used: {0}</value>
+  </data>
+  <data name="PeakWorkingSet64" xml:space="preserve">
+    <value>Peak physical memory used: {0}</value>
+  </data>
   <data name="ReferenceFile" xml:space="preserve">
     <value>Reference File not in correct format</value>
   </data>
@@ -253,6 +262,9 @@ Optional Parameters:
   </data>
   <data name="ScaffoldStarting" xml:space="preserve">
     <value>Beginning scaffold processing.</value>
+  </data>
+  <data name="TotalProcessorTime" xml:space="preserve">
+    <value>Total CPU time taken: {0}</value>
   </data>
   <data name="UnknownCommand" xml:space="preserve">
     <value>Unknown command: {0}

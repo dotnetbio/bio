@@ -277,3 +277,7 @@
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "theString", Scope = "member", Target = "Bio.Tests.Extensions.SequenceExtensionTests.#CheckForOutOfRangeExceptionOnInvalidLength()")]
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "theString", Scope = "member", Target = "Bio.Tests.Extensions.SequenceExtensionTests.#CheckForNullException()")]
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1020:AvoidNamespacesWithFewTypes", Scope = "namespace", Target = "Bio.Tests.Extensions")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Scope = "member", Target = "Bio.Tests.Framework.BigArrayTests.#TestResize()")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Scope = "member", Target = "Bio.Tests.Framework.BigArrayTests.#TestCreatingBigArrayWithZeroLength()")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Scope = "member", Target = "Bio.Tests.Framework.BigArrayTests.#TestCreatingBigArrayWithNonZeroLength()")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Scope = "member", Target = "Bio.Tests.Framework.BigArrayTests.#TestCopyTo()")]
