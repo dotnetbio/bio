@@ -766,6 +766,7 @@ namespace Bio.IO.BAM
             refSeqLengths = new List<int>();
 
             readStream.Seek(0, SeekOrigin.Begin);
+            this.deCompressedStream = null;
             byte[] array = new byte[8];
             ReadUnCompressedData(array, 0, 8);
             int l_text = Helper.GetInt32(array, 4);
