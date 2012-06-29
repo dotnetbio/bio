@@ -1457,4 +1457,7 @@ Delta alignment file is corrupted. </value>
   <data name="InvalidQualityScoreFound" xml:space="preserve">
     <value>Invalid quality score found. {0} is not supported in {1} format.</value>
   </data>
+  <data name="ParameterShouldBeofType" xml:space="preserve">
+    <value>{0} should be {1} type</value>
+  </data>
 </root>

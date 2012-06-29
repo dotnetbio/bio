@@ -335,7 +335,7 @@ namespace Bio.IO.BAM
                 chunks.InsertRange(chunks.Count, bin.Chunks);
             }
 
-            return chunks;
+            return SortAndMergeChunks(chunks);
         }
 
         // Gets chunks for specified ref seq index, start and end co-ordinate this method considers linear index also.
@@ -365,7 +365,32 @@ namespace Bio.IO.BAM
                 chunks.InsertRange(chunks.Count, bin.Chunks);
             }
 
-            return chunks;
+            return SortAndMergeChunks(chunks);
+        }
+
+        /// <summary>
+        /// Sorts and merges the overlapping chunks.
+        /// </summary>
+        /// <param name="chunks">Chunks to sort and merge.</param>
+        private static List<Chunk> SortAndMergeChunks(List<Chunk> chunks)
+        {
+            List<Chunk> sortedChunks = chunks.OrderBy(C => C, ChunkSorterForMerging.GetInstance()).ToList();
+
+            for (int i = 0; i < sortedChunks.Count - 1; i++)
+            {
+                Chunk currentChunk = sortedChunks[i];
+                Chunk nextChunk = sortedChunks[i + 1];
+
+                if (nextChunk.ChunkStart.CompareTo(currentChunk.ChunkStart) >= 0 && nextChunk.ChunkStart.CompareTo(currentChunk.ChunkEnd) <= 0)
+                {
+                    // merge chunks.
+                    currentChunk.ChunkEnd = currentChunk.ChunkEnd.CompareTo(nextChunk.ChunkEnd) >= 0 ? currentChunk.ChunkEnd : nextChunk.ChunkEnd;
+                    sortedChunks.RemoveAt(i + 1);
+                    i--;
+                }
+            }
+
+            return sortedChunks;
         }
         #endregion
 
