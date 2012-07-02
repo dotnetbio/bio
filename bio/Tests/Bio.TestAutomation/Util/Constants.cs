@@ -929,6 +929,8 @@ namespace Bio.TestAutomation.Util
         internal const string ComplementNode = "Complementation";
         internal const string DnaSequence = "DnaSequence";
         internal const string RnaSequence = "RnaSequence";
+        internal const string AmbiguousRnaSequence = "AmbiguousRnaSequence";
+        internal const string AmbiguousProteinSequence = "AmbiguousProteinSequence";
         internal const string DnaComplement = "DnaComplement";
         internal const string DnaRevComplement = "DnaRevComplement";
         internal const string DnaSymbol = "DnaSymbol";

@@ -2139,7 +2139,7 @@ namespace Bio.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Only RNA sequence is allowed as input..
+        ///   Looks up a localized string similar to Only RNA or AmbiguousRNA sequence is allowed as input..
         /// </summary>
         internal static string InvalidRNASequenceInput {
             get {

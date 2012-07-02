@@ -152,6 +152,11 @@ namespace Bio.Tests.Algorithms.Translation
             phase1 = ProteinTranslation.Translate(rnaSeq, 1);
             Assert.IsTrue(CompareSequenceToString("CA", phase1));
             Assert.AreEqual(Alphabets.Protein, phase1.Alphabet);
+
+            rnaSeq = new Sequence(Alphabets.AmbiguousRNA, "NCUCCAUCUUNUUGGAACAAA");
+            phase1 = ProteinTranslation.Translate(rnaSeq, 0);
+            Assert.IsTrue(CompareSequenceToString("XPSXWNK", phase1));
+            Assert.AreEqual(Alphabets.AmbiguousProtein, phase1.Alphabet);
         }
 
         /// <summary>

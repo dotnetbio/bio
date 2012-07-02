@@ -629,7 +629,7 @@ provided. There is also a default encoding for each alphabet that may be encount
     <value>Alphabet of {0} sequence is invalid.</value>
   </data>
   <data name="InvalidRNASequenceInput" xml:space="preserve">
-    <value>Only RNA sequence is allowed as input.</value>
+    <value>Only RNA or AmbiguousRNA sequence is allowed as input.</value>
   </data>
   <data name="InvalidSearchParameter" xml:space="preserve">
     <value>SearchParameter: Only int, float, and stringList supported.</value>

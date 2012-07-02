@@ -698,6 +698,34 @@ namespace Bio.TestAutomation.Algorithms.Translation
                 "Translation P1: Protein translation validation is completed successfully.");
         }
 
+
+        /// <summary>
+        /// Validate a Protein translation for 15 Chars with Offset value "0".
+        /// Input Data : Sequence - 'GUNAACAGAAANUGU'
+        /// Output Data : "XNRXC".
+        /// </summary>
+        [TestMethod]
+        [Priority(1)]
+        [TestCategory("Priority1")]
+        public void ValidateProteinTranslationForAmbiguousRna()
+        {
+            // Get Node values from XML.
+            string expectedSeq = utilityObj.xmlUtil.GetTextValue(
+                Constants.TranslationNode, Constants.AmbiguousRnaSequence);
+            string expectedProtein = utilityObj.xmlUtil.GetTextValue(
+                Constants.TranslationNode, Constants.AmbiguousProteinSequence);
+            ISequence protein = null;
+
+            // Translate 15 characters ambiguous RNA to protein.
+            Sequence proteinTranslation = new Sequence(Alphabets.AmbiguousRNA, expectedSeq);
+            protein = ProteinTranslation.Translate(proteinTranslation);
+
+            // Validate Protein Translation.
+            Assert.AreEqual(expectedProtein, new string(protein.Select(a => (char)a).ToArray()));
+            ApplicationLog.WriteLine(
+                "Translation P1: Protein translation validation is completed successfully.");
+        }
+
         /// <summary>
         /// Validate a Protein translation for a twelve characters sequence with offset value "3".
         /// Input Data : Sequence - 'CGCAUGCCGAUG'

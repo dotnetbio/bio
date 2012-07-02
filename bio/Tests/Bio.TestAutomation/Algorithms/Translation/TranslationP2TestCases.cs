@@ -303,6 +303,40 @@ namespace Bio.TestAutomation.Algorithms.Translation
                 "Translation P2: Translate method was throwing an expection for null value.");
         }
 
+        /// <summary>
+        /// Validate Translation method by passing ambigous RNA but
+        /// pretending to be RNA.
+        /// Input Data : Sequence - 'GUNAACAGAAANUGU' and offset "0".
+        /// Output Data : Exception.
+        /// </summary>
+        [TestMethod]
+        [Priority(2)]
+        [TestCategory("Priority2")]
+        public void ValidateTranslationOfAmbiguousRnaUsingRnaAlphabet()
+        {
+            // Get Node values from XML.
+            string rnaSequenceStr = utilityObj.xmlUtil.GetTextValue(Constants.TranslationNode,
+                Constants.AmbiguousRnaSequence);
+            bool Exthrown = false;
+
+            // Build ambiguous RNA sequence using an RNA alphabet.
+            ISequence rnaSequence = new Sequence(Alphabets.RNA, rnaSequenceStr, false);
+
+            // Call a translate method by passing negative offset value.
+            try
+            {
+                ProteinTranslation.Translate(rnaSequence);
+            }
+            catch (InvalidOperationException)
+            {
+                Exthrown = true;
+            }
+            // Validate if Translate method is throwing an exception.
+            Assert.IsTrue(Exthrown);
+            ApplicationLog.WriteLine(
+                "Translation P2: Translate method was throwing an expection for ambiguous RNA.");
+        }
+
         #endregion Transcribe P2 TestCases
     }
 }

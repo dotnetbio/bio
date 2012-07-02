@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Bio.Algorithms.Translation
 {
@@ -51,24 +52,37 @@ namespace Bio.Algorithms.Translation
                 throw new ArgumentOutOfRangeException(Properties.Resource.OffsetInvalid, "nucleotideOffset");
             }
 
-            if (source.Alphabet != Alphabets.RNA)
+            if ((source.Alphabet != Alphabets.RNA) && (source.Alphabet != Alphabets.AmbiguousRNA))
             {
                 throw new InvalidOperationException(Properties.Resource.InvalidRNASequenceInput);
             }
 
             long size = (source.Count - nucleotideOffset) / 3;
-            
             byte[] translatedResult = new byte[size];
-            
             long counter = 0;
 
             for (int i = nucleotideOffset; i < source.Count - 2; i += 3)
             {
-                translatedResult[counter] = Codons.Lookup(source, i);
-                counter++;
+                try
+                {
+                    translatedResult[counter] = Codons.Lookup(source, i);
+                }
+                catch (KeyNotFoundException)
+                {
+                    if (source.Alphabet == Alphabets.RNA)
+                    {
+                        throw;
+                    }
+                    else
+                    {
+                        translatedResult[counter] = AmbiguousProteinAlphabet.Instance.X;
+                    }
+                }
+                ++counter;
             }
 
-            Sequence result = new Sequence(Alphabets.Protein, translatedResult);
+            var alphabet = source.Alphabet == Alphabets.RNA ? Alphabets.Protein : Alphabets.AmbiguousProtein;
+            Sequence result = new Sequence(alphabet, translatedResult);
             result.ID = "AA: " + source.ID;
             return result;
         }
