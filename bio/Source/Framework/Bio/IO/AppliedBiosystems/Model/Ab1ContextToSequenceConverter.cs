@@ -80,7 +80,7 @@ namespace Bio.IO.AppliedBiosystems.Model
                 .First(item => item.Entry.TagName == Constants.SequenceTagName)
                 .Value;
 
-            return new Sequence(Alphabets.DNA, new string(value));
+            return new Sequence(context.Alphabet ?? Alphabets.DNA, new string(value));
         }
 
         /// <summary>

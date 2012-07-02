@@ -19,23 +19,40 @@ namespace Bio.IO.AppliedBiosystems
         /// </summary>
         public Ab1Parser()
         {
-            Alphabet = Alphabets.DNA;
+            Alphabet = Alphabets.AmbiguousDNA;
         }
 
         /// <summary>
-        /// Parsers the files binary content into a abi parser context.
+        /// Parsers the files binary content into a abi parser context using the DNA alphabet.
         /// </summary>
         /// <param name="reader"></param>
         /// <returns></returns>
         public static IParserContext Parse(BinaryReader reader)
         {
+            return Parse(reader, null);
+        }
+
+        /// <summary>
+        /// Parsers the files binary content into a abi parser context using
+        /// the specified alphabet.
+        /// </summary>
+        /// <param name="reader"></param>
+        /// <param name="alphabet"></param>
+        /// <returns></returns>
+        public static IParserContext Parse(BinaryReader reader, IAlphabet alphabet)
+        {
+            // Default to the DNA alphabet
+            if (alphabet == null)
+                alphabet = Alphabets.DNA;
+
             var rawData = new Ab1Header(reader);
             IVersionedDataParser dataParser = DataParserFactory.GetParser(rawData.MajorVersion);
             var context = new ParserContext
-                              {
-                                  Header = rawData,
-                                  Reader = reader
-                              };
+            {
+                Header = rawData,
+                Reader = reader,
+                Alphabet = alphabet,
+            };
             dataParser.ParseData(context);
 
             return context;
@@ -60,7 +77,7 @@ namespace Bio.IO.AppliedBiosystems
         }
 
         /// <summary>
-        /// Suported file types.
+        /// Supported file types.
         /// </summary>
         public string SupportedFileTypes
         {
@@ -125,7 +142,7 @@ namespace Bio.IO.AppliedBiosystems
             {
                 using (var binaryReader = new BinaryReader(stream))
                 {
-                    yield return Ab1ContextToSequenceConverter.Convert(Parse(binaryReader));
+                    yield return Ab1ContextToSequenceConverter.Convert(Parse(binaryReader, Alphabet));
                 }
             }
         }
@@ -152,11 +169,6 @@ namespace Bio.IO.AppliedBiosystems
         /// Alphabet
         /// </summary>
         public IAlphabet Alphabet { get; set; }
-
-        #endregion
-
-        #region ISequenceParser Members
-
 
         #endregion
     }

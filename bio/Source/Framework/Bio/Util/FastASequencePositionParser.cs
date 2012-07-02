@@ -65,20 +65,12 @@ namespace Bio.Util
         /// loading the specified filename.
         /// </summary>
         /// <param name="filename">Name of the File.</param>
-        /// <param name="reverseReversePairedRead">Flag to indicate to reversecomplement reversePairedRead.</param>
+        /// <param name="reverseReversePairedRead">Flag to indicate to reverse complement reversePairedRead.</param>
         public FastASequencePositionParser(string filename, bool reverseReversePairedRead)
         {
             this.fastaParser = new FastAParser(filename);
             this.Filename = filename;
             this.reverseReversePairedRead = reverseReversePairedRead;
-        }
-
-        /// <summary>
-        /// Finalizes an instance of the FastASequencePositionParser class.
-        /// </summary>
-        ~FastASequencePositionParser()
-        {
-            this.Dispose(false);
         }
 
         /// <summary>

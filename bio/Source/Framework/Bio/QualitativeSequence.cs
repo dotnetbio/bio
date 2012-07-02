@@ -1047,11 +1047,11 @@ namespace Bio
                 newQualityScores[index] = this.qualityScores[start + index];
             }
 
-            QualitativeSequence seq = new QualitativeSequence(this.Alphabet, this.FormatType, newSequenceData, newQualityScores, false);
-            seq.ID = this.ID;
-            seq.metadata = this.metadata;
-
-            return seq;
+            return new QualitativeSequence(this.Alphabet, this.FormatType, newSequenceData, newQualityScores, false)
+            {
+                ID = this.ID, 
+                metadata = this.metadata
+            };
         }
 
         /// <summary>

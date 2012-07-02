@@ -156,7 +156,8 @@ namespace Bio
             this.ID = newSequence.ID;
             this.Alphabet = newSequence.Alphabet;
             this.Count = this.sequenceData.LongLength();
-            this.metadata = newSequence.Metadata;
+            // Do not shallow copy dictionary
+            //this.metadata = newSequence.Metadata;
             (newSequence as Sequence).CopyTo(sequenceData, 0, newSequence.Count);
         }
         #endregion Constructors

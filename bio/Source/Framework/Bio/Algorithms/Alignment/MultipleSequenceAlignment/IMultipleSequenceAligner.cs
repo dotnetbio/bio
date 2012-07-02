@@ -15,7 +15,7 @@ namespace Bio.Algorithms.Alignment.MultipleSequenceAlignment
         /// Gets aligned sequences with equal length by inserting gaps '-' at
         /// appropriate positions so that the alignment score is optimized.
         /// </summary>
-        List<ISequence> AlignedSequences { get; }
+        IList<ISequence> AlignedSequences { get; }
 
         /// <summary>
         /// Gets the alignment score of the multiple sequence alignment.

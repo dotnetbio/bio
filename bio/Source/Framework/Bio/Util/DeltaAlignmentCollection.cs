@@ -211,41 +211,42 @@ namespace Bio.Util
         }
 
         /// <summary>
-        /// Disposes the underlaying streams used.
+        /// Disposes the underlying streams used.
         /// </summary>
         /// <param name="disposing">Flag to indicate whether it is called from dispose method or not.</param>
         protected virtual void Dispose(bool disposing)
         {
-            if (this.deltaAlignmentParser != null)
+            if (disposing)
             {
-                this.deltaAlignmentParser.Dispose();
-                this.deltaAlignmentParser = null;
-            }
-
-            if (this.fastASequencePositionParser != null)
-            {
-                if (disposeFastASequencePositionParser)
+                if (this.deltaAlignmentParser != null)
                 {
-                    this.fastASequencePositionParser.Dispose();
+                    this.deltaAlignmentParser.Dispose();
+                    this.deltaAlignmentParser = null;
                 }
 
-                this.fastASequencePositionParser = null;
+                if (this.fastASequencePositionParser != null)
+                {
+                    if (disposeFastASequencePositionParser)
+                    {
+                        this.fastASequencePositionParser.Dispose();
+                    }
+
+                    this.fastASequencePositionParser = null;
+                }
+
+                if (this.collectionFileReader != null)
+                {
+                    this.collectionFileReader.Dispose();
+                    this.collectionFileReader = null;
+                }
+
+                this.readBuffer = null;
             }
 
-            if (this.collectionFileReader != null)
-            {
-                this.collectionFileReader.Dispose();
-                this.collectionFileReader = null;
-            }
-
+            // Delete the collection file on Dispose or GC.
             if (File.Exists(this.collectionFile))
             {
                 File.Delete(this.collectionFile);
-            }
-
-            if (disposing)
-            {
-                this.readBuffer = null;
             }
         }
 

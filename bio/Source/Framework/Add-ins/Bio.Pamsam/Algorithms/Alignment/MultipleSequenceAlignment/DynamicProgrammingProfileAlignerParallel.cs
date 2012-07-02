@@ -987,7 +987,8 @@ namespace Bio.Algorithms.Alignment.MultipleSequenceAlignment
             return  new Sequence(seq.Alphabet, seqbytes.ToArray())
             {
                 ID = seq.ID,
-                Metadata = seq.Metadata
+                // Do not shallow copy dictionary
+                //Metadata = seq.Metadata
             };
 
         }

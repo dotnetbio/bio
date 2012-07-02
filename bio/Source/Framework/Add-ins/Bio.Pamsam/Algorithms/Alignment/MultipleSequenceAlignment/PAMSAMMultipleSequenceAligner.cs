@@ -130,7 +130,7 @@ namespace Bio.Algorithms.Alignment.MultipleSequenceAlignment
         /// <summary>
         /// The final aligned sequences in this class
         /// </summary>
-        public List<ISequence> AlignedSequences
+        public IList<ISequence> AlignedSequences
         {
             get { return _alignedSequences; }
         }
@@ -648,7 +648,8 @@ namespace Bio.Algorithms.Alignment.MultipleSequenceAlignment
                     _alignedSequencesC.Add(new Sequence(Alphabets.GetAmbiguousAlphabet(_alphabet), t.ToArray())
                         {
                             ID = t.ID,
-                            Metadata = t.Metadata
+                            // Do not shallow copy dictionary
+                            //Metadata = t.Metadata
                         });
                 }
 
@@ -704,7 +705,8 @@ namespace Bio.Algorithms.Alignment.MultipleSequenceAlignment
 
                                 _alignedSequencesC[i] = profileAligner.GenerateSequenceFromEString(eStrings[set], new Sequence(Alphabets.GetAmbiguousAlphabet(_alphabet), seqBytes.ToArray()));
                                 _alignedSequencesC[i].ID = _alignedSequencesC[i].ID;
-                                (_alignedSequencesC[i] as Sequence).Metadata = _alignedSequencesC[i].Metadata;
+                                // Do not shallow copy dictionary
+                                //(_alignedSequencesC[i] as Sequence).Metadata = _alignedSequencesC[i].Metadata;
                             });
                         }
 

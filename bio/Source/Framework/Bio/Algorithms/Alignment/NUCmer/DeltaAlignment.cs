@@ -196,7 +196,8 @@ namespace Bio.Algorithms.Alignment
             alignedSequence.FirstSequence = new Sequence(alphabet, refSeq, false)
             {
                 ID = ReferenceSequence.ID,
-                Metadata = ReferenceSequence.Metadata
+                // Do not shallow copy dictionary
+                //Metadata = ReferenceSequence.Metadata
             };
 
             byte[] querySeq = querySequence.ToArray();
@@ -204,7 +205,8 @@ namespace Bio.Algorithms.Alignment
             alignedSequence.SecondSequence = new Sequence(alphabet, querySeq, false)
             {
                 ID = QuerySequence.ID,
-                Metadata = QuerySequence.Metadata
+                // Do not shallow copy dictionary
+                //Metadata = QuerySequence.Metadata
             };
 
             alignedSequence.Metadata["StartOffsets"] = startOffsets;

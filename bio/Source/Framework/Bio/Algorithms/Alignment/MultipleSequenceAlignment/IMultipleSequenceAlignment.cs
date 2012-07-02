@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
-
+#if FALSE
+// This interface does not appear to be used currently. Removed until we have
+// a better idea of what would actually be necessary.
 namespace Bio.Algorithms.Alignment.MultipleSequenceAlignment
 {
     /// <summary>
@@ -15,7 +17,7 @@ namespace Bio.Algorithms.Alignment.MultipleSequenceAlignment
         /// Aligned sequences with equal length by inserting gaps '-' at
         /// appropriate positions so that the alignment score is optimized.
         /// </summary>
-        List<ISequence> AlignedSequences { get; }
+        IList<ISequence> AlignedSequences { get; }
 
         /// <summary>
         /// The alignment score of the multiple sequence alignment.
@@ -28,7 +30,7 @@ namespace Bio.Algorithms.Alignment.MultipleSequenceAlignment
         /// The gap penalty is affine gap score.
         /// </summary>
         /// <param name="sequences">a set of unaligned sequences</param>
-        void Align(List<ISequence> sequences);
+        void Align(IList<ISequence> sequences);
 
         /// <summary>
         /// The name of multiple sequence alignment method.
@@ -36,3 +38,4 @@ namespace Bio.Algorithms.Alignment.MultipleSequenceAlignment
         string Name { get; }
     }
 }
+#endif

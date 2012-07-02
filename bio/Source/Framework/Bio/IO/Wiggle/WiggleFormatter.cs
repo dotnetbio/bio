@@ -6,7 +6,7 @@ using System.Linq;
 namespace Bio.IO.Wiggle
 {
     /// <summary>
-    /// Writes a wiggle annotataion format to a file or a stream.
+    /// Writes a wiggle annotation format to a file or a stream.
     /// </summary>
     public class WiggleFormatter : IDisposable
     {
@@ -43,14 +43,6 @@ namespace Bio.IO.Wiggle
 
             this.Filename = filename;
             this.writer = new StreamWriter(this.Filename);
-        }
-
-        /// <summary>
-        /// Finalizes an instance of the WiggleFormatter class.
-        /// </summary>
-        ~WiggleFormatter()
-        {
-            this.Dispose(false);
         }
 
         /// <summary>

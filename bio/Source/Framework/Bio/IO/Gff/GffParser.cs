@@ -165,12 +165,8 @@ namespace Bio.IO.Gff
             this.sequences = new List<Tuple<ISequence, List<byte>>>();
             sequencesInHeader = new List<Tuple<ISequence,List<byte>>>();
 
-            IAlphabet alphabet = Alphabet;
+            IAlphabet alphabet = Alphabet ?? Alphabets.DNA;
 
-            if (alphabet == null)
-            {
-                alphabet = Alphabets.DNA;
-            }
             commonSeq = new Sequence(alphabet, String.Empty);
 
             // The GFF spec says that all headers need to be at the top of the file.
@@ -191,19 +187,12 @@ namespace Bio.IO.Gff
 
             CopyMetadata();
 
-            List<Sequence> resultSequences = new List<Sequence>(this.sequences.Count);
-
-            foreach (var curSeq in this.sequences)
-            {
-                resultSequences.Add(
-                    new Sequence(curSeq.Item1.Alphabet, curSeq.Item2.ToArray())
-                    {
-                        ID = curSeq.Item1.ID,
-                        Metadata = curSeq.Item1.Metadata
-                    });
-            }
-
-            return (IEnumerable<ISequence>)resultSequences.ToList();
+            return this.sequences.Select(curSeq =>
+                new Sequence(curSeq.Item1.Alphabet, curSeq.Item2.ToArray())
+                {
+                    ID = curSeq.Item1.ID,
+                    Metadata = curSeq.Item1.Metadata
+                }).Cast<ISequence>().ToList();
         }
 
         /// <summary>

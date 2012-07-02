@@ -78,8 +78,6 @@
     <Compile Include="Algorithms\Alignment\MultipleSequenceAlignment\IDistanceMatrix.cs" />
     <Compile Include="Algorithms\Alignment\MultipleSequenceAlignment\IDistanceMatrixGenerator.cs" />
     <Compile Include="Algorithms\Alignment\MultipleSequenceAlignment\IHierarchicalClustering.cs" />
-    <Compile Include="Algorithms\Alignment\MultipleSequenceAlignment\IMultipleSequenceAligner.cs" />
-    <Compile Include="Algorithms\Alignment\MultipleSequenceAlignment\IMultipleSequenceAlignment.cs" />
     <Compile Include="Algorithms\Alignment\MultipleSequenceAlignment\IProfileAligner.cs" />
     <Compile Include="Algorithms\Alignment\MultipleSequenceAlignment\IProfileAlignment.cs" />
     <Compile Include="Algorithms\Alignment\MultipleSequenceAlignment\IProfiles.cs" />

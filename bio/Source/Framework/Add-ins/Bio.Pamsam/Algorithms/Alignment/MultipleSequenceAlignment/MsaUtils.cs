@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading;
 using System.Threading.Tasks;
 using Bio.SimilarityMatrices;
 using System.Linq;
@@ -12,6 +11,8 @@ namespace Bio.Algorithms.Alignment.MultipleSequenceAlignment
     /// </summary>
     public static class MsaUtils
     {
+        private static float EPSILON = 0.001f;
+
         /// <summary>
         /// Normalize a vector
         /// so that the summation of the vector is 1
@@ -19,12 +20,8 @@ namespace Bio.Algorithms.Alignment.MultipleSequenceAlignment
         /// <param name="counts">float array</param>
         public static void Normalize(float[] counts)
         {
-            float s = 0;
-            for (int i = 0; i < counts.Length; ++i)
-            {
-                s += counts[i];
-            }
-            if (s == 0)
+            float s = counts.Sum();
+            if (Math.Abs(s - 0) < EPSILON)
             {
                 //throw new Exception("The summation of the vector is 0");
                 return;
@@ -72,15 +69,10 @@ namespace Bio.Algorithms.Alignment.MultipleSequenceAlignment
         /// <param name="countsD">kmer dictionary</param>
         public static void Normalize(Dictionary<String, float> countsD)
         {
-            float s = 0;
-            foreach (var pair in countsD)
-            {
-                s += pair.Value;
-            }
-            if (s == 0)
-            {
+            float s = countsD.Sum(pair => pair.Value);
+            if (Math.Abs(s - 0) < EPSILON)
                 throw new Exception("The summation of the vector is 0");
-            }
+
             foreach (String key in new List<String>(countsD.Keys))
             {
                 countsD[key] /= s;
@@ -358,15 +350,12 @@ namespace Bio.Algorithms.Alignment.MultipleSequenceAlignment
         {
             //ISequence unalignedSequence = new Sequence(alignedSequence.Alphabet);
             List<byte> seqBytes = new List<byte>((int)alignedSequence.Count);
+            seqBytes.AddRange(alignedSequence.Where(t => !alignedSequence.Alphabet.CheckIsGap(t)));
 
-            for (int i = 0; i < alignedSequence.Count; ++i)
+            return new Sequence(alignedSequence.Alphabet, seqBytes.ToArray())
             {
-                if (!alignedSequence.Alphabet.CheckIsGap(alignedSequence[i]))
-                {
-                    seqBytes.Add(alignedSequence[i]);
-                }
-            }
-            return new Sequence(alignedSequence.Alphabet, seqBytes.ToArray());
+                ID = alignedSequence.ID,
+            };
         }
 
         /// <summary>
@@ -376,16 +365,9 @@ namespace Bio.Algorithms.Alignment.MultipleSequenceAlignment
         public static List<ISequence> UnAlign(IList<ISequence> alignedSequences)
         {
             if (alignedSequences.Count == 0)
-            {
                 throw new ArgumentException("Invalid input sequences");
-            }
-            List<ISequence> sequences = new List<ISequence>(alignedSequences.Count);
-            for (int i = 0; i < alignedSequences.Count; ++i)
-            {
-                ISequence seq = UnAlign(alignedSequences[i]);
-                sequences.Add(seq);
-            }
-            return sequences;
+
+            return new List<ISequence>(alignedSequences.Select(UnAlign));
         }
 
         /// <summary>

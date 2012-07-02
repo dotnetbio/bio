@@ -4661,7 +4661,7 @@ namespace Bio.TestAutomation.Pamsam
                 IEnumerable<ISequence> refSequences = refParser.Parse();
                 List<ISequence> refSeqList = refSequences.ToList();
 
-                List<ISequence> alignedSequences = GetPAMSAMAlignedSequences(type, seqList);
+                IList<ISequence> alignedSequences = GetPAMSAMAlignedSequences(type, seqList);
 
                 // Validate the score
                 switch (scoreType)
@@ -4747,7 +4747,7 @@ namespace Bio.TestAutomation.Pamsam
                 parser = new FastAParser(inputFilePath);
                 IEnumerable<ISequence> sequences = parser.Parse();
                 List<ISequence> seqList = sequences.ToList();
-                List<ISequence> alignedSequences = GetPAMSAMAlignedSequences(type, seqList);
+                IList<ISequence> alignedSequences = GetPAMSAMAlignedSequences(type, seqList);
                 byte gapItem = (byte)'-';
                 Assert.IsTrue(alignedSequences[0].Contains(gapItem));
                 ISequence unalignedseq = MsaUtils.UnAlign(alignedSequences[0]);
@@ -4775,7 +4775,7 @@ namespace Bio.TestAutomation.Pamsam
         /// <param name="moleculeType">Molecule Type.</param>
         /// <param name="sequences">sequences.</param>
         /// <returns>returns aligned sequences</returns>
-        List<ISequence> GetPAMSAMAlignedSequences(MoleculeType moleculeType,
+        IList<ISequence> GetPAMSAMAlignedSequences(MoleculeType moleculeType,
             IList<ISequence> sequences)
         {
             switch (moleculeType)

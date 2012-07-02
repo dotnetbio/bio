@@ -57,19 +57,11 @@ namespace Bio.IO.BAM
 
             sourceStream = stream;
         }
-
-        /// <summary>
-        /// Destructor.
-        /// </summary>
-        ~BAMIndexFile()
-        {
-            Dispose(false);
-        }
         #endregion
 
         #region Public Methods
         /// <summary>
-        /// Writes speciied BAMIndex data.
+        /// Writes specified BAMIndex data.
         /// </summary>
         /// <param name="bamIndex">BAMIndex instance to write.</param>
         public void Write(BAMIndex bamIndex)

@@ -20,6 +20,11 @@ namespace Bio.IO.AppliedBiosystems.DataParsers
         Ab1Header Header { get; }
 
         /// <summary>
+        /// Alphabet to use when creating sequences
+        /// </summary>
+        IAlphabet Alphabet { get; }
+
+        /// <summary>
         /// Data found within the abi file.
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1002:DoNotExposeGenericLists")]

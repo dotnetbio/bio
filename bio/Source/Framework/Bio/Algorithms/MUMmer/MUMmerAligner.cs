@@ -729,7 +729,8 @@ namespace Bio.Algorithms.MUMmer
                 result1)
                 {
                     ID = referenceSequence.ID,
-                    Metadata = referenceSequence.Metadata
+                    // Do not shallow copy dictionary
+                    //Metadata = referenceSequence.Metadata
                 };
 
             byte[] result2 = sequenceResult2.ToArray();
@@ -740,7 +741,8 @@ namespace Bio.Algorithms.MUMmer
                 result2)
                 {
                     ID = sequence.ID,
-                    Metadata = sequence.Metadata
+                    // Do not shallow copy dictionary
+                    //Metadata = sequence.Metadata
                 };
 
             byte[] consensus = consensusResult.ToArray();

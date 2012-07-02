@@ -78,6 +78,8 @@
     <Compile Include="Algorithms\Alignment\IPairwiseSequenceAlignment.cs" />
     <Compile Include="Algorithms\Alignment\ISequenceAligner.cs" />
     <Compile Include="Algorithms\Alignment\ISequenceAlignment.cs" />
+    <Compile Include="Algorithms\Alignment\MultipleSequenceAlignment\IMultipleSequenceAligner.cs" />
+    <Compile Include="Algorithms\Alignment\MultipleSequenceAlignment\IMultipleSequenceAlignment.cs" />
     <Compile Include="Algorithms\Alignment\NeedlemanWunschAffineAlignmentJob.cs" />
     <Compile Include="Algorithms\Alignment\NeedlemanWunschAligner.cs" />
     <Compile Include="Algorithms\Alignment\NeedlemanWunschSimpleAlignmentJob.cs" />

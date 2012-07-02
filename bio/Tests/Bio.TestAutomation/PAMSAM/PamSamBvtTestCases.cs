@@ -2710,7 +2710,7 @@ namespace Bio.TestAutomation.Pamsam
                 refParser = new FastAParser(refFilePath);
                 IEnumerable<ISequence> refSequences = refParser.Parse();
 
-                List<ISequence> alignedSequences = GetPAMSAMAlignedSequences(sequences.ToList());
+                IList<ISequence> alignedSequences = GetPAMSAMAlignedSequences(sequences.ToList());
 
                 // Validate the score
                 switch (scoretype)
@@ -2788,7 +2788,7 @@ namespace Bio.TestAutomation.Pamsam
                 parser = new FastAParser(inputFilePath);
                 IEnumerable<ISequence> sequences = parser.Parse();
                 List<ISequence> seqList = sequences.ToList();
-                List<ISequence> alignedSequences = GetPAMSAMAlignedSequences(seqList);
+                IList<ISequence> alignedSequences = GetPAMSAMAlignedSequences(seqList);
                 byte gapItem = (byte)'-';
                 Assert.IsTrue(alignedSequences[0].Contains(gapItem));
                 ISequence unalignedseq = MsaUtils.UnAlign(alignedSequences[0]);
@@ -2814,7 +2814,7 @@ namespace Bio.TestAutomation.Pamsam
         /// <param name="moleculeType">Molecule Type.</param>
         /// <param name="sequences">sequences.</param>
         /// <returns>returns aligned sequences</returns>
-        List<ISequence> GetPAMSAMAlignedSequences(IList<ISequence> sequences)
+        IList<ISequence> GetPAMSAMAlignedSequences(IList<ISequence> sequences)
         {
             similarityMatrix = new SimilarityMatrix(
               SimilarityMatrix.StandardSimilarityMatrix.AmbiguousDna);
