@@ -41,21 +41,21 @@
 
                 <StackPanel Grid.Row="0" Grid.Column="0">
                     <TextBlock Text="{DynamicResource AssemblyInputDialog_Match_Score}" TextWrapping="Wrap" Margin="0,10,0,0"/>
-                    <TextBox x:Name="txtMatchScore" Width="50" HorizontalAlignment="Left" Text="1" />
+                    <TextBox x:Name="txtMatchScore" Width="50" HorizontalAlignment="Left" Text="1" ToolTip="{DynamicResource AssemblerDialog_MatchScoreToolTip}" />
                     <TextBlock Text="{DynamicResource AssemblyInputDialog_Mismatch_Score}" TextWrapping="Wrap" Margin="0,10,0,0"/>
-                    <TextBox x:Name="txtMisMatchScore" Width="50" Text="-8" HorizontalAlignment="Left"/>
+                    <TextBox x:Name="txtMisMatchScore" Width="50" Text="-8" HorizontalAlignment="Left" ToolTip="{DynamicResource AssemblerDialog_MismatchScoreToolTip}"/>
                 </StackPanel>
 
                 <StackPanel x:Name="thresholdsPanel" Grid.Column="1">
                     <TextBlock Text="{DynamicResource AssemblyInputDialog_Merge_Threshold}" TextWrapping="Wrap" Margin="0,10,0,0"/>
-                    <TextBox x:Name="txtMergeThreshold" Text="4" HorizontalAlignment="Left" Width="50"/>
+                    <TextBox x:Name="txtMergeThreshold" Text="4" HorizontalAlignment="Left" Width="50" ToolTip="{DynamicResource AssemblerDialog_MergeThresholdToolTip}"/>
                     <TextBlock Text="{DynamicResource AssemblyInputDialog_Consensus_Threshold}" TextWrapping="Wrap" Margin="0,10,0,0"/>
-                    <TextBox x:Name="txtConsensusThreshold" Text="66" HorizontalAlignment="Left" Width="50"/>
+                    <TextBox x:Name="txtConsensusThreshold" Text="66" HorizontalAlignment="Left" Width="50" ToolTip="{DynamicResource AssemblerDialog_ConsensusThresholdToolTip}" />
                 </StackPanel>
                 
                 <StackPanel x:Name="alignerPanel" Grid.Row="1" Grid.ColumnSpan="2">
                     <TextBlock Text="Aligner" TextWrapping="Wrap" Margin="0,10,0,0" />
-                    <ComboBox x:Name="alignerDropDown" Width="150" HorizontalAlignment="Left"/>
+                    <ComboBox x:Name="alignerDropDown" Width="150" HorizontalAlignment="Left" ToolTip="{DynamicResource AssemblerDialog_AlignAlgorithmToolTip}" />
                 </StackPanel>
                 
                 <StackPanel Grid.Row="2" Grid.ColumnSpan="2" x:Name="stkAlingerParam" />

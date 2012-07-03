@@ -23,6 +23,12 @@
     <system:String x:Uid="AssemblyInputDialog:MergeThreshold" x:Key="AssemblyInputDialog_Merge_Threshold">Merge Threshold</system:String>
     <system:String x:Uid="AssemblyInputDialog:Consensus=Threshold" x:Key="AssemblyInputDialog_Consensus_Threshold">Consensus Threshold</system:String>
 
+    <system:String x:Uid="AssemblerDialog:MatchScoreToolTip" x:Key="AssemblerDialog_MatchScoreToolTip">Match reward score</system:String>
+    <system:String x:Uid="AssemblerDialog:MismatchScoreToolTip" x:Key="AssemblerDialog_MismatchScoreToolTip">Mismatch penalty score</system:String>
+    <system:String x:Uid="AssemblerDialog:MergeThresholdToolTip" x:Key="AssemblerDialog_MergeThresholdToolTip">Overlap required for two sequences to be merged during alignment</system:String>
+    <system:String x:Uid="AssemblerDialog:ConsensusThresholdToolTip" x:Key="AssemblerDialog_ConsensusThresholdToolTip">Threshold used when generating consensus symbols during alignment</system:String>
+    <system:String x:Uid="AssemblerDialog:AlignAlgorithmToolTip" x:Key="AssemblerDialog_AlignAlgorithmToolTip">Alignment algorithm to use</system:String>
+
     <system:String x:Uid="BedWizardDialog:Header" x:Key="BedWizardDialog_Header">Genomic Data Identification Wizard</system:String>
     <system:String x:Uid="BedWizardDialog:MandatoryAttributes" x:Key="BedWizardDialog_Mandatory_Attributes">Mandatory Attributes</system:String>
     <system:String x:Uid="BedWizardDialog:OptionalAttributes" x:Key="BedWizardDialog_Optional_Attributes">Optional Attributes</system:String>
