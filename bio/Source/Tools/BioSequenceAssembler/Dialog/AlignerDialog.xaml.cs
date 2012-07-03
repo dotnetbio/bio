@@ -710,6 +710,7 @@
             combo.Tag = tag;
             combo.Width = 180;
             combo.Height = 22;
+            combo.ToolTip = alignmentAttribute.Description;
             StringListValidator validator = alignmentAttribute.Validator as StringListValidator;
             combo.ItemsSource = validator.ValidValues;
             combo.SelectedIndex = validator.ValidValues.IndexOf(alignmentAttribute.DefaultValue);
@@ -748,6 +749,7 @@
             box.Tag = tag;
             box.Width = 120;
             box.Height = 20;
+            box.ToolTip = alignmentAttribute.Description;
 
             parentPanel.Children.Add(block);
             parentPanel.Children.Add(box);

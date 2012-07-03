@@ -29,33 +29,33 @@
 
                 <StackPanel Grid.Row="0" Grid.Column="0">
                     <TextBlock Text="{DynamicResource AssemblerDialog_KmerLength}" Margin="0,10,0,0" TextWrapping="Wrap"/>
-                    <TextBox x:Name="txtKmerLength" Width="50" HorizontalAlignment="Left" Text="20" />
+                    <TextBox x:Name="txtKmerLength" Width="50" HorizontalAlignment="Left" Text="20" ToolTip="{DynamicResource AssemblerDialog_KmerLengthToolTip}" />
                     <TextBlock Text="{DynamicResource AssemblerDialog_RedundantThreshold}" Margin="0,10,0,0" TextWrapping="Wrap"/>
-                    <TextBox x:Name="txtRedundantThreshold" Width="50" HorizontalAlignment="Left" Text="20" />
+                    <TextBox x:Name="txtRedundantThreshold" Width="50" HorizontalAlignment="Left" Text="20" ToolTip="{DynamicResource AssemblerDialog_RedundantThresholdToolTip}" />
                     <TextBlock Text="{DynamicResource AssemblerDialog_DangleThreshold}" TextWrapping="Wrap" Margin="0,10,0,0"/>
-                    <TextBox x:Name="txtDangleThreshold" Text="61" HorizontalAlignment="Left" Width="50"/>
-                    <CheckBox x:Name="chkErosion" Content="{DynamicResource AssemblerDialog_Erosion}" Margin="0,10,0,0" IsChecked="True"/>
+                    <TextBox x:Name="txtDangleThreshold" Text="61" HorizontalAlignment="Left" Width="50" ToolTip="{DynamicResource AssemblerDialog_DangleThresholdToolTip}"/>
+                    <CheckBox x:Name="chkErosion" Content="{DynamicResource AssemblerDialog_Erosion}" Margin="0,10,0,0" IsChecked="True" ToolTip="{DynamicResource AssemblerDialog_ErosionToolTip}"/>
                     <TextBlock Text="{DynamicResource AssemblerDialog_DefaultErosion}" FontStyle="Italic" IsEnabled="{Binding ElementName=chkErosion, Path=IsChecked}"/>
-                    <TextBox x:Name="txtErosionThreshold" Text ="-1" HorizontalAlignment="Left" Width="50" IsEnabled="{Binding ElementName=chkErosion, Path=IsChecked}"/>
-                    <CheckBox x:Name="chkLowCoverageRemoval" Content="{DynamicResource AssemblerDialog_LowCoverageContigRemoval}" Margin="0,10,0,0" IsChecked="True"/>
+                    <TextBox x:Name="txtErosionThreshold" Text ="-1" HorizontalAlignment="Left" Width="50" IsEnabled="{Binding ElementName=chkErosion, Path=IsChecked}" ToolTip="{DynamicResource AssemblerDialog_DefaultErosionToolTip}"/>
+                    <CheckBox x:Name="chkLowCoverageRemoval" Content="{DynamicResource AssemblerDialog_LowCoverageContigRemoval}" Margin="0,10,0,0" IsChecked="True" ToolTip="{DynamicResource AssemblerDialog_LowCoverageContigRemoval}"/>
                     <TextBlock Text="{DynamicResource AssemblerDialog_DefaultErosion}" FontStyle="Italic" IsEnabled="{Binding ElementName=txtLowLowCoverageContigRemoval, Path=IsChecked}"/>
-                    <TextBox x:Name="txtLowCoverageRemovalThreshold" Text ="-1" HorizontalAlignment="Left" Width="50" IsEnabled="{Binding ElementName=txtLowCoverageContigRemoval, Path=IsChecked}"/>
+                    <TextBox x:Name="txtLowCoverageRemovalThreshold" Text ="-1" HorizontalAlignment="Left" Width="50" IsEnabled="{Binding ElementName=txtLowCoverageContigRemoval, Path=IsChecked}" ToolTip="{DynamicResource AssemblerDialog_DefaultLowCoverageContigRemoval}"/>
                 </StackPanel>
 
                 <StackPanel Grid.Row="0" Grid.Column="1">
-                    <CheckBox x:Name="scaffoldGenerationParameters" IsChecked="True" Margin="0,10,0,0">Scaffold Generation</CheckBox>
+                    <CheckBox x:Name="scaffoldGenerationParameters" IsChecked="True" Margin="0,10,0,0" Content="{DynamicResource AssemblerDialog_ScaffoldGeneration}" ToolTip="{DynamicResource AssemblerDialog_ScaffoldGenerationToolTip}"/>
                     <TextBlock Text="{DynamicResource AssemblerDialog_ScaffoldRedundancy}" Margin="0,10,0,0" TextWrapping="Wrap" IsEnabled="{Binding ElementName=scaffoldGenerationParameters, Path=IsChecked}" />
-                    <TextBox x:Name="txtScaffoldRedundancy" Width="50" HorizontalAlignment="Left" Text="2" IsEnabled="{Binding ElementName=scaffoldGenerationParameters, Path=IsChecked}" />
+                    <TextBox x:Name="txtScaffoldRedundancy" Width="50" HorizontalAlignment="Left" Text="2" IsEnabled="{Binding ElementName=scaffoldGenerationParameters, Path=IsChecked}" ToolTip="{DynamicResource AssemblerDialog_ScaffoldRedundancyToolTip}" />
                     <TextBlock Text="{DynamicResource AssemblerDialog_ContigGraphTraversalDepth}" TextWrapping="Wrap" Margin="0,10,0,0" IsEnabled="{Binding ElementName=scaffoldGenerationParameters, Path=IsChecked}" />
-                    <TextBox x:Name="txtDepth" HorizontalAlignment="Left" Width="50" Text="20" IsEnabled="{Binding ElementName=scaffoldGenerationParameters, Path=IsChecked}" />
-                    <TextBlock Text="{DynamicResource AssemblerDialog_Library}" TextWrapping="Wrap" Margin="0,10,0,0" IsEnabled="{Binding ElementName=scaffoldGenerationParameters, Path=IsChecked}" />
-                    <ComboBox x:Name="cmbLibraryNames" Margin="0,0,0,0" Height="23" IsSynchronizedWithCurrentItem="True" FontSize="12" FontWeight="Normal" IsEnabled="{Binding ElementName=scaffoldGenerationParameters, Path=IsChecked}"></ComboBox>
+                    <TextBox x:Name="txtDepth" HorizontalAlignment="Left" Width="50" Text="20" IsEnabled="{Binding ElementName=scaffoldGenerationParameters, Path=IsChecked}" ToolTip="{DynamicResource AssemblerDialog_ContigGraphTraversalDepthToolTip}" />
+                    <TextBlock Text="{DynamicResource AssemblerDialog_Library}" TextWrapping="Wrap" Margin="0,10,0,0" IsEnabled="{Binding ElementName=scaffoldGenerationParameters, Path=IsChecked}" ToolTip="{DynamicResource AssemblerDialog_ContigGraphTraversalDepthToolTip}" />
+                    <ComboBox x:Name="cmbLibraryNames" Margin="0,0,0,0" Height="23" IsSynchronizedWithCurrentItem="True" FontSize="12" FontWeight="Normal" IsEnabled="{Binding ElementName=scaffoldGenerationParameters, Path=IsChecked}" ToolTip="{DynamicResource AssemblerDialog_LibraryToolTip}" />
                     <TextBlock Text="{DynamicResource AssemblerDialog_LibraryNames}" TextWrapping="Wrap" Margin="0,10,0,0" IsEnabled="{Binding ElementName=scaffoldGenerationParameters, Path=IsChecked}" />
-                    <TextBox x:Name="txtLibraryName" HorizontalAlignment="Left" Width="50" IsEnabled="{Binding ElementName=scaffoldGenerationParameters, Path=IsChecked}" />
+                    <TextBox x:Name="txtLibraryName" HorizontalAlignment="Left" Width="50" IsEnabled="{Binding ElementName=scaffoldGenerationParameters, Path=IsChecked}" ToolTip="{DynamicResource AssemblerDialog_LibraryNamesToolTip}" />
                     <TextBlock Text="{DynamicResource AssemblerDialog_LibraryMean}" TextWrapping="Wrap" Margin="0,10,0,0" IsEnabled="{Binding ElementName=scaffoldGenerationParameters, Path=IsChecked}" />
-                    <TextBox x:Name="txtLibraryMean" HorizontalAlignment="Left" Width="50" IsEnabled="{Binding ElementName=scaffoldGenerationParameters, Path=IsChecked}" />
+                    <TextBox x:Name="txtLibraryMean" HorizontalAlignment="Left" Width="50" IsEnabled="{Binding ElementName=scaffoldGenerationParameters, Path=IsChecked}" ToolTip="{DynamicResource AssemblerDialog_LibraryMeanToolTip}" />
                     <TextBlock Text="{DynamicResource AssemblerDialog_LibrarySd}" TextWrapping="Wrap" Margin="0,10,0,0" IsEnabled="{Binding ElementName=scaffoldGenerationParameters, Path=IsChecked}" />
-                    <TextBox x:Name="txtLibraryStandardDeviation" HorizontalAlignment="Left" Width="50" IsEnabled="{Binding ElementName=scaffoldGenerationParameters, Path=IsChecked}" />
+                    <TextBox x:Name="txtLibraryStandardDeviation" HorizontalAlignment="Left" Width="50" IsEnabled="{Binding ElementName=scaffoldGenerationParameters, Path=IsChecked}" ToolTip="{DynamicResource AssemblerDialog_LibrarySdToolTip}"/>
                 </StackPanel>
             </Grid>
             
@@ -76,15 +76,15 @@
                     <TextBlock Text="{DynamicResource AssemblerDialog_MismatchScore}" Margin="0,10,0,0" TextWrapping="Wrap"/>
                     <TextBox x:Name="txtMisMatchScore" Width="50" Text="-8" HorizontalAlignment="Left" ToolTip="{DynamicResource AssemblerDialog_MismatchScore_ToolTip}"/>
                     <TextBlock Text="{DynamicResource AssemblerPane_SelectAlgorithm}"  Margin="0,10,0,0" TextWrapping="Wrap"/>
-                    <ComboBox x:Name="cmbAlgorithms" Margin="0,0,0,0" Height="23" IsSynchronizedWithCurrentItem="True" FontSize="12" FontWeight="Normal">
+                    <ComboBox x:Name="cmbAlgorithms" Margin="0,0,0,0" Height="23" IsSynchronizedWithCurrentItem="True" FontSize="12" FontWeight="Normal" ToolTip="{DynamicResource AssemblerDialog_AlignAlgorithmToolTip}">
                     </ComboBox>
                 </StackPanel>
 
                 <StackPanel Grid.Row="0" Grid.Column="1">
                     <TextBlock Text="{DynamicResource AssemblerDialog_MergeThreshold}" TextWrapping="Wrap" Margin="0,10,0,0"/>
-                    <TextBox x:Name="txtMergeThreshold" Text="4" HorizontalAlignment="Left" Width="50"/>
+                    <TextBox x:Name="txtMergeThreshold" Text="4" HorizontalAlignment="Left" Width="50" ToolTip="{DynamicResource AssemblerDialog_MergeThresholdToolTip}"/>
                     <TextBlock Text="{DynamicResource AssemblerDialog_ConsensusThreshold}" TextWrapping="Wrap" Margin="0,10,0,0"/>
-                    <TextBox x:Name="txtConsensusThreshold" Text="66" HorizontalAlignment="Left" Width="50"/>
+                    <TextBox x:Name="txtConsensusThreshold" Text="66" HorizontalAlignment="Left" Width="50" ToolTip="{DynamicResource AssemblerDialog_ConsensusThresholdToolTip}"/>
                 </StackPanel>
                 
                 <StackPanel Grid.Row="1" Grid.ColumnSpan="2" x:Name="stkAlingerParam" />

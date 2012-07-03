@@ -198,14 +198,20 @@
     <system:String x:Uid="AssemblerDialog:GapCost" x:Key="AssemblerDialog_GapCost">Gap Cost</system:String>
 	<system:String x:Uid="AssemblerDialog:MergeThreshold" x:Key="AssemblerDialog_MergeThreshold">Merge Threshold</system:String>
 	<system:String x:Uid="AssemblerDialog:ConsensusThreshold" x:Key="AssemblerDialog_ConsensusThreshold">Consensus Threshold</system:String>
+    <system:String x:Uid="AssemblerDialog:MatchScoreToolTip" x:Key="AssemblerDialog_MatchScoreToolTip">Match reward score</system:String>
+    <system:String x:Uid="AssemblerDialog:MismatchScoreToolTip" x:Key="AssemblerDialog_MismatchScoreToolTip">Mismatch penalty score</system:String>
+    <system:String x:Uid="AssemblerDialog:MergeThresholdToolTip" x:Key="AssemblerDialog_MergeThresholdToolTip">Overlap required for two sequences to be merged during alignment</system:String>
+    <system:String x:Uid="AssemblerDialog:ConsensusThresholdToolTip" x:Key="AssemblerDialog_ConsensusThresholdToolTip">Threshold used when generating consensus symbols during alignment</system:String>
+    <system:String x:Uid="AssemblerDialog:AlignAlgorithmToolTip" x:Key="AssemblerDialog_AlignAlgorithmToolTip">Alignment algorithm to use</system:String>
 
-	<system:String x:Uid="AssemblerDialog:SimpleSequenceAssembler" x:Key="AssemblerDialog_SimpleSequenceAssembler">Simple Sequence Assembler</system:String>
+    <system:String x:Uid="AssemblerDialog:SimpleSequenceAssembler" x:Key="AssemblerDialog_SimpleSequenceAssembler">Simple Sequence Assembler</system:String>
 	<system:String x:Uid="AssemblerDialog:PaDeNA" x:Key="AssemblerDialog_PaDeNA">PaDeNA</system:String>
 
 	<system:String x:Uid="AssemblerDialog:KmerLength" x:Key="AssemblerDialog_KmerLength">Kmer Length</system:String>
 	<system:String x:Uid="AssemblerDialog:RedundantThreshold" x:Key="AssemblerDialog_RedundantThreshold">Redundant Threshold</system:String>
 	<system:String x:Uid="AssemblerDialog:DangleThreshold" x:Key="AssemblerDialog_DangleThreshold">Dangle Threshold</system:String>
 	<system:String x:Uid="AssemblerDialog:ScaffoldRedundancy" x:Key="AssemblerDialog_ScaffoldRedundancy">Scaffold Redundancy</system:String>
+    <system:String x:Uid="AssemblerDialog:ScaffoldGeneration" x:Key="AssemblerDialog_ScaffoldGeneration">Scaffold Generation</system:String>
 	<system:String x:Uid="AssemblerDialog:ContigGraphTraversalDepth" x:Key="AssemblerDialog_ContigGraphTraversalDepth">Contig Graph Traversal Depth</system:String>
 	<system:String x:Uid="AssemblerDialog:Library" x:Key="AssemblerDialog_Library">Clone Library Information</system:String>
 	<system:String x:Uid="AssemblerDialog:LibraryNames" x:Key="AssemblerDialog_LibraryNames">Name</system:String>
@@ -215,7 +221,24 @@
 	<system:String x:Uid="AssemblerDialog:LibraryMean" x:Key="AssemblerDialog_LibraryMean">Mean</system:String>
 	<system:String x:Uid="AssemblerDialog:DefaultErosion" x:Key="AssemblerDialog_DefaultErosion">(Default estimation if set to -1)</system:String>
 
-	<!--File Association dialog -->
+    <system:String x:Uid="AssemblerDialog:KmerLengthToolTip" x:Key="AssemblerDialog_KmerLengthToolTip">Kmer Length to use</system:String>
+    <system:String x:Uid="AssemblerDialog:RedundantThresholdToolTip" x:Key="AssemblerDialog_RedundantThresholdToolTip">Threshold used for redundant path detection and purging</system:String>
+    <system:String x:Uid="AssemblerDialog:DangleThresholdToolTip" x:Key="AssemblerDialog_DangleThresholdToolTip">Threshold used for dangling link detection and purging</system:String>
+    <system:String x:Uid="AssemblerDialog:ErosionToolTip" x:Key="AssemblerDialog_ErosionToolTip">Change default erosion threshold</system:String>
+    <system:String x:Uid="AssemblerDialog:DefaultErosionToolTip" x:Key="AssemblerDialog_DefaultErosionToolTip">Threshold used for erosion detection</system:String>
+    <system:String x:Uid="AssemblerDialog:LowCoverageContigRemovalToolTip" x:Key="AssemblerDialog_LowCoverageContigRemovalToolTip">Change default threshold for Contig Low Coverage removal</system:String>
+    <system:String x:Uid="AssemblerDialog:DefaultLowCoverageContigRemovalToolTip" x:Key="AssemblerDialog_DefaultLowCoverageContigRemovalToolTip">Threshold used for Contig Low Coverage removal</system:String>
+
+    <system:String x:Uid="AssemblerDialog:ScaffoldRedundancyToolTip" x:Key="AssemblerDialog_ScaffoldRedundancyToolTip">Redundancy for building scaffolds</system:String>
+    <system:String x:Uid="AssemblerDialog:ScaffoldGenerationToolTip" x:Key="AssemblerDialog_ScaffoldGenerationToolTip">Change default scaffolding generation parameters</system:String>
+    <system:String x:Uid="AssemblerDialog:ContigGraphTraversalDepthToolTip" x:Key="AssemblerDialog_ContigGraphTraversalDepthToolTip">Graph traversal depth when building scaffolds</system:String>
+    <system:String x:Uid="AssemblerDialog:LibraryToolTip" x:Key="AssemblerDialog_LibraryToolTip">Clone Library Selection</system:String>
+    <system:String x:Uid="AssemblerDialog:LibraryNamesToolTip" x:Key="AssemblerDialog_LibraryNamesToolTip">Name of Clone Library to use</system:String>
+    <system:String x:Uid="AssemblerDialog:LibrarySdToolTip" x:Key="AssemblerDialog_LibrarySdToolTip">Standard Deviation of length of inserts</system:String>
+    <system:String x:Uid="AssemblerDialog:LibraryMeanToolTip" x:Key="AssemblerDialog_LibraryMeanToolTip">Mean length of inserts</system:String>
+
+
+    <!--File Association dialog -->
 	<system:String x:Uid="FileAssociationDialog:Header" x:Key="FileAssociationDialog:Header">File Associations</system:String>
     <system:String x:Uid="FileAssociationDialog:Description" x:Key="FileAssociationDialog:Description">Select the file types you want to be associated with .NET Bio Sequence Assembler.</system:String>
 	<system:String x:Uid="FileAssociationDialog:FastaHeader" x:Key="FileAssociationDialog:FastaHeader">FASTA</system:String>
