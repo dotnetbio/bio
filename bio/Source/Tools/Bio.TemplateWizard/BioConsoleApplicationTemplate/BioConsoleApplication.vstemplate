@@ -32,7 +32,7 @@
 	</CustomParameters>
   </TemplateContent>
   <WizardExtension>
-    <Assembly>Bio.TemplateWizard, Version=1.0.0.0, Culture=neutral, PublicKeyToken=13335e9abfbf69d0</Assembly>
+    <Assembly>Bio.TemplateWizard, Version=1.1.0.0, Culture=neutral, PublicKeyToken=13335e9abfbf69d0</Assembly>
     <FullClassName>Bio.TemplateWizard.VSTemplateWizard</FullClassName>
   </WizardExtension>
 </VSTemplate>
