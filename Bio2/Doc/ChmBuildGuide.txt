@@ -1,0 +1,13 @@
+HOWTO: Building the .NET Bio API Document
+
+Run $MBI\DevelopmentBranch\Bio\BuildTools\BuildScripts\GenerateDocumentLocally.cmd.
+The script checks for the prerequisites (Visual Studio Tool for Office Runtime 4 and Microsoft Office Excel 2007/2010), then builds the .NET Bio solution and generates the .chm file (bio.chm).
+The build output is placed in the folder $MBI\DevelopmentBranch\Bio\Build\LocalBuild\Target\docs.
+The CHM is created in the $MBI\DevelopmentBranch\Bio\Build\LocalBuild\Binaries\docs.
+
+Note: Please make sure you have Sandcastle and HTML Help Compiler are installed before running the script.
+
+	HtmlHelpCompiler: http://msdn.microsoft.com/en-us/library/ms669985
+		Microsoft HTML Help 1.4 SDK: is the standarad help system for the windows platform. 
+	Sandcastle Help file Builder: http://shfb.codeplex.com/
+		Sandcastle, created by Microsoft, is a tool used for creating MSDN-style documentation from .NET assemblies and their associated XML comments files. 

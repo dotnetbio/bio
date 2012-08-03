@@ -1,0 +1,136 @@
+LOCUS       AF518003                2345 bp    mRNA    linear   PLN 02-JUN-2010
+DEFINITION  Solanum tuberosum calcium-dependent protein kinase 3 mRNA, complete
+            cds.
+ACCESSION   AF518003
+VERSION     AF518003.2  GI:297342354
+KEYWORDS    .
+SOURCE      Solanum tuberosum (potato)
+  ORGANISM  Solanum tuberosum
+            Eukaryota; Viridiplantae; Streptophyta; Embryophyta; Tracheophyta;
+            Spermatophyta; Magnoliophyta; eudicotyledons; core eudicotyledons;
+            asterids; lamiids; Solanales; Solanaceae; Solanoideae; Solaneae;
+            Solanum.
+REFERENCE   1  (bases 1 to 2345)
+  AUTHORS   Raices,M., Gargantini,P.R., Chinchilla,D., Crespi,M.,
+            Tellez-Inon,M.T. and Ulloa,R.M.
+  TITLE     Regulation of CDPK isoforms during tuber development
+  JOURNAL   Plant Mol. Biol. 52 (5), 1011-1024 (2003)
+   PUBMED   14558661
+REFERENCE   2  (bases 1 to 2345)
+  AUTHORS   Raices,M., Gargantini,P.R., Chinchilla,D., Tellez-Inon,M.T.,
+            Crespi,M. and Ulloa,R.M.
+  TITLE     Sequential activation of specific CDPK isoforms during tuber
+            development
+  JOURNAL   Unpublished
+REFERENCE   3  (bases 1 to 2345)
+  AUTHORS   Raices,M., Gargantini,P.R. and Ulloa,R.M.
+  TITLE     Direct Submission
+  JOURNAL   Submitted (04-JUN-2002) CONICET, INGEBI, Vuelta de Obligado 2490 2
+            Piso, Capital Federal 1428, Argentina
+REFERENCE   4  (bases 1 to 2345)
+  AUTHORS   Grandellis,C., Raices,M., Gargantini,P.R. and Ulloa,R.M.
+  TITLE     Direct Submission
+  JOURNAL   Submitted (02-JUN-2010) CONICET, INGEBI, Vuelta de Obligado 2490 2
+            Piso, Capital Federal 1428, Argentina
+  REMARK    Sequence update by submitter
+COMMENT     On Jun 2, 2010 this sequence version replaced gi:33325644.
+FEATURES             Location/Qualifiers
+     source          1..2345
+                     /organism="Solanum tuberosum"
+                     /mol_type="mRNA"
+                     /cultivar="Spunta"
+                     /db_xref="taxon:4113"
+	 tRNA            731..802
+                     /locus_tag="TP(UGG)Q"
+                     /product="tRNA-Pro"
+                     /inference="non-experimental evidence, no additional
+                     details recorded"
+                     /db_xref="taxon:4113"
+                     /db_xref="taxon:4113"
+     STS             2406..2759
+                     /standard_name="C9M35"
+                     /db_xref="taxon:4113"
+     rRNA            6546..8194
+                     /product="15S_RRNA"
+                     /inference="non-experimental evidence, no additional
+                     details recorded"
+                     /db_xref="taxon:4113"
+     CDS             240..1916
+                     /note="StCDPK3"
+                     /codon_start=1
+                     /product="calcium-dependent protein kinase 3"
+                     /protein_id="AAQ08324.2"
+                     /db_xref="GI:297342355"
+                     /translation="MGGCFSKKYTQQDANGYRAGRGTVNQAYQKSPQPQPEGPYQPQP
+                     QPERPYQPPPQPAYQPPPPPRPQPLPQQQAHPVPVTVQPGQPQDQMQGPHLNNILGKP
+                     FEDIRKLYTLGKELGRGQFGVTYYCTENSTENPYACKSILKRKLVSKNDREDMKREIQ
+                     IMQHLSGQPNIVEFKGAYEDRQSVHLVMELCAGGELFDRIIARGYYSEKNAAEIIRQI
+                     VNVVNICHFMGVMHRDLKPENFLLTSKDENAMLKATDFGLSVFIEEGKVYRDIVGSAY
+                     YVAPEVLRRSYGKEADVWSAGVILYILLSGVPPFWAETEKGIFNTILKGEIDFQSDPW
+                     PSISNSAKDLIQKMLTQEPRKRITSAQVLEHPWLRLGEASDKPIDSAVLSRMKQFRAM
+                     NKLKKLALRVIAEDLSEEEIKGLKAMFENIDTDNSGTITYEELKSGLARLGSKLTGTE
+                     VKQLMEAADVDGNGTIDYIEFITATMHRHRLERDEHLFKAFQNFDKDHSGFITRDELE
+                     NAMKEYGMGDETTIKEIIAEVDTDNDGRINYEEFCAMMRSGTTQPQQKLF"
+     misc_RNA        85295..85777
+                     /product="RPM1"
+                     /inference="non-experimental evidence, no additional
+                     details recorded"
+                     /db_xref="taxon:4113"
+     rep_origin      15417..16295
+                     /note="region of heavy strand origin of replication"
+     CAAT_signal     1751..1755
+                     /gene="PGAM-M"
+     TATA_signal     1791..1799
+                     /gene="PGAM-M"
+      3'UTR           <1..>105
+                     /gene="PGAM-M"
+                     /note="beta-casein
+                     genomic DNA sequence corresponding to a part of the 3'UTR
+                     of beta-caseine gene, MMBCASE (bases 7015 - 7121)"
+      5'UTR           124..206
+                     /gene="CCS1"
+     repeat_region   1997..3329
+                     /mobile_element="insertion sequence:IS10"
+     sig_peptide     136..195
+ORIGIN      
+        1 agcuuuauuu uugcuaguga ggaaaaagcc uagaaaaaua agaagggcag acaaaaguga
+       61 aaagcuggca aagaaagugu guagcauuuu cauggaguuu uuucccauga agucaaugga
+      121 caguguucaa cucuuuggca uucucugauc uguggaauau cuuuuagguu guuguuuuuc
+      181 uguaacuugu cgaggaauug aagugcccaa aguucaaucu uguugaauaa acuguaaaaa
+      241 ugggugguug uuuuagcaag aaguauaccc aacaagaugc uaauggguau agggcaggaa
+      301 gaggaacugu uaaucaagca uaucaaaaau caccacaacc ccagccagaa gggccauauc
+      361 agccacaacc ccagccagaa agaccauauc agccaccgcc acagccagca uaucagccac
+      421 caccaccgcc aaggccacaa ccucugcccc agcagcaggc ccacccuguu ccuguuacug
+      481 ugcagccugg acagccccaa gaccaaaugc aaggacccca uuugaauaac auauugggaa
+      541 agccuuuuga ggauauucga aagcuuuaua cacuugggaa agaauugggu aggggccagu
+      601 uuggagugac uuacuauugu acugaaaauu caacugagaa cccuuaugcu ugcaagucua
+      661 uacuuaagag gaagcuugua aguaagaaug auagggagga uaugaagagg gaaauucaga
+      721 uuaugcagca uuugaguggg caaccaaaca uuguggaauu caagggugcu uaugaagaua
+      781 ggcagucagu gcaccuugug auggaacuuu gugcuggagg agaguuguuu gacaggauua
+      841 ucgcccgugg auauuacuca gagaagaaug cugcugagau uauuagacag auuguaaaug
+      901 uuguuaacau uugccauuuc auggguguca ugcauaggga ucucaagcca gagaauuucu
+      961 uacugacuag uaaggaugaa aaugcuaugu ugaaggcaac ugauuuugga cuuucugucu
+     1021 ucauugaaga agggaaggug uaccgugaua uaguugguag ugcauauuau guugccccug
+     1081 aaguauugcg gcguaguuau gggaaggaag cagauguuug gagugcaggu guuauuuugu
+     1141 auauucugcu caguggugua ccuccauuuu gggcugaaac ugaaaaggga auauuuaaua
+     1201 ccauacuaaa aggagaaauu gacuuccaaa gugauccaug gccauccaua ucaaauagug
+     1261 ccaaggaccu uauucagaaa augcuaacgc aggagccaag gaagagaauu acuucagcgc
+     1321 aaguucuuga acauccaugg cuucgacuug gagaagcauc agacaagcca auagacagcg
+     1381 caguccuguc cagaaugaag caguucagag caaugaacaa gcucaaaaaa cuugcauuga
+     1441 gggucauugc ggaagauuua ucugaagaag aaaucaaggg ucugaaagcu auguuugaaa
+     1501 acauugauac ggacaauagu ggcacaauca cuuaugaaga acugaagucg ggauuggcuc
+     1561 ggcuuggauc aaagcuaacg gggacugaag ucaagcaacu cauggaagcu gccgaugugg
+     1621 auggaaaugg aacaauugau uacauugagu uuauuacugc aacaaugcau agacaucggc
+     1681 uugaaaggga ugagcaucuc uuuaaagcuu uucagaauuu ugacaaagac cauaguggau
+     1741 ucaucacgag agaugaauug gaaaacgcua ugaaggaaua ugguaugggu gaugagacca
+     1801 ccaucaagga gauaaucgca gagguggaca cugacaauga cgguaggauc aauuacgagg
+     1861 aguucugugc uaugaugaga aguggaacaa cacaaccaca acaaaagcuu uucuagugca
+     1921 ucgagagcaa auuaccccuu gcaacgagca uagaacguuc accagccauc acgauggaga
+     1981 gacgucuauc acgagaggau cagugaaaug aacauacuuu cauauuucuu caauccuuca
+     2041 gcuaucuuca aaaagcauug gaguacacga gacauuuuuc guguagguug aauucgcacg
+     2101 gaaaaugugu guauagcuag uuaaugguau auuucgaggu ucuuguaaug uaucugaucc
+     2161 cccuucguaa uuuugugugg aucguguugu gacguugacc ccguccguag agauuauaac
+     2221 aagacaaucu gaauauagcu uuaugcuuga aaaaaagagg ggauuuuugu ugaccuuaau
+     2281 gcuguugaau uccuuaagau guuaauagac ugaugucuau gugaggcauu uggaaagcgg
+     2341 ccgcg
+//

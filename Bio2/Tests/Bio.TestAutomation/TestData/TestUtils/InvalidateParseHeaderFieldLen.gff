@@ -1,0 +1,8 @@
+﻿##gff-version 2
+##type SNA
+##SNA Hsap_BTK
+##acggctcggattggcgctggatgatagatcagacgacM
+##end-SNA
+
+Hsap_BTK	annotation	Internal	88679	88746	.	-	1	BTK
+Hsap_BTK	annotation	Internal	87074	87261	.	-	0	BTK

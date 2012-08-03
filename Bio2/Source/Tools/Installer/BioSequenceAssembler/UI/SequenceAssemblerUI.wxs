@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+<!--
+First-time install dialog sequence:      Maintenance dialog sequence:
+ - WixUI_WelcomeDlg                     - WixUI_MaintenanceWelcomeDlg
+ - Prerequisite Check Dlg
+ - WixUI_LicenseAgreementDlg            - WixUI_MaintenanceTypeDlg
+ - WixUI_SetupTypeDlg
+ - WixUI_CustomizeDlg
+ - WixUI_InstallDirDlg                    - WixUI_InstallDirDlg
+   - WixUI_VerifyReadyDlg                 - WixUI_VerifyReadyDlg
+   - WixUI_DiskCostDlg
+-->
+  <Fragment>
+    <UI Id="WixUI_CustomInstallDir">
+      
+      <DialogRef Id="CustomBrowseDlg" />
+      <DialogRef Id="CustomDiskCostDlg" />
+      <DialogRef Id="CustomInstallDirDlg" />
+      <DialogRef Id="CustomErrorDlg" />
+      <DialogRef Id="CustomExitDialog" />
+      <DialogRef Id="CustomFatalError" />
+      <DialogRef Id="FileAssociationsDlg" />
+      <!--FilesInUse is in WixUIExtension.dll-->
+      <DialogRef Id="FilesInUse" />
+      <DialogRef Id="CustomLicenseAgreementDlg" />
+      <DialogRef Id="CustomMaintenanceTypeDlg" />
+      <DialogRef Id="CustomMaintenanceWelcomeDlg" />
+      <DialogRef Id="CustomMsiRMFilesInUse" />
+      <DialogRef Id="CustomPrepareDlg" />
+      <DialogRef Id="CustomProgressDlg" />
+      <DialogRef Id="CustomResumeDlg" />
+      <DialogRef Id="CustomUserExit" />
+      <DialogRef Id="CustomVerifyReadyDlg" />
+      <DialogRef Id="CustomWelcomeDlg" />
+      <DialogRef Id="CustomSetupTypeDlg" />
+      <DialogRef Id="CustomInstallDirDlg"/>
+      <DialogRef Id="PrerequisiteDeterminationDlg"/>
+      
+      <Property Id="WixUI_CustomWelcomeDlg_Next" Value="CustomLicenseAgreementDlg" />
+
+      <Property Id="WixUI_CustomLicenseAgreementDlg_Back" Value="CustomWelcomeDlg" />
+      <Property Id="WixUI_CustomLicenseAgreementDlg_Next" Value="CustomSetupTypeDlg" />
+
+      <Property Id="WixUI_CustomSetupTypeDlg_Back" Value="CustomLicenseAgreementDlg" />
+      <Property Id="WixUI_CustomSetupTypeDlg_NextDefault" Value="PrerequisiteDeterminationDlg" />
+      <Property Id="WixUI_CustomSetupTypeDlg_NextCustom" Value="CustomInstallDirDlg" />
+
+      <Property Id="WixUI_CustomInstallDirDlg_Back" Value="CustomSetupTypeDlg" />
+      <Property Id="WixUI_CustomInstallDirDlg_Browse" Value="CustomBrowseDlg" />
+      <Property Id="WixUI_CustomInstallDirDlg_Next" Value="PrerequisiteDeterminationDlg" />
+
+      <Property Id="WixUI_PrerequisiteDeterminationDlg_BackDefault" Value="CustomSetupTypeDlg" />
+      <Property Id="WixUI_PrerequisiteDeterminationDlg_BackCustom" Value="CustomInstallDirDlg" />
+      <Property Id="WixUI_PrerequisiteDeterminationDlg_Next" Value="FileAssociationsDlg" />
+
+      <Property Id="WixUI_FileAssociationsDlg_Back" Value="PrerequisiteDeterminationDlg" />
+
+      <Property Id="WixUI_CustomVerifyReadyDlg_BackRepair" Value="CustomMaintenanceTypeDlg" />
+      <Property Id="WixUI_CustomVerifyReadyDlg_BackRemove" Value="CustomMaintenanceTypeDlg" />
+
+      <Property Id="WixUI_CustomMaintenanceWelcomeDlg_Next" Value="CustomMaintenanceTypeDlg" />
+
+      <Property Id="WixUI_CustomMaintenanceTypeDlg_Repair" Value="CustomVerifyReadyDlg" />
+      <Property Id="WixUI_CustomMaintenanceTypeDlg_Remove" Value="CustomVerifyReadyDlg" />
+      <Property Id="WixUI_CustomMaintenanceTypeDlg_Back" Value="CustomMaintenanceWelcomeDlg" />
+    </UI>
+
+    <UIRef Id="WixUI_CustomCommon" />
+    
+    <UIRef Id="WixUI_CommonFonts" />   
+
+  </Fragment>
+</Wix>

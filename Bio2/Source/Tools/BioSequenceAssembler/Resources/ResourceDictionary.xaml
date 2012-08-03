@@ -1,0 +1,279 @@
+﻿<ResourceDictionary x:Uid="TextResources" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:system="clr-namespace:System;assembly=mscorlib">
+
+	<!--Assembler Pane Strings-->
+	<system:String x:Uid="AssemblerPane:SequenceTreeView" x:Key="AssemblerPane_SequenceTreeView">Sequences Tree View</system:String>
+	<system:String x:Uid="AssemblerPane:SequenceView" x:Key="AssemblerPane_SequenceView">Sequences</system:String>
+	<system:String x:Uid="AssemblerPane:ContigsTreeView" x:Key="AssemblerPane_ContigsTreeView">Contigs Tree View</system:String>
+	<system:String x:Uid="AssemblerPane:ContigsView" x:Key="AssemblerPane_ContigsView">Contigs</system:String>
+	<system:String x:Uid="AssemblerPane:SelectAlgorithm" x:Key="AssemblerPane_SelectAlgorithm">Select Algorithm:</system:String>
+	<system:String x:Uid="AssemblerPane:Assemble" x:Key="AssemblerPane_Assemble">Assemble</system:String>
+	<system:String x:Uid="AssemblerPane:Align" x:Key="AssemblerPane_Align">Align</system:String>
+	<system:String x:Uid="AssemblerPane:AssembleToolTip" x:Key="AssemblerPane_Assemble_ToolTip">Assembles the selected sequences</system:String>
+	<system:String x:Uid="AssemblerPane:AlignToolTip" x:Key="AssemblerPane_Align_ToolTip">Aligns the selected sequences</system:String>
+	<system:String x:Uid="AssemblerPane:Zoom" x:Key="AssemblerPane_Zoom">Zoom</system:String>
+	<system:String x:Uid="AssemblerPane:AssembleToolTip" x:Key="AssemblerPane_Search_ToolTip">Feed the selected sequence to Web service</system:String>
+	<system:String x:Uid="AssemblerPane:Assemble_AppSettingTooltip" x:Key="AppSettingTooltip">Application Settings</system:String>
+	<system:String x:Uid="AssemblerPane:SelectedSequences" x:Key="AssemblerPane_SelectedSequences">Selected Sequences</system:String>
+	<system:String x:Uid="AssemblerPane:AssemblyStatus" x:Key="AssemblerPane_AssemblyStatus">Assembly Status</system:String>
+	<system:String x:Uid="AssemblerPane:AssemblyReport" x:Key="AssemblerPane_AssemblyReport">Report</system:String>
+	<system:String x:Uid="AssemblerPane:ProcessingTime" x:Key="AssemblerPane_ProcessingTime">Total Processing Time:</system:String>
+	<system:String x:Uid="AssemblerPane:AssemblyContent" x:Key="AssemblerPane_AssemblyContent">Alignment Content</system:String>
+	<system:String x:Uid="AssemblerPane:SequenceID" x:Key="AssemblerPane_SequenceID">Sequence IDs</system:String>
+	<system:String x:Uid="AssemblerPane:SilvergeneTab" x:Key="AssemblerPane_NoOfContigs">No. of Contigs:</system:String>
+	<system:String x:Uid="AssemblerPane:ProgressBarCancel" x:Key="AssemblerPane_ProgressBarCancel">Cancel</system:String>
+	<system:String x:Uid="AssemblerPane:Alignments" x:Key="AssemblerPane_Alignments">No. of Alignments Found:</system:String>
+	<system:String x:Uid="AssemblerPane:NoOfAlignments" x:Key="AssemblerPane_NoOfAlignments">No. of Sequences Aligned:</system:String>
+	<system:String x:Uid="AssemblerPane:ExecuteSearch" x:Key="AssemblerPane_ExecuteSearch">Execute Search</system:String>
+	<system:String x:Uid="AssemblerPane:SelectService" x:Key="AssemblerPane_SelectService">Select Web Service:</system:String>
+	<system:String x:Uid="AssemblerPane:SequenceViewGhostText" x:Key="AssemblerPane_SequenceViewGhostText">Please select a sequence from the Sequence tree view to begin the Assembly process.</system:String>
+	<system:String x:Uid="AssemblerPane:FileMenu_FileTooltip" x:Key="AssemblerPane_FileTooltip">Load files containing sequences</system:String>
+	<system:String x:Uid="AssemblerPane:FileMenu_File" x:Key="AssemblerPane_FileMenu_File">_File</system:String>
+	<system:String x:Uid="AssemblerPane:FileMenu_FileText" x:Key="AssemblerPane_FileMenu_FileText">File</system:String>
+	<system:String x:Uid="AssemblerPane:FileMenu_Open" x:Key="AssemblerPane_FileMenu_Open">_Open</system:String>
+	<system:String x:Uid="AssemblerPane:FileMenu_SaveWorkspace" x:Key="AssemblerPane_FileMenu_SaveWorkspace">Save _Workspace...</system:String>
+	<system:String x:Uid="AssemblerPane:FileMenu_Exit" x:Key="AssemblerPane_FileMenu_Exit">_Exit</system:String>
+	<system:String x:Uid="AssemblerPane:FileMenu_Options" x:Key="AssemblerPane_FileMenu_Options">_Options</system:String>
+	<system:String x:Uid="AssemblerPane:FileMenu_Help" x:Key="AssemblerPane_FileMenu_Help">_Help</system:String>
+	<system:String x:Uid="AssemblerPane:FileMenu_About" x:Key="AssemblerPane_FileMenu_About">_About</system:String>
+	<system:String x:Uid="AssemblerPane:FileMenu_About" x:Key="AssemblerPane_FileMenu_UserGuide">_User Guide</system:String>
+	<system:String x:Uid="AssemblerPane:FileMenu_ChangeColors" x:Key="AssemblerPane_FileMenu_ChangeColors">_Change Colors</system:String>
+	<system:String x:Uid="AssemblerPane_FileMenu_AssociateFileTypes" x:Key="AssemblerPane_FileMenu_AssociateFileTypes">_Associate File Types</system:String>
+	<system:String x:Uid="AssemblerPane:SequenceTreeViewHeader" x:Key="AssemblerPane_SequenceTreeView_Header">Sequences</system:String>
+	<system:String x:Uid="AssemblerPane:ToolTipID" x:Key="AssemblerPane_Tooltip_ID">ID</system:String>
+	<system:String x:Uid="AssemblerPane:ToolTipLength" x:Key="AssemblerPane_Tooltip_Len">Length</system:String>
+	<system:String x:Uid="AssemblerPane:TooltipType" x:Key="AssemblerPane_Tooltip_Type">Molecule Type</system:String>
+	<system:String x:Uid="AssemblerPane:ToolTipDesc" x:Key="AssemblerPane_Tooltip_Desc">Description</system:String>
+	<system:String x:Uid="AssemblerPane:ToolTipSeq" x:Key="AssemblerPane_Tooltip_Sequence">Sequence</system:String>
+	<system:String x:Uid="AssemblerPane:ToolTipFilename" x:Key="AssemblerPane_Tooltip_FileName">File Name</system:String>
+	<system:String x:Uid="AssemblerPane:SequenceSettings" x:Key="AssemblerPane_Sequence_Setting">Settings</system:String>
+	<system:String x:Uid="AssemblerPane:Input_Sequence" x:Key="AssemblerPane_Input_Sequence">No. of Input Sequences:</system:String>
+	<system:String x:Uid="AssemblerPane:Alignment_Algo" x:Key="AssemblerPane_Alignment_Algo">Alignment Algorithm:</system:String>
+	<system:String x:Uid="AssemblerPane:StartTime" x:Key="AssemblerPane_StartTime">Start Time:</system:String>
+	<system:String x:Uid="AssemblerPane:EndTime" x:Key="AssemblerPane_EndTime">End Time:</system:String>
+	<system:String x:Uid="AssemblerPane:UnAssembled" x:Key="UnAssembled">No. of Un-Assembled Sequences:</system:String>
+	<system:String x:Uid="AssemblerPane:Output_Length" x:Key="Output_Length">Total Length of the Output:</system:String>
+	<system:String x:Uid="AssemblerPane:Base_Pairs" x:Key="Base_Pairs">No. of base pair generated:</system:String>
+	<system:String x:Uid="AssemblerPane:AssemblingSequenceText" x:Key="Assembling_Sequences_Text">Assembling Sequences...</system:String>
+	<system:String x:Uid="AssemblerPane:TimeText" x:Key="Time_Text">This could take a while. Please wait.</system:String>
+	<system:String x:Uid="AssemblerPane:ExecutingSearchText" x:Key="Executing_Search_Text">Executing Search...</system:String>
+	<system:String x:Uid="AssemblerPane:CustomView" x:Key="AssemblerPane_CustomView">View</system:String>
+	<system:String x:Uid="Legend:Sequences" x:Key="Legend_Sequences">Sequences</system:String>
+	<system:String x:Uid="Legend:Consensus" x:Key="Legend_Consensus">Consensus</system:String>
+	<system:String x:Uid="Legend:RevComplimented" x:Key="Legend_RevComplimented">Reverse Complemented</system:String>
+	<system:String x:Uid="Legend:Complemented" x:Key="Legend_Complemented">Complemented</system:String>
+	<system:String x:Uid="Legend:Reversed" x:Key="Legend_Reversed">Reversed</system:String>
+	<system:String x:Uid="ToolTip:Removefromworkspace" x:Key="ToolTip_Removefromworkspace">Remove from workspace</system:String>
+
+
+	<!--Sequence Assembly Strings-->
+	<system:String x:Uid="SequenceAssembly:Heading" x:Key="SequenceAssembly_Heading">Bio</system:String>
+	<system:String x:Uid="SequenceAssembly:AssemblerTabHeading" x:Key="SequenceAssembly_AssemblerTabHeading">Assembler</system:String>
+	<system:String x:Uid="SequenceAssembly:WebServiceHeading" x:Key="SequenceAssembly_WebServiceHeading">Blast</system:String>
+	<system:String x:Uid="SequenceAssembly:Status" x:Key="SequenceAssembly_Status">Ready</system:String>
+    <system:String x:Uid="SequenceAssembly:SequenceAssembler" x:Key="SequenceAssembly_SequenceAssembler">.NET Bio Sequence Assembler</system:String>
+	<system:String x:Uid="SequenceAssembly:PleaseWaitText" x:Key="SequenceAssembly_PleaseWaitText">Please Wait...</system:String>
+
+	<!--Blast Pane Strings-->
+	<system:String x:Uid="BlastPane:Report" x:Key="BlastPane_Report">BLAST Report</system:String>
+	<system:String x:Uid="BlastPane:Request" x:Key="BlastPane_Request">BLAST Requests</system:String>
+	<system:String x:Uid="BlastPane:Name" x:Key="BlastPane_Name">Name</system:String>
+	<system:String x:Uid="BlastPane:Status" x:Key="BlastPane_Status">Status</system:String>
+	<system:String x:Uid="BlastPane:TabHeader" x:Key="BlastPane_TabHeader">Blast Item 1</system:String>
+	<system:String x:Uid="BlastPane:Results" x:Key="BlastPane_Results">Results</system:String>
+	<system:String x:Uid="BlastPane:Summary" x:Key="BlastPane_Summary">Summary</system:String>
+	<system:String x:Uid="BlastPane:SingleLineReport" x:Key="BlastPane_SingleLineReport">Single-line Report</system:String>
+	<system:String x:Uid="BlastPane:Details" x:Key="BlastPane_Details">BLAST Details</system:String>
+	<system:String x:Uid="BlastPane:AlignmentReport" x:Key="BlastPane_AlignmentReport">Pairwise Sequence Alignment Report</system:String>
+	<system:String x:Uid="BlastPane:ReportHeader" x:Key="BlastPane_ReportHeader">Report Header</system:String>
+	<system:String x:Uid="BlastPane:HitTable" x:Key="BlastPane_HitTable">Hit Table</system:String>
+	<system:String x:Uid="BlastPane:SilverMap" x:Key="BlastPane_SilverMap">Silver Map</system:String>
+	<system:String x:Uid="BlastPane:QueryId" x:Key="BlastPane_QueryId">Query ID</system:String>
+	<system:String x:Uid="BlastPane:SubjectId" x:Key="BlastPane_SubjectId">Subject ID</system:String>
+	<system:String x:Uid="BlastPane:Identity" x:Key="BlastPane_Identity">Identity</system:String>
+	<system:String x:Uid="BlastPane:Alignment" x:Key="BlastPane_Alignment">Alignments</system:String>
+	<system:String x:Uid="BlastPane:Length" x:Key="BlastPane_Length">Length</system:String>
+	<system:String x:Uid="BlastPane:QStart" x:Key="BlastPane_QStart">Q.Start</system:String>
+	<system:String x:Uid="BlastPane:QEnd" x:Key="BlastPane_QEnd">Q.End</system:String>
+	<system:String x:Uid="BlastPane:SStart" x:Key="BlastPane_SStart">S.Start</system:String>
+	<system:String x:Uid="BlastPane:SEnd" x:Key="BlastPane_SEnd">S.End</system:String>
+	<system:String x:Uid="BlastPane:EValue" x:Key="BlastPane_EValue">E-Value</system:String>
+	<system:String x:Uid="BlastPane:Bit" x:Key="BlastPane_Bit">Score</system:String>
+	<system:String x:Uid="BlastPane:BlastHeader" x:Key="BlastPane_BlastHeader">Blast Header</system:String>
+	<system:String x:Uid="BlastPane:BlastHeader" x:Key="BlastPane_BlastHeader_Tooltip">View Blast header</system:String>
+	<system:String x:Uid="BlastPane:Gaps" x:Key="BlastPane_Gaps">Gaps</system:String>
+
+
+	<!--FileOpenDialog Strings-->
+	<system:String x:Uid="OpenFileDialog:FileBrowser" x:Key="SequenceFileBrowser">Sequence File Browser</system:String>
+	<system:String x:Uid="OpenFileDialog:FileBrowserText" x:Key="SequenceFileBrowserText">Please select a sequence file.</system:String>
+	<system:String x:Uid="OpenFileDialog:FileNameText" x:Key="SequenceFileText">Filename:</system:String>
+	<system:String x:Uid="OpenFileDialog:FileBrowseText" x:Key="SequenceFileBrowseText">Browse...</system:String>
+	<system:String x:Uid="OpenFileDialog:FileBrowseTooltip" x:Key="SequenceFileBrowsetooltip">Choose Sequence files from your local system</system:String>
+	<system:String x:Uid="OpenFileDialog:ComboDna" x:Key="SequenceDna">DNA</system:String>
+	<system:String x:Uid="OpenFileDialog:ComboRna" x:Key="SequenceRna">RNA</system:String>
+	<system:String x:Uid="OpenFileDialog:ComboProtein" x:Key="SequenceProtein">Protein</system:String>
+	<system:String x:Uid="OpenFileDialog:FileBrowseCancel" x:Key="SequenceFileCancel">Cancel</system:String>
+	<system:String x:Uid="OpenFileDialog:ImportFiles" x:Key="SequenceImportFile">Import</system:String>
+	<system:String x:Uid="OpenFileDialog:ImportTooltip" x:Key="SequenceImportTooltip">Import the sequences from the selected files</system:String>
+	<system:String x:Uid="OpenFileDialog:MoleculeType" x:Key="AssemblerPane_Molecule_Type">Molecule Type:</system:String>
+	<system:String x:Uid="OpenFileDialog:ParserType" x:Key="AssemblerPane_ParserType">Parsers:</system:String>
+
+	<!--EditDialog Strings-->
+	<system:String x:Uid="EditDialog:EditBrowser" x:Key="EditBrowserTitle">Sequence Editor</system:String>
+	<system:String x:Uid="EditDialog:EditSequenceText" x:Key="SequenceText">Edit the Sequence</system:String>
+	<system:String x:Uid="EditDialog:EditSequenceTitle" x:Key="SequenceEditText">Sequence :</system:String>
+	<system:String x:Uid="EditDialog:EditBrowserSave" x:Key="SaveText">Save</system:String>
+	<system:String x:Uid="EditDialog:EditBrowserCancel" x:Key="CancelText">Cancel</system:String>
+
+	<!--MessageDialog Strings-->
+	<system:String x:Uid="MessageDialog:Yes" x:Key="MessageDialog_Yes">Yes</system:String>
+	<system:String x:Uid="MessageDialog:No" x:Key="MessageDialog_No">No</system:String>
+	<system:String x:Uid="MessageDialog:OK" x:Key="MessageDialog_Ok">OK</system:String>
+
+	<!--SequenceItemViewer-->
+	<system:String x:Uid="ItemViewer:RemoveTooltip" x:Key="Remove_Tooltip">Remove the sequence</system:String>
+
+	<!--Consensus custom view-->
+	<system:String x:Uid="ConsensusCustomView:GhostText" x:Key="Consensus_GhostText">Please select an item from the tree view to begin.</system:String>
+
+	<!--Pairwise sequence alignment-->
+	<system:String x:Uid="PairwiseSequenceAlignment:Score" x:Key="PairwiseSequenceAlignment_Score" xml:space="preserve">Score = </system:String>
+	<system:String x:Uid="PairwiseSequenceAlignment:Expect" x:Key="PairwiseSequenceAlignment_Expect" xml:space="preserve">Expect = </system:String>
+	<system:String x:Uid="PairwiseSequenceAlignment:Identities" x:Key="PairwiseSequenceAlignment_Identities" xml:space="preserve">Identities = </system:String>
+	<system:String x:Uid="PairwiseSequenceAlignment:Positives" x:Key="PairwiseSequenceAlignment_Positives" xml:space="preserve">Positives = </system:String>
+	<system:String x:Uid="PairwiseSequenceAlignment:Gap" x:Key="PairwiseSequenceAlignment_Gap" xml:space="preserve">Gap = </system:String>
+	<system:String x:Uid="PairwiseSequenceAlignment:Length" x:Key="PairwiseSequenceAlignment_Length" xml:space="preserve">Length = </system:String>
+    <system:String x:Uid="PairwiseSequenceAlignment:Header" x:Key="PairwiseSequenceAlignment_Header" xml:space="preserve">.NET Bio Sequence Assembler: Pairwise Sequence Alignment</system:String>
+	<system:String x:Uid="PairwiseSequenceAlignment:SubjectId" x:Key="PairwiseSequenceAlignment_SubjectId" xml:space="preserve">Subject ID: </system:String>
+	<system:String x:Uid="PairwiseSequenceAlignment:Start_Index" x:Key="PairwiseSequenceAlignment_Start_Index" xml:space="preserve">Start Index</system:String>
+	<system:String x:Uid="PairwiseSequenceAlignment:End_Index" x:Key="PairwiseSequenceAlignment_End_Index" xml:space="preserve">End Index</system:String>
+	<system:String x:Uid="PairwiseSequenceAlignment:Sequence_String" x:Key="PairwiseSequenceAlignment_Sequence_String" xml:space="preserve">Sequence String</system:String>
+	<system:String x:Uid="PairwiseSequenceAlignment:Type" x:Key="PairwiseSequenceAlignment_Type">Type</system:String>
+	<!--Pairwise sequence alignment-->
+	<system:String x:Uid="BlastHeader:Reference" x:Key="BlastHeader_Reference">Reference</system:String>
+	<system:String x:Uid="BlastHeader:RID" x:Key="BlastHeader_RID" xml:space="preserve" >RID: </system:String>
+	<system:String x:Uid="BlastHeader:Query" x:Key="BlastHeader_Query" xml:space="preserve" >Query: </system:String>
+	<system:String x:Uid="BlastHeader:Database" x:Key="BlastHeader_Database" xml:space="preserve" >Database: </system:String>
+	<system:String x:Uid="BlastHeader:TroubleShoot" x:Key="BlastHeader_TroubleShoot" xml:space="preserve" >If you have any problems or questions with the results of this search, please refer to the</system:String>
+	<system:String x:Uid="BlastHeader:FAQ" x:Key="BlastHeader_FAQ" xml:space="preserve" > Blast FAQs</system:String>
+	<system:String x:Uid="BlastHeader:Taxonomy" x:Key="BlastHeader_Taxonomy" xml:space="preserve" >Taxonomy reports</system:String>
+
+
+	<!--BlastDialog -->
+	<system:String x:Uid="BlastDialog:Header" x:Key="BlastHeader">BLAST WebService</system:String>
+	<system:String x:Uid="BlastDialog:Instuctiontext" x:Key="BlastInstructionText">Please enter the general parameters information below.</system:String>
+	<system:String x:Uid="BlastDialog:ProgramCombo" x:Key="ProgramComboText">Program</system:String>
+	<system:String x:Uid="BlastDialog:ServiceCombo" x:Key="ServiceComboText">Service</system:String>
+	<system:String x:Uid="BlastDialog:Database" x:Key="DatabaseText">Database</system:String>
+	<system:String x:Uid="BlastDialog:GapCostText" x:Key="GapCostTitle">Gap Costs</system:String>
+	<system:String x:Uid="BlastDialog:SubmitText" x:Key="BlastSubmitText">Submit</system:String>
+	<system:String x:Uid="BlastDialog:CancelText" x:Key="BlastCancelText">Cancel</system:String>
+	<system:String x:Uid="BlastDialog:CheckUseBrowerProxy" x:Key="UseBrowerProxyText">Use Browser Proxy</system:String>
+
+	<!--Color scheme dialog -->
+	<system:String x:Uid="ColorSchemeDialog:ChooseSceme" x:Key="ColorSchemeDialog_ChooseSceme">Please choose your color scheme.</system:String>
+	<system:String x:Uid="ColorSchemeDialog:DnaColorSceme" x:Key="ColorSchemeDialog_DnaColorSceme">DNA color scheme.</system:String>
+	<system:String x:Uid="ColorSchemeDialog:ProtienColorSceme" x:Key="ColorSchemeDialog_ProtienColorSceme">Protien color scheme.</system:String>
+	<system:String x:Uid="ColorSchemeDialog:ChangeColorSceme" x:Key="ColorSchemeDialog_ChangeColorSceme">Change color scheme</system:String>
+	<system:String x:Uid="ColorSchemeDialog:ChangeColorScemeToolTip" x:Key="ColorSchemeDialog_ChangeColorSceme_ToolTip">Change color scheme of the sequence.</system:String>
+	<system:String x:Uid="ColorSchemeDialog:SaveColorSceme" x:Key="ColorSchemeDialog_SaveColorSceme">Save &amp; Close</system:String>
+	<system:String x:Uid="ColorSchemeDialog:CancelColorSceme" x:Key="ColorSchemeDialog_CancelColorSceme">Cancel</system:String>
+	<system:String x:Uid="ColorSchemeDialog:ChangeColor" x:Key="ColorSchemeDialog_ChangeColor">Change Colors</system:String>
+
+	<!--About dialog -->
+    <system:String x:Uid="AboutDialog:MicrosoftCopyright" x:Key="AboutDialog_MicrosoftCopyright">Copyright © 2011, The Outercurve Foundation.</system:String>
+	<system:String x:Uid="AboutDialog:QUTCopyright" x:Key="AboutDialog_QUTCopyright">Portions © 2010 Queensland University of Technology.</system:String>
+	<system:String x:Uid="AboutDialog:RightsReserved" x:Key="AboutDialog_RightsReserved">All rights reserved.</system:String>
+
+	<!--Assembler dialog -->
+	<system:String x:Uid="AssemblerDialog:HeadingParameters" x:Key="AssemblerDialog_HeadingParameters" xml:space="preserve"> Parameters</system:String>
+	<system:String x:Uid="AssemblerDialog:HeadingAssemblyInput" x:Key="AssemblerDialog_HeadingAssemblyInput">Assembly Input Parameters</system:String>
+	<system:String x:Uid="AssemblerDialog:HeadingAlignerInput" x:Key="AssemblerDialog_HeadingAlignerInput">Aligner Input Parameters</system:String>
+	<system:String x:Uid="AssemblerDialog:MatchScore" x:Key="AssemblerDialog_MatchScore">Match Score</system:String>
+	<system:String x:Uid="AssemblerDialog:MismatchScore" x:Key="AssemblerDialog_MismatchScore">Mismatch Score</system:String>
+    <system:String x:Uid="AssemblerDialog:MatchScoreToolTip" x:Key="AssemblerDialog_MatchScore_ToolTip">Match Score used for Diagonal (Match x Mismatch) Similarity Matrix</system:String>
+    <system:String x:Uid="AssemblerDialog:MismatchScoreToolTip" x:Key="AssemblerDialog_MismatchScore_ToolTip">Mismatch Score used for Diagonal (Match x Mismatch) Similarity Matrix</system:String>
+    <system:String x:Uid="AssemblerDialog:GapCost" x:Key="AssemblerDialog_GapCost">Gap Cost</system:String>
+	<system:String x:Uid="AssemblerDialog:MergeThreshold" x:Key="AssemblerDialog_MergeThreshold">Merge Threshold</system:String>
+	<system:String x:Uid="AssemblerDialog:ConsensusThreshold" x:Key="AssemblerDialog_ConsensusThreshold">Consensus Threshold</system:String>
+    <system:String x:Uid="AssemblerDialog:MatchScoreToolTip" x:Key="AssemblerDialog_MatchScoreToolTip">Match reward score</system:String>
+    <system:String x:Uid="AssemblerDialog:MismatchScoreToolTip" x:Key="AssemblerDialog_MismatchScoreToolTip">Mismatch penalty score</system:String>
+    <system:String x:Uid="AssemblerDialog:MergeThresholdToolTip" x:Key="AssemblerDialog_MergeThresholdToolTip">Overlap required for two sequences to be merged during alignment</system:String>
+    <system:String x:Uid="AssemblerDialog:ConsensusThresholdToolTip" x:Key="AssemblerDialog_ConsensusThresholdToolTip">Threshold used when generating consensus symbols during alignment</system:String>
+    <system:String x:Uid="AssemblerDialog:AlignAlgorithmToolTip" x:Key="AssemblerDialog_AlignAlgorithmToolTip">Alignment algorithm to use</system:String>
+
+    <system:String x:Uid="AssemblerDialog:SimpleSequenceAssembler" x:Key="AssemblerDialog_SimpleSequenceAssembler">Simple Sequence Assembler</system:String>
+	<system:String x:Uid="AssemblerDialog:PaDeNA" x:Key="AssemblerDialog_PaDeNA">PaDeNA</system:String>
+
+	<system:String x:Uid="AssemblerDialog:KmerLength" x:Key="AssemblerDialog_KmerLength">Kmer Length</system:String>
+	<system:String x:Uid="AssemblerDialog:RedundantThreshold" x:Key="AssemblerDialog_RedundantThreshold">Redundant Threshold</system:String>
+	<system:String x:Uid="AssemblerDialog:DangleThreshold" x:Key="AssemblerDialog_DangleThreshold">Dangle Threshold</system:String>
+	<system:String x:Uid="AssemblerDialog:ScaffoldRedundancy" x:Key="AssemblerDialog_ScaffoldRedundancy">Scaffold Redundancy</system:String>
+    <system:String x:Uid="AssemblerDialog:ScaffoldGeneration" x:Key="AssemblerDialog_ScaffoldGeneration">Scaffold Generation</system:String>
+	<system:String x:Uid="AssemblerDialog:ContigGraphTraversalDepth" x:Key="AssemblerDialog_ContigGraphTraversalDepth">Contig Graph Traversal Depth</system:String>
+	<system:String x:Uid="AssemblerDialog:Library" x:Key="AssemblerDialog_Library">Clone Library Information</system:String>
+	<system:String x:Uid="AssemblerDialog:LibraryNames" x:Key="AssemblerDialog_LibraryNames">Name</system:String>
+	<system:String x:Uid="AssemblerDialog:LowCoverageContigRemoval" x:Key="AssemblerDialog_LowCoverageContigRemoval">Contig Removal Coverage</system:String>
+	<system:String x:Uid="AssemblerDialog:Erosion" x:Key="AssemblerDialog_Erosion">Erosion Threshold</system:String>
+	<system:String x:Uid="AssemblerDialog:LibrarySd" x:Key="AssemblerDialog_LibrarySd">Standard Deviation</system:String>
+	<system:String x:Uid="AssemblerDialog:LibraryMean" x:Key="AssemblerDialog_LibraryMean">Mean</system:String>
+	<system:String x:Uid="AssemblerDialog:DefaultErosion" x:Key="AssemblerDialog_DefaultErosion">(Default estimation if set to -1)</system:String>
+
+    <system:String x:Uid="AssemblerDialog:KmerLengthToolTip" x:Key="AssemblerDialog_KmerLengthToolTip">Kmer Length to use</system:String>
+    <system:String x:Uid="AssemblerDialog:RedundantThresholdToolTip" x:Key="AssemblerDialog_RedundantThresholdToolTip">Threshold used for redundant path detection and purging</system:String>
+    <system:String x:Uid="AssemblerDialog:DangleThresholdToolTip" x:Key="AssemblerDialog_DangleThresholdToolTip">Threshold used for dangling link detection and purging</system:String>
+    <system:String x:Uid="AssemblerDialog:ErosionToolTip" x:Key="AssemblerDialog_ErosionToolTip">Change default erosion threshold</system:String>
+    <system:String x:Uid="AssemblerDialog:DefaultErosionToolTip" x:Key="AssemblerDialog_DefaultErosionToolTip">Threshold used for erosion detection</system:String>
+    <system:String x:Uid="AssemblerDialog:LowCoverageContigRemovalToolTip" x:Key="AssemblerDialog_LowCoverageContigRemovalToolTip">Change default threshold for Contig Low Coverage removal</system:String>
+    <system:String x:Uid="AssemblerDialog:DefaultLowCoverageContigRemovalToolTip" x:Key="AssemblerDialog_DefaultLowCoverageContigRemovalToolTip">Threshold used for Contig Low Coverage removal</system:String>
+
+    <system:String x:Uid="AssemblerDialog:ScaffoldRedundancyToolTip" x:Key="AssemblerDialog_ScaffoldRedundancyToolTip">Redundancy for building scaffolds</system:String>
+    <system:String x:Uid="AssemblerDialog:ScaffoldGenerationToolTip" x:Key="AssemblerDialog_ScaffoldGenerationToolTip">Change default scaffolding generation parameters</system:String>
+    <system:String x:Uid="AssemblerDialog:ContigGraphTraversalDepthToolTip" x:Key="AssemblerDialog_ContigGraphTraversalDepthToolTip">Graph traversal depth when building scaffolds</system:String>
+    <system:String x:Uid="AssemblerDialog:LibraryToolTip" x:Key="AssemblerDialog_LibraryToolTip">Clone Library Selection</system:String>
+    <system:String x:Uid="AssemblerDialog:LibraryNamesToolTip" x:Key="AssemblerDialog_LibraryNamesToolTip">Name of Clone Library to use</system:String>
+    <system:String x:Uid="AssemblerDialog:LibrarySdToolTip" x:Key="AssemblerDialog_LibrarySdToolTip">Standard Deviation of length of inserts</system:String>
+    <system:String x:Uid="AssemblerDialog:LibraryMeanToolTip" x:Key="AssemblerDialog_LibraryMeanToolTip">Mean length of inserts</system:String>
+
+
+    <!--File Association dialog -->
+	<system:String x:Uid="FileAssociationDialog:Header" x:Key="FileAssociationDialog:Header">File Associations</system:String>
+    <system:String x:Uid="FileAssociationDialog:Description" x:Key="FileAssociationDialog:Description">Select the file types you want to be associated with .NET Bio Sequence Assembler.</system:String>
+	<system:String x:Uid="FileAssociationDialog:FastaHeader" x:Key="FileAssociationDialog:FastaHeader">FASTA</system:String>
+	<system:String x:Uid="FileAssociationDialog:FastaFileExtn_fa" x:Key="FileAssStartupScreen:webAddressociationDialog:FastaFileExtn_fa">.fa</system:String>
+	<system:String x:Uid="FileAssociationDialog:FastaFileExtn_fna" x:Key="FileAssociationDialog:FastaFileExtn_fna">.fna</system:String>
+	<system:String x:Uid="FileAssociationDialog:FastaFileExtn_fsa" x:Key="FileAssociationDialog:FastaFileExtn_fsa">.fsa</system:String>
+	<system:String x:Uid="FileAssociationDialog:FastaFileExtn_fasta" x:Key="FileAssociationDialog:FastaFileExtn_fasta">.fasta</system:String>
+	<system:String x:Uid="FileAssociationDialog:FastaFileExtn_mpfa" x:Key="FileAssociationDialog:FastaFileExtn_mpfa">.mpfa</system:String>
+	<system:String x:Uid="FileAssociationDialog:FastaFileExtn_faa" x:Key="FileAssociationDialog:FastaFileExtn_faa">.faa</system:String>
+	<system:String x:Uid="FileAssociationDialog:FastaFileExtn_fas" x:Key="FileAssociationDialog:FastaFileExtn_fas">.fas</system:String>
+
+	<system:String x:Uid="FileAssociationDialog:FastqHeader" x:Key="FileAssociationDialog:FastqHeader">FASTQ</system:String>
+	<system:String x:Uid="FileAssociationDialog:FastqFileExtn_fq" x:Key="FileAssociationDialog:FastqFileExtn_fq">.fq</system:String>
+	<system:String x:Uid="FileAssociationDialog:FastqFileExtn_fastq" x:Key="FileAssociationDialog:FastqFileExtn_fastq">.fastq</system:String>
+
+	<system:String x:Uid="FileAssociationDialog:GenBankHeader" x:Key="FileAssociationDialog:GenBankHeader">GenBank</system:String>
+	<system:String x:Uid="FileAssociationDialog:GenBankFileExtn_gb" x:Key="FileAssociationDialog:GenBankFileExtn_gb">.gb</system:String>
+	<system:String x:Uid="FileAssociationDialog:GenBankFileExtn_gbk" x:Key="FileAssociationDialog:GenBankFileExtn_gbk">.gbk</system:String>
+	<system:String x:Uid="FileAssociationDialog:GenBankFileExtn_genbank" x:Key="FileAssociationDialog:GenBankFileExtn_genbank">.genbank</system:String>
+
+	<system:String x:Uid="FileAssociationDialog:GffHeader" x:Key="FileAssociationDialog:GffHeader">GFF</system:String>
+	<system:String x:Uid="FileAssociationDialog:GffFileExtn_gff" x:Key="FileAssociationDialog:GffFileExtn_gff">.gff</system:String>
+
+	<system:String x:Uid="FileAssociationDialog:Select" x:Key="FileAssociationDialog:Select">Select</system:String>
+	<system:String x:Uid="FileAssociationDialog:All" x:Key="FileAssociationDialog:All">All</system:String>
+	<system:String x:Uid="FileAssociationDialog:None" x:Key="FileAssociationDialog:None">None</system:String>
+	<system:String x:Uid="FileAssociationDialog:btnOk" x:Key="FileAssociationDialog:btnOk">Ok</system:String>
+	<system:String x:Uid="FileAssociationDialog:btnCancel" x:Key="FileAssociationDialog:btnCancel">Cancel</system:String>
+
+	<system:String x:Uid="StartupScreen:close" x:Key="StartupScreen:close">Close</system:String>
+	<system:String x:Uid="StartupScreen:openFile" x:Key="StartupScreen:openFile">Open file...</system:String>
+	<system:String x:Uid="StartupScreen:recentFiles" x:Key="StartupScreen:recentFiles">Recent files...</system:String>
+    <system:String x:Uid="StartupScreen:aboutDetails" x:Key="StartupScreen:aboutDetails">This application demonstrates some of the functions of the .NET Bio framework, an open source and community-led bioinformatics library built using C# and the .Net framework.</system:String>
+	<system:String x:Uid="StartupScreen:pleaseVisit" x:Key="StartupScreen:pleaseVisit">Please visit</system:String>
+	<system:String x:Uid="StartupScreen:webAddress" x:Key="StartupScreen:webAddress">bio.codeplex.com</system:String>
+	<system:String x:Uid="StartupScreen:forMoreInfo" x:Key="StartupScreen:forMoreInfo">for further information.</system:String>
+	<system:String x:Uid="StartupScreen:VersionText" x:Key="StartupScreen:VersionText">Version :</system:String>
+</ResourceDictionary>

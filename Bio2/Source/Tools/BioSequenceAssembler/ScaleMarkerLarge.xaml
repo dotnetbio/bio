@@ -1,0 +1,21 @@
+﻿<!-- 
+// <summary>
+// ScaleMarkerLarge is a class which represents a intermediate spike on the scale.
+// Multiple ScaleMarkerSmall classes will be placed next to ScaleMarkerLarge 
+// will simualte a scale.
+// </summary>
+-->
+    <UserControl
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	mc:Ignorable="d"
+	x:Class="SequenceAssembler.ScaleMarkerLarge"	
+	Background="#00FFFFFF" Height="9">
+
+	<Grid>
+        <Rectangle Stroke="#FFFF4500" StrokeThickness="2" Height="2"/>
+        <Rectangle Fill="#FFFFFFFF" Stroke="#FFFF4500" StrokeThickness="2" HorizontalAlignment="Center" Width="2" />
+    </Grid>
+</UserControl>

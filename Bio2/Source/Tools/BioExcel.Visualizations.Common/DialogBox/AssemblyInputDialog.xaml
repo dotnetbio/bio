@@ -1,0 +1,72 @@
+﻿<!--
+<summary>
+// AssemblerDialog class will provide a pop-up to the user, which will be allow
+// the user to configure input parameters to the Assembly process.
+</summary>
+-->
+<Window x:Class="BiodexExcel.Visualizations.Common.AssemblyInputDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Width="445" Height="auto" WindowStyle="SingleBorderWindow" ResizeMode="NoResize"  Background="Transparent" 
+    ShowInTaskbar="False" WindowStartupLocation="CenterScreen" 
+    SizeToContent="Height"
+    VerticalAlignment="Center" HorizontalAlignment="Center"
+    Title="{DynamicResource BioExcel_WindowTitle}"
+    Icon="/BioExcel.Visualizations.Common;component/Resources/about.ico">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Resources/Styles.xaml" />
+                <ResourceDictionary Source="../Resources/ResourceDictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Border Style="{DynamicResource BorderStyle}" BorderThickness="3" Padding="10,5,5,5" BorderBrush="#FFFFFFFF">
+        <StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock x:Name="headingBlock" TextWrapping="Wrap" FontSize="18" Text="{StaticResource AssemblyInputDialog_AssembleInputParameters}" />
+            </StackPanel>
+            <Grid Margin="0,10,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Row="0" Grid.Column="0">
+                    <TextBlock Text="{DynamicResource AssemblyInputDialog_Match_Score}" TextWrapping="Wrap" Margin="0,10,0,0"/>
+                    <TextBox x:Name="txtMatchScore" Width="50" HorizontalAlignment="Left" Text="1" ToolTip="{DynamicResource AssemblerDialog_MatchScoreToolTip}" />
+                    <TextBlock Text="{DynamicResource AssemblyInputDialog_Mismatch_Score}" TextWrapping="Wrap" Margin="0,10,0,0"/>
+                    <TextBox x:Name="txtMisMatchScore" Width="50" Text="-8" HorizontalAlignment="Left" ToolTip="{DynamicResource AssemblerDialog_MismatchScoreToolTip}"/>
+                </StackPanel>
+
+                <StackPanel x:Name="thresholdsPanel" Grid.Column="1">
+                    <TextBlock Text="{DynamicResource AssemblyInputDialog_Merge_Threshold}" TextWrapping="Wrap" Margin="0,10,0,0"/>
+                    <TextBox x:Name="txtMergeThreshold" Text="4" HorizontalAlignment="Left" Width="50" ToolTip="{DynamicResource AssemblerDialog_MergeThresholdToolTip}"/>
+                    <TextBlock Text="{DynamicResource AssemblyInputDialog_Consensus_Threshold}" TextWrapping="Wrap" Margin="0,10,0,0"/>
+                    <TextBox x:Name="txtConsensusThreshold" Text="66" HorizontalAlignment="Left" Width="50" ToolTip="{DynamicResource AssemblerDialog_ConsensusThresholdToolTip}" />
+                </StackPanel>
+                
+                <StackPanel x:Name="alignerPanel" Grid.Row="1" Grid.ColumnSpan="2">
+                    <TextBlock Text="Aligner" TextWrapping="Wrap" Margin="0,10,0,0" />
+                    <ComboBox x:Name="alignerDropDown" Width="150" HorizontalAlignment="Left" ToolTip="{DynamicResource AssemblerDialog_AlignAlgorithmToolTip}" />
+                </StackPanel>
+                
+                <StackPanel Grid.Row="2" Grid.ColumnSpan="2" x:Name="stkAlingerParam" />
+            </Grid>
+            <Path Stretch="Fill" Stroke="#FF809EB7" Height="1" Data="M12,189 L248.10379,189" Margin="0,20,0,0"/>
+            <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                <Button x:Name="btnSubmit" Style="{DynamicResource WebServiceButton}" Content="Submit" FontSize="12" IsDefault="True"/>
+                <Button x:Name="btnCancel" Style="{DynamicResource WebServiceButton}" Content="Cancel" FontSize="12" Margin="3,0,0,0" IsCancel="True"/>
+            </StackPanel>
+        </StackPanel>
+    </Border>
+</Window>
+
+    

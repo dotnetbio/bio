@@ -1,0 +1,3 @@
+> gi|186972391|gb|ACC99454.1| maturase K [Scaphosepalum rapax] Dummy value
+    3829         1      1841
+    3827      3225      1843

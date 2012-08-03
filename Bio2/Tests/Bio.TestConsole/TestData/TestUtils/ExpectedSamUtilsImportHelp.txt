@@ -1,0 +1,7 @@
+
+Usage:  SAMUtils.exe import [options] in.sam|in.bam
+Description:  Import converts SAM <=> BAM file formats.
+
+Options:
+-o:OutFile Output file name, by default .bam|.sam is concatenated to input filename
+-r:FILE  File path of TAB delimited file.(in.ref_list)

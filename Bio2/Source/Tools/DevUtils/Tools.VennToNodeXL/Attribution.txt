@@ -1,0 +1,7 @@
+VennToNodeXL references or makes use of the following
+projects and are licensed for use under a license
+compatible with our use of the MS-PL
+-----------------------------------------------------------
+  Project: NodeXL
+ Location: http://nodexl.codeplex.com
+  License: MS-PL

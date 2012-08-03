@@ -1,0 +1,32 @@
+﻿<!-- 
+<summary> 
+    // Edit Sequence Dialog would allow user to edit the 
+    // assembled Contig and unassembled sequences in the Consensus Tree View 
+</summary> 
+-->
+<Window x:Class="SequenceAssembler.EditSequenceDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="{DynamicResource SequenceAssembly_SequenceAssembler}" Background="Transparent" ShowInTaskbar="False" 
+    Height="Auto" ResizeMode="CanResize" SizeToContent="Height" Width="415" MinHeight="320" MinWidth="415" WindowStyle="SingleBorderWindow" 
+    WindowStartupLocation="CenterScreen" VerticalAlignment="Center" HorizontalAlignment="Center" 
+    xmlns:SequenceAssembler="clr-namespace:SequenceAssembler" Icon="/BioSequenceAssembler;component/Resources/SequenceAssembler.ico">
+
+    <!-- Open file dialogue will allow the user to select files
+	containing DNA\Protein sequences.-->
+    <Grid>
+        <Border Padding="10,5,5,5" Style="{DynamicResource BorderStyle}">
+            <StackPanel>
+                <TextBlock Text="{DynamicResource EditBrowserTitle}" TextWrapping="Wrap" FontSize="18"/>
+                <TextBlock Text="{DynamicResource SequenceText}" TextWrapping="Wrap"/>
+                <TextBlock Text="{DynamicResource SequenceEditText}" TextWrapping="Wrap" Margin="0,10,0,0"/>
+                <TextBox HorizontalAlignment="Left" x:Name="txtSequence" AcceptsReturn="True" MinHeight="150" MaxHeight="150" TextWrapping="Wrap" MinWidth="350" Height="Auto" VerticalScrollBarVisibility="Auto" IsReadOnly="False" IsEnabled="True"/>
+                <Path Stretch="Fill" Stroke="#FF809EB7" Height="1" Data="M12,189 L248.10379,189" Margin="0,20,0,0"/>                
+                <StackPanel Orientation="Horizontal" Margin="0,5,0,0" Visibility="Visible">
+                    <Button Content="{DynamicResource SaveText}" x:Name="btnSave" IsEnabled="False" Visibility="Visible" Style="{DynamicResource WebServiceButton}" IsDefault="True"/>
+                    <Button x:Name="btnCancel" Content="{DynamicResource CancelText}" Margin="3,0,0,0" Style="{DynamicResource WebServiceButton}"  IsCancel="True"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

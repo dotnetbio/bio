@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+    
+    The use and distribution terms for this software are covered by the
+    Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
+    which can be found in the file CPL.TXT at the root of this distribution.
+    By using this software in any fashion, you are agreeing to be bound by
+    the terms of this license.
+    
+    You must not remove this notice, or any other, from this software.
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Fragment>
+        <UI>
+          <Dialog Id="FileAssociationsDlg" Width="370" Height="315" Title="!(loc.FileAssociationsDlg_Title)">
+
+            <!--FASTA-->
+            <!--.fa,.mpfa,.fna,.faa,.fsa,.fas,.fasta-->
+            <Control Id="FastaTypes" Type="GroupBox" X="15" Y="80" Width="330" Height="50" Text="FASTA" />
+            <!--Column 1-->
+            <Control Id="FastaCheckBox1" Type="CheckBox" X="25" Y="93" Width="50" Height="15"
+                     CheckBoxValue="0" Property="FASTA_FA" Text=".fa">
+              <Publish Property="SELECTALL">1</Publish>
+              <Publish Property="SELECTNONE">1</Publish>
+            </Control>
+            <Control Id="FastaCheckBox2" Type="CheckBox" X="25" Y="110" Width="50" Height="15"
+                     CheckBoxValue="0" Property="FASTA_MPFA" Text=".mpfa">
+              <Publish Property="SELECTALL">1</Publish>
+              <Publish Property="SELECTNONE">1</Publish>
+            </Control>
+            <!--Column 2-->
+            <Control Id="FastaCheckBox3" Type="CheckBox" X="105" Y="93" Width="50" Height="15"
+                     CheckBoxValue="0" Property="FASTA_FNA" Text=".fna">
+              <Publish Property="SELECTALL">1</Publish>
+              <Publish Property="SELECTNONE">1</Publish>
+            </Control>
+            <Control Id="FastaCheckBox4" Type="CheckBox" X="105" Y="110" Width="50" Height="15"
+                     CheckBoxValue="0" Property="FASTA_FAA" Text=".faa">
+              <Publish Property="SELECTALL">1</Publish>
+              <Publish Property="SELECTNONE">1</Publish>
+            </Control>
+            <!--Column 3-->
+            <Control Id="FastaCheckBox5" Type="CheckBox" X="185" Y="93" Width="50" Height="15"
+                     CheckBoxValue="0" Property="FASTA_FSA" Text=".fsa">
+              <Publish Property="SELECTALL">1</Publish>
+              <Publish Property="SELECTNONE">1</Publish>
+            </Control>
+            <Control Id="FastaCheckBox6" Type="CheckBox" X="185" Y="110" Width="50" Height="15"
+                     CheckBoxValue="0" Property="FASTA_FAS" Text=".fas">
+              <Publish Property="SELECTALL">1</Publish>
+              <Publish Property="SELECTNONE">1</Publish>
+            </Control>
+            <!--Column 4-->
+            <Control Id="FastaCheckBox7" Type="CheckBox" X="270" Y="93" Width="50" Height="15"
+                     CheckBoxValue="0" Property="FASTA_FASTA" Text=".fasta">
+              <Publish Property="SELECTALL">1</Publish>
+              <Publish Property="SELECTNONE">1</Publish>
+            </Control>
+            <!--end -->
+            <!--FASTA end-->
+
+            <!--FASTQ-->
+            <!--.fq,.fastq-->
+            <Control Id="FastqTypes" Type="GroupBox" X="15" Y="135" Width="330" Height="35" Text="FASTQ"/>
+            <Control Id="FastqCheckBox1" Type="CheckBox" X="25" Y="149" Width="50" Height="15"
+                       CheckBoxValue="1" Property="FASTQ_FQ" Text=".fq">
+              <Publish Property="SELECTALL">1</Publish>
+              <Publish Property="SELECTNONE">1</Publish>
+            </Control>
+            <Control Id="FastqCheckBox2" Type="CheckBox" X="105" Y="149" Width="50" Height="15"
+                       CheckBoxValue="1" Property="FASTQ_FASTQ" Text=".fastq">
+              <Publish Property="SELECTALL">1</Publish>
+              <Publish Property="SELECTNONE">1</Publish>
+            </Control>
+            <!--FASTQ end-->
+
+            <!--GFF-->
+            <!--.gff-->
+            <Control Id="GffTypes" Type="GroupBox" X="15" Y="175" Width="330" Height="35" Text="GFF"/>
+            <Control Id="GffCheckBox" Type="CheckBox" X="25" Y="189" Width="50" Height="15"
+                       CheckBoxValue="1" Property="GFF_GFF" Text=".gff">
+              <Publish Property="SELECTALL">1</Publish>
+              <Publish Property="SELECTNONE">1</Publish>
+            </Control>
+            <!--GFF end-->
+
+            <!--GBK-->
+            <!--.gb, .gbk, .genbank-->
+            <Control Id="GbkTypes" Type="GroupBox" X="15" Y="215" Width="330" Height="35" Text="GenBank"/>
+            <Control Id="GbkCheckBox1" Type="CheckBox" X="25" Y="229" Width="50" Height="15"
+                       CheckBoxValue="1" Property="GENBANK_GB" Text=".gb">
+              <Publish Property="SELECTALL">1</Publish>
+              <Publish Property="SELECTNONE">1</Publish>
+            </Control>
+            <Control Id="GbkCheckBox2" Type="CheckBox" X="105" Y="229" Width="50" Height="15"
+                       CheckBoxValue="1" Property="GENBANK_GBK" Text=".gbk">
+              <Publish Property="SELECTALL">1</Publish>
+              <Publish Property="SELECTNONE">1</Publish>
+            </Control>
+            <Control Id="GbkCheckBox3" Type="CheckBox" X="185" Y="229" Width="60" Height="15"
+                       CheckBoxValue="1" Property="GENBANK_GENBANK" Text=".genbank">
+              <Publish Property="SELECTALL">1</Publish>
+              <Publish Property="SELECTNONE">1</Publish>
+            </Control>
+            <!--GBK end-->
+
+            <Control Id="SelectAllOrNone" Type="Text" X="235" Y="255" Width="30" Height="15" Text="!(loc.Select)"/>
+            <Control Id="SelectAll" Type="CheckBox" X="270" Y="253" Width="30" Height="15"
+                                  CheckBoxValue="1" Property="SELECTALL" Text="!(loc.All)" >
+              <Publish Property="FASTA_FA" Value="1">SELECTALL</Publish>
+              <Publish Property="FASTA_MPFA" Value="1">SELECTALL</Publish>
+              <Publish Property="FASTA_FNA" Value="1">SELECTALL</Publish>
+              <Publish Property="FASTA_FAA" Value="1">SELECTALL</Publish>
+              <Publish Property="FASTA_FSA" Value="1">SELECTALL</Publish>
+              <Publish Property="FASTA_FAS" Value="1">SELECTALL</Publish>
+              <Publish Property="FASTA_FASTA" Value="1">SELECTALL</Publish>
+              <Publish Property="FASTQ_FQ" Value="1">SELECTALL</Publish>
+              <Publish Property="FASTQ_FASTQ" Value="1">SELECTALL</Publish>
+              <Publish Property="GFF_GFF" Value="1">SELECTALL</Publish>
+              <Publish Property="GENBANK_GB" Value="1">SELECTALL</Publish>
+              <Publish Property="GENBANK_GBK" Value="1">SELECTALL</Publish>
+              <Publish Property="GENBANK_GENBANK" Value="1">SELECTALL</Publish>
+              <Publish Property="SELECTNONE">SELECTALL</Publish>
+            </Control>
+            <Control Id="SelectNone" Type="CheckBox" X="310" Y="253" Width="40" Height="15"
+                      CheckBoxValue="1" Property="SELECTNONE" Text="!(loc.None)" >
+              <Publish Property="FASTA_FA">SELECTNONE</Publish>
+              <Publish Property="FASTA_MPFA">SELECTNONE</Publish>
+              <Publish Property="FASTA_FNA">SELECTNONE</Publish>
+              <Publish Property="FASTA_FAA">SELECTNONE</Publish>
+              <Publish Property="FASTA_FSA">SELECTNONE</Publish>
+              <Publish Property="FASTA_FAS">SELECTNONE</Publish>
+              <Publish Property="FASTA_FASTA">SELECTNONE</Publish>
+              <Publish Property="FASTQ_FQ">SELECTNONE</Publish>
+              <Publish Property="FASTQ_FASTQ">SELECTNONE</Publish>
+              <Publish Property="GFF_GFF">SELECTNONE</Publish>
+              <Publish Property="GENBANK_GB">SELECTNONE</Publish>
+              <Publish Property="GENBANK_GBK">SELECTNONE</Publish>
+              <Publish Property="GENBANK_GENBANK">SELECTNONE</Publish>
+              <Publish Property="SELECTALL">SELECTNONE</Publish>
+            </Control>
+
+            <Control Id="Back" Type="PushButton" X="180" Y="286" Width="56" Height="17" Text="!(loc.WixUIBack)">
+              <Publish Event="NewDialog" Value="[WixUI_FileAssociationsDlg_Back]">1</Publish>
+            </Control>
+
+            <Control Id="Install" Type="PushButton" ElevationShield="yes" X="236" Y="286" Width="56" Height="17" Default="yes" Hidden="yes" Disabled="yes" Text="!(loc.VerifyReadyDlgInstall)">
+              <Condition Action="show">NOT Installed AND ALLUSERS</Condition>
+              <Condition Action="enable">NOT Installed</Condition>
+              <Condition Action="default">NOT Installed</Condition>
+              <Publish Event="SpawnWaitDialog" Value="WaitForCostingDlg">CostingComplete = 1</Publish>
+              <Publish Event="EndDialog" Value="Return"><![CDATA[OutOfDiskSpace <> 1]]></Publish>
+              <Publish Event="SpawnDialog" Value="CustomOutOfRbDiskDlg">OutOfDiskSpace = 1 AND OutOfNoRbDiskSpace = 0 AND (PROMPTROLLBACKCOST="P" OR NOT PROMPTROLLBACKCOST)</Publish>
+              <Publish Event="EndDialog" Value="Return">OutOfDiskSpace = 1 AND OutOfNoRbDiskSpace = 0 AND PROMPTROLLBACKCOST="D"</Publish>
+              <Publish Event="EnableRollback" Value="False">OutOfDiskSpace = 1 AND OutOfNoRbDiskSpace = 0 AND PROMPTROLLBACKCOST="D"</Publish>
+              <Publish Event="SpawnDialog" Value="CustomOutOfDiskDlg">(OutOfDiskSpace = 1 AND OutOfNoRbDiskSpace = 1) OR (OutOfDiskSpace = 1 AND PROMPTROLLBACKCOST="F")</Publish>
+            </Control>
+            <Control Id="InstallNoShield" Type="PushButton" ElevationShield="no" X="236" Y="286" Width="56" Height="17" Default="yes" Hidden="yes" Disabled="yes" Text="!(loc.VerifyReadyDlgInstall)">
+              <Condition Action="show">NOT Installed AND NOT ALLUSERS</Condition>
+              <Condition Action="enable">NOT Installed</Condition>
+              <Condition Action="default">NOT Installed</Condition>
+              <Publish Event="SpawnWaitDialog" Value="WaitForCostingDlg">CostingComplete = 1</Publish>
+              <Publish Event="EndDialog" Value="Return"><![CDATA[OutOfDiskSpace <> 1]]></Publish>
+              <Publish Event="SpawnDialog" Value="CustomOutOfRbDiskDlg">OutOfDiskSpace = 1 AND OutOfNoRbDiskSpace = 0 AND (PROMPTROLLBACKCOST="P" OR NOT PROMPTROLLBACKCOST)</Publish>
+              <Publish Event="EndDialog" Value="Return">OutOfDiskSpace = 1 AND OutOfNoRbDiskSpace = 0 AND PROMPTROLLBACKCOST="D"</Publish>
+              <Publish Event="EnableRollback" Value="False">OutOfDiskSpace = 1 AND OutOfNoRbDiskSpace = 0 AND PROMPTROLLBACKCOST="D"</Publish>
+              <Publish Event="SpawnDialog" Value="CustomOutOfDiskDlg">(OutOfDiskSpace = 1 AND OutOfNoRbDiskSpace = 1) OR (OutOfDiskSpace = 1 AND PROMPTROLLBACKCOST="F")</Publish>
+            </Control>
+
+            <Control Id="Cancel" Type="PushButton" X="304" Y="286" Width="56" Height="17" Cancel="yes" Text="!(loc.WixUICancel)">
+              <Publish Event="SpawnDialog" Value="CustomCancelDlg">1</Publish>
+            </Control>
+            <Control Id="BannerBitmap" Type="Bitmap" X="0" Y="0" Width="370" Height="44" TabSkip="no" Text="!(loc.FileAssociationsDlgBannerBitmap)" />
+
+            <Control Id="BannerLine" Type="Line" X="0" Y="44" Width="370" Height="0" />
+            <Control Id="BottomLine" Type="Line" X="0" Y="275" Width="370" Height="0" />
+            <Control Id="Text" Type="Text" X="15" Y="53" Width="320" Height="40"
+                     Transparent="yes" NoPrefix="yes" Text="!(loc.FileAssociationsDlgText)"/>
+            <Control Id="Description" Type="Text" X="15" Y="23" Width="350" Height="40"
+                     Transparent="yes" NoPrefix="yes" Text="!(loc.FileAssociationsDlgDescription)"/>
+            <Control Id="Title" Type="Text" X="15" Y="7" Width="300" Height="40"
+                       Transparent="yes" NoPrefix="yes" Text="!(loc.FileAssociationsDlgTitle)"/>
+          </Dialog>
+        </UI>
+    </Fragment>
+</Wix>
