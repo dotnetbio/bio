@@ -1,1 +1,0 @@
-rmdir "TestUtils" /s /q
