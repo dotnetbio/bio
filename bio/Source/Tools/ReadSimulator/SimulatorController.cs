@@ -121,6 +121,12 @@ namespace ReadSimulator
         }
 
         /// <summary>
+        /// A random number generator used to create random
+        /// starting locations in a sequence.
+        /// </summary>
+        private static Random seqRandom = new Random();
+
+        /// <summary>
         /// Creates a subsequence from a source sequence given the settings provided
         /// </summary>
         /// <param name="index"></param>
@@ -129,14 +135,14 @@ namespace ReadSimulator
         /// <returns></returns>
         private static ISequence CreateSubsequence(long index, ISequence SequenceToSplit, SimulatorSettings simulatorSettings)
         {
-            Random random = new Random();
+            
             double err = (double)simulatorSettings.ErrorFrequency;
 
             // Set the length using the appropriate random number distribution type
             long subLength = simulatorSettings.SequenceLength;
             if (simulatorSettings.DistributionType == (int)Distribution.Uniform)
             {
-                subLength += random.Next(simulatorSettings.LengthVariation * 2) - simulatorSettings.LengthVariation;
+                subLength += seqRandom.Next(simulatorSettings.LengthVariation * 2) - simulatorSettings.LengthVariation;
             }
             else if (simulatorSettings.DistributionType == (int)Distribution.Normal)
             {
@@ -152,8 +158,7 @@ namespace ReadSimulator
                 subLength = SequenceToSplit.Count;
 
             // Set the start position
-            long startPosition = (long)Math.Floor(random.NextDouble() * (SequenceToSplit.Count - subLength));
-
+            long startPosition = (long)Math.Floor(seqRandom.NextDouble() * (SequenceToSplit.Count - subLength));
             byte[] sequenceBytes = new byte[subLength];
             IAlphabet resultSequenceAlphabet = SequenceToSplit.Alphabet;
 
@@ -182,9 +187,9 @@ namespace ReadSimulator
             for (long i = 0; i < subLength; i++)
             {
                 // Apply Errors if applicable
-                if (random.NextDouble() < err)
+                if (seqRandom.NextDouble() < err)
                 {
-                    sequenceBytes[i] = errorSource[random.Next(errorSource.Count - 1)];
+                    sequenceBytes[i] = errorSource[seqRandom.Next(errorSource.Count - 1)];
                 }
                 else
                 {
@@ -196,9 +201,9 @@ namespace ReadSimulator
             generatedSequence.ID = SequenceToSplit.ID + " (Split " + (index + 1) + ", " + generatedSequence.Count + "bp)";
 
             // Reverse Sequence if applicable
-            if (simulatorSettings.ReverseHalf && random.NextDouble() < 0.5f)
+            if (simulatorSettings.ReverseHalf && seqRandom.NextDouble() < 0.5f)
             {
-                return new DerivedSequence(generatedSequence, true, false);
+                 return new DerivedSequence(generatedSequence, true,true);
             }
 
             return generatedSequence;
