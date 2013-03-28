@@ -136,9 +136,9 @@ namespace Bio.Algorithms.Assembly.Padena
         /// Get simple paths in the graph.
         /// </summary>
         /// <returns>List of simple paths.</returns>
-        private BigList<ISequence> GetSimplePaths(bool createContigSequences)
+        private List<ISequence> GetSimplePaths(bool createContigSequences)
         {
-            BigList<ISequence> paths = new BigList<ISequence>();
+            List<ISequence> paths = new List<ISequence>();
             Parallel.ForEach(
                 this.graph.GetNodes(),
                 node =>
@@ -188,12 +188,12 @@ namespace Bio.Algorithms.Assembly.Padena
         /// <param name="node">Starting node of contig path.</param>
         /// <param name="isForwardDirection">Boolean indicating direction of path.</param>
         /// <param name="createContigSequences">Boolean indicating whether the contig sequences are to be created or not.</param>
-        private void TraceSimplePath(BigList<ISequence> assembledContigs, DeBruijnNode node, bool isForwardDirection, bool createContigSequences)
+        private void TraceSimplePath(List<ISequence> assembledContigs, DeBruijnNode node, bool isForwardDirection, bool createContigSequences)
         {
             ISequence nodeSequence = this.graph.GetNodeSequence(node);
             List<byte> contigSequence = new List<byte>(nodeSequence);
 
-            BigList<DeBruijnNode> contigPath = new BigList<DeBruijnNode> { node };
+            List<DeBruijnNode> contigPath = new List<DeBruijnNode> { node };
             KeyValuePair<DeBruijnNode, bool> nextNode =
                 isForwardDirection ? node.GetRightExtensionNodesWithOrientation().First() : node.GetLeftExtensionNodesWithOrientation().First();
             this.TraceSimplePathLinks(contigPath, contigSequence, isForwardDirection, nextNode.Value, nextNode.Key, createContigSequences);
@@ -236,7 +236,7 @@ namespace Bio.Algorithms.Assembly.Padena
         /// <param name="node">Next node on the path.</param>
         /// <param name="createContigSequences">Indicates whether the contig sequences are to be created or not.</param>
         private void TraceSimplePathLinks(
-            BigList<DeBruijnNode> contigPath,
+            List<DeBruijnNode> contigPath,
             List<byte> contigSequence,
             bool isForwardDirection,
             bool sameOrientation,
@@ -291,7 +291,7 @@ namespace Bio.Algorithms.Assembly.Padena
         /// <param name="createContigSequences">Boolean indicating whether contig sequences are to be created or not.</param>
         /// <returns>Boolean indicating if path was updated successfully.</returns>
         private bool CheckAndAddNode(
-            BigList<DeBruijnNode> contigPath,
+            List<DeBruijnNode> contigPath,
             List<byte> contigSequence,
             DeBruijnNode nextNode,
             bool isForwardDirection,

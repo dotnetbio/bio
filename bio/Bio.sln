@@ -1,14 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BioSequenceAssembler", "Source\Tools\BioSequenceAssembler\BioSequenceAssembler.csproj", "{49391C5C-F94E-4BD4-8139-5D4184557E79}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BedStats", "Source\Tools\DevUtils\BedStats\BedStats.csproj", "{04AE089E-B261-421F-B56F-7464E8D459AC}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VennTool", "Source\Tools\DevUtils\VennTool\VennTool.csproj", "{6A22023F-655F-4327-AEFF-E35866867019}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReadSimulator", "Source\Tools\ReadSimulator\ReadSimulator.csproj", "{1CEA873B-6050-42C9-845F-13B694504BCA}"
-EndProject
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{126712E3-C7E5-44EC-B7AA-E4BEBABAEA00}"
 	ProjectSection(SolutionItems) = preProject
 		Bio.vsmdi = Bio.vsmdi
@@ -17,6 +9,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Source\Tools\ReadMe.txt = Source\Tools\ReadMe.txt
 		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BioSequenceAssembler", "Source\Tools\BioSequenceAssembler\BioSequenceAssembler.csproj", "{49391C5C-F94E-4BD4-8139-5D4184557E79}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BedStats", "Source\Tools\DevUtils\BedStats\BedStats.csproj", "{04AE089E-B261-421F-B56F-7464E8D459AC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VennTool", "Source\Tools\DevUtils\VennTool\VennTool.csproj", "{6A22023F-655F-4327-AEFF-E35866867019}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReadSimulator", "Source\Tools\ReadSimulator\ReadSimulator.csproj", "{1CEA873B-6050-42C9-845F-13B694504BCA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MumUtil", "Source\Tools\MumUtil\MumUtil.csproj", "{050EF1B0-2525-4726-98D4-3ED96CBB696A}"
 EndProject
