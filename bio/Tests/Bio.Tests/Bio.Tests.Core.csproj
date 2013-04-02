@@ -1,0 +1,158 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{B58E121A-3D49-472F-A20A-72EC35575E53}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Bio.Tests</RootNamespace>
+    <AssemblyName>Bio.Tests</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\Build\Binaries\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>..\..\Source\BioFramework_Code_Rules.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <DocumentationFile>..\..\Build\Binaries\Debug\Bio.Tests.XML</DocumentationFile>
+    <CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <Prefer32Bit>false</Prefer32Bit>
+    <CodeAnalysisIgnoreGeneratedCode>false</CodeAnalysisIgnoreGeneratedCode>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\Build\Binaries\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
+    <CodeAnalysisRuleSet>..\..\Source\BioFramework_Code_Rules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+    <CodeAnalysisIgnoreGeneratedCode>false</CodeAnalysisIgnoreGeneratedCode>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.XML" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <CodeAnalysisDependentAssemblyPaths Condition=" '$(VS100COMNTOOLS)' != '' " Include="$(VS100COMNTOOLS)..\IDE\PrivateAssemblies">
+      <Visible>False</Visible>
+    </CodeAnalysisDependentAssemblyPaths>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Framework\AATreeTests.cs" />
+    <Compile Include="Framework\AlignmentHelpers.cs" />
+    <Compile Include="Framework\BigArrayTests.cs" />
+    <Compile Include="Framework\Extensions\AlphabetExtensionsTest.cs" />
+    <Compile Include="Framework\AlphabetsFriendlyNameTest.cs" />
+    <Compile Include="Framework\DeriveSequenceTests.cs" />
+    <Compile Include="Framework\Extensions\SequenceExtensionTests.cs" />
+    <Compile Include="Framework\IO\AppliedBiosystems\Ab1DataValidator.cs" />
+    <Compile Include="Framework\IO\AppliedBiosystems\Ab1Examples.cs" />
+    <Compile Include="Framework\IO\AppliedBiosystems\AbiTests.cs" />
+    <Compile Include="Framework\IO\AppliedBiosystems\TestAb1Data.cs" />
+    <Compile Include="Framework\IO\BAM\BAMTests.cs" />
+    <Compile Include="Framework\IO\SFF\SFFParserTests.cs" />
+    <Compile Include="Framework\IO\Snp\SnpParserTests.cs" />
+    <Compile Include="Framework\IO\SequenceParserTests.cs" />
+    <Compile Include="Framework\IO\Wiggle\WiggleTests.cs" />
+    <Compile Include="Framework\Matrix\BioMatrixTests.cs" />
+    <Compile Include="Framework\Algorithms\StringSearch\BoyerMooreTests.cs" />
+    <Compile Include="Framework\IO\Bed\BEDOperationsTests.cs" />
+    <Compile Include="Framework\Algorithms\Alignment\AlignerTests.cs" />
+    <Compile Include="Framework\Algorithms\Alignment\PairwiseOverlapAlignerTests.cs" />
+    <Compile Include="Framework\Algorithms\Translation\TranslationTests.cs" />
+    <Compile Include="Framework\AmbiguousRnaAlphabetTests.cs" />
+    <Compile Include="Framework\Assembly\OverlapDeNovoAssemblerTests.cs" />
+    <Compile Include="Framework\DnaAlphabetTests.cs" />
+    <Compile Include="Framework\IO\ClustalW\ClustalWTests.cs" />
+    <Compile Include="Framework\IO\FastA\FastaTests.cs" />
+    <Compile Include="Framework\IO\FastQ\FastQTests.cs" />
+    <Compile Include="Framework\IO\GenBank\GenBankTests.cs" />
+    <Compile Include="Framework\IO\Gff\GffTests.cs" />
+    <Compile Include="Framework\IO\Nexus\NexusTests.cs" />
+    <Compile Include="Framework\IO\Phylip\PhylipTests.cs" />
+    <Compile Include="Framework\MUMmer\LongestIncreasingSubsequence\LongestIncreasingSubsequenceTests.cs" />
+    <Compile Include="Framework\MUMmer\MUMmerAlignerTests.cs" />
+    <Compile Include="Framework\QualitativeSequenceTest.cs" />
+    <Compile Include="Framework\RnaAlphabetTests.cs" />
+    <Compile Include="Framework\SequenceStatisticsTests.cs" />
+    <Compile Include="Framework\SequenceTests.cs" />
+    <Compile Include="Framework\SparseSequenceTests.cs" />
+    <Compile Include="Framework\TestSequencesCopyToForBio.cs" />
+    <Compile Include="Framework\TestToStringForBio.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Framework\IO\SAM\SAMTests.cs" />
+    <Compile Include="Framework\IO\Xsv\XsvSparseTests.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Source\Framework\Bio.IO\Bio.IO.csproj">
+      <Project>{A35052D0-B35E-4FD7-B44F-D98AF21FE05A}</Project>
+      <Name>Bio.IO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Source\Framework\Bio\Bio.csproj">
+      <Project>{B53E11DF-F9A9-4939-893E-78E59872089A}</Project>
+      <Name>Bio</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bio.TestUtils\Bio.TestUtils.csproj">
+      <Project>{FC09FA89-39A2-4DB7-BB26-4DF616918506}</Project>
+      <Name>Bio.TestUtils</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>Xcopy /Y /S "$(ProjectDir)\..\TestData\TestUtils\*" "$(TargetDir)\TestUtils\*"</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

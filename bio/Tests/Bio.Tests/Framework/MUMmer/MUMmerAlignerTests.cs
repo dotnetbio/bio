@@ -1,8 +1,6 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using Bio;
+using Bio.Tests.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Bio.Algorithms.MUMmer;
 using Bio.Algorithms.Alignment;
@@ -26,24 +24,21 @@ namespace Bio.Tests.MUMmer
         [TestCategory("Priority0")]
         public void TestMUMmerAlignerSingleMum()
         {
-            string reference = "TTAATTTTAG";
-            string search = "AGTTTAGAG";
+            const string reference = "TTAATTTTAG";
+            const string search = "AGTTTAGAG";
 
-            Sequence referenceSeq = null;
-            Sequence searchSeq = null;
-            List<ISequence> searchSeqs = null;
+            ISequence referenceSeq = new Sequence(Alphabets.DNA, reference);
+            ISequence searchSeq = new Sequence(Alphabets.DNA, search);
 
-            referenceSeq = new Sequence(Alphabets.DNA, reference);
-            searchSeq = new Sequence(Alphabets.DNA, search);
+            var searchSeqs = new List<ISequence> {searchSeq};
 
-            searchSeqs = new List<ISequence>();
-            searchSeqs.Add(searchSeq);
+            MUMmerAligner mummer = new MUMmerAligner
+            {
+                LengthOfMUM = 3,
+                PairWiseAlgorithm = new NeedlemanWunschAligner(),
+                GapExtensionCost = -2
+            };
 
-            MUMmerAligner mummer = new MUMmerAligner();
-            mummer.LengthOfMUM = 3;
-            mummer.PairWiseAlgorithm = new NeedlemanWunschAligner();
-
-            mummer.GapExtensionCost = -2;
             IList<IPairwiseSequenceAlignment> result = mummer.Align(referenceSeq, searchSeqs);
 
             // Check if output is not null
@@ -51,13 +46,15 @@ namespace Bio.Tests.MUMmer
 
             IList<IPairwiseSequenceAlignment> expectedOutput = new List<IPairwiseSequenceAlignment>();
             IPairwiseSequenceAlignment align = new PairwiseSequenceAlignment();
-            PairwiseAlignedSequence alignedSeq = new PairwiseAlignedSequence();
-            alignedSeq.FirstSequence = new Sequence(Alphabets.DNA, "TTAATTTTAG--");
-            alignedSeq.SecondSequence = new Sequence(Alphabets.DNA, "---AGTTTAGAG");
-            alignedSeq.Consensus = new Sequence(AmbiguousDnaAlphabet.Instance, "TTAAKTTTAGAG");
-            alignedSeq.Score = -6;
-            alignedSeq.FirstOffset = 0;
-            alignedSeq.SecondOffset = 3;
+            PairwiseAlignedSequence alignedSeq = new PairwiseAlignedSequence
+            {
+                FirstSequence = new Sequence(Alphabets.DNA, "TTAATTTTAG--"),
+                SecondSequence = new Sequence(Alphabets.DNA, "---AGTTTAGAG"),
+                Consensus = new Sequence(AmbiguousDnaAlphabet.Instance, "TTAAKTTTAGAG"),
+                Score = 5,
+                FirstOffset = 0,
+                SecondOffset = 3
+            };
             align.PairwiseAlignedSequences.Add(alignedSeq);
             expectedOutput.Add(align);
             Assert.IsTrue(CompareAlignment(result, expectedOutput));
@@ -185,26 +182,20 @@ namespace Bio.Tests.MUMmer
         [TestCategory("Priority0")]
         public void TestMUMmerAlignerSingleMumRNA()
         {
-            string reference = "AUGCUUUUCCCCCCC";
-            string search = "UAUAUUUUGG";
+            const string reference = "AUGCUUUUCCCCCCC";
+            const string search = "UAUAUUUUGG";
 
-            Sequence referenceSeq = null;
-            Sequence searchSeq = null;
-            List<ISequence> searchSeqs = null;
+            MUMmerAligner mummer = new MUMmerAligner
+            {
+                LengthOfMUM = 3,
+                PairWiseAlgorithm = new NeedlemanWunschAligner(),
+                SimilarityMatrix = new SimilarityMatrix(SimilarityMatrix.StandardSimilarityMatrix.AmbiguousRna),
+                GapOpenCost = -8,
+                GapExtensionCost = -2
+            };
 
-            referenceSeq = new Sequence(Alphabets.RNA, reference);
-            searchSeq = new Sequence(Alphabets.RNA, search);
-
-            searchSeqs = new List<ISequence>();
-            searchSeqs.Add(searchSeq);
-
-            MUMmerAligner mummer = new MUMmerAligner();
-            mummer.LengthOfMUM = 3;
-            mummer.PairWiseAlgorithm = new NeedlemanWunschAligner();
-
-            mummer.SimilarityMatrix = new SimilarityMatrix(SimilarityMatrix.StandardSimilarityMatrix.AmbiguousRna);
-            mummer.GapOpenCost = -8;
-            mummer.GapExtensionCost = -2;
+            ISequence referenceSeq = new Sequence(Alphabets.RNA, reference);
+            List<ISequence> searchSeqs = new List<ISequence> { new Sequence(Alphabets.RNA, search) };
             IList<IPairwiseSequenceAlignment> result = mummer.Align(referenceSeq, searchSeqs);
 
             // Check if output is not null
@@ -212,16 +203,17 @@ namespace Bio.Tests.MUMmer
 
             IList<IPairwiseSequenceAlignment> expectedOutput = new List<IPairwiseSequenceAlignment>();
             IPairwiseSequenceAlignment align = new PairwiseSequenceAlignment();
-            PairwiseAlignedSequence alignedSeq = new PairwiseAlignedSequence();
-            alignedSeq.FirstSequence = new Sequence(Alphabets.RNA, "-AUGCUUUUCCCCCCC");
-            alignedSeq.SecondSequence = new Sequence(Alphabets.RNA, "UAU-AUUUU-----GG");
-            alignedSeq.Consensus = new Sequence(AmbiguousRnaAlphabet.Instance, "UAUGMUUUUCCCCCSS");
-            alignedSeq.Score = -14;
-            alignedSeq.FirstOffset = 1;
-            alignedSeq.SecondOffset = 0;
-            align.PairwiseAlignedSequences.Add(alignedSeq);
+            align.PairwiseAlignedSequences.Add(new PairwiseAlignedSequence
+            {
+                FirstSequence = new Sequence(Alphabets.RNA,  "-AUGCUUUUCCCCCCC--"),
+                SecondSequence = new Sequence(Alphabets.RNA, "UAUA-UUUU-------GG"),
+                Consensus = new Sequence(AmbiguousRnaAlphabet.Instance, "UAURCUUUUCCCCCCCGG"),
+                Score = -2,
+                FirstOffset = 1,
+                SecondOffset = 0
+            });
             expectedOutput.Add(align);
-            Assert.IsTrue(CompareAlignment(result, expectedOutput));
+            AlignmentHelpers.CompareAlignment(result, expectedOutput);
         }
 
         #endregion MUMer Test Cases

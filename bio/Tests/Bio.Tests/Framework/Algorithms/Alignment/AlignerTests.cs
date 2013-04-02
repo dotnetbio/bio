@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using Bio;
 using Bio.Algorithms.Alignment;
 using Bio.SimilarityMatrices;
-using Bio.Util.Logging;
+using Bio.Tests.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Bio.Tests.Algorithms.Alignment
@@ -24,50 +22,31 @@ namespace Bio.Tests.Algorithms.Alignment
         [TestCategory("Priority0")]
         public void SmithWatermanProteinSeqSimpleGap()
         {
-            string sequenceString1 = "HEAGAWGHEE";
-            string sequenceString2 = "PAWHEAE";
-
-            Sequence sequence1 = new Sequence(Alphabets.Protein, sequenceString1);
-            Sequence sequence2 = new Sequence(Alphabets.Protein, sequenceString2);
-
-            SimilarityMatrix sm = new SimilarityMatrix(SimilarityMatrix.StandardSimilarityMatrix.Blosum50);
-            int gapPenalty = -8;
-
-            SmithWatermanAligner sw = new SmithWatermanAligner();
-            sw.SimilarityMatrix = sm;
-            sw.GapOpenCost = gapPenalty;
-            IList<IPairwiseSequenceAlignment> result = sw.AlignSimple(sequence1, sequence2);
-
-            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-            "{0}, Simple; Matrix {1}; GapOpenCost {2}", sw.Name, sw.SimilarityMatrix.Name, sw.GapOpenCost));
-            foreach (IPairwiseSequenceAlignment sequenceResult in result)
+            IPairwiseSequenceAligner sw = new SmithWatermanAligner
             {
-                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                    "score {0}", sequenceResult.PairwiseAlignedSequences[0].Score));
-                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                    "input 0     {0}", sequenceResult.FirstSequence.ToString()));
-                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                    "input 1     {0}", sequenceResult.SecondSequence.ToString()));
-                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                    "result 0    {0}", sequenceResult.PairwiseAlignedSequences[0].FirstSequence.ToString()));
-                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                    "result 1    {0}", sequenceResult.PairwiseAlignedSequences[0].SecondSequence.ToString()));
-                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                    "consesus    {0}", sequenceResult.PairwiseAlignedSequences[0].Consensus.ToString()));
-            }
+                SimilarityMatrix = new SimilarityMatrix(SimilarityMatrix.StandardSimilarityMatrix.Blosum62), 
+                GapOpenCost = -8
+            };
+
+            ISequence sequence1 = new Sequence(Alphabets.Protein, "HEAGAWGHEE");
+            ISequence sequence2 = new Sequence(Alphabets.Protein, "PAWHEAE");
+            var result = sw.AlignSimple(sequence1, sequence2);
+            AlignmentHelpers.LogResult(sw, result);
 
             IList<IPairwiseSequenceAlignment> expectedOutput = new List<IPairwiseSequenceAlignment>();
             IPairwiseSequenceAlignment align = new PairwiseSequenceAlignment();
-            PairwiseAlignedSequence alignedSeq = new PairwiseAlignedSequence();
-            alignedSeq.FirstSequence = new Sequence(Alphabets.Protein, "AWGHE");
-            alignedSeq.SecondSequence = new Sequence(Alphabets.Protein, "AW-HE");
-            alignedSeq.Consensus = new Sequence(Alphabets.Protein, "AWGHE");
-            alignedSeq.Score = 28;
-            alignedSeq.FirstOffset = 0;
-            alignedSeq.SecondOffset = 3;
+            PairwiseAlignedSequence alignedSeq = new PairwiseAlignedSequence
+                {
+                    FirstSequence = new Sequence(Alphabets.Protein, "AWGHE"),
+                    SecondSequence = new Sequence(Alphabets.Protein, "AW-HE"),
+                    Consensus = new Sequence(Alphabets.AmbiguousProtein, "AWGHE"),
+                    Score = 20,
+                    FirstOffset = 4,
+                    SecondOffset = 1
+                };
             align.PairwiseAlignedSequences.Add(alignedSeq);
             expectedOutput.Add(align);
-            Assert.IsTrue(CompareAlignment(result, expectedOutput));
+            Assert.IsTrue(AlignmentHelpers.CompareAlignment(result, expectedOutput));
         }
 
         /// <summary>
@@ -78,51 +57,33 @@ namespace Bio.Tests.Algorithms.Alignment
         [TestCategory("Priority0")]
         public void SmithWatermanProteinSeqAffineGap()
         {
-            string sequenceString1 = "HEAGAWGHEE";
-            string sequenceString2 = "PAWHEAE";
+            IPairwiseSequenceAligner sw = new SmithWatermanAligner
+                {
+                    SimilarityMatrix = new SimilarityMatrix(SimilarityMatrix.StandardSimilarityMatrix.Blosum62),
+                    GapOpenCost = -8,
+                    GapExtensionCost = -1,
+                };
 
-            Sequence sequence1 = new Sequence(Alphabets.Protein, sequenceString1);
-            Sequence sequence2 = new Sequence(Alphabets.Protein, sequenceString2);
-
-            SimilarityMatrix sm = new SimilarityMatrix(SimilarityMatrix.StandardSimilarityMatrix.Blosum50);
-            int gapPenalty = -8;
-
-            SmithWatermanAligner sw = new SmithWatermanAligner();
-            sw.SimilarityMatrix = sm;
-            sw.GapOpenCost = gapPenalty;
-            sw.GapExtensionCost = -1;
+            ISequence sequence1 = new Sequence(Alphabets.Protein, "HEAGAWGHEE");
+            ISequence sequence2 = new Sequence(Alphabets.Protein, "PAWHEAE");
             IList<IPairwiseSequenceAlignment> result = sw.Align(sequence1, sequence2);
-
-            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-            "{0}, Affine; Matrix {1}; GapOpenCost {2}; GapExtenstionCost {3}", sw.Name, sw.SimilarityMatrix.Name, sw.GapOpenCost, sw.GapExtensionCost));
-            foreach (IPairwiseSequenceAlignment sequenceResult in result)
-            {
-                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                    "score {0}", sequenceResult.PairwiseAlignedSequences[0].Score));
-                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                    "input 0     {0}", sequenceResult.FirstSequence.ToString()));
-                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                    "input 1     {0}", sequenceResult.SecondSequence.ToString()));
-                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                    "result 0    {0}", sequenceResult.PairwiseAlignedSequences[0].FirstSequence.ToString()));
-                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                    "result 1    {0}", sequenceResult.PairwiseAlignedSequences[0].SecondSequence.ToString()));
-                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                    "consesus    {0}", sequenceResult.PairwiseAlignedSequences[0].Consensus.ToString()));
-            }
+            AlignmentHelpers.LogResult(sw, result);
 
             IList<IPairwiseSequenceAlignment> expectedOutput = new List<IPairwiseSequenceAlignment>();
             IPairwiseSequenceAlignment align = new PairwiseSequenceAlignment();
-            PairwiseAlignedSequence alignedSeq = new PairwiseAlignedSequence();
-            alignedSeq.FirstSequence = new Sequence(Alphabets.Protein, "AWGHE");
-            alignedSeq.SecondSequence = new Sequence(Alphabets.Protein, "AW-HE");
-            alignedSeq.Consensus = new Sequence(Alphabets.Protein, "AWGHE");
-            alignedSeq.Score = 28;
-            alignedSeq.FirstOffset = 0;
-            alignedSeq.SecondOffset = 3;
+            PairwiseAlignedSequence alignedSeq = new PairwiseAlignedSequence
+                {
+                    FirstSequence = new Sequence(Alphabets.Protein, "AWGHE"),
+                    SecondSequence = new Sequence(Alphabets.Protein, "AW-HE"),
+                    Consensus = new Sequence(Alphabets.AmbiguousProtein, "AWGHE"),
+                    Score = 20,
+                    FirstOffset = 4,
+                    SecondOffset = 1
+                };
             align.PairwiseAlignedSequences.Add(alignedSeq);
             expectedOutput.Add(align);
-            Assert.IsTrue(CompareAlignment(result, expectedOutput));
+
+            Assert.IsTrue(AlignmentHelpers.CompareAlignment(result, expectedOutput));
         }
 
         /// <summary>
@@ -133,58 +94,44 @@ namespace Bio.Tests.Algorithms.Alignment
         [TestCategory("Priority0")]
         public void SmithWatermanAlignerMultipleAlignments1()
         {
-            Sequence sequence1 = new Sequence(Alphabets.DNA, "AAATTCCCAG");
-            Sequence sequence2 = new Sequence(Alphabets.DNA, "AAAGCCC");
-            SimilarityMatrix sm = new DiagonalSimilarityMatrix(5, -20);
-            int gapPenalty = -10;
-            SmithWatermanAligner sw = new SmithWatermanAligner();
-            sw.SimilarityMatrix = sm;
-            sw.GapOpenCost = gapPenalty;
-            IList<IPairwiseSequenceAlignment> result = sw.AlignSimple(sequence1, sequence2);
-
-            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                "{0}, Simple; Matrix {1}; GapOpenCost {2}", sw.Name, sw.SimilarityMatrix.Name, sw.GapOpenCost));
-            foreach (IPairwiseSequenceAlignment sequenceResult in result)
+            IPairwiseSequenceAligner sw = new SmithWatermanAligner
             {
-                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                    "score {0}", sequenceResult.PairwiseAlignedSequences[0].Score));
-                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                    "input 0     {0}", sequenceResult.FirstSequence.ToString()));
-                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                    "input 1     {0}", sequenceResult.SecondSequence.ToString()));
-                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                    "result 0    {0}", sequenceResult.PairwiseAlignedSequences[0].FirstSequence.ToString()));
-                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                    "result 1    {0}", sequenceResult.PairwiseAlignedSequences[0].SecondSequence.ToString()));
-                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                    "consesus    {0}", sequenceResult.PairwiseAlignedSequences[0].Consensus.ToString()));
-            }
+                SimilarityMatrix = new DiagonalSimilarityMatrix(5, -20), 
+                GapOpenCost = -5
+            };
+
+            ISequence sequence1 = new Sequence(Alphabets.DNA, "AAATTCCCAG");
+            ISequence sequence2 = new Sequence(Alphabets.DNA, "AAAGCCC");
+            IList<IPairwiseSequenceAlignment> result = sw.AlignSimple(sequence1, sequence2);
+            AlignmentHelpers.LogResult(sw, result);
 
             IList<IPairwiseSequenceAlignment> expectedOutput = new List<IPairwiseSequenceAlignment>();
             IPairwiseSequenceAlignment align = new PairwiseSequenceAlignment(sequence1, sequence2);
 
             // First alignment
-            PairwiseAlignedSequence alignedSeq = new PairwiseAlignedSequence();
-            alignedSeq.FirstSequence = new Sequence(Alphabets.DNA, "AAA");
-            alignedSeq.SecondSequence = new Sequence(Alphabets.DNA, "AAA");
-            alignedSeq.Consensus = new Sequence(Alphabets.DNA, "AAA");
-            alignedSeq.Score = 15;
-            alignedSeq.FirstOffset = 0;
-            alignedSeq.SecondOffset = 0;
-            align.PairwiseAlignedSequences.Add(alignedSeq);
+            align.PairwiseAlignedSequences.Add(new PairwiseAlignedSequence
+            {
+                FirstSequence = new Sequence(Alphabets.DNA, "AAA"),
+                SecondSequence = new Sequence(Alphabets.DNA, "AAA"),
+                Consensus = new Sequence(Alphabets.DNA, "AAA"),
+                Score = 15,
+                FirstOffset = 0,
+                SecondOffset = 0
+            });
 
             // Second alignment
-            alignedSeq = new PairwiseAlignedSequence();
-            alignedSeq.FirstSequence = new Sequence(Alphabets.DNA, "CCC");
-            alignedSeq.SecondSequence = new Sequence(Alphabets.DNA, "CCC");
-            alignedSeq.Consensus = new Sequence(Alphabets.DNA, "CCC");
-            alignedSeq.Score = 15;
-            alignedSeq.FirstOffset = 0;
-            alignedSeq.SecondOffset = 1;
-            align.PairwiseAlignedSequences.Add(alignedSeq);
+            align.PairwiseAlignedSequences.Add(new PairwiseAlignedSequence
+            {
+                FirstSequence = new Sequence(Alphabets.DNA, "CCC"),
+                SecondSequence = new Sequence(Alphabets.DNA, "CCC"),
+                Consensus = new Sequence(Alphabets.DNA, "CCC"),
+                Score = 15,
+                FirstOffset = 5,
+                SecondOffset = 4
+            });
 
             expectedOutput.Add(align);
-            Assert.IsTrue(CompareAlignment(result, expectedOutput));
+            Assert.IsTrue(AlignmentHelpers.CompareAlignment(result, expectedOutput));
         }
 
         /// <summary>
@@ -195,58 +142,45 @@ namespace Bio.Tests.Algorithms.Alignment
         [TestCategory("Priority0")]
         public void SmithWatermanAlignerMultipleAlignments2()
         {
-            Sequence sequence1 = new Sequence(Alphabets.DNA, "AAAAGGGGGGCCCC");
-            Sequence sequence2 = new Sequence(Alphabets.DNA, "AAAATTTTTTTCCCC");
-            SimilarityMatrix sm = new DiagonalSimilarityMatrix(5, -4);
-            int gapPenalty = -10;
-            SmithWatermanAligner sw = new SmithWatermanAligner();
-            sw.SimilarityMatrix = sm;
-            sw.GapOpenCost = gapPenalty;
-            IList<IPairwiseSequenceAlignment> result = sw.AlignSimple(sequence1, sequence2);
-
-            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                "{0}, Simple; Matrix {1}; GapOpenCost {2}", sw.Name, sw.SimilarityMatrix.Name, sw.GapOpenCost));
-            foreach (IPairwiseSequenceAlignment sequenceResult in result)
+            IPairwiseSequenceAligner sw = new SmithWatermanAligner
             {
-                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                    "score {0}", sequenceResult.PairwiseAlignedSequences[0].Score));
-                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                    "input 0     {0}", sequenceResult.FirstSequence.ToString()));
-                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                    "input 1     {0}", sequenceResult.SecondSequence.ToString()));
-                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                    "result 0    {0}", sequenceResult.PairwiseAlignedSequences[0].FirstSequence.ToString()));
-                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                    "result 1    {0}", sequenceResult.PairwiseAlignedSequences[0].SecondSequence.ToString()));
-                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                    "consesus    {0}", sequenceResult.PairwiseAlignedSequences[0].Consensus.ToString()));
-            }
+                SimilarityMatrix = new DiagonalSimilarityMatrix(5, -4),
+                GapOpenCost = -5
+            };
+
+            ISequence sequence1 = new Sequence(Alphabets.DNA, "AAAAGGGGGGCCCC");
+            ISequence sequence2 = new Sequence(Alphabets.DNA, "AAAATTTTTTTCCCC");
+            IList<IPairwiseSequenceAlignment> result = sw.AlignSimple(sequence1, sequence2);
+            AlignmentHelpers.LogResult(sw, result);
 
             IList<IPairwiseSequenceAlignment> expectedOutput = new List<IPairwiseSequenceAlignment>();
-            IPairwiseSequenceAlignment align = new PairwiseSequenceAlignment(sequence1, sequence2);
 
             // First alignment
-            PairwiseAlignedSequence alignedSeq = new PairwiseAlignedSequence();
-            alignedSeq.FirstSequence = new Sequence(Alphabets.DNA, "AAAA");
-            alignedSeq.SecondSequence = new Sequence(Alphabets.DNA, "AAAA");
-            alignedSeq.Consensus = new Sequence(Alphabets.DNA, "AAAA");
-            alignedSeq.Score = 20;
-            alignedSeq.FirstOffset = 0;
-            alignedSeq.SecondOffset = 0;
-            align.PairwiseAlignedSequences.Add(alignedSeq);
+            IPairwiseSequenceAlignment align = new PairwiseSequenceAlignment(sequence1, sequence2);
+
+            align.PairwiseAlignedSequences.Add(new PairwiseAlignedSequence
+            {
+                FirstSequence = new Sequence(Alphabets.DNA, "AAAA"),
+                SecondSequence = new Sequence(Alphabets.DNA, "AAAA"),
+                Consensus = new Sequence(Alphabets.DNA, "AAAA"),
+                Score = 20,
+                FirstOffset = 0,
+                SecondOffset = 0
+            });
 
             // Second alignment
-            alignedSeq = new PairwiseAlignedSequence();
-            alignedSeq.FirstSequence = new Sequence(Alphabets.DNA, "CCCC");
-            alignedSeq.SecondSequence = new Sequence(Alphabets.DNA, "CCCC");
-            alignedSeq.Consensus = new Sequence(Alphabets.DNA, "CCCC");
-            alignedSeq.Score = 20;
-            alignedSeq.FirstOffset = 1;
-            alignedSeq.SecondOffset = 0;
-            align.PairwiseAlignedSequences.Add(alignedSeq);
+            align.PairwiseAlignedSequences.Add(new PairwiseAlignedSequence
+            {
+                FirstSequence = new Sequence(Alphabets.DNA, "CCCC"),
+                SecondSequence = new Sequence(Alphabets.DNA, "CCCC"),
+                Consensus = new Sequence(Alphabets.DNA, "CCCC"),
+                Score = 20,
+                FirstOffset = 10,
+                SecondOffset = 11
+            });
 
             expectedOutput.Add(align);
-            Assert.IsTrue(CompareAlignment(result, expectedOutput));
+            Assert.IsTrue(AlignmentHelpers.CompareAlignment(result, expectedOutput));
         }
         #endregion Smith-Waterman Aligner
 
@@ -260,40 +194,31 @@ namespace Bio.Tests.Algorithms.Alignment
         [TestCategory("Priority0")]
         public void NeedlemanWunschProteinSeqSimpleGap()
         {
-            string sequenceString1 = "HEAGAWGHEE";
-            string sequenceString2 = "PAWHEAE";
+            IPairwiseSequenceAligner nw = new NeedlemanWunschAligner
+            {
+                SimilarityMatrix = new SimilarityMatrix(SimilarityMatrix.StandardSimilarityMatrix.Blosum62),
+                GapOpenCost = -8
+            };
 
-            Sequence sequence1 = new Sequence(Alphabets.Protein, sequenceString1);
-            Sequence sequence2 = new Sequence(Alphabets.Protein, sequenceString2);
-
-            SimilarityMatrix sm = new SimilarityMatrix(SimilarityMatrix.StandardSimilarityMatrix.Blosum50);
-            int gapPenalty = -8;
-
-            NeedlemanWunschAligner nw = new NeedlemanWunschAligner();
-            nw.SimilarityMatrix = sm;
-            nw.GapOpenCost = gapPenalty;
+            ISequence sequence1 = new Sequence(Alphabets.Protein, "HEAGAWGHEE");
+            ISequence sequence2 = new Sequence(Alphabets.Protein, "PAWHEAE");
             IList<IPairwiseSequenceAlignment> result = nw.AlignSimple(sequence1, sequence2);
-
-            ApplicationLog.WriteLine(string.Format((IFormatProvider)null, "{0}, Simple; Matrix {1}; GapOpenCost {2}", nw.Name, nw.SimilarityMatrix.Name, nw.GapOpenCost));
-            ApplicationLog.WriteLine(string.Format((IFormatProvider)null, "score {0}", result[0].PairwiseAlignedSequences[0].Score));
-            ApplicationLog.WriteLine(string.Format((IFormatProvider)null, "input 0     {0}", result[0].FirstSequence.ToString()));
-            ApplicationLog.WriteLine(string.Format((IFormatProvider)null, "input 1     {0}", result[0].SecondSequence.ToString()));
-            ApplicationLog.WriteLine(string.Format((IFormatProvider)null, "result 0    {0}", result[0].PairwiseAlignedSequences[0].FirstSequence.ToString()));
-            ApplicationLog.WriteLine(string.Format((IFormatProvider)null, "result 1    {0}", result[0].PairwiseAlignedSequences[0].SecondSequence.ToString()));
-            ApplicationLog.WriteLine(string.Format((IFormatProvider)null, "consesus    {0}", result[0].PairwiseAlignedSequences[0].Consensus));
+            AlignmentHelpers.LogResult(nw, result);
 
             IList<IPairwiseSequenceAlignment> expectedOutput = new List<IPairwiseSequenceAlignment>();
             IPairwiseSequenceAlignment align = new PairwiseSequenceAlignment();
-            PairwiseAlignedSequence alignedSeq = new PairwiseAlignedSequence();
-            alignedSeq.FirstSequence = new Sequence(Alphabets.Protein, "HEAGAWGHE-E");
-            alignedSeq.SecondSequence = new Sequence(Alphabets.Protein, "--P-AW-HEAE");
-            alignedSeq.Consensus = new Sequence(AmbiguousProteinAlphabet.Instance, "HEXGAWGHEAE");
-            alignedSeq.Score = 1;
-            alignedSeq.FirstOffset = 0;
-            alignedSeq.SecondOffset = 2;
-            align.PairwiseAlignedSequences.Add(alignedSeq);
+            align.PairwiseAlignedSequences.Add(new PairwiseAlignedSequence
+            {
+                FirstSequence = new Sequence(Alphabets.Protein, "HEAGAWGHE-E"),
+                SecondSequence = new Sequence(Alphabets.Protein, "---PAW-HEAE"),
+                Consensus = new Sequence(AmbiguousProteinAlphabet.Instance, "HEAXAWGHEAE"),
+                Score = 12,
+                FirstOffset = 0,
+                SecondOffset = 0
+            });
             expectedOutput.Add(align);
-            Assert.IsTrue(CompareAlignment(result, expectedOutput));
+            
+            Assert.IsTrue(AlignmentHelpers.CompareAlignment(result, expectedOutput));
         }
 
         /// <summary>
@@ -304,49 +229,32 @@ namespace Bio.Tests.Algorithms.Alignment
         [TestCategory("Priority0")]
         public void NeedlemanWunschProteinSeqAffineGap()
         {
-            string sequenceString1 = "HEAGAWGHEE";
-            string sequenceString2 = "PAWHEAE";
+            IPairwiseSequenceAligner nw = new NeedlemanWunschAligner
+            {
+                SimilarityMatrix = new SimilarityMatrix(SimilarityMatrix.StandardSimilarityMatrix.Blosum62),
+                GapOpenCost = -8,
+                GapExtensionCost = -1
+            };
 
-            Sequence sequence1 = new Sequence(Alphabets.Protein, sequenceString1);
-            Sequence sequence2 = new Sequence(Alphabets.Protein, sequenceString2);
-
-            SimilarityMatrix sm = new SimilarityMatrix(SimilarityMatrix.StandardSimilarityMatrix.Blosum50);
-            int gapPenalty = -8;
-
-            NeedlemanWunschAligner nw = new NeedlemanWunschAligner();
-            nw.SimilarityMatrix = sm;
-            nw.GapOpenCost = gapPenalty;
-            nw.GapExtensionCost = -1;
+            ISequence sequence1 = new Sequence(Alphabets.Protein, "HEAGAWGHEE");
+            ISequence sequence2 = new Sequence(Alphabets.Protein, "PAWHEAE");
             IList<IPairwiseSequenceAlignment> result = nw.Align(sequence1, sequence2);
-
-            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                "{0}, Affine; Matrix {1}; GapOpenCost {2}; GapExtenstionCost {3}",
-                nw.Name, nw.SimilarityMatrix.Name, nw.GapOpenCost, nw.GapExtensionCost));
-            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                "score {0}", result[0].PairwiseAlignedSequences[0].Score));
-            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                "input 0     {0}", result[0].FirstSequence.ToString()));
-            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                "input 1     {0}", result[0].SecondSequence.ToString()));
-            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                "result 0    {0}", result[0].PairwiseAlignedSequences[0].FirstSequence.ToString()));
-            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                "result 1    {0}", result[0].PairwiseAlignedSequences[0].SecondSequence.ToString()));
-            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                "consesus    {0}", result[0].PairwiseAlignedSequences[0].Consensus));
+            AlignmentHelpers.LogResult(nw, result);
 
             IList<IPairwiseSequenceAlignment> expectedOutput = new List<IPairwiseSequenceAlignment>();
             IPairwiseSequenceAlignment align = new PairwiseSequenceAlignment();
-            PairwiseAlignedSequence alignedSeq = new PairwiseAlignedSequence();
-            alignedSeq.FirstSequence = new Sequence(Alphabets.Protein, "HEAGAWGHE-E");
-            alignedSeq.SecondSequence = new Sequence(Alphabets.Protein, "---PAW-HEAE");
-            alignedSeq.Consensus = new Sequence(AmbiguousProteinAlphabet.Instance, "HEAXAWGHEAE");
-            alignedSeq.Score = 14;
-            alignedSeq.FirstOffset = 0;
-            alignedSeq.SecondOffset = 3;
-            align.PairwiseAlignedSequences.Add(alignedSeq);
+            align.PairwiseAlignedSequences.Add(new PairwiseAlignedSequence
+            {
+                FirstSequence = new Sequence(Alphabets.Protein, "HEAG-AWGHE-E"),
+                SecondSequence = new Sequence(Alphabets.Protein, "----PAW-HEAE"),
+                Consensus = new Sequence(AmbiguousProteinAlphabet.Instance, "HEAGPAWGHEAE"),
+                Score = 12,
+                FirstOffset = 0,
+                SecondOffset = 0
+            });
             expectedOutput.Add(align);
-            Assert.IsTrue(CompareAlignment(result, expectedOutput));
+
+            Assert.IsTrue(AlignmentHelpers.CompareAlignment(result, expectedOutput));
         }
 
         /// <summary>
@@ -357,42 +265,31 @@ namespace Bio.Tests.Algorithms.Alignment
         [TestCategory("Priority0")]
         public void NeedlemanWunschDnaSeqSimpleGap()
         {
-            Sequence sequence1 = new Sequence(Alphabets.DNA, "GAATTCAGTTA");
-            Sequence sequence2 = new Sequence(Alphabets.DNA, "GGATCGA");
-            SimilarityMatrix sm = new DiagonalSimilarityMatrix(2, -1);
-            int gapPenalty = -2;
-            NeedlemanWunschAligner nw = new NeedlemanWunschAligner();
-            nw.SimilarityMatrix = sm;
-            nw.GapOpenCost = gapPenalty;
+            IPairwiseSequenceAligner nw = new NeedlemanWunschAligner
+            {
+                SimilarityMatrix = new DiagonalSimilarityMatrix(2, -1),
+                GapOpenCost = -2
+            };
 
+            ISequence sequence1 = new Sequence(Alphabets.DNA, "GAATTCAGTTA");
+            ISequence sequence2 = new Sequence(Alphabets.DNA, "GGATCGA");
             IList<IPairwiseSequenceAlignment> result = nw.AlignSimple(sequence1, sequence2);
-
-            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                "{0}, Simple; Matrix {1}; GapOpenCost {2}", nw.Name, nw.SimilarityMatrix.Name, nw.GapOpenCost));
-            ApplicationLog.WriteLine(string.Format(
-                (IFormatProvider)null, "score {0}", result[0].PairwiseAlignedSequences[0].Score));
-            ApplicationLog.WriteLine(string.Format(
-                (IFormatProvider)null, "input 0     {0}", result[0].FirstSequence.ToString()));
-            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                "input 1     {0}", result[0].SecondSequence.ToString()));
-            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                "result 0    {0}", result[0].PairwiseAlignedSequences[0].FirstSequence.ToString()));
-            ApplicationLog.WriteLine(string.Format((IFormatProvider)null, "result 1    {0}", result[0].PairwiseAlignedSequences[0].SecondSequence.ToString()));
-            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                "consesus    {0}", result[0].PairwiseAlignedSequences[0].Consensus));
+            AlignmentHelpers.LogResult(nw, result);
 
             IList<IPairwiseSequenceAlignment> expectedOutput = new List<IPairwiseSequenceAlignment>();
             IPairwiseSequenceAlignment align = new PairwiseSequenceAlignment();
-            PairwiseAlignedSequence alignedSeq = new PairwiseAlignedSequence();
-            alignedSeq.FirstSequence = new Sequence(Alphabets.DNA, "GAATTCAGTTA");
-            alignedSeq.SecondSequence = new Sequence(Alphabets.DNA, "GGA-TC-G--A");
-            alignedSeq.Consensus = new Sequence(AmbiguousDnaAlphabet.Instance, "GRATTCAGTTA");
-            alignedSeq.Score = 3;
-            alignedSeq.FirstOffset = 0;
-            alignedSeq.SecondOffset = 0;
-            align.PairwiseAlignedSequences.Add(alignedSeq);
+            align.PairwiseAlignedSequences.Add(new PairwiseAlignedSequence
+            {
+                FirstSequence = new Sequence(Alphabets.DNA, "GAATTCAGTTA"),
+                SecondSequence = new Sequence(Alphabets.DNA, "GGAT-C-G--A"),
+                Consensus = new Sequence(AmbiguousDnaAlphabet.Instance, "GRATTCAGTTA"),
+                Score = 3,
+                FirstOffset = 0,
+                SecondOffset = 0
+            });
             expectedOutput.Add(align);
-            Assert.IsTrue(CompareAlignment(result, expectedOutput));
+            
+            Assert.IsTrue(AlignmentHelpers.CompareAlignment(result, expectedOutput));
         }
 
         #endregion Needleman-Wunsch Aligner
@@ -458,7 +355,7 @@ namespace Bio.Tests.Algorithms.Alignment
             alignedSeq.SecondOffset = 7;
             align.PairwiseAlignedSequences.Add(alignedSeq);
             expectedOutput.Add(align);
-            Assert.IsTrue(CompareAlignment(result, expectedOutput));
+            Assert.IsTrue(AlignmentHelpers.CompareAlignment(result, expectedOutput));
         }
 
         /// <summary>
@@ -511,7 +408,7 @@ namespace Bio.Tests.Algorithms.Alignment
             alignedSeq.SecondOffset = 0;
             align.PairwiseAlignedSequences.Add(alignedSeq);
             expectedOutput.Add(align);
-            Assert.IsTrue(CompareAlignment(result, expectedOutput));
+            Assert.IsTrue(AlignmentHelpers.CompareAlignment(result, expectedOutput));
         }
 
         /// <summary>
@@ -574,7 +471,7 @@ namespace Bio.Tests.Algorithms.Alignment
             alignedSeq.SecondOffset = 0;
             align.PairwiseAlignedSequences.Add(alignedSeq);
             expectedOutput.Add(align);
-            Assert.IsTrue(CompareAlignment(result, expectedOutput));
+            Assert.IsTrue(AlignmentHelpers.CompareAlignment(result, expectedOutput));
         }
 
         /// <summary>
@@ -646,7 +543,7 @@ namespace Bio.Tests.Algorithms.Alignment
             alignedSeq.SecondOffset = 1;
             align.PairwiseAlignedSequences.Add(alignedSeq);
             expectedOutput.Add(align);
-            Assert.IsTrue(CompareAlignment(result, expectedOutput));
+            Assert.IsTrue(AlignmentHelpers.CompareAlignment(result, expectedOutput));
         }
 
         /// <summary>
@@ -789,63 +686,9 @@ namespace Bio.Tests.Algorithms.Alignment
             alignedSeq.SecondOffset = 0;
             align.PairwiseAlignedSequences.Add(alignedSeq);
             expectedOutput.Add(align);
-            Assert.IsTrue(CompareAlignment(result, expectedOutput));
+            Assert.IsTrue(AlignmentHelpers.CompareAlignment(result, expectedOutput));
         }
 
         #endregion NUCmer Test Cases
-
-        /// <summary>
-        /// Compare the alignment of mummer and defined alignment
-        /// </summary>
-        /// <param name="result">output of Aligners</param>
-        /// <param name="expectedAlignment">expected output</param>
-        /// <returns>Compare result of alignments</returns>
-        private static bool CompareAlignment(
-                IList<IPairwiseSequenceAlignment> result,
-                IList<IPairwiseSequenceAlignment> expectedAlignment)
-        {
-            bool output = true;
-            if (result.Count == expectedAlignment.Count)
-            {
-                for (int count = 0; count < result.Count; count++)
-                {
-                    if (result[count].PairwiseAlignedSequences.Count == expectedAlignment[count].PairwiseAlignedSequences.Count)
-                    {
-                        for (int count1 = 0; count1 < result[count].PairwiseAlignedSequences.Count; count1++)
-                        {
-                            if (result[count].PairwiseAlignedSequences[count1].FirstSequence.ToString().Equals(
-                                    expectedAlignment[count].PairwiseAlignedSequences[count1].FirstSequence.ToString())
-                                && result[count].PairwiseAlignedSequences[count1].SecondSequence.ToString().Equals(
-                                    expectedAlignment[count].PairwiseAlignedSequences[count1].SecondSequence.ToString())
-                                && result[count].PairwiseAlignedSequences[count1].Consensus.ToString().Equals(
-                                    expectedAlignment[count].PairwiseAlignedSequences[count1].Consensus.ToString())
-                                && result[count].PairwiseAlignedSequences[count1].FirstOffset ==
-                                    expectedAlignment[count].PairwiseAlignedSequences[count1].FirstOffset
-                                && result[count].PairwiseAlignedSequences[count1].SecondOffset ==
-                                    expectedAlignment[count].PairwiseAlignedSequences[count1].SecondOffset
-                                && result[count].PairwiseAlignedSequences[count1].Score ==
-                                    expectedAlignment[count].PairwiseAlignedSequences[count1].Score)
-                            {
-                                output = true;
-                            }
-                            else
-                            {
-                                return false;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                }
-            }
-            else
-            {
-                return false;
-            }
-
-            return output;
-        }
     }
 }

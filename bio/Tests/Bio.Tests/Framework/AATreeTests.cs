@@ -13,7 +13,7 @@ namespace Bio.Tests.Framework
     public class AATreeTests
     {
         /// <summary>
-        /// Test AATree by adding values sorder by ascending order.
+        /// Test AATree by adding values order by ascending order.
         /// </summary>
         [TestMethod]
         public void TestByAddingValuesSortedByAscOrder()

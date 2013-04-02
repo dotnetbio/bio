@@ -14,7 +14,6 @@ namespace Bio.Tests.IO.Bed
     [TestClass]
     public class BEDOperationsTests
     {
-
         /// <summary>
         /// Method to test Merge operation.
         /// </summary>
