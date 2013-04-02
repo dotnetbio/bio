@@ -1,0 +1,10 @@
+@0
+>gi|186972391|gb|ACC99454.1| maturase K [Scaphosepalum rapax] Dummy value
+gi|186972391|gb|ACC99454.1| maturase K [Scaphosepalum rapax] Dummy value!@0
+      3826       5668       3224       5066 0 0 0
+*
+@210
+>gi|186972391|gb|ACC99454.1| maturase K [Scaphosepalum rapax] Dummy value
+gi|186972391|gb|ACC99454.1| maturase K [Scaphosepalum rapax] Dummy value!@0
+      3828       5668          0       1840 0 0 0
+*

@@ -1,0 +1,53 @@
+LOCUS       MUSIGHBA1                408 bp    mRNA    linear   ROD 27-APR-1993
+DEFINITION  Mouse Ig active H-chain V-region from MOPC21, subgroup VH-II, mRNA.
+ACCESSION   J00522
+VERSION     J00522.1  GI:195052
+KEYWORDS    constant region; immunoglobulin heavy chain; processed gene;
+            variable region; variable region subgroup VH-II.
+SOURCE      Mus musculus (house mouse)
+  ORGANISM  Mus musculus
+            Eukaryota; Metazoa; Chordata; Craniata; Vertebrata; Euteleostomi;
+            Mammalia; Eutheria; Euarchontoglires; Glires; Rodentia;
+            Sciurognathi; Muroidea; Muridae; Murinae; Mus.
+REFERENCE   1  (bases 1 to 408)
+  AUTHORS   Bothwell,A.L., Paskind,M., Reth,M., Imanishi-Kari,T., Rajewsky,K.
+            and Baltimore,D.
+  TITLE     Heavy chain variable region contribution to the NPb family of
+            antibodies: somatic mutation evident in a gamma 2a variable region
+  JOURNAL   Cell 24 (3), 625-637 (1981)
+   PUBMED   6788376
+COMMENT     Original source text: Mouse C57Bl/6 myeloma MOPC21, cDNA to mRNA,
+            clone pAB-gamma-1-4.
+            [1] studies the response in C57Bl/6 mice to NP proteins. It is
+            called the b-NP response because this mouse strain carries the
+            b-IgH haplotype. See other entries for b-NP response for more
+            comments.
+FEATURES             Location/Qualifiers
+     source          1..408
+                     /organism="Mus musculus"
+                     /mol_type="mRNA"
+                     /db_xref="taxon:10090"
+     CDS             <1..>408
+                     /note="Ig H-chain V-region from MOPC21"
+                     /codon_start=1
+                     /protein_id="AAD15290.1"
+                     /db_xref="GI:195055"
+                     /translation="RLNLVFLVLILKGVQCDVQLVESGGGLVQPGGSRKLSCAASGFT
+                     FSSFGMHWVRQAPEKGLEWVAYISSGSSTLHYADTVKGRFTISRDNPKNTLFLQMTSL
+                     RSEDTAMYYCARWGNYPYYAMDYWGQGTSVTVSS"
+     sig_peptide     <1..48
+     mat_peptide     49..>408
+                     /product="Ig H-chain V-region from MOPC21 mature peptide"
+     misc_recomb     343..344
+                     /note="V-region end/D-region start (+/- 1bp)"
+     misc_recomb     356..357
+                     /note="D-region end/J-region start"
+ORIGIN      57 bp upstream of PvuII site, chromosome 12.
+        1 aggctcaatt tagttttcct tgtccttatt ttaaaaggtg tccagtgtga tgtgcagctg
+       61 gtggagtctg ggggaggctt agtgcagcct ggagggtccc ggaaactctc ctgtgcagcc
+      121 tctggattca ctttcagtag ctttggaatg cactgggttc gtcaggctcc agagaagggg
+      181 ctggagtggg tcgcatacat tagtagtggc agtagtaccc tccactatgc agacacagtg
+      241 aagggccgat tcaccatctc aagagacaat cccaagaaca ccctgttcct gcaaatgacc
+      301 agtctaaggt ctgaggacac ggccatgtat tactgtgcaa gatggggtaa ctacccttac
+      361 tatgctatgg actactgggg tcaaggaacc tcagtcaccg tctcctca
+//

@@ -1,0 +1,25 @@
+LOCUS       ALSEB2MP1                291 bp    DNA     linear   PRI 30-JUN-1998
+DEFINITION  Alouatta seniculus beta-2-microglobulin precursor, gene, exon 1.
+ACCESSION   AF032047
+VERSION     AF032047.1  GI:3264957
+REFERENCE   1  (bases 1 to 291)
+  AUTHORS   Canavez,F.C., Ladasky,J.J., Muniz,J.A., Seuanez,H.N., Parham,P. and
+            Cavanez,C.
+  TITLE     beta2-Microglobulin in neotropical primates (Platyrrhini)
+  JOURNAL   Immunogenetics 48 (2), 133-140 (1998)
+  MEDLINE   98298008
+   PUBMED   9634477
+REFERENCE   2  (bases 1 to 291)
+  AUTHORS   Canavez,F.C., Ladasky,J.J., Seuanez,H.N. and Parham,P.
+  JOURNAL   Submitted (31-OCT-1997) Structural Biology, Stanford University,
+            Fairchild Building, Campus West Dr., Room #D-100, Stanford, CA
+            94305-5126, USA
+BASE COUNT       31 a    103 c     78 g     79 t
+ORIGIN      
+        1 cggtccccgc gggccttctc ctgattggct gtccccgcgg gccttgtcct tattggctgt
+       61 gcccgactcc gtataacata aatagaggcg tcgagttgcg cgggcattac tgcagcggac
+      121 cgcacttggg tcgagatggc tcgcttcgtg gtggtagccc tgctcgcgct actctctctg
+      181 tctggcctgg aggctatcca gcgtaagtct ctcctcccgt ccggcgctgg tcctttccct
+      241 cccgccccaa ctctctgtag ccctctctgt gctctctcgt tccgttacct g
+//
+

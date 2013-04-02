@@ -1,0 +1,38 @@
+LOCUS       CAA89576                 109 aa            linear   PLN 11-AUG-1997
+DEFINITION  CYC1 [Saccharomyces cerevisiae].
+ACCESSION   CAA89576
+VERSION     CAA89576.1  GI:1015707
+DBSOURCE    embl locus SCYJR048W, accession Z49548.1
+KEYWORDS    .
+SOURCE      Saccharomyces cerevisiae (baker's yeast)
+  ORGANISM  Saccharomyces cerevisiae
+            Eukaryota; Fungi; Ascomycota; Saccharomycotina; Saccharomycetes;
+            Saccharomycetales; Saccharomycetaceae; Saccharomyces.
+REFERENCE   1  (residues 1 to 109)
+  AUTHORS   Huang,M.E., Chuat,J.C. and Galibert,F.
+  JOURNAL   Unpublished
+REFERENCE   2  (residues 1 to 109)
+  AUTHORS   MIPS.
+  TITLE     Direct Submission
+  JOURNAL   Submitted (25-SEP-1995) Data collected by MIPS on behalf of the
+            European yeast chromosome X sequencing project. MIPS at the
+            Max-Planck-Institut fuer Biochemie, Am Klopferspitz 18a D-82152
+            Martinsried, FRG; E-mail: Mewes@mips.embnet.org
+FEATURES             Location/Qualifiers
+     source          1..109
+                     /organism="Saccharomyces cerevisiae"
+                     /db_xref="taxon:4932"
+                     /chromosome="X"
+     Protein         1..109
+                     /name="CYC1"
+     CDS             1..109
+                     /gene="CYC1"
+                     /coded_by="Z49548.1:954..1283"
+                     /note="ORF YJR048w"
+                     /db_xref="GOA:P00044"
+                     /db_xref="SGD:S0003809"
+                     /db_xref="UniProtKB/Swiss-Prot:P00044"
+ORIGIN      
+        1 mtefkagsak kgatlfktrc lqchtvekgg phkvgpnlhg ifgrhsgqae gysytdanik
+       61 knvlwdennm seyltnpkky ipgtkmafgg lkkekdrndl itylkkace
+//

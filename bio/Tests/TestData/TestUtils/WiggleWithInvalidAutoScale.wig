@@ -1,0 +1,11 @@
+track type=wiggle_0 autoScale="Invalid" name="ArrayExpt1" description="20 degrees, 2 hr"
+variableStep chrom=chr19 span=150
+59304701 10.0
+59304901 12.5
+59305401 15.0
+59305601 17.5
+59305901 20.0
+59306081 17.5
+59306301 15.0
+59306691 12.5
+59307871 10.0

@@ -1,0 +1,17 @@
+﻿LOCUS       CAA89576                 109 aa            linear   PLN 11-AUG-1997
+REFERENCE   10000000000  (residues 1 to 109)
+  AUTHORS   Huang,M.E., Chuat,J.C. and Galibert,F.
+  JOURNAL   Unpublished
+  REMARK    No REMARK
+REFERENCE   2  (residues 1 to 109)
+  AUTHORS   MIPS.
+  TITLE     Direct Submission
+  JOURNAL   Submitted (25-SEP-1995) Data collected by MIPS on behalf of the
+            European yeast chromosome X sequencing project. MIPS at the
+            Max-Planck-Institut fuer Biochemie, Am Klopferspitz 18a D-82152
+            Martinsried, FRG; E-mail: Mewes@mips.embnet.org
+PRIMARY     TPA_SPAN            PRIMARY_IDENTIFIER PRIMARY_SPAN        COMP
+            1-455               BE554781.1         1-455
+            177-687             BG146074.1         1-511
+            608-956             AA671765.1         45-393
+            656-1162            BE982078.1         1-507               c

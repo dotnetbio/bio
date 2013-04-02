@@ -1,0 +1,2 @@
+> Escherichia coli str. K-12 substr. MG1655 chromosome, complete genome from NC-000913.gbk
+       1   4086211       562

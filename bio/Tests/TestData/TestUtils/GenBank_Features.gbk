@@ -1,0 +1,259 @@
+LOCUS       ALSEB2MP1                291 bp    DNA     linear   PRI 30-JUN-1998
+DEFINITION  Alouatta seniculus beta-2-microglobulin precursor, gene, exon 1.
+ACCESSION   AF032047
+VERSION     AF032047.1  GI:3264957
+KEYWORDS    .
+SEGMENT     1 of 2
+SOURCE      Alouatta seniculus (howler monkey)
+  ORGANISM  Alouatta seniculus
+            Eukaryota; Metazoa; Chordata; Craniata; Vertebrata; Euteleostomi;
+            Mammalia; Eutheria; Primates; Platyrrhini; Cebidae; Alouattinae;
+            Alouatta.
+REFERENCE   1  (bases 1 to 291)
+  AUTHORS   Canavez,F.C., Ladasky,J.J., Muniz,J.A., Seuanez,H.N., Parham,P. and
+            Cavanez,C.
+  TITLE     beta2-Microglobulin in neotropical primates (Platyrrhini)
+  JOURNAL   Immunogenetics 48 (2), 133-140 (1998)
+  MEDLINE   98298008
+   PUBMED   9634477
+REFERENCE   2  (bases 1 to 291)
+  AUTHORS   Canavez,F.C., Ladasky,J.J., Seuanez,H.N. and Parham,P.
+  TITLE     Direct Submission
+  JOURNAL   Submitted (31-OCT-1997) Structural Biology, Stanford University,
+            Fairchild Building, Campus West Dr., Room #D-100, Stanford, CA
+            94305-5126, USA
+FEATURES             Location/Qualifiers
+     source          1..291
+                     /organism="Alouatta seniculus"
+                     /mol_type="genomic DNA"
+                     /db_xref="taxon:9503"
+     mRNA            join(<136..202,AF032048.1:67..345,AF032048.1:1162..1189)
+                     /product="beta-2-microglobulin precursor"
+     sig_peptide     136..195
+     CDS             136..202
+                     /allele="KIR2DL2*00101 variant"
+                     /codon_start=1
+                     /gene="dnaA"
+                     /citation="2.7.6.5"
+                     /product="beta-2-microglobulin precursor"
+                     /protein_id="AAC52091.1"
+                     /db_xref="GI:3264961"
+                     /translation="MARFVVVALLALLSLSGLEAIQHAPKIQVYSRHPAENGKPNFLN
+                     CYVSGFHPSDIEVDLLKNGKKIEKVEHSDLSFSKDWSFYLLYYTEFTPNEKDEYACRV
+                     SHVTFPTPKTVKWDRTM"
+                     /experiment="KIR2DL2*00101 variant"
+                     /function="this protein binds specifically to 9 bp nucleotide"
+                     /gene_synonym="ABCC7" 
+                     /inference="cDNA"
+                     /label="ProjectID"
+                     /locus_tag="ACL_0008"
+                     /map="6"
+                     /note="T-box leader"
+                     /old_locus_tag="YPO0002"
+     sig_peptide     136..195
+     exon            <136..202
+                     /number=1
+     intron          203..>291
+                     /number=1
+    misc_structure   190..256
+                     /allele="KIR2DL2*00101 variant"
+                     /db_xref="GI:161984996"
+                     /gene="dnaA"
+                     /citation="2.7.6.5"
+                     /experiment="KIR2DL2*00101 variant"
+                     /function="this protein binds specifically to 9 bp nucleotide"
+                     /gene_synonym="ABCC7" 
+                     /inference="cDNA"
+                     /label="ProjectID"
+                     /locus_tag="ACL_0008"
+                     /map="6"
+                     /note="T-box leader"
+                     /old_locus_tag="YPO0002"
+   transit_peptide   3010..4500
+                     /allele="3T3-L1 variant"
+                     /db_xref="taxon:9606"
+                     /gene="GCN1L1"
+                     /citation="3.6.5"
+                     /experiment="KIR2DL2*00101 variant"
+                     /function="GO:0005515 - protein binding"
+                     /gene_synonym="PKR7" 
+                     /inference="aDNA"
+                     /label="paxillin"
+                     /locus_tag="AGC_009"
+                     /map="2"
+                     /note="Derived by automated computational analysis using gene prediction method: BestRefseq. Supporting evidence includes similarity to: 1 mRNA"
+                     /old_locus_tag="RSc0382"
+   stem_loop         45818..45979
+                     /allele="NM_002859 variant"
+                     /db_xref="MIM:602505"
+                     /gene="PXN"
+                     /citation="10.6.5"
+                     /experiment="ACGT variant"
+                     /function="0046872 - metal ion binding"
+                     /gene_synonym="IEA" 
+                     /inference="aDNA"
+                     /label="TAS"
+                     /locus_tag="YPO0002"
+                     /map="3"
+                     /note="putative oriC"
+                     /old_locus_tag="DnaA"
+    modified_base    890..1234
+                     /allele="adh1-1"
+                     /db_xref="UniProtKB/Swiss-Prot:P28763"
+                     /gene="ilvE" 
+                     /citation=[3]
+                     /experiment="Northern blot"
+                     /function="essential for recognition of cofactor"
+                     /gene_synonym="Hox-3.3"
+                     /inference="similar to DNA sequence:INSD:AY411252.1"
+                     /label="Alb1_exon1"
+                     /locus_tag="A1C_00001"
+                     /map="8q12-13"
+                     /note="This qualifier is equivalent to a comment"
+                     /old_locus_tag="RSc0382"
+  precursor_RNA      60..6865
+                     /allele="phy"
+                     /db_xref="GI:161984996"
+                     /gene="recF" 
+                     /citation=[6]
+                     /experiment="heterologous expression system of Xenopus laevis oocytes"
+                     /function="this enzyme catalyzes the transfer of a total of four methyl groups from S-adenosyl-l-methionine to two adjacent adenosine bases in 16S rRNA"
+                     /gene_synonym="Hoxc6"
+                     /inference="alignment:Splign:1.0"
+                     /label="Alb1_precursor"
+                     /locus_tag="A1C_00001"
+                     /map="8q12-13"
+                     /note="this protein contains three predicted transmembrane helices"
+                     /old_locus_tag="YPO0002"
+  polyA_site         1..500
+                      /allele="phy"
+                     /db_xref="GI:161984996"
+                     /gene="recF" 
+                     /citation=[6]
+                     /experiment="heterologous expression system of Xenopus laevis oocytes"
+                     /gene_synonym="Hoxc6"
+                     /inference="alignment:Splign:1.0"
+                     /label="Alb1_precursor"
+                     /locus_tag="A1C_00001"
+                     /map="8q12-13"
+                     /note="this protein contains three predicted transmembrane helices"
+                     /old_locus_tag="YPO0002"
+ misc_binding        1000..10000
+                     /allele="3T3-L1 variant"
+                     /db_xref="taxon:9606"
+                     /gene="GCN1L1"
+                     /citation="3.6.5"
+                     /experiment="KIR2DL2*00101 variant"
+                     /function="GO:0005515 - protein binding"
+                     /gene_synonym="PKR7" 
+                     /inference="aDNA"
+                     /label="paxillin"
+                     /locus_tag="AGC_009"
+                     /map="2"
+                     /note="Derived by automated computational analysis using gene prediction method: BestRefseq. Supporting evidence includes similarity to: 1 mRNA"
+                     /old_locus_tag="RSc0382"
+ enhancer            200..30000
+                      /allele="KIR2DL2*00101 variant"
+                     /db_xref="GI:161984996"
+                     /gene="dnaA"
+                     /citation="2.7.6.5"
+                     /experiment="KIR2DL2*00101 variant"
+                     /function="this protein binds specifically to 9 bp nucleotide"
+                     /gene_synonym="ABCC7" 
+                     /inference="cDNA"
+                     /label="ProjectID"
+                     /locus_tag="ACL_0008"
+                     /map="6"
+                     /note="T-box leader"
+                     /old_locus_tag="YPO0002"
+ GC_signal           200..30000
+                     /allele="phy"
+                     /db_xref="GI:161984996"
+                     /gene="recF" 
+                     /citation=[6]
+                     /experiment="heterologous expression system of Xenopus laevis oocytes"
+                     /gene_synonym="Hoxc6"
+                     /inference="alignment:Splign:1.0"
+                     /label="Alb1_precursor"
+                     /locus_tag="A1C_00001"
+                     /map="8q12-13"
+                     /note="this protein contains three predicted transmembrane helices"
+                     /old_locus_tag="YPO0002"
+ LTR                 1200..3200
+                     /allele="NM_002859 variant"
+                     /db_xref="MIM:602505"
+                     /gene="PXN"
+                     /citation="10.6.5"
+                     /experiment="ACGT variant"
+                     /function="0046872 - metal ion binding"
+                     /gene_synonym="IEA" 
+                     /inference="aDNA"
+                     /label="TAS"
+                     /locus_tag="YPO0002"
+                     /map="3"
+                     /note="putative oriC"
+                     /old_locus_tag="DnaA"
+ operon              2000..10000
+                     /allele="3T3-L1 variant"
+                     /db_xref="taxon:9606"
+                     /gene="GCN1L1"
+                     /citation="3.6.5"
+                     /experiment="KIR2DL2*00101 variant"
+                     /gene_synonym="PKR7" 
+                     /inference="aDNA"
+                     /label="paxillin"
+                     /locus_tag="AGC_009"
+                     /map="2"
+                     /note="Derived by automated computational analysis using gene prediction method: BestRefseq. Supporting evidence includes similarity to: 1 mRNA"
+                     /old_locus_tag="RSc0382"
+ unsure              100.300
+                     /product="beta-2-microglobulin precursor"
+                     /allele="NM_002859 variant"
+                     /db_xref="MIM:602505"
+                     /gene="PXN"
+                     /citation="10.6.5"
+                     /experiment="ACGT variant"
+                     /function="0046872 - metal ion binding"
+                     /gene_synonym="IEA" 
+                     /inference="aDNA"
+                     /label="TAS"
+                     /locus_tag="YPO0002"
+                     /map="3"
+                     /note="putative oriC"
+                     /old_locus_tag="DnaA"
+ RBS                 95..100
+                     /gene="sod"
+                     /allele="3T3-L1 variant"
+                     /db_xref="taxon:9606"                    
+                     /citation="3.6.5"
+                     /experiment="KIR2DL2*00101 variant"                     
+                     /inference="aDNA"
+                     /label="paxillin"
+                     /locus_tag="AGC_009"
+                     /map="2"
+                     /note="Derived by automated computational analysis using gene prediction method: BestRefseq. Supporting evidence includes similarity to: 1 mRNA"
+                     /old_locus_tag="RSc0382"
+ ncRNA                240..5000
+                     /product="beta-2-microglobulin precursor"
+                     /allele="NM_002859 variant"
+                     /db_xref="MIM:602505"
+                     /gene="PXN"
+                     /citation="10.6.5"
+                     /experiment="ACGT variant"
+                     /function="0046872 - metal ion binding"
+                     /gene_synonym="IEA" 
+                     /inference="aDNA"
+                     /label="TAS"
+                     /locus_tag="YPO0002"
+                     /map="3"
+                     /note="putative oriC"
+                     /old_locus_tag="DnaA"
+                     /ncRNA_class="miRNA"
+ORIGIN      
+        1 cggtccccgc gggccttctc ctgattggct gtccccgcgg gccttgtcct tattggctgt
+       61 gcccgactcc gtataacata aatagaggcg tcgagttgcg cgggcattac tgcagcggac
+      121 cgcacttggg tcgagatggc tcgcttcgtg gtggtagccc tgctcgcgct actctctctg
+      181 tctggcctgg aggctatcca gcgtaagtct ctcctcccgt ccggcgctgg tcctttccct
+      241 cccgccccaa ctctctgtag ccctctctgt gctctctcgt tccgttacct g
+//
+

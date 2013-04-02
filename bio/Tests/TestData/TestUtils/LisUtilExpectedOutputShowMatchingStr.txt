@@ -1,0 +1,2039 @@
+> 1
+       1         2        84
+gcttttcattctgactgcaacgggcaatatgtctctgtgtggattaaaaaaagagtgtctgatagcagcttctgaactggttac
+      86        87       306
+tgccgtgagtaaattaaaattttattgacttaggtcactaaatactttaaccaatataggcatagcgcacagacagataaaaattacagagtacacaacatccatgaaacgcattagcaccaccattaccaccaccatcaccattaccacaggtaacggtgcgggctgacgcgtacaggaaacacagaaaaaagcccgcacctgacagtgcgggctttttttttcgaccaaaggtaacgaggtaacaaccatgcgagtgttgaagttcggcggtacatcagtggcaaatgcagaacgttttctgcg
+     393       394       380
+gttgccgatattctggaaagcaatgccaggcaggggcaggtggccaccgtcctctctgcccccgccaaaatcaccaaccacctggtggcgatgattgaaaaaaccattagcggccaggatgctttacccaatatcagcgatgccgaacgtatttttgccgaacttttgacgggactcgccgccgcccagccggggttcccgctggcgcaattgaaaactttcgtcgatcaggaatttgcccaaataaaacatgtcctgcatggcattagtttgttggggcagtgcccggatagcatcaacgctgcgctgatttgccgtggcgagaaaatgtcgatcgccattatggccggcgtattagaagcgcgcggtcacaacgttac
+     774       775        92
+gttatcgatccggtcgaaaaactgctggcagtggggcattacctcgaatctaccgtcgatattgctgagtccacccgccgtattgcggcaag
+     870       871       117
+attccggctgatcacatggtgctgatggcaggtttcaccgccggtaatgaaaaaggcgaactggtggtgcttggacgcaacggttccgactactctgctgcggtgctggctgcctgt
+     988       989       154
+tacgcgccgattgttgcgagatttggacggacgttgacggggtctatacctgcgacccgcgtcaggtgcccgatgcgaggttgttgaagtcgatgtcctaccaggaagcgatggagctttcctacttcggcgctaaagttcttcacccccgcac
+    1152      1153       146
+atcgcccagttccagatcccttgcctgattaaaaataccggaaatcctcaagcaccaggtacgctcattggtgccagccgtgatgaagacgaattaccggtcaagggcatttccaatctgaataacatggcaatgttcagcgtttc
+    1302      1303        20
+ccggggatgaaagggatggt
+    1338      1339        53
+gtctttgcagcgatgtcacgcgcccgtatttccgtggtgctgattacgcaatc
+    1407      1408        47
+atcagtttctgcgttccacaaagcgactgtgtgcgagctgaacgggc
+    1509      1510        83
+gtgacggaacggctggccattatctcggtggtaggtgatggtatgcgcaccttgcgtgggatctcggcgaaattctttgccgc
+    1593      1594        71
+ctggcccgcgccaatatcaacattgtcgccattgctcagggatcttctgaacgctcaatctctgtcgtggt
+    1665      1666        53
+aataacgatgatgcgaccactggcgtgcgcgttactcatcagatgctgttcaa
+    1719      1720        32
+accgatcaggttatcgaagtgtttgtgattgg
+    1752      1753        54
+gtcggtggcgttggcggtgcgctgctggagcaactgaagcgtcagcaaagctgg
+    1807      1808        52
+tgaagaataaacatatcgacttacgtgtctgcggtgttgccaactcgaaggc
+    1860      1861       521
+ctgctcaccaatgtacatggccttaatctggaaaactggcaggaagaactggcgcaagccaaagagccgtttaatctcgggcgcttaattcgcctcgtgaaagaatatcatctgctgaacccggtcattgttgactgcacttccagccaggcagtggcggatcaatatgccgacttcctgcgcgaaggtttccacgttgtcacgccgaacaaaaaggccaacacctcgtcgatggattactaccatcagttgcgttatgcggcggaaaaatcgcggcgtaaattcctctatgacaccaacgttggggctggattaccggttattgagaacctgcaaaatctgctcaatgcaggtgatgaattgatgaagttctccggcattctttctggttcgctttcttatatcttcggcaagttagacgaaggcatgagtttctccgaggcgaccacgctggcgcgggaaatgggttataccgaaccggacccgcgagatgatctttctggtatggatgtggcgcgtaa
+    2397      2398        23
+cgtgaaacgggacgtgaactgga
+    2421      2422        47
+ctggcggatattgaaattgaacctgtgctgcccgcagagtttaacgc
+    2469      2470        38
+gagggtgatgttgccgcttttatggcgaatctgtcaca
+    2508      2509        20
+ctcgacgatctctttgccgc
+    2556      2557        39
+aaagttttgcgctatgttggcaatattgatgaagatggc
+    2596      2597        31
+tctgccgcgtgaagattgccgaagtggatgg
+    2628      2629        80
+aatgatccgctgttcaaagtgaaaaatggcgaaaacgccctggccttctatagccactattatcagccgctgccgttggt
+    2724      2725        23
+gcgggcaatgacgttacagctgc
+    2760      2761       483
+gatctgctacgtaccctctcatggaagttaggagtctgacatggttaaagtttatgccccggcttccagtgccaatatgagcgtcgggtttgatgtgctcggggcggcggtgacacctgttgatggtgcattgctcggagatgtagtcacggttgaggcggcagagacattcagtctcaacaacctcggacgctttgccgataagctgccgtcagaaccacgggaaaatatcgtttatcagtgctgggagcgtttttgccaggaactgggtaagcaaattccagtggcgatgaccctggaaaagaatatgccgatcggttcgggcttaggctccagtgcctgttcggtggtcgcggcgctgatggcgatgaatgaacactgcggcaagccgcttaatgacactcgtttgctggctttgatgggcgagctggaaggccgtatctccggcagcattcattacgacaacgtggcaccgtgttttct
+    3244      3245        41
+ggtggtatgcagttgatgatcgaagaaaacgacatcatcag
+    3286      3287        75
+cagcaagtgccagggtttgatgagtggctgtgggtgctggcgtatccggggattaaagtctcgacggcagaagcc
+    3362      3363       333
+gggctattttaccggcgcagtatcgccgccaggattgcattgcgcacgggcgacatctggcaggcttcattcacgcctgctattcccgtcagcctgagcttgccgcgaagctgatgaaagatgttatcgctgaaccctaccgtgaacggttactgccaggcttccggcaggcgcggcaggcggtcgcggaaatcggcgcggtagcgagcggtatctccggctccggcccgaccttgttcgctctgtgtgacaagccggaaaccgcccagcgcgttgccgactggttgggtaagaactacctgcaaaatcaggaaggttttgttcatatttgcc
+    3696      3697        66
+gctggatacggcgggcgcacgagtactggaaaactaaatgaaactctacaatctgaaagatcacaa
+    3763      3764        62
+gagcaggtcagctttgcgcaagccgtaacccaggggttgggcaaaaatcaggggctgttttt
+    3826      3827       110
+ccgcacgacctgccggaattcagcctgactgaaattgatgagatgctgaagctggattttgtcacccgcagtgcgaagatcctctcggcgtttattggtgatgaaatccc
+    3937      3938        23
+caggaaatcctggaagagcgcgt
+    3961      3962        68
+cgcgcggcgtttgccttcccggctccggtcgccaatgttgaaagcgatgtcggttgtctggaattgtt
+    4030      4031        71
+cacgggccaacgctggcatttaaagatttcggcggtcgctttatggcacaaatgctgacccatattgcggg
+    4102      4103        29
+gataagccagtgaccattctgaccgcgac
+    4144      4145       206
+ggagcggcagtggctcatgctttctacggtttaccgaatgtgaaagtggttatcctctatccacgaggcaaaatcagtccactgcaagaaaaactgttctgtacattgggcggcaatatcgaaactgttgccatcgacggcgatttcgatgcctgtcaggcgctggtgaagcaggcgtttgatgatgaagaactgaaagtggcgct
+    4372      4373        68
+attaacatcagccgtttgctggcgcagatttgctactactttgaagctgttgcgcagctgccgcagga
+    4442      4443       187
+cgcgcaaccagctggttgtctcggtgccaagcggaaacttcggcgatttgacggcgggtctgctggcgaagtcactcggtctgccggtgaaacgttttattgctgcgaccaacgtgaacgataccgtgccacgtttcctgcacgacggtcagtggtcacccaaagcgactcaggcgacgttatccaa
+    4651      4652        62
+aacaactggccgcgtgtggaagagttgttccgccgcaaaatctggcaactgaaagagctggg
+    4714      4715        62
+tatgcagccgtggatgatgaaaccacgcaacagacaatgcgtgagttaaaagaactgggcta
+    4780      4781        41
+tcggagccgcacgctgccgtagcttatcgtgcgctgcgtga
+    4829      4830        82
+atccaggcgaatatggcttgttcctcggcaccgcgcatccggcgaaatttaaagagagcgtggaagcgattctcggtgaaac
+    4912      4913        50
+ttggatctgccaaaagagctggcagaacgtgctgatttacccttgctttc
+    4969      4970        51
+ctgcccgccgattttgctgcgttgcgtaaattgatgatgaatcatcagtaa
+    5021      5022        64
+atctattcattatctcaatcaggccgggtttgcttttatgcagcccggcttttttatgaagaaa
+    5099      5100        69
+gacagggaaaaaggagaaattctcaataaatgcggtaacttagagattaggattgcggagaataacaac
+    5183      5184       193
+gtaatctccggatatcgacccataacgggcaatgataaaaggagtaacctgtgaaaaagatgcaatctatcgtactcgcactttccctggttctggtcgctcccatggcagcacaggctgcggaaattacgttagtcccgtcagtaaaattacagataggcgatcgtgataatcgtggctattactgggatgg
+    5377      5378        64
+ggtcactggcgcgaccacggctggtggaaacaacattatgaatggcgaggcaatcgctggcacc
+    5560      5674        58
+actgcaaacttaacgctgctcgtagcgtttaaacaccagttcgccattgctggaggaa
+    5619      5733       118
+cttcatcaaagaagtaaccttcgctattaaaaccagtcagttgctctggtttggtcagccgattttcaataatgaaacgactcatcagaccgcgtgctttcttagcgtagaagctgat
+    5738      5852        35
+atcttaaatttgccgttcttctcatcgaggaacac
+    5774      5888        68
+ggcttgataatctcggcattcaatttcttcggcttcaccgatttaaaatactcatctgacgccagatt
+    5843      5957       104
+atcaccacattatcgccttgtgctgcgagcgcctcgttcagcttgttggtgatgatatctccccagaattgatacagatctttccctcgggcattctcaagacg
+    5948      6062        44
+atccccatttccagacgataaggctgcattaaatcgagcgggcg
+    5993      6107       107
+agtacgccatacaagccggaaagcattcgcaaatgctgttgggcaaaatcgaaatcgtcttcgctgaaggtttcggcctgcaagccggtgtagacatcacctttaaa
+    6101      6215        24
+gccagaatcgcctggcgggcattc
+    6130      6244        72
+cgtgaaatctggctgccagtcatgaaagcgagcggcgttgatacccgccagtttgtcgctgatgcgcatcag
+    6257      6371        37
+ttgtctaacagctccggcagcgtatagcgcgtggtgg
+    6295      6409        93
+caacgggctttggtaatcaagcgttttcgcaggtgaaataagaatcagcatatccagtccttgcaggaaatttatgccgactttagcaaaaaa
+    6389      6503        41
+gagaatgagttgatcgatagttgtgattactcctgcgaaac
+    6446      6560        20
+ggagaaagctggcgaccgat
+    6482      6596        83
+ggatcaaacaccgggcgcacgccgagtttacgctggcgtagataatcactggcaatggtatgaaccacaggcgagagcagtaa
+    6566      6680        68
+atggcggtcaaattggtaatagccatgcaggccattatgatatctgccagttgccacatcagcggaag
+    6635      6749        46
+cttagcaaggtgccgccgatgaccgttgcgaaggtgcagatccgca
+    6682      6796       102
+acaccagatcgctttagggttgttcaggcgtaaaaagaagagattgttttcggcataaatgtagttggcaacgatggagctgaaggcaaacagaataaccac
+    6785      6899        34
+agggtaacaaactcagcaccccaggaacccatta
+    6820      6934       138
+cacccgcatcgccttctggataagctgaataccttccagcggcatgtaggttgtgccgttacccgccagtaatatcagcatggcgcttgccgtacagatgaccagggtgtcgataaaaatgccaatcatctggacaat
+    6971      7085        47
+ggatgcggaggccaggacgccgctgccgctgccgcgtttggcgtcga
+    7019      7133       209
+cccattcccgcctcattggaaaacatactgcgctgaaaaccgttagtaatcgcctggcttaaggtatatcccgccgcgccgcctgccgcttcctgccagccaaaagcactctcaaaaatagaccaaatgacgtggggaagttgcccgatattcattacgcaaattaccaggctggtcagtacccagattatcgccatcaacgggacaaa
+    7229      7343        52
+ccctgcatgagccgggcgacgccatgaagaccgcgagtgattgccagcagag
+    7282      7396        33
+aaagacagcgagaataatgcctgtcaccagcgg
+    7316      7430        26
+ggaaaatcaaaagaaaaactcagggc
+    7361      7475        23
+tgaactccgctgaaaattatgcc
+    7405      7519        78
+ggcgaacagaacgcccatccagcgcatccccagcccgcgcgccatataccatgccggtccgccacgaaactgcccatt
+    7484      7598        26
+acgtcacgttctttataaagttgtgc
+    7514      7628        53
+gaacattcggcaaacgaggtcgccatgccgataaacgcggcaacccacatcca
+    7580      7694        32
+ggtccaccggcggtaatagccagcgcaacgcc
+    7613      7727       212
+gccaggttgccgctacccacgcgcgccgcaagactggtacacaatgactgaaatgaggttaaaccgcctggctgtggatgaatgctatttttaagacttttgccaaactggcggatgtagcgaaactgcacaaatccggtgcgaaaagtgaaccaacaacctgcgccgaagagcaggtaaatcattaccgatccccaaaggacgctgttaat
+    7826      7940       663
+aaggagaaaaaatctggcatgcatatccctcttattgccggtcgcgatgactttcctgtgtaaacgttaccaattgtttaagaagtatatacgctacgaggtacttgataacttctgcgtagcatacatgaggttttgtataaaaatggcgggcgatatcaacgcagtgtcagaaatccgaaacagtctcgcctggcgataaccgtcttgtcggcggttgcgctgacgttgcgtcgtgatatcatcagggcagaccggttacatccccctaacaagctgtttaaagagaaatactatcatgacggacaaattgacctcccttcgtcagtacaccaccgtagtggccgacactggggacatcgcggcaatgaagctgtatcaaccgcaggatgccacaaccaacccttctctcattcttaacgcagcgcagattccggaataccgtaagttgattgatgatgctgtcgcctgggcgaaacagcagagcaacgatcgcgcgcagcagatcgtggacgcgaccgacaaactggcagtaaatattggtctggaaatcctgaaactggttccgggccgtatctcaactgaagttgatgcgcgtctttcctatgacaccgaagcgtcaattgcgaaagcaaaacgcctgatcaaactctacaacgatgc
+    8493      8607        59
+attagcaacgatcgtattctgatcaaactggcttctacctggcagggtatccgtgctgc
+    8553      8667        53
+gaacagctggaaaaagaaggcatcaactgtaacctgaccctgctgttctcctt
+    8607      8721       426
+gctcaggctcgtgcttgtgcggaagcgggcgtgttcctgatctcgccgtttgttggccgtattcttgactggtacaaagcgaataccgataagaaagagtacgctccggcagaagatccgggcgtggtttctgtatctgaaatctaccagtactacaaagagcacggttatgaaaccgtggttatgggcgcaagcttccgtaacatcggcgaaattctggaactggcaggctgcgaccgtctgaccatcgcaccggcactgctgaaagagctggcggagagcgaaggggctatcgaacgtaaactgtcttacaccggcgaagtgaaagcgcgtccggcgcgtatcactgagtccgagttcctgtggcagcacaaccaggatccaatggcagtagataaactggcggaaggtatccgtaagtttgct
+    9034      9148       448
+ttgaccaggaaaaactggaaaaaatgatcggcgatctgctgtaatcattcttagcgtgaccgggaagtcggtcacgctacctcttctgaagcctgtctgtcactcccttcgcagtgtatcattctgtttaacgagactgtttaaacggaaaaatcttgatgaatactttacgtattggcttagtttccatctctgatcgcgcatccagcggcgtttatcaggataaaggcatccctgcgctggaagaatggctgacatcggcgctaaccacgccgtttgaactggaaacccgcttaatccccgatgagcaggcgatcatcgagcaaacgttgtgtgagctggtggatgaaatgagttgccatctggtgctcaccacgggcggaactggcccggcgcgtcgtgacgtaacgcccgatgcgacgctggcagtagcggaccgcgagatgcc
+    9483      9597        59
+ggctttggtgaacagatgcgccagatcagcctgcattttgtaccaactgcgatcctttc
+    9555      9669        50
+gtgattcgcaaacaggcgctgatccttaacttacccggtcagccgaagtc
+    9606      9720        23
+attaaagagacgctggaaggtgt
+    9630      9744        26
+aaggacgctgagggtaacgttgtggt
+    9657      9771        80
+cacggtatttttgccagcgtaccgtactgcattcagttgctggaagggccatacgttgaaacggcaccggaagtggttgc
+    9738      9852        29
+gcattcagaccgaagagtgcaagacgcga
+    9768      9882        25
+gttagcgaataaaaaaatccccccg
+    9794      9908        26
+gcggggggatctcaaaacaattagtg
+    9821      9935        44
+gattcaccaatcggcagaacggtgcgaccaaactgctcgttcag
+    9866      9980        44
+acttcacccatcgccagatagattgcgctggcaccgcagatcag
+    9911     10025        26
+ccaatccagccggcaaagtggatgat
+    9951     10065       310
+caatgttaccgatcgccagcagggcaaacagcacggtcaggctaaagaaaacgaattgcagaacgcgtgcgcctttcagcgtgccgaagaacataaacagcgtaaatacgccccacagacccaggtagacaccaaggaactgtgcatttggcgcatcggtcagacccagtttcggcatcagcagaatcgcaaccagcgtcagccagaaagaaccgtaagaggtgaatgcggttaaaccgaaagtgttgccttttttgtactccagcagaccagcaaaaatttgcgcgatgccgccgtagaaaatgcccat
+   10280     10394       216
+agagcgaaataacccacgttgtgcaggttaagcagaatggtggtcatgccgaagcccatcaggcccagcggtgccggattagccaacttagtgttgcccataattcctcaaaaatcatcatcgaatgaatggtgaaataatttccctgaataactgtagtgttttcagggcgcggcataataatcagccagtggggcagtgtctacgatcttttga
+   10497     10611        47
+gggaaaatgaaaattttccccggtttccggtatcagacctgagtggc
+   10545     10659        95
+ctaaccatccggcgcaggcaggcgatttgcagtacggctggaatcgtcacgcgataggcgctgccgctgaccgctttaaccccatttagtgccgc
+   10641     10755        85
+cctacagggcctcccagccccgcgccgcgcagcaaaccatgcccaagtacgctcattgctgcgtgggtgcgtaaaatgcgggtca
+   10727     10841        24
+ttggctggaaagcaaatgcgacac
+   10752     10866       197
+ccttttgccaataatttgtctttcatcagcagcggcagcagctcttccagctcattcaccctggcatcgaccgcgtgcagaaactcctgcttatgttcctcgtccattttcttccaggtattacgcagaaattgttccagtaactgttgctcaatttcaaacgtagacatctctttgtcggctttcagcttcaatcg
+   10950     11064        80
+tttgaaacatcgagcaaaatggcccgatacaatttaccgtgtccgcgcagtttgttggcgatactatcgccaccaaaatg
+   11031     11145        35
+tgtaattctccggcaatcagctgccagttgcggcg
+   11082     11196        79
+ccttccatcgatttaaacagttcgttgcgcatcagtacgctggagaggcgagttttgcctttttcattatgggtgagca
+   11181     11295        20
+tgttcctcactacaatgctg
+   11202     11316        46
+agaaaatccagatctgaatcattcaggtaattaacattcatttttt
+   11250     11365        71
+gcttctatattctggcgttagtcgtcgccgataattttcagcgtggccatatccgatgagttcaccgtatg
+   11325     11440       146
+gaaaaggtgatttttgagacgcagcgtttattgtcgttatcgctgttaatgttgatccagtcagtggtttgcccttcttttatttctgaaggaatattcaggctctgactggcgctacgggcggctttgaaataaaccgatgcacc
+   11472     11587        28
+cttaactgtaaatcgccatggtcggcag
+   11517     11632        47
+acaatgcgacaaacaggaagtttcagcgccagatcgttggtttcgtt
+   11591     11706        35
+tttatggtcgtttgcctgcgccgtgcagcacagca
+   11627     11742        26
+caggctaatcgccaggctggcggaaa
+   11654     11769        33
+cgtaaaaacggatttcataaggattctcttagt
+   11698     11814        47
+ggggatgaatacccactagtttactgctgataaagagaagattcagg
+   11754     11870        22
+ttttctttttattacaattttt
+   11806     11922        22
+tatatgaataaaattgctgtca
+   11835     11951        75
+gtcttgtcctgccatatcgcgaaatttctgcgcaaaagcacaaaaaatttttgcatctcccccttgatgacgtgg
+   11911     12027       210
+ttacgaccccatttagtagtcaaccgcagtgagtgagtctgcaaaaaaatgaaattgggcagttgaaaccagacgtttcgcccctattacagactcacaaccacatgatgaccgaatatatagtggagacgtttagatgggtaaaataattggtatcgacctgggtactaccaactcttgtgtagcgattatggatggcaccactcctcg
+   12125     12241        68
+ctggagaacgccgaaggcgatcgcaccacgccttctatcattgcctatacccaggatggtgaaactct
+   12194     12310        47
+gttggtcagccggctaaacgtcaggcagtgacgaacccgcaaaacac
+   12242     12358        26
+ctgtttgcgattaaacgcctgattgg
+   12269     12385       122
+cgccgcttccaggacgaagaagtacagcgtgatgtttccatcatgccgttcaaaattattgctgctgataacggcgacgcatgggtcgaagttaaaggccagaaaatggcaccgccgcagat
+   12392     12508       206
+tctgctgaagtgctgaaaaaaatgaagaaaaccgctgaagattacctgggtgaaccggtaactgaagctgttatcaccgtaccggcatactttaacgatgctcagcgtcaggcaaccaaagacgcaggccgtatcgctggtctggaagtaaaacgtatcatcaacgaaccgaccgcagctgcgctggcttacggtctggacaaagg
+   12599     12715       164
+actggcaaccgtactatcgcggtttatgacctgggtggtggtactttcgatatttctattatcgaaatcgacgaagttgacggcgaaaaaaccttcgaagttctggcaaccaacggtgatacccacctggggggtgaagacttcgacagccgtctgatcaacta
+   12764     12880       134
+ctggttgaagaattcaagaaagatcagggcattgacctgcgcaacgatccgctggcaatgcagcgcctgaaagaagcggcagaaaaagcgaaaatcgaactgtcttccgctcagcagaccgacgttaacctgcc
+   12899     13015       212
+tacatcactgcagacgcgaccggtccgaaacacatgaacatcaaagtgactcgtgcgaaactggaaagcctggttgaagatctggtaaaccgttccattgagccgctgaaagttgcactgcaggacgctggcctgtccgtatctgatatcgacgacgttatcctcgttggtggtcagactcgtatgccaatggttcagaagaaagttgctga
+   13112     13228        92
+ttctttggtaaagagccgcgtaaagacgttaacccggacgaagctgtagcaatcggtgctgctgttcagggtggtgttctgactggtgacgt
+   13205     13321       158
+aaagacgtactgctgctggacgttaccccgctgtctctgggtatcgaaaccatgggcggtgtgatgacgacgctgatcgcgaaaaacaccactatcccgaccaagcacagccaggtgttctctaccgctgaagacaaccagtctgcggtaaccatcca
+   13364     13480        59
+gtgctgcagggtgaacgtaaacgtgcggctgataacaaatctctgggtcagttcaacct
+   13424     13540       326
+gatggtatcaacccggcaccgcgcggcatgccgcagatcgaagttaccttcgatatcgatgctgacggtatcctgcacgtttccgcgaaagataaaaacagcggtaaagagcagaagatcaccatcaaggcttcttctggtctgaacgaagatgaaatccagaaaatggtacgcgacgcagaagctaacgccgaagctgaccgtaagtttgaagagctggtacagactcgcaaccagggcgaccatctgctgcacagcacccgtaagcaggttgaagaagcaggcgacaaactgccggctgacgacaaaactgctatcgagtctgc
+   13751     13867       365
+ctgactgcactggaaactgctctgaaaggtgaagacaaagccgctatcgaagcgaaaatgcaggaactggcacaggtttcccagaaactgatggaaatcgcccagcagcaacatgcccagcagcagactgccggtgctgatgcttctgcaaacaacgcgaaagatgacgatgttgtcgacgctgaatttgaagaagtcaaagacaaaaaataatcgccctataaacgggtaattatactgacacgggcgaaggggaatttcctctccgcccgtgcattcatctaggggcaatttaaaaaagatggctaagcaagattattacgagattttaggcgtttccaaaacagcggaagagcgtgaaatca
+   14117     14233       165
+aaaggcctacaaacgcctggccatgaaataccacccggaccgtaaccagggtgacaaagaggccgaggcgaaatttaaagagatcaaggaagcttatgaagttctgaccgactcgcaaaaacgtgcggcatacgatcagtatggtcatgctgcgtttgagcaagg
+   14283     14399       248
+ggcatgggcggcggcggttttggcggcggcgcagacttcagcgatatttttggtgacgttttcggcgatatttttggcggcggacgtggtcgtcaacgtgcggcgcgcggtgctgatttacgctataacatggagctcaccctcgaagaagctgtacgtggcgtgaccaaagagatccgcattccgactctggaagagtgtgacgtttgccacggtagcggtgcaaaaccaggtacacagccgcagac
+   14532     14648        44
+tgtccgacctgtcatggttctggtcaggtgcagatgcgccaggg
+   14577     14693       254
+ttcttcgctgtacagcagacctgtccacactgtcagggccgcggtacgctgatcaaagatccgtgcaacaaatgtcatggtcatggtcgtgttgagcgcagcaaaacgctgtccgttaaaatcccggcaggggtggacactggagaccgcatccgtcttgcgggcgaaggtgaagcgggcgagcatggcgcaccggcaggcgatctgtacgttcaggttcaggttaaacagcacccgattttcgagcgtgaagg
+   14832     14948        35
+aacaacctgtattgcgaagtcccgatcaacttcgc
+   14874     14990        83
+gcgctgggtggcgaaatcgaagtaccgacccttgatggtcgcgtcaaactgaaagtgcctggcgaaacccagaccggtaagct
+   14970     15086        20
+ggtaaaggcgtcaagtctgt
+   15012     15128        35
+ttgctgtgccgcgttgtcgtcgaaacaccggtagg
+   15059     15175        27
+gcagaaacagctgctgcaagagctgca
+   15087     15203        41
+gaaagcttcggtggcccaaccggcgagcacaacagcccgcg
+   15129     15245        47
+tcaaagagcttctttgatggtgtgaagaagttttttgacgacctgac
+   15177     15293        36
+cgctaacctccccaaaagcctgcccgtgggcaggcc
+   15214     15330        61
+gggtaaaaatagggtgcgttgaagatatgcgagcacctgtaaagtggcggggatcactccc
+   15275     16740       216
+cgccgttgctcttactcggattcgtaagccgtgaaaacagcaacctccgtctggccagttcggatgtgaacctcacagaggtcttttctcgttaccagcgccgccactacggcggtgatacagatgacgatcagggcgacaatcatcgccttatgctgcttcattgctctcttctccttgaccttacggtcagtaagaggcactctacatgtgttc
+   15502     16967       118
+ggcctcgggttgatggtaaaatatcactcggggcttttctctatctgccgttcagctaatgcctgagacagacagcctcaagcacccgccgctattatatcgctctctttaacccatt
+   15621     17086        41
+tgttttatcgattctaatcctgaagacgcctcgcatttttg
+   19713     17252        29
+attattacttttcctaattaatccctcag
+   19743     17282        26
+aatcctcaccttaagctatgattatc
+   19771     17310        39
+ggcttagggtcactcgtgagcgcttacagccgtcaaaaa
+   19847     17386       192
+tcgtaaaaaacgaattattcctacactataatctgattttaacgatgattcgtgcggggtaaaatagtaaaaacgatctattcacctgaaagagaaataaaaagtgaaacatctgcatcgattctttagcagtgatgcctcgggaggcattattcttatcattgccgctatcctggcgatgattatggccaa
+   20040     17579       239
+agcggcgcaaccagtggatggtatcacgactttctggagacgccggttcagctccgggttggttcactcgaaatcaacaaaaacatgctgttatggataaatgacgcgctgatggcggtatttttcctgttagtcggtctggaagttaaacgtgaactgatgcaaggatcgctagccagcttacgccaggccgcatttccagttatcgccgctattggtgggatgattgtgccggcatt
+   20292     17831        62
+tttaactatgccgatccgattacccgcgaagggtgggcgatcccggcggctactgacattgc
+   20370     17909       125
+ctggcgctgttgggaagtcgtgttccgttagcgctgaagatctttttgatggctctggctattatcgacgatcttggggccatcattatcatcgcattgttctacactaatgacttatcgatggc
+   20643     18182        20
+attgtcggcttctttattcc
+   20859     18398        79
+attagtctgttctgctggttggcgctgcgtttgaaactggcgcatctgcctgagggaacgacttatcagcaaattatgg
+   20952     18491        41
+tgcggtatcggttttactatgtctatctttattgccagcct
+   20994     18533       280
+gcctttggtagcgtagatccagaactgattaactgggcgaaactcggtatcctggtcggttctatctcttcggcggtaattggatacagctggttacgcgttcgtttgcgtccatcagtttgacaggacggtttaccggggagccataaacggctcccttttcattgttatcagggagagaaatgagcatgtctcatatcaattacaaccacttgtattacttctggcatgtctataaagaaggttccgtggttggcgcagcggaggcgctttatttaac
+   21275     18814        26
+ccacaaaccattaccggacagattcg
+   21302     18841        35
+gcgctggaagagcgcctgcaaggcaaattatttaa
+   21377     18916        56
+ctggtctatcgctatgccgataaaatgttcaccttaagccaggaaatgctggatat
+   21434     18973        59
+gtgaactatcgcaaagaatccaatttattgtttgacgttggcgtggctgatgcactttc
+   21494     19033        50
+aaacgcctggtcagtagcgtacttaacgccgcagtggtagaaggcgagcc
+   21545     19084        80
+attcatcttcgctgcttcgaatccacccacgaaatgctgctggagcaattaagtcagcataaactggatatgatcatttc
+   21659     19198        59
+ctgttctccgtgagaattggcgaatgtggcgtgagtttctggtgtacaaatccaccacc
+   21719     19258        35
+gaaaaaccgttcccggcttgtctggaagaacggcg
+   21755     19294       104
+cttttgattcctgggcgacgttcaatgttagggcgcaaattgcttaactggtttaactcccagggattaaacgtagaaatcctcggcgagtttgatgatgccgc
+   21860     19399       107
+ttgatgaaagcttttggtgcgatgcacaatgcaatcttcgttgccccaacgctttatgcatatgacttttatgccgataaaactgtcgtagaaattggtcgcgtcga
+   21968     19507        87
+aatgtgatggaagagtaccatgctatttttgctgagcggatgattcagcacccggcggtacagcgaatctgcaatacggattattct
+   25940     20756        57
+gcaggcataaaaaaacccgcttgcgcgggctttttcacaaagcttcagcaaattggc
+   25998     20814        97
+attaagccagtttgttgatctgtgcagtcaggttagccttatgacgtgcagctttgtttttgtggatcagacctttagcagcctgacggtccacgat
+   26096     20912       705
+ggttgcatttcgttaaatgctttctgtgcagcagctttgtcgccagcttcgatagctgcgtatactttcttgatgaaagtacgcatcatagagcgacggcttgcgttgtgcttacgagccttttcagactgaatggcgcgcttcttagctgatttgatattagccaaggtccaactcccaaatgtgttctatatggacaattcaaaggccgaggaatatgcccttttagccttcttttgtcaatggatttgtgcaaataagcgccgttaatgtgccggcactcgttacgtagtgatggcgcaggattctaccagcttgcggggtgtgaatacagcttttccgcgataaaaattgcagcaggcggtcagtttcttcccgtgatttgcgccatggcaatgaaaagccacttctttctgatttcggtactcaatcgccggttaaccttgaccgctgtacaaggtatactcggacgattttcactgttttgagccagacatgaagctgatacgcggcatacataatctcagccaggccccgcaagaagggtgtgtgctgactattggtaatttcgacggcgtgcatcgcggtcatcgcgcgctgttacagggcttgcaggaagaagggcgcaagcgcaacttaccggtgatggtgatgctttttgaacctcaaccactggaactgtttgctaccgataaagccccggca
+   26804     21620       137
+ctgacccggctgcgggaaaaactgcgttaccttgcagagtgtggcgttgattacgtgctgtgcgtgcgtttcgacaggcgtttcgcggcgttaaccgcgcaaaatttcatcagcgatcttctggtgaagcatttgcg
+   26942     21758        81
+gtaaaatttcttgccgtaggtgatgatttccgctttggcgctggtcgtgaaggcgatttcttgttattacagaaagctggc
+   27025     21841        54
+ggaatacggcttcgatatcaccagtacgcaaactttttgcgaaggtggcgtgcg
+   27080     21896        26
+atcagcagcaccgccgtgcgtcaggc
+   27110     21926        26
+gcggatgacaatctggctctggcaga
+   27137     21953        95
+agtttactggggcacccgtttgccatctccgggcgtgtagtccacggtgatgaattagggcgcactataggtttcccgacggcgaatgtaccgct
+   27233     22049       324
+cgccgtcaggtttccccggtgaaaggggtttatgcggtagaagtgctgggcctcggtgaaaagccgttacccggcgtggcaaacatcggaacacgcccaacggttgccggtattcgccagcagctggaagtgcatttgttagatgttgcaatggacctttacggtcgccatatacaagtagtgctgcgtaaaaaaatacgcaatgagcagcgatttgcgtcgctggacgaactgaaagcgcagattgcgcgtgatgaattaaccgcccgcgaattttttgggctaacaaaaccggcttaagcctgttatgtaatcaaaccgaaa
+   27558     22374        94
+acggaaccgagaatctgatgagtgactataaatcaaccctgaatttgccggaaacagggttcccgatgcgtggcgatctcgccaagcgcgaacc
+   27653     22469       212
+ggaatgctggcgcgttggactgatgatgatctgtacggcatcatccgtgcggctaaaaaaggcaaaaaaaccttcattctgcatgatggccctccttatgcgaatggcagcattcatattggtcactcggttaacaagattctgaaagacattatcgtgaagtccaaagggctttccggttatgactcgccgtatgtgcctggctgggactg
+   27869     22685        23
+ggtctgccgatcgagctgaaagt
+   27893     22709        38
+gagcaagaatacggtaagccgggtgagaaattcaccgc
+   27932     22748        32
+gccgagttccgcgccaagtgccgcgaatacgc
+   27965     22781       101
+gcgacccaggttgacggtcaacgcaaagactttatccgtctgggcgtgctgggcgactggtcgcacccgtacctgaccatggacttcaaaactgaagccaa
+   28067     22883        59
+atcatccgcgcgctgggcaaaatcatcggcaacggtcacctgcacaaaggcgcgaagcc
+   28130     22946        80
+cactggtgcgttgactgccgttctgcgctggcggaagcggaagttgagtattacgacaaaacttctccgtccatcgacgt
+   28223     23039        65
+gtcgatcaggatgcactgaaagcaaaatttgccgtaagcaacgttaacggcccaatctcgctggt
+   28301     23117        20
+acgccgtggactctgcctgc
+   28322     23138        23
+aaccgcgcaatctctattgcacc
+   28360     23176        36
+gctggtgcagatcgacggtcaggccgtgattctggc
+   28397     23213        74
+aaagatctggttgaaagcgtaatgcagcgtatcggcgtgaccgattacaccattctcggcacggtaaaaggtgc
+   28472     23288       200
+gagcttgagctgctgcgctttacccatccgtttatgggcttcgacgttccggcaatcctcggcgatcacgttaccctggatgccggtaccggtgccgttcacaccgcgcctggccacggcccggacgactatgtgatcggtcagaaatacggcctggaaaccgctaacccggttggcccggacggcacttatctgccggg
+   28679     23495        23
+ccgacgctggatggcgtgaacgt
+   28703     23519        20
+ttcaaagcgaacgacatcgt
+   28724     23540        30
+gttgcgctgctgcaggaaaaaggcgcgctg
+   28755     23571        67
+tgcacgttgagaaaatgcagcacagctatccgtgctgctggcgtcacaaaacgccgatcatcttccg
+   28823     23639       164
+gcgacgccgcagtggttcgtcagcatggatcagaaaggtctgcgtgcgcagtcactgaaagagatcaaaggcgtgcagtggatcccggactggggccaggcgcgtatcgagtcgatggttgctaaccgtcctgactggtgtatctcccgtcagcgcacctgggg
+   28988     23804        23
+gtaccgatgtcactgttcgtgca
+   29012     23828        32
+aaagacacggaagagctgcatccgcgtaccct
+   29045     23861        20
+gaactgatggaagaagtggc
+   29084     23900        47
+ggcatccaggcgtggtgggatctcgatgcgaaagagatcctcggcga
+   29132     23948        29
+gaagctgatcagtacgtgaaagtgccgga
+   29171     23987        32
+gtatggtttgactccggatctacccactcttc
+   29204     24020        35
+gttgttgacgtgcgtccggaatttgccggtcacgc
+   29240     24056        23
+gcggacatgtatctggaaggttc
+   29327     24143        74
+ccgtatcgtcaggtactgacccacggctttaccgtggatggtcagggccgcaagatgtctaaatccatcggcaa
+   29402     24218        68
+accgtttcgccgcaggatgtgatgaacaaactgggcgcggatattctgcgtctgtgggtggcatcaac
+   29480     24296        23
+ggtgaaatggccgtttctgacga
+   29504     24320        20
+atcctgaaacgtgctgccga
+   29525     24341        62
+agctatcgtcgtatccgtaacaccgcgcgcttcctgctggcaaacctgaacggttttgatcc
+   29588     24404       161
+gcaaaagatatggtgaaaccggaagagatggtggtactggatcgctgggccgtaggttgtgcgaaagcggcacaggaagacatcctcaaggcgtacgaagcatacgatttccacgaagtggtacagcgtctgatgcgcttctgctccgttgagatgggttc
+   29750     24566        32
+ttctacctcgacatcatcaaagaccgtcagta
+   29795     24611        35
+gacagtgtggcgcgtcgtagctgccagactgcgct
+   29831     24647       110
+tatcacatcgcagaagcgctggtgcgctggatggcaccaatcctctccttcaccgctgatgaagtgtggggctacctgccgggcgaacgtgaaaaatacgtcttcaccgg
+   29942     24758        23
+gagtggtacgaaggcctgtttgg
+   29966     24782       107
+ctggcagacagtgaagcgatgaacgatgcgttctgggacgagctgttgaaagtgcgtggcgaagtgaacaaagtcattgagcaagcgcgtgccgacaagaaagtggg
+   30074     24890        45
+ggctcgctggaagcggcagtaaccttgtatgcagaaccggaactg
+   30120     24936        79
+cggcgaaactgaccgcgctgggcgatgaattacgatttgtcctgttgacctccggcgctaccgttgcagactataacga
+   30200     25016       511
+gcacctgctgatgctcagcagagcgaagtactcaaagggctgaaagtcgcgttgagtaaagccgaaggtgagaagtgcccacgctgctggcactacacccaggatgtcggcaaggtggcggaacacgcagaaatctgcggccgctgtgtcagcaacgtcgccggtgacggtgaaaaacgtaagtttgcctgatgagtcaatcgatctgttcaacagggctacgctggctgtggctggtggtagtcgtgctgattatcgatctgggcagcaaatacctgatcctccagaactttgctctgggggatacggtcccgctgttcccgtcgcttaatctgcattatgcgcgtaactatggcgcggcgtttagtttccttgccgatagcggcggctggcagcgttggttctttgccggtattgcgattggtattagcgtgatcctggcagtgatgatgtatcgctcgaaggccacgcagaagctaaacaatatcgcttacgcgctgattattggcgg
+   30712     25528        83
+gcgctgggcaacctgttcgaccgcctgtggcacggcttcgttgtcgatatgatcgacttctacgtcggcgactggcacttcgc
+   30796     25612        73
+accttcaaccttgccgatactgccatctgtgtcggtgcggcactgattgtgctggaaggttttttgccttcta
+   30870     25686        33
+agcgaaaaaacaataataaaccctgccggatgc
+   30904     25740        28
+gcctacagattgctgcgaaatcgtaggc
+   30953     25806       112
+aaatataagagcaaacctgcatgtctgaatctgtacagagcaatagcgccgtcctggtgcacttcacgctaaaactcgacgatggcaccaccgccgagtctacccgcaacaa
+   31093     25946        36
+gatgcttctctttctgaagggctggagcaacacctg
+   31130     25983        28
+tggggctgaaagtgggcgataaaaccac
+   31174     26027        26
+gatgcggcgtttggcgtgccgtcacc
+   31201     26054        29
+gacctgattcagtacttctcccgccgtga
+   31231     26084       312
+tttatggatgcaggcgagccagaaattggcgcaatcatgctttttaccgcaatggatggcagtgagatgcctggcgtgatccgcgaaattaacggcgactccattaccgttgatttcaaccatccgctggccgggcagaccgttcattttgatattgaagtgctggaaatcgatccggcactggaggcgtaacatgcagatcctgttggccaacccgcgtggtttttgtgccggggtagaccgcgctatcagcattgttgaaaacgcgctggccatttacggcgcaccgatatatgtccgtcacgaagtggt
+   31574     26427       101
+gagcgtggggctatctttattgagcagattagcgaagtaccggacggcgcgatcctgattttctccgcacacggtgtttctcaggcggtacgtaacgaagc
+   31703     26556        80
+gccacctgtccgctggtgaccaaagtgcatatggaagtcgcccgcgccagtcgccgtggcgaagaatctattctcatcgg
+   31793     26646        26
+cacccggaagtggaagggacaatggg
+   31829     26682        35
+aacccggaagggggaatgtatctggtcgaatcgcc
+   31865     26718        56
+gacgatgtgtggaaactgacggtcaaaaacgaagagaagctctcctttatgaccca
+   31922     26775        92
+accacgctgtcggtggatgacacgtctgatgtgatcgacgcgctgcgtaaacgcttcccgaaaattgtcggtccgcgcaaagatgacatctg
+   32015     26868        60
+tacgccacgactaaccgtcaggaagcggtacgcgccctggcagaacaggcggaagttgtg
+   32076     26929        55
+tggtggtcggttcgaaaaactcctccaactccaaccgtctggcggagctggccca
+   32132     26985        41
+cgtatgggcaaacgcgcgtttttgattgacgatgcgaaaga
+   32174     27027       107
+atccaggaagagtgggtgaaagaggttaaatgcgtcggcgtgactgcgggcgcatcggctccggatattctggtgcagaatgtggtggcacgtttgcagcagctggg
+   32282     27135       232
+ggtggtgaagccattccgctggaaggccgtgaagaaaacattgttttcgaagtgccgaaagagctgcgtgtcgatattcgtgaagtcgattaagtcattagcagcctaagttatgcgaaaatgccggtcttgttaccggcattttttatggagaaaacatgcgtttacctatcttcctcgatactgaccccggcattgacgatgccgtcgccattgccgccgcgatttttgc
+   32524     27377        41
+gacctgcaactgatgaccaccgtcgcgggtaatgtctcggt
+   32584     27437        47
+gccctgcaactgctgcatttctggaatgcggagattccgctcgccca
+   32686     27539        29
+gaatcgggaatggctggctacgactttgt
+   32764     27617        92
+gatgccctgatgcgtgcaccagagcctgttaccctggtggccatcggcccgttaaccaatattgcgctgttactttcacaatgcccggaatg
+   32917     27770        20
+ccaaacgccgagtttaatat
+   33002     27855        41
+tggatgtcaccaatcaggcaatattaactcctgactatctc
+   33082     27935        44
+cacgccctgtttagccactaccgtagcggcagtatgcaaagcgg
+   33151     28004        20
+atcgcctggctggtgcgccc
+   33313     28166        57
+ttccagcagtgggtggctgaggtgctggctctggcgtcgtaacctgtcacatgttat
+   33371     28224       236
+ggcatgcagtcattcatcgactcatgcctttcactgatatccctccctgtttatcattaatttctaattatcagcgtttttggctggcggcgtagcgatgcgctggttactctgaaaacggtctatgcaaattaacaaaagagaatagctatgcatgatgcaaacatccgcgttgccatcgcgggagccggggggcgtatgggccgccagttgattcaggcggcgctggcattaga
+   33638     28491        41
+gaaggatcttctttactgggcagcgacgccggtgagctggc
+   33726     28579       130
+taaaagatgattttgatgtgtttatcgattttacccgtccggaaggtacgctgaaccatctcgctttttgtcgccagcatggcaaagggatggtgatcggcactacggggtttgacgaagccggtaaaca
+   33875     28728        23
+gccgatattgcgattgtctttgc
+   33899     28752        35
+gccaattttagcgttggcgttaacgtcatgcttaa
+   33935     28788        29
+ctgctggagaaagcagccaaagtgatggg
+   33965     28818        98
+gactacaccgatatcgaaattattgaagcacatcatagacataaagttgatgcgccgtcaggcaccgcactggcaatgggagaggcgatcgcccacgc
+   34064     28917        47
+cttgataaagatctgaaagattgcgcggtctacagtcgtgaaggcca
+   34112     28965        62
+accggtgaacgtgtgcctggcaccattggttttgccaccgtgcgtgcaggtgacatcgttgg
+   34175     29028        56
+gaacataccgcgatgtttgccgatattggcgagcgtctggagatcacccataaggc
+   34259     29112        38
+gcggtaagatcggctttgtggttgagtggtaaggaaag
+   34298     29151        23
+ggtctttttgatatgcgagatgt
+   34363     29216        21
+tgcaaaaataacacatttaat
+   34392     29245        35
+tataaagggctttaatttttggcccttttattttt
+   34455     29308        21
+tgccaaaaattacatgttttg
+   34478     29331        57
+ttctgtttttgttgttttaatgtaaattttgaccatttggtccacttttttctgctc
+   34541     29394        42
+atttcatgcaatcttcttgctgcgcaagcgttttccagaaca
+   34589     29442        86
+atgatctttttgtcgcttaatgcctgtaaaacatgcatgagccacaaaataatataaaaaatcccgccattaagttgacttttagc
+   34676     29529       316
+cccatatctccagaatgccgccgtttgccagaaattcgtcggtaagcagatttgcattgatttacgtcatcattgtgaattaatatgcaaataaagtgagtgaatattctctggagggtgttttgattaagtcagcgctattggttctggaagacggaacccagtttcacggtcgggccataggggcaacaggttcggcggttggggaagtcgttttcaatacttcaatgaccggttatcaagaaatcctcactgatccttcctattctcgtcaaatcgttactcttacttatccccatattggcaatgtcggcac
+   34993     29846       113
+aatgacgccgatgaagaatcttctcaggtacatgcacaaggtctggtgattcgcgacctgccgctgattgccagcaacttccgtaataccgaagacctctcttcttacctgaa
+   35107     29960       152
+cgccataacatcgtggcgattgccgatatcgatacccgtaagctgacgcgtttactgcgcgagaaaggcgcacagaatggctgcattatcgcgggcgataacccggatgcggcgctggcgttagaaaaagcccgcgcgttcccaggtctgaa
+   35260     30113        36
+ggcatggatctggcaaaagaagtgaccaccgcagaa
+   35299     30152        27
+tatagctggacacaagggagctggacg
+   35353     30206        23
+aaagaagacgagctgccgttcca
+   35380     30233        38
+gtggcttatgattttggtgccaagcgcaacatcctgcg
+   35449     30302        33
+atcgttccggcgcaaacttctgcggaagatgtg
+   35483     30336        37
+tgaaaatgaatccagacggcatcttcctctccaacgg
+   35539     30392        65
+tgcgattacgccattaccgccatccagaaattcctcgaaaccgatattccggtattcggcatctg
+   35605     30458        92
+ctcggtcatcagctgctggcgctggcgagcggtgcgaagactgtcaaaatgaaatttggtcaccacggcggcaaccatccggttaaagatgt
+   35713     30566        35
+atgatcaccgcccagaaccacggttttgcggtgga
+   35749     30602        89
+gaagcaacattacctgcaaacctgcgtgtcacgcataaatccctgttcgacggtacgttacagggcattcatcgcaccgataaaccggc
+   35860     30713       226
+gaagccagccctggtccacacgacgccgcgccgttgttcgaccactttatcgagttaattgagcagtaccgtaaaaccgctaagtaatcaggagtaaaagagccatgccaaaacgtacagatataaaaagtatcctgattctgggtgcgggcccgattgttatcggtcaggcgtgtgagtttgactactctggcgcgcaagcgtgtaaagccctgcgtgaagaggg
+   36087     30940        95
+taccgcgtcattctggtgaactccaacccggcgaccatcatgaccgacccggaaatggctgatgcaacctacatcgagccgattcactgggaagt
+   36192     31045        38
+attattgaaaaagagcgcccggacgcggtgctgccaac
+   36300     31153        41
+gtcaccatgattggtgccactgccgatgcgattgataaagc
+   36354     31207        77
+cgtttcgacgtagcgatgaagaaaattggtctggaaaccgcgcgttccggtatcgcacacacgatggaagaagcgct
+   36450     31303        47
+ggcttcccgtgcattattcgcccatcctttaccatgggcggtagcgg
+   36498     31351        86
+ggcggtatcgcttataaccgtgaagagtttgaagaaatttgcgcccgcggtctggatctctctccgaccaaagagttgctgattga
+   36585     31438        89
+gagtcgctgatcggctggaaagagtacgagatggaagtggtgcgtgataaaaacgacaactgcatcatcgtctgctctatcgaaaactt
+   36675     31528       134
+gatgcgatgggcatccacaccggtgactccatcactgtcgcgccagcccaaacgctgaccgacaaagaatatcaaatcatgcgtaacgcctcgatggcggtgctgcgtgaaatcggcgttgaaaccggtggttc
+   36816     31669        29
+cagtttgcggtgaacccgaaaaacggtcg
+   36846     31699        23
+ctgattgttatcgaaatgaaccc
+   36879     31732        26
+cgttcttcggcgctggcgtcgaaagc
+   36909     31762        74
+ggtttcccgattgctaaagtggcggcgaaactggcggtgggttacaccctcgacgaactgatgaacgacatcac
+   36990     31843        35
+cgtactccggcctccttcgagccgtccatcgacta
+   37035     31888        23
+aaaattcctcgcttcaacttcga
+   37074     31927        53
+aacgaccgtctgaccactcagatgaaatcggttggcgaagtgatggcgattgg
+   37128     31981        47
+cgcacgcagcaggaatccctgcaaaaagcgctgcgcggcctggaagt
+   37320     32173        38
+ttcaacctgaccaacattgaccgctggttcctggtaca
+   37359     32212        32
+attgaagagctggtgcgtctggaagagaaagt
+   37395     32248        65
+gaagtgggcatcactggcctgaacgctgacttcctgcgccagctgaaacgcaaaggctttgccga
+   37515     32368       143
+gaccagtatgacctgcacccggtttataagcgcgtggatacctgtgcggcagagttcgccaccgacaccgcttacatgtactccacttatgaagaagagtgcgaagcgaatccgtctaccgaccgtgaaaaaatcatggtgct
+   37659     32512        47
+ggcggcggcccgaaccgtatcggtcagggtatcgaattcgactactg
+   37707     32560        77
+tgcgtacacgcctcgctggcgctgcgcgaagacggttacgaaaccattatggttaactgtaacccggaaaccgtctc
+   37785     32638        20
+accgactacgacacttccga
+   37806     32659        32
+cgcctctacttcgagccggtaactctggaaga
+   37860     32713        71
+gagaagccgaaaggcgttatcgtccagtacggcggtcagaccccgctgaaactggcgcgcgcgctggaagc
+   37932     32785        20
+gctggcgtaccggttatcgg
+   37980     32833        72
+gaagaccgtgaacgcttccagcatgcggttgagcgtctgaaactgaaacaaccggcgaacgccaccgttacc
+   38076     32929        29
+gcgaaagagattggctacccgctggtggt
+   38106     32959        77
+cgtccgtcttacgttctcggcggtcgggcgatggaaatcgtctatgacgaagctgacctgcgtcgctacttccagac
+   38196     33049        35
+tctaacgatgcgccagtgttgctggaccacttcct
+   38241     33094       308
+gtagaagttgacgtggatgccatctgcgacggcgaaatggtgctgattggcggcatcatggagcatattgagcaggcgggcgtgcactccggtgactccgcatgttctctgccagcctacaccttaagtcaggaaattcaggatgtgatgcgccagcaggtgcagaaactggccttcgaattgcaggtgcgcggcctgatgaacgtgcagtttgcggtgaaaaacaacgaagtctacctgattgaagttaacccgcgtgcggcgcgtaccgttccgttcgtctccaaagccaccggcgtaccgctggc
+   38550     33403        23
+aaagtggcggcgcgcgtgatggc
+   38589     33442       233
+gagcagggcgtaaccaaagaagttatcccgccgtactactcggtgaaagaagtggtgctgccgttcaataaattcccgggcgttgacccgctgttagggccagaaatgcgctctaccggggaagtcatgggcgtgggccgcaccttcgctgaagcgtttgccaaagcgcagctgggcagcaactccaccatgaagaaacacggtcgtgcgctgctttccgtgcgcgaaggcga
+   38823     33676        92
+aaagaacgcgtggtggacctggcggcaaaactgctgaaacagggcttcgagctggatgcgacccacggcacggcgattgtgctgggcgaagc
+   38925     33778        26
+ccgcgtctggtaaacaaggtgcatga
+   38952     33805        23
+ggccgtccgcacattcaggaccg
+   38976     33829        74
+atcaagaatggcgaatatacctacatcatcaacaccacctcaggccgtcgtgcgattgaagactcccgcgtgat
+   39051     33904        32
+cgtcgcagtgcgctgcaatataaagtgcatta
+   39111     33964        62
+accgcgatggcgctgaatgccgatgcgactgaaaaagtaatttcggtgcaggaaatgcacgc
+   39174     34027        26
+cagatcaaataatagcgtgtcatggc
+   39201     34054        66
+gatatttttcatccgctaatttgatcgaataactaatacggttctctgatgaggaccgtttttttt
+   39267     34121       478
+gcccattaagtaaatcttttggggaatcgatatttttgatgacataagcaggatttagctcacacttatcgacggtgaagttgcatactatcgatatatccacaattttaatatggccttgtttaattgcttcaaaacgagtcatagccagacttttaatttgtgaaactggagttcgtatgtgtgaaggatatgttgaaaaaccactctacttgttaatcgccgaatggatgatggctgaaaatcggtgggtgatagcaagagagatctctattcatttcgatattgaacacagcaaggcggttaataccctgacttatattctgtcggaagtcacagaaataagctgcgaagttaagatgatccctaataagctggaagggcggggatgccagtgtcagcgactggttaaagtggtcgatatcgatgagcaaatttacgcgcgcctgcgcaataacagtcgggaaaaattagtcgg
+   39746     34600        97
+gtaagaaagacgccgcgtattcctgccgttccgctcacggaacttaaccgcgagcagaagtggcagatgatgttgtcaaagagtatgcgtcgttaat
+   39976     34797        33
+acatccgtcgtcccctgcaaacgggggcgattt
+   40049     34870        34
+catgacagcgcccgacaagatcctgatactcttt
+   40084     34905        35
+gtattcaaccgtttccagtgtaactcgtcgtcact
+   40124     34945        76
+tgcgtacagcgcgggctggcgtacccatcaacaactggcgtttctcgccgcgaaagcccgctttgacaaagctcat
+   40201     35022        64
+gcggcaacaatgctctcttcgccaatgaccgcgccatccataatcacgctgttcatcccgacca
+   40284     35105        51
+acaaccatgcaggatcgctccgtgcccgatatggccgttttccccaacgat
+   40336     35157        64
+gtgtcagtgtcgcagtagccatgcataatgcagccatcctgaatattggctcccgcttgcacga
+   40401     35222        36
+caaccgcccgtagtcaccacgcagtgaggcgagtgg
+   40438     35259        44
+ccgatgtagacaccggctcccacaatcacatcgccaatcaagac
+   40483     35304        91
+gcactgggatggacaaacgccgtcgggtgaaccaccggaattaacccctcaaaggcgtaatagctcacggttgttaacgtcctttccacac
+   40575     35396        44
+ggatcgcgcttctcggcaaacgccagcggcccttcaatggcatc
+   40620     35441        25
+tccgaatgcagaaccgatggatagt
+   40646     35467        96
+tttcaacacgccgctgcgaatatagcgatacgcttcttctaccggcatttcgctggtggtgcggtagatctctttcagcgccgcaatcgccagcgg
+   40743     35564        20
+gcgctgttaaccagctgctg
+   40764     35585        55
+gccagttcgcgggcgttatccatcagttccgcctggctaaccacgcggttgacta
+   40820     35641        96
+cccccaacgcagcgcctcttctgcgcccattcgtctgccggtcatcaccatttcattgacgatggcaggcggcaggatcttcggcagacgcagcac
+   40917     35738        38
+ccgccgctgtcaggaacgatgcccagtttggcttccgg
+   40956     35777        95
+agggcgaagctggcgttatcggcacaaacaataaaatctgccgccagcgccagttcaaagccgccgccaaaggcatagccgttcacagctgcgat
+   41052     35873        44
+accggtttgtcgagattgaaaatttcggttaatcccgcaaaacc
+   41103     35924        65
+ccaaagtcagcatccggtgcttcgccttctgctgccgcttttaaatcccagcccgcggaaaagaa
+   41169     35990       241
+ttctctccggcaccggtaataatggcgacacgtaattgcggatcgtcacggaaatttagaaatacttcgcccatttcaaagctggtttttgcatcaatagcattcgcttttggacgatcaagggtaatttccagaattgatccattgcgggtcagatgtaatgattcactcattccttttctccatttttgctttttcagggacgacaacatccctgcaaaaaatgcatattgttttagag
+   41411     36232        31
+gtgattattagctggcagggtagttccctgc
+   41443     36264       187
+gtttcatttatttcagattctttctaattattttccccgagcaattacgtggcagatcttttctgatctccagataagagggcactttaaatttcgccatattttgttcgcagaagcggaaaaattcctcttcgctcaatgtttcaccttcattcagcaccacaaatgctttgatggcttcatcgcg
+   41697     36518        26
+agctccacgcaggagacattctcgcc
+   41733     36554        36
+atcatattgcagcggcgatcgacgaaataaaaaaag
+   41770     36591        34
+cctcttcgtcgcggtatccggtatcgccggtatg
+   41814     36635        28
+tcggcttccagcactttcgcagtggctt
+   41856     36677        23
+tactctttgaagatggttttccc
+   41895     36716        20
+cagatttcaccgatctcacc
+   41916     36737        50
+gccgggagcgggcgattgtgatcgtcgcggatctccgcttcgtagcaaaa
+   41971     36792        22
+cccgaccaatcgacggccagcg
+   42009     36830        77
+cgatcgccgataatgcccacaatggtttccgtcatcccataagacgtcagcaagcgaacgccgaagcgttcacaaaa
+   42103     36924        55
+ccgacaagttgagataaaacatcacttcccgcaggcggtgttgctgatcgttcgc
+   42180     37001        31
+gtacggatcatcatcggaatacattcggtaa
+   42231     37052       221
+acctgtccccagaaggcgcgggcgctgtatttctcgaccagcacaaaggtggccccggcagaaaacgccgccatcgccgcagtacactggcaatcgatatgaaacgcaggcattaccgtcaggtagacgtcatcgtcacgcagtgcacactgccaggcggagtaatatccagcgaagcgcaggttgtaatgggtaatcaccacacctttcggtcgggaggt
+   42453     37274       152
+gtgccggaggtgaagagaatttccgccgtatcgtcagtcgatagcggcggtgcatagcacaaggtggcaggttgttgatttttcagttgagtaaacgaactcacgccatcatcagcgggaagtgccacatctgtcaggcaaatgtgccgcaa
+   42609     37430        32
+gtggcatcttcctgctgaatctgttgatacat
+   42642     37463        70
+ggatagaattgcgcactggtcaccagcaggcacgcctggctattttgcaggatccacgcgctttcctcgc
+   42714     37535        92
+aacaggcgggcgttaatcggcaccataatcgcgccaatttttgccagcccgaaccagcaaaagataaattccgggcagttgtcgagatgtag
+   42807     37628       149
+gcaaccttgtcgcctttgcgaatccccagcgtataaaacaggtttgccgtgcggttaatctcctgatttaactcaagataactataccggttaacgactccgccgctggattcacaaatcagcgccgttttatgaccgtaaacgtccgc
+   42957     37778       103
+agatcgtcccacatttgacgtagatgttgtccgccaatgatatccattgcacctctatccatttttgttcgtttgttattgggcgggcgctagtcaggcaagc
+   43061     37882       268
+gactgacgccacgcgtttagtcctcaactttggccagacctttgctgaccaactcctgaatgtcgttttcgctgtagccgatatttttcaaaatggcagccgtgtccatgccatgtgagggcattccgcgccagatttgtccggggttatttttgaatttcggcatgatgttcggccctttgcaggtgcgaccatccatcgtttgccactgagtgattgattcgcgagccacatactgtggattgctttccagttccggtacggtcag
+   43392     38213        27
+cgccagccaggcatcgagtttctcttc
+   43420     38241        32
+accagtgggccgtaagggcattcgatacggtg
+   43498     38319        27
+gcgaggccaatatctttaaagcactct
+   43534     38355        38
+gtaatgcccaccagttccatcacgatgtagccgtcggc
+   43573     38394        45
+catttatacagaccgcaaccggcgtagtagggatctttacctttg
+   43619     38440        58
+tcatgcgcgggcacatttcgccgccgttgaagtaatccatcatgaagtactggcccat
+   43683     38504        27
+catcacttcatacatggcgatgtcgat
+   43723     38544        47
+ccggtttcacgcactttatgcagtgctgccagcgccgccgtggtggc
+   43771     38592       413
+gtcaggccagaaaagtaatcggcggtatacgggaaggcaggcattggctggtcaacatcaccgttctgaatcaggtaaccactaaaggcctgggcgatagtgttataggccggaagattggtgtactcctcggtgccgtactgaccaaaaccggacaggtgagcgataaccagtttcgggttgtgctgccacagtacttcatcggtaatgccacgacgggcaaaggccggacctttactggcttcgatgaagatatcggtggtttccattaatttcagaaacgcttcgcggccttcatctttgaaaatatttaacgacagcgcgtgcaaattgcggcgggagagttgcgggtagttcggttgaacgcgaatggtgtcggcccaggcgacgttctcgatccagataacttccgc
+   44185     39006       114
+ccccattctgcgaacatttgcccggcaaacggtccggcgatttcgataccggagaagacaacgcgcaatccggccaacggcccgaatttcggcatgggtagatgatccattatt
+   44300     39121        23
+gctcctgaaaaatttatgtagcg
+   44324     39145        57
+atgactgccggatgcggcgtaaacgctttatccggcctacattcgtgctcccgtagg
+   44395     39216        52
+tcagcgtcgcatcaggcagcgcacggacttagcggtattgcttcagcaccgc
+   44448     39269        35
+cgacccagcgtcaggatctgcatttcgtcagatcc
+   44508     39329        74
+tcacgccagaagcggctgatgcggtggttgcccgcaatcccgacaccgcccagcacctgcattgcgctatccac
+   44583     39404       185
+acttcaaatgccgcattggcgcagaagtatttgcacatcgctgcatcgccagaggtgatggtgccgttgtctgctttccacgctgcttcatacagcatgtttttcatggagtttaatttgatcgccatgtgggcgaatttttcctgaatcaactggaaacgaccaatagcctcgccaaactgcac
+   44775     39596        53
+ttggcgtagcgcgccgcatcttcaaaggcgcacatcgccgtaccgtagttggt
+   44829     39650       104
+agggctaccaggaaacgttcatggtcgaactcttctttgacgcggttaaagccgttaccttcccgaccgaacatgtctttctcgtccagttccacgtcgtcaaa
+   44934     39755       158
+gtgatttcacagcagctatccatacgcagaccgagcttttcaagtttggtcactttgatgcccggtttgctcatatcaacaaaccattcggtgtagacaggtttgtccggagaagccccgtcgcgcgccatcaccacgatgtacggggtgtaggcgct
+   45093     39914        89
+ctggtaataaaacacttactaccattaagataaatcttaccatttctacgggtataagtcgttttcaggctacccacgtcggagcccgc
+   45183     40004        59
+cccggttcggtaatcgctgagttccacatctgcttaccggtgccgcggaaagccataat
+   45243     40064        38
+ttgtcgatctgctcttgtgtgccttcgcgcaggaaggt
+   45282     40103       476
+ttgaacccgcccggcaactggtacagcacataggttggtgcccccagacgtcccagctccatccacacggcggcgagagtaacaaaccccgcgtccagaccaccgtgctcttcagggatcagcagactgtcgatacccatatccgccagtgctttgacaaaacgttccgggtagacgctgtcacggtcgcactcggcaaaataggcctcccagttttcgctggccatcagttcgcggataccggcgacaaacagttcctgctcatcatttaaattaaaatccatctttcaacctcttgatattttgggggttaattaatctttccagttctgtttcgcgtctttaataaaggagagcgtcaccataatgttgacgaagaacagcgggcatcctccggcgataatggcggtttgaatcggtttcaggccgccgagcgccagcagaacaataccgataatgccaaccagaattgacca
+   45777     40598       149
+ggtggttcttcaccatcgcgtacttcgcggcaagtggacatcgccagggtataagagcaggcgttaaccagcgtaacggtggcaataaagcagaggatgaagaagccccacatggtggcggtgctgagtggcagagcggcccaggtttc
+   45927     40748        62
+atgatggcgcgcgccacaccgtactgttcgatcagatttggaatgttgatgatgtttttatc
+   45990     40811        92
+atcaacagcagagtgttactaccgagtacagtccacaggatccaggttgacgctgtcagccccagcaccatgccgaagcacagttcacgcac
+   46083     40904        47
+gtacgaccacgggagatgcgggcgaggaagatactcatctggatagc
+   46131     40952       236
+taaatcacccaccatgcccagtagaacacggtccagccctgcgggaagccgcctttagcgatgggatcggtatagaacaacatgcgcggcagatacatcagcaacatccccaccgaatcggtgaagtagttcatgatgaagctggcaccgctgacaatgaacacccaacccagcatcaggaagctcaggtaactacgcacgtcactggcgatacgtacccctttttgcagaccgca
+   46368     41189       140
+gcgacgcaaatggcgttgaggataatccagcaggtaatgatgatagcgtccagttgcagggtatgcggaatgccaaacaaccattgcatacactcggtcaccagcggcgtggcaaggcccagactggtacccatcgcgaa
+   46509     41330        32
+atcaaggcgacgagatagaagttgtcgacgat
+   46545     41366        29
+ccgaacaaccctttggcgtgtttttcacc
+   46593     41414        56
+gagctggggcgaatcacttccattttgcggacaaagaagaagtaagcgaaggcgac
+   46650     41471       200
+gaaaggaagctgtaagtggcccacggcagaggtccccagtggaacaagctgtaagccagccccaactctttcgcccctgtcgagttcggttctaagccaaacggcggggtggagatgtagtagtagatctcaatcgatccccagaacagtacggcagcagacgtacaggaggcgaacatcataaagatccaactggcggt
+   46863     41684        68
+ggttcgttacctaaacgctttttggcatacgggccaaacaccagccagaaccaaccgaaaagcatcac
+   46932     41753        74
+accatataccattcaaatgcccatccccatacattggtgacgtaactgaatacagcattaataacgacattcgc
+   47007     41828        50
+gcatccagatctctgactgtaagccaacaaagtatgccgacgattattaa
+   47058     41879       181
+ggcggaaagaaaaccttcggttctattcccgtttttctcttttcattcttcatgagttaattccactgtgaaaacgaatatttattttgcgttcccgtttgttttatttttgttaacatttaatataattattattaacctcgtggacgcgttaatggctaactcataatgggtattcaat
+   47353     42173        61
+catctgactttcaatattggtgatccataaaacaatattgaaaatttctttttgctacgcc
+   47415     42235        21
+tgttttcaatattggtgagga
+   47437     42257        70
+cttaacaatattgaaagttggatttatctgcgtgtgacattttcaatattggtgattaaagttttatttc
+   47509     42329       145
+aattaaagggcgtgatatctgtaattaacaccaccgatatgaacgacgtttccttcatgatttctggagatgcaatgaagattattacttgctataagtgcgtgcctgatgaacaggatattgcggtcaataatgctgatggttc
+   47667     42487        79
+aaagccgatgccaaaataagccaatacgatctcaacgctattgaagcggcttgccagctaaagcaacaggcagcagagg
+   47775     42595        47
+aaagccctgaccaacgccaaagggcgtaaagatgtgctatcgcgcgg
+   47823     42643        77
+ccggatgaactgattgtggtgattgatgaccagttcgagcaggcactgccgcaacaaacggcgagcgcactggctgc
+   47901     42721        24
+gccgcccagaaagcaggctttgat
+   47926     42746        50
+tgatcctctgtggcgatggttcttccgacctttatgcccagcaggttggt
+   47985     42805       203
+ggcgaaatcctcaatattccggcagttaacggcgtcagcaaaattatctccctgacggcagataccctcaccgttgagcgcgaactggaagatgaaaccgaaaccttaagcattccgctgcctgcggttgttgctgtttccactgatatcaactccccacaaattccttcgatgaaagccattctcggcgcggcgaaaaagcc
+   48189     43009        26
+gtccaggtatggtcggcggcggatat
+   48216     43036        59
+ggttttaacgcagaggcagcctggtcagaacaacaggttgccgcgccgaaacagcgcga
+   48276     43096       190
+cgtcagcgcatcgtgattgaaggcgacggcgaagaacagatcgccgcatttgctgaaaatcttcgcaaagtcatttaattacaggggatgctatgaacacgttttctcaagtctgggtattcagcgataccccttctcgtctgccggaactgatgaacggtgcgcaggctttagctaatcaaatcaacac
+   48467     43287        67
+tttgtcctcaatgatgccgacggcgcacaggcaatccagctcggcgctaatcatgtctggaaattaa
+   48551     43371        62
+cggatgatcgaagattacgccggtgtcatggctgacactattcgccagcacggcgcagacgg
+   48624     43444       130
+tgccaaacacccgtcgcggcaaattactggcggcaaaactgggttatcgccttaaagcggcggtgtctaacgatgccagcaccgtcagcgtacaggacggtaaagcgacagtgaaacacatggtttacgg
+   48755     43575       167
+ggtctggcgattggcgaagaacgcattgccacgccgtatgcggtactgaccatcagcagcggcacgttcgatgcggctcagccagacgcgtcacgcactggcgaaacgcacaccgtggagtggcaggctccggctgtggcgattacccgcacggcaacccaggcgcg
+   48923     43743        32
+cagagcaacagcgtcgatctcgacaaagcccg
+   48956     43776        65
+ctggtggtcagcgtcggtcgcggtattggcagcaaagagaacattgcgctggcagaacagctttg
+   49041     43861       142
+tggcctgttctcgtccggtggcggaaaacgaaaaatggatggagcacgaacgctatgtcggtatctccaacctgatgctgaaacctgaactgtacctggcggtggggatctccgggcagatccagcacatggttggcgctaa
+   49184     44004        26
+gcgtcgcaaaccattttcgccatcaa
+   49211     44031        62
+aaagataaaaatgcgccgatcttccagtacgcggattacggcattgttggcgacgccgtgaa
+   49286     44106       181
+ctgaccgcagctttagcgcgttgatccactctggcagggctgcattttggccctgccgctgacagggagctcttatgtccgaagatatctttgacgccatcatcgtcggtgcagggcttgccggttcggttgccgcactggtgctcgcccgcgaaggtgcgcaagtgttagttatcgagcg
+   49468     44288        80
+ggcaattccgcaggtgccaagaacgtcaccggcgggcgtctctatgcccacagtctggaacacattattcctggtttcgc
+   49549     44369        89
+gactccgcccccgtagaacgcctgatcacccatgaaaaactcgcgtttatgacggaaaagtcagcgatgactatggactactgcaatgg
+   49639     44459        85
+gacgaaacctcgccatcccagcgttcttactccgttttgcgcagtaaatttgatgcctggctgatggagcaggccgaagaagcgg
+   49725     44545        57
+cgcgcagttaattaccgggatccgcgtcgataacctcgtacagcgcgatggcaaagt
+   49798     44618        50
+gatggcgatgtgattgaagcgaaaacggtgatccttgctgatggggtgaa
+   49888     44708        59
+aaaccgacggatgtggcggttggcgtgaaggaactgatcgagttaccgaagtcggttat
+   49948     44768        32
+gaagaccgttttcagttgcagggtaatcaggg
+   49981     44801        47
+gcggcttgcctgtttgcgggatcacccaccgatggcctgatgggcgg
+   50029     44849        23
+ggcttcctttataccaatgaaaa
+   50053     44873        47
+accctgtcgctggggctggtttgtggtttgcatcatctgcatgacgc
+   50101     44921        38
+aaaaaatcggtgccgcaaatgctggaagatttcaaaca
+   50140     44960        26
+catccggccgttgcaccgctgatcgc
+   50167     44987        84
+ggcggcaagctggtggaatattccgctcacgtagtgccggaagcaggcatcaacatgctgccggagttggttggtgacggcgta
+   50252     45072        85
+tgattgccggtgatgccgccggaatgtgtatgaacctcggttttaccattcgcggtatggatctggcgattgccgccggggaagc
+   50350     45170        44
+gtgctttcagcgatgaaaagcgacgatttcagtaagcaaaaact
+   50395     45215        29
+gcggaatatcgtcagcatcttgagagtgg
+   50443     45263        46
+atgtaccagaaactaccggcgttccttgataacccacgcatgttta
+   50515     45335        26
+gtggcgcgtgacctgttcaccattga
+   50548     45368        62
+gcgccggaactgatgcgcaagaaaatcctccgccacggcaagaaagtgggcttcatcaatct
+   50611     45431       124
+atcaaggatggcatgaaaggagtgaccgttttatgacttctcccgtcaatgtggacgtcaaactgggcgtcaataaattcaatgtcgatgaagagcatccgcacattgttgtgaaggccgatgc
+   50736     45556       218
+gataaacaggcgctggagctgctggtgaaagcgtgccccgcaggtctgtacaagaagcaggatgacggcagtgtgcgcttcgattacgccggatgtctggagtgcggcacctgtcgcattctggggctggggtcggcgctggaacagtgggaatacccgcgcggcacctttggtgtggagttccgttacggctgatgttggtttgatacgtaacgccg
+   50955     45775        21
+actgactctcattgcaaaaaa
+   50987     45805        31
+ccatgcaaccgtccagaaactttgacgatct
+   51019     45837       104
+aaattctcctctattcaccgccgcattttgctgtggggaagcggtggtccgtttctggatggttatgtactggtaatgattggcgtggcgctggagcaactgac
+   51124     45942        86
+ccggcgctgaaactggacgctgactggattggcttgctgggcgcgggaacgctcgccgggctgttcgttggcacatcgctgtttgg
+   51217     46035        62
+tccgataaagtcggacggcgcaaaatgttcctcattgatatcatcgccatcggcgtgatatc
+   51298     46116        56
+tcatcccccgtcgaactgttggtgatgcgggtacttatcggcattgtcatcggtgc
+   51355     46173       104
+gattatcccatcgccacctcaatgatcaccgagttctccagtacccgtcagcgggcgttttccatcagctttattgccgcgatgtggtatgtcggcgcgacctg
+   51475     46293        23
+tactggctttatgatgtggaagg
+   51502     46320        23
+tggcgctggatgctgggtagcgc
+   51526     46344        62
+gcgatcccctgtttgttgattttgattggtcgattcgaactgcctgaatctccccgctggtt
+   51589     46407        41
+ttacgcaaagggcgagtaaaagagtgcgaagagatgatgat
+   51631     46449       131
+aaactgtttggcgaaccggtggctttcgatgaagagcagccgcagcaaacccgttttcgcgatctgtttaatcgccgccattttccttttgttctgtttgttgccgccatctggacctgccaggtgatccc
+   51763     46581        53
+atgttcgccatttacacctttggcccgcaaatcgttggtttgttgggattggg
+   51838     46656        32
+gggaatgtggtgattagcctgttctttatgct
+   51871     46689        32
+ggctgtattccgccgatgctgtggttaaacac
+   51904     46722        29
+gccggacggcgtccattgttgattggcag
+   51934     46752        38
+tttgccatgatgacgctggcgctggcggttttggggct
+   51973     46791        35
+atcccggatatggggatctggctggtagtgatggc
+   52009     46827        74
+tttgcggtgtatgcctttttctctggcgggccgggtaatttgcagtggctctatcctaatgaactcttcccgac
+   52084     46902        41
+gatatccgcgcctctgccgtgggcgtgattatgtccttaag
+   52126     46944        32
+cgtattggcaccattgtttcgacctgggcact
+   52162     46980        20
+atctttatcaataattacgg
+   52201     47019        20
+atgggggcgggtatctcgct
+   52222     47040        29
+tttggcttgttgatttccgtagcgtttgc
+   52252     47070        69
+ccggagactcgagggatgtcactggcgcagaccagcaatatgacgatccgcgggcagagaatggggtaa
+   52322     47140       294
+ttgttcagatttctctcttttctgaatcaatattattgactataagccgcgtgaatatatgactacactttgtgggaaaacaaaggcgtaatcacgcgggctacctatgattcttataatttatgcgcatccgtatccgcatcattcccatgcgaataaacggatgcttgaacaggcaaggacgctggaaggcgtcgaaattcgctctctttatcaactctatcctgacttcaatatcgatattgccgccgagcaggaggcgctgtctcgcgccgatctgatcgtctggcagca
+   52617     47435        23
+ccgatgcagtggtacagcattcc
+   52641     47459        29
+ccgctcctcaaactttggatcgataaagt
+   52677     47495        20
+cacggctgggcttacggtca
+   52698     47516        53
+ggcggcacggcgctgcatggcaaacatttgctgtgggcggtgacgaccggcgg
+   52770     47588       131
+attggtgcgcatccgggctttgatgtgctgtcgcagccgctacaggcgacggcaatctactgcgggctgaactggctgccaccgtttgccatgcactgcacctttatttgtgacgacgaaaccctcgaagg
+   52902     47720        44
+caggcgcgtcactataagcaacgtctgctggaatggcaggaggc
+   52947     47765        51
+catcatggatagccatacgctgattcaggcgctgatttatctcggttcggc
+   53011     47829        50
+cccattgcggtacgtcttggtctgggatcggtacttggctacctgatcgc
+   53068     47886        47
+attattggcccgtgggggctgcgactggtgaccgatgccgaatctat
+   53116     47934        20
+ctgcactttgccgagattgg
+   53137     47955        68
+gtggtgctgatgctgtttattatcggcctcgaactcgatccacaaaggctgtggaagctgcgtgcggc
+   53216     48034        49
+gtggcgcattgcagatggtgatttgcggcggcctgctggggctgttctg
+   53272     48090        27
+cttgggctgcgctggcaggtcgcggaa
+   53300     48118        61
+tgatcggcatgacgctggcgctctcctctacggcgattgccatgcaggcgatgaatgaacg
+   53386     48204        62
+cgcagtgcctttgcggtgctgctgttccaggatatcgcggcgatcccgctggtggcgatgat
+   53462     48280       259
+cgagcagtgcctcgacgacgatgggcgcatttgctctctcggcgttaaaagtggcgggtgcgctggtgctggtggtattgctggggcgctatgtcacgcgtccggcgctgcgttttgtagcccgctctggcttgcgggaagtgtttagtgccgtggcgttattcctcgtgtttggctttggtttgctgctggaagaggtcggcttgtcgatggcgatgggcgcgtttctggcgggcgtactgctggcaagctcggaata
+   53788     48606        30
+gttggcatgtcgatagactttggcacgctg
+   53846     48664        61
+tgctgctcggtttcctcatcatcaaaatcgccatgctgtggctgattgcccgaccgttgca
+   53929     48747        26
+tggtttgcggtgttgttagggcaggg
+   53992     48810        65
+atggcgaatgtgctggagccggagtgggcgaaatcgctgaccctggcggtggcgctgtcgatggc
+   54058     48876        53
+gcaacgccgattctgctggtgatcctcaatcgccttgagcaatcttctactga
+   54115     48933        38
+gcgcgtgaagccgatgagatcgacgaagaacagccgcg
+   54160     48978        29
+atcgccggattcggtcgttttgggcagat
+   54190     49008        41
+accggacgtttactgctctccagcggggtgaaaatggtggt
+   54232     49050       287
+ctcgatcacgatccggaccatatcgaaaccttgcgtaaatttggtatgaaagtgttttatggcgatgccacgcggatggatttactggaatctgccggagcggcgaaagcggaagtgctgattaacgccatcgacgatccgcaaaccaacctgcaactgacagagatggtgaaagaacatttcccgcatttgcagattattgcccgcgcccgcgatgtcgaccactacattcgtttgcgtcaggcaggcgttgaaaagccggagcgtgaaaccttcgaaggtgcgct
+   54520     49338       134
+aaaaccgggcgtctggcactggaaagtttaggtctggggccgtatgaagcgcgagaacgtgccgatgtgttccgccgctttaatattcagatggtggaagagatggcaatggttgagaacgacaccaaagcccg
+   54655     49473        50
+gcggcggtctataaacgcaccagcgcgatgttaagtgagatcattaccga
+   54712     49530        50
+gaacatctgtcattaattcaacgacatggctggcagggaaccgaagaagg
+   54778     49596        71
+atggcggatgaaccggaaacgaaaccctcatcctaataaagagtgacgtaaatcacactttacagctaact
+   54860     49678        25
+tttcattgtaatgcggcgagtccag
+   54888     49706       236
+gagagcgtggactcgccagcagaatataaaattttcctcaacatcatcctcgcaccagtcgacgacggtttacgctttacgtatagtggcgacaattttttttatcgggaaatctcaatgatcagtctgattgcggcgttagcggtagatcgcgttatcggcatggaaaacgccatgccgtggaacctgcctgccgatctcgcctggtttaaacgcaacaccttaaataaacccgt
+   55125     49943        26
+attatgggccgccatacctgggaatc
+   55165     49983        52
+tgccaggacgcaaaaatattatcctcagcagtcaaccgggtacggacgatcg
+   55239     50057        53
+gatgaagccatcgcggcgtgtggtgacgtaccagaaatcatggtgattggcgg
+   55315     50133        34
+tgccaaaagcgcaaaaactgtatctgacgcatat
+   55350     50168        80
+gacgcagaagtggaaggcgacacccatttcccggattacgagccggatgactgggaatcggtattcagcgaattccacga
+   55431     50249        54
+gctgatgcgcagaactctcacagctattgctttgagattctggagcggcggtaa
+   56944     50408        62
+ttatgccggttcgacggctggacaaaatactgtttatcttcccagcgcaggcaggttaatgt
+   57016     50480        23
+cagcagccggtatccagcgcgta
+   57040     50504        71
+ataccttccggcgtacctttgccctccagcgatgcccagtgaccaaaggcgatgctgtattcttcagcgac
+   57112     50576       101
+gggccaggaatcgcaaaccacggtttcagtggggcaggggcctcttccggcgattctttgctgtacatatccagttgaccgttcgggaagcaaaaacgcat
+   57238     50702        68
+cgcagtcttcccagcccccgcaattccggtgaccagttatttggcatatcgccgtacatggcatcaag
+   57307     50771        23
+aagaagggataggagtcactcga
+   57331     50795        20
+agcaccgcttctacatcgcg
+   57352     50816        44
+gcgcactctttggcggtctgcagatcccactgcggcgtgatccc
+   57397     50861        43
+gcgtgggccatcaccagctttttctcttcgtcgatttgcagca
+   57451     50915       182
+cgcagccagttaagcagctcgtcggcatccggcgcttccagcagcggtgtcaggcgatctttcggtttattgcggctgatcccggcaaataccgccagcagatgcagatcgtgattgcccagcaccagacgtacgctgtcgcctaaggatttcacatagcgcagaacatccagcgaacccgg
+   57634     51098       455
+ccgcgcgcgaccagatcgcccgtcagccagagggtatctttcccaggggtaaattctactttatgcagcaatgcgatcagttcatcgtaacaaccatgaacgtcgccaataaggtatgtcgccatattcttttaatgaatgagtgtgggaacggcgagtcggaatacgggaatgtcgatgctgaaagggacgccattttcatcgatcatttcgtagtgaccctgcatggtgcccagcggggtttcaatgattgcaccgctggtgtactggtactcttcgccaggcgcgataagtggctggacgccaaccactccttcgccctggacttcggtttcacggccattgccattggtgatcagccagtaacgccccaacaactgcactggcgctcgccccagattgcgtatggttacggtataagcaaaaacgtaacgttcattatcaggtgaagattg
+   58090     51554       160
+gcctcaatgtagacgctttgaacctgaatacacactcggggcgaattgatcatcgttaactctcctgcaaaggcgcgttctccgccagatagttcgccatctggcaatattgcgcgacagagatattttccgctcgcatcgccgggtcgatccccattcc
+   58251     51715        83
+gttaacacctcgacgctaaacaggttgccgaggctgttacgaatggttttacgacgctggttaaaggcttcggtggtgatgcg
+   58344     51808       104
+cgaacatctttaaccgggtgaggcatcgttgcatgaggaaccaggcgcacgacggcggaatccactttgggtggtggtgtaaaggctgacggcggtacttccag
+   58461     51925        41
+ttgcaatagtattgcgccatgacgcttaatcgaccatacgc
+   58503     51967       170
+ttgctgttcggtcctgcaaccagacgattcaccacctctttttgcaacataaagtgcatgtcggcaatggcatcagtatagctaaacagatggaacatcaacggcgtggagatgttataaggcaggttgccgaaaacacgcagcggctgacccattttctcggccagttc
+   58674     52138       185
+ccaaagttaaaggtcatcgcatcctgctgataaatcgtcagtttcgggcctaagaatggatgcgtttgcagacgtgccgccagatcgcggtcaagttcgatgaccgtcagctggtccagacgttcgccgaccggttcggtcaatgccgccagaccggggccgatttcgaccatcgcctggccctt
+   58884     52348       304
+ctgtcgatcacgaactgatcgttgagaaagttttgcccgaagcgtttacgggctaagtggccctggtggactcgattattcattgggtgttaacaatcattttgatggcgagattaagcgccgtaataaaactgccgacatcggctttgccacgtcccgccagttcaagcgcggtgccgtggtccactgatgtgcgaataaagggcaggcccagcgtaatgttcacaccgcgcccgaagccctggtattttagcacgggaagaccctgatcgtggtacatcgccagcacggcgtcggcgttatc
+   59189     52653        71
+agatatttcggctgaaacagggtatcggcaggcagcggcccgttgagtttcatcccctgcgcccgcagctc
+   59263     52727       153
+gagcaccggaataatggtgtctatctcttccgtacccatatgaccgccttcgcccgcgtgcggattcagcccgcagaccagaatgcgcggttcggcaataccaaatttggtccgcaaatcgtgatgcaaaatagcaatcacttcgtgcaaaag
+   59432     52896        59
+tctgcgatatcgcgcagcggtaaatgcgtcgttgccagcgccacgcgaagttcttcggt
+   59510     52974        47
+tttttcgcctgcgaacgctcttcgaaaaactcggtatgaccggtaaa
+   59639     53103        67
+cacgctcgcgccagcgtttccaccacataatgcccattttcaaccgctaactgccccgcagtgacag
+   59709     53173       111
+cacgtagcgcgacaggaagtagcgttaatgtgcccgcagtttgcggttgtgcaggggagttgggggaataagggcggagggtgagcggcaaaccgagcatcgctgcccggt
+   59821     53285        68
+ggtaaggagagtggcatcggcacaaacaaccagttcgaccggccactcacgctgtgcaagctggacaa
+   59890     53354       104
+taagtccgggccaatcccggcgggctcgccgggagtgatcacaacacgttgggttttaaccattagttgctcaggattttaacgtaggcgctggcacgttgttc
+   59995     53459        53
+tgcatccagcttgctgcttcttccgagaacttacggttcatcagcatgcggta
+   60067     53531        32
+gcgtcggttttatcgacattacgggtatccag
+   60100     53564        65
+agttcgattaaatgccagccgaatgaagagtgaaccggtgcactcatttgacctttgttcaggcg
+   60166     53630        47
+gtcagggcgtcacggaaggccggatcgaaaatatctggtgtagccca
+   60223     53687        80
+ccgccctggttagcagagcctggatcctgagagaactctttcgctgcggcagcaaaagtcgttttaccactcttgatatc
+   60304     53768        23
+gcagcaatctgttccagtttcac
+   60328     53792       191
+cgggcctgttcgtcagtcatgatcggcgacggtttcagcagaatatggcgagcatgaacttcggtcaccgagatatttttgctttcgccgcgcaggtcgttaactttcagaatatggaagccaacgccggaacgaatcgggccaacaatgtcgcctttcttcgcggtgcttaatgcctgggcgaagatccc
+   60520     53984       119
+ggcaactcctgaatacggccccagcccatctggccgccgttcagcgcctgctggtcggcagaatgagcaatcgccagcttaccgaaatcagcgccgttacgcgcctgatcgacaatggc
+   60640     54104        26
+cgcgcctggctttccgcttcgttcac
+   60667     54131       206
+tgatcagaggtcgggttttccggcagcgggatcaggatgtggctcaggttcagctcagtgctggcgtcgttttggttacccacctgctgcgccagggattcgacttcctgcggcaggatggtgatgcgacgacgcacctcgttgttacgcacttcagagataatcatctctttgcggatctggttacgataggtgttgtagttcag
+   60874     54338       645
+ccatcgtaagccagacggctgcgcatctgatccagcgtcatgttgttctgtttcgcgatgttagcaatcgcctgatccagctgctcatcggagattttcactcccattttctgccccatctgcaggatgatttgatccatgatcaaacgttccatgatttggtggcgcagcgtcgcgtcatcaggaagttgctgccttgcctgagcagcgttcagttttaccgactgcattaatccatcaacgtcgctttccagcacgacgccgttattgacgacggctgcgactttatcgactacctggggggcagcgaaactggtattcgcgatcatggcgataccgagaagcagcgttttccagttcttcatactttttccatttcaattaaccgcactgcggattacgtggtaaatcaacaaatcacaaagtgttttgatacggcagaatgttcgaacgcagcatctcttgcgtacccagaccgtagttggagctcaggccgcgaagttcgatgttaaagccgattgcgttgtcatataccgcatgttgtttatcgttatcccaaccgttcagcttccgctcgtaaccgacgcgaattgcatagcagcaggagctgtattgcacacctaacatagagtcggcttgcttgtt
+   61553     55017        32
+gaccaacgatcggcaattggccagctggcgac
+   61598     55062        26
+gaaataccattcttatattgctcagc
+   61625     55089       206
+gtggaatagtacttaggcagcgtagcctgaatatattccgggctggcgtaacggtaattcagctgtaccagacggtcttcatcccgacggtattcaatgctggagttactggtcgctacgttatccagacgtgtatcgtactgaatcccgccacgcaatccccaacgctcggagatacgccagtaagtatcgcctgcccacaccag
+   61835     55299       101
+cccgttttgtcgtcattctcccatgttatgttgtcatcgccagtgcgagactccgtgaaatagtagatttgaccaacggaaatattaaaacgttcaacggc
+   62009     55473        23
+taagtccggtcccggaacaggcc
+   62057     55521        38
+gagtcgtagttatagatgtcgctctgatcgcgatacgg
+   62120     55584        23
+tccagcgtttgggtataacccgg
+   62168     55632        23
+aagaccattttgccgtcaacttt
+   62192     55656        23
+aattgcggcattacgcggttaac
+   62744     56205        23
+tgttcatcttcatagactttatc
+   62768     56229        29
+gaaggcagatagtccagttccatcaagcc
+   62840     56301        71
+atgttgccacgacgatgcatataatgcggcgtgatggtggcatccatatttggcgcgatgttccagtaata
+   62912     56373        95
+ggcaggtagaactcaaagtagttggtggtggtgtacttggcgttcgggatcaagaaaccagagcgacgtttgtcacccaccggcaactgcaaata
+   63008     56469       119
+gggctataaaagatcggtaccggacccaccttaaagcgggcgttccagatctccgcaacttgttcttcgcggtcatgaataatttcgctacctaccacgctccaggtgtcagaacccgg
+   63128     56589       110
+agacaggaggtaaagctaccgttatccagaatggtatagcggttttcgccacgttgtttcatcaggtccgctttaccgcgaccctggcgacccaccatctggtaatcacc
+   63239     56700       927
+tcccagacgttggtatctttggtgttcagattcgcccagcctttcggccctttgaggatcacctggttatcgtcgtaatggacattaccgagcgcatcaacggtacgtaccggctccggttgtcctggtgcctctttttgatggagctgcacttcgtcggcctgcagacggctgttaccctgcatgatatccacgctgccagtaaacacggcgtcatccgggtagtcccctttcgcgtggtcagcattgatagtcacgggtaagtcattggtatcgccctgtaccagaggacggtcatagcttggcacgcccaacatgcactgtgaggcgaggtcggctgccagtccctgttgactataaagggcggtggcaatcatggtggccaggagagtggggatacgttttttcatacgttgattttattgttccatcatcggtaacgttgcgcgtgacaaacggtcagagactaacgtactcgtcatctctacgctagtgttaatcctgtccgaatagcgtcagtggtgttaggcacggcattgaatgacaggtatgataatgcaaattataggcgatgtcccacaattgaccgcagccggaaaacggtaaaagcacctttatattgtgggagatagccctgatatccgtgtgtcgatttggggaatatatgcagtattggggaaaaatcattggcgtggccgtggccttactgatgggcggcggcttttggggcgtagtgttaggcctgttaattggccatatgtttgataaagcccgtagccgtaaaatggcgtggttcgccaaccagcgtgagcgtcaggcgctgttttttgccaccacttttgaagtgatggggcatttaaccaaatccaaaggtcgcgtcacggaggctgatattcatatcgccagccagttgatggaccgaatgaa
+   64170     57631        29
+catggcgcttcccgtactgcggcgcaaaa
+   64200     57661        65
+gcgttccgggtgggaaaatcagacaattacccgctgcgcgaaaagatgcgccagtttcgcagtgt
+   64266     57727       110
+tgctttggtcgttttgacttaattcgtatgtttctggagatccagattcaggcggcgtttgctgatggttcactgcacccgaatgaacgggcggtgctgtatgtcattgc
+   64401     57862        35
+cagtttgaccagtttttgcgcatgatgcagggcgg
+   64440     57901        27
+cagtttggcggcggttatcagcagcaa
+   64506     57967       105
+acgctggaagatgcctgtaatgtgctgggcgtgaagccgacggatgatgcgaccaccatcaaacgtgcctaccgtaagctgatgagtgaacaccatcccgataag
+   64635     58096        47
+gagatgatggagatggcgaagcagaaagcgcaggaaattcagcaggc
+   64852     59703        26
+gctttaaacgtcatactattgccata
+   64879     59730        44
+gccggatgggtaatcgtcaacatctctgcatgtagcaacaaacg
+   64933     59784        74
+gctctcgcttctggtgatgcataaaaacgatcgccgagaatcggatgacccagcgccagcatatgcacacgcaa
+   65008     59859        95
+tgatgcgaacgcccggtaatcggttttaacaccactcttgccgtgttatccgccgcatactccaccacttcatattccgtctgcgcaggtttacc
+   65104     59955        59
+gtttcgtaacagactttctgtttcgggcggtttggccagtcgcaaatcagcggcagatc
+   65179     60030       215
+ggggatggatgcccccagacgcgggccacatactgctttttcggctcgcgctcgcggaactggcgttttaactcccgctccgcggctttggtcagcgccactacaatcacgccgctggtagccatatccagacgatgcaccgattctgcctgcggataatcacgctgaatgcgcgtcatcacgctgtctttgtgctcttccagacgacccggcac
+   65395     60246       157
+gacaacaaaccgctcggcttgttgaccaccataatatggtcatcctgatacaggataaccaaccagggttcctgcggtggattgtagttttccatccccattttcggctccgttactgatgcgttacaacgatcaaacgcagggcatccagacgcca
+   65553     60404       143
+cctgcctgatccaggctttccattacctgctgacggttgctctcaatggcggtcagttcgtcgtcacgaatgttcgggttcactgcacgcagagcttccagacgagacagctcggcagacagtttttcgtcggcttcgttacg
+   65711     60562        24
+tgcacgggcagatttctcgatctg
+   65757     60608        68
+gcgtgaacatcctgctgcacggcgttaaccagtttgctgccggtgtgacggttaaccgcgttaagctg
+   65826     60677        20
+cggttaaaggtttcaaactc
+   65847     60698       101
+acctgcgccgccaggttgttgccgtttttatccagcagcatacgtaccggcgtcggtggcaggaagcggttgagctgcaactgcttcggagcctgggcttc
+   65955     60806        47
+taaatcagttccaccaacagcgtacctaccggcaacgctttgttttt
+   66003     60854        71
+aacagtgaaatcgtgctgctaccggtatcgccagaaaggatcagatccagaccgttgcggatcagcggatg
+   66093     60944        61
+gcatcttcacgcgccagcgccacttcacgatcaaaggtgatggtgatgccatcttccgaca
+   66155     61006        42
+gccagggaagtccggcaccagcatatgatcggacggcgtcag
+   66198     61049       164
+acgatcatgttgtcgccgcgatcgtcctgattgataccgataatatcgaacaggttcatggcgaaggcgatcaggttggtatcgtcatcctgctcttcaatgctttctgccagtgcctgggctttttcgccaccgttggagtggatttccagcaggcggtcacg
+   66363     61214        74
+ccctgttccagctgtgctttcagcgcttcatgttgctcgcggcagtttttgatcagatcgtcaaagccttcggt
+   66440     61291        48
+atccggtgaagccagatagttaatcagatcgttgtatacgctatcgta
+   66489     61340        29
+atagtgcgtccggtcgggcaggtgtgctc
+   66519     61370        92
+aatgcatccagaccttcgtgataccagcgcaccagcaccgactgagcggttttctccagataaggcacatggatctgaatatcgtgcgcctg
+   66612     61463        35
+ccgatacgatccagacgaccaatacgctgctccag
+   66648     61499        77
+agatccgggttgaatggcaggtcaaacatcaccatgtggctggcgaactggaagttacgtccttcagaaccgatttc
+   66726     61577        35
+gagcacagcagtacctgtgcgccggtgtcttcttc
+   66762     61613        29
+gcaaaccaggcggcagcgcggtcacgttc
+   66792     61643        23
+ataatcgacataccttcgtggaa
+   66822     61673        62
+gcgcgaataccttcacgttcgcgcagtacctgctccagttgcagcgcagtggcagctttggc
+   66885     61736       140
+cagatcaccagcactttctgagagcgatggctggtcaggtagcccatcagccactcaacgcgcggatcgaagttccaccaggtggcgttatcaccttcaaattcctgataaatacgctccgggtagagcatatcgcgagc
+   67044     61895        44
+cgtgcgcccataatgccggagactttaatagccgtctgatactg
+   67095     61946        38
+agcggcagcttaatggtgtgcagctcgcgtttcgggaa
+   67134     61985        92
+cctttcacaccgttacgcgtgttacggaacagcacgcggctggtgccgtggcgatccatcagcatcgaaaccagctcctgacgggcgctctg
+   67227     62078        26
+gcatcttcgctgtcgctgtttgctgc
+   67254     62105        38
+tgcaacagcggctcgatatcctgctcgccgatcatctc
+   67311     62162        80
+tcattgctcagtttgttacctgccagcagcatggcaacggcgtccgcaaccggacgataatttttctgctcttcaacgaa
+   67392     62243        80
+tgcgcaaaatcgtggaaacggttcgggtccagcagacgcagacgggcgaagtggctttccatccccagctgttccggggt
+   67473     62324        65
+gcggtcagcagcagaacgcccggcacgtgctctgccagttgttcaatggcctgatattcacggct
+   67539     62390        47
+ggcgcatcttcgctccacaccaggtgatgcgcttcatcgaccaccag
+   67596     62447        23
+tcggcttcacagagatgttccag
+   67620     62471        47
+cgctgtttgctacgacgggcaaaatccagcgagcaaatcaccagctg
+   67677     62528        50
+aacgggttgtaagcatcgtgctgagcttcggcataacgctcatcatcaaa
+   67731     62582        71
+gcaaagcgcaggttgaaacggcgcagcatttctaccagccactgatgctgtaaggtttccgggacgataat
+   67803     62654        88
+agcacacgttcagcagcgccagagagcagttgctgatgcaggatcatcccggcttcaatggttttccctaaacccacttcgtcagcca
+   67892     62743        51
+caggacgcgcggcgcgtggcggcgaccaacatcatgagcgatgttgagctg
+   67944     62795        68
+tgcgggatcaggctggtacgctgaccgcgcaggccgctgtacggcatacggaactgttcgctggaata
+   68013     62864       116
+ttacgcgcgcgataacgcagcgcaaagcggtccatacggtcaatctgcccggcaaacagacggtcctgcggtttgctgaacaccagtttgctatcaaggaaaacttcacgcagggc
+   68130     62981        89
+acgccggactcttcagtatccaggcgagtaccgatataggtcagcaagccattttcttcttttacttcttcgacttgcatctgccagcc
+   68235     63086       340
+gtatcaccagggttgaacatcacgcgggtcacgggggaatcactgcgtgcgtacagacggttttcaccagtagatgggaaaagtaaagtgacagttcgcgcatccaccgcgacaacggttccaagtcccaattcgctttctgtatcgctgatccagcgttgaccaagtgtaaaaggcatatgtgttcggctctatatctttaattgcaggcaataaccacccgctaccgtgcttatgaggtagtggtgttattcaggtccaggaatggaaagggcgctatggtactggatggcaaagcattcgtcacgcatcaaaatggtatctggcgaactcttttttt
+   68575     63427       182
+gctcaaaatagcccaagttgcccggtcataagtgtagcaaaattatcctcaataaaagggagtattccctccgccacgggttgtagctggcgggtcagatagtgttcgtaatccagtggtgaacgttggtagtccagcggctccgggccgttggtggtccatacgtacttaatggtgccgcg
+   68758     63610        23
+ttctgatattgcaaggggcgacc
+   68791     63643        41
+ttttcttcatcggcaaggcgagcggcgcgtacatgaggcgg
+   68848     63700        26
+tcgctcagcggacggcgaaggcgttt
+   68887     63739        44
+cgcgcatccagttcacccgccatcagtttgtcgatggtttcgcg
+   68938     63790        26
+tcctgatatggctcgttgcggaagat
+   68974     63826        80
+agctcctgctgaaactgctgggccagcggcgtccagtcggtgcgcacggtttccagccctttaaacaccatccgctgctt
+   69085     63937       110
+tttttactgccggtatcggctccgcgaatggttggcatcagaaaacggcagaaatgggtttcatactccagttctaatgcgctggtcagccgttgtttttgcagcgtttc
+   69196     64048        38
+gcccaccaggcgttaacgtgctgcaccagtgcacgacc
+   69235     64087        37
+attttcgccgcttcttcttccgaatgtgcgcctttca
+   69273     64125        33
+ccagacaaacgttgagtcggtatcgccgtagat
+   69322     64174        65
+gcttcaatcaacgctttggtttgccgcatgatctgatgaccacgcatggtgatcgacgatgccag
+   69418     64270        32
+ccgagcacgccataaaaggcattcatgatgat
+   69478     64330        65
+ccctggcgtttggcttcatcgcgcccgtgccagatgttagtcacaatctccggcaggcaatgttt
+   69580     64432        89
+ctgtgctctggatcaggctgcgccatgccttccaccagcccgacgggatcaatcagaaaggtgcggatgatcgacgggtacaggctttt
+   69709     64561        80
+gaatccatcacgtagccgccagggctggcgtgcggcggcacttcgccgagattaggcgcgacataaccagcgcgatgcat
+   69793     64645        20
+ggaaaatagagatgaccaaa
+   69817     64669        20
+gccaccgaaccgccgtgtcg
+   69841     64693        20
+accggcaggccgttcaccgt
+   69880     64732        74
+ggcatgatttcagttttgtggaagatctgcgtcaccagctcgcaatctttcaggttataagttgccagcgcagg
+   69955     64807        76
+ttatcttcggcgaaacggcggtcaatttcgtccattcgatcccacgggttatcgatagattttccttcgcctaata
+   70045     64897        65
+gtttccagcgagaatgaagagaaattccagaacgcggatttcagcgcctcgataccgtcgataat
+   70123     64975        53
+gcctgggcaaaaaagacgccgtttttaaagccgtgctcgcgccactccagctc
+   70210     65062        29
+taacgctcggcatgtttttgcagcattcg
+   70264     65116        22
+ccgatgatcacatcaggatcgt
+   70291     65143        26
+gcaaaccaggcgttgagtttttccag
+   70330     65182        20
+ctggcgacgtattccagttc
+   70381     65233        83
+ggccccagcatataaacgatgcgctgcccgcagccttccaggccgatgcagtacagctcaccgtggcgggtggtttcaatatc
+   70478     65330        51
+tgagcggcggacgatagtcgggatgcggtttcagacgggcattaacgatag
+   70540     65392        62
+atatcaccctcgacccacaccggtgaggtgataaaccgctccatcagatagcgttctggcgg
+   70614     65466        51
+ctcgtagacggtaacgccaccttcacgcaggcgcttttcgtaattcatcaa
+   70666     65518        41
+tggcgatgggcgcgacagtaaaggccatacaccggctggcg
+   70708     65560        23
+tgaaaatcctttaacgccagcgg
+   70750     65602        20
+tcaccctgcaaaatatgctg
+   70771     65623        47
+gcgcggggaacctgatcggcgggaataaacgccacggactcttgcgg
+   70819     65671        31
+gcaagcgtaacctgcaacggcccgttgtccg
+   70888     65740        53
+tcccgccagtgtcgggttaagataaaacctgcctgcgccacgctgaaaatcca
+   70960     65812        67
+tatagcctggtttcgtttgattggctgtggttttatacagtcattactgcccgtaatatgccttcgc
+   71028     65880       122
+ccatgcttacgcagatagtgtttatccagcagcgtttgctgcatatccggtaactgcggcgctaactgacggcagaatatccccatataagcgacctcttccagcacgatggcgttatgcac
+   71151     66003        29
+gcatcttcggcatttttgccccatgcaaa
+   71220     66072        20
+gcatcgataccctgtttttc
+   71241     66093        41
+aaggtttctacgatgacgttaccggtttcccactcatattc
+   71283     66135        26
+ccgttgatttctgcgtcggtcatttt
+   71310     66162        44
+cgggtgcagggaatggtgccgtagaaatagtcggcgtgggtggt
+   71355     66207        56
+ccggttgctggaatcgactgacccgcctgcgcccagatggtggcgtggcgcgagtg
+   71415     66267        20
+tgcacaatgccgccaatgga
+   71439     66291        53
+aatgcctgatagagcagccggtgagttggcgtgtcggaggagggctttttcgt
+   71493     66345        29
+ccttcaaccacttcaccggtttcgatgct
+   71523     66375        30
+accacgaccatatcgtcagcggtcatgacg
+   71554     66406        28
+tgtaatcgacgccggaaggtttgatcac
+   71585     66437        57
+gacgccgcgctcgcgatcaacggcgctgacgttgccccatgtgagcgtgaccaggtt
+   71643     66495        31
+tgttttggcagcgccaggttggcttctaata
+   71675     66527        99
+ctggcgtttgagatcttctaacatgttgactccttcgtgccggatgcgctttgcttatccggcctacaaaatcgcagcgtgtaggcctgataagacgcg
+   71793     66730        54
+tgaatgccggatgcgctttgcttatccggcctacaaaatcgcagcgtgtaggcc
+   71861     66798        25
+agcgtcgcatcaggcgttacatacc
+   71887     66824        23
+gatgcggctacttagcgacgaaa
+   71911     66848        50
+ccgtaatacacttcgttccagcgcagcgcgtctttaaacgctggcaggcg
+   71980     66917        29
+gtgatttcaatgtcgtgcatctcggcgaa
+   72010     66947        23
+tggcgcatatcgttgaggttcag
+   72046     66983       119
+acggtatggtgcgcgccaccagcgaggatccacgcttcggaagcagttggcagatccggttgcgctttccacagcgcattcgccaccggcagtttcggcagggagtgcggtgttttcac
+   72166     67103        20
+gtgtcgatgcagttaaccag
+   72187     67124        28
+agacggtaacgatcgccgagatcaatca
+   72247     67184        26
+ttgaagatcaggcgggcaggatcgtc
+   72295     67232        27
+tgaacgtcgaggatcggtttctcttct
+   72337     67274        44
+cagacttccagcatatgggagccgagcaccaggtcattaccttt
+   72394     67331       107
+gtgtagtcctccataaaggaggtgccgccctgcagaccggttgacatcaccttcatgatgcgaagcagggcggcagttttccagtcgccttcgcccgcaaagccgta
+   72502     67439        41
+ccctgctgcatcagacgctgtacggccagaccaggaagctg
+   72544     67481        86
+ttcagaccgtgcaaatcttcaaaggtggtggtgaacgcgtggaagccaccttgttccaggaaacgcttcatccccagctcaatacg
+   72631     67568        28
+gccgcttccagcacgttctgtcgttttt
+   72676     67613        56
+gcaggcgtcatggtgtagcagctttcgtactcatcgaccagcgcgttaacatcgcc
+   72751     67688       110
+acctgcaccagatcgccaaccgcccaggtattgacggagaaaccgaacttgatctgtgcggcaactttatcgccatcggtgaccgccacttcacgcatgttatcgccaaa
+   72862     67799        35
+cggcagactttcagatgacgggtatcctgtttaga
+   72898     67835        35
+accgcctgacgcatccaggagccgatacgctcatg
+   72934     67871        29
+gcttgtttatcctgccagtgaccggtaac
+   72964     67901        29
+acggcatgttgctgacgcatacgcgcgcc
+   72994     67931        26
+atgaagccgaactcgcgaccgccatg
+   73024     67961        26
+gtctggttcaggttcataaagtccat
+   73057     67994       196
+ctgtcccacggcagcgccgcgttgaactgggtgtggaattgcagcaacggtttgttgagcatggtcaggccgttgatccacattttggccggggagaaggtgtgcagccacaccaccagaccagcgcaacgatcgtcgtaattcgcgtcgcggcaaatagcggtgatttcatccggcgtggtgcccagcggtttca
+   73366     68303        36
+acaaaccacacttcataattatcaaaaatcgtcatt
+   73423     68360       105
+aacggcctgggcagcctgtgccggggcggaagttggaagatagtgttgttcggcgctcatcgcccattgctgatagcggcgataaagctgttcaaagcgttgtgc
+   73540     68477        42
+cggttgcagggttttctctaccgcactggccattttttgctg
+   73595     68532        29
+tctgcgtgcactttcgcggcgacggcagc
+   73625     68562        98
+aaaatcgccgcaccgagcgcacagcactggtcagaggcaacaatttgcagcgggcgattcagcacgtcgcagcaggcctgcataatgacctggttttt
+   73724     68661        32
+cgcgcgatgccgcccagtgccatcacgttatt
+   73757     68694        20
+acggcgatcccctgatcggt
+   73790     68727        26
+attgcgcgtgcgccaaaggcggtggc
+   73823     68760        20
+aaaccgccgaacagcagcgg
+   73862     68799        77
+agatcggtaatcacccctttcaggcgttggttagcgttcggtgtgcggcggccgttaaaccagtcgagcaccaccgg
+   73940     68877        78
+aggtgatccagagacggatttttggcccatgcttcggtcagcgccggaagcagttgtttctggctggcgttgatttgc
+   74020     68957        57
+tttcagttccggatgctgggcggcaagctgttccagcggccagccgagtacgcgacc
+   74096     69033        77
+ccaaacgccgattggcctgcttccagaccgataaatccaggcaccacgctgccatcaacctgaccgcaaataccttt
+   74174     69111        95
+actgcccgctcgccaacgctctgtttgtcggcaatcagaatgtcgcaggtggaagtaccgataacttttaccagtgcgttaggctgtgcgcctgc
+   74270     69207        71
+ccaactgcgcccatatggcagtcaaacgcgccgccggaaatcaccacgctttcaggcaggccgagacgctg
+   74360     69297        26
+gtgcccaccggaatatcggcagtcca
+   74390     69327        47
+tcagtgaacagcggggaaggcaaatggcgattgaggatcgggtccag
+   74441     69378        38
+tcaaagaaactggctggcggcaggccgccccagctttc
+   74492     69429        44
+ttatgcccggcgctgcaacgtccgcgacgaatatcctgcgggcg
+   74537     69474        23
+gtggtaccggaaagcagagctgg
+   74561     69498        56
+acccagtcgcacagctcaatccacgatgcggcagattgcgccacggcgctgtcctg
+   74633     69570        35
+atttttgcccagaaccattcgctggaataaatacc
+   74675     69612        28
+tagcgggagtagtcaacgttgcccggcg
+   74720     69657        23
+atctcttccgcttcttcaaccgc
+   74744     69681        65
+gtgtggtctttccacaatacgaacatcgcgttcgggttttcggcaaactccgggcgcagcgccag
+   74825     69762        26
+tcaatcggtgcgggcgtcgagccggt
+   74853     69790        34
+tgtcaacgccaatcccgaccacagctgcgcgctg
+   74892     69829        28
+cgctaagctctgcaagcacggttttcag
+   74921     69858        53
+gccgcttccattgactcaatgtagtcacgcggatgatgacggaactggttatt
+   74975     69912        71
+ggggcatcacaaaattgccctttctgccaacggggataccactctacgctggtggcgatctcttcaccggt
+   75047     69984       117
+gcgcagtccaccgccaaagctcgcacagaatcactgccaaaatcgaggccaattgcaatcgccatcgtttcactccatccaaaaaaacgggtatggagaaacagtagagagttgcga
+   75165     70102       189
+aaaaagcgtcaggtaggatccgctaatcttatggataaaaatgctatggcatagcaaagtgtgacgccgtgcaaataatcaatgtggacttttctgccgtgattatagacacttttgttacgcgtttttgtcatggctttggtcccgctttgttacagaatgcttttaataagcggggttaccggttgg
+   75355     70292        27
+ttagcgagaagagccagtaaaagacgc
+   75383     70320        51
+gtgacggcaatgtctgatgcaatatggacaattggtttcttctctgaatgg
+   75435     70372       131
+gggagtatgaaaagtatggctgaagcgcaaaatgatcccctgctgccgggatactcgtttaacgcccatctggtggcgggtttaacgccgattgaggccaacggttatctcgatttttttatcgaccgacc
+   75579     70516        23
+ggttatattctcaatctcaccat
+   75609     70546       287
+cagggggtggtgaaaaatcagggacgagaatttgtctgccgaccgggtgatattttgctgttcccgccaggagagattcatcactacggtcgtcatccggaggctcgcgaatggtatcaccagtgggtttactttcgtccgcgcgcctactggcatgaatggcttaactggccgtcaatatttgccaatacgggtttctttcgcccggatgaagcgcaccagccgcatttcagcgacctgtttgggcaaatcattaacgccgggcaaggggaagggcgctattcgga
+   75898     70835        67
+tgctggcgataaatctgcttgagcaattgttactgcggcgcatggaagcgattaacgagtcgctcca
+   75966     70903        41
+ccaccgatggataatcgggtacgcgaggcttgtcagtacat
+   76020     70957       152
+gcagacagcaattttgatatcgccagcgtcgcacagcatgtttgcttgtcgccgtcgcgtctgtcacatcttttccgccagcagttagggattagcgtcttaagctggcgcgaggaccaacgcattagtcaggcgaagctgcttttgagcac
+   76173     71110       105
+acccggatgcctatcgccaccgtcggtcgcaatgttggttttgacgatcaactctatttctcgcgagtatttaaaaaatgcaccggggccagcccgagcgagttt
+   78106     71216       240
+gtgccggttgtgaagaaaaagtgaatgatgtagccgtcaagttgtcataattggtaacgaatcagacaattgacggcttgacggagtagcatagggtttgcagaatccctgcttcgtccatttgacaggcacattatgcaagcattgctggaacactttattacccaatccaccgtgtattcattgatggcggtggtgttggtggcctttctggagtcgctggcgctggtcggtttgatt
+   78394     71504        38
+ggcgagttaagtttctggcacgcctggctggcagggat
+   78493     71603        36
+ttgcatcgctggtcatttctgaagaaaaacaaagca
+   78535     71645        56
+gataaaactgaacatgcgttgcatcaacacagcatgttcaccattctggtcggtcg
+   78592     71702        53
+tttgttggcccgacgcgtccgctggtgccaatggtggcgggaatgctggatct
+   78655     71765        41
+aaatttattacgccgaatattatcggctgcctgctgtggcc
+   78730     71840        23
+gcggcgatcgatattcctgccgg
+   78763     71873        26
+ggtgagtttaaatggttgctgctggc
+   78814     71924        65
+ggctggctgtgctggcggttatggcgcagcggtaaagcgactgaccgtttgagtcattatttgtc
+   78880     71990       134
+cgcggtcgtttgttgtggctgacgccgttgatttctgccatcggcgtggtggcgctggtggtgttaattcgccacccgttgatgccggtgtatatcgatattttgcgtaaagtggttggggtttaggagatagt
+   79076     72230        55
+taacccgtaatccccaatagtgccgaagcactcgccttaccgctcaacaactcat
+   79137     72291        31
+taccctgccaggcgatgcgcccgtcggcgac
+   79172     72326        35
+accgagcgcgtggcgatccgcgccgcatcttccac
+   79208     72362        35
+ctgtgcgacaccatcaatagcgtcattttttgctg
+   79280     72434        83
+cgtaacgccggatcgagcgcagagaacggttcatcgagcaataaaatcggctgttcgcgtaccagacaacgcgctaacgccac
+   79364     72518        56
+cgctgtcgctgaccgccggaaagctcgcccggtaaccgcgccattaaattatcaat
+   79430     72584        21
+cgggcgatagcgtgcattttc
+   79469     72623        29
+agtttcaatcccggatttagccccagccc
+   79523     72677        54
+ctgaacaggttgttctcctgaaacagcatcgacaccggacggcgtgacggcggc
+   79592     72746       116
+acgccatcgatagtcagcgaaccgctggctggcgtcagaaaaccggcgatcaaattcagcagggtacttttacccgcgccgcttggcccgaggatcgccacctgctcgccgcgttc
+   79709     72863        32
+accgttaagctaaaacgcatcggcaaatggtg
+   79742     72896        57
+taaagccaggtgatatcagtcagttttaacatttcgccccggtagtttttcaatcac
+   79800     72954        20
+gtaaacagcagaaaacagag
+   79848     73002        53
+ccgtcctggctgcgataggagccaatttgctggtagagataaaacggcagggt
+   79902     73056        56
+cggaaatcatcgttaccgaacaacgccaccacgccaaaatcaccaatcgacagcac
+   79986     73140        53
+ggacgtttcagggcgcgcagctccaccacttttaagcgtgaccagccttcaat
+   80040     73194        21
+cccagcgactgacataacatg
+   80070     73224       134
+gcggtgatatcgcgcatcgggttttccagcactttcagcgcataagggatcgccattaacgcattggtgaaaatcacaatgccgtcagcagattgtggcaggccgatagtgttgttgagcagtaaaaagaagcc
+   80208     73362        51
+gccagcacaatccccggcatggcgaggatcaacatgccgctcatctccagc
+   80268     73422        74
+gccagcattttctgccgcgcccgcagttcgcgactgctccatagcagcatcatggtcagcactacgcacaatac
+   80343     73497       122
+cctgccgccagcgcaatacgcaacgaggtccacagcgcctgccacagcaccggttgtgccagcacttccggcaactggcgatttaccccatcgacgatcaccgccagtaacggtggcagcaa
+   80466     73620        26
+agcagcagcgccagcacaattaacac
+   80493     73647        65
+gtgtcgcaaatgcggctatgcagacgatcgtccgggtcgcgccagccttgcagcagcgtggtgcc
+   80559     73713        31
+ggcgcaatggccttactcaatcgctgactca
+   80637     73791        41
+gccgcgcgggcaggatcgtagtcgtaactcagcgcctgata
+   80682     73836        92
+gccagctcgatagtggtcgcctgcggaccgccccccagcgatagcacggtggcgaagctggcgaaacagagcataaagataagcgcagcaac
+   80790     73944        20
+cgtaaccacggccattcgac
+   80901     74055        26
+cggctcgccatcggcagattaaaaaa
+   80934     74088        50
+gccagcaaaataccttgcaggccgtagggcgaaaaggtccactccagacc
+   81003     74157        52
+gccagccagccctggcgaccatagacgctaagaatgccgaaaacagcgacca
+   81056     74210        24
+caccgggaggatcaaggtcattgc
+   81081     74235        26
+cacagacgcaacagcgccagccgacc
+   81108     74262        20
+ggaaagcgcctgcgatagag
+   81129     74283        20
+gcgcgggcgaggaatatcgc
+   81168     74322        78
+gccgagagaaacgcctgccagaaggagaagcgcaccacatgccacagatagctgtcctgccagactgccacccagtca
+   81247     74401        49
+cctgcggcgcgttccaccacagggcgagaaacgccgccagcgcaaccgc
+   81311     74465       109
+ggcgcttacacctggaattaaccagccgggaattaacggctgacggcgcgttgccattcgctaatccatgcctgacgttgtgccgccacttcggctggcgtgaactcca
+   81470     74624        71
+tttgccaccggatacatccagttgccggttgggatcgcattctggaaagccggagaaaccataaactggag
+   81560     74714        38
+ggctgcttgctggcagcggtgcgggcggcgacttccac
+   81599     74753        92
+tgcagatagtgaccttcgctgaagttcgcggcggcgtagttatctttcttctcttcgagaatgtgataagccggagaggtggtgtaactcag
+   81707     74861        50
+ccttttaaaaacaggccgtaggcttcgctccagcctttggtgaccgtgac
+   81758     74912        29
+gttttcttcgccagtttctgccaggcttg
+   81796     74950        54
+atcgccatagactttttgcatccatagcaacagacccagccccggtgtactggt
+   81862     75016        27
+ataaatcacccgccagttttgatcgct
+   81920     75074        23
+tttttcagtttgttcttgtcata
+   81974     75128        47
+acgaaagtgtcattattccagccgccgggaacgttaacggcatccgc
+   82073     75227        32
+ttgttatccagccccagcaccacatcggcttt
+   82106     75260        34
+ctgtttttgccttccatccgtagacggttgagaa
+   82160     75314        92
+gccaccagtttcagttcgcaattacagtcggcttcaaaggcttttttaaccaccggaccaggcccccagtcggcggcgaaggaatcgtaggt
+   82259     75413        50
+gtcagaacgggtttagcgaaaacgggcgctgtgcacagcaacagcagggg
+   82314     75468        26
+atttttttaacactttgcacctcaaa
+   82341     75495        90
+aagagtggcaaaggacttgagaaggagcctcaaatcccttcgccggcgttatccggatcaggttcgacgggtattttctcagcgcacgcg
+   82434     75588        58
+gcgtggcaccccgttgagaacggcgttagtgtagtgattttgttatcaaccagcaatc
+   83512     75657        41
+ggcgcaaaccacgctgatttaaaatcgaaccagccgagggt
+   83566     75711        41
+ccgcgcatactgcgttgcccctgaatgatcagccagtggtg
+   83623     75768        38
+gctttgctggcgaccagttgctggcaccagttcgccag
+   83856     76001        51
+cagcgtgacctggtgacttgccagaatctgctgcatgatcccggcaatcac
+   83986     76131       212
+gcatggtgccaacgggggagcagtccataagccgggaaccacagttgctggtactgttcctcagcgaaatagaccagattagttggagaaagcacatagcttacccagtccctgacttgctgattcgccccgcgatgggtgcggctgtcgaacagtaaatagtagcaaccttcctccaggcggctttcaatctctttttcctcgccctgtgg
+   84199     76344       134
+ccttttagcatcagccctccggctggctcgtcggcaatttccggcagaacccagacgttaacttcgtcgattaatgcccggtaaccgaagaagtcatcgaatgcctgaattttcagttgattggtgctgttgcg
+   84334     76479       104
+atcaccgcatacggaccggtgccgatgggatggctggcaaagttactgagggtttcccattcgcgcggcaggatcatcgccggaacttgccccagcagtaacgg
+   84463     76608        29
+tggatatccagcgtccagggcgtcggcga
+   84499     76644        35
+tcagcaatatgcgaatagagcggcagcgtattgat
+   84535     76680        47
+cgttttaaagaggcgatcacatcgtccatttccagttcacgaccatg
+   84583     76728        47
+tgaaaatggactcctggacgcaaaaagaaacgccagtgaagcggtga
+   84631     76776       107
+atttgctgccagtggtgggcgatgtctgcttccagttccccattttcctcatttatgcgcgttagcgaactgaagatttgccgggcgatatgggtttcggaacggcg
+   84739     76884        47
+aatgcgctgccaggtagcagattacgcaacggacgatagtagagcac
+   84799     76944        70
+cgcccctggcggaagctgcggcccagatgagaaaccagcatttgccgcacagtcgctttgtcgccaacca
+   84871     77016       300
+tgcaccagttgatcgatacgatcctgctccagcaggtcttccgcccgctgttgctgaagcgccagcccggtatagaggaatgtcagacgcgagcgtttaccgcgcccgacttccgcttcccacgtcagccagccgcgatcctgcatggtgttgagcagggtgcgcatatgacgacgcgagcagctcaataacgctgccagttcgttgagcgttgtgtcctgcgatttaccctcgcagcattgccacaggcggatgaactgttgttgcagacgagcagatggcataaaaggggaactcctg
+   85180     77325        54
+cagcaattttattttccctatattaagtcaataattcctaacgatgaagcaagg
+   85235     77380        91
+ggtgccccatgcgtcagttttatcagcactattttaccgcgacagcgaagttgtgctggttgcgttggttaagcgtcccacaacgattaac
+   85383     77528        25
+catcatgtgtgactgagtattggtg
+   85519     78885        22
+gcaatggcgtcgtcgtgctgca
+   85555     78921        35
+ctgtccagaccgttcatcatgcagtggcggcggaa
+   85627     78993        20
+ttcacctcttgcgcttccag
+   85648     79014        26
+tccacgtcgaaatggatccccggatt
+   85699     79065        50
+tccacttctgcatcgcttaatttcaccggcagcagctggttgttaaagct
+   85750     79116        29
+ttgccgtagaagatgtcagcaaaactcgg
+   85780     79146        23
+gcaatcaccactttaaaaccgta
+   85843     79209       203
+cagccgaagttttctcgtgccagcaaaatggaagcgccctgatactgcgggaagttcagcacgaagtccgggtttggctgttggcctttttcatccagaaaacgccagtcgttaaacagatgcgcgccaaaacccgtacgggtcactttctgcaaaaactgtttcgggatgattgcatcggtatcgacattggcggcatccag
+   86065     79431        57
+tgtttgataaatttctctgccatggtgtgctccttatttaatgttgcgaatgtcggc
+   86156     79522        59
+gccgggctgaccagatgcgtgcgcccgccgcgcccctggcggccttcaaagttacggtt
+   86216     79582        41
+ctggtggaggcacaacgttcgcccggattcagacggtcgtt
+   86258     79624       161
+ttcatcgccagacacattgagcagccaggcaagcgccattcaaaaccggcttcaataaagattttatccagaccttccgcttccgcctgggcttttaccgggccagagccgggaaccaccagtgcctgcacgcctggcgcgacttttcgccctttggcgat
+   86420     79786        59
+tccgctgccgcgcgtaaatcttcaatgcgcgagttggtacaggaaccgataaacacttt
+   86480     79846        98
+tcgatagccacttcggtcagcggaatacccggtttcagccccatataggccagcgctttttctgccgacgcgcgttcaaccggatcggcaaacgaagc
+   86579     79945        38
+ggatcgggaatattgtcgttcacggaaatcacctggcc
+   86618     79984        26
+ggattggtgccccaggtgacctgcgg
+   86651     80017        71
+tcttctgcttgcagagtgacaacggtatcgaaagttgcgccttcgtcggtttgcagggttttccagtaggc
+   86723     80089        62
+acggcgtcgtcgaaatctttgcctttcggcgcatgcagacggcctttgacatagttaaaggt
+   86786     80152        29
+gtttcgtccggtgcaaccagaccggcttt
+   86816     80182       125
+gcgcccatttcgattgccatattgcacagggtcatacgaccttccatgcttaaatcacggattgcttcgccgcaaaactccaccacatgcccggtgccgcctgcgctaccggttttaccgataat
+   86960     80326        47
+gcggtaatgcccggcgcggctttgccctggacttcaattttcatggt
+   87017     80383        95
+ccctgtttcagggtttgcgttgccagtacgtgttcaacttcggaagtgccgataccaaaggccagtgcgccaaacgcgccgtgggtggcggtatg
+   87113     80479        32
+gagtcgccgcagacaatggtcatccccggcaa
+   87146     80512        65
+gtgacgccctgttccggccccattacgtggacgatcccctgatacgggtgattcaggtcatacag
+   87212     80578        32
+tcgacgccaaattctttgcagtttttgatcag
+   87260     80626        38
+cgcgccatttcaccgcaggcattaatgtctttggtctg
+   87299     80665        23
+gtagagacgttgtgatccatggt
+   87323     80689       107
+gcgaaggttttgcccggctgacgtaccgggcgaccgtgggcgcgcagaccatcgaacgcctgcggtgaggtcacttcatgcaccaggtggcggtcgatatataacag
+   87431     80797        26
+ggggtttcgttttcggcttcgtacac
+   87458     80824        32
+acgtgagcgtcgaacaatttttcgtataacgt
+   87491     80857        23
+ttagccatgattacaccccttct
+   87517     80883        31
+acatagcgggcaatgatatcgcccatttcat
+   87549     80915        85
+ggtactaacggcggcagcgccacgggctaaatccccggtgcgaatgccttcttctaatgcgcggttaatggcgcgttcaatggcg
+   87635     81001        40
+aagccgcatcatcggcatccaggctgtaacgcagcagcag
+   87688     81054        23
+atttgtgcaatcgggttggcgat
+   87730     81096        29
+ggtgccgagccgcccgccggttcatacag
+   87760     81126        44
+ccaaaaccttgctcgttcaggctggcggaaggcaacatccccat
+   87805     81171        23
+gagccagtgatcattgcgcactc
+   87829     81195        37
+tcagacagaatgtcgccaaacaggttggagcacagca
+   87868     81234       143
+acgtcaaactgtgatggatctttaatcagctgcatggtggcgttgtcgatgtacatatgcgccagttcgacatccgggtattccgtggcgatctcgttaacgatctcccgccataaaatagaggattgcagcacgttggcttt
+   88024     81390        20
+actttgtggcgacgcttgcg
+   88111     81477        53
+gctttttcatattgtccgctaccttcgcggccttttggctgaccgaaatagat
+   88165     81531        32
+ccgccggtcagttcgcgcacacacaggatgtc
+   88198     81564        20
+aagccgtttgcggcaatgtc
+   88219     81585        47
+gcacgcagcggacagaatgcttccagcccctgatacagttttgccgg
+   88273     81639        28
+ttgctgaataatttgaagtgcttacgca
+   88312     81678        26
+gcgccgcgttctggttgctggtctgg
+   88363     81729        62
+cctaccgagccaaacagcacggcatcggcttgctcacaaccttcaaccgtcgcaggcggcag
+   88429     81795        53
+tgcccgtggttatcaatggctgcgccgcctacatcgtaatggctggtggtgat
+   88483     81849       196
+cgcatcgcaaagcggttgcgcacggcatccagcactttcagcgcctgggtcatcacttccggaccaataccgtcccccggcaatacggcaatatggtaattcttcgacatcacacggtttccttgttgttttcgttgtgttgagctttgcgttgcaactctttttcgacttctgcggcacgccagatattgttcag
+   88680     82046        20
+acgtgcaccatggctttggc
+   88722     82088        38
+gccaggccgacgccgtggaagcggcgaccgttgtagtt
+   88767     82133        32
+atatccacctgacccagcgcatctttaccgtg
+   88800     82166        41
+cctttggcggtcaggctgtatttcaccagttcgacgttata
+   88866     82232        77
+tagacggcatcgaccggaccgttaccgttggcggcttctgctttgacttcttcgccacaggccagtttgacggcggc
+   88965     82331        95
+gactgcacgctgaagtaatccagacggaaatgctccggctcttcttgctgcttaccgatgaaggccagcgcctccagatcgtaatcaaacacctg
+   89061     82427        29
+ccttttttgtccgccagcttcaggaaagc
+   89100     82466        29
+ttgtctaaattatattcactttctttata
+   89130     82496       110
+cccatctcatccatgcgatgtttcaccgccgcacgccccgaacgagaggtcagattcagctggatttggttcagaccaatagattctggtgtcatgatttcgtagttttc
+   89268     82634       122
+ataccggaggagtgtgcgaatgcgccgctgccaacaatggctttgtttgccgggatcggcatattacaaatctggctaactaactggctggtgcgccatatctcctggtgattaatggcggt
+   89394     82760        38
+acgttgagaatatccttacgaactttgatcgccatgat
+   89502     82868        26
+ccggcatgtaccgccgccagtgagtt
+   89544     82910        62
+aaatcgtcgtgggtatgtacggagataatggctttgtcgatgttaggcacgcgttcatacag
+   89607     82973        77
+ccgctgatgattccggcgaactcaaacggcatggtgtagcccacggtgtccggaatgttgatggtggtggcaccggc
+   89706     83072        23
+cgcgccagatcggcaatgggtgt
+   89733     83099        77
+ccggcatcttcgcaagaaaattcaacatcatcggtgtaattacgggcgcgtttcaccatatagatagcgcgttcgat
+   89856     83222        20
+gaagtggcaataaaggtatg
+   89928     83294        41
+ttttccacgcagcgagctaacgcacatacgcggctgttttt
+   90000     83366        90
+aaatcgcccggcgaagagacggggaaaccgacttccatcacgtcaacacccatacgctcaagggccagcgcaatttgcagtttttctttc
+   90098     83464        51
+gcttgcctgtaacgcctgttcaccgtcgcgcaatgtggtatcgaaaataat
+   90150     83516        36
+acttgctggctcatggtttgggtccttgtctctttt
+   90187     83553        78
+gagcgcctcgcttcgggcataaaaaaacccgcgcaatggcgcgggttttttgtttgactgcgtgctggcttaatgctg
+   90266     83632        97
+atgccgctcactcgtctaccgcgcaaagaagatgcgtttagtagtagtagaccgataaagcgaacgatgtgagtcattaaatcagctccagatgaat
+   90364     83730        53
+cgatatgcttttagagttactggatacaaaaacggatgtcaaccctgacgcaa
+   90453     83819        30
+aaattagctaattgtgctgcggtggttaaa
+   90485     83851        24
+aagcgatattaatttctgcttaac
+   90510     83876        32
+accgacgcttttcatcggttgacatatttcag
+   90543     83909        31
+ataaatttttgcatctaatcaacgaggaaaa
+   90608     83974        30
+tgatgatttgtattgaattatatgttttgc
+   90676     84043        27
+attaatgttaagaattaatgcattaaa
+   90724     84091        22
+aagcacatttaatccattttgt
+   90747     84114        71
+gatgattgagtattcgcggtagttatgattagattgttttcgcaacaaaaacattatggattattatgctg
+   90860     84227        24
+agaacccgtatctttatgttttcc
+   90901     84268        37
+ctttttcttattttatatgcatgataaatcatattct
+   90940     84307        84
+aggattatttctctgcattccaataagggaaagggagttaagtgtgacagtggagttaagtatgccagaggtacaaacagatca
+   91025     84392        23
+ccagagacggcggagttaagcaa
+   91055     84422        62
+ctacgcatggtcgatctcaacttattaaccgttttcgatgccgtgatgcaggagcaaaacat
+   91121     84488        20
+cgtgccgctcatgttctggg
+   91142     84509        26
+atgtcgcaacctgcggtcagtaacgc
+   91169     84536        56
+gttgcacgcctgaaggtgatgtttaatgacgagctttttgttcgttatggccgtgg
+   91226     84593        57
+attcaaccgactgctcgcgcatttcaactttttggttcagttcgtcaggcattgcaa
+   91304     84671        56
+ggttcaggttttgaacccgcgagcagtgaacgtgtatttcatctttgtgtttgcag
+   91361     84728        47
+ccgttagacagcattctgacctcgcagatttataatcacattgagca
+   91411     84778        57
+tgcgccaaatatacatgttatgttcaagtcttcattaaatcagaacactgaacatca
+   91469     84836        65
+ctgcgttatcaggaaacggagtttgtgattagttatgaagacttccatcgtcctgaatttaccag
+   91538     84905        56
+ccattatttaaagatgaaatggtgctggtagccagcaaaaatcatccaacaattaa
+   91595     84962        44
+ggcccgttactgaaacatgatgtttataacgaacaacatgcggc
+   91640     85007        35
+gtttcgctcgatcgtttcgcgtcatttagtcaacc
+   91676     85043        20
+tggtatgacacggtagataa
+   91697     85064        38
+caagccagtatcgcgtatcagggcatggcaatgatgag
+   91742     85109        21
+agcgtggtgtcgcaaacgcat
+   91764     85131        23
+tggtcgctattgcgccgcgttgg
+   91788     85155        28
+tggctgaagagttcgctgaatccttaga
+   91817     85184       133
+ttacaggtattaccgctgccgttaaaacaaaacagcagaacctgttatctctcctggcatgaagctgccgggcgcgataaaggccatcagtggatggaagagcaattagtctcaatttgcaaacgctaactga
+   91971     85338        57
+aatgtctggtttattctgcattttttattgaatgtagaattttattctgaatgtgtg
+   92030     85397        50
+ctctctattttaggattaattaaaaaaatagagaaattgctgtaagttgt
+   92081     85448        89
+ggattcagccgatttattatcaatttaatcctctgtaatggaggattttatcgtttcttttcacctttcctcctgtttattcttattac
+   92194     85561       155
+aattgcttaagcaagatcggacggttaatgtgttttacacattttttccgtcaaacagtgaggcaggccatggagatgttgtctggagccgagatggtcgtccgatcgcttatcgatcagggcgttaaacaagtattcggttatcccggaggcgc
+   92365     85732        26
+gatgcattgcataccgtgggtggtat
+   92401     85768        41
+ttagttcgtcatgagcaggcggcggtgcatatggccgatgg
+   92443     85810        77
+ctggcgcgcgcgaccggggaagtcggcgtcgtgctggtaacgtcgggtccaggggcgaccaatgcgattactggcat
+   92521     85888        26
+gccaccgcttatatggattccattcc
+   92548     85915        41
+ttagttgtcctttccgggcaggtagcgacctcgttgatagg
+   92590     85957        38
+tacgatgcctttcaggagtgcgacatggtggggatttc
+   92632     85999        92
+ccggtggttaaacacagttttctggttaagcaaacggaagacattccgcaggtgctgaaaaaggctttctggctggcggcaagtggtcgccc
+   92749     86116        35
+aaagatattcttaatccggcgaacaaattacccta
+   92785     86152        26
+gtctggccggagtcggtcagtatgcg
+   92836     86203        20
+cataaagggcaaattaagcg
+   92875     86242        23
+gcggcaaaaaaaccggttgtcta
+   92899     86266        29
+gtaggcggtggggcaatcacggcgggctg
+   92941     86308        37
+aaagaaacggtggaggcgttgaatctgcccgttgttt
+   92986     86353        62
+atggggctgggggcgtttccggcaacgcatcgtcaggcactgggcatgctgggaatgcacgg
+   93049     86416        44
+acctacgaagccaatatgacgatgcataacgcggatgtgatttt
+   93109     86476        29
+tttgatgaccgaacgacgaacaatctggc
+   93139     86506        20
+aagtactgcccaaatgccac
+   93175     86542        35
+attgatcctacttccatttctaaaaccgtgactgc
+   93211     86578        35
+gatatcccgattgtgggggatgctcgccaggtcct
+   93292     86659        26
+ctggatgagatccgcgactggtggca
+   93322     86689        39
+attgaacagtggcgcgctcgtcagtgcctgaaatatgac
+   93362     86729       109
+ctcacagtgaaaagattaaaccgcaggcggtgatcgagactctttggcggttgacgaagggagacgcttacgtgacgtccgatgtcgggcagcaccagatgtttgctgc
+   93472     86839        38
+ctttattatccattcgacaaaccgcgtcgctggatcaa
+   93544     86911       101
+cctgcggcactgggcgtcaaaatggcgttgccagaagaaaccgtggtttgcgtcactggcgacggcagtattcagatgaacatccaggaactgtctaccgc
+   93664     87031        44
+gtactggtggtgaatctcaataaccgctatctggggatggtgaa
+   93709     87076        68
+cagtggcaggacatgatctattccggccgtcattcacaatcttatatgcaatcgctacccgatttcgt
+   93778     87145        20
+cgtctggcggaagcctatgg
+   93802     87169        26
+gtcgggatccagatttctcatccgca
+   93832     87199        65
+ctggaaagcaaacttagcgaggcgctggaacaggtgcgcaataatcgcctggtgtttgttgatgt
+   93913     87280       244
+gagcacgtctacccgatgcagattcgcgggggcggaatggatgaaatgtggttaagcaaaacggagagaacctgattatgcgccggatattatcagtcttactcgaaaatgaatcaggcgcgttatcccgcgtgattggccttttttcccagcgtggctacaacattgaaagcctgaccgttgcgccaaccgacgatccgacattatcgcgtatgaccatccagaccgtgggcgatgaaaaagt
+   94158     87525        29
+cttgagcagatcgaaaagcaattacacaa
+   94227     87594        47
+gcgcatgttgagcgggaaatcatgctggtgaaaattcaggccagcgg
+   94275     87642        92
+tacgggcgtgacgaagtgaaacgtaatacggaaatattccgtgggcaaattatcgatgtcacaccctcgctttataccgttcaattagcagg
+   94376     87743        51
+taagcttgatgcatttttagcatcgattcgcgatgtggcgaaaattgtgga
+   94428     87795        38
+gttgctcgctctggtgtggtcggactttcgcgcggcga
+   94467     87834        37
+aaaataatgcgttgagaatgatctcaatgcgcaattt
+   94505     87872       423
+cagcccaacatgtcacgttgggctttttttgcgaaatcagtgggaacctggaataaaagcagttgccgcagttaattttctgcgcttagatgttaatgaatttaacccataccagtacaatggctatggtttttacattttacgcaaggggcaattgtgaaactggatgaaatcgctcggctggcgggagtgtcgcggaccactgcaagctatgttattaacggcaaagcgaagcaataccgtgtgagcgacaaaaccgttgaaaaagtcatggctgtggtgcgtgagcacaattaccacccgaacgccgtggcagctgggcttcgtgctggacgcacacgttctattggtcttgtgatccccgatctggagaacaccagctatacccgcatcgctaactatcttgaacgccaggcgcggcaa
+   94929     88296        28
+ggggttatcaactgctgattgcctgctc
+   94985     88352        59
+tgcattgagcaccttttacagcgtcaggttgatgccattattgtttcgacgtcgttgcc
+   95045     88412       101
+cctgagcatcctttttatcaacgctgggctaacgacccgttcccgattgtcgcgctggaccgcgccctcgatcgtgaacacttcaccagcgtggttggtgc
+   95147     88514        71
+gatcaggatgatgccgaaatgctggcggaagagttacgtaagtttcccgccgagacggtgctttatcttgg
+   95225     88592        35
+ccggagctttctgtcagcttcctgcgtgaacaagg
+   95261     88628        44
+ttccgtactgcctggaaagatgatccgcgcgaagtgcatttcct
+   95306     88673        26
+tatgccaacagctatgagcgggaggc
+   95333     88700        65
+gctgcccagttattcgaaaaatggctggaaacgcatccgatgccgcaggcgctgttcacaacgtc
+   95441     88808        71
+gacggcaaactgccttctgacctggcaattgccacctttggcgataacgaactgctcgacttcttacagtg
+   95513     88880       186
+ccggtgctggcagtggctcaacgtcaccgcgatgtcgcagagcgtgtgctggagattgtcctggcaagcctggacgaaccgcgtaagccaaaacctggtttaacgcgcattaaacgtaatctctatcgccgcggcgtgctcagccgtagctaagccgcgaacaaaaatacgcgccaggtgaatttc
+   95737     89104        25
+cttaaagtaaataagactattcctg
+   95763     89130        26
+ctattattgataaatgcttttaaacc
+   95803     89170        38
+ctcaccagctgaaattcacaataattaagtgatatcga
+   95842     89209        30
+agcgcgtttttgcattattttgttacatgc
+   95875     89242        63
+gatgaattgccgatttaacaaacacttttctttgcttttgcgcaaacccgctggcatcaagcg
+   95955     89322       248
+ggactgttaaccggggaagatatgtcctaaaatgccgctcgcgtcgcaaactgacactttatatttgctgtggaaaatagtgagtcattttaaaacggtgatgacgatgagggattttttcttacagctattcataacgttaatttgcttcgcacgttggacgtaaaataaacaacgctgatattagccgtaaacatcgggttttttacctcggtatgccttgtgactggcttgacaagcttttcctc
+   96204     89571       183
+gctccgtaaactcctttcagtgggaaattgtggggcaaagtgggaataaggggtgaggctggcatgttccggggagcaacgttagtcaatctcgacagcaaagggcgcttatcagtgcctacccgttatcgggaacagctgcttgagaacgctgccggtcaaatggtttgcaccattgacatt
+   96388     89755       492
+atcacccgtgcctgctgctttaccccctgcctgaatgggaaattatcgagcaaaaattatcgcgtctgtcgagcatgaacccggttgagcgccgtgtgcagcgcctactgttaggtcatgccagcgaatgtcagatggatggcgcaggtcgattgttaatcgcgccagtactgcggcaacatgccgggctgacaaaagaagtgatgctggttggacagttcaacaagtttgagctgtgggatgaaacaacctggcatcaacaggtcaaggaagatatcgacgcagagcagttggctaccggagacttatcggagcgactgcaggacttgtctctataaaatgatggaaaactataaacatactacggtgctgctggatgaagccgttaatggcctcaatatccgtcctgatggcatctacattgatgggacttttggtcgcggtggtcactcacgtctgatcctctcgcagcttggcgaagaggggcgtttg
+   96881     90248       133
+tggcgatcgatcgcgacccgcaggctatcgccgttgcgaagactattgatgatccgcgcttctccatcatccacggacctttctccgcgctgggcgaatacgttgccgagcgcgatcttatcggcaagatcga
+   97015     90382        53
+ggcattctcctcgatcttggcgtctcttcaccgcaacttgatgatgctgaacg
+   97072     90439       167
+ttttcctttatgcgcgatggtccgctggacatgcgtatggacccaacccgtgggcagtcagccgctgaatggctacaaaccgcagaagaagccgatatcgcctgggtattgaaaacctatggtgaagagcgttttgccaaacgcattgcccgcgccattgtcgagcg
+   97240     90607        95
+aaccgcgaacagccgatgacccgcaccaaagaactggcggaagtcgtggctgctgcaacgccggtgaaagataagtttaaacatcccgcgacccg
+   97336     90703       281
+accttccaggcggtgcgcatttgggtaaacagtgaactggaggagatagagcaggcgctaaaaagctcgctcaacgtgctggccccgggtgggcggctttcgatcatcagcttccactcgctggaagaccgtattgtgaaacgttttatgcgtgaaaacagccgcggtccgcaagttccggcagggttaccgatgactgaagagcagctcaaaaaactgggtggccgtcagctgcgagcactaggcaagttaatgccgggcgaagaagaggtggctgagaa
+   97618     90985        44
+cctcgtgcccgtagttcagttctgcgtattgcagagaggacgaa
+   97663     91030       157
+gcatgatcagcagagtgacagaagctctaagcaaagttaaaggatcgatgggaagccacgagcgccatgcattgcctggtgttatcggtgacgatcttttgcgatttgggaagctgccactctgcctgttcatttgcattattttgacggcggtgac
+   97821     91188        95
+gtggtaaccacggcgcaccatacccgtttactgaccgctcagcgcgaacaactggtgctggagcgagatgctttagacattgaatggcgcaacct
+   97917     91284        47
+atccttgaagagaatgcgctcggcgaccatagccgggtggaaaggat
+   97965     91332       242
+gccacggaaaagctgcaaatgcagcatgttgatccgtcacaagaaaatatcgtagtgcaaaaataaggataaacgcgacgcatgaaagcagcggcgaaaacgcagaaaccaaaacgtcaggaagaacatgccaactttatcagttggcgttttgcgttgttatgcggctgtattctcctggcgctggcttttctgctcggacgcgtagcgtggttacaagttatctccccggatatgctggt
+   98208     91575       101
+aaagagggcgacatgcgttctcttcgcgttcagcaagtttccacctcccgcggcatgattactgaccgttctggtcgcccgttagcggtgagcgtgccggt
+   98310     91677        59
+aaagcgatttgggctgacccgaaagaagtgcatgacgctggcggtatcagcgtcggtga
+   98370     91737        23
+cgctggaaggcgctggctaacgc
+   98400     91767        74
+attccgctggatcagctttcagcccgcattaacgccaacccgaaagggcgctttatttatctggcgcgtcaggt
+   98493     91860        44
+tacatcaaaaaactgaaactgccggggattcatctgcgtgaaga
+   98571     91938        35
+gctcacctcatcggctttactaacgtcgatagtca
+   98622     91989        68
+gagaagagtttcgataaatggcttaccgggcagccgggtgagcgcattgtgcgtaaagaccgctatgg
+   98730     92097        83
+gcgcacaacctggcgctgagtattgatgaacgcctgcaggcgctggtttatcgcgaactgaacaacgcggtggcctttaacaa
+   98814     92181        80
+gctgaatctggtagcgccgtgctggtggatgtcaacaccggtgaagtgctggcgatggctaacagcccgtcatacaaccc
+   98907     92274        38
+ggcacgccgaaagaggcgatgcgtaaccgtaccatcac
+   98964     92331        23
+tcaacggttaaaccgatggtggt
+   98988     92355        23
+atgaccgcgttgcaacgtggcgt
+   99012     92379        20
+gtgcgggaaaactcggtact
+   99040     92407       280
+ttccttatcgaattaacggccacgaaatcaaagacgtggcacgctacagcgaattaaccctgaccggggtattacagaagtcgagtaacgtcggtgtttccaagctggcgttagcgatgccgtcctcagcgttagtagatacttactcacgttttggactgggaaaagcgaccaatttggggttggtcggagaacgcagtggcttatatcctcaaaaacaacggtggtctgacatagagagggccaccttctctttcggctacgggctaatggtaacacc
+   99321     92688        74
+ttacagttagcgcgagtctacgcaactatcggcagctacggcatttatcgcccactgtcgattaccaaagttga
+   99396     92763        41
+cccccggttcccggtgaacgtgtcttcccggaatccattgt
+   99444     92811        32
+gtggtgcatatgatggaaagcgtggcgctacc
+   99483     92850       534
+ggcggcgtgaaggcggcgattaaaggctatcgtatcgccattaaaaccggtaccgcgaaaaaggtcgggccggacggtcgctacatcaataaatatattgcttataccgcaggcgttgcgcctgcgagtcagccgcgcttcgcgctggttgttgttatcaacgatccgcaggcgggtaaatactacggcggcgccgtttccgcgccggtctttggtgccatcatgggcggcgtattgcgtaccatgaacatcgagccggatgcgctgacaacgggcgataaaaatgaatttgtgattaatcaaggcgaggggacaggtggcagatcgtaatttgcgcgaccttcttgctccgtgggtgccagacgcaccttcgcgagcactgcgagagatgacactcgacagccgtgtggctgcggcgggcgatctctttgtagctgtagtaggtcatcaggcggacgggcgtcgatatatcccgcaggcgatagcgcaaggtgtggctgccattattgcagaggcgaaagatgaggcgaccga
+  100018     93385       101
+ggtgaaatccgtgaaatgcacggcgtaccggtcatctatctcagccagctcaacgagcgtttatctgcactggcgggccgcttttaccatgaaccctctga
+  100135     93502        32
+ggcgtaacgggcaccaacggcaaaaccacgac
+  100183     93550        25
+cagtggagccaactgcttggcgaaa
+  100209     93576        63
+cagcgcggtaatgggcaccgttggtaacggcctgctggggaaagtgatcccgacagaaaatac
+  100273     93640        59
+accggttcggcagtcgatgttcagcatgagctggcggggctggtggatcagggcgcgac
+  100354     93721        20
+tcccacgggctggtacagca
+  100402     93769        89
+tcggtctttaccaacttaagccgcgatcaccttgattatcatggtgatatggaacactacgaagccgcgaaatggctgctttattctga
+  100497     93864        96
+ttgcggtcaggcgattattaacgccgacgatgaagtgggccgccgctggctggcaaaactgccggacgcggttgcggtatcaatggaagatcatat
+  100599     93966        62
+gaactgtcacggacgctggttgaaagcgaccgaagtgaactatcacgacagcggtgcgacga
