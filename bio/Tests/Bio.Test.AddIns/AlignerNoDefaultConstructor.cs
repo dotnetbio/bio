@@ -1,5 +1,5 @@
 ﻿using System;
-
+using Bio.Algorithms.Alignment.Legacy;
 using Bio.Registration;
 using Bio.Algorithms.Alignment;
 

@@ -1,4 +1,6 @@
-﻿namespace SequenceAssembler
+﻿using Bio.Algorithms.Alignment.Legacy;
+
+namespace SequenceAssembler
 {
     #region -- Using Directive --
 

@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using Bio.Algorithms.Alignment.Legacy;
 using Bio.TestAutomation.Util;
 using Bio;
 using Bio.Algorithms.Alignment;

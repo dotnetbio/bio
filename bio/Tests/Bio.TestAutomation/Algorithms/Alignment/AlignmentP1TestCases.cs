@@ -15,6 +15,7 @@ using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 
 using Bio.Algorithms.Alignment;
+using Bio.Algorithms.Alignment.Legacy;
 using Bio.IO;
 using Bio.SimilarityMatrices;
 using Bio.TestAutomation.Util;

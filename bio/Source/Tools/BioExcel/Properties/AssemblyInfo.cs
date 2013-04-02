@@ -11,7 +11,7 @@ using System.Security;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("BioExcel Add-in")]
-[assembly: AssemblyCopyright("Copyright (c) 2011, The Outercurve Foundation.")]
+[assembly: AssemblyCopyright("Copyright (c) 2011-2013, The Outercurve Foundation.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -33,8 +33,8 @@ using System.Security;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("2.0.*")]
-[assembly: AssemblyVersion("1.01.*")]
-[assembly: AssemblyFileVersion("1.01.403.0")]
+[assembly: AssemblyVersion("1.1.*")]
+[assembly: AssemblyFileVersion("1.1.0.0")]
 
 internal static class DesignTimeConstants {
     internal const string Version = "10.0.0.0";

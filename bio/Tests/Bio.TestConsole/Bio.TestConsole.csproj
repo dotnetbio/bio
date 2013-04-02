@@ -11,13 +11,14 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Bio.TestConsole</RootNamespace>
     <AssemblyName>Bio.TestConsole</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <SccProjectName>SAK</SccProjectName>
     <SccLocalPath>SAK</SccLocalPath>
     <SccAuxPath>SAK</SccAuxPath>
     <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -31,6 +32,7 @@
     <RunCodeAnalysis>true</RunCodeAnalysis>
     <CodeAnalysisRuleSet>..\..\Source\BioFramework_Code_Rules.ruleset</CodeAnalysisRuleSet>
     <CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -43,6 +45,7 @@
     <RunCodeAnalysis>true</RunCodeAnalysis>
     <CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
     <CodeAnalysisRuleSet>..\..\Source\BioFramework_Code_Rules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
@@ -67,187 +70,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MumUtilBvtTestCases.cs" />
     <Compile Include="SamUtilsBvtTestCases.cs" />
+    <Compile Include="SAMUtilTests.cs" />
     <Compile Include="Util\Constants.cs" />
     <Compile Include="Util\Utility.cs" />
     <Compile Include="Util\XmlUtility.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="TestData\TestUtils\ComparativeExpectedOutputEcoliWithScaffold.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\TestUtils\ComparativeTestData\ComparativeExpectedOutputDefaultParams.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\TestUtils\ComparativeTestData\ComparativeExpectedOutputVerbose.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\TestUtils\ComparativeTestData\ComparativeExpectedOutputWithKmerAndMum.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\TestUtils\ComparativeTestData\ComparativeExpectedOutputWithMaxLengthInsert.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\TestUtils\ComparativeTestData\ComparativeExpectedOutputWithMeanLengthInsert.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\TestUtils\ComparativeTestData\LisUtilExpectedOutputDefaultParams.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\TestUtils\ComparativeTestData\LisUtilExpectedOutputWithMaxMatch.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\TestUtils\ComparativeUtilExpectedOutputEcoli.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\TestUtils\EColiNucmerUtilOutput.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\TestUtils\EColiPadenaOutputWithAssemble.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\TestUtils\EColi.500_Padena_Assemble_Output.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\TestUtils\EColi.500_Padena_Scaffold_Output.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\TestUtils\EColiMumUtilOutput.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\TestUtils\EColi_500_Padena_AssembleWithScaffold_Output.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\TestUtils\EColi_500_NucmerOutput.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\TestUtils\EColi_ConsensusOutput.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\TestUtils\EColi_LayoutRefinementOutput.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\TestUtils\EColi_RepeatResolutionOutput.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\TestUtils\EColi_ScaffoldUtil_Output.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\TestUtils\ExpectedComparativeUtilHelp.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\TestUtils\ExpectedConsensusUtilHelp.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\TestUtils\ExpectedLayoutRefinementUtilHelp.txt" />
-    <Content Include="TestData\TestUtils\ExpectedLisUtilHelp.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\TestUtils\ExpectedMumUtilHelp.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\TestUtils\ExpectedNucmerUtilHelp.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\TestUtils\ExpectedPadenaUtilHelp.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\TestUtils\ExpectedRepeatResolutionUtilHelp.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\TestUtils\ExpectedSamUtilsHelp.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\TestUtils\ExpectedSamUtilsImportHelp.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\TestUtils\ExpectedSamUtilsIndexHelp.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\TestUtils\ExpectedSamUtilsMergeHelp.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\TestUtils\ExpectedSamUtilsSortHelp.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\TestUtils\ExpectedSamUtilsViewHelp.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\TestUtils\ExpectedScaffoldUtilHelp.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\TestUtils\LisUtilExpectedOutputBoth.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\TestUtils\LisUtilExpectedOutputComplementBoth.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\TestUtils\LisUtilExpectedOutputComplementReverseOnly.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\TestUtils\LisUtilExpectedOutputDefaultParams.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\TestUtils\LisUtilExpectedOutputEcoli.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\TestUtils\LisUtilExpectedOutputNoAmbiguity.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\TestUtils\LisUtilExpectedOutputReverseOnly.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\TestUtils\LisUtilExpectedOutputShowMatchingStr.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\TestUtils\LisUtilExpectedOutputWithMaxMatch.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\TestUtils\MumUtil_NoAmbiguity_EColi500Output.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\TestUtils\MumUtil__EColi500Output_WithLength_AndBoth.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\TestUtils\EColi.500_NucmerOutputWithManySwitches.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\TestUtils\SAMBAMTestData\ExpectedOutputMediumSizedBam.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\TestUtils\SAMBAMTestData\ExpectedOutputMediumSizedSam.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\TestUtils\SAMBAMTestData\ExpectedOutputViewDefaultParams.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\TestUtils\SAMBAMTestData\ExpectedOutputViewWithHeaderForSAM.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\TestUtils\SAMBAMTestData\ExpectedOutputViewWithHEX.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\TestUtils\SAMBAMTestData\ExpectedOutputViewWithMinMapQuality.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\TestUtils\SAMBAMTestData\ExpectedOutputViewWithOutputBam.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\TestUtils\SAMBAMTestData\ExpectedOutputViewWithSAMFormat.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\TestUtils\SAMBAMTestData\ExpectedOutputViewWithUncompressedBAM.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\TestUtils\Small_Size_NucmerUtil_Output.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\TestUtils\UtilitiesTestsConfig.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="TestData\TestUtils\Small_Size_MumUtil_Output.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Source\Framework\Add-ins\Bio.Comparative\Bio.Comparative.csproj">
@@ -306,63 +132,6 @@
       <Project>{0BE8D839-1086-483A-9842-DACA834DF273}</Project>
       <Name>ScaffoldUtil</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="TestData\TestUtils\100K-Ecoli-Query.fasta">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="TestData\TestUtils\100K-Ecoli-Ref.fasta">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="TestData\TestUtils\ComparativeTestData\100K-Ecoli-Query.fasta">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="TestData\TestUtils\ComparativeTestData\100K-Ecoli-Ref.fasta">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="TestData\TestUtils\ComparativeTestData\DNA-Medium-Ref.fasta">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="TestData\TestUtils\ComparativeTestData\DNA-Medium-RefReads-WithError_1.fa">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="TestData\TestUtils\E-Coli_5Mb_ReadsFile_NC_000913.bd_1X_1.fa">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="TestData\TestUtils\E-Coli_5Mb_RefFile_NC_000913.bd.fasta">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="TestData\TestUtils\E-Coli_5Mb_RefFile_NC_000913.bd_Copy.fasta">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="TestData\TestUtils\Ecoli.500.fasta" />
-    <None Include="TestData\TestUtils\Ecoli.500_Copy.fasta">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="TestData\TestUtils\Ecoli.500_WithError_1x_Paired.fasta">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="TestData\TestUtils\NC_000913.bd.fasta">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="TestData\TestUtils\NC_000913.bd_1X_1.fa">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="TestData\TestUtils\SAMBAMTestData\ExpectedBAMIndex.index">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="TestData\TestUtils\SAMBAMTestData\ExpectedOutputSortedBam.bam">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="TestData\TestUtils\SAMBAMTestData\ExpectedOutputSortedBamByReadNames.bam">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="TestData\TestUtils\SAMBAMTestData\MediumSizeBam.bam">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="TestData\TestUtils\SAMBAMTestData\MediumSizeSam.sam">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

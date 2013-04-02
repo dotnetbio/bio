@@ -184,8 +184,8 @@ namespace Bio.Workflow
         /// <returns>The execution status.</returns>
         protected override ActivityExecutionStatus Execute(ActivityExecutionContext executionContext)
         {
-            SmithWatermanAligner SWA = new SmithWatermanAligner();
-            Result = SWA.AlignSimple(SimilarityMatrix, GapPenalty, Sequence1, Sequence2);
+            var SWA = new SmithWatermanAligner { GapOpenCost = GapPenalty, GapExtensionCost = GapPenalty, SimilarityMatrix = SimilarityMatrix };
+            Result = SWA.AlignSimple(Sequence1, Sequence2);
             if (Result.Count >= 1 && Result[0].PairwiseAlignedSequences.Count >= 1)
             {
                 Result1 = Result[0].PairwiseAlignedSequences[0].FirstSequence;

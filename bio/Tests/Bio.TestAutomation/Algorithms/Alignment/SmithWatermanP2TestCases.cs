@@ -12,6 +12,7 @@ using System.IO;
 using System.Linq;
 using Bio;
 using Bio.Algorithms.Alignment;
+using Bio.Algorithms.Alignment.Legacy;
 using Bio.IO.FastA;
 using Bio.SimilarityMatrices;
 using Bio.TestAutomation.Util;

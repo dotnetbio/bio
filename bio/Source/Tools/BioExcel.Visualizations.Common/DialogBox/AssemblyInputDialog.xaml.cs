@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Bio.Algorithms.Alignment.Legacy;
 
 namespace BiodexExcel.Visualizations.Common
 {

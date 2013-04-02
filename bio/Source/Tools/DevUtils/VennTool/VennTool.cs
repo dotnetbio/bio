@@ -55,7 +55,7 @@ namespace VennTool
         static void Splash()
         {
             // Display the program's splash screen
-            Console.WriteLine("VennTool V1.01 - Copyright (c) 2011, The Outercurve Foundation.");
+            Console.WriteLine("VennTool V1.10 - Copyright (c) 2011-2013, The Outercurve Foundation.");
             Console.WriteLine();
         }
 

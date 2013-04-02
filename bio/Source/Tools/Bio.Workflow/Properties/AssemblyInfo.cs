@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Bio.Workflow")]
-[assembly: AssemblyCopyright("Copyright (c) 2011, The Outercurve Foundation.")]
+[assembly: AssemblyCopyright("Copyright (c) 2011-2013, The Outercurve Foundation.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -23,8 +23,8 @@ using System.Runtime.InteropServices;
 //
 // You can specify all the values or you can default the Revision and Build Numbers 
 // by using '*'.
-[assembly: AssemblyVersion("1.01.*")]
-[assembly: AssemblyFileVersion("1.01.0.0")]
+[assembly: AssemblyVersion("1.1.*")]
+[assembly: AssemblyFileVersion("1.1.0.0")]
 [assembly: ComVisible(false)]
 
 

@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Collections.Generic;
 using Bio.Algorithms.Alignment;
+using Bio.Algorithms.Alignment.Legacy;
 using Bio.Algorithms.MUMmer;
 using Bio.IO;
 using Bio.TestAutomation.Util;

@@ -26,7 +26,6 @@ namespace Bio.TestAutomation.Algorithms.MUMmer
     [TestClass]
     public class MUMmerBvtTestCases
     {
-
         #region Global Variables
 
         Utility utilityObj = new Utility(@"TestUtils\MUMmerTestsConfig.xml");

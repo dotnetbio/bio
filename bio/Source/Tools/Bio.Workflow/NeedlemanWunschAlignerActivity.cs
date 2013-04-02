@@ -184,9 +184,8 @@ namespace Bio.Workflow
         /// <returns>The execution status.</returns>
         protected override ActivityExecutionStatus Execute(ActivityExecutionContext executionContext)
         {
-            NeedlemanWunschAligner NWA = new NeedlemanWunschAligner();
-
-            Result = NWA.AlignSimple(SimilarityMatrix, GapPenalty, Sequence1, Sequence2);
+            var NWA = new NeedlemanWunschAligner { GapOpenCost = GapPenalty, GapExtensionCost = GapPenalty, SimilarityMatrix = SimilarityMatrix };
+            Result = NWA.AlignSimple(Sequence1, Sequence2);
 
             if (Result.Count >= 1 && Result[0].PairwiseAlignedSequences.Count >= 1)
             {

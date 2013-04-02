@@ -85,14 +85,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Framework\Bio.Hpc.DistributeApp\Bio.Hpc.DistributeApp.csproj">
-      <Project>{8ACAC84A-CB0C-40C4-B595-CA37E221B180}</Project>
-      <Name>Bio.Hpc.DistributeApp</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Framework\Bio.Hpc\Bio.Hpc.csproj">
-      <Project>{1FF9E7F1-4571-495B-AF7A-CE1151C4EDC1}</Project>
-      <Name>Bio.Hpc</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Framework\Bio\Bio.csproj">
       <Project>{B53E11DF-F9A9-4939-893E-78E59872089A}</Project>
       <Name>Bio</Name>

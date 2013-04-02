@@ -14,7 +14,6 @@ namespace Bio.TestConsole
     [TestClass]
     public class MumUtilBvtTestCases 
     {
-
         #region Global Variables
 
         Utility utilityObj = new Utility(@"TestUtils\UtilitiesTestsConfig.xml");        

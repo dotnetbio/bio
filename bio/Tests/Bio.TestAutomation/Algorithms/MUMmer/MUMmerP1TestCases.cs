@@ -10,19 +10,15 @@ using System.Text;
 using System.Linq;
 using System.Collections.Generic;
 using System.Globalization;
-
-using Bio.IO;
 using Bio.Algorithms.MUMmer;
 using Bio.Algorithms.SuffixTree;
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Runtime.Serialization;
 using Bio.SimilarityMatrices;
 using Bio.IO.FastA;
 using Bio.Algorithms.Alignment;
-using Bio;
 
 namespace Bio.TestAutomation.Algorithms.MUMmer
 {
