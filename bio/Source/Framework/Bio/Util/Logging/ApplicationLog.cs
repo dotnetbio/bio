@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Globalization;
 using System.IO;
-using System.Threading;
 
 namespace Bio.Util.Logging
 {
@@ -20,9 +19,9 @@ namespace Bio.Util.Logging
 
         static ApplicationLog()
         {
-            if (!ApplicationLog.Ready)
+            if (!Ready)
             {
-                ApplicationLog.Open(Properties.Resource.LogFileName);
+                Open(Properties.Resource.LogFileName);
             }
         }
 
@@ -62,9 +61,6 @@ namespace Bio.Util.Logging
         /// <param name="fileName">the filename</param>
         public static void Open(string fileName)
         {
-#if !SILVERLIGHT
-            Thread.BeginCriticalRegion();
-#endif
             Close();
             _fInfo = new FileInfo(fileName);
 
@@ -84,9 +80,6 @@ namespace Bio.Util.Logging
                 _fInfo = new FileInfo(fileName);
                 _writer = new StreamWriter(_fInfo.FullName);
             }
-#if !SILVERLIGHT
-            Thread.EndCriticalRegion();
-#endif
         }
 
         /// <summary>
@@ -99,18 +92,12 @@ namespace Bio.Util.Logging
         /// <param name="fileName">the filename</param>
         public static void Reopen(string fileName)
         {
-#if !SILVERLIGHT
-            Thread.BeginCriticalRegion();
-#endif
             FileInfo temp = new FileInfo(fileName);
             if (Ready && _fInfo.FullName == temp.FullName)
             {
                 return;
             }
             OpenAppend(fileName);
-#if !SILVERLIGHT
-            Thread.EndCriticalRegion();
-#endif
         }
 
         /// <summary>
@@ -119,15 +106,9 @@ namespace Bio.Util.Logging
         /// <param name="fileName">the filename</param>
         public static void OpenAppend(string fileName)
         {
-#if !SILVERLIGHT
-            Thread.BeginCriticalRegion();
-#endif
             Close();
             _fInfo = new FileInfo(fileName);
             _writer = new StreamWriter(_fInfo.FullName, true);
-#if !SILVERLIGHT
-            Thread.EndCriticalRegion();
-#endif
         }
 
         /// <summary>
@@ -135,18 +116,12 @@ namespace Bio.Util.Logging
         /// </summary>
         public static void Close()
         {
-#if !SILVERLIGHT
-            Thread.BeginCriticalRegion();
-#endif
             if (_writer != null)
             {
                 Flush();
                 _writer.Close();
                 _writer.Dispose();
             }
-#if !SILVERLIGHT
-            Thread.EndCriticalRegion();
-#endif
         }
 
         // the various write methods return what they wrote, as a convenience.
@@ -158,9 +133,6 @@ namespace Bio.Util.Logging
         /// <returns>the string</returns>
         public static string Write(string output)
         {
-#if !SILVERLIGHT
-            Thread.BeginCriticalRegion();
-#endif
             if (Ready)
             {
                 _writer.Write(output);
@@ -169,9 +141,6 @@ namespace Bio.Util.Logging
                     Flush();
                 }
             }
-#if !SILVERLIGHT
-            Thread.EndCriticalRegion();
-#endif
             return output;
         }
 
@@ -184,10 +153,7 @@ namespace Bio.Util.Logging
         /// <returns>the formatted string that was written</returns>
         public static string Write(string fmt, params object[] args)
         {
-            string ret = "";
-#if !SILVERLIGHT
-            Thread.BeginCriticalRegion();
-#endif
+            string ret = string.Empty;
             if (Ready)
             {
                 ret = string.Format(CultureInfo.InvariantCulture, fmt, args);
@@ -197,9 +163,6 @@ namespace Bio.Util.Logging
                     Flush();
                 }
             }
-#if !SILVERLIGHT
-            Thread.EndCriticalRegion();
-#endif
             return ret;
         }
 
@@ -210,9 +173,6 @@ namespace Bio.Util.Logging
         /// <returns>the string</returns>
         public static string WriteLine(string output)
         {
-#if !SILVERLIGHT
-            Thread.BeginCriticalRegion();
-#endif
             if (Ready)
             {
                 _writer.WriteLine(output);
@@ -221,10 +181,7 @@ namespace Bio.Util.Logging
                     Flush();
                 }
             }
-#if !SILVERLIGHT
-            Thread.EndCriticalRegion();
-#endif
-            return output + "\n";
+            return output + Environment.NewLine;
         }
 
         /// <summary>
@@ -236,23 +193,17 @@ namespace Bio.Util.Logging
         /// <returns>the formatted string that was written</returns>
         public static string WriteLine(string fmt, params object[] args)
         {
-            string ret = "";
-#if !SILVERLIGHT
-            Thread.BeginCriticalRegion();
-#endif
+            string ret = string.Empty;
             if (Ready)
             {
-                ret = string.Format(CultureInfo.InvariantCulture, fmt, args) + "\n";
-                _writer.Write(ret);
+                ret = string.Format(CultureInfo.InvariantCulture, fmt, args);
+                _writer.WriteLine(ret);
                 if (_autoflush)
                 {
                     Flush();
                 }
             }
-#if !SILVERLIGHT
-            Thread.EndCriticalRegion();
-#endif
-            return ret;
+            return ret + Environment.NewLine;
         }
 
         /// <summary>
@@ -264,23 +215,17 @@ namespace Bio.Util.Logging
         /// <returns>the formatted string (including date/time) that was written</returns>
         public static string WriteTime(string fmt, params object[] args)
         {
-            string ret = "";
-#if !SILVERLIGHT
-            Thread.BeginCriticalRegion();
-#endif
+            string ret = string.Empty;
             if (Ready)
             {
-                ret = DateTime.Now.ToString("u", CultureInfo.InvariantCulture) + ": " + string.Format(CultureInfo.InvariantCulture, fmt, args) + "\n";
-                _writer.Write(ret);
+                ret = DateTime.Now.ToString("u", CultureInfo.InvariantCulture) + ": " + string.Format(CultureInfo.InvariantCulture, fmt, args);
+                _writer.WriteLine(ret);
                 if (_autoflush)
                 {
                     Flush();
                 }
             }
-#if !SILVERLIGHT
-            Thread.EndCriticalRegion();
-#endif
-            return ret;
+            return ret + Environment.NewLine;
         }
 
         /// <summary>
@@ -299,16 +244,17 @@ namespace Bio.Util.Logging
             string ret;
             if (exception.InnerException == null)
             {
-                ret = string.Format(CultureInfo.InvariantCulture, "Exception: {0}\n{1}\n",
+                ret = string.Format(CultureInfo.InvariantCulture, "Exception: {0}\r\n{1}\r\n",
                 exception.Message, exception.StackTrace);
             }
             else
             {
-                ret = string.Format(CultureInfo.InvariantCulture, "Exception: {0} (innerException {1})\n{2}\n",
+                ret = string.Format(CultureInfo.InvariantCulture, "Exception: {0} (innerException {1})\r\n{2}\r\n",
                 exception.Message, exception.InnerException.Message, exception.StackTrace);
             }
-            ApplicationLog.Write(ret);
-            ApplicationLog.Flush();
+            
+            Write(ret);
+            Flush();
             return ret;
         }
 

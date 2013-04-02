@@ -480,6 +480,17 @@ namespace Bio
         }
 
         /// <summary>
+        /// This is used by some of the built-in algorithms which access the data in a read-only fashion
+        /// to quickly grab a sequence of data without copying it.  It cannot be used outside Bio.dll
+        /// For outside users, use the CopyTo method.
+        /// </summary>
+        /// <returns></returns>
+        internal byte[] GetInternalArray()
+        {
+            return this.sequenceData;
+        }
+
+        /// <summary>
         /// Copies all items from the sequence to a pre allocated array.
         /// </summary>
         /// <param name="byteArray">Array to fill the items to.</param>

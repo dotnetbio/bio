@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 using Bio.SimilarityMatrices;
 
-namespace Bio.Algorithms.Alignment
+namespace Bio.Algorithms.Alignment.Legacy
 {
     /// <summary>
-    /// Smith-Waterman alignment implementation using affine gap model.
+    /// Needleman-Wunsch alignment implementation using affine gap model.
     /// </summary>
-    public class SmithWatermanAffineAlignmentJob : SmithWatermanSimpleAlignmentJob
+    public class NeedlemanWunschAffineAlignmentJob : NeedlemanWunschSimpleAlignmentJob
     {
         /// <summary>
         /// Inializes a new alignment job
@@ -20,7 +16,7 @@ namespace Bio.Algorithms.Alignment
         /// <param name="gapExtensionCost"></param>
         /// <param name="aInput"></param>
         /// <param name="bInput"></param>
-        public SmithWatermanAffineAlignmentJob(SimilarityMatrix similarityMatrix, int gapOpenCost, int gapExtensionCost, ISequence aInput, ISequence bInput)
+        public NeedlemanWunschAffineAlignmentJob(SimilarityMatrix similarityMatrix, int gapOpenCost, int gapExtensionCost, ISequence aInput, ISequence bInput)
             : base(similarityMatrix, gapOpenCost, gapExtensionCost, aInput, bInput) {}
 
         /// <summary>
@@ -49,27 +45,7 @@ namespace Bio.Algorithms.Alignment
                         weight = Iij;
                     }
 
-                    if (weight < 0)
-                    {
-                        weight = 0;
-                    }
-
-                    if (weight >= optScore)
-                    {
-                        if (weight > optScore)
-                        {
-                            optScore = weight;
-                            optScoreCells.Clear();
-                        }
-
-                        long globalRow = Math.BigMul(blockRow, gridStride) + i;
-                        long globalCol = Math.BigMul(blockCol, gridStride) + j;
-
-                        optScoreCells.Add(new Tuple<long, long>(globalRow, globalCol));
-                    }
-
                     return weight;
-
                 },
             blockRow,
             blockCol,
@@ -109,20 +85,9 @@ namespace Bio.Algorithms.Alignment
                     direction = SourceDirection.Left;
                 }
 
-                if (weight < 0)
+                if ((i == lastRow) && (j == lastCol))
                 {
-                    weight = 0;
-                    direction = SourceDirection.Stop;
-                }
-
-                if (weight >= optScore)
-                {
-                    if (weight > optScore)
-                    {
-                        optScore = weight;
-                        optScoreCells.Clear();
-                    }
-
+                    optScore = weight;
                     long globalRow = Math.BigMul(blockRow, gridStride) + i;
                     long globalCol = Math.BigMul(blockCol, gridStride) + j;
 
@@ -132,9 +97,8 @@ namespace Bio.Algorithms.Alignment
                 trace[i][j] = direction;
 
                 return weight;
-
             },
-            blockRow,
+             blockRow,
             blockCol,
             lastRow,
             lastCol);
@@ -171,18 +135,11 @@ namespace Bio.Algorithms.Alignment
                     direction = SourceDirection.Left;
                 }
 
-                if (weight < 0)
-                {
-                    weight = 0;
-                    direction = SourceDirection.Stop;
-                }
-
                 trace[i][j] = direction;
 
                 return weight;
-
             },
-             blockRow,
+            blockRow,
             blockCol,
             lastRow,
             lastCol);
@@ -193,7 +150,7 @@ namespace Bio.Algorithms.Alignment
         /// </summary>
         protected override void InitializeCache()
         {
-            InitializeCacheAffineZero();
+           InitializeCacheAffine();
         }
 
         /// <summary>

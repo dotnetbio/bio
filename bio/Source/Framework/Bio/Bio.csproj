@@ -31,7 +31,8 @@
     <CodeAnalysisRuleSet>..\..\BioFramework_Code_Rules.ruleset</CodeAnalysisRuleSet>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
-    <CodeAnalysisIgnoreGeneratedCode>false</CodeAnalysisIgnoreGeneratedCode>
+    <CodeAnalysisIgnoreGeneratedCode>true</CodeAnalysisIgnoreGeneratedCode>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -45,6 +46,8 @@
     <RunCodeAnalysis>true</RunCodeAnalysis>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
+    <Prefer32Bit>false</Prefer32Bit>
+    <DocumentationFile>..\..\..\Build\Binaries\Release\Bio.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
@@ -80,9 +83,10 @@
     <Compile Include="Algorithms\Alignment\ISequenceAlignment.cs" />
     <Compile Include="Algorithms\Alignment\MultipleSequenceAlignment\IMultipleSequenceAligner.cs" />
     <Compile Include="Algorithms\Alignment\MultipleSequenceAlignment\IMultipleSequenceAlignment.cs" />
-    <Compile Include="Algorithms\Alignment\NeedlemanWunschAffineAlignmentJob.cs" />
+    <Compile Include="Algorithms\Alignment\Legacy\NeedlemanWunschAffineAlignmentJob.cs" />
+    <Compile Include="Algorithms\Alignment\Legacy\LegacyNeedlemanWunschAligner.cs" />
+    <Compile Include="Algorithms\Alignment\Legacy\NeedlemanWunschSimpleAlignmentJob.cs" />
     <Compile Include="Algorithms\Alignment\NeedlemanWunschAligner.cs" />
-    <Compile Include="Algorithms\Alignment\NeedlemanWunschSimpleAlignmentJob.cs" />
     <Compile Include="Algorithms\Alignment\NucmerPairwiseAligner.cs" />
     <Compile Include="Algorithms\Alignment\NUCmer\Cluster.cs" />
     <Compile Include="Algorithms\Alignment\NUCmer\ClusterBuilder.cs" />
@@ -97,12 +101,15 @@
     <Compile Include="Algorithms\Alignment\PairwiseOverlapAffineAlignmentJob.cs" />
     <Compile Include="Algorithms\Alignment\PairwiseOverlapAligner.cs" />
     <Compile Include="Algorithms\Alignment\PairwiseOverlapSimpleAlignmentJob.cs" />
+    <Compile Include="Algorithms\Alignment\PairwiseSequenceAligner.cs" />
     <Compile Include="Algorithms\Alignment\PairwiseSequenceAlignment.cs" />
     <Compile Include="Algorithms\Alignment\SequenceAligners.cs" />
     <Compile Include="Algorithms\Alignment\SequenceAlignment.cs" />
-    <Compile Include="Algorithms\Alignment\SmithWatermanAffineAlignmentJob.cs" />
+    <Compile Include="Algorithms\Alignment\Legacy\SmithWatermanAffineAlignmentJob.cs" />
+    <Compile Include="Algorithms\Alignment\Legacy\LegacySmithWatermanAligner.cs" />
+    <Compile Include="Algorithms\Alignment\Legacy\SmithWatermanSimpleAlignmentJob.cs" />
     <Compile Include="Algorithms\Alignment\SmithWatermanAligner.cs" />
-    <Compile Include="Algorithms\Alignment\SmithWatermanSimpleAlignmentJob.cs" />
+    <Compile Include="Algorithms\Alignment\SourceDirection.cs" />
     <Compile Include="Algorithms\StringSearch\BoyerMoore.cs" />
     <Compile Include="Algorithms\StringSearch\IPatternFinder.cs" />
     <Compile Include="Algorithms\Translation\Codons.cs" />

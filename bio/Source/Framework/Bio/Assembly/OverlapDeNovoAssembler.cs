@@ -652,13 +652,16 @@ namespace Bio.Algorithms.Assembly
                 alignment[0].AlignedSequences.Count > 0)
             {
                 long score = 0;
-                try
+                if (alignment[0].AlignedSequences[0].Metadata.ContainsKey("Score"))
                 {
-                    score = (long)alignment[0].AlignedSequences[0].Metadata["Score"];
-                }
-                catch 
-                {
-                    // no impl.
+                    try
+                    {
+                        score = (long) alignment[0].AlignedSequences[0].Metadata["Score"];
+                    }
+                    catch
+                    {
+                        // no impl.
+                    }
                 }
 
                 if (score > bestScore.OverlapScore)
@@ -666,25 +669,32 @@ namespace Bio.Algorithms.Assembly
                     bestScore.OverlapScore = score;
                     bestScore.Reversed = reversed;
                     bestScore.Complemented = complement;
+
                     long offsets = 0;
-                    try
+                    if (alignment[0].AlignedSequences[0].Metadata.ContainsKey("FirstOffset"))
                     {
-                        offsets = (long)alignment[0].AlignedSequences[0].Metadata["FirstOffset"];
+                        try
+                        {
+                            offsets = (long) alignment[0].AlignedSequences[0].Metadata["FirstOffset"];
+                        }
+                        catch
+                        {
+                            // no impl.
+                        }
                     }
-                    catch
-                    {
-                        // no impl.
-                    }
-  
+
                     bestScore.FirstOffset = offsets;
                     offsets = 0;
-                    try
+                    if (alignment[0].AlignedSequences[0].Metadata.ContainsKey("SecondOffset"))
                     {
-                        offsets = (long)alignment[0].AlignedSequences[0].Metadata["SecondOffset"];
-                    }
-                    catch 
-                    {
-                        // no impl.
+                        try
+                        {
+                            offsets = (long) alignment[0].AlignedSequences[0].Metadata["SecondOffset"];
+                        }
+                        catch
+                        {
+                            // no impl.
+                        }
                     }
 
                     bestScore.SecondOffset = offsets;

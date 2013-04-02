@@ -1,19 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 using Bio.SimilarityMatrices;
 
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace Bio.Algorithms.Alignment
+namespace Bio.Algorithms.Alignment.Legacy
 {
     /// <summary>
-    /// Needleman-Wunsch alignment implementation using simple gap model.
+    /// Smith-Waterman alignment implementation using simple gap model.
     /// </summary>
-    public class NeedlemanWunschSimpleAlignmentJob : DynamicProgrammingPairwiseAlignerJob
+    public class SmithWatermanSimpleAlignmentJob : DynamicProgrammingPairwiseAlignerJob
     {
         /// <summary>
         /// Inializes a new alignment job
@@ -22,7 +15,7 @@ namespace Bio.Algorithms.Alignment
         /// <param name="gapOpenCost"></param>
         /// <param name="aInput"></param>
         /// <param name="bInput"></param>
-        public NeedlemanWunschSimpleAlignmentJob(SimilarityMatrix similarityMatrix, int gapOpenCost, ISequence aInput, ISequence bInput)
+        public SmithWatermanSimpleAlignmentJob(SimilarityMatrix similarityMatrix, int gapOpenCost, ISequence aInput, ISequence bInput)
             : base(similarityMatrix, gapOpenCost, 0, aInput, bInput) { }
 
         /// <summary>
@@ -33,27 +26,8 @@ namespace Bio.Algorithms.Alignment
         /// <param name="gapExtensionCost"></param>
         /// <param name="aInput"></param>
         /// <param name="bInput"></param>
-        protected NeedlemanWunschSimpleAlignmentJob(SimilarityMatrix similarityMatrix, int gapOpenCost, int gapExtensionCost, ISequence aInput, ISequence bInput)
+        protected SmithWatermanSimpleAlignmentJob(SimilarityMatrix similarityMatrix, int gapOpenCost, int gapExtensionCost, ISequence aInput, ISequence bInput)
             : base(similarityMatrix, gapOpenCost, gapExtensionCost, aInput, bInput) { }
-
-        /// <summary>
-        /// Launches the alignment algorithm
-        /// </summary>
-        public override List<IPairwiseSequenceAlignment> Align()
-        {
-            List<IPairwiseSequenceAlignment> result = base.Align();
-
-            foreach (IPairwiseSequenceAlignment alignment in result)
-            {
-                foreach (PairwiseAlignedSequence sequence in alignment.AlignedSequences)
-                {
-                    sequence.FirstOffset = GetOffset(sequence.FirstSequence) - GetOffset(alignment.Sequences[0]);
-                    sequence.SecondOffset = GetOffset(sequence.SecondSequence) - GetOffset(alignment.Sequences[0]);
-                }
-            }
-
-            return result;
-        }
 
         /// <summary>
         /// Computes weights for all blocks of the grid except the lower-right corner one.
@@ -81,10 +55,29 @@ namespace Bio.Algorithms.Alignment
                         weight = Dij;
                     }
 
+                    if (weight < 0)
+                    {
+                        weight = 0;
+                    }
+
+                    if (weight >= optScore)
+                    {
+                        if (weight > optScore)
+                        {
+                            optScore = weight;
+                            optScoreCells.Clear();
+                        }
+
+                        long globalRow = Math.BigMul(blockRow, gridStride) + i;
+                        long globalCol = Math.BigMul(blockCol, gridStride) + j;
+
+                        optScoreCells.Add(new Tuple<long, long>(globalRow, globalCol));
+                    }
+
                     return weight;
 
                 },
-            blockRow,
+             blockRow,
             blockCol,
             lastRow,
             lastCol);
@@ -122,9 +115,20 @@ namespace Bio.Algorithms.Alignment
                     direction = SourceDirection.Up;
                 }
 
-                if ((i == lastRow) && (j == lastCol))
+                if (weight < 0)
                 {
-                    optScore = weight;
+                    weight = 0;
+                    direction = SourceDirection.Stop;
+                }
+
+                if (weight >= optScore)
+                {
+                    if (weight > optScore)
+                    {
+                        optScore = weight;
+                        optScoreCells.Clear();
+                    }
+
                     long globalRow = Math.BigMul(blockRow, gridStride) + i;
                     long globalCol = Math.BigMul(blockCol, gridStride) + j;
 
@@ -173,6 +177,12 @@ namespace Bio.Algorithms.Alignment
                     direction = SourceDirection.Up;
                 }
 
+                if (weight < 0)
+                {
+                    weight = 0;
+                    direction = SourceDirection.Stop;
+                }
+
                 trace[i][j] = direction;
 
                 return weight;
@@ -182,28 +192,6 @@ namespace Bio.Algorithms.Alignment
             blockCol,
             lastRow,
             lastCol);
-        }
-
-        /// <summary>
-        /// Initializes grid cache for the algorithm.      
-        /// </summary>
-        protected override void InitializeCache()
-        {
-            InitializeCacheSimple();
-        }
-
-        /// <summary>
-        /// Forward pass for the block.
-        /// </summary>
-        /// <param name="weightFunction"></param>
-        /// 
-        /// <param name="blockRow"></param>
-        /// <param name="blockCol"></param>
-        /// <param name="lastRow"></param>
-        /// <param name="lastCol"></param>
-        protected override void ComputeBlock(WeightFunction weightFunction, int blockRow, int blockCol, int lastRow, int lastCol)
-        {
-            ComputeBlockSimple(weightFunction, blockRow, blockCol, lastRow, lastCol);
         }
 
         /// <summary>
@@ -219,11 +207,9 @@ namespace Bio.Algorithms.Alignment
             // First row of pointers
             if (blockRow == 0)
             {
-                trace[0][0] = SourceDirection.Stop;
-
-                for (int cellIndex = 1; cellIndex <= lastCol; cellIndex++)
+                for (int cellIndex = 0; cellIndex <= lastCol; cellIndex++)
                 {
-                    trace[0][cellIndex] = SourceDirection.Left;
+                    trace[0][cellIndex] = SourceDirection.Stop;
                 }
             }
             else
@@ -237,11 +223,9 @@ namespace Bio.Algorithms.Alignment
             // First column of pointers
             if (blockCol == 0)
             {
-                trace[0][0] = SourceDirection.Stop;
-
-                for (int cellIndex = 1; cellIndex <= lastRow; cellIndex++)
+                for (int cellIndex = 0; cellIndex <= lastRow; cellIndex++)
                 {
-                    trace[cellIndex][0] = SourceDirection.Up;
+                    trace[cellIndex][0] = SourceDirection.Stop;
                 }
             }
             else
@@ -254,29 +238,24 @@ namespace Bio.Algorithms.Alignment
         }
 
         /// <summary>
-        /// Return the starting position of alignment of sequence1 with respect to sequence2.
+        /// Initializes Grid Cache
         /// </summary>
-        /// <param name="aligned">Aligned sequence.</param>
-        /// <returns>The number of initial gap characters.</returns>
-        protected int GetOffset(IEnumerable<byte> aligned)
+        protected override void InitializeCache()
         {
-            if (aligned == null)
-            {
-                throw new ArgumentNullException("aligned");
-            }
+            InitializeCacheSimpleZero();
+        }
 
-            int ret = 0;
-            foreach (byte item in aligned)
-            {
-                if (item != gapCode)
-                {
-                    return ret;
-                }
-
-                ++ret;
-            }
-
-            return ret;
+        /// <summary>
+        /// Forward pass for the block.
+        /// </summary>
+        /// <param name="weightFunction"></param>
+        /// <param name="blockRow"></param>
+        /// <param name="blockCol"></param>
+        /// <param name="lastRow"></param>
+        /// <param name="lastCol"></param>
+        protected override void ComputeBlock(WeightFunction weightFunction, int blockRow, int blockCol, int lastRow, int lastCol)
+        {
+            ComputeBlockSimple(weightFunction, blockRow, blockCol, lastRow, lastCol);
         }
     }
 }
