@@ -6,32 +6,24 @@
     /// </summary>
     public sealed class FileFormatException : FormatException
     {
-        // Summary:
-        //     Creates a new instance of the System.IO.FileFormatException class.
+        /// <summary>
+        /// Creates a new instance of the System.IO.FileFormatException class.
+        /// </summary>
         public FileFormatException() { }
 
-        //
-        // Summary:
-        //     Creates a new instance of the System.IO.FileFormatException class with a
-        //     specified error message.
-        //
-        // Parameters:
-        //   message:
-        //     A System.String value that represents the error message.
+        /// <summary>
+        /// Creates a new instance of the System.IO.FileFormatException class with a
+        /// specified error message.
+        /// </summary>
+        /// <param name="message">A System.String value that represents the error message.</param>
         public FileFormatException(string message) : base(message) { }
 
-        //
-        // Summary:
-        //     Creates a new instance of the System.IO.FileFormatException class with a
-        //     specified error message and exception type.
-        //
-        // Parameters:
-        //   message:
-        //     A System.String value that represents the error message.
-        //
-        //   innerException:
-        //     The value of the System.Exception.InnerException property, which represents
-        //     the cause of the current exception.
+        /// <summary>
+        /// Creates a new instance of the System.IO.FileFormatException class with a
+        /// specified error message and exception type.
+        /// </summary>
+        /// <param name="message">A System.String value that represents the error message.</param>
+        /// <param name="innerException">The value of the System.Exception.InnerException property, which represents the cause of the current exception. </param>
         public FileFormatException(string message, Exception innerException) : base(message, innerException) { }
     }
 
@@ -41,33 +33,23 @@
     /// </summary>
     public sealed class InvalidDataException : SystemException
     {
-        // Summary:
-        //     Initializes a new instance of the System.IO.InvalidDataException class.
+        /// <summary>
+        /// Initializes a new instance of the System.IO.InvalidDataException class.
+        /// </summary>
         public InvalidDataException() { }
 
-        //
-        // Summary:
-        //     Initializes a new instance of the System.IO.InvalidDataException class with
-        //     a specified error message.
-        //
-        // Parameters:
-        //   message:
-        //     The error message that explains the reason for the exception.
+        /// <summary>
+        /// Initializes a new instance of the System.IO.InvalidDataException class with
+        /// a specified error message
+        /// </summary>
+        /// <param name="message">Error message</param>
         public InvalidDataException(string message) : base(message) { }
 
-        //
-        // Summary:
-        //     Initializes a new instance of the System.IO.InvalidDataException class with
-        //     a reference to the inner exception that is the cause of this exception.
-        //
-        // Parameters:
-        //   message:
-        //     The error message that explains the reason for the exception.
-        //
-        //   innerException:
-        //     The exception that is the cause of the current exception. If the innerException
-        //     parameter is not null, the current exception is raised in a catch block that
-        //     handles the inner exception.
+        /// <summary>
+        /// Initializes a new instance of the System.IO.InvalidDataException class.
+        /// </summary>
+        /// <param name="message">Error message</param>
+        /// <param name="innerException">Existing exception</param>
         public InvalidDataException(string message, Exception innerException) : base(message, innerException) { }
     }
 }

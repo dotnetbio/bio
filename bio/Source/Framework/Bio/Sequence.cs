@@ -479,6 +479,7 @@ namespace Bio
 
         }
 
+#if !SILVERLIGHT
         /// <summary>
         /// This is used by some of the built-in algorithms which access the data in a read-only fashion
         /// to quickly grab a sequence of data without copying it.  It cannot be used outside Bio.dll
@@ -489,6 +490,7 @@ namespace Bio
         {
             return this.sequenceData;
         }
+#endif
 
         /// <summary>
         /// Copies all items from the sequence to a pre allocated array.

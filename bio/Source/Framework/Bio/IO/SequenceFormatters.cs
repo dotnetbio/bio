@@ -51,10 +51,10 @@ namespace Bio.IO
             genBank
         };
 
-		/// <summary>
+#if (SILVERLIGHT == false)
+        /// <summary>
         /// Initializes static members of the SequenceFormatters class.
         /// </summary>
-#if (SILVERLIGHT == false)
         static SequenceFormatters()
 		{
             // get the registered formatter
