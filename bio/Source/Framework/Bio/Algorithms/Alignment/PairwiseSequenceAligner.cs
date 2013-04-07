@@ -113,8 +113,8 @@ namespace Bio.Algorithms.Alignment
         /// </summary>
         protected PairwiseSequenceAligner()
         {
-            SimilarityMatrix = new SimilarityMatrix(SimilarityMatrix.StandardSimilarityMatrix.Blosum62);
-            GapOpenCost = -5;
+            SimilarityMatrix = new DiagonalSimilarityMatrix(2, -2);
+            GapOpenCost = -8;
             GapExtensionCost = -1;
             IncludeScoreTable = false;
         }

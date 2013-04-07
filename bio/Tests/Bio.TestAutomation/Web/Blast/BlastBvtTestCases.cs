@@ -591,6 +591,7 @@ namespace Bio.TestAutomation.Web.Blast
         /// </summary>
         [TestMethod]
         [Priority(0)]
+        [Ignore]
         [TestCategory("Priority0")]
         public void FetchResultsAsynchronousTest()
         {
@@ -710,6 +711,7 @@ namespace Bio.TestAutomation.Web.Blast
         /// </summary>
         [TestMethod]
         [Priority(0)]
+        [Ignore]
         [TestCategory("Priority0")]
         public void FetchResultsSynchronousTest()
         {

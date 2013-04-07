@@ -3,6 +3,7 @@ using Bio.Algorithms.Alignment;
 using Bio.Extensions;
 using Bio.Util.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 
 namespace Bio.Tests.Framework
 {
@@ -31,27 +32,33 @@ namespace Bio.Tests.Framework
                     // Compare the sequences
                     var s1 = result[count].PairwiseAlignedSequences[count1].FirstSequence;
                     var s2 = expectedAlignment[count].PairwiseAlignedSequences[count1].FirstSequence;
-                    Assert.AreEqual(s2.ConvertToString(), s1.ConvertToString(), "First sequence did not match.");
+                    if (s2 != null)
+                        Assert.AreEqual(s2.ConvertToString(), s1.ConvertToString(), "First sequence did not match.");
 
                     s1 = result[count].PairwiseAlignedSequences[count1].SecondSequence;
                     s2 = expectedAlignment[count].PairwiseAlignedSequences[count1].SecondSequence;
-                    Assert.AreEqual(s2.ConvertToString(), s1.ConvertToString(), "Second sequence did not match.");
+                    if (s2 != null)
+                        Assert.AreEqual(s2.ConvertToString(), s1.ConvertToString(), "Second sequence did not match.");
 
                     s1 = result[count].PairwiseAlignedSequences[count1].Consensus;
                     s2 = expectedAlignment[count].PairwiseAlignedSequences[count1].Consensus;
-                    Assert.AreEqual(s2.ConvertToString(), s1.ConvertToString(), "Consensus did not match.");
+                    if (s2 != null)
+                        Assert.AreEqual(s2.ConvertToString(), s1.ConvertToString(), "Consensus did not match.");
 
                     long offset1 = result[count].PairwiseAlignedSequences[count1].FirstOffset;
                     long offset2 = expectedAlignment[count].PairwiseAlignedSequences[count1].FirstOffset;
-                    Assert.AreEqual(offset2, offset1, "FirstOffset does not match.");
+                    if (offset2 != Int32.MinValue)
+                        Assert.AreEqual(offset2, offset1, "FirstOffset does not match.");
 
                     offset1 = result[count].PairwiseAlignedSequences[count1].SecondOffset;
                     offset2 = expectedAlignment[count].PairwiseAlignedSequences[count1].SecondOffset;
-                    Assert.AreEqual(offset2, offset1, "SecondOffset does not match.");
+                    if (offset2 != Int32.MinValue)
+                        Assert.AreEqual(offset2, offset1, "SecondOffset does not match.");
 
                     long score1 = result[count].PairwiseAlignedSequences[count1].Score;
                     long score2 = expectedAlignment[count].PairwiseAlignedSequences[count1].Score;
-                    Assert.AreEqual(score2, score1, "Score does not match.");
+                    if (score2 != Int32.MinValue)
+                        Assert.AreEqual(score2, score1, "Score does not match.");
                 }
             }
 

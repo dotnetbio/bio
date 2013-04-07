@@ -248,7 +248,7 @@ namespace MumUtil
             Console.Write("> {0}", DisplayID);
             if (myArgs.displayQueryLength)
             {
-                Console.Write(" {1}", querySequence.Count);
+                Console.Write(" " + querySequence.Count);
             }
             Console.WriteLine();
 

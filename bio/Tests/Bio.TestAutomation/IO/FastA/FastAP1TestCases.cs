@@ -11,6 +11,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
+using Bio.Extensions;
 using Bio.IO.FastA;
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
@@ -614,90 +615,51 @@ using Bio;
         /// with the xml node name specified.
         /// </summary>
         /// <param name="nodeName">xml node name.</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times")]
         void ValidateParseFormatGeneralTestCases(string nodeName)
         {
             // Gets the expected sequence from the Xml
-            string filePath = utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.FilePathNode);
-            string alphabet = utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.AlphabetNameNode);
+            string filePath = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode);
+            string alphabet = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.AlphabetNameNode);
             Assert.IsTrue(File.Exists(filePath));
+            const string filepathTmp = "tmp.ffn";
 
-            // Logs information to the log file
-            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                "FastA Formatter : File Exists in the Path '{0}'.",
-                filePath));
-            string filepathTmp = "tmp.ffn";
-
-            using (FastAParser parserObj = new FastAParser(filePath))
+            List<ISequence> seqsOriginal;
+            using (var parserObj = new FastAParser(filePath))
             {
-
-                using (FastAFormatter formatter = new FastAFormatter(filepathTmp))
-                {
-
-                    // Read the original file
-                    IEnumerable<ISequence> seqsOriginal = null;
-                    parserObj.Alphabet = Utility.GetAlphabet(alphabet);
-                    seqsOriginal = parserObj.Parse();
-                    Assert.IsNotNull(seqsOriginal);
-
-                    // Use the formatter to write the original sequences to a temp file                
-                    ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                        "FastA Formatter : Creating the Temp file '{0}'.",
-                        filepathTmp));
-                    foreach (Sequence s in seqsOriginal)
-                    {
-                        formatter.Write(s);
-                    }
-                    formatter.Close();
-
-                    using (FastAParser parserObjNew = new FastAParser(filepathTmp))
-                    {
-
-                        // Read the new file, then compare the sequences
-                        IEnumerable<ISequence> seqsNew = null;
-                        parserObjNew.Alphabet = Utility.GetAlphabet(alphabet);
-                        seqsNew = parserObjNew.Parse();
-                        Assert.IsNotNull(seqsNew);
-
-                        char[] seqString = seqsNew.ElementAt(0).Select(a => (char)a).ToArray();
-                        string newSequence = new string(seqString);
-
-                        ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                            "FastA Formatter : New Sequence is '{0}'.",
-                            newSequence));
-
-                        // Now compare the sequences.
-                        int countOriginal = seqsOriginal.Count();
-                        int countNew = seqsNew.Count();
-                        Assert.AreEqual(countOriginal, countNew);
-                        ApplicationLog.WriteLine("FastA Formatter :The Number of sequences are matching.");
-
-                        int i;
-                        for (i = 0; i < countOriginal; i++)
-                        {
-                            Assert.AreEqual(seqsOriginal.ElementAt(i).ID, seqsNew.ElementAt(i).ID);
-                            string orgSeq = new string(seqsOriginal.ElementAt(i).Select(a => (char)a).ToArray());
-                            string newSeq = new string(seqsNew.ElementAt(i).Select(a => (char)a).ToArray());
-                            Assert.AreEqual(orgSeq, newSeq);
-                            Console.WriteLine(
-                                string.Format((IFormatProvider)null,
-                                "FastA Formatter : The FASTA sequences '{0}' are matching with Format() method and is as expected.",
-                                seqsNew.ElementAt(i).ID));
-                            ApplicationLog.WriteLine(
-                                string.Format((IFormatProvider)null, "FastA Formatter : The FASTA sequences '{0}' are matching with Format() method.",
-                                seqsNew.ElementAt(i).ID));
-                        }
-
-                        // Passed all the tests, delete the tmp file. If we failed an Assert,
-                        // the tmp file will still be there in case we need it for debugging.
-                        parserObjNew.Close();
-                    }
-                    File.Delete(filepathTmp);
-                    ApplicationLog.WriteLine("Deleted the temp file created.");
-                }
+                // Read the original file
+                parserObj.Alphabet = Utility.GetAlphabet(alphabet);
+                seqsOriginal = parserObj.Parse().ToList();
+                Assert.IsFalse(seqsOriginal.Count == 0);
             }
+
+            // Write to a new file
+            using (var formatter = new FastAFormatter(filepathTmp))
+            {
+                formatter.Write(seqsOriginal);
+            }
+
+            // Compare original with new file
+            using (var parserObjNew = new FastAParser(filepathTmp))
+            {
+                // Read the new file, then compare the sequences
+                parserObjNew.Alphabet = Utility.GetAlphabet(alphabet);
+                IEnumerable<ISequence> seqsNew = parserObjNew.Parse();
+                Assert.IsNotNull(seqsNew);
+
+                int count = 0;
+                foreach (var newSequence in seqsNew)
+                {
+                    string s1 = seqsOriginal[count].ConvertToString();
+                    string s2 = newSequence.ConvertToString();
+                    Assert.AreEqual(s1,s2);
+                    count++;
+                }
+
+                Assert.AreEqual(count, seqsOriginal.Count, "Number of sequences is different.");
+            }
+
+            // Delete new file
+            File.Delete(filepathTmp);
         }
 
         #endregion Supporting Methods

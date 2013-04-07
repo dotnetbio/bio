@@ -6,15 +6,17 @@
 ***************************************************************************/
 
 using System;
+using System.IO;
 using System.Text;
 using System.Linq;
 using System.Collections.Generic;
 using System.Globalization;
 using Bio.Algorithms.MUMmer;
 using Bio.Algorithms.SuffixTree;
+using Bio.Extensions;
 using Bio.TestAutomation.Util;
+using Bio.Tests.Framework;
 using Bio.Util.Logging;
-
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Bio.SimilarityMatrices;
 using Bio.IO.FastA;
@@ -42,22 +44,12 @@ namespace Bio.TestAutomation.Algorithms.MUMmer
         };
 
         /// <summary>
-        /// Parser Parameters which are used for different test cases 
-        /// based on which the test cases are executed.
-        /// </summary>
-        enum ParserParameters
-        {
-            FastA
-        };
-
-        /// <summary>
         /// Additional Parameters which are used for different test cases 
         /// based on which the test cases are executed.
         /// </summary>
         enum AdditionalParameters
         {
             PerformSimilarityMatrixChange,
-            PerformAlgorithmChange,
             Other
         };
 
@@ -65,8 +57,8 @@ namespace Bio.TestAutomation.Algorithms.MUMmer
 
         #region Global Variables
 
-        Utility utilityObj = new Utility(@"TestUtils\MUMmerTestsConfig.xml");
-        ASCIIEncoding encodingObj = new ASCIIEncoding();
+        readonly Utility utilityObj = new Utility(@"TestUtils\MUMmerTestsConfig.xml");
+        readonly ASCIIEncoding encodingObj = new ASCIIEncoding();
 
         #endregion Global Variables
 
@@ -514,8 +506,7 @@ namespace Bio.TestAutomation.Algorithms.MUMmer
         [TestCategory("Priority1")]
         public void MUMmerAlignAlternateRepeatingCharactersSequence()
         {
-            ValidateMUMmerAlignGeneralTestCases(Constants.OneLineAlternateRepeatingCharactersNodeName,
-                false, false);
+            ValidateMUMmerAlignGeneralTestCases(Constants.OneLineAlternateRepeatingCharactersNodeName, false, false);
         }
 
         /// <summary>
@@ -531,7 +522,7 @@ namespace Bio.TestAutomation.Algorithms.MUMmer
         public void MUMmerAlignFastAFileSequence()
         {
             ValidateMUMmerAlignGeneralTestCases(Constants.SimpleDnaFastaNodeName,
-                true, false, ParserParameters.FastA);
+                true, false);
         }
 
         /// <summary>
@@ -651,7 +642,7 @@ namespace Bio.TestAutomation.Algorithms.MUMmer
         public void MUMmerAlignSimilarityMatrixBlosum50Sequence()
         {
             ValidateMUMmerAlignGeneralTestCases(Constants.OneLineMultipleSameLengthMatchOverlapSequenceNodeName,
-                false, false, ParserParameters.FastA, AdditionalParameters.PerformSimilarityMatrixChange);
+                false, false, AdditionalParameters.PerformSimilarityMatrixChange);
         }
 
         #endregion MUMmer Align Test Cases
@@ -732,6 +723,7 @@ namespace Bio.TestAutomation.Algorithms.MUMmer
         /// </summary>
         /// <param name="nodeName">Node name which needs to be read for execution.</param>
         /// <param name="isFilePath">Is File Path?</param>
+        /// <param name="isAmbiguousCharacter"></param>
         void ValidateFindMatchSuffixGeneralTestCases(string nodeName,
             bool isFilePath, PhaseOneAmbiguityParameters isAmbiguousCharacter)
         {
@@ -743,27 +735,26 @@ namespace Bio.TestAutomation.Algorithms.MUMmer
         /// </summary>
         /// <param name="nodeName">Node name which needs to be read for execution.</param>
         /// <param name="isFilePath">Is File Path?</param>
-        /// <param name="isMultiSequenceFile">Is Multi Sequence Search File?</param>
+        /// <param name="isMultiSequenceSearchFile"></param>
+        /// <param name="isAmbiguousCharacter"></param>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope")]
         void ValidateFindMatchSuffixGeneralTestCases(string nodeName, bool isFilePath,
             bool isMultiSequenceSearchFile, PhaseOneAmbiguityParameters isAmbiguousCharacter)
         {
-            ISequence referenceSeq = null;
-            ISequence querySeq = null;
+            ISequence referenceSeq;
+            ISequence querySeq;
             string referenceSequence = string.Empty;
             string querySequence = string.Empty;
-            IEnumerable<ISequence> referenceSeqs = null;
+            IEnumerable<ISequence> referenceSeqs;
             IEnumerable<ISequence> querySeqs = null;
 
             if (isFilePath)
             {
-                // Gets the reference sequence from the configurtion file
-                string filePath = utilityObj.xmlUtil.GetTextValue(nodeName,
-                    Constants.FilePathNode);
+                // Gets the reference sequence from the configuration file
+                string filePath = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode);
 
                 Assert.IsNotNull(filePath);
-                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                    "MUMmer BVT : Successfully validated the File Path '{0}'.", filePath));
+                ApplicationLog.WriteLine(string.Format(null, "MUMmer BVT : Successfully validated the File Path '{0}'.", filePath));
 
                 FastAParser parser = new FastAParser(filePath);
                 switch (isAmbiguousCharacter)
@@ -781,13 +772,12 @@ namespace Bio.TestAutomation.Algorithms.MUMmer
                 referenceSeq = referenceSeqs.ElementAt(0);
                 referenceSequence = new string(referenceSeq.Select(a => (char)a).ToArray());
 
-                // Gets the reference sequence from the configurtion file
+                // Gets the reference sequence from the configuration file
                 string queryFilePath = utilityObj.xmlUtil.GetTextValue(nodeName,
                     Constants.SearchSequenceFilePathNode);
 
                 Assert.IsNotNull(queryFilePath);
-                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                    "MUMmer BVT : Successfully validated the Search File Path '{0}'.", queryFilePath));
+                ApplicationLog.WriteLine(string.Format(null, "MUMmer BVT : Successfully validated the Search File Path '{0}'.", queryFilePath));
 
                 FastAParser queryParser = new FastAParser(queryFilePath);
                 switch (isAmbiguousCharacter)
@@ -808,7 +798,7 @@ namespace Bio.TestAutomation.Algorithms.MUMmer
             }
             else
             {
-                // Gets the reference sequence from the configurtion file
+                // Gets the reference sequence from the configuration file
                 referenceSequence = utilityObj.xmlUtil.GetTextValue(nodeName,
                     Constants.SequenceNode);
 
@@ -833,17 +823,14 @@ namespace Bio.TestAutomation.Algorithms.MUMmer
             // Builds the suffix for the reference sequence passed.            
             MultiWaySuffixTree suffixTreeBuilder = new MultiWaySuffixTree(referenceSeq as Sequence);
             suffixTreeBuilder.MinLengthOfMatch = long.Parse(mumLength, null);
-            IEnumerable<Match> matches = null;
-            matches = suffixTreeBuilder.SearchMatchesUniqueInReference(querySeq);
+            IEnumerable<Match> matches = suffixTreeBuilder.SearchMatchesUniqueInReference(querySeq);
 
             // For multi sequence query file validate all the sequences with the reference sequence
             if (isMultiSequenceSearchFile)
             {
-                matches = suffixTreeBuilder.SearchMatchesUniqueInReference(
-                    querySeqs.ElementAt(0));
+                matches = suffixTreeBuilder.SearchMatchesUniqueInReference(querySeqs.ElementAt(0));
                 Assert.IsTrue(ValidateUniqueMatches(matches, nodeName));
-                matches = suffixTreeBuilder.SearchMatchesUniqueInReference(
-                    querySeqs.ElementAt(1));
+                matches = suffixTreeBuilder.SearchMatchesUniqueInReference(querySeqs.ElementAt(1));
                 Assert.IsTrue(ValidateUniqueMatches(matches, nodeName));
             }
             else
@@ -852,8 +839,7 @@ namespace Bio.TestAutomation.Algorithms.MUMmer
                 Assert.IsTrue(ValidateUniqueMatches(matches, nodeName));
             }
 
-            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                "MUMmer P1 : Successfully validated the all the unique matches for the sequence '{0}' and '{1}'.",
+            ApplicationLog.WriteLine(string.Format(null, "MUMmer P1 : Successfully validated the all the unique matches for the sequence '{0}' and '{1}'.",
                 referenceSequence, querySequence));
         }
 
@@ -862,39 +848,35 @@ namespace Bio.TestAutomation.Algorithms.MUMmer
         /// </summary>
         /// <param name="nodeName">Node name which needs to be read for execution.</param>
         /// <param name="isFilePath">Is file path?</param>
-        /// <param name="parserParam">Parser parameter.</param>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope")]
         void ValidateBuildSuffixTreeGeneralTestCases(string nodeName, bool isFilePath)
         {
-            ISequence referenceSeq = null;
-            string referenceSequence = string.Empty;
+            ISequence referenceSeq;
+            string referenceSequence;
 
             if (isFilePath)
             {
-                IEnumerable<ISequence> referenceSeqs = null;
-                // Gets the reference sequence from the configurtion file
+                // Gets the reference sequence from the configuration file
                 string filePath = utilityObj.xmlUtil.GetTextValue(nodeName,
                     Constants.FilePathNode);
 
                 Assert.IsNotNull(filePath);
-                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                    "MUMmer P1 : Successfully validated the File Path '{0}'.", filePath));
+                ApplicationLog.WriteLine(string.Format(null, "MUMmer P1 : Successfully validated the File Path '{0}'.", filePath));
 
                 using (FastAParser fastaParserObj = new FastAParser(filePath))
                 {
-                    referenceSeqs = fastaParserObj.Parse();
+                    IEnumerable<ISequence> referenceSeqs = fastaParserObj.Parse();
 
-                    referenceSeq = referenceSeqs.ElementAt(0);
-                    referenceSequence = new string(referenceSeq.Select(a => (char)a).ToArray());
+                    referenceSeq = referenceSeqs.FirstOrDefault();
+                    Assert.IsNotNull(referenceSeq);
+                    referenceSequence = referenceSeq.ConvertToString();
                 }
             }
             else
             {
                 // Gets the reference sequence from the configurtion file
-                referenceSequence = utilityObj.xmlUtil.GetTextValue(nodeName,
-                    Constants.SequenceNode);
-
-                referenceSeq = new Sequence(Utility.GetAlphabet(utilityObj.xmlUtil.GetTextValue(nodeName,
+                referenceSequence = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.SequenceNode);
+                referenceSeq = new Sequence(Utility.GetAlphabet(utilityObj.xmlUtil.GetTextValue(nodeName, 
                     Constants.AlphabetNameNode)), encodingObj.GetBytes(referenceSequence));
             }
 
@@ -902,10 +884,7 @@ namespace Bio.TestAutomation.Algorithms.MUMmer
             MultiWaySuffixTree suffixTree = new MultiWaySuffixTree(referenceSeq as Sequence);
 
             Assert.AreEqual(new string(suffixTree.Sequence.Select(a => (char)a).ToArray()), referenceSequence);
-            Console.WriteLine(string.Format((IFormatProvider)null,
-                "MUMmer P1 : Successfully validated the Suffix Tree properties for the sequence '{0}'.",
-                referenceSequence));
-            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
+            ApplicationLog.WriteLine(string.Format(null,
                 "MUMmer P1 : Successfully validated the Suffix Tree properties for the sequence '{0}'.",
                 referenceSequence));
         }
@@ -916,11 +895,9 @@ namespace Bio.TestAutomation.Algorithms.MUMmer
         /// <param name="nodeName">Node name to be read from xml</param>
         /// <param name="isFilePath">Is Sequence saved in File</param>
         /// <param name="isAlignList">Is align method to take list?</param>
-        void ValidateMUMmerAlignGeneralTestCases(string nodeName, bool isFilePath,
-            bool isAlignList)
+        void ValidateMUMmerAlignGeneralTestCases(string nodeName, bool isFilePath, bool isAlignList)
         {
-            ValidateMUMmerAlignGeneralTestCases(nodeName, isFilePath, isAlignList,
-                ParserParameters.FastA, AdditionalParameters.Other);
+            ValidateMUMmerAlignGeneralTestCases(nodeName, isFilePath, isAlignList, AdditionalParameters.Other);
         }
 
         /// <summary>
@@ -929,160 +906,103 @@ namespace Bio.TestAutomation.Algorithms.MUMmer
         /// <param name="nodeName">Node name to be read from xml</param>
         /// <param name="isFilePath">Is Sequence saved in File</param>
         /// <param name="isAlignList">Is align method to take list?</param>
-        /// <param name="parserParam">Parser Parameter</param>
-        void ValidateMUMmerAlignGeneralTestCases(string nodeName, bool isFilePath,
-            bool isAlignList, ParserParameters parserParam)
-        {
-            ValidateMUMmerAlignGeneralTestCases(nodeName, isFilePath,
-                       isAlignList, parserParam, AdditionalParameters.Other);
-        }
-
-        /// <summary>
-        /// Validates the Mummer align method for several test cases for the parameters passed.
-        /// </summary>
-        /// <param name="nodeName">Node name to be read from xml</param>
-        /// <param name="isFilePath">Is Sequence saved in File</param>
-        /// <param name="isAlignList">Is align method to take list?</param>
-        /// <param name="parserParam">Parser Parameter</param>
         /// <param name="addParam">Additional parameter</param>
         /// Suppress the ParserParam variable CA1801 as this would be reused later.
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "parserParam"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope")]
-        void ValidateMUMmerAlignGeneralTestCases(string nodeName, bool isFilePath,
-            bool isAlignList, ParserParameters parserParam,
-            AdditionalParameters addParam)
+        void ValidateMUMmerAlignGeneralTestCases(string nodeName, bool isFilePath, bool isAlignList, AdditionalParameters addParam)
         {
-            ISequence referenceSeq = null;
-            ISequence querySeq = null;
-            IList<ISequence> querySeqs = new List<ISequence>();
-            string referenceSequence = string.Empty;
-            string querySequence = string.Empty;
+            ISequence referenceSeq;
+            IList<ISequence> querySeqs;
             List<ISequence> alignList = null;
-            IEnumerable<ISequence> referenceSeqs = null;
 
             if (isFilePath)
             {
-                // Gets the reference sequence from the configurtion file
-                string filePath = utilityObj.xmlUtil.GetTextValue(nodeName,
-                    Constants.FilePathNode);
-
+                // Gets the reference sequence from the configuration file
+                string filePath = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode);
                 Assert.IsNotNull(filePath);
-                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                    "MUMmer P1 : Successfully validated the File Path '{0}'.",
-                    filePath));
+                Assert.IsTrue(File.Exists(filePath));
 
                 FastAParser fastaParserObj = new FastAParser(filePath);
-                referenceSeqs = fastaParserObj.Parse();
+                IEnumerable<ISequence> referenceSeqs = fastaParserObj.Parse();
+                referenceSeq = referenceSeqs.FirstOrDefault();
+                Assert.IsNotNull(referenceSeq);
+                fastaParserObj.Close();
 
-                referenceSeq = referenceSeqs.ElementAt(0);
-                referenceSequence = referenceSeq.ToString();
-
-                // Gets the reference sequence from the configurtion file
-                string queryFilePath = utilityObj.xmlUtil.GetTextValue(nodeName,
-                    Constants.SearchSequenceFilePathNode);
-
+                // Gets the query sequence from the configuration file
+                string queryFilePath = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.SearchSequenceFilePathNode);
                 Assert.IsNotNull(queryFilePath);
-                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                    "MUMmer P1 : Successfully validated the Search File Path '{0}'.",
-                    queryFilePath));
-
+                Assert.IsTrue(File.Exists(queryFilePath));
 
                 FastAParser queryParserObj = new FastAParser(queryFilePath);
-                IEnumerable<ISequence> queryEnumSeqs = queryParserObj.Parse();
-                foreach (ISequence seq in queryEnumSeqs)
-                {
-                    querySeqs.Add(seq);
-                }
+                querySeqs = queryParserObj.Parse().ToList();
 
-                querySeq = querySeqs[0];
-                querySequence = new string(querySeq.Select(a => (char)a).ToArray());
-
+                ISequence querySeq = querySeqs.First();
                 if (isAlignList)
                 {
-                    alignList = new List<ISequence>();
-                    alignList.Add(referenceSeq);
-                    alignList.Add(querySeq);
+                    alignList = new List<ISequence> {referenceSeq, querySeq};
                 }
             }
             else
             {
-                // Gets the reference sequence from the configurtion file
-                referenceSequence = utilityObj.xmlUtil.GetTextValue(nodeName,
-                    Constants.SequenceNode);
+                // Gets the reference sequence from the configuration file
+                string referenceSequence = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.SequenceNode);
+                string referenceSeqAlphabet = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.AlphabetNameNode);
+                referenceSeq = new Sequence(Utility.GetAlphabet(referenceSeqAlphabet), referenceSequence);
 
-                string referenceSeqAlphabet = utilityObj.xmlUtil.GetTextValue(nodeName,
-                    Constants.AlphabetNameNode);
+                string querySequence = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.SearchSequenceNode);
+                referenceSeqAlphabet = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.SearchSequenceAlphabetNode);
 
-                referenceSeq = new Sequence(Utility.GetAlphabet(referenceSeqAlphabet),
-                    referenceSequence);
-
-                querySequence = utilityObj.xmlUtil.GetTextValue(nodeName,
-                    Constants.SearchSequenceNode);
-
-                referenceSeqAlphabet = utilityObj.xmlUtil.GetTextValue(nodeName,
-                    Constants.SearchSequenceAlphabetNode);
-
-                querySeq = new Sequence(Utility.GetAlphabet(referenceSeqAlphabet),
-                    querySequence);
+                ISequence querySeq = new Sequence(Utility.GetAlphabet(referenceSeqAlphabet), querySequence);
                 querySeqs = new List<ISequence>();
 
                 if (isAlignList)
                 {
-                    alignList = new List<ISequence>();
-                    alignList.Add(referenceSeq);
-                    alignList.Add(querySeq);
+                    alignList = new List<ISequence> {referenceSeq, querySeq};
                 }
                 else
                     querySeqs.Add(querySeq);
             }
 
+            // Setup the algorithm
             string mumLength = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.MUMAlignLengthNode);
-
-            MUMmerAligner mumAlignObj = new MUMmerAligner();
-            mumAlignObj.LengthOfMUM = long.Parse(mumLength, null);
-            mumAlignObj.StoreMUMs = true;
+            MUMmerAligner mumAlignObj = new MUMmerAligner {LengthOfMUM = long.Parse(mumLength, null), StoreMUMs = true};
 
             switch (addParam)
             {
                 case AdditionalParameters.PerformSimilarityMatrixChange:
-                    mumAlignObj.SimilarityMatrix =
-                        new SimilarityMatrix(SimilarityMatrix.StandardSimilarityMatrix.Blosum50);
-                    mumAlignObj.GapOpenCost =
-                        int.Parse(utilityObj.xmlUtil.GetTextValue(nodeName, Constants.GapOpenCostNode),
-                        (IFormatProvider)null);
+                    mumAlignObj.SimilarityMatrix = new SimilarityMatrix(SimilarityMatrix.StandardSimilarityMatrix.Blosum50);
+                    mumAlignObj.GapOpenCost = int.Parse(utilityObj.xmlUtil.GetTextValue(nodeName, Constants.GapOpenCostNode), null);
                     break;
                 default:
-                    mumAlignObj.GapOpenCost =
-                        int.Parse(utilityObj.xmlUtil.GetTextValue(nodeName, Constants.GapOpenCostNode),
-                        (IFormatProvider)null);
+                    mumAlignObj.GapOpenCost = int.Parse(utilityObj.xmlUtil.GetTextValue(nodeName, Constants.GapOpenCostNode), null);
                     break;
             }
 
-            IList<IPairwiseSequenceAlignment> align = null;
-
             IEnumerable<ISequence> alignEnumSeqs = alignList;
-
-            if (isAlignList)
-                align = mumAlignObj.AlignSimple(alignEnumSeqs);
-            else
-                align = mumAlignObj.AlignSimple(referenceSeq, querySeqs);
+            IList<IPairwiseSequenceAlignment> align = isAlignList 
+                ? mumAlignObj.AlignSimple(alignEnumSeqs) 
+                : mumAlignObj.AlignSimple(referenceSeq, querySeqs);
 
             // Validate MUMs Properties
             Assert.IsNotNull(mumAlignObj.MUMs);
 
             string expectedScore = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.ScoreNodeName);
 
-            string[] expectedSequences =
-                utilityObj.xmlUtil.GetTextValues(nodeName, Constants.ExpectedSequencesNode);
+            string[] expectedSequences = utilityObj.xmlUtil.GetTextValues(nodeName, Constants.ExpectedSequencesNode);
             IList<IPairwiseSequenceAlignment> expectedOutput = new List<IPairwiseSequenceAlignment>();
 
             // Validate for two aligned sequences and single aligned sequences appropriately
-            if (1 >= querySeqs.Count)
+            if (querySeqs.Count <= 1)
             {
                 IPairwiseSequenceAlignment seqAlign = new PairwiseSequenceAlignment();
-                PairwiseAlignedSequence alignedSeq = new PairwiseAlignedSequence();
-                alignedSeq.FirstSequence = new Sequence(referenceSeq.Alphabet, expectedSequences[0]);
-                alignedSeq.SecondSequence = new Sequence(referenceSeq.Alphabet, expectedSequences[1]);
-                alignedSeq.Score = Convert.ToInt32(expectedScore, (IFormatProvider)null);
+                PairwiseAlignedSequence alignedSeq = new PairwiseAlignedSequence
+                {
+                    FirstSequence = new Sequence(referenceSeq.Alphabet, expectedSequences[0]),
+                    SecondSequence = new Sequence(referenceSeq.Alphabet, expectedSequences[1]),
+                    Score = Convert.ToInt32(expectedScore,null),
+                    FirstOffset = Int32.MinValue,
+                    SecondOffset = Int32.MinValue,
+                };
                 seqAlign.PairwiseAlignedSequences.Add(alignedSeq);
                 expectedOutput.Add(seqAlign);
                 Assert.IsTrue(CompareAlignment(align, expectedOutput));
@@ -1094,24 +1014,30 @@ namespace Bio.TestAutomation.Algorithms.MUMmer
                 IPairwiseSequenceAlignment seq2Align = new PairwiseSequenceAlignment();
 
                 // Get the first sequence for validation
-                PairwiseAlignedSequence alignedSeq1 = new PairwiseAlignedSequence();
-                alignedSeq1.FirstSequence = new Sequence(referenceSeq.Alphabet, expectedSequences[0]);
-                alignedSeq1.SecondSequence = new Sequence(referenceSeq.Alphabet, expectedSequences[1]);
-                alignedSeq1.Score = int.Parse(expectedScores[0], (IFormatProvider)null);
+                PairwiseAlignedSequence alignedSeq1 = new PairwiseAlignedSequence
+                {
+                    FirstSequence = new Sequence(referenceSeq.Alphabet, expectedSequences[0]),
+                    SecondSequence = new Sequence(referenceSeq.Alphabet, expectedSequences[1]),
+                    Score = int.Parse(expectedScores[0], null),
+                    FirstOffset = Int32.MinValue,
+                    SecondOffset = Int32.MinValue,
+                };
                 seq1Align.PairwiseAlignedSequences.Add(alignedSeq1);
                 expectedOutput.Add(seq1Align);
 
                 // Get the second sequence for validation
-                PairwiseAlignedSequence alignedSeq2 = new PairwiseAlignedSequence();
-                alignedSeq2.FirstSequence = new Sequence(referenceSeq.Alphabet, expectedSequences[2]);
-                alignedSeq2.SecondSequence = new Sequence(referenceSeq.Alphabet, expectedSequences[3]);
-                alignedSeq2.Score = int.Parse(expectedScores[1], (IFormatProvider)null);
+                PairwiseAlignedSequence alignedSeq2 = new PairwiseAlignedSequence
+                {
+                    FirstSequence = new Sequence(referenceSeq.Alphabet, expectedSequences[2]),
+                    SecondSequence = new Sequence(referenceSeq.Alphabet, expectedSequences[3]),
+                    Score = int.Parse(expectedScores[1], null),
+                    FirstOffset = Int32.MinValue,
+                    SecondOffset = Int32.MinValue,
+                };
                 seq2Align.PairwiseAlignedSequences.Add(alignedSeq2);
                 expectedOutput.Add(seq2Align);
                 Assert.IsTrue(CompareAlignment(align, expectedOutput));
             }
-            Console.WriteLine("MUMmer P1 : Successfully validated the aligned sequences.");
-            ApplicationLog.WriteLine("MUMmer P1 : Successfully validated the aligned sequences.");
         }
 
         /// <summary>
@@ -1123,46 +1049,7 @@ namespace Bio.TestAutomation.Algorithms.MUMmer
         private static bool CompareAlignment(IList<IPairwiseSequenceAlignment> actualAlignment,
              IList<IPairwiseSequenceAlignment> expectedAlignment)
         {
-            bool output = true;
-
-            if (actualAlignment.Count == expectedAlignment.Count)
-            {
-                for (int resultCount = 0; resultCount < actualAlignment.Count; resultCount++)
-                {
-                    if (actualAlignment[resultCount].PairwiseAlignedSequences.Count ==
-                        expectedAlignment[resultCount].PairwiseAlignedSequences.Count)
-                    {
-                        for (int alignSeqCount = 0; alignSeqCount <
-                            actualAlignment[resultCount].PairwiseAlignedSequences.Count; alignSeqCount++)
-                        {
-                            // Validates the First Sequence, Second Sequence and Score
-                            if (actualAlignment[resultCount].PairwiseAlignedSequences[alignSeqCount].FirstSequence.ToString().Equals(
-                                    expectedAlignment[resultCount].PairwiseAlignedSequences[alignSeqCount].FirstSequence.ToString())
-                                && actualAlignment[resultCount].PairwiseAlignedSequences[alignSeqCount].SecondSequence.ToString().Equals(
-                                    expectedAlignment[resultCount].PairwiseAlignedSequences[alignSeqCount].SecondSequence.ToString())
-                                && actualAlignment[resultCount].PairwiseAlignedSequences[alignSeqCount].Score ==
-                                    expectedAlignment[resultCount].PairwiseAlignedSequences[alignSeqCount].Score)
-                            {
-                                output = true;
-                            }
-                            else
-                            {
-                                return false;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                }
-            }
-            else
-            {
-                return false;
-            }
-
-            return output;
+            return AlignmentHelpers.CompareAlignment(actualAlignment, expectedAlignment);
         }
 
         /// <summary>

@@ -13,8 +13,10 @@ using System.Text;
 using Bio.Algorithms.Alignment;
 using Bio.Algorithms.MUMmer.LIS;
 using Bio.Algorithms.SuffixTree;
+using Bio.Extensions;
 using Bio.IO.FastA;
 using Bio.TestAutomation.Util;
+using Bio.Tests.Framework;
 using Bio.Util.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -445,82 +447,66 @@ namespace Bio.TestAutomation.Algorithms.MUMmer
         /// Validates the Mummer align method for several test cases for the parameters passed.
         /// </summary>
         /// <param name="nodeName">Node name to be read from xml</param>
+        /// <param name="isFilePath"></param>
         /// <param name="isSeqList">Is MUMmer alignment with List of sequences</param>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope")]
-        void ValidateMUMmerAlignGeneralTestCases(string nodeName, bool isFilePath,
-            bool isSeqList)
+        void ValidateMUMmerAlignGeneralTestCases(string nodeName, bool isFilePath, bool isSeqList)
         {
-            ISequence referenceSeq = null;
-            ISequence querySeq = null;
+            ISequence referenceSeq;
+            ISequence querySeq;
             IList<ISequence> querySeqs = new List<ISequence>();
-            string referenceSequence = string.Empty;
-            string querySequence = string.Empty;
-            IList<IPairwiseSequenceAlignment> align = null;
-            IEnumerable<ISequence> referenceSeqs = null;
+            string referenceSequence;
+            string querySequence;
+            IList<IPairwiseSequenceAlignment> align;
 
             if (isFilePath)
             {
-                // Gets the reference sequence from the configurtion file
-                string filePath = utilityObj.xmlUtil.GetTextValue(nodeName,
-                    Constants.FilePathNode);
+                // Gets the reference sequence from the configuration file
+                string filePath = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode);
 
                 Assert.IsNotNull(filePath);
-                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                    "MUMmer BVT : Successfully validated the File Path '{0}'.", filePath));
+                ApplicationLog.WriteLine(string.Format(null, "MUMmer BVT : Successfully validated the File Path '{0}'.", filePath));
 
                 FastAParser parser = new FastAParser(filePath);
-                referenceSeqs = parser.Parse();
-                referenceSeq = referenceSeqs.ElementAt(0);
-                referenceSequence = new string(referenceSeq.Select(a => (char)a).ToArray());
+                IEnumerable<ISequence> referenceSeqs = parser.Parse();
+                referenceSeq = referenceSeqs.FirstOrDefault();
+                Assert.IsNotNull(referenceSeq);
+                referenceSequence = referenceSeq.ConvertToString();
+                parser.Close();
 
-                // Gets the reference sequence from the configurtion file
-                string queryFilePath = utilityObj.xmlUtil.GetTextValue(nodeName,
-                    Constants.SearchSequenceFilePathNode);
+                // Gets the reference sequence from the configuration file
+                string queryFilePath = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.SearchSequenceFilePathNode);
 
                 Assert.IsNotNull(queryFilePath);
-                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                    "MUMmer BVT : Successfully validated the Search File Path '{0}'.", queryFilePath));
+                ApplicationLog.WriteLine(string.Format(null, "MUMmer BVT : Successfully validated the Search File Path '{0}'.", queryFilePath));
 
                 FastAParser queryParserObj = new FastAParser(queryFilePath);
-                IEnumerable<ISequence> queryEnumSeqs = queryParserObj.Parse();
-                querySeq = queryEnumSeqs.ElementAt(0);
-                foreach (ISequence seq in queryEnumSeqs)
-                {
-                    querySeqs.Add(seq);
-                }
-                querySequence = new string(querySeq.Select(a => (char)a).ToArray());
-
+                querySeqs = queryParserObj.Parse().ToList();
+                querySeq = querySeqs.FirstOrDefault();
+                Assert.IsNotNull(querySeq);
+                querySequence = querySeq.ConvertToString();
+                queryParserObj.Close();
             }
             else
             {
-                // Gets the reference sequence from the configurtion file
-                referenceSequence = utilityObj.xmlUtil.GetTextValue(nodeName,
-                    Constants.SequenceNode);
-
-                string referenceSeqAlphabet = utilityObj.xmlUtil.GetTextValue(nodeName,
-                    Constants.AlphabetNameNode);
-
-                referenceSeq = new Sequence(Utility.GetAlphabet(referenceSeqAlphabet),
-                    referenceSequence);
-
-                querySequence = utilityObj.xmlUtil.GetTextValue(nodeName,
-                    Constants.SearchSequenceNode);
-
-                referenceSeqAlphabet = utilityObj.xmlUtil.GetTextValue(nodeName,
-                    Constants.SearchSequenceAlphabetNode);
-
-                querySeq = new Sequence(Utility.GetAlphabet(referenceSeqAlphabet),
-                    querySequence);
-                querySeqs = new List<ISequence>();
-                querySeqs.Add(querySeq);
+                // Gets the reference sequence from the configuration file
+                referenceSequence = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.SequenceNode);
+                string referenceSeqAlphabet = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.AlphabetNameNode);
+                referenceSeq = new Sequence(Utility.GetAlphabet(referenceSeqAlphabet), referenceSequence);
+                
+                querySequence = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.SearchSequenceNode);
+                referenceSeqAlphabet = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.SearchSequenceAlphabetNode);
+                querySeq = new Sequence(Utility.GetAlphabet(referenceSeqAlphabet), querySequence);
+                querySeqs = new List<ISequence> {querySeq};
             }
 
             string mumLength = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.MUMAlignLengthNode);
 
-            Bio.Algorithms.MUMmer.MUMmerAligner mumAlignObj = new Bio.Algorithms.MUMmer.MUMmerAligner();
-            mumAlignObj.LengthOfMUM = long.Parse(mumLength, null);
-            mumAlignObj.GapOpenCost = int.Parse(utilityObj.xmlUtil.GetTextValue(nodeName, Constants.GapOpenCostNode),
-                (IFormatProvider)null);
+            var mumAlignObj = new Bio.Algorithms.MUMmer.MUMmerAligner
+            {
+                LengthOfMUM = long.Parse(mumLength, null),
+                GapOpenCost = int.Parse(utilityObj.xmlUtil.GetTextValue(nodeName, Constants.GapOpenCostNode), null)
+            };
 
             if (isSeqList)
             {
@@ -533,29 +519,24 @@ namespace Bio.TestAutomation.Algorithms.MUMmer
             }
 
             string expectedScore = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.ScoreNodeName);
-            Assert.AreEqual(expectedScore,
-                align[0].PairwiseAlignedSequences[0].Score.ToString((IFormatProvider)null));
-            Console.WriteLine(string.Format((IFormatProvider)null,
-                "MUMmer BVT : Successfully validated the score for the sequence '{0}' and '{1}'.",
-                referenceSequence, querySequence));
-            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                "MUMmer BVT : Successfully validated the score for the sequence '{0}' and '{1}'.",
-                referenceSequence, querySequence));
+            Assert.AreEqual(expectedScore, align[0].PairwiseAlignedSequences[0].Score.ToString((IFormatProvider)null));
+            ApplicationLog.WriteLine(string.Format(null, "MUMmer BVT : Successfully validated the score for the sequence '{0}' and '{1}'.", referenceSequence, querySequence));
 
-            string[] expectedSequences = utilityObj.xmlUtil.GetTextValues(nodeName,
-                Constants.ExpectedSequencesNode);
-
+            string[] expectedSequences = utilityObj.xmlUtil.GetTextValues(nodeName, Constants.ExpectedSequencesNode);
             IList<IPairwiseSequenceAlignment> expectedOutput = new List<IPairwiseSequenceAlignment>();
 
             IPairwiseSequenceAlignment seqAlign = new PairwiseSequenceAlignment();
-            PairwiseAlignedSequence alignedSeq = new PairwiseAlignedSequence();
-            alignedSeq.FirstSequence = new Sequence(referenceSeq.Alphabet, expectedSequences[0]);
-            alignedSeq.SecondSequence = new Sequence(referenceSeq.Alphabet, expectedSequences[1]);
-            alignedSeq.Score = Convert.ToInt32(expectedScore, (IFormatProvider)null);
+            var alignedSeq = new PairwiseAlignedSequence
+            {
+                FirstSequence = new Sequence(referenceSeq.Alphabet, expectedSequences[0]),
+                SecondSequence = new Sequence(referenceSeq.Alphabet, expectedSequences[1]),
+                Score = Convert.ToInt32(expectedScore, null),
+                FirstOffset = Int32.MinValue,
+                SecondOffset = Int32.MinValue
+            };
             seqAlign.PairwiseAlignedSequences.Add(alignedSeq);
             expectedOutput.Add(seqAlign);
             Assert.IsTrue(CompareAlignment(align, expectedOutput));
-            Console.WriteLine("MUMmer BVT : Successfully validated the aligned sequences.");
             ApplicationLog.WriteLine("MUMmer BVT : Successfully validated the aligned sequences.");
         }
 
@@ -960,50 +941,13 @@ namespace Bio.TestAutomation.Algorithms.MUMmer
         /// <summary>
         /// Compare the alignment of mummer and defined alignment
         /// </summary>
-        /// <param name="result">output of Aligners</param>
+        /// <param name="actualAlignment"></param>
         /// <param name="expectedAlignment">expected output</param>
         /// <returns>Compare result of alignments</returns>
         private static bool CompareAlignment(IList<IPairwiseSequenceAlignment> actualAlignment,
              IList<IPairwiseSequenceAlignment> expectedAlignment)
         {
-            bool output = true;
-
-            if (actualAlignment.Count == expectedAlignment.Count)
-            {
-                for (int resultCount = 0; resultCount < actualAlignment.Count; resultCount++)
-                {
-                    if (actualAlignment[resultCount].PairwiseAlignedSequences.Count == expectedAlignment[resultCount].PairwiseAlignedSequences.Count)
-                    {
-                        for (int alignSeqCount = 0; alignSeqCount < actualAlignment[resultCount].PairwiseAlignedSequences.Count; alignSeqCount++)
-                        {
-                            // Validates the First Sequence, Second Sequence and Score
-                            if (actualAlignment[resultCount].PairwiseAlignedSequences[alignSeqCount].FirstSequence.ToString().Equals(
-                                    expectedAlignment[resultCount].PairwiseAlignedSequences[alignSeqCount].FirstSequence.ToString())
-                                && actualAlignment[resultCount].PairwiseAlignedSequences[alignSeqCount].SecondSequence.ToString().Equals(
-                                    expectedAlignment[resultCount].PairwiseAlignedSequences[alignSeqCount].SecondSequence.ToString())
-                                && actualAlignment[resultCount].PairwiseAlignedSequences[alignSeqCount].Score ==
-                                    expectedAlignment[resultCount].PairwiseAlignedSequences[alignSeqCount].Score)
-                            {
-                                output = true;
-                            }
-                            else
-                            {
-                                return false;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                }
-            }
-            else
-            {
-                return false;
-            }
-
-            return output;
+            return AlignmentHelpers.CompareAlignment(actualAlignment, expectedAlignment);
         }
 
         #endregion Supported Methods
