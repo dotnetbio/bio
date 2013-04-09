@@ -77,6 +77,10 @@ namespace Bio.SimilarityMatrices
                 case StandardSimilarityMatrix.DiagonalScoreMatrix:
                     matrixText = SimilarityMatrixResources.DiagonalScoreMatrix;
                     break;
+                case StandardSimilarityMatrix.EDnaFull:
+                    matrixText = SimilarityMatrixResources.EDNAFull;
+                    moleculeType = Alphabets.AmbiguousDNA;
+                    break;
             }
 
             using (TextReader reader = new StringReader(matrixText))
@@ -219,7 +223,12 @@ namespace Bio.SimilarityMatrices
             /// <summary>
             /// Diagonal matrix.
             /// </summary>
-            DiagonalScoreMatrix
+            DiagonalScoreMatrix,
+
+            /// <summary>
+            /// EDNAFull Similarity Matrix.
+            /// </summary>
+            EDnaFull,
         }
 
         #endregion

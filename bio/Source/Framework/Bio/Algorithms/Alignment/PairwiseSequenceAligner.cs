@@ -19,10 +19,10 @@ namespace Bio.Algorithms.Alignment
         /// <summary>
         /// Traceback table built during the matrix creation step
         /// </summary>
-        protected sbyte[] Traceback;
+        protected sbyte[][] Traceback;
 
         /// <summary>
-        /// Generated score table - this is filled in with the scoring and traceback directions.
+        /// Generated score table - this is filled in with the scoring matrix when debugging
         /// </summary>
         protected int[] ScoreTable;
 
@@ -338,7 +338,7 @@ namespace Bio.Algorithms.Alignment
         /// <summary>
         /// This method performs the pairwise alignment between two sequences (reference and query).
         /// It does this using the standard Dynamic Programming model:
-        /// 1. Initiation of the scoring matrix (Rs.Length x Qs.Length)
+        /// 1. Initialization of the scoring matrix (Rs.Length x Qs.Length)
         /// 2. Filling of the scoring matrix and traceback table
         /// 3. Traceback (alignment)
         /// </summary>
@@ -346,7 +346,7 @@ namespace Bio.Algorithms.Alignment
         private PairwiseSequenceAlignment Process(bool useAffineGapModel)
         {
             // Step 1: Initialize
-            InitializeAndFillScoringTable();
+            Initialize();
 
             // Step 2: Matrix fill (scoring)
             var scores = CreateTracebackTable(useAffineGapModel);
@@ -359,21 +359,45 @@ namespace Bio.Algorithms.Alignment
         /// This is step (1) in the dynamic programming model - to initialize the default values
         /// for the scoring matrix and traceback tables.
         /// </summary>
-        protected void InitializeAndFillScoringTable()
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2201:DoNotRaiseReservedExceptionTypes")]
+        protected void Initialize()
         {
+            // Check the bounds
+            if (QuerySequence.Length == Int32.MaxValue)
+                throw new ArgumentException("Reference sequence contains too many residues (cannot exceed " + Int32.MaxValue + " values).");
+            if (ReferenceSequence.Length == Int32.MaxValue)
+                throw new ArgumentException("Query sequence contains too many residues (cannot exceed " + Int32.MaxValue + " values).");
+
+            // Track rows/cols
             Rows = QuerySequence.Length + 1;
             Cols = ReferenceSequence.Length + 1;
-            ScoreTable = new int[Rows * Cols];
-            Traceback = new sbyte[Rows * Cols];
 
-            // Initialize the scoring table and trace back nodes
-            for (int i = 0; i < Rows; i++)
+            // Attempt to keep the scoring table if requested. For performance/memory we use a single
+            // array here, but it limits the size dramatically so see if we can actually hold it.
+            if (IncludeScoreTable)
             {
-                for (int j = 0; j < Cols; j++)
+                long maxIndex = (long) Rows*Cols;
+                if (maxIndex > Int32.MaxValue)
                 {
-                    InitializeScoreTraceback(i, j);
+                    IncludeScoreTable = false;
+                }
+                else
+                {
+                    try
+                    {
+                        ScoreTable = new int[maxIndex];
+                    }
+                    catch (OutOfMemoryException)
+                    {
+                        ScoreTable = null;
+                        IncludeScoreTable = false;
+                    }
                 }
             }
+
+            // Allocate the first pass of the traceback
+            Traceback = new sbyte[Rows][];
+            Traceback[0] = new sbyte[Cols]; // Initialized to STOP
         }
 
         /// <summary>
@@ -425,7 +449,7 @@ namespace Bio.Algorithms.Alignment
             int faLength = 0, saLength = 0;
             while (!TracebackIsComplete(i, j))
             {
-                sbyte tracebackDirection = Traceback[i*Cols + j];
+                sbyte tracebackDirection = Traceback[i][j];
 
                 // Reference sequence uses the current cell if we moved diagonal or left.
                 if (tracebackDirection == SourceDirection.Left || tracebackDirection == SourceDirection.Diagonal)
@@ -498,19 +522,30 @@ namespace Bio.Algorithms.Alignment
             var pairwiseAlignedSequence = new PairwiseAlignedSequence
             {
                 Score = finalScore,
-                FirstSequence = new Sequence(_sequence1.Alphabet, firstAlignment),
-                FirstOffset = j,
-                SecondSequence = new Sequence(_sequence2.Alphabet, secondAlignment),
-                SecondOffset = i,
+                FirstSequence = new Sequence(_sequence1.Alphabet, firstAlignment) { ID = _sequence1.ID },
+                SecondSequence = new Sequence(_sequence2.Alphabet, secondAlignment) { ID = _sequence2.ID },
                 Consensus = new Sequence(ConsensusResolver.SequenceAlphabet, consensus),
             };
+
+            // Offset is start of alignment in input sequence with respect to other sequence.
+            if (i >= j)
+            {
+                pairwiseAlignedSequence.FirstOffset = i - j;
+                pairwiseAlignedSequence.SecondOffset = 0;
+            }
+            else
+            {
+                pairwiseAlignedSequence.FirstOffset = 0;
+                pairwiseAlignedSequence.SecondOffset = j - i;
+            }
+
 
             // Add in ISequenceAlignment metadata
             pairwiseAlignedSequence.Metadata["Score"] = pairwiseAlignedSequence.Score;
             pairwiseAlignedSequence.Metadata["FirstOffset"] = pairwiseAlignedSequence.FirstOffset;
             pairwiseAlignedSequence.Metadata["SecondOffset"] = pairwiseAlignedSequence.SecondOffset;
             pairwiseAlignedSequence.Metadata["Consensus"] = pairwiseAlignedSequence.Consensus;
-            pairwiseAlignedSequence.Metadata["StartOffsets"] = new List<long> { pairwiseAlignedSequence.FirstOffset, pairwiseAlignedSequence.SecondOffset };
+            pairwiseAlignedSequence.Metadata["StartOffsets"] = new List<long> { j, i };
             pairwiseAlignedSequence.Metadata["EndOffsets"] = new List<long> { startingCell.Col - 1, startingCell.Row - 1 };
             pairwiseAlignedSequence.Metadata["Insertions"] = new List<long> { colGaps, rowGaps }; // ref, query insertions
             pairwiseAlignedSequence.Metadata["IdenticalCount"] = identicalCount;
@@ -520,24 +555,16 @@ namespace Bio.Algorithms.Alignment
         }
 
         /// <summary>
-        /// Initializes the score and traceback for the given position
-        /// </summary>
-        /// <param name="row">Row</param>
-        /// <param name="col">Column</param>
-        protected virtual void InitializeScoreTraceback(int row, int col)
-        {
-            //ScoreTable[row * Cols + col] = 0;
-            Traceback[row * Cols + col] = SourceDirection.Stop;
-        }
-
-        /// <summary>
         /// This method is used to determine when the traceback step is complete.
         /// It is algorithm specific.
         /// </summary>
         /// <param name="row">Current row</param>
         /// <param name="col">Current column</param>
         /// <returns>True if we are finished with the traceback step, false if not.</returns>
-        protected abstract bool TracebackIsComplete(int row, int col);
+        protected virtual bool TracebackIsComplete(int row, int col)
+        {
+            return Traceback[row][col] == SourceDirection.Stop;
+        }
         
         /// <summary>
         /// This method generates a textual representation of the scoring/traceback matrix
@@ -546,6 +573,9 @@ namespace Bio.Algorithms.Alignment
         /// <returns>String</returns>
         private string GetScoreTable()
         {
+            if (ScoreTable == null)
+                return string.Empty;
+
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < QuerySequence.Length + 2; i++)
             {
@@ -577,9 +607,7 @@ namespace Bio.Algorithms.Alignment
                     else
                     {
                         char ch;
-
-                        int index = (i - 1)*Cols + (j - 1);
-                        switch (Traceback[index])
+                        switch (Traceback[i-1][j-1])
                         {
                             case SourceDirection.Diagonal:
                                 ch = '\\';
@@ -590,11 +618,14 @@ namespace Bio.Algorithms.Alignment
                             case SourceDirection.Up:
                                 ch = '^';
                                 break;
+                            case SourceDirection.Stop:
+                                ch = '*';
+                                break;
                             default:
                                 ch = ' ';
                                 break;
                         }
-                        sb.AppendFormat(" {0}{1,3}", ch, ScoreTable[index]);
+                        sb.AppendFormat(" {0}{1,3}", ch, ScoreTable[(i-1) * Cols + (j-1)]);
                     }
 
                     sb.Append(' ');

@@ -123,12 +123,17 @@ namespace Bio.Algorithms.Assembly
                 throw new ArgumentNullException(Properties.Resource.ParameterNameInputSequences);
             }
 
-            int sequenceCount = inputSequences.Count();
+            // numbering convention: every pool item (whether sequence or contig)
+            // gets a fixed number.
+            // sequence index = index into inputs (which we won't modify)
+            // contig index = nSequences + index into contigs
+            List<PoolItem> pool = inputSequences.Select(seq => new PoolItem(seq)).ToList();
 
-            // Initializations
+            // Initialization
+            int sequenceCount = pool.Count;
             if (sequenceCount > 0)
             {
-                _sequenceAlphabet = inputSequences.First().Alphabet;
+                _sequenceAlphabet = pool[0].Sequence.Alphabet;
 
                 if (ConsensusResolver == null)
                 {
@@ -138,18 +143,6 @@ namespace Bio.Algorithms.Assembly
                 {
                     ConsensusResolver.SequenceAlphabet = _sequenceAlphabet;
                 }
-            }
-
-            OverlapDeNovoAssembly sequenceAssembly = null;
-
-            // numbering convention: every pool item (whether sequence or contig)
-            // gets a fixed number.
-            // sequence index = index into inputs (which we won't modify)
-            // contig index = nSequences + index into contigs
-            List<PoolItem> pool = new List<PoolItem>();
-            foreach (ISequence seq in inputSequences)
-            {
-                pool.Add(new PoolItem(seq));
             }
 
             // put all the initial sequences into the pool, and generate the pair scores.
@@ -342,7 +335,7 @@ namespace Bio.Algorithms.Assembly
 
             // no further qualifying merges, so we're done.
             // populate contigs and unmergedSequences
-            sequenceAssembly = new OverlapDeNovoAssembly();
+            OverlapDeNovoAssembly sequenceAssembly = new OverlapDeNovoAssembly();
             foreach (PoolItem curItem in pool)
             {
                 if (curItem.ConsumedBy < 0)
@@ -470,7 +463,8 @@ namespace Bio.Algorithms.Assembly
             // Retreive information from globalBest
             newASeq.IsReversed = globalBest.Reversed;
             newASeq.IsComplemented = globalBest.Complemented;
-            newASeq.Position = globalBest.FirstOffset;
+            //newASeq.Position = globalBest.FirstOffset;
+            newASeq.Position = globalBest.SecondOffset;
             newASeq.Sequence = SequenceWithoutTerminalGaps(consumedSequence);
 
             newContig.Sequences.Add(newASeq);
@@ -504,7 +498,8 @@ namespace Bio.Algorithms.Assembly
                 newASeq.IsComplemented = aseq.IsComplemented;
 
                 // position in the new contig adjusted by alignment of the merged items.
-                newASeq.Position = globalBest.SecondOffset + aseq.Position;
+                //newASeq.Position = globalBest.SecondOffset + aseq.Position;
+                newASeq.Position = globalBest.FirstOffset + aseq.Position;
                 newASeq.Sequence = SequenceWithoutTerminalGaps(aseq.Sequence);
 
                 newContig.Sequences.Add(newASeq);
@@ -535,7 +530,8 @@ namespace Bio.Algorithms.Assembly
             // as the higher-index item, this sequence is never reversed or complemented, so:
             newASeq.IsReversed = false;
             newASeq.IsComplemented = false;
-            newASeq.Position = globalBest.SecondOffset;
+            //newASeq.Position = globalBest.SecondOffset;
+            newASeq.Position = globalBest.FirstOffset;
             newASeq.Sequence = SequenceWithoutTerminalGaps(consumedSequence);
 
             newContig.Sequences.Add(newASeq);
@@ -615,7 +611,7 @@ namespace Bio.Algorithms.Assembly
         }
 
         /// <summary>
-        /// Alignes the two input sequence
+        /// Aligns the two input sequence
         /// Updates best score, if necessary
         /// </summary>
         /// <param name="sequence1">First Sequence to be aligned</param>
@@ -721,40 +717,20 @@ namespace Bio.Algorithms.Assembly
         /// <param name="contig">Contig for which consensus is to be constructed</param>
         private void MakeConsensus(Contig contig)
         {
-            List<byte> positionItems = new List<byte>();
-            List<byte> consensusSequence = new List<byte>();
+            List<byte> positionItems = new List<byte>(), consensusSequence = new List<byte>();
 
             // there's no simple way to pre-guess the length of the contig
             long position = 0;
             while (true)
             {
-                // Initializations
+                // Initialization
                 positionItems.Clear();
 
-                foreach (Contig.AssembledSequence aseq in contig.Sequences)
-                {
-                    if (position >= aseq.Position && position < aseq.Position + aseq.Sequence.Count)
-                    {
-                        long seqPos;
-                        if (aseq.IsReversed)
-                        {
-                            seqPos = (aseq.Sequence.Count() - 1) - (position - aseq.Position);
-                        }
-                        else
-                        {
-                            seqPos = position - aseq.Position;
-                        }
-
-                        if (aseq.IsComplemented)
-                        {
-                            positionItems.Add(aseq.Sequence.GetComplementedSequence()[seqPos]);
-                        }
-                        else
-                        {
-                            positionItems.Add(aseq.Sequence[seqPos]);
-                        }
-                    }
-                }
+                // Add the sequences
+                positionItems.AddRange(from aseq in contig.Sequences
+                                       where position >= aseq.Position && position < aseq.Position + aseq.Sequence.Count
+                                       let seqPos = aseq.IsReversed ? (aseq.Sequence.Count() - 1) - (position - aseq.Position) : position - aseq.Position
+                                       select aseq.IsComplemented ? aseq.Sequence.GetComplementedSequence()[seqPos] : aseq.Sequence[seqPos]);
 
                 if (positionItems.Count == 0)
                 {
@@ -762,11 +738,8 @@ namespace Bio.Algorithms.Assembly
                     contig.Consensus = new Sequence(Alphabets.AmbiguousAlphabetMap[_sequenceAlphabet], consensusSequence.ToArray());
                     return;
                 }
-                else
-                {
-                    consensusSequence.Add(ConsensusResolver.GetConsensus(positionItems.ToArray()));
-                }
 
+                consensusSequence.Add(ConsensusResolver.GetConsensus(positionItems.ToArray()));
                 position++;
             }
         }

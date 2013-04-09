@@ -43,27 +43,36 @@ namespace Bio.Algorithms.Alignment
             if (useAffineGapModel)
                 return CreateAffineTracebackTable();
 
+            int[][] matrix = SimilarityMatrix.Matrix;
+            int[] scoreLastRow = new int[Cols];
+            int[] scoreRow = new int[Cols];
+
             // Initialize the high score cell to an invalid value
             var highScoreCells = new List<OptScoreMatrixCell> { new OptScoreMatrixCell { Score = Int32.MinValue }};
 
             // Walk the sequences and generate the scores.
             for (int i = 1; i < Rows; i++)
             {
+                sbyte[] traceback = new sbyte[Cols]; // Initialized to STOP
+
+                if (i > 1)
+                {
+                    // Move current row to last row
+                    scoreLastRow = scoreRow;
+                    scoreRow = new int[Cols];
+                }
+
                 for (int j = 1; j < Cols; j++)
                 {
-                    int aboveIndex = (i - 1)*Cols + j;
-                    int leftIndex = i*Cols + (j - 1);
-                    int diagonalIndex = (i - 1)*Cols + (j - 1);
-                    int currentIndex = i*Cols + j;
+                    // Gap in reference sequence
+                    int scoreAbove = scoreLastRow[j] + GapOpenCost;
 
-                    // Gap in sequence #1
-                    int scoreAbove = ScoreTable[aboveIndex] + GapOpenCost;
+                    // Gap in query sequence
+                    int scoreLeft = scoreRow[j - 1] + GapOpenCost;
 
-                    // Gap in sequence #2
-                    int scoreLeft = ScoreTable[leftIndex] + GapOpenCost;
-
-                    // Match score (diagonal)
-                    int scoreDiag = ScoreTable[diagonalIndex] + SimilarityMatrix[QuerySequence[i - 1], ReferenceSequence[j - 1]];
+                    // Match/mismatch score
+                    int mScore = (matrix != null) ? matrix[QuerySequence[i - 1]][ReferenceSequence[j - 1]] : SimilarityMatrix[QuerySequence[i - 1], ReferenceSequence[j - 1]];
+                    int scoreDiag = scoreLastRow[j - 1] + mScore;
 
                     // Calculate the current cell score and trackback
                     // M[i,j] = MAX(M[i-1,j-1] + S[i,j], M[i,j-1] + gapCost, M[i-1,j] + gapCost)
@@ -71,22 +80,25 @@ namespace Bio.Algorithms.Alignment
                     if ((scoreDiag > scoreAbove) && (scoreDiag > scoreLeft))
                     {
                         score = scoreDiag;
-                        Traceback[currentIndex] = SourceDirection.Diagonal;
+                        traceback[j] = SourceDirection.Diagonal;
                     }
                     else if (scoreLeft > scoreAbove)
                     {
                         score = scoreLeft;
-                        Traceback[currentIndex] = SourceDirection.Left;
+                        traceback[j] = SourceDirection.Left;
                     }
                     else //if (scoreAbove > scoreLeft)
                     {
                         score = scoreAbove;
-                        Traceback[currentIndex] = SourceDirection.Up;
+                        traceback[j] = SourceDirection.Up;
                     }
 
                     // Do not allow for negative scores in the local alignment.
-                    if (score < 0)
+                    if (score <= 0)
+                    {
                         score = 0;
+                        traceback[j] = SourceDirection.Stop;
+                    }
 
                     // Keep track of the highest scoring cell for our final score.
                     if (score >= highScoreCells[0].Score)
@@ -96,7 +108,15 @@ namespace Bio.Algorithms.Alignment
                         highScoreCells.Add(new OptScoreMatrixCell { Row = i, Col = j, Score = score });
                     }
 
-                    ScoreTable[currentIndex] = score;
+                    scoreRow[j] = score;
+                }
+
+                // Save off the traceback row
+                Traceback[i] = traceback;
+
+                if (IncludeScoreTable)
+                {
+                    Array.Copy(scoreRow, 0, ScoreTable, i * Cols, Cols);
                 }
             }
 
@@ -112,6 +132,11 @@ namespace Bio.Algorithms.Alignment
         {
             // Initialize the high score cell to an invalid value
             var highScoreCells = new List<OptScoreMatrixCell> { new OptScoreMatrixCell { Score = Int32.MinValue } };
+
+            // Score matrix - we just track the current row and prior row for better memory utilization
+            int[] scoreLastRow = new int[Cols];
+            int[] scoreRow = new int[Cols];
+            int[][] matrix = SimilarityMatrix.Matrix;
 
             // Horizontal and vertical gap counts.
             int gapStride = Cols + 1;
@@ -137,16 +162,20 @@ namespace Bio.Algorithms.Alignment
             // Walk the sequences and generate the scoring/traceback matrix
             for (int i = 1; i < Rows; i++)
             {
+                sbyte[] traceback = new sbyte[Cols]; // Initialized to STOP
+
+                if (i > 1)
+                {
+                    // Move current row to last row
+                    scoreLastRow = scoreRow;
+                    scoreRow = new int[Cols];
+                }
+
                 for (int j = 1; j < Cols; j++)
                 {
-                    int aboveIndex = (i - 1) * Cols + j;
-                    int leftIndex = i * Cols + (j - 1);
-                    int diagonalIndex = (i - 1) * Cols + (j - 1);
-                    int currentIndex = i * Cols + j;
-
                     // Gap in sequence #1 (reference)
                     int scoreAbove;
-                    int scoreAboveOpen = ScoreTable[aboveIndex] + GapOpenCost;
+                    int scoreAboveOpen = scoreLastRow[j] + GapOpenCost;
                     int scoreAboveExtend = vgapCost[(i-1) * gapStride + j] + GapExtensionCost;
                     if (scoreAboveOpen > scoreAboveExtend)
                     {
@@ -160,7 +189,7 @@ namespace Bio.Algorithms.Alignment
 
                     // Gap in sequence #2 (query)
                     int scoreLeft;
-                    int scoreLeftOpen = ScoreTable[leftIndex] + GapOpenCost;
+                    int scoreLeftOpen = scoreRow[j-1] + GapOpenCost;
                     int scoreLeftExtend = hgapCost[i * gapStride + (j-1)] + GapExtensionCost;
                     if (scoreLeftOpen > scoreLeftExtend)
                     {
@@ -177,7 +206,8 @@ namespace Bio.Algorithms.Alignment
                     vgapCost[i * gapStride + j] = scoreAbove;
 
                     // Match score (diagonal)
-                    int scoreDiag = ScoreTable[diagonalIndex] + SimilarityMatrix[QuerySequence[i - 1], ReferenceSequence[j - 1]];
+                    int mScore = (matrix != null) ? matrix[QuerySequence[i - 1]][ReferenceSequence[j - 1]] : SimilarityMatrix[QuerySequence[i - 1], ReferenceSequence[j - 1]];
+                    int scoreDiag = scoreLastRow[j - 1] + mScore;
 
                     // Calculate the current cell score and trackback
                     // M[i,j] = MAX(M[i-1,j-1] + S[i,j], M[i,j-1] + gapCost, M[i-1,j] + gapCost)
@@ -185,22 +215,25 @@ namespace Bio.Algorithms.Alignment
                     if ((scoreDiag > scoreAbove) && (scoreDiag > scoreLeft))
                     {
                         score = scoreDiag;
-                        Traceback[currentIndex] = SourceDirection.Diagonal;
+                        traceback[j] = SourceDirection.Diagonal;
                     }
                     else if (scoreLeft > scoreAbove)
                     {
                         score = scoreLeft;
-                        Traceback[currentIndex] = SourceDirection.Left;
+                        traceback[j] = SourceDirection.Left;
                     }
                     else //if (scoreAbove > scoreLeft)
                     {
                         score = scoreAbove;
-                        Traceback[currentIndex] = SourceDirection.Up;
+                        traceback[j] = SourceDirection.Up;
                     }
 
                     // Do not allow for negative scores in the local alignment.
-                    if (score < 0)
+                    if (score <= 0)
+                    {
                         score = 0;
+                        traceback[j] = SourceDirection.Stop;
+                    }
 
                     // Keep track of the highest scoring cell for our final score.
                     if (score >= highScoreCells[0].Score)
@@ -210,22 +243,19 @@ namespace Bio.Algorithms.Alignment
                         highScoreCells.Add(new OptScoreMatrixCell { Row = i, Col = j, Score = score });
                     }
 
-                    ScoreTable[currentIndex] = score;
+                    scoreRow[j] = score;
+                }
+
+                // Save off the traceback row
+                Traceback[i] = traceback;
+
+                if (IncludeScoreTable)
+                {
+                    Array.Copy(scoreRow, 0, ScoreTable, i * Cols, Cols);
                 }
             }
 
             return highScoreCells;
-        }
-
-        /// <summary>
-        /// This method is used to determine when the traceback step is complete.
-        /// </summary>
-        /// <param name="row">Row</param>
-        /// <param name="col">Column</param>
-        /// <returns>True if we are finished with the traceback step, false if not.</returns>
-        protected override bool TracebackIsComplete(int row, int col)
-        {
-            return ScoreTable[row * Cols + col] == 0;
         }
     }
 }

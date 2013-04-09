@@ -234,7 +234,7 @@ namespace Bio.Algorithms.Alignment
                 referenceSequence.Add((byte)'+');
             }
 
-            return new Sequence(AlphabetExtensions.GetMummerAlphabet(sequences.ElementAt(0).Alphabet), referenceSequence.ToArray(), false);
+            return new Sequence(sequences.First().Alphabet.GetMummerAlphabet(), referenceSequence.ToArray(), false);
         }
 
         /// <summary>

@@ -433,7 +433,11 @@
     <Compile Include="SequenceRangeGrouping.cs" />
     <Compile Include="SequenceStatistics.cs" />
     <Compile Include="SimilarityMatrices\DiagonalSimilarityMatrix.cs" />
-    <Compile Include="SimilarityMatrices\Resources\SimilarityMatrixResources.Designer.cs" />
+    <Compile Include="SimilarityMatrices\Resources\SimilarityMatrixResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SimilarityMatrixResources.resx</DependentUpon>
+    </Compile>
     <Compile Include="SimilarityMatrices\SimilarityMatrix.cs" />
     <Compile Include="SimpleConsensusResolver.cs" />
     <Compile Include="SnpItem.cs" />
@@ -541,7 +545,10 @@
       <LastGenOutput>Resource.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SimilarityMatrices\Resources\SimilarityMatrixResources.resx" />
+    <EmbeddedResource Include="SimilarityMatrices\Resources\SimilarityMatrixResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>SimilarityMatrixResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Content Include="CloneLibrary\Resources\CloneLibrary\Library.txt" />
@@ -553,6 +560,7 @@
     <Content Include="SimilarityMatrices\Resources\SimilarityMatrices\BLOSUM80.txt" />
     <Content Include="SimilarityMatrices\Resources\SimilarityMatrices\BLOSUM90.txt" />
     <Content Include="SimilarityMatrices\Resources\SimilarityMatrices\DiagonalScoreMatrix.txt" />
+    <Content Include="SimilarityMatrices\Resources\SimilarityMatrices\EDNAFull.txt" />
     <Content Include="SimilarityMatrices\Resources\SimilarityMatrices\PAM250.txt" />
     <Content Include="SimilarityMatrices\Resources\SimilarityMatrices\PAM30.txt" />
     <Content Include="SimilarityMatrices\Resources\SimilarityMatrices\PAM70.txt" />
