@@ -22,6 +22,7 @@ using Bio.Util.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Bio.IO.FastA;
 using Bio;
+using Bio.Tests.Framework;
 
 namespace Bio.TestAutomation.Algorithms.Alignment
 {
@@ -207,8 +208,7 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         [TestCategory("Priority0")]
         public void NeedlemanWunschAlignListSequencesFromTextFile()
         {
-            ValidateNeedlemanWunschAlignment(true, AlignmentParamType.AlignList,
-                AlignmentType.Align);
+            ValidateNeedlemanWunschAlignment(true, AlignmentParamType.AlignList, AlignmentType.Align);
         }
 
         /// <summary>
@@ -224,8 +224,7 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         [TestCategory("Priority0")]
         public void NeedlemanWunschAlignAllParamsFromTextFile()
         {
-            ValidateNeedlemanWunschAlignment(true, AlignmentParamType.AllParam,
-                AlignmentType.Align);
+            ValidateNeedlemanWunschAlignment(true, AlignmentParamType.AllParam, AlignmentType.Align);
         }
         #endregion Gap Extension Cost inclusion Test cases
 
@@ -597,25 +596,17 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         /// <param name="isTextFile">Is text file an input.</param>
         /// <param name="alignParam">parameter based on which certain validations are done.</param>
         /// <param name="alignType">Is the Align type Simple or Align with Gap Extension cost?</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope")]
         void ValidateNeedlemanWunschAlignment(bool isTextFile, AlignmentParamType alignParam, AlignmentType alignType)
         {
-            ISequence aInput = null;
-            ISequence bInput = null;
-
-            IAlphabet alphabet = Utility.GetAlphabet(
-                utilityObj.xmlUtil.GetTextValue(Constants.NeedlemanWunschAlignAlgorithmNodeName,
-                Constants.AlphabetNameNode));
+            ISequence aInput, bInput;
+            IAlphabet alphabet = Utility.GetAlphabet(utilityObj.xmlUtil.GetTextValue(Constants.NeedlemanWunschAlignAlgorithmNodeName, Constants.AlphabetNameNode));
 
             if (isTextFile)
             {
                 // Read the xml file for getting both the files for aligning.
-                string filePath1 = utilityObj.xmlUtil.GetTextValue(
-                    Constants.NeedlemanWunschAlignAlgorithmNodeName,
-                    Constants.FilePathNode1);
-                string filePath2 = utilityObj.xmlUtil.GetTextValue(
-                    Constants.NeedlemanWunschAlignAlgorithmNodeName,
-                    Constants.FilePathNode2);
+                string filePath1 = utilityObj.xmlUtil.GetTextValue(Constants.NeedlemanWunschAlignAlgorithmNodeName, Constants.FilePathNode1);
+                string filePath2 = utilityObj.xmlUtil.GetTextValue(Constants.NeedlemanWunschAlignAlgorithmNodeName, Constants.FilePathNode2);
 
                 // Parse the files and get the sequence.
                 using (FastAParser parseObjectForFile1 = new FastAParser(filePath1))
@@ -633,29 +624,18 @@ namespace Bio.TestAutomation.Algorithms.Alignment
             else
             {
                 // Read the xml file for getting both the files for aligning.
-                string origSequence1 = utilityObj.xmlUtil.GetTextValue(
-                    Constants.NeedlemanWunschAlignAlgorithmNodeName,
-                    Constants.SequenceNode1);
-                string origSequence2 = utilityObj.xmlUtil.GetTextValue(
-                    Constants.NeedlemanWunschAlignAlgorithmNodeName,
-                    Constants.SequenceNode2);
+                string origSequence1 = utilityObj.xmlUtil.GetTextValue(Constants.NeedlemanWunschAlignAlgorithmNodeName, Constants.SequenceNode1);
+                string origSequence2 = utilityObj.xmlUtil.GetTextValue(Constants.NeedlemanWunschAlignAlgorithmNodeName, Constants.SequenceNode2);
 
                 aInput = new Sequence(alphabet, origSequence1);
                 bInput = new Sequence(alphabet, origSequence2);
             }
 
-            string blosumFilePath = utilityObj.xmlUtil.GetTextValue(
-                Constants.NeedlemanWunschAlignAlgorithmNodeName,
-                Constants.BlosumFilePathNode);
+            string blosumFilePath = utilityObj.xmlUtil.GetTextValue(Constants.NeedlemanWunschAlignAlgorithmNodeName,Constants.BlosumFilePathNode);
 
             SimilarityMatrix sm = new SimilarityMatrix(blosumFilePath);
-            int gapOpenCost = int.Parse(utilityObj.xmlUtil.GetTextValue(
-                Constants.NeedlemanWunschAlignAlgorithmNodeName,
-                Constants.GapOpenCostNode), (IFormatProvider)null);
-
-            int gapExtensionCost = int.Parse(utilityObj.xmlUtil.GetTextValue(
-                Constants.NeedlemanWunschAlignAlgorithmNodeName,
-                Constants.GapExtensionCostNode), (IFormatProvider)null);
+            int gapOpenCost = int.Parse(utilityObj.xmlUtil.GetTextValue(Constants.NeedlemanWunschAlignAlgorithmNodeName, Constants.GapOpenCostNode), null);
+            int gapExtensionCost = int.Parse(utilityObj.xmlUtil.GetTextValue(Constants.NeedlemanWunschAlignAlgorithmNodeName, Constants.GapExtensionCostNode), null);
 
             NeedlemanWunschAligner needlemanWunschObj = new NeedlemanWunschAligner();
             if (AlignmentParamType.AllParam != alignParam)
@@ -708,10 +688,7 @@ namespace Bio.TestAutomation.Algorithms.Alignment
             }
 
             // Read the xml file for getting both the files for aligning.
-            string expectedSequence1 = string.Empty;
-            string expectedSequence2 = string.Empty;
-
-            string expectedScore = string.Empty;
+            string expectedSequence1, expectedSequence2, expectedScore;
 
             switch (alignType)
             {
@@ -742,38 +719,22 @@ namespace Bio.TestAutomation.Algorithms.Alignment
             IList<IPairwiseSequenceAlignment> expectedOutput = new List<IPairwiseSequenceAlignment>();
 
             IPairwiseSequenceAlignment align = new PairwiseSequenceAlignment();
-            PairwiseAlignedSequence alignedSeq = new PairwiseAlignedSequence();
-            alignedSeq.FirstSequence = new Sequence(alphabet, expectedSequence1);
-            alignedSeq.SecondSequence = new Sequence(alphabet, expectedSequence2);
-            alignedSeq.Score = Convert.ToInt32(expectedScore, (IFormatProvider)null);
+            var alignedSeq = new PairwiseAlignedSequence
+            {
+                FirstSequence = new Sequence(alphabet, expectedSequence1),
+                SecondSequence = new Sequence(alphabet, expectedSequence2),
+                Score = Convert.ToInt32(expectedScore, null),
+                FirstOffset = Int32.MinValue,
+                SecondOffset = Int32.MinValue,
+            };
             align.PairwiseAlignedSequences.Add(alignedSeq);
             expectedOutput.Add(align);
+
+            ApplicationLog.WriteLine(string.Format(null, "NeedlemanWunschAligner BVT : Final Score '{0}'.", expectedScore));
+            ApplicationLog.WriteLine(string.Format(null, "NeedlemanWunschAligner BVT : Aligned First Sequence is '{0}'.", expectedSequence1));
+            ApplicationLog.WriteLine(string.Format(null, "NeedlemanWunschAligner BVT : Aligned Second Sequence is '{0}'.", expectedSequence2));
+
             Assert.IsTrue(CompareAlignment(result, expectedOutput));
-
-            align = null;
-            alignedSeq = null;
-            aInput = null;
-            bInput = null;
-            needlemanWunschObj = null;
-            alphabet = null;
-
-            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                "NeedlemanWunschAligner BVT : Final Score '{0}'.", expectedScore));
-            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                "NeedlemanWunschAligner BVT : Aligned First Sequence is '{0}'.",
-               expectedSequence1));
-            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                "NeedlemanWunschAligner BVT : Aligned Second Sequence is '{0}'.",
-                expectedSequence2));
-
-            Console.WriteLine(string.Format((IFormatProvider)null,
-                "NeedlemanWunschAligner BVT : Final Score '{0}'.", expectedScore));
-            Console.WriteLine(string.Format((IFormatProvider)null,
-                "NeedlemanWunschAligner BVT : Aligned First Sequence is '{0}'.",
-               expectedSequence1));
-            Console.WriteLine(string.Format((IFormatProvider)null,
-                "NeedlemanWunschAligner BVT : Aligned Second Sequence is '{0}'.",
-                expectedSequence2));
         }
 
         /// <summary>
@@ -792,68 +753,47 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         /// <param name="isTextFile">Is text file an input.</param>
         /// <param name="alignParam">parameter based on which certain validations are done.</param>
         /// <param name="alignType">Is the Align type Simple or Align with Gap Extension cost?</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope")]
-        void ValidateSmithWatermanAlignment(bool isTextFile, AlignmentParamType alignParam,
-            AlignmentType alignType)
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope")]
+        void ValidateSmithWatermanAlignment(bool isTextFile, AlignmentParamType alignParam, AlignmentType alignType)
         {
-            ISequence aInput = null;
-            ISequence bInput = null;
-
-            IAlphabet alphabet = Utility.GetAlphabet(utilityObj.xmlUtil.GetTextValue(
-                Constants.SmithWatermanAlignAlgorithmNodeName,
-                Constants.AlphabetNameNode));
+            ISequence aInput, bInput;
+            IAlphabet alphabet = Utility.GetAlphabet(utilityObj.xmlUtil.GetTextValue(Constants.SmithWatermanAlignAlgorithmNodeName, Constants.AlphabetNameNode));
 
             if (isTextFile)
             {
                 // Read the xml file for getting both the files for aligning.
-                string filePath1 = utilityObj.xmlUtil.GetTextValue(
-                    Constants.SmithWatermanAlignAlgorithmNodeName,
-                    Constants.FilePathNode1);
-                string filePath2 = utilityObj.xmlUtil.GetTextValue(
-                    Constants.SmithWatermanAlignAlgorithmNodeName,
-                    Constants.FilePathNode2);
+                string filePath1 = utilityObj.xmlUtil.GetTextValue(Constants.SmithWatermanAlignAlgorithmNodeName, Constants.FilePathNode1);
+                string filePath2 = utilityObj.xmlUtil.GetTextValue(Constants.SmithWatermanAlignAlgorithmNodeName, Constants.FilePathNode2);
 
                 // Parse the files and get the sequence.
                 using (FastAParser parseObjectForFile1 = new FastAParser(filePath1))
                 {
                     parseObjectForFile1.Alphabet = alphabet;
-                    aInput = parseObjectForFile1.Parse().ElementAt(0);
+                    aInput = parseObjectForFile1.Parse().First();
                 }
 
                 using (FastAParser parseObjectForFile2 = new FastAParser(filePath2))
                 {
                     parseObjectForFile2.Alphabet = alphabet;
-                    bInput = parseObjectForFile2.Parse().ElementAt(0);
+                    bInput = parseObjectForFile2.Parse().First();
                 }
             }
             else
             {
                 // Read the xml file for getting both the files for aligning.
-                string origSequence1 = utilityObj.xmlUtil.GetTextValue(
-                    Constants.SmithWatermanAlignAlgorithmNodeName,
-                    Constants.SequenceNode1);
-                string origSequence2 = utilityObj.xmlUtil.GetTextValue(
-                    Constants.SmithWatermanAlignAlgorithmNodeName,
-                    Constants.SequenceNode2);
+                string origSequence1 = utilityObj.xmlUtil.GetTextValue(Constants.SmithWatermanAlignAlgorithmNodeName, Constants.SequenceNode1);
+                string origSequence2 = utilityObj.xmlUtil.GetTextValue(Constants.SmithWatermanAlignAlgorithmNodeName, Constants.SequenceNode2);
                 aInput = new Sequence(alphabet, origSequence1);
                 bInput = new Sequence(alphabet, origSequence2);
             }
 
-            string blosumFilePath = utilityObj.xmlUtil.GetTextValue(
-                Constants.SmithWatermanAlignAlgorithmNodeName,
-                Constants.BlosumFilePathNode);
+            string blosumFilePath = utilityObj.xmlUtil.GetTextValue(Constants.SmithWatermanAlignAlgorithmNodeName, Constants.BlosumFilePathNode);
 
             SimilarityMatrix sm = new SimilarityMatrix(blosumFilePath);
-            int gapOpenCost = int.Parse(utilityObj.xmlUtil.GetTextValue(
-                Constants.SmithWatermanAlignAlgorithmNodeName,
-                Constants.GapOpenCostNode), (IFormatProvider)null);
-
-            int gapExtensionCost = int.Parse(utilityObj.xmlUtil.GetTextValue(
-                Constants.SmithWatermanAlignAlgorithmNodeName,
-                Constants.GapExtensionCostNode), (IFormatProvider)null);
+            int gapOpenCost = int.Parse(utilityObj.xmlUtil.GetTextValue(Constants.SmithWatermanAlignAlgorithmNodeName, Constants.GapOpenCostNode), null);
+            int gapExtensionCost = int.Parse(utilityObj.xmlUtil.GetTextValue(Constants.SmithWatermanAlignAlgorithmNodeName, Constants.GapExtensionCostNode), null);
 
             SmithWatermanAligner smithWatermanObj = new SmithWatermanAligner();
-
             if (AlignmentParamType.AllParam != alignParam)
             {
                 smithWatermanObj.SimilarityMatrix = sm;
@@ -902,14 +842,8 @@ namespace Bio.TestAutomation.Algorithms.Alignment
                     break;
             }
 
-            // Validating the Equals method in Aligner.
-            Assert.IsTrue(smithWatermanObj.Equals(smithWatermanObj));
-
             // Read the xml file for getting both the files for aligning.
-            string expectedSequence1 = string.Empty;
-            string expectedSequence2 = string.Empty;
-
-            string expectedScore = string.Empty;
+            string expectedSequence1, expectedSequence2, expectedScore;
 
             switch (alignType)
             {
@@ -940,90 +874,34 @@ namespace Bio.TestAutomation.Algorithms.Alignment
             IList<IPairwiseSequenceAlignment> expectedOutput = new List<IPairwiseSequenceAlignment>();
 
             IPairwiseSequenceAlignment align = new PairwiseSequenceAlignment();
-            PairwiseAlignedSequence alignedSeq = new PairwiseAlignedSequence();
-            alignedSeq.FirstSequence = new Sequence(alphabet, expectedSequence1);
-            alignedSeq.SecondSequence = new Sequence(alphabet, expectedSequence2);
-            alignedSeq.Score = Convert.ToInt32(expectedScore, (IFormatProvider)null);
+            PairwiseAlignedSequence alignedSeq = new PairwiseAlignedSequence
+            {
+                FirstSequence = new Sequence(alphabet, expectedSequence1),
+                SecondSequence = new Sequence(alphabet, expectedSequence2),
+                Score = Convert.ToInt32(expectedScore, null),
+                FirstOffset = Int32.MinValue,
+                SecondOffset = Int32.MinValue,
+            };
             align.PairwiseAlignedSequences.Add(alignedSeq);
             expectedOutput.Add(align);
+
+            ApplicationLog.WriteLine(string.Format(null, "SmithWatermanAligner BVT : Final Score '{0}'.", expectedScore));
+            ApplicationLog.WriteLine(string.Format(null, "SmithWatermanAligner BVT : Aligned First Sequence is '{0}'.", expectedSequence1));
+            ApplicationLog.WriteLine(string.Format(null, "SmithWatermanAligner BVT : Aligned Second Sequence is '{0}'.", expectedSequence2));
+
             Assert.IsTrue(CompareAlignment(result, expectedOutput));
-
-            align = null;
-            alignedSeq = null;
-            aInput = null;
-            bInput = null;
-            smithWatermanObj = null;
-            alphabet = null;
-
-            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                "SmithWatermanAligner BVT : Final Score '{0}'.", expectedScore));
-            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                "SmithWatermanAligner BVT : Aligned First Sequence is '{0}'.",
-                expectedSequence1));
-            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                "SmithWatermanAligner BVT : Aligned Second Sequence is '{0}'.",
-                expectedSequence2));
-
-            Console.WriteLine(string.Format((IFormatProvider)null,
-                "SmithWatermanAligner BVT : Final Score '{0}'.", expectedScore));
-            Console.WriteLine(string.Format((IFormatProvider)null,
-                "SmithWatermanAligner BVT : Aligned First Sequence is '{0}'.",
-                expectedSequence1));
-            Console.WriteLine(string.Format((IFormatProvider)null,
-                "SmithWatermanAligner BVT : Aligned Second Sequence is '{0}'.",
-                expectedSequence2));
         }
 
         /// <summary>
         /// Compare the alignment of mummer and defined alignment
         /// </summary>
-        /// <param name="result">output of Aligners</param>
+        /// <param name="actualAlignment"></param>
         /// <param name="expectedAlignment">expected output</param>
         /// <returns>Compare result of alignments</returns>
         private static bool CompareAlignment(IList<IPairwiseSequenceAlignment> actualAlignment,
              IList<IPairwiseSequenceAlignment> expectedAlignment)
         {
-            bool output = true;
-
-            if (actualAlignment.Count == expectedAlignment.Count)
-            {
-                for (int resultCount = 0; resultCount < actualAlignment.Count; resultCount++)
-                {
-                    if (actualAlignment[resultCount].PairwiseAlignedSequences.Count == expectedAlignment[resultCount].PairwiseAlignedSequences.Count)
-                    {
-                        for (int alignSeqCount = 0; alignSeqCount < actualAlignment[resultCount].PairwiseAlignedSequences.Count; alignSeqCount++)
-                        {
-                            // Validates the First Sequence, Second Sequence and Score                            
-                            if (new string(actualAlignment[resultCount].PairwiseAlignedSequences[alignSeqCount].FirstSequence.Select(a => (char)a).ToArray()).Equals(
-                                new string(expectedAlignment[resultCount].PairwiseAlignedSequences[alignSeqCount].FirstSequence.Select(a => (char)a).ToArray()))
-                            && new string(actualAlignment[resultCount].PairwiseAlignedSequences[alignSeqCount].SecondSequence.Select(a => (char)a).ToArray()).Equals(
-                               new string(expectedAlignment[resultCount].PairwiseAlignedSequences[alignSeqCount].SecondSequence.Select(a => (char)a).ToArray()))
-                            && actualAlignment[resultCount].PairwiseAlignedSequences[alignSeqCount].Score ==
-                                expectedAlignment[resultCount].PairwiseAlignedSequences[alignSeqCount].Score)
-                            {
-                                output = true;
-                            }
-                            else
-                            {
-                                return false;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                }
-            }
-            else
-            {
-                return false;
-            }
-            actualAlignment.Clear();
-            expectedAlignment.Clear();
-            actualAlignment = null;
-            expectedAlignment = null;
-            return output;
+            return AlignmentHelpers.CompareAlignment(actualAlignment, expectedAlignment);
         }
 
         /// <summary>

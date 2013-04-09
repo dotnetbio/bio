@@ -56,6 +56,8 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="BioHPC\BioHPCBlastBvtTestCases.cs" />
+    <Compile Include="BioHPC\BioHPCBlastP2TestCases.cs" />
     <Compile Include="BlastWebTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WebAccessorTest.cs" />

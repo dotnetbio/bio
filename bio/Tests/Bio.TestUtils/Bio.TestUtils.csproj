@@ -63,6 +63,9 @@
     <Compile Include="SimulatorUtility\TestCaseOutput.cs" />
     <Compile Include="SimulatorUtility\TestCaseParameters.cs" />
     <Compile Include="SimulatorUtility\TestCaseSimulator.cs" />
+    <Compile Include="Util\Constants.cs" />
+    <Compile Include="Util\Utility.cs" />
+    <Compile Include="Util\XmlUtility.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Source\Framework\Bio\Bio.csproj">

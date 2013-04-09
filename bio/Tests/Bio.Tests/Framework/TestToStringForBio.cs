@@ -443,7 +443,7 @@ namespace Bio.Tests
             assembler.OverlapAlgorithm = new SmithWatermanAligner();
             seqAssembly = (IOverlapDeNovoAssembly) assembler.Assemble(inputs);
 
-            const string expectedString = "ATGAAGGCAATACTARYARWWSYRMYAWAWAYRWWKGCAAYMSYARWWGYWSWSMYATWWWSWW... +[1693]\r\n";
+            const string expectedString = "ACAAAAGCAACAAAAATGAAGGCAATACTAGTAGTTCTGCTATATACATTTGCAACCGCAAATG... +[1678]\r\n";
             string actualString = seqAssembly.ToString();
             Assert.AreEqual(expectedString, actualString);
         }

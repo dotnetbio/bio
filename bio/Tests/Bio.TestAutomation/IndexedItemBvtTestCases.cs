@@ -58,15 +58,13 @@ namespace Bio.TestAutomation
         [TestMethod]
         [Priority(0)]
         [TestCategory("Priority0")]
+        [Ignore]
         public void ValidateIndexedItemGetHashCode()
         {
+            // Another test which fails when we version .NET; removing.
             IndexedItem<byte> indexedObj = new IndexedItem<byte>(0, encodingObj.GetBytes("A")[0]);
             Assert.AreEqual(372029391, indexedObj.GetHashCode());
-
-            ApplicationLog.WriteLine(
-                "IndexedItem BVT: Successfully validated the Hashcode.");
-            Console.WriteLine(
-                    "IndexedItem BVT: Successfully validated the Hashcode.");
+            ApplicationLog.WriteLine("IndexedItem BVT: Successfully validated the Hashcode.");
         }
 
         /// <summary>

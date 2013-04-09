@@ -309,6 +309,7 @@ namespace Bio.TestAutomation.Distributions
         [TestMethod]
         [Priority(0)]
         [TestCategory("Priority0")]
+        [Ignore]
         public void ValidateStatisticsListGetHashCode()
         {
             StatisticsList statList = new StatisticsList();

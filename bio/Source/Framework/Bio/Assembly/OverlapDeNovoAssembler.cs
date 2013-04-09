@@ -463,8 +463,7 @@ namespace Bio.Algorithms.Assembly
             // Retreive information from globalBest
             newASeq.IsReversed = globalBest.Reversed;
             newASeq.IsComplemented = globalBest.Complemented;
-            //newASeq.Position = globalBest.FirstOffset;
-            newASeq.Position = globalBest.SecondOffset;
+            newASeq.Position = globalBest.FirstOffset;
             newASeq.Sequence = SequenceWithoutTerminalGaps(consumedSequence);
 
             newContig.Sequences.Add(newASeq);
@@ -498,8 +497,7 @@ namespace Bio.Algorithms.Assembly
                 newASeq.IsComplemented = aseq.IsComplemented;
 
                 // position in the new contig adjusted by alignment of the merged items.
-                //newASeq.Position = globalBest.SecondOffset + aseq.Position;
-                newASeq.Position = globalBest.FirstOffset + aseq.Position;
+                newASeq.Position = globalBest.SecondOffset + aseq.Position;
                 newASeq.Sequence = SequenceWithoutTerminalGaps(aseq.Sequence);
 
                 newContig.Sequences.Add(newASeq);
@@ -530,8 +528,7 @@ namespace Bio.Algorithms.Assembly
             // as the higher-index item, this sequence is never reversed or complemented, so:
             newASeq.IsReversed = false;
             newASeq.IsComplemented = false;
-            //newASeq.Position = globalBest.SecondOffset;
-            newASeq.Position = globalBest.FirstOffset;
+            newASeq.Position = globalBest.SecondOffset;
             newASeq.Sequence = SequenceWithoutTerminalGaps(consumedSequence);
 
             newContig.Sequences.Add(newASeq);

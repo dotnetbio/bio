@@ -70,8 +70,7 @@ namespace Bio.TestAutomation.Util
                     Environment.ProcessorCount,
                     ParallelOptionsScope.FullyParallelOptions.MaxDegreeOfParallelism);
             }
-            ApplicationLog.WriteLine(string.Concat(
-                  "Trace BVT: Validation of all ParallelOptionsScope properties completed successfully."));
+            ApplicationLog.WriteLine("Trace BVT: Validation of all ParallelOptionsScope properties completed successfully.");
         }
 
         /// <summary>

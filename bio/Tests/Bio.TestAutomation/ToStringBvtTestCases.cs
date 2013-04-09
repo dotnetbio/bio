@@ -4,11 +4,9 @@
  * This file contains the ToString BVT test cases for all classes.
  * 
 ******************************************************************************/
-using System;
-using System.Text;
+
 using System.Collections.Generic;
 using System.Linq;
-using Bio.Algorithms.Alignment.Legacy;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Bio.Util;
 using System.Globalization;
@@ -501,86 +499,70 @@ namespace Bio.TestAutomation
         [TestCategory("Priority0")]
         public void ValidateContigToString()
         {
-            int matchScore = 5;
-            int mismatchScore = -4;
-            int gapCost = -10;
-            double mergeThreshold = 4;
-            double consensusThreshold = 66;
-            string seq2Str = utilityObj.xmlUtil.GetTextValue(Constants.ToStringNodeName,
-                Constants.Seq2StrNode);
-            string seq1Str = utilityObj.xmlUtil.GetTextValue(Constants.ToStringNodeName,
-                Constants.Seq1StrNode);
-            Sequence seq2 = new Sequence(Alphabets.DNA, seq2Str);
-            Sequence seq1 = new Sequence(Alphabets.DNA, seq1Str);
+            const int matchScore = 5;
+            const int mismatchScore = -4;
+            const int gapCost = -10;
+            const double mergeThreshold = 4;
+            const double consensusThreshold = 66;
+            string seq2Str = utilityObj.xmlUtil.GetTextValue(Constants.ToStringNodeName, Constants.Seq2StrNode);
+            string seq1Str = utilityObj.xmlUtil.GetTextValue(Constants.ToStringNodeName, Constants.Seq1StrNode);
 
-            OverlapDeNovoAssembler assembler = new OverlapDeNovoAssembler();
-            assembler.MergeThreshold = mergeThreshold;
-            assembler.OverlapAlgorithm = new NeedlemanWunschAligner();
-            ((IPairwiseSequenceAligner)assembler.OverlapAlgorithm).SimilarityMatrix =
-                new DiagonalSimilarityMatrix(matchScore, mismatchScore);
-            ((IPairwiseSequenceAligner)assembler.OverlapAlgorithm).GapOpenCost = gapCost;
-            assembler.ConsensusResolver = new SimpleConsensusResolver(consensusThreshold);
-            assembler.AssumeStandardOrientation = false;
+            ISequence seq1 = new Sequence(Alphabets.DNA, seq1Str);
+            ISequence seq2 = new Sequence(Alphabets.DNA, seq2Str);
 
-            List<ISequence> inputs = new List<ISequence>();
-            inputs.Add(seq1);
-            inputs.Add(seq2);
+            var assembler = new OverlapDeNovoAssembler
+            {
+                MergeThreshold = mergeThreshold,
+                OverlapAlgorithm = new NeedlemanWunschAligner
+                {
+                    SimilarityMatrix = new DiagonalSimilarityMatrix(matchScore, mismatchScore),
+                    GapOpenCost = gapCost
+                },
+                ConsensusResolver = new SimpleConsensusResolver(consensusThreshold),
+                AssumeStandardOrientation = false
+            };
 
-            IOverlapDeNovoAssembly seqAssembly = (IOverlapDeNovoAssembly)assembler.Assemble(inputs);
+            var seqAssembly = (IOverlapDeNovoAssembly)assembler.Assemble(new List<ISequence> { seq1, seq2 });
+
             Contig contig0 = seqAssembly.Contigs[0];
             string actualString = contig0.ToString();
-            string expectedString = utilityObj.xmlUtil.GetTextValue(Constants.ToStringNodeName,
-                Constants.OverlapDenovoExpectedNode);
-            Assert.AreEqual(actualString.Replace("\r\n", ""), expectedString.Replace("\\r\\n", ""));
+            string expectedString = utilityObj.xmlUtil.GetTextValue(Constants.ToStringNodeName, Constants.OverlapDenovoExpectedNode);
+            Assert.AreEqual(expectedString.Replace("\\r\\n", ""), actualString.Replace("\r\n", ""));
 
             // Get the parameters from Xml
-            int matchScore1 = int.Parse(utilityObj.xmlUtil.GetTextValue(Constants.AssemblyAlgorithmNodeName,
-                Constants.MatchScoreNode), null);
-            int mismatchScore1 = int.Parse(utilityObj.xmlUtil.GetTextValue(Constants.AssemblyAlgorithmNodeName,
-                Constants.MisMatchScoreNode), null);
-            int gapCost1 = int.Parse(utilityObj.xmlUtil.GetTextValue(Constants.AssemblyAlgorithmNodeName,
-                Constants.GapCostNode), null);
-            double mergeThreshold1 = double.Parse(utilityObj.xmlUtil.GetTextValue(
-                Constants.AssemblyAlgorithmNodeName,
-                Constants.MergeThresholdNode), null);
-            double consensusThreshold1 = double.Parse(utilityObj.xmlUtil.GetTextValue(
-                Constants.AssemblyAlgorithmNodeName,
-                Constants.ConsensusThresholdNode), null);
-            string sequence1 = utilityObj.xmlUtil.GetTextValue(Constants.AssemblyAlgorithmNodeName,
-                Constants.SequenceNode1);
-            string sequence2 = utilityObj.xmlUtil.GetTextValue(Constants.AssemblyAlgorithmNodeName,
-                Constants.SequenceNode2);
-            string sequence3 = utilityObj.xmlUtil.GetTextValue(Constants.AssemblyAlgorithmNodeName,
-                Constants.SequenceNode3);
-            IAlphabet alphabet = Utility.GetAlphabet(utilityObj.xmlUtil.GetTextValue(
-                Constants.AssemblyAlgorithmNodeName,
-                Constants.AlphabetNameNode));
+            int matchScore1 = int.Parse(utilityObj.xmlUtil.GetTextValue(Constants.AssemblyAlgorithmNodeName, Constants.MatchScoreNode), null);
+            int mismatchScore1 = int.Parse(utilityObj.xmlUtil.GetTextValue(Constants.AssemblyAlgorithmNodeName, Constants.MisMatchScoreNode), null);
+            int gapCost1 = int.Parse(utilityObj.xmlUtil.GetTextValue(Constants.AssemblyAlgorithmNodeName, Constants.GapCostNode), null);
+            double mergeThreshold1 = double.Parse(utilityObj.xmlUtil.GetTextValue(Constants.AssemblyAlgorithmNodeName, Constants.MergeThresholdNode), null);
+            double consensusThreshold1 = double.Parse(utilityObj.xmlUtil.GetTextValue(Constants.AssemblyAlgorithmNodeName, Constants.ConsensusThresholdNode), null);
+            string sequence1 = utilityObj.xmlUtil.GetTextValue(Constants.AssemblyAlgorithmNodeName, Constants.SequenceNode1);
+            string sequence2 = utilityObj.xmlUtil.GetTextValue(Constants.AssemblyAlgorithmNodeName, Constants.SequenceNode2);
+            string sequence3 = utilityObj.xmlUtil.GetTextValue(Constants.AssemblyAlgorithmNodeName, Constants.SequenceNode3);
+            IAlphabet alphabet = Utility.GetAlphabet(utilityObj.xmlUtil.GetTextValue(Constants.AssemblyAlgorithmNodeName, Constants.AlphabetNameNode));
 
-            Sequence seq4 = new Sequence(alphabet, sequence1);
-            Sequence seq5 = new Sequence(alphabet, sequence2);
-            Sequence seq6 = new Sequence(alphabet, sequence3);
+            ISequence seq4 = new Sequence(alphabet, sequence1);
+            ISequence seq5 = new Sequence(alphabet, sequence2);
+            ISequence seq6 = new Sequence(alphabet, sequence3);
 
-            OverlapDeNovoAssembler assembler1 = new OverlapDeNovoAssembler();
-            assembler1.MergeThreshold = mergeThreshold1;
-            assembler1.OverlapAlgorithm = new PairwiseOverlapAligner();
-            ((IPairwiseSequenceAligner)assembler1.OverlapAlgorithm).SimilarityMatrix =
-                new DiagonalSimilarityMatrix(matchScore1, mismatchScore1);
-            ((IPairwiseSequenceAligner)assembler1.OverlapAlgorithm).GapOpenCost = gapCost1;
-            assembler1.ConsensusResolver = new SimpleConsensusResolver(consensusThreshold1);
-            assembler1.AssumeStandardOrientation = false;
-
-            List<ISequence> inputs1 = new List<ISequence>();
-            inputs1.Add(seq4);
-            inputs1.Add(seq5);
-            inputs1.Add(seq6);
+            var assembler1 = new OverlapDeNovoAssembler
+            {
+                MergeThreshold = mergeThreshold1,
+                OverlapAlgorithm = new PairwiseOverlapAligner
+                {
+                    SimilarityMatrix = new DiagonalSimilarityMatrix(matchScore1, mismatchScore1),
+                    GapOpenCost = gapCost1
+                },
+                ConsensusResolver = new SimpleConsensusResolver(consensusThreshold1),
+                AssumeStandardOrientation = false
+            };
 
             // Assembles all the sequences.
-            IOverlapDeNovoAssembly seqAssembly1 = (IOverlapDeNovoAssembly)assembler1.Assemble(inputs1);
+            IOverlapDeNovoAssembly seqAssembly1 = (IOverlapDeNovoAssembly)assembler1.Assemble(new List<ISequence> { seq4, seq5, seq6 });
             Contig contig1 = seqAssembly1.Contigs[0];
             string actualString1 = contig1.ToString();
-            string expectedString1 = "TATAAAGCGCCAAAATTTAGGCACCCGCGGTATT";
+            const string expectedString1 = "TATAAAGCGCCAAAATTTAGGCACCCGCGGTATT";
+            
             Assert.AreEqual(expectedString1, actualString1);
-
         }
 
         /// <summary>
@@ -591,12 +573,9 @@ namespace Bio.TestAutomation
         [TestCategory("Priority0")]
         public void ValidateMatePairToString()
         {
-            MatePair p = new MatePair("2K");
-            p.ForwardReadID = "F";
-            p.ReverseReadID = "R";
+            MatePair p = new MatePair("2K") {ForwardReadID = "F", ReverseReadID = "R"};
             string actualString = p.ToString();
-            string expectedString = utilityObj.xmlUtil.GetTextValue(Constants.ToStringNodeName,
-                Constants.MatePairExpectedNode);
+            string expectedString = utilityObj.xmlUtil.GetTextValue(Constants.ToStringNodeName, Constants.MatePairExpectedNode);
             Assert.AreEqual(actualString, expectedString);
         }
 
@@ -608,97 +587,86 @@ namespace Bio.TestAutomation
         [TestCategory("Priority0")]
         public void ValidateOverlapDenovoAssemblyToString()
         {
-            int matchScore = 5;
-            int mismatchScore = -4;
-            int gapCost = -10;
-            double mergeThreshold = 4;
-            double consensusThreshold = 66;
-            string seq2Str = utilityObj.xmlUtil.GetTextValue(Constants.ToStringNodeName,
-                Constants.Seq2StrNode);
-            string seq1Str = utilityObj.xmlUtil.GetTextValue(Constants.ToStringNodeName,
-                Constants.Seq1StrNode);
-            Sequence seq2 = new Sequence(Alphabets.DNA, seq2Str);
-            Sequence seq1 = new Sequence(Alphabets.DNA, seq1Str);
+            const int matchScore = 5;
+            const int mismatchScore = -4;
+            const int gapCost = -10;
+            const double mergeThreshold = 4;
+            const double consensusThreshold = 66;
 
-            OverlapDeNovoAssembler assembler = new OverlapDeNovoAssembler();
-            assembler.MergeThreshold = mergeThreshold;
-            assembler.OverlapAlgorithm = new NeedlemanWunschAligner();
-            ((IPairwiseSequenceAligner)assembler.OverlapAlgorithm).SimilarityMatrix =
-                new DiagonalSimilarityMatrix(matchScore, mismatchScore);
-            ((IPairwiseSequenceAligner)assembler.OverlapAlgorithm).GapOpenCost = gapCost;
-            assembler.ConsensusResolver = new SimpleConsensusResolver(consensusThreshold);
-            assembler.AssumeStandardOrientation = false;
+            ISequence seq1 = new Sequence(Alphabets.DNA, utilityObj.xmlUtil.GetTextValue(Constants.ToStringNodeName, Constants.Seq1StrNode));
+            ISequence seq2 = new Sequence(Alphabets.DNA, utilityObj.xmlUtil.GetTextValue(Constants.ToStringNodeName, Constants.Seq2StrNode));
 
-            List<ISequence> inputs = new List<ISequence>();
-            inputs.Add(seq1);
-            inputs.Add(seq2);
+            OverlapDeNovoAssembler assembler = new OverlapDeNovoAssembler
+            {
+                MergeThreshold = mergeThreshold,
+                OverlapAlgorithm = new NeedlemanWunschAligner
+                {
+                    SimilarityMatrix = new DiagonalSimilarityMatrix(matchScore, mismatchScore),
+                    GapOpenCost = gapCost
+                },
+                ConsensusResolver = new SimpleConsensusResolver(consensusThreshold),
+                AssumeStandardOrientation = false
+            };
 
+            List<ISequence> inputs = new List<ISequence> {seq1, seq2};
             IOverlapDeNovoAssembly seqAssembly = (IOverlapDeNovoAssembly)assembler.Assemble(inputs);
 
             Assert.AreEqual(0, seqAssembly.UnmergedSequences.Count);
             Assert.AreEqual(1, seqAssembly.Contigs.Count);
-            assembler.OverlapAlgorithm = new SmithWatermanAligner();
+
+            assembler.OverlapAlgorithm = new SmithWatermanAligner
+            {
+                SimilarityMatrix = new DiagonalSimilarityMatrix(matchScore, mismatchScore),
+                GapOpenCost = gapCost
+            };
             seqAssembly = (OverlapDeNovoAssembly)assembler.Assemble(inputs);
 
             string actualString = seqAssembly.ToString();
-            string expectedString = utilityObj.xmlUtil.GetTextValue(Constants.ToStringNodeName,
-                Constants.OverlapDenovoExpectedNode);
-            Assert.AreEqual(actualString.Replace("\r\n", ""), expectedString.Replace("\\r\\n", ""));
-
+            const string expectedString = "ACAAAAGCAACAAAAATGAAGGCAATACTAGTAGTTCTGCTATATACATTTGCAACCGCAAATG... +[1678]";
+            Assert.AreEqual(expectedString, actualString.Replace("\r\n", ""));
 
             // Get the parameters from Xml
-            int matchScore1 = int.Parse(utilityObj.xmlUtil.GetTextValue(Constants.AssemblyAlgorithmNodeName,
-                Constants.MatchScoreNode), null);
-            int mismatchScore1 = int.Parse(utilityObj.xmlUtil.GetTextValue(Constants.AssemblyAlgorithmNodeName,
-                Constants.MisMatchScoreNode), null);
-            int gapCost1 = int.Parse(utilityObj.xmlUtil.GetTextValue(Constants.AssemblyAlgorithmNodeName,
-                Constants.GapCostNode), null);
-            double mergeThreshold1 = double.Parse(utilityObj.xmlUtil.GetTextValue(
-                Constants.AssemblyAlgorithmNodeName,
-                Constants.MergeThresholdNode), null);
-            double consensusThreshold1 = double.Parse(utilityObj.xmlUtil.GetTextValue(
-                Constants.AssemblyAlgorithmNodeName,
-                Constants.ConsensusThresholdNode), null);
-            string sequence1 = utilityObj.xmlUtil.GetTextValue(Constants.AssemblyAlgorithmNodeName,
-                Constants.SequenceNode1);
-            string sequence2 = utilityObj.xmlUtil.GetTextValue(Constants.AssemblyAlgorithmNodeName,
-                Constants.SequenceNode2);
-            string sequence3 = utilityObj.xmlUtil.GetTextValue(Constants.AssemblyAlgorithmNodeName,
-                Constants.SequenceNode3);
-            IAlphabet alphabet = Utility.GetAlphabet(utilityObj.xmlUtil.GetTextValue(
-                Constants.AssemblyAlgorithmNodeName,
-                Constants.AlphabetNameNode));
+            int matchScore1 = int.Parse(utilityObj.xmlUtil.GetTextValue(Constants.AssemblyAlgorithmNodeName, Constants.MatchScoreNode), null);
+            int mismatchScore1 = int.Parse(utilityObj.xmlUtil.GetTextValue(Constants.AssemblyAlgorithmNodeName, Constants.MisMatchScoreNode), null);
+            int gapCost1 = int.Parse(utilityObj.xmlUtil.GetTextValue(Constants.AssemblyAlgorithmNodeName, Constants.GapCostNode), null);
+            double mergeThreshold1 = double.Parse(utilityObj.xmlUtil.GetTextValue(Constants.AssemblyAlgorithmNodeName, Constants.MergeThresholdNode), null);
+            double consensusThreshold1 = double.Parse(utilityObj.xmlUtil.GetTextValue(Constants.AssemblyAlgorithmNodeName, Constants.ConsensusThresholdNode), null);
+            
+            string sequence1 = utilityObj.xmlUtil.GetTextValue(Constants.AssemblyAlgorithmNodeName, Constants.SequenceNode1);
+            string sequence2 = utilityObj.xmlUtil.GetTextValue(Constants.AssemblyAlgorithmNodeName, Constants.SequenceNode2);
+            string sequence3 = utilityObj.xmlUtil.GetTextValue(Constants.AssemblyAlgorithmNodeName, Constants.SequenceNode3);
+            IAlphabet alphabet = Utility.GetAlphabet(utilityObj.xmlUtil.GetTextValue(Constants.AssemblyAlgorithmNodeName, Constants.AlphabetNameNode));
 
             Sequence seq4 = new Sequence(alphabet, sequence1);
             Sequence seq5 = new Sequence(alphabet, sequence2);
             Sequence seq6 = new Sequence(alphabet, sequence3);
 
-            OverlapDeNovoAssembler assembler1 = new OverlapDeNovoAssembler();
-            assembler1.MergeThreshold = mergeThreshold1;
-            assembler1.OverlapAlgorithm = new PairwiseOverlapAligner();
-            ((IPairwiseSequenceAligner)assembler1.OverlapAlgorithm).SimilarityMatrix =
-                new DiagonalSimilarityMatrix(matchScore1, mismatchScore1);
-            ((IPairwiseSequenceAligner)assembler1.OverlapAlgorithm).GapOpenCost = gapCost1;
-            assembler1.ConsensusResolver = new SimpleConsensusResolver(consensusThreshold1);
-            assembler1.AssumeStandardOrientation = false;
+            OverlapDeNovoAssembler assembler1 = new OverlapDeNovoAssembler
+            {
+                MergeThreshold = mergeThreshold1,
+                OverlapAlgorithm = new PairwiseOverlapAligner()
+                {
+                    SimilarityMatrix = new DiagonalSimilarityMatrix(matchScore1, mismatchScore1),
+                    GapOpenCost = gapCost1,
+                },
+                ConsensusResolver = new SimpleConsensusResolver(consensusThreshold1),
+                AssumeStandardOrientation = false,
+            };
 
-            List<ISequence> inputs1 = new List<ISequence>();
-            inputs1.Add(seq4);
-            inputs1.Add(seq5);
-            inputs1.Add(seq6);
+            List<ISequence> inputs1 = new List<ISequence> {seq4, seq5, seq6};
 
             // Assembles all the sequences.
-            IOverlapDeNovoAssembly seqAssembly1 = (IOverlapDeNovoAssembly)assembler1.Assemble(inputs1);
+            seqAssembly = (OverlapDeNovoAssembly)assembler1.Assemble(inputs1);
 
-            Assert.AreEqual(0, seqAssembly1.UnmergedSequences.Count);
-            Assert.AreEqual(1, seqAssembly1.Contigs.Count);
+            Assert.AreEqual(0, seqAssembly.UnmergedSequences.Count);
+            Assert.AreEqual(1, seqAssembly.Contigs.Count);
+            
             assembler1.OverlapAlgorithm = new SmithWatermanAligner();
             seqAssembly = (OverlapDeNovoAssembly)assembler1.Assemble(inputs1);
 
-            string actualString1 = seqAssembly.ToString();
-            string expectedString1 = "TYMKWRRGCGCCAAAATTTAGGC\r\n";
-            Assert.AreEqual(actualString1, expectedString1);
-
+            const string expectedString1 = "TYMKWRRGCGCCAAAATTTAGGC\r\n";
+            actualString = seqAssembly.ToString();
+            Assert.AreEqual(expectedString1, actualString);
         }
 
         /// <summary>
@@ -722,13 +690,9 @@ namespace Bio.TestAutomation
             Assert.AreEqual(actualString, expectedString);
 
             // read sequences from xml
-            string sequence1 = utilityObj.xmlUtil.GetTextValue(Constants.AssemblyAlgorithmNodeName,
-    Constants.SequenceNode1);
-            string sequence2 = utilityObj.xmlUtil.GetTextValue(Constants.AssemblyAlgorithmNodeName,
-                Constants.SequenceNode2);
-            IAlphabet alphabet = Utility.GetAlphabet(utilityObj.xmlUtil.GetTextValue(
-                Constants.AssemblyAlgorithmNodeName,
-                Constants.AlphabetNameNode));
+            string sequence1 = utilityObj.xmlUtil.GetTextValue(Constants.AssemblyAlgorithmNodeName, Constants.SequenceNode1);
+            string sequence2 = utilityObj.xmlUtil.GetTextValue(Constants.AssemblyAlgorithmNodeName, Constants.SequenceNode2);
+            IAlphabet alphabet = Utility.GetAlphabet(utilityObj.xmlUtil.GetTextValue(Constants.AssemblyAlgorithmNodeName, Constants.AlphabetNameNode));
 
             Sequence seq3 = new Sequence(alphabet, sequence1);
             Sequence seq4 = new Sequence(alphabet, sequence2);

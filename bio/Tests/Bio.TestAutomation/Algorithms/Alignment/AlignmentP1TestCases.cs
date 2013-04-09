@@ -8,21 +8,16 @@
 
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
-using System.Runtime.Serialization;
 using System.Linq;
-using System.Runtime.Serialization.Formatters.Binary;
-
 using Bio.Algorithms.Alignment;
-using Bio.Algorithms.Alignment.Legacy;
-using Bio.IO;
+using Bio.Extensions;
 using Bio.SimilarityMatrices;
 using Bio.TestAutomation.Util;
+using Bio.Tests.Framework;
 using Bio.Util.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Bio.IO.FastA;
-using Bio;
 
 namespace Bio.TestAutomation.Algorithms.Alignment
 {
@@ -32,7 +27,6 @@ namespace Bio.TestAutomation.Algorithms.Alignment
     [TestClass]
     public class AlignmentP1TestCases
     {
-
         #region Enums
 
         /// <summary>
@@ -81,15 +75,14 @@ namespace Bio.TestAutomation.Algorithms.Alignment
             CopyTo,
             Remove,
             AddSequence,
-            GetEnumerator,
-            Default
+            GetEnumerator
         };
 
         #endregion Enums
 
         #region Global Variables
 
-        Utility utilityObj = new Utility(@"TestUtils\TestsConfig.xml");
+        readonly Utility utilityObj = new Utility(@"TestUtils\TestsConfig.xml");
 
         #endregion Global Variables
 
@@ -2496,8 +2489,7 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         void ValidateNeedlemanWunschAlignment(string nodeName, AlignParameters alignParam,
             SimilarityMatrixParameters similarityMatrixParam)
         {
-            ValidateNeedlemanWunschAlignment(nodeName, alignParam, similarityMatrixParam,
-                AlignmentType.SimpleAlign);
+            ValidateNeedlemanWunschAlignment(nodeName, alignParam, similarityMatrixParam, AlignmentType.SimpleAlign);
         }
 
         /// <summary>
@@ -2507,29 +2499,18 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         /// <param name="alignParam">parameter based on which certain validations are done.</param>
         /// <param name="similarityMatrixParam">Similarity Matrix Parameter.</param>
         /// <param name="alignType">Is the Align type Simple or Align with Gap Extension cost?</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope")]
-        void ValidateNeedlemanWunschAlignment(string nodeName, AlignParameters alignParam,
-            SimilarityMatrixParameters similarityMatrixParam, AlignmentType alignType)
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope")]
+        void ValidateNeedlemanWunschAlignment(string nodeName, AlignParameters alignParam, SimilarityMatrixParameters similarityMatrixParam, AlignmentType alignType)
         {
-            ISequence originalSequence1 = null;
-            ISequence originalSequence2 = null;
-            Sequence aInput = null;
-            Sequence bInput = null;
+            ISequence aInput, bInput;
 
-            IAlphabet alphabet = Utility.GetAlphabet(
-                utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.AlphabetNameNode));
+            IAlphabet alphabet = Utility.GetAlphabet(utilityObj.xmlUtil.GetTextValue(nodeName,Constants.AlphabetNameNode));
 
             // Parse the files and get the sequence.
-            IEnumerable<ISequence> seqs1 = null;
-            IEnumerable<ISequence> seqs2 = null;
-
             if (alignParam.ToString().Contains("Code"))
             {
-                string sequence1 = utilityObj.xmlUtil.GetTextValue(nodeName,
-                    Constants.SequenceNode1);
-                string sequence2 = utilityObj.xmlUtil.GetTextValue(nodeName,
-                    Constants.SequenceNode2);
+                string sequence1 = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.SequenceNode1);
+                string sequence2 = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.SequenceNode2);
 
                 aInput = new Sequence(alphabet, sequence1);
                 bInput = new Sequence(alphabet, sequence2);
@@ -2537,32 +2518,26 @@ namespace Bio.TestAutomation.Algorithms.Alignment
             else
             {
                 // Read the xml file for getting both the files for aligning.
-                string filePath1 = utilityObj.xmlUtil.GetTextValue(nodeName,
-                    Constants.FilePathNode1);
-                string filePath2 = utilityObj.xmlUtil.GetTextValue(nodeName,
-                    Constants.FilePathNode2);
-                using (FastAParser parseObjectForFile1 = new FastAParser(filePath1))
+                string filePath1 = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode1);
+                string filePath2 = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode2);
+                using (var parseObjectForFile1 = new FastAParser(filePath1))
                 {
                     parseObjectForFile1.Alphabet = alphabet;
-                    seqs1 = parseObjectForFile1.Parse();
-                    originalSequence1 = seqs1.ElementAt(0);
-                    aInput = new Sequence(alphabet,
-                        new String(originalSequence1.Select(a => (char)a).ToArray()));
+                    ISequence originalSequence1 = parseObjectForFile1.Parse().FirstOrDefault();
+                    Assert.IsNotNull(originalSequence1);
+                    aInput = new Sequence(alphabet, originalSequence1.ConvertToString());
                 }
-                using (FastAParser parseObjectForFile2 = new FastAParser(filePath2))
+                using (var parseObjectForFile2 = new FastAParser(filePath2))
                 {
                     parseObjectForFile2.Alphabet = alphabet;
-                    seqs2 = parseObjectForFile2.Parse();
-                    originalSequence2 = seqs2.ElementAt(0);
-                    bInput = new Sequence(alphabet,
-                        new String(originalSequence2.Select(a => (char)a).ToArray()));
+                    ISequence originalSequence2 = parseObjectForFile2.Parse().FirstOrDefault();
+                    Assert.IsNotNull(originalSequence2);
+                    bInput = new Sequence(alphabet, originalSequence2.ConvertToString());
                 }
             }
 
-            string blosumFilePath = utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.BlosumFilePathNode);
-
-            SimilarityMatrix sm = null;
+            string blosumFilePath = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.BlosumFilePathNode);
+            SimilarityMatrix sm;
 
             switch (similarityMatrixParam)
             {
@@ -2583,11 +2558,8 @@ namespace Bio.TestAutomation.Algorithms.Alignment
                     break;
             }
 
-            int gapOpenCost = int.Parse(utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.GapOpenCostNode), (IFormatProvider)null);
-
-            int gapExtensionCost = int.Parse(utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.GapExtensionCostNode), (IFormatProvider)null);
+            int gapOpenCost = int.Parse(utilityObj.xmlUtil.GetTextValue(nodeName, Constants.GapOpenCostNode), null);
+            int gapExtensionCost = int.Parse(utilityObj.xmlUtil.GetTextValue(nodeName, Constants.GapExtensionCostNode), null);
 
             NeedlemanWunschAligner needlemanWunschObj = new NeedlemanWunschAligner();
             if (AlignParameters.AllParam != alignParam)
@@ -2602,9 +2574,7 @@ namespace Bio.TestAutomation.Algorithms.Alignment
             {
                 case AlignParameters.AlignList:
                 case AlignParameters.AlignListCode:
-                    List<ISequence> sequences = new List<ISequence>();
-                    sequences.Add(aInput);
-                    sequences.Add(bInput);
+                    List<ISequence> sequences = new List<ISequence> {aInput, bInput};
                     switch (alignType)
                     {
                         case AlignmentType.Align:
@@ -2648,66 +2618,39 @@ namespace Bio.TestAutomation.Algorithms.Alignment
             }
 
             // Read the xml file for getting both the files for aligning.
-            string expectedSequence1 = string.Empty;
-            string expectedSequence2 = string.Empty;
-            string expectedScore = string.Empty;
+            string expectedSequence1, expectedSequence2, expectedScore;
 
             switch (alignType)
             {
                 case AlignmentType.Align:
-                    expectedScore = utilityObj.xmlUtil.GetTextValue(nodeName,
-                        Constants.ExpectedGapExtensionScoreNode);
-                    expectedSequence1 = utilityObj.xmlUtil.GetTextValue(nodeName,
-                        Constants.ExpectedGapExtensionSequence1Node);
-                    expectedSequence2 = utilityObj.xmlUtil.GetTextValue(nodeName,
-                        Constants.ExpectedGapExtensionSequence2Node);
+                    expectedScore = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.ExpectedGapExtensionScoreNode);
+                    expectedSequence1 = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.ExpectedGapExtensionSequence1Node);
+                    expectedSequence2 = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.ExpectedGapExtensionSequence2Node);
                     break;
                 default:
-                    expectedScore = utilityObj.xmlUtil.GetTextValue(nodeName,
-                        Constants.ExpectedScoreNode);
-                    expectedSequence1 = utilityObj.xmlUtil.GetTextValue(nodeName,
-                        Constants.ExpectedSequenceNode1);
-                    expectedSequence2 = utilityObj.xmlUtil.GetTextValue(nodeName,
-                        Constants.ExpectedSequenceNode2);
-
+                    expectedScore = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.ExpectedScoreNode);
+                    expectedSequence1 = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.ExpectedSequenceNode1);
+                    expectedSequence2 = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.ExpectedSequenceNode2);
                     break;
             }
 
             IList<IPairwiseSequenceAlignment> expectedOutput = new List<IPairwiseSequenceAlignment>();
 
             IPairwiseSequenceAlignment align = new PairwiseSequenceAlignment(aInput, bInput);
-            PairwiseAlignedSequence alignedSeq = new PairwiseAlignedSequence();
-            alignedSeq.FirstSequence = new Sequence(alphabet, expectedSequence1);
-            alignedSeq.SecondSequence = new Sequence(alphabet, expectedSequence2);
-            alignedSeq.Score = Convert.ToInt32(expectedScore, (IFormatProvider)null);
+            PairwiseAlignedSequence alignedSeq = new PairwiseAlignedSequence
+            {
+                FirstSequence = new Sequence(alphabet, expectedSequence1),
+                SecondSequence = new Sequence(alphabet, expectedSequence2),
+                Score = Convert.ToInt32(expectedScore, null)
+            };
             align.PairwiseAlignedSequences.Add(alignedSeq);
             expectedOutput.Add(align);
+
+            ApplicationLog.WriteLine(string.Format(null, "NeedlemanWunschAligner P1 : Final Score '{0}'.", expectedScore));
+            ApplicationLog.WriteLine(string.Format(null, "NeedlemanWunschAligner P1 : Aligned First Sequence is '{0}'.", expectedSequence1));
+            ApplicationLog.WriteLine(string.Format(null, "NeedlemanWunschAligner P1 : Aligned Second Sequence is '{0}'.", expectedSequence2));
+
             Assert.IsTrue(CompareAlignment(result, expectedOutput));
-
-            align = null;
-            alignedSeq = null;
-            aInput = null;
-            bInput = null;
-            needlemanWunschObj = null;
-            alphabet = null;
-
-            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                "NeedlemanWunschAligner P1 : Final Score '{0}'.", expectedScore));
-            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                "NeedlemanWunschAligner P1 : Aligned First Sequence is '{0}'.",
-                expectedSequence1));
-            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                "NeedlemanWunschAligner P1 : Aligned Second Sequence is '{0}'.",
-                expectedSequence2));
-
-            Console.WriteLine(string.Format((IFormatProvider)null,
-                "NeedlemanWunschAligner P1 : Final Score '{0}'.", expectedScore));
-            Console.WriteLine(string.Format((IFormatProvider)null,
-                "NeedlemanWunschAligner P1 : Aligned First Sequence is '{0}'.",
-                expectedSequence1));
-            Console.WriteLine(string.Format((IFormatProvider)null,
-                "NeedlemanWunschAligner P1 : Aligned Second Sequence is '{0}'.",
-                expectedSequence2));
         }
 
         /// <summary>
@@ -2726,11 +2669,9 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         /// <param name="nodeName">Node Name in the xml.</param>
         /// <param name="alignParam">parameter based on which certain validations are done.</param>
         /// <param name="similarityMatrixParam">Similarity Matrix Parameter.</param>
-        void ValidateSmithWatermanAlignment(string nodeName, AlignParameters alignParam,
-            SimilarityMatrixParameters similarityMatrixParam)
+        void ValidateSmithWatermanAlignment(string nodeName, AlignParameters alignParam, SimilarityMatrixParameters similarityMatrixParam)
         {
-            ValidateSmithWatermanAlignment(nodeName, alignParam, similarityMatrixParam,
-                AlignmentType.SimpleAlign);
+            ValidateSmithWatermanAlignment(nodeName, alignParam, similarityMatrixParam, AlignmentType.SimpleAlign);
         }
 
         /// <summary>
@@ -2741,27 +2682,16 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         /// <param name="similarityMatrixParam">Similarity Matrix Parameter.</param>
         /// <param name="alignType">Is the Align type Simple or Align with Gap Extension cost?</param>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope")]
-        void ValidateSmithWatermanAlignment(string nodeName, AlignParameters alignParam,
-            SimilarityMatrixParameters similarityMatrixParam, AlignmentType alignType)
+        void ValidateSmithWatermanAlignment(string nodeName, AlignParameters alignParam, SimilarityMatrixParameters similarityMatrixParam, AlignmentType alignType)
         {
-            ISequence originalSequence1 = null;
-            ISequence originalSequence2 = null;
-            Sequence aInput = null;
-            Sequence bInput = null;
-
-            IAlphabet alphabet = Utility.GetAlphabet(utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.AlphabetNameNode));
+            ISequence aInput, bInput;
+            IAlphabet alphabet = Utility.GetAlphabet(utilityObj.xmlUtil.GetTextValue(nodeName, Constants.AlphabetNameNode));
 
             // Parse the files and get the sequence.
-            IEnumerable<ISequence> seqs1 = null;
-            IEnumerable<ISequence> seqs2 = null;
-
             if (alignParam.ToString().Contains("Code"))
             {
-                string sequence1 = utilityObj.xmlUtil.GetTextValue(nodeName,
-                    Constants.SequenceNode1);
-                string sequence2 = utilityObj.xmlUtil.GetTextValue(nodeName,
-                    Constants.SequenceNode2);
+                string sequence1 = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.SequenceNode1);
+                string sequence2 = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.SequenceNode2);
 
                 aInput = new Sequence(alphabet, sequence1);
                 bInput = new Sequence(alphabet, sequence2);
@@ -2769,34 +2699,28 @@ namespace Bio.TestAutomation.Algorithms.Alignment
             else
             {
                 // Read the xml file for getting both the files for aligning.
-                string filePath1 = utilityObj.xmlUtil.GetTextValue(nodeName,
-                    Constants.FilePathNode1);
-                string filePath2 = utilityObj.xmlUtil.GetTextValue(nodeName,
-                    Constants.FilePathNode2);
+                string filePath1 = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode1);
+                string filePath2 = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode2);
 
-                using (FastAParser parseObjectForFile1 = new FastAParser(filePath1))
+                using (var parseObjectForFile1 = new FastAParser(filePath1))
                 {
                     parseObjectForFile1.Alphabet = alphabet;
-                    seqs1 = parseObjectForFile1.Parse();
-                    originalSequence1 = seqs1.ElementAt(0);
-                    aInput = new Sequence(alphabet,
-                        new String(originalSequence1.Select(a => (char)a).ToArray()));
+                    ISequence originalSequence1 = parseObjectForFile1.Parse().FirstOrDefault();
+                    Assert.IsNotNull(originalSequence1);
+                    aInput = new Sequence(alphabet, originalSequence1.ConvertToString());
                 }
 
-                using (FastAParser parseObjectForFile2 = new FastAParser(filePath2))
+                using (var parseObjectForFile2 = new FastAParser(filePath2))
                 {
                     parseObjectForFile2.Alphabet = alphabet;
-                    seqs2 = parseObjectForFile2.Parse();
-                    originalSequence2 = seqs2.ElementAt(0);
-                    bInput = new Sequence(alphabet,
-                        new String(originalSequence2.Select(a => (char)a).ToArray()));
+                    ISequence originalSequence2 = parseObjectForFile2.Parse().FirstOrDefault();
+                    Assert.IsNotNull(originalSequence2);
+                    bInput = new Sequence(alphabet, originalSequence2.ConvertToString());
                 }
             }
 
-            string blosumFilePath = utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.BlosumFilePathNode);
-
-            SimilarityMatrix sm = null;
+            string blosumFilePath = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.BlosumFilePathNode);
+            SimilarityMatrix sm;
 
             switch (similarityMatrixParam)
             {
@@ -2817,11 +2741,8 @@ namespace Bio.TestAutomation.Algorithms.Alignment
                     break;
             }
 
-            int gapOpenCost = int.Parse(utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.GapOpenCostNode), (IFormatProvider)null);
-
-            int gapExtensionCost = int.Parse(utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.GapExtensionCostNode), (IFormatProvider)null);
+            int gapOpenCost = int.Parse(utilityObj.xmlUtil.GetTextValue(nodeName, Constants.GapOpenCostNode), null);
+            int gapExtensionCost = int.Parse(utilityObj.xmlUtil.GetTextValue(nodeName, Constants.GapExtensionCostNode), null);
 
             SmithWatermanAligner smithWatermanObj = new SmithWatermanAligner();
 
@@ -2837,9 +2758,7 @@ namespace Bio.TestAutomation.Algorithms.Alignment
             {
                 case AlignParameters.AlignList:
                 case AlignParameters.AlignListCode:
-                    List<ISequence> sequences = new List<ISequence>();
-                    sequences.Add(aInput);
-                    sequences.Add(bInput);
+                    List<ISequence> sequences = new List<ISequence> {aInput, bInput};
                     switch (alignType)
                     {
                         case AlignmentType.Align:
@@ -2857,8 +2776,7 @@ namespace Bio.TestAutomation.Algorithms.Alignment
                     {
                         case AlignmentType.Align:
                             smithWatermanObj.GapExtensionCost = gapExtensionCost;
-                            result = smithWatermanObj.Align(sm, gapOpenCost,
-                                gapExtensionCost, aInput, bInput);
+                            result = smithWatermanObj.Align(sm, gapOpenCost, gapExtensionCost, aInput, bInput);
                             break;
                         default:
                             result = smithWatermanObj.AlignSimple(sm, gapOpenCost, aInput, bInput);
@@ -2882,64 +2800,41 @@ namespace Bio.TestAutomation.Algorithms.Alignment
                     break;
             }
             // Read the xml file for getting both the files for aligning.
-            string expectedSequence1 = string.Empty;
-            string expectedSequence2 = string.Empty;
-            string expectedScore = string.Empty;
+            string expectedSequence1, expectedSequence2, expectedScore;
 
             switch (alignType)
             {
                 case AlignmentType.Align:
-                    expectedScore = utilityObj.xmlUtil.GetTextValue(nodeName,
-                        Constants.ExpectedGapExtensionScoreNode);
-                    expectedSequence1 = utilityObj.xmlUtil.GetTextValue(nodeName,
-                        Constants.ExpectedGapExtensionSequence1Node);
-                    expectedSequence2 = utilityObj.xmlUtil.GetTextValue(nodeName,
-                        Constants.ExpectedGapExtensionSequence2Node);
+                    expectedScore = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.ExpectedGapExtensionScoreNode);
+                    expectedSequence1 = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.ExpectedGapExtensionSequence1Node);
+                    expectedSequence2 = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.ExpectedGapExtensionSequence2Node);
                     break;
                 default:
-                    expectedScore = utilityObj.xmlUtil.GetTextValue(nodeName,
-                        Constants.ExpectedScoreNode);
-                    expectedSequence1 = utilityObj.xmlUtil.GetTextValue(nodeName,
-                        Constants.ExpectedSequenceNode1);
-                    expectedSequence2 = utilityObj.xmlUtil.GetTextValue(nodeName,
-                        Constants.ExpectedSequenceNode2);
-
+                    expectedScore = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.ExpectedScoreNode);
+                    expectedSequence1 = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.ExpectedSequenceNode1);
+                    expectedSequence2 = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.ExpectedSequenceNode2);
                     break;
             }
 
             IList<IPairwiseSequenceAlignment> expectedOutput = new List<IPairwiseSequenceAlignment>();
 
             IPairwiseSequenceAlignment align = new PairwiseSequenceAlignment();
-            PairwiseAlignedSequence alignedSeq = new PairwiseAlignedSequence();
-            alignedSeq.FirstSequence = new Sequence(alphabet, expectedSequence1);
-            alignedSeq.SecondSequence = new Sequence(alphabet, expectedSequence2);
-            alignedSeq.Score = Convert.ToInt32(expectedScore, (IFormatProvider)null);
+            PairwiseAlignedSequence alignedSeq = new PairwiseAlignedSequence
+            {
+                FirstSequence = new Sequence(alphabet, expectedSequence1),
+                SecondSequence = new Sequence(alphabet, expectedSequence2),
+                Score = Convert.ToInt32(expectedScore, null),
+                FirstOffset = Int32.MinValue,
+                SecondOffset = Int32.MinValue,
+            };
             align.PairwiseAlignedSequences.Add(alignedSeq);
             expectedOutput.Add(align);
-            Assert.IsTrue(CompareAlignment(result, expectedOutput));
-            align = null;
-            alignedSeq = null;
-            aInput = null;
-            bInput = null;
-            smithWatermanObj = null;
-            alphabet = null;
-            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                "SmithWatermanAligner P1 : Final Score '{0}'.", expectedScore));
-            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                "SmithWatermanAligner P1 : Aligned First Sequence is '{0}'.",
-               expectedSequence1));
-            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                "SmithWatermanAligner P1 : Aligned Second Sequence is '{0}'.",
-                expectedSequence2));
 
-            Console.WriteLine(string.Format((IFormatProvider)null,
-                "SmithWatermanAligner P1 : Final Score '{0}'.", expectedScore));
-            Console.WriteLine(string.Format((IFormatProvider)null,
-                "SmithWatermanAligner P1 : Aligned First Sequence is '{0}'.",
-                expectedSequence1));
-            Console.WriteLine(string.Format((IFormatProvider)null,
-                "SmithWatermanAligner P1 : Aligned Second Sequence is '{0}'.",
-                expectedSequence2));
+            ApplicationLog.WriteLine(string.Format(null, "SmithWatermanAligner P1 : Final Score '{0}'.", expectedScore));
+            ApplicationLog.WriteLine(string.Format(null, "SmithWatermanAligner P1 : Aligned First Sequence is '{0}'.", expectedSequence1));
+            ApplicationLog.WriteLine(string.Format(null, "SmithWatermanAligner P1 : Aligned Second Sequence is '{0}'.", expectedSequence2));
+
+            Assert.IsTrue(CompareAlignment(result, expectedOutput));
         }
 
 
@@ -2952,26 +2847,12 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         void ValidateGeneralSequenceAlignment(string nodeName, bool validateProperty)
         {
             // Read the xml file for getting both the files for aligning.
-            string origSequence1 = utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.SequenceNode1);
-            string origSequence2 = utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.SequenceNode2);
-            IAlphabet alphabet = Utility.GetAlphabet(utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.AlphabetNameNode));
+            string origSequence1 = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.SequenceNode1);
+            string origSequence2 = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.SequenceNode2);
+            IAlphabet alphabet = Utility.GetAlphabet(utilityObj.xmlUtil.GetTextValue(nodeName, Constants.AlphabetNameNode));
 
-            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                "SequenceAlignment P1 : First sequence used is '{0}'.",
-             origSequence1));
-            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                "SequenceAlignment P1 : Second sequence used is '{0}'.",
-                origSequence2));
-
-            Console.WriteLine(string.Format((IFormatProvider)null,
-                "SequenceAlignment P1 : First sequence used is '{0}'.",
-                origSequence1));
-            Console.WriteLine(string.Format((IFormatProvider)null,
-                "SequenceAlignment P1 : Second sequence used is '{0}'.",
-                origSequence2));
+            ApplicationLog.WriteLine(string.Format(null, "SequenceAlignment P1 : First sequence used is '{0}'.", origSequence1));
+            ApplicationLog.WriteLine(string.Format(null, "SequenceAlignment P1 : Second sequence used is '{0}'.", origSequence2));
 
             // Create two sequences
             ISequence aInput = new Sequence(alphabet, origSequence1);
@@ -2980,9 +2861,7 @@ namespace Bio.TestAutomation.Algorithms.Alignment
             // Add the sequences to the Sequence alignment object using AddSequence() method.
             IList<IPairwiseSequenceAlignment> sequenceAlignmentObj = new List<IPairwiseSequenceAlignment>();
 
-            PairwiseAlignedSequence alignSeq = new PairwiseAlignedSequence();
-            alignSeq.FirstSequence = aInput;
-            alignSeq.SecondSequence = bInput;
+            PairwiseAlignedSequence alignSeq = new PairwiseAlignedSequence { FirstSequence = aInput, SecondSequence = bInput };
             IPairwiseSequenceAlignment seqAlignObj = new PairwiseSequenceAlignment();
             seqAlignObj.Add(alignSeq);
             sequenceAlignmentObj.Add(seqAlignObj);
@@ -2991,41 +2870,22 @@ namespace Bio.TestAutomation.Algorithms.Alignment
             IList<PairwiseAlignedSequence> newAlignedSequences =
                 sequenceAlignmentObj[0].PairwiseAlignedSequences;
 
-            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                "SequenceAlignment P1 : First sequence read is '{0}'.",
-                origSequence1));
-            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                "SequenceAlignment P1 : Second sequence read is '{0}'.",
-                origSequence2));
-
-            Console.WriteLine(string.Format((IFormatProvider)null,
-                "SequenceAlignment P1 : First sequence read is '{0}'.",
-                origSequence1));
-            Console.WriteLine(string.Format((IFormatProvider)null,
-                "SequenceAlignment P1 : Second sequence read is '{0}'.",
-                origSequence2));
+            ApplicationLog.WriteLine(string.Format(null, "SequenceAlignment P1 : First sequence read is '{0}'.", origSequence1));
+            ApplicationLog.WriteLine(string.Format(null, "SequenceAlignment P1 : Second sequence read is '{0}'.", origSequence2));
 
             if (validateProperty)
             {
-                string score = utilityObj.xmlUtil.GetTextValue(nodeName,
-                    Constants.MatchScoreNode);
-                string seqCount = utilityObj.xmlUtil.GetTextValue(nodeName,
-                    Constants.SequenceCountNode);
+                string score = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.MatchScoreNode);
+                string seqCount = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.SequenceCountNode);
 
                 Assert.IsFalse(sequenceAlignmentObj.IsReadOnly);
                 Assert.AreEqual(sequenceAlignmentObj.Count.ToString((IFormatProvider)null), seqCount);
-                Assert.AreEqual(
-                    sequenceAlignmentObj[0].PairwiseAlignedSequences[0].Score.ToString((IFormatProvider)null), score);
-
+                Assert.AreEqual(sequenceAlignmentObj[0].PairwiseAlignedSequences[0].Score.ToString((IFormatProvider)null), score);
                 Assert.AreEqual(sequenceAlignmentObj.Count.ToString((IFormatProvider)null), seqCount);
 
                 ApplicationLog.WriteLine("SequenceAlignment P1 : Successfully validated the IsRead Property");
                 ApplicationLog.WriteLine("SequenceAlignment P1 : Successfully validated the Count Property");
                 ApplicationLog.WriteLine("SequenceAlignment P1 : Successfully validated the Sequences Property");
-
-                Console.WriteLine("SequenceAlignment P1 : Successfully validated the IsRead Property");
-                Console.WriteLine("SequenceAlignment P1 : Successfully validated the Count Property");
-                Console.WriteLine("SequenceAlignment P1 : Successfully validated the Sequences Property");
             }
             else
             {
@@ -3037,50 +2897,13 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         /// <summary>
         /// Compare the alignment of mummer and defined alignment
         /// </summary>
-        /// <param name="result">output of Aligners</param>
+        /// <param name="actualAlignment"></param>
         /// <param name="expectedAlignment">expected output</param>
         /// <returns>Compare result of alignments</returns>
         private static bool CompareAlignment(IList<IPairwiseSequenceAlignment> actualAlignment,
              IList<IPairwiseSequenceAlignment> expectedAlignment)
         {
-            bool output = true;
-
-            if (actualAlignment.Count == expectedAlignment.Count)
-            {
-                for (int resultCount = 0; resultCount < actualAlignment.Count; resultCount++)
-                {
-                    if (actualAlignment[resultCount].PairwiseAlignedSequences.Count == expectedAlignment[resultCount].PairwiseAlignedSequences.Count)
-                    {
-                        for (int alignSeqCount = 0; alignSeqCount < actualAlignment[resultCount].PairwiseAlignedSequences.Count; alignSeqCount++)
-                        {
-                            // Validates the First Sequence, Second Sequence and Score                            
-                            if (new string(actualAlignment[resultCount].PairwiseAlignedSequences[alignSeqCount].FirstSequence.Select(a => (char)a).ToArray()).Equals(
-                                    new string(expectedAlignment[resultCount].PairwiseAlignedSequences[alignSeqCount].FirstSequence.Select(a => (char)a).ToArray()))
-                                && new string(actualAlignment[resultCount].PairwiseAlignedSequences[alignSeqCount].SecondSequence.Select(a => (char)a).ToArray()).Equals(
-                                   new string(expectedAlignment[resultCount].PairwiseAlignedSequences[alignSeqCount].SecondSequence.Select(a => (char)a).ToArray()))
-                                && actualAlignment[resultCount].PairwiseAlignedSequences[alignSeqCount].Score ==
-                                    expectedAlignment[resultCount].PairwiseAlignedSequences[alignSeqCount].Score)
-                            {
-                                output = true;
-                            }
-                            else
-                            {
-                                return false;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                }
-            }
-            else
-            {
-                return false;
-            }
-
-            return output;
+            return AlignmentHelpers.CompareAlignment(actualAlignment, expectedAlignment);
         }
 
         /// <summary>
@@ -3088,28 +2911,19 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         /// </summary>
         /// <param name="nodeName">Node Name in the xml.</param>
         /// <param name="methodName">Name of the SequenceAlignment method to be validated</param>
-        /// <param name="IsSeqAlignDefCtr">Is sequence alignment Def Constructor</param>
-        /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope")]
-        void ValidateSequenceAlignmentGeneralMethods(string nodeName, SeqAlignmentMethods methodName,
-            bool IsSeqAlignDefCtr)
+        /// <param name="isSeqAlignDefCtr">Is sequence alignment Def Constructor</param>
+        void ValidateSequenceAlignmentGeneralMethods(string nodeName, SeqAlignmentMethods methodName, bool isSeqAlignDefCtr)
         {
             // Read the xml file for getting both the files for aligning.
-            string origSequence1 = utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.SequenceNode1);
-            string origSequence2 = utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.SequenceNode2);
-            IAlphabet alphabet = Utility.GetAlphabet(utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.AlphabetNameNode));
-            string seqCount = utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.SeqCountNode);
-            string AlignedSeqCountAfterAddSeq = utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.AlignedSeqCountAfterAddAlignedSeqNode);
-            string arrayLength = utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.ArraySizeNode);
+            string origSequence1 = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.SequenceNode1);
+            string origSequence2 = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.SequenceNode2);
+            IAlphabet alphabet = Utility.GetAlphabet(utilityObj.xmlUtil.GetTextValue(nodeName, Constants.AlphabetNameNode));
+            string seqCount = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.SeqCountNode);
+            string alignedSeqCountAfterAddSeq = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.AlignedSeqCountAfterAddAlignedSeqNode);
+            string arrayLength = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.ArraySizeNode);
 
-            PairwiseAlignedSequence[] alignedSeqItems = new PairwiseAlignedSequence[int.Parse(arrayLength, (IFormatProvider)null)];
-            int index = 0;
+            PairwiseAlignedSequence[] alignedSeqItems = new PairwiseAlignedSequence[int.Parse(arrayLength, null)];
+            const int index = 0;
 
             // Create two sequences
             ISequence aInput = new Sequence(alphabet, origSequence1);
@@ -3118,19 +2932,8 @@ namespace Bio.TestAutomation.Algorithms.Alignment
             // Add the sequences to the Sequence alignment object using AddSequence() method.
             IList<IPairwiseSequenceAlignment> sequenceAlignmentObj = new List<IPairwiseSequenceAlignment>();
 
-            PairwiseAlignedSequence alignSeq = new PairwiseAlignedSequence();
-            alignSeq.FirstSequence = aInput;
-            alignSeq.SecondSequence = bInput;
-            IPairwiseSequenceAlignment seqAlignObj;
-
-            if (IsSeqAlignDefCtr)
-            {
-                seqAlignObj = new PairwiseSequenceAlignment();
-            }
-            else
-            {
-                seqAlignObj = new PairwiseSequenceAlignment(aInput, bInput);
-            }
+            PairwiseAlignedSequence alignSeq = new PairwiseAlignedSequence { FirstSequence = aInput, SecondSequence = bInput };
+            IPairwiseSequenceAlignment seqAlignObj = isSeqAlignDefCtr ? new PairwiseSequenceAlignment() : new PairwiseSequenceAlignment(aInput, bInput);
 
             seqAlignObj.Add(alignSeq);
             sequenceAlignmentObj.Add(seqAlignObj);
@@ -3168,7 +2971,7 @@ namespace Bio.TestAutomation.Algorithms.Alignment
                     seqAlignObj.AddSequence(newAlignedSequences[0]);
 
                     // Validate SeqAlignObj after adding aligned sequence.
-                    Assert.AreEqual(AlignedSeqCountAfterAddSeq, seqAlignObj.Count.ToString((IFormatProvider)null));
+                    Assert.AreEqual(alignedSeqCountAfterAddSeq, seqAlignObj.Count.ToString((IFormatProvider)null));
                     break;
                 case SeqAlignmentMethods.GetEnumerator:
                     IEnumerator<PairwiseAlignedSequence> alignedSeqList = seqAlignObj.GetEnumerator();
@@ -3183,10 +2986,6 @@ namespace Bio.TestAutomation.Algorithms.Alignment
             ApplicationLog.WriteLine("SequenceAlignment P1 : Successfully validated the IsRead Property");
             ApplicationLog.WriteLine("SequenceAlignment P1 : Successfully validated the Count Property");
             ApplicationLog.WriteLine("SequenceAlignment P1 : Successfully validated the Sequences Property");
-
-            Console.WriteLine("SequenceAlignment P1 : Successfully validated the IsRead Property");
-            Console.WriteLine("SequenceAlignment P1 : Successfully validated the Count Property");
-            Console.WriteLine("SequenceAlignment P1 : Successfully validated the Sequences Property");
         }
 
         #endregion Supporting Methods

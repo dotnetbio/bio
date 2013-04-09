@@ -170,8 +170,12 @@ namespace Bio.TestAutomation.Distributions
         [TestMethod]
         [Priority(0)]
         [TestCategory("Priority0")]
+        [Ignore]
         public void ValidateBooleanStatisticsGetHashCode()
         {
+            // This is a stupid test.  It likely changes on each release of the .NET framework since 
+            // we are using an integer as our value here.  So it broke for .NET 4.5, I am simply removing
+            // it because it doesn't test anything anyway.
             BooleanStatistics boolStat1 = BooleanStatistics.GetInstance(true);
             Assert.AreEqual(372029325, boolStat1.GetHashCode());
         }

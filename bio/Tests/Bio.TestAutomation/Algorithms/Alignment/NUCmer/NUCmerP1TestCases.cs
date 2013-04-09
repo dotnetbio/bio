@@ -1157,7 +1157,7 @@ namespace Bio.TestAutomation.Algorithms.Alignment
                     byteList.Add((byte)'+');
                 }
 
-                referenceSeq = new Sequence(AlphabetExtensions.GetMummerAlphabet(referenceSeqList.ElementAt(0).Alphabet),
+                referenceSeq = new Sequence(referenceSeqList.First().Alphabet.GetMummerAlphabet(),
                     byteList.ToArray());
 
                 // Gets the query sequence from the FastA file
@@ -1202,8 +1202,7 @@ namespace Bio.TestAutomation.Algorithms.Alignment
                     byteList.Add((byte)'+');
                 }
 
-                referenceSeq = new Sequence(AlphabetExtensions.GetMummerAlphabet(refSeqList.ElementAt(0).Alphabet),
-                    byteList.ToArray());
+                referenceSeq = new Sequence(refSeqList.First().Alphabet.GetMummerAlphabet(), byteList.ToArray());
 
                 for (int i = 0; i < searchSequences.Length; i++)
                 {

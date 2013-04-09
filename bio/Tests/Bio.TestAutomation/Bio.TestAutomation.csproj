@@ -186,9 +186,6 @@
     <Compile Include="SparseSequenceP1TestCases.cs" />
     <Compile Include="SparseSequenceP2TestCases.cs" />
     <Compile Include="ToStringP2TestCases.cs" />
-    <Compile Include="Util\Constants.cs" />
-    <Compile Include="Util\Utility.cs" />
-    <Compile Include="Util\XmlUtility.cs" />
     <Compile Include="BioUtil\FileAccessComparerBvtTestCases.cs" />
     <Compile Include="BioUtil\FileUtilsBvtTestCases.cs" />
     <Compile Include="BioUtil\HelperBvtTestCases.cs" />
@@ -207,8 +204,6 @@
     <Compile Include="Web\AzureBlast\AzureBlastBvtTestCases.cs" />
     <Compile Include="Web\AzureBlast\AzureBlastP1TestCases.cs" />
     <Compile Include="Web\AzureBlast\AzureBlastP2TestCases.cs" />
-    <Compile Include="Web\BioHPC\BioHPCBlastBvtTestCases.cs" />
-    <Compile Include="Web\BioHPC\BioHPCBlastP2TestCases.cs" />
     <Compile Include="Web\Blast\BlastBvtTestCases.cs" />
     <Compile Include="Web\Blast\BlastP1TestCases.cs" />
     <Compile Include="Web\Blast\BlastP2TestCases.cs" />

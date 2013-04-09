@@ -13,9 +13,11 @@ using System.Linq;
 using Bio;
 using Bio.Algorithms.Alignment;
 using Bio.Algorithms.Alignment.Legacy;
+using Bio.Extensions;
 using Bio.IO.FastA;
 using Bio.SimilarityMatrices;
 using Bio.TestAutomation.Util;
+using Bio.Tests.Framework;
 using Bio.Util.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -1440,16 +1442,13 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         /// <param name="additionalParameter">parameter based on which certain validations are done.</param>
         /// <param name="alignType">Is the Align type Simple or Align with Gap Extension cost?</param>
         /// <param name="similarityMatrixParam">Similarity Matrix</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]
         void ValidateSmithWatermanAlignment(string nodeName, bool isTextFile,
             SequenceCaseType caseType, AlignParameters additionalParameter,
             AlignmentType alignType, SimilarityMatrixParameters similarityMatrixParam)
         {
-            Sequence aInput = null;
-            Sequence bInput = null;
-
-            IAlphabet alphabet = Utility.GetAlphabet(utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.AlphabetNameNode));
+            Sequence aInput, bInput;
+            IAlphabet alphabet = Utility.GetAlphabet(utilityObj.xmlUtil.GetTextValue(nodeName, Constants.AlphabetNameNode));
 
             if (isTextFile)
             {
@@ -1473,8 +1472,8 @@ namespace Bio.TestAutomation.Algorithms.Alignment
                 }
 
                 // Create input sequence for sequence string in different cases.             
-                GetSequenceWithCaseType(new string(originalSequence1.Select(a => (char)a).ToArray()),
-                    new string(originalSequence2.Select(a => (char)a).ToArray()), alphabet, caseType, out aInput, out bInput);
+                GetSequenceWithCaseType(originalSequence1.ConvertToString(), originalSequence2.ConvertToString(),
+                    alphabet, caseType, out aInput, out bInput);
             }
             else
             {
@@ -1491,21 +1490,12 @@ namespace Bio.TestAutomation.Algorithms.Alignment
                                         out bInput);
             }
 
-            ApplicationLog.WriteLine(string.Concat(
-                "SmithWatermanAligner P2 : First sequence used is '{0}'.", new string(aInput.Select(a => (char)a).ToArray())));
-            ApplicationLog.WriteLine(string.Concat(
-                "SmithWatermanAligner P2 : Second sequence used is '{0}'.", new string(bInput.Select(a => (char)a).ToArray())));
-
-            Console.WriteLine(string.Concat(
-                "SmithWatermanAligner P2 : First sequence used is '{0}'.", new string(aInput.Select(a => (char)a).ToArray())));
-            Console.WriteLine(string.Concat(
-                "SmithWatermanAligner P2 : Second sequence used is '{0}'.", new string(bInput.Select(a => (char)a).ToArray())));
+            ApplicationLog.WriteLine(string.Format("SmithWatermanAligner P2 : First sequence used is '{0}'.", aInput.ConvertToString()));
+            ApplicationLog.WriteLine(string.Format("SmithWatermanAligner P2 : Second sequence used is '{0}'.", bInput.ConvertToString()));
 
             // Create similarity matrix object for a given file.
             string blosumFilePath = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.BlosumFilePathNode);
-
-            SimilarityMatrix sm = null;
-
+            SimilarityMatrix sm;
             switch (similarityMatrixParam)
             {
                 case SimilarityMatrixParameters.TextReader:
@@ -1524,11 +1514,8 @@ namespace Bio.TestAutomation.Algorithms.Alignment
                     break;
             }
 
-            int gapOpenCost = int.Parse(utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.GapOpenCostNode), (IFormatProvider)null);
-
-            int gapExtensionCost = int.Parse(utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.GapExtensionCostNode), (IFormatProvider)null);
+            int gapOpenCost = int.Parse(utilityObj.xmlUtil.GetTextValue(nodeName, Constants.GapOpenCostNode), null);
+            int gapExtensionCost = int.Parse(utilityObj.xmlUtil.GetTextValue(nodeName, Constants.GapExtensionCostNode), null);
 
             // Create SmithWatermanAligner instance and set its values.
             SmithWatermanAligner smithWatermanObj = new SmithWatermanAligner();
@@ -1582,10 +1569,7 @@ namespace Bio.TestAutomation.Algorithms.Alignment
             }
 
             // Get the expected sequence and scorde from xml config.
-            string expectedSequence1 = string.Empty;
-            string expectedSequence2 = string.Empty;
-
-            string expectedScore = string.Empty;
+            string expectedSequence1, expectedSequence2, expectedScore;
 
             switch (alignType)
             {
@@ -1642,31 +1626,22 @@ namespace Bio.TestAutomation.Algorithms.Alignment
             IList<IPairwiseSequenceAlignment> expectedOutput = new List<IPairwiseSequenceAlignment>();
 
             IPairwiseSequenceAlignment align = new PairwiseSequenceAlignment();
-            PairwiseAlignedSequence alignedSeq = new PairwiseAlignedSequence();
-            alignedSeq.FirstSequence = new Sequence(alphabet, expectedSequence1);
-            alignedSeq.SecondSequence = new Sequence(alphabet, expectedSequence2);
-            alignedSeq.Score = Convert.ToInt32(expectedScore, (IFormatProvider)null);
+            PairwiseAlignedSequence alignedSeq = new PairwiseAlignedSequence
+            {
+                FirstSequence = new Sequence(alphabet, expectedSequence1),
+                SecondSequence = new Sequence(alphabet, expectedSequence2),
+                Score = Convert.ToInt32(expectedScore, null),
+                FirstOffset = Int32.MinValue,
+                SecondOffset = Int32.MinValue,
+            };
             align.PairwiseAlignedSequences.Add(alignedSeq);
             expectedOutput.Add(align);
+
+            ApplicationLog.WriteLine(string.Format(null, "SmithWatermanAligner P2 : Final Score '{0}'.", expectedScore));
+            ApplicationLog.WriteLine(string.Format(null, "SmithWatermanAligner P2 : Aligned First Sequence is '{0}'.", expectedSequence1));
+            ApplicationLog.WriteLine(string.Format(null, "SmithWatermanAligner P2 : Aligned Second Sequence is '{0}'.", expectedSequence2));
+
             Assert.IsTrue(CompareAlignment(result, expectedOutput));
-
-            ApplicationLog.WriteLine(string.Concat(
-                "SmithWatermanAligner P2 : Final Score '{0}'.", expectedScore));
-            ApplicationLog.WriteLine(string.Concat(
-                "SmithWatermanAligner P2 : Aligned First Sequence is '{0}'.",
-                expectedSequence1));
-            ApplicationLog.WriteLine(string.Concat(
-                "SmithWatermanAligner P2 : Aligned Second Sequence is '{0}'.",
-                expectedSequence2));
-
-            Console.WriteLine(string.Concat(
-                "SmithWatermanAligner P2 : Final Score '{0}'.", expectedScore));
-            Console.WriteLine(string.Concat(
-                "SmithWatermanAligner P2 : Aligned First Sequence is '{0}'.",
-                expectedSequence1));
-            Console.WriteLine(string.Concat(
-                "SmithWatermanAligner P2 : Aligned Second Sequence is '{0}'.",
-                expectedSequence2));
         }
 
         /// <summary>
@@ -2255,50 +2230,13 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         /// <summary>
         /// Compare the alignment of mummer and defined alignment
         /// </summary>
-        /// <param name="result">output of Aligners</param>
+        /// <param name="actualAlignment"></param>
         /// <param name="expectedAlignment">expected output</param>
         /// <returns>Compare result of alignments</returns>
         private static bool CompareAlignment(IList<IPairwiseSequenceAlignment> actualAlignment,
             IList<IPairwiseSequenceAlignment> expectedAlignment)
         {
-            bool output = true;
-
-            if (actualAlignment.Count == expectedAlignment.Count)
-            {
-                for (int resultCount = 0; resultCount < actualAlignment.Count; resultCount++)
-                {
-                    if (actualAlignment[resultCount].PairwiseAlignedSequences.Count == expectedAlignment[resultCount].PairwiseAlignedSequences.Count)
-                    {
-                        for (int alignSeqCount = 0; alignSeqCount < actualAlignment[resultCount].PairwiseAlignedSequences.Count; alignSeqCount++)
-                        {
-                            // Validates the First Sequence, Second Sequence and Score
-                            if (new string(actualAlignment[resultCount].PairwiseAlignedSequences[alignSeqCount].FirstSequence.Select(a => (char)a).ToArray()).Equals(
-                                    new string(expectedAlignment[resultCount].PairwiseAlignedSequences[alignSeqCount].FirstSequence.Select(a => (char)a).ToArray()))
-                                && new string(actualAlignment[resultCount].PairwiseAlignedSequences[alignSeqCount].SecondSequence.Select(a => (char)a).ToArray()).Equals(
-                                   new string(expectedAlignment[resultCount].PairwiseAlignedSequences[alignSeqCount].SecondSequence.Select(a => (char)a).ToArray()))
-                                && actualAlignment[resultCount].PairwiseAlignedSequences[alignSeqCount].Score ==
-                                    expectedAlignment[resultCount].PairwiseAlignedSequences[alignSeqCount].Score)
-                            {
-                                output = true;
-                            }
-                            else
-                            {
-                                return false;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                }
-            }
-            else
-            {
-                return false;
-            }
-
-            return output;
+            return AlignmentHelpers.CompareAlignment(actualAlignment, expectedAlignment);
         }
 
         #endregion
