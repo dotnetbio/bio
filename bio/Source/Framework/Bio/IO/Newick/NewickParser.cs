@@ -184,6 +184,12 @@ namespace Bio.IO.Newick
             else
             {
                 char thirdPeek = Peek();
+                if (!",():;".Contains(thirdPeek.ToString()))
+                {
+                    node.Name = GetLeaf().Name;
+                    thirdPeek = Peek();
+                }
+
                 if (thirdPeek == ':')
                 {
                     //move to next char after ":"
