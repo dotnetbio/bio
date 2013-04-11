@@ -5,6 +5,7 @@ using Bio.Phylogenetics;
 using Bio.Properties;
 using System.Globalization;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Bio.IO.Newick
 {
@@ -20,7 +21,8 @@ namespace Bio.IO.Newick
     {
         #region -- Member Variables --
         private TextReader _textReader;
-        
+        private static char[] newickSpecialCharacters = new char[] { ',', '(', ')', ':', ';' };
+
         //default tree name
         private string _treeName = "PhylogeneticTree";
         #endregion -- Member Variables --
@@ -184,9 +186,9 @@ namespace Bio.IO.Newick
             else
             {
                 char thirdPeek = Peek();
-                if (!",():;".Contains(thirdPeek.ToString()))
+                if (!newickSpecialCharacters.Contains(thirdPeek))
                 {
-                    node.Name = GetLeaf().Name;
+                    node.Name = GetName();
                     thirdPeek = Peek();
                 }
 
@@ -205,7 +207,20 @@ namespace Bio.IO.Newick
             }
             return new KeyValuePair<Node, Edge>(node, edge);
         }
-
+        private string GetName()
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+            while (true)
+            {
+                char peek = Peek();
+                if (newickSpecialCharacters.Contains(peek))
+                {
+                    break;
+                }
+                stringBuilder.Append(ReadChar());
+            }
+            return stringBuilder.ToString();
+        }
         /// <summary>
         /// Gets the Branch node
         /// </summary>
