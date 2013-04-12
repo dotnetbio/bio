@@ -908,7 +908,6 @@ namespace Bio.TestAutomation.Algorithms.MUMmer
         /// <param name="isAlignList">Is align method to take list?</param>
         /// <param name="addParam">Additional parameter</param>
         /// Suppress the ParserParam variable CA1801 as this would be reused later.
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "parserParam"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope")]
         void ValidateMUMmerAlignGeneralTestCases(string nodeName, bool isFilePath, bool isAlignList, AdditionalParameters addParam)
         {
             ISequence referenceSeq;
@@ -922,19 +921,23 @@ namespace Bio.TestAutomation.Algorithms.MUMmer
                 Assert.IsNotNull(filePath);
                 Assert.IsTrue(File.Exists(filePath));
 
-                FastAParser fastaParserObj = new FastAParser(filePath);
-                IEnumerable<ISequence> referenceSeqs = fastaParserObj.Parse();
-                referenceSeq = referenceSeqs.FirstOrDefault();
-                Assert.IsNotNull(referenceSeq);
-                fastaParserObj.Close();
+                IEnumerable<ISequence> referenceSeqs;
+                using (FastAParser fastaParserObj = new FastAParser(filePath))
+                {
+                    referenceSeqs = fastaParserObj.Parse();
+                    referenceSeq = referenceSeqs.FirstOrDefault();
+                    Assert.IsNotNull(referenceSeq);
+                }
 
                 // Gets the query sequence from the configuration file
                 string queryFilePath = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.SearchSequenceFilePathNode);
                 Assert.IsNotNull(queryFilePath);
                 Assert.IsTrue(File.Exists(queryFilePath));
 
-                FastAParser queryParserObj = new FastAParser(queryFilePath);
-                querySeqs = queryParserObj.Parse().ToList();
+                using (FastAParser queryParserObj = new FastAParser(queryFilePath))
+                {
+                    querySeqs = queryParserObj.Parse().ToList();
+                }
 
                 ISequence querySeq = querySeqs.First();
                 if (isAlignList)

@@ -9,8 +9,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Bio.Extensions;
 using Bio.TestAutomation.Util;
-using Bio;
 using Bio.Algorithms.Assembly;
 using Bio.Algorithms.Assembly.Graph;
 using Bio.Algorithms.Assembly.Padena;
@@ -29,7 +29,6 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
     [TestClass]
     public class PadenaBvtTestCases
     {
-
         #region Global Variables
 
         Utility utilityObj = new Utility(@"TestUtils\PadenaTestData\PadenaTestsConfig.xml");
@@ -760,7 +759,7 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         [TestCategory("Priority0")]
         public void ValidatePadenaAssembledSeqsForSmallReadsWithErosion()
         {
-            using (PadenaBvtTest testObj = new Padena.PadenaBvtTest())
+            using (PadenaBvtTest testObj = new PadenaBvtTest())
             {
                 testObj.ValidatePadenaAssembledSeqs(
                     Constants.AssembledSequencesForSequenceReadsWithErosionNode,
@@ -883,7 +882,6 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// Validate ParallelDeNovoAssembler step1 Build kmers 
         /// </summary>
         /// <param name="nodeName">xml node for test data</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)")]
         internal void ValidateDe2AssemblerBuildKmers(string nodeName)
         {
             // Read all the input sequences from xml config file
@@ -910,9 +908,6 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
                    new List<ISequence>(sequenceReads), nodeName);
             }
 
-            Console.WriteLine(
-                @"Padena BVT : Validation of Build with all input reads using 
-                    ParallelDeNovoAssembler completed successfully");
             ApplicationLog.WriteLine(
                 @"Padena BVT : Validation of Build with all input reads using 
                     ParallelDeNovoAssembler sequence completed successfully");
@@ -922,7 +917,6 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// Validate SequenceRangeToKmerBuilder Build() method which build kmers
         /// </summary>
         /// <param name="nodeName">xml node name for test data</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)")]
         internal void ValidateKmerBuilderBuild(string nodeName)
         {
             string filePath = utilityObj.xmlUtil.GetTextValue(
@@ -946,9 +940,6 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
                     new List<ISequence>(sequenceReads), nodeName);
             }
 
-            Console.WriteLine(
-                @"Padena BVT : Validation of Build with all input reads 
-                    using ParallelDeNovoAssembler completed successfully");
             ApplicationLog.WriteLine(
                 @"Padena BVT : Validation of Build with all input reads 
                     sequence completed successfully");
@@ -959,7 +950,6 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// using one base sequence 
         /// </summary>
         /// <param name="nodeName">xml node name used for different testcases</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)")]
         internal void ValidateKmerBuilderBuildWithSequence(string nodeName)
         {
             string filePath = utilityObj.xmlUtil.GetTextValue(
@@ -985,9 +975,7 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
                 // Validate all the kmers
                 ValidateKmersList(lstKmers, sequenceReads.ToList(), nodeName);
             }
-            Console.WriteLine(
-                @"Padena BVT : Validation of Build with each input read sequence 
-                    completed successfully");
+
             ApplicationLog.WriteLine(
                 @"Padena BVT : Validation of Build with each input read sequence 
                     completed successfully");
@@ -1049,7 +1037,6 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// Validate kmersofsequence ctor() by passing kmers, kmer length and input reads
         /// </summary>
         /// <param name="nodeName">xml node name used for different testcases</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)")]
         internal void ValidateKmersOfSequenceCtor(string nodeName)
         {
             string filePath = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode);
@@ -1082,9 +1069,6 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
                 ValidateKmersList(newKmersList, new List<ISequence>(sequenceReads), nodeName);
             }
 
-            Console.WriteLine(
-                @"Padena BVT : KmersOfSequence ctor validation for 
-                    Padena step1 completed successfully");
             ApplicationLog.WriteLine(
                 @"Padena BVT : KmersOfSequence ctor validation for 
                     Padena step1 completed successfully");
@@ -1095,7 +1079,6 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// built kmers
         /// </summary>
         /// <param name="nodeName">xml node name.</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)")]
         internal void ValidateKmersOfSequenceCtorWithBuildKmers(string nodeName)
         {
             string filePath = utilityObj.xmlUtil.GetTextValue(nodeName,
@@ -1125,9 +1108,6 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
                 ValidateKmersList(lstKmers, new List<ISequence>(sequenceReads), nodeName);
             }
 
-            Console.WriteLine(
-                @"Padena BVT : KmersOfSequence ctor with build 
-                    kmers validation completed successfully");
             ApplicationLog.WriteLine(
                 @"Padena BVT : KmersOfSequence ctor with build 
                     kmers method validation completed successfully");
@@ -1138,7 +1118,6 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// using its positions
         /// </summary>
         /// <param name="nodeName">xml node name used for different testcases</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)")]
         internal void ValidateKmersOfSequenceToSequences(string nodeName)
         {
             string filePath = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode);
@@ -1189,9 +1168,6 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
                 }
             }
 
-            Console.WriteLine(
-                @"Padena BVT : KmersOfSequence ToSequences() 
-                    method validation completed successfully");
             ApplicationLog.WriteLine(
                 @"Padena BVT : KmersOfSequence ToSequences() method 
                     validation completed successfully");
@@ -1201,7 +1177,6 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// Validate graph generated using ParallelDeNovoAssembler.CreateGraph() with kmers
         /// </summary>
         /// <param name="nodeName">xml node name used for different testcases</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)")]
         internal void ValidateDe2AssemblerBuildGraph(string nodeName)
         {
             string filePath = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode);
@@ -1223,9 +1198,6 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
                 ValidateGraph(graph, nodeName);
             }
 
-            Console.WriteLine(
-                @"Padena BVT : ParallelDeNovoAssembler CreateGraph() 
-                    validation for Padena step2 completed successfully");
             ApplicationLog.WriteLine(
                 @"Padena BVT : ParallelDeNovoAssembler CreateGraph() validation 
                     for Padena step2 completed successfully");
@@ -1235,7 +1207,6 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// Validate graph generated using DeBruijnGraph.CreateGraph() with kmers
         /// </summary>
         /// <param name="nodeName">xml node name used for different testcases</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)")]
         internal void ValidateDeBruijnGraphBuild(string nodeName)
         {
             string filePath = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode);
@@ -1254,12 +1225,7 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
                 graph.Build(this.SequenceReads);
                 ValidateGraph(graph, nodeName);
             }
-            Console.WriteLine(
-                @"Padena BVT : DeBruijnGraph Build() validation 
-                    for Padena step2 completed successfully");
-            ApplicationLog.WriteLine(
-                @"Padena BVT : DeBruijnGraph Build() validation 
-                    for Padena step2 completed successfully");
+            ApplicationLog.WriteLine(@"Padena BVT : DeBruijnGraph Build() validation for Padena step2 completed successfully");
 
         }
 
@@ -1271,10 +1237,8 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         internal void ValidateGraph(DeBruijnGraph graph, string nodeName)
         {
             string nodesSequence = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.NodesSequenceNode);
-            string nodesLeftEdges = utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.NodesLeftEdgesCountNode);
-            string nodesRightEdges = utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.NodeRightEdgesCountNode);
+            string nodesLeftEdges = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.NodesLeftEdgesCountNode);
+            string nodesRightEdges = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.NodeRightEdgesCountNode);
 
             string[] leftEdgesCount = nodesLeftEdges.Split(',');
             string[] rightEdgesCount = nodesRightEdges.Split(',');
@@ -1283,22 +1247,20 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
             // Validate the nodes 
             for (int iseq = 0; iseq < nodesSequences.Length; iseq++)
             {
-                DeBruijnNode dbnodes = graph.GetNodes().Where(n =>
-              new string(graph.GetNodeSequence(n).Select(a => (char)a).ToArray()) == nodesSequences[iseq]
-                  || new string(graph.GetNodeSequence(n).GetReverseComplementedSequence().Select(a => (char)a).ToArray()) ==
-                  nodesSequences[iseq]).First();
+                DeBruijnNode dbnodes = graph.GetNodes().FirstOrDefault(
+                    n => graph.GetNodeSequence(n).ConvertToString() == nodesSequences[iseq]
+                      || graph.GetNodeSequence(n).GetReverseComplementedSequence().ConvertToString() == nodesSequences[iseq]);
 
-                //Due to parallelization the left edges and right edges count
-                //can be swapped while processing. if actual left edges count 
-                //is either equal to expected left edges count or right edges count and vice versa.
-                Assert.IsTrue(
-                  dbnodes.LeftExtensionNodesCount.ToString((IFormatProvider)null) == leftEdgesCount[iseq] ||
+                Assert.IsNotNull(dbnodes);
+
+                // Due to parallelization the left edges and right edges count
+                // can be swapped while processing. if actual left edges count 
+                // is either equal to expected left edges count or right edges count and vice versa.
+                Assert.IsTrue(dbnodes.LeftExtensionNodesCount.ToString((IFormatProvider)null) == leftEdgesCount[iseq] ||
                   dbnodes.LeftExtensionNodesCount.ToString((IFormatProvider)null) == rightEdgesCount[iseq]);
-                Assert.IsTrue(
-                  dbnodes.RightExtensionNodesCount.ToString((IFormatProvider)null) == leftEdgesCount[iseq] ||
+                Assert.IsTrue(dbnodes.RightExtensionNodesCount.ToString((IFormatProvider)null) == leftEdgesCount[iseq] ||
                   dbnodes.RightExtensionNodesCount.ToString((IFormatProvider)null) == rightEdgesCount[iseq]);
             }
-
         }
 
         /// <summary>
@@ -1306,45 +1268,38 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// the node object.
         /// </summary>
         /// <param name="nodeName">xml node name used for different testcases</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)")]
         internal void ValidateDeBruijnNodeCtor(string nodeName)
         {
             string filePath = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode);
             string kmerLength = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.KmerLengthNode);
 
             // Get the input reads and build kmers
-            IEnumerable<ISequence> sequenceReads = null;
             using (FastAParser parser = new FastAParser(filePath))
             {
-                sequenceReads = parser.Parse();
+                IEnumerable<ISequence> sequenceReads = parser.Parse();
 
                 // Build the kmers using assembler
-                this.KmerLength = int.Parse(kmerLength, (IFormatProvider)null);
+                this.KmerLength = int.Parse(kmerLength, null);
                 this.SequenceReads.Clear();
                 this.SetSequenceReads(sequenceReads.ToList());
-                IList<KmersOfSequence> lstKmers = new List<KmersOfSequence>(
-                    (new SequenceToKmerBuilder()).Build(this.SequenceReads, this.KmerLength));
+                IList<KmersOfSequence> lstKmers = new List<KmersOfSequence>((new SequenceToKmerBuilder()).Build(this.SequenceReads, this.KmerLength));
 
                 // Validate the node creation
                 // Create node and add left node.
                 ISequence seq = this.SequenceReads.First();
-                IKmerData kmerData = new KmerData32();
-                kmerData.SetKmerData(seq, lstKmers[0].Kmers.First<KmersOfSequence.KmerPositions>().Positions[0], this.KmerLength);
+                KmerData32 kmerData = new KmerData32();
+                kmerData.SetKmerData(seq, lstKmers[0].Kmers.First().Positions[0], this.KmerLength);
 
-                DeBruijnNode node = new DeBruijnNode(kmerData, true, 1);
+                DeBruijnNode node = new DeBruijnNode(kmerData, 1);
                 kmerData = new KmerData32();
-                kmerData.SetKmerData(seq, lstKmers[1].Kmers.First<KmersOfSequence.KmerPositions>().Positions[0], this.KmerLength);
+                kmerData.SetKmerData(seq, lstKmers[1].Kmers.First().Positions[0], this.KmerLength);
 
-                DeBruijnNode leftnode = new DeBruijnNode(kmerData, true, 1);
+                DeBruijnNode leftnode = new DeBruijnNode(kmerData, 1);
+                node.SetExtensionNode(false, true, leftnode);
 
-                node.SetExtensionNodes(false, true, leftnode);
-
-                Assert.AreEqual(lstKmers[1].Kmers.First<KmersOfSequence.KmerPositions>().Count,
-                  node.LeftExtensionNodesCount);
+                Assert.AreEqual(lstKmers[1].Kmers.First().Count, node.LeftExtensionNodesCount);
             }
 
-            Console.WriteLine(
-                "Padena BVT : DeBruijnNode ctor() validation for Padena step2 completed successfully");
             ApplicationLog.WriteLine(
                 "Padena BVT : DeBruijnNode ctor() validation for Padena step2 completed successfully");
         }
@@ -1353,107 +1308,84 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// Validate AddLeftEndExtension() method of DeBruijnNode 
         /// </summary>
         /// <param name="nodeName">xml node name used for different testcases</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)")]
         internal void ValidateDeBruijnNodeAddLeftExtension(string nodeName)
         {
             string filePath = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode);
             string kmerLength = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.KmerLengthNode);
 
             // Get the input reads and build kmers
-            IEnumerable<ISequence> sequenceReads = null;
             using (FastAParser parser = new FastAParser(filePath))
             {
-                sequenceReads = parser.Parse();
+                IEnumerable<ISequence> sequenceReads = parser.Parse();
 
                 // Build kmers from step1
-                this.KmerLength = int.Parse(kmerLength, (IFormatProvider)null);
+                this.KmerLength = int.Parse(kmerLength, null);
                 this.SequenceReads.Clear();
 
                 this.SetSequenceReads(sequenceReads.ToList());
-                IList<KmersOfSequence> lstKmers = new List<KmersOfSequence>(
-                    (new SequenceToKmerBuilder()).Build(this.SequenceReads, this.KmerLength));
+                IList<KmersOfSequence> lstKmers = new List<KmersOfSequence>((new SequenceToKmerBuilder()).Build(this.SequenceReads, this.KmerLength));
 
                 // Validate the node creation
                 // Create node and add left node.
                 ISequence seq = this.SequenceReads.First();
-                IKmerData kmerData = new KmerData32();
-                kmerData.SetKmerData(seq, lstKmers[0].Kmers.First<KmersOfSequence.KmerPositions>().Positions[0], this.KmerLength);
+                KmerData32 kmerData = new KmerData32();
+                kmerData.SetKmerData(seq, lstKmers[0].Kmers.First().Positions[0], this.KmerLength);
 
-                DeBruijnNode node = new DeBruijnNode(kmerData, true, 1);
+                DeBruijnNode node = new DeBruijnNode(kmerData, 1);
                 kmerData = new KmerData32();
-                kmerData.SetKmerData(seq, lstKmers[1].Kmers.First<KmersOfSequence.KmerPositions>().Positions[0], this.KmerLength);
+                kmerData.SetKmerData(seq, lstKmers[1].Kmers.First().Positions[0], this.KmerLength);
 
-                DeBruijnNode leftnode = new DeBruijnNode(kmerData, true, 1);
-
-                node.SetExtensionNodes(false, true, leftnode);
-
-                Assert.AreEqual(lstKmers[1].Kmers.First<KmersOfSequence.KmerPositions>().Count,
-                  node.LeftExtensionNodesCount);
+                DeBruijnNode leftnode = new DeBruijnNode(kmerData, 1);
+                node.SetExtensionNode(false, true, leftnode);
+                Assert.AreEqual(lstKmers[1].Kmers.First().Count, node.LeftExtensionNodesCount);
             }
 
-            Console.WriteLine(
-                @"Padena BVT : DeBruijnNode AddLeftExtension() validation 
-                    for Padena step2 completed successfully");
-            ApplicationLog.WriteLine(
-              @"Padena BVT :DeBruijnNode AddLeftExtension() validation 
-                    for Padena step2 completed successfully");
+            ApplicationLog.WriteLine(@"Padena BVT :DeBruijnNode AddLeftExtension() validation for Padena step2 completed successfully");
         }
 
         /// <summary>
         /// Validate AddRightEndExtension() method of DeBruijnNode 
         /// </summary>
         /// <param name="nodeName">xml node name used for different testcases</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)")]
         internal void ValidateDeBruijnNodeAddRightExtension(string nodeName)
         {
             string filePath = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode);
             string kmerLength = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.KmerLengthNode);
 
             // Get the input reads and build kmers
-            IEnumerable<ISequence> sequenceReads = null;
             using (FastAParser parser = new FastAParser(filePath))
             {
-                sequenceReads = parser.Parse();
+                IEnumerable<ISequence> sequenceReads = parser.Parse();
 
                 // Build kmers from step1
-                this.KmerLength = int.Parse(kmerLength, (IFormatProvider)null);
+                this.KmerLength = int.Parse(kmerLength, null);
                 this.SequenceReads.Clear();
 
                 this.SetSequenceReads(sequenceReads.ToList());
-                IList<KmersOfSequence> lstKmers = new List<KmersOfSequence>(
-                    (new SequenceToKmerBuilder()).Build(this.SequenceReads, this.KmerLength));
+                IList<KmersOfSequence> lstKmers = new List<KmersOfSequence>((new SequenceToKmerBuilder()).Build(this.SequenceReads, this.KmerLength));
 
                 // Validate the node creation
                 // Create node and add left node.
                 ISequence seq = this.SequenceReads.First();
-                IKmerData kmerData = new KmerData32();
-                kmerData.SetKmerData(seq, lstKmers[0].Kmers.First<KmersOfSequence.KmerPositions>().Positions[0], this.KmerLength);
+                KmerData32 kmerData = new KmerData32();
+                kmerData.SetKmerData(seq, lstKmers[0].Kmers.First().Positions[0], this.KmerLength);
 
-                DeBruijnNode node = new DeBruijnNode(kmerData, true, 1);
+                DeBruijnNode node = new DeBruijnNode(kmerData, 1);
                 kmerData = new KmerData32();
-                kmerData.SetKmerData(seq, lstKmers[1].Kmers.First<KmersOfSequence.KmerPositions>().Positions[0], this.KmerLength);
+                kmerData.SetKmerData(seq, lstKmers[1].Kmers.First().Positions[0], this.KmerLength);
 
-                DeBruijnNode rightNode = new DeBruijnNode(kmerData, true, 1);
-
-                node.SetExtensionNodes(true, true, rightNode);
-
-                Assert.AreEqual(lstKmers[1].Kmers.First<KmersOfSequence.KmerPositions>().Count,
-                  node.RightExtensionNodesCount);
+                DeBruijnNode rightNode = new DeBruijnNode(kmerData, 1);
+                node.SetExtensionNode(true, true, rightNode);
+                Assert.AreEqual(lstKmers[1].Kmers.First().Count, node.RightExtensionNodesCount);
             }
 
-            Console.WriteLine(
-                @"Padena BVT : DeBruijnNode AddRightExtension() validation 
-                    for Padena step2 completed successfully");
-            ApplicationLog.WriteLine(
-                @"Padena BVT :DeBruijnNode AddRightExtension() validation 
-                    for Padena step2 completed successfully");
+            ApplicationLog.WriteLine(@"Padena BVT :DeBruijnNode AddRightExtension() validation for Padena step2 completed successfully");
         }
 
         /// <summary>
         /// Validate the ParallelDeNovoAssembler unDangleGraph() method which removes the dangling link
         /// </summary>
         /// <param name="nodeName">xml node name used for different testcases</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)")]
         internal void ValidateDe2AssemblerUnDangleGraph(string nodeName)
         {
             string filePath = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode);
@@ -1477,9 +1409,6 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
                 ValidateGraph(this.Graph, nodeName);
             }
 
-            Console.WriteLine(
-                @"Padena BVT : ParallelDeNovoAssembler.UndangleGraph() 
-                    validation for Padena step3 completed successfully");
             ApplicationLog.WriteLine(
                 @"Padena BVT :ParallelDeNovoAssembler.UndangleGraph() 
                     validation for Padena step3 completed successfully");
@@ -1490,7 +1419,6 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// returning dangling nodes as expected 
         /// </summary>
         /// <param name="nodeName">xml node name used for different testcases</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)")]
         internal void ValidatePadenaDetectErrorNodes(string nodeName)
         {
             string filePath = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode);
@@ -1529,9 +1457,6 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
                 }
             }
 
-            Console.WriteLine(
-                @"Padena BVT : DeBruijnGraph.DetectErrorNodes() 
-                    validation for Padena step3 completed successfully");
             ApplicationLog.WriteLine(
                 @"Padena BVT :DeBruijnGraph.DetectErrorNodes() 
                     validation for Padena step3 completed successfully");
@@ -1541,7 +1466,6 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// Validate RemoveErrorNodes() method is removing dangling nodes from the graph
         /// </summary>
         /// <param name="nodeName">xml node name used for different testcases</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)")]
         internal void ValidatePadenaRemoveErrorNodes(string nodeName)
         {
             string filePath = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode);
@@ -1572,9 +1496,6 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
                 Assert.IsFalse(graph.GetNodes().Contains(danglingnodes.Paths[0].PathNodes[0]));
             }
 
-            Console.WriteLine(
-                @"Padena BVT : DeBruijnGraph.RemoveErrorNodes() validation 
-                    for Padena step3 completed successfully");
             ApplicationLog.WriteLine(
                 @"Padena BVT :DeBruijnGraph.RemoveErrorNodes() validation 
                     for Padena step3 completed successfully");
@@ -1585,7 +1506,6 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// and validate the graph
         /// </summary>
         /// <param name="nodeName">xml node name used for different testcases</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)")]
         internal void ValidateDe2AssemblerRemoveRedundancy(string nodeName)
         {
             string filePath = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode);
@@ -1613,9 +1533,6 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
 
                 ValidateGraph(this.Graph, nodeName);
             }
-            Console.WriteLine(
-                @"Padena BVT : ParallelDeNovoAssembler.RemoveRedundancy() 
-                    validation for Padena step4 completed successfully");
             ApplicationLog.WriteLine(
                 @"Padena BVT :ParallelDeNovoAssembler.RemoveRedundancy() 
                     validation for Padena step4 completed successfully");
@@ -1626,7 +1543,6 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// redundant error nodes and remove these nodes from the graph. Validate the graph.
         /// </summary>
         /// <param name="nodeName">xml node name used for different testcases</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)")]
         internal void ValidateRedundantPathPurgerCtor(string nodeName)
         {
             string filePath = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode);
@@ -1658,9 +1574,6 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
                 ValidateGraph(this.Graph, nodeName);
             }
 
-            Console.WriteLine(
-                @"Padena BVT : RedundantPathsPurger ctor and methods validation for 
-                    Padena step4 completed successfully");
             ApplicationLog.WriteLine(
                 @"Padena BVT :RedundantPathsPurger ctor and methods validation for 
                     Padena step4 completed successfully");
@@ -1670,7 +1583,6 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// Validate ParallelDeNovoAssembler.BuildContigs() by passing graph object
         /// </summary>
         /// <param name="nodeName">xml node name used for different testcases</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)")]
         internal void ValidateDe2AssemblerBuildContigs(string nodeName)
         {
             string filePath = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode);
@@ -1709,9 +1621,6 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
                         new string(contigs.ToList()[index].Select(a => (char)a).ToArray())));
                 }
             }
-            Console.WriteLine(
-                @"Padena BVT : ParallelDeNovoAssembler.BuildContigs() 
-                    validation for Padena step5 completed successfully");
             ApplicationLog.WriteLine(
                 @"Padena BVT :ParallelDeNovoAssembler.BuildContigs() 
                     validation for Padena step5 completed successfully");
@@ -1721,7 +1630,6 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// Validate the SimpleContigBuilder Build() method using step 4 graph
         /// </summary>
         /// <param name="nodeName">xml node name used for different testcases</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)")]
         internal void ValidateSimpleContigBuilderBuild(string nodeName)
         {
             string filePath = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode);
@@ -1761,9 +1669,6 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
                 }
             }
 
-            Console.WriteLine(
-                @"Padena BVT : SimpleContigBuilder.BuildContigs() validation for 
-                    Padena step5 completed successfully");
             ApplicationLog.WriteLine(
                 @"Padena BVT :SimpleContigBuilder.BuildContigs() validation for 
                     Padena step5 completed successfully");
@@ -1773,7 +1678,6 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// Validate generating Map paired reads.
         /// </summary>
         /// <param name="nodeName">xml node name used for different testcases</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)")]
         internal void ValidatePairedReads(string nodeName)
         {
             string filePath = utilityObj.xmlUtil.GetTextValue(nodeName,
@@ -1828,7 +1732,6 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
                 }
             }
 
-            Console.WriteLine(@"Padena BVT : Map paired reads has been verified successfully");
             ApplicationLog.WriteLine(@"Padena BVT : Map paired reads has been verified successfully");
         }
 
@@ -1836,7 +1739,6 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// Validate Add library information to existing libraries.
         /// </summary>
         /// <param name="nodeName">xml node name used for different testcases</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)")]
         internal void AddLibraryInformation(string nodeName)
         {
             string filePath = utilityObj.xmlUtil.GetTextValue(nodeName,
@@ -1893,7 +1795,6 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
                 }
             }
 
-            Console.WriteLine(@"Padena BVT : Map paired reads has been verified successfully");
             ApplicationLog.WriteLine(@"Padena BVT : Map paired reads has been verified successfully");
         }
 
@@ -1902,7 +1803,6 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// </summary>
         /// <param name="nodeName">xml node name used for a different testcases</param>
         /// <param name="IsFullOverlap">True if full overlap else false</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)")]
         internal void ValidateMapReadsToContig(string nodeName, bool IsFullOverlap)
         {
             string filePath = utilityObj.xmlUtil.GetTextValue(nodeName,
@@ -1980,8 +1880,6 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
                 }
             }
 
-            Console.WriteLine(
-                "Padena BVT : ReadContigMapper.Map() validation for Padena step6:step2 completed successfully");
             ApplicationLog.WriteLine(
                 "Padena BVT :ReadContigMapper.Map() validation for Padena step6:step2 completed successfully");
         }
@@ -1990,8 +1888,6 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// Validate Filter contig nodes.
         /// </summary>
         /// <param name="nodeName">xml node name used for a differnt testcase.</param>
-        /// <param name="IsRedundancy">True if passing redundancy, else false</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope")]
         internal void ValidateFilterPaired(string nodeName)
         {
             string filePath = utilityObj.xmlUtil.GetTextValue(
@@ -2108,8 +2004,6 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
                 }
             }
 
-            Console.WriteLine(
-                "Padena BVT : FilterPairedReads() validation for Padena step6:step4 completed successfully");
             ApplicationLog.WriteLine(
                 "Padena BVT : FilterPairedReads() validation for Padena step6:step4 completed successfully");
         }
@@ -2118,8 +2012,6 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// Validate FilterPairedRead.FilterPairedRead() by passing graph object
         /// </summary>
         /// <param name="nodeName">xml node name used for a differnt testcase.</param>
-        /// <param name="IsForward">True for Forward orientation else false.</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)")]
         internal void ValidateContigDistance(string nodeName)
         {
             string filePath = utilityObj.xmlUtil.GetTextValue(
@@ -2217,8 +2109,6 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
                     valid.First().StandardDeviation[1]);
             }
 
-            Console.WriteLine(
-                "Padena BVT : DistanceCalculator() validation for Padena step6:step5 completed successfully");
             ApplicationLog.WriteLine(
                 "Padena BVT : DistanceCalculator() validation for Padena step6:step5 completed successfully");
         }
@@ -2227,7 +2117,6 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// Validate scaffold paths for a given input reads.
         /// </summary>
         /// <param name="nodeName">xml node name used for different testcases</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling")]
         internal void ValidateScaffoldPath(string nodeName)
         {
             string filePath = utilityObj.xmlUtil.GetTextValue(
@@ -2319,8 +2208,6 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
                 }
             }
 
-            Console.WriteLine(
-                "Padena BVT : FindPaths() validation for Padena step6:step6 completed successfully");
             ApplicationLog.WriteLine(
                 "Padena BVT : FindPaths() validation for Padena step6:step6 completed successfully");
         }
@@ -2329,7 +2216,6 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// Validate Assembled paths for a given input reads.
         /// </summary>
         /// <param name="nodeName">xml node name used for different testcases</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling")]
         internal void ValidateAssembledPath(string nodeName)
         {
             string filePath = utilityObj.xmlUtil.GetTextValue(
@@ -2431,8 +2317,6 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
                 }
             }
 
-            Console.WriteLine(
-                "Padena BVT : AssemblePath() validation for Padena step6:step7 completed successfully");
             ApplicationLog.WriteLine(
                 "Padena BVT : AssemblePath() validation for Padena step6:step7 completed successfully");
         }
@@ -2441,93 +2325,78 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// Validate Parallel Denovo Assembly Assembled sequences.
         /// </summary>
         /// <param name="nodeName">XML node used to validate different test scenarios</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)")]
+        /// <param name="isScaffold"></param>
+        /// <param name="enableLowerContigRemoval"></param>
+        /// <param name="allowErosion"></param>
         internal void ValidatePadenaAssembledSeqs(string nodeName,
-            bool IsScaffold, bool EnableLowerContigRemoval, bool AllowErosion)
+            bool isScaffold, bool enableLowerContigRemoval, bool allowErosion)
         {
             // Get values from XML node.
-            string filePath = utilityObj.xmlUtil.GetTextValue(
-               nodeName, Constants.FilePathNode);
-            string kmerLength = utilityObj.xmlUtil.GetTextValue(
-                nodeName, Constants.KmerLengthNode);
-            string daglingThreshold = utilityObj.xmlUtil.GetTextValue(
-                nodeName, Constants.DanglingLinkThresholdNode);
-            string redundantThreshold = utilityObj.xmlUtil.GetTextValue(
-                nodeName, Constants.RedundantThreshold);
-            string library = utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.LibraryName);
-            string stdDeviation = utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.StdDeviation);
-            string mean = utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.Mean);
-            string erosionThreshold = utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.ErosionNode);
-            string lowCCThreshold = utilityObj.xmlUtil.GetTextValue(nodeName,
-               Constants.LowCoverageContigNode);
-            string assembledSequences = utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.SequencePathNode);
-            string assembledSeqCount = utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.AssembledSeqCountNode);
-            string[] updatedAssembledSeqs = assembledSequences.Split(',');
+            string filePath = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode);
+            string kmerLength = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.KmerLengthNode);
+            string daglingThreshold = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.DanglingLinkThresholdNode);
+            string redundantThreshold = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.RedundantThreshold);
+            string library = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.LibraryName);
+            string stdDeviation = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.StdDeviation);
+            string mean = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.Mean);
+            string erosionThreshold = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.ErosionNode);
+            string lowCCThreshold = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.LowCoverageContigNode);
+            string expectedSequences = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.SequencePathNode);
+            string expectedSeqCount = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.AssembledSeqCountNode);
+            string[] updatedAssembledSeqs = expectedSequences.Split(',');
 
             // Get the input reads and build kmers
-            IEnumerable<ISequence> sequenceReads = null;
             using (FastAParser parser = new FastAParser(filePath))
             {
-                sequenceReads = parser.Parse();
+                IEnumerable<ISequence> sequenceReads = parser.Parse();
 
                 // Create a ParallelDeNovoAssembler instance.
-                ParallelDeNovoAssembler denovoObj = null;
+                ParallelDeNovoAssembler assembler = null;
                 try
                 {
-                    denovoObj = new ParallelDeNovoAssembler();
-
-                    denovoObj.KmerLength = Int32.Parse(kmerLength, (IFormatProvider)null);
-                    denovoObj.DanglingLinksThreshold = Int32.Parse(daglingThreshold, (IFormatProvider)null);
-                    denovoObj.RedundantPathLengthThreshold = Int32.Parse(
-                        redundantThreshold, (IFormatProvider)null);
-                    if (EnableLowerContigRemoval)
+                    assembler = new ParallelDeNovoAssembler
                     {
-                        denovoObj.AllowLowCoverageContigRemoval = EnableLowerContigRemoval;
-                        denovoObj.ContigCoverageThreshold = double.Parse(lowCCThreshold, (IFormatProvider)null);
+                        KmerLength = Int32.Parse(kmerLength, null),
+                        DanglingLinksThreshold = Int32.Parse(daglingThreshold, null),
+                        RedundantPathLengthThreshold = Int32.Parse(redundantThreshold, null)
+                    };
+
+                    if (enableLowerContigRemoval)
+                    {
+                        assembler.AllowLowCoverageContigRemoval = enableLowerContigRemoval;
+                        assembler.ContigCoverageThreshold = double.Parse(lowCCThreshold, null);
                     }
 
-                    if (AllowErosion)
+                    if (allowErosion)
                     {
-                        denovoObj.AllowErosion = AllowErosion;
-                        denovoObj.ErosionThreshold = Int32.Parse(erosionThreshold, (IFormatProvider)null);
+                        assembler.AllowErosion = true;
+                        assembler.ErosionThreshold = Int32.Parse(erosionThreshold, null);
                     }
 
+                    CloneLibrary.Instance.AddLibrary(library, float.Parse(mean, null),
+                        float.Parse(stdDeviation, null));
 
-                    CloneLibrary.Instance.AddLibrary(library, float.Parse(mean, (IFormatProvider)null),
-                     float.Parse(stdDeviation, (IFormatProvider)null));
-
-                    IDeNovoAssembly assembly = denovoObj.Assemble(sequenceReads.ToList(),
-                        IsScaffold);
-
+                    IDeNovoAssembly assembly = assembler.Assemble(sequenceReads.ToList(), isScaffold);
                     IList<ISequence> assembledSequenceList = assembly.AssembledSequences.ToList();
 
                     // Validate assembled sequences.
-                    Assert.AreEqual(int.Parse(assembledSeqCount, (IFormatProvider)null),
+                    Assert.AreEqual(int.Parse(expectedSeqCount, null),
                         assembledSequenceList.Count);
 
-                    for (int i = 0; i < assembledSequenceList.Count; i++)
+                    foreach (ISequence sequence in assembledSequenceList)
                     {
-                        Assert.IsTrue(assembledSequences.Contains(
-                            new string(assembledSequenceList[i].Select(a => (char)a).ToArray()))
-                            || updatedAssembledSeqs.Contains(
-                            new string(assembledSequenceList[i].GetReverseComplementedSequence().Select(a => (char)a).ToArray())));
+                        Assert.IsTrue(expectedSequences.Contains(sequence.ConvertToString())
+                            || updatedAssembledSeqs.Contains(sequence.GetComplementedSequence().ConvertToString()),
+                            "Failed to find expected sequence in assembly (" + sequence.ConvertToString() +
+                            ") or (" + sequence.GetComplementedSequence().ConvertToString());
                     }
 
-                    Console.WriteLine(
-                       "Padena BVT : Assemble() validation for Padena step6:step7 completed successfully");
-                    ApplicationLog.WriteLine(
-                        "Padena BVT : Assemble() validation for Padena step6:step7 completed successfully");
+                    ApplicationLog.WriteLine("Padena BVT : Assemble() validation for Padena step6:step7 completed successfully");
                 }
                 finally
                 {
-                    if (denovoObj != null)
-                        denovoObj.Dispose();
+                    if (assembler != null)
+                        assembler.Dispose();
                 }
             }
         }
@@ -2536,20 +2405,14 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// Validate ParallelDenovoAssembler class properties.
         /// </summary>
         /// <param name="nodeName">xml node name used for different testcases</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)")]
         internal void ParallelDenovoAssemblyProperties(string nodeName)
         {
             // Get values from XML node.
-            string filePath = utilityObj.xmlUtil.GetTextValue(
-               nodeName, Constants.FilePathNode);
-            string kmerLength = utilityObj.xmlUtil.GetTextValue(
-                nodeName, Constants.KmerLengthNode);
-            string library = utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.LibraryName);
-            string StdDeviation = utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.StdDeviation);
-            string mean = utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.Mean);
+            string filePath = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode);
+            string kmerLength = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.KmerLengthNode);
+            string library = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.LibraryName);
+            string StdDeviation = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.StdDeviation);
+            string mean = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.Mean);
 
             // Get the input reads and build kmers
             IEnumerable<ISequence> sequenceReads = null;
@@ -2601,12 +2464,9 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
                 Assert.IsTrue(actualObj.Equals(cloneLibInfoObj));
 
                 ApplicationLog.WriteLine("CloneLibraryInformation Equals() is successfully validated");
-                Console.WriteLine("CloneLibraryInformation Equals() is successfully validated");
             }
 
             // Validate ParallelDenovoAssembler properties.
-            Console.WriteLine(
-                @"Padena BVT : Validated ParallelDenovo Assembly properties");
             ApplicationLog.WriteLine(
                 @"Padena BVT : Validated ParallelDenovo Assembly properties");
         }
@@ -2614,12 +2474,10 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// <summary>
         /// Sort Contig List based on the contig sequence
         /// </summary>
-        /// <param name="nodeName">xml node name used for different testcases</param>
-        static IList<ISequence> SortContigsData(IList<ISequence> contigsList)
+        /// <param name="contigsList">xml node name used for different testcases</param>
+        static IList<ISequence> SortContigsData(IEnumerable<ISequence> contigsList)
         {
-            return (from ContigData in contigsList
-                    orderby ContigData.ToString()
-                    select ContigData).ToList();
+            return (contigsList.OrderBy(contigData => contigData.ToString())).ToList();
         }
 
         ///<summary>
@@ -2629,12 +2487,9 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// <param name="list">List of Paired Reads</param>
         /// <param name="reads">Input list of reads.</param>
         /// <returns>Sorted List of Paired reads</returns>
-        static IList<ValidMatePair> SortPairedReads(
-            IList<ValidMatePair> list, IList<ISequence> reads)
+        static IList<ValidMatePair> SortPairedReads(IEnumerable<ValidMatePair> list, IEnumerable<ISequence> reads)
         {
-            return (from valid in list
-                    orderby valid.PairedRead.GetForwardRead(reads).ToString()
-                    select valid).ToList();
+            return (list.OrderBy(valid => valid.PairedRead.GetForwardRead(reads).ToString())).ToList();
         }
 
         #endregion

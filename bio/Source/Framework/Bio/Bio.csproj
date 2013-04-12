@@ -120,6 +120,7 @@
     <Compile Include="AmbiguousProteinAlphabet.cs" />
     <Compile Include="AmbiguousRnaAlphabet.cs" />
     <Compile Include="Assembly\Contig.cs" />
+    <Compile Include="Assembly\Graph\BinaryTreeOfDebruijinNodes.cs" />
     <Compile Include="Assembly\Graph\DeBruijnEdge.cs" />
     <Compile Include="Assembly\Graph\DeBruijnGraph.cs" />
     <Compile Include="Assembly\Graph\DeBruijnNode.cs" />
@@ -127,6 +128,7 @@
     <Compile Include="Assembly\Graph\DeBruijnPathList.cs" />
     <Compile Include="Assembly\Graph\Edge.cs" />
     <Compile Include="Assembly\Graph\Graph.cs" />
+    <Compile Include="Assembly\Graph\KmerDictionary.cs" />
     <Compile Include="Assembly\Graph\Vertex.cs" />
     <Compile Include="Assembly\IDeBruijnDeNovoAssembler.cs" />
     <Compile Include="Assembly\IDeBruijnDeNovoAssembly.cs" />
@@ -372,8 +374,7 @@
     <Compile Include="ISequence.cs" />
     <Compile Include="ISequenceRange.cs" />
     <Compile Include="Kmer\IKmerBuilder.cs" />
-    <Compile Include="Kmer\IKmerData.cs" />
-    <Compile Include="Kmer\KmerData.cs" />
+    <Compile Include="Kmer\KmerData32.cs" />
     <Compile Include="Kmer\KmerIndexer.cs" />
     <Compile Include="Kmer\KmerIndexerDictionary.cs" />
     <Compile Include="Kmer\KmerPositionDictionary.cs" />

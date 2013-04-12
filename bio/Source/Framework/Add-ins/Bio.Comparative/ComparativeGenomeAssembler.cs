@@ -17,31 +17,6 @@ namespace Bio.Algorithms.Assembly.Comparative
     public class ComparativeGenomeAssembler
     {
         /// <summary>
-        /// Holds the delta alingment output filename for ReadAlignment step.
-        /// </summary>
-        private const string ReadAlignmentOutputFilename = "DeltaAlignments_ReadAlginmentOutput.txt";
-
-        /// <summary>
-        /// Holds the unsorted delta alingment output filename for RepeateResolution step.
-        /// </summary>
-        private const string UnsortedRepeatResolutionOutputFilename = "UnsortedDeltaAlignments_RepeatResolutionOutput.txt";
-
-        /// <summary>
-        /// Holds the sorted delta alingment output filename for RepeateResolution step.
-        /// </summary>
-        private const string RepeateResolutionOutputFilename = "SortedDeltaAlignments_RepeatResolverOutput.txt";
-
-        /// <summary>
-        /// Holds the unsorted delta alingment output filename for LayoutRefinment step.
-        /// </summary>
-        private const string UnsortedLayoutRefinmentOutputFilename = "UnsortedDeltaAlignments_LayoutRefinmentOutput.txt";
-
-        /// <summary>
-        /// Holds the sorted delta alingment output filename for LayoutRefinment step.
-        /// </summary>
-        private const string LayoutRefinmentOutputFileName = "SortedDeltaAlignments_LayoutRefinmentOutput.txt";
-
-        /// <summary>
         /// Holds time interval between two progress events.
         /// </summary>
         private const int ProgressTimerInterval = 5 * 60 * 1000;
@@ -49,27 +24,17 @@ namespace Bio.Algorithms.Assembly.Comparative
         /// <summary>
         /// K-mer Length.
         /// </summary>
-        private int kmerLength = 10;
-
-        /// <summary>
-        /// Length of MUM. 
-        /// </summary>
-        private int lengthOfMum = 20;
-
-        /// <summary>
-        /// Default depth for graph traversal in scaffold builder step.
-        /// </summary>
-        private int depth = 10;
+        private int _kmerLength = 10;
 
         /// <summary>
         /// Holds the status message which will be sent through the Status event.
         /// </summary>
-        private string statusMessage;
+        private string _statusMessage;
 
         /// <summary>
         /// Timer to report progress.
         /// </summary>
-        private Timer progressTimer;
+        private Timer _progressTimer;
 
         #region Constructor
         /// <summary>
@@ -77,6 +42,8 @@ namespace Bio.Algorithms.Assembly.Comparative
         /// </summary>
         public ComparativeGenomeAssembler()
         {
+            LengthOfMum = 20;
+            Depth = 10;
             // Set default values.
             this.BreakLength = 200;
             this.FixedSeparation = 5;
@@ -99,12 +66,12 @@ namespace Bio.Algorithms.Assembly.Comparative
         {
             get
             {
-                return this.kmerLength;
+                return this._kmerLength;
             }
 
             set
             {
-                this.kmerLength = value;
+                this._kmerLength = value;
                 this.AllowKmerLengthEstimation = false;
             }
         }
@@ -127,18 +94,7 @@ namespace Bio.Algorithms.Assembly.Comparative
         /// <summary>
         /// Gets or sets the Depth for graph traversal in scaffold builder step.
         /// </summary>
-        public int Depth
-        {
-            get
-            {
-                return this.depth;
-            }
-
-            set
-            {
-                this.depth = value;
-            }
-        }
+        public int Depth { get; set; }
 
         /// <summary>
         /// Gets the name of the sequence assembly algorithm being
@@ -163,18 +119,7 @@ namespace Bio.Algorithms.Assembly.Comparative
         /// <summary>
         /// Gets or sets the length of MUM for using with NUCmer.
         /// </summary>
-        public int LengthOfMum
-        {
-            get
-            {
-                return this.lengthOfMum;
-            }
-
-            set
-            {
-                this.lengthOfMum = value;
-            }
-        }
+        public int LengthOfMum { get; set; }
 
         /// <summary>
         /// Gets or sets number of bases to be extended before stopping alignment.
@@ -212,18 +157,23 @@ namespace Bio.Algorithms.Assembly.Comparative
         /// <returns>IComparativeAssembly instance which contains list of assembled sequences.</returns>
         public IEnumerable<ISequence> Assemble(IEnumerable<ISequence> referenceSequence, FastASequencePositionParser queryParser)
         {
-            this.progressTimer = new Timer(ProgressTimerInterval);
-            this.progressTimer.Elapsed += new ElapsedEventHandler(this.ProgressTimerElapsed);
-            DeltaAlignmentSorter sorter = null;
+            this._progressTimer = new Timer(ProgressTimerInterval);
+            this._progressTimer.Elapsed += this.ProgressTimerElapsed;
             if (queryParser == null)
             {
                 throw new ArgumentNullException("queryParser");
             }
 
+            string readAlignmentOutputFilename = null;
+            string unsortedRepeatResolutionOutputFilename = null;
+            string repeateResolutionOutputFilename = null;
+            string unsortedLayoutRefinmentOutputFilename = null;
+            string layoutRefinmentOutputFileName = null;
+
             try
             {
                 // Converting to list to avoid multiple parse of the reference file if its a yield return
-                List<ISequence> refSequences = referenceSequence.ToList();
+                var refSequences = referenceSequence.ToList();
 
                 // CacheSequencesForRandomAccess will ignore the call if called more than once.
                 queryParser.CacheSequencesForRandomAccess();
@@ -232,44 +182,54 @@ namespace Bio.Algorithms.Assembly.Comparative
                 // Comparative Assembly Steps
                 // 1) Read Alignment (Calling NUCmer for aligning reads to reference sequence)
                 this.StatusEventStart(Properties.Resources.ReadAlignmentStarted);
-                IEnumerable<DeltaAlignment> alignmentBetweenReferenceAndReads = this.ReadAlignment(refSequences, reads.Where(a => a.Count >= this.LengthOfMum));
-                WriteDelta(alignmentBetweenReferenceAndReads, ReadAlignmentOutputFilename);
+                IEnumerable<DeltaAlignment> alignmentBetweenReferenceAndReads = this.ReadAlignment(refSequences, 
+                            reads.Where(a => a.Count >= this.LengthOfMum));
+
+                readAlignmentOutputFilename = Path.GetTempFileName();
+                WriteDelta(alignmentBetweenReferenceAndReads, readAlignmentOutputFilename);
                 this.StatusEventEnd(Properties.Resources.ReadAlignmentEnded);
 
                 // 2) Repeat Resolution
                 this.StatusEventStart(Properties.Resources.RepeatResolutionStarted);
-                using (DeltaAlignmentCollection deltaAlignmentFromReadAlignment = new DeltaAlignmentCollection(ReadAlignmentOutputFilename, queryParser))
+                DeltaAlignmentSorter sorter;
+
+                unsortedRepeatResolutionOutputFilename = Path.GetTempFileName();
+                using (DeltaAlignmentCollection deltaAlignmentFromReadAlignment = new DeltaAlignmentCollection(readAlignmentOutputFilename, queryParser))
                 {
                     IEnumerable<DeltaAlignment> repeatResolvedDeltas = RepeatResolution(deltaAlignmentFromReadAlignment);
                     sorter = new DeltaAlignmentSorter(refSequences[0].Count);
-                    WriteUnsortedDelta(repeatResolvedDeltas, sorter, UnsortedRepeatResolutionOutputFilename);
+                    WriteUnsortedDelta(repeatResolvedDeltas, sorter, unsortedRepeatResolutionOutputFilename);
                 }
 
                 this.StatusEventEnd(Properties.Resources.RepeatResolutionEnded);
-
                 this.StatusEventStart(Properties.Resources.SortingResolvedDeltasStarted);
-                WriteSortedDelta(sorter, UnsortedRepeatResolutionOutputFilename, queryParser, RepeateResolutionOutputFilename);
-                sorter = null;
+
+                repeateResolutionOutputFilename = Path.GetTempFileName();
+                WriteSortedDelta(sorter, unsortedRepeatResolutionOutputFilename, queryParser, repeateResolutionOutputFilename);
                 this.StatusEventEnd(Properties.Resources.SortingResolvedDeltasEnded);
 
                 // 3) Layout Refinement
                 this.StatusEventStart(Properties.Resources.LayoutRefinementStarted);
 
-                using (DeltaAlignmentCollection unsortedDeltaCollectionForLayoutRefinment = new DeltaAlignmentCollection(RepeateResolutionOutputFilename, queryParser))
+                layoutRefinmentOutputFileName = Path.GetTempFileName();
+                using (DeltaAlignmentCollection unsortedDeltaCollectionForLayoutRefinment = new DeltaAlignmentCollection(repeateResolutionOutputFilename, queryParser))
                 {
+                    unsortedLayoutRefinmentOutputFilename = Path.GetTempFileName();
                     IEnumerable<DeltaAlignment> layoutRefinedDeltas = LayoutRefinment(unsortedDeltaCollectionForLayoutRefinment);
                     sorter = new DeltaAlignmentSorter(refSequences[0].Count);
-                    WriteUnsortedDelta(layoutRefinedDeltas, sorter, UnsortedLayoutRefinmentOutputFilename);
-                    WriteSortedDelta(sorter, UnsortedLayoutRefinmentOutputFilename, queryParser, LayoutRefinmentOutputFileName);
+                    WriteUnsortedDelta(layoutRefinedDeltas, sorter, unsortedLayoutRefinmentOutputFilename);
+                    WriteSortedDelta(sorter, unsortedLayoutRefinmentOutputFilename, queryParser, layoutRefinmentOutputFileName);
                 }
-
-                sorter = null;
 
                 this.StatusEventEnd(Properties.Resources.LayoutRefinementEnded);
 
                 // 4) Consensus Generation
                 this.StatusEventStart(Properties.Resources.ConsensusGenerationStarted);
-                IEnumerable<ISequence> contigs = this.ConsensusGenerator(new DeltaAlignmentCollection(LayoutRefinmentOutputFileName, queryParser));
+                IList<ISequence> contigs;
+                using (var delta = new DeltaAlignmentCollection(layoutRefinmentOutputFileName, queryParser))
+                {
+                    contigs = this.ConsensusGenerator(delta).ToList();
+                }
                 this.StatusEventEnd(Properties.Resources.ConsensusGenerationEnded);
 
                 if (this.ScaffoldingEnabled)
@@ -278,7 +238,6 @@ namespace Bio.Algorithms.Assembly.Comparative
                     this.StatusEventStart(Properties.Resources.ScaffoldGenerationStarted);
                     IEnumerable<ISequence> scaffolds = this.ScaffoldsGenerator(contigs, reads);
                     this.StatusEventEnd(Properties.Resources.ScaffoldGenerationEnded);
-
                     return scaffolds;
                 }
                 else
@@ -288,7 +247,19 @@ namespace Bio.Algorithms.Assembly.Comparative
             }
             finally
             {
-                this.progressTimer.Stop();
+                this._progressTimer.Stop();
+
+                // Cleanup temp files.
+                if (!string.IsNullOrEmpty(readAlignmentOutputFilename))
+                    File.Delete(readAlignmentOutputFilename);
+                if (!string.IsNullOrEmpty(unsortedRepeatResolutionOutputFilename))
+                    File.Delete(unsortedRepeatResolutionOutputFilename);
+                if (!string.IsNullOrEmpty(repeateResolutionOutputFilename))
+                    File.Delete(repeateResolutionOutputFilename);
+                if (!string.IsNullOrEmpty(unsortedLayoutRefinmentOutputFilename))
+                    File.Delete(unsortedLayoutRefinmentOutputFilename);
+                if (!string.IsNullOrEmpty(layoutRefinmentOutputFileName))
+                    File.Delete(layoutRefinmentOutputFileName);
             }
         }
 
@@ -424,25 +395,19 @@ namespace Bio.Algorithms.Assembly.Comparative
         /// <returns>Delta alignments after read alignment.</returns>
         private IEnumerable<DeltaAlignment> ReadAlignment(IEnumerable<ISequence> referenceSequence, IEnumerable<ISequence> reads)
         {
-            foreach (ISequence sequence in referenceSequence)
-            {
-                NUCmer nucmer = new NUCmer((Sequence)sequence);
-
-                nucmer.FixedSeparation = this.FixedSeparation;
-                nucmer.MinimumScore = this.MinimumScore;
-                nucmer.SeparationFactor = this.SeparationFactor;
-                nucmer.MaximumSeparation = this.MaximumSeparation;
-                nucmer.BreakLength = this.BreakLength;
-                nucmer.LengthOfMUM = this.LengthOfMum;
-
-                foreach (ISequence qrySequence in reads)
-                {
-                    foreach (DeltaAlignment delta in nucmer.GetDeltaAlignments(qrySequence, false))
-                    {
-                        yield return delta;
-                    }
-                }
-            }
+            return from sequence in referenceSequence 
+                   select new NUCmer((Sequence)sequence)
+                   {
+                        FixedSeparation = this.FixedSeparation,
+                        MinimumScore = this.MinimumScore,
+                        SeparationFactor = this.SeparationFactor,
+                        MaximumSeparation = this.MaximumSeparation,
+                        BreakLength = this.BreakLength,
+                        LengthOfMUM = this.LengthOfMum
+                   } 
+                   into nucmer 
+                   from qrySequence in reads from delta in nucmer.GetDeltaAlignments(qrySequence, false) 
+                   select delta;
         }
 
         /// <summary>
@@ -451,9 +416,7 @@ namespace Bio.Algorithms.Assembly.Comparative
         private void RaiseStatusEvent()
         {
             if (this.StatusChanged != null)
-            {
-                this.StatusChanged.Invoke(this, new StatusChangedEventArgs(this.statusMessage));
-            }
+                this.StatusChanged.Invoke(this, new StatusChangedEventArgs(this._statusMessage));
         }
 
         /// <summary>
@@ -463,7 +426,7 @@ namespace Bio.Algorithms.Assembly.Comparative
         /// <param name="e">Event arguments.</param>
         private void ProgressTimerElapsed(object sender, ElapsedEventArgs e)
         {
-            this.statusMessage = Properties.Resources.DefaultSubStatus;
+            this._statusMessage = Properties.Resources.DefaultSubStatus;
             this.RaiseStatusEvent();
         }
 
@@ -472,9 +435,9 @@ namespace Bio.Algorithms.Assembly.Comparative
         /// </summary>
         private void StatusEventStart(string message)
         {
-            this.statusMessage = string.Format(CultureInfo.CurrentCulture, message, DateTime.Now);
+            this._statusMessage = string.Format(CultureInfo.CurrentCulture, message, DateTime.Now);
             this.RaiseStatusEvent();
-            this.progressTimer.Start();
+            this._progressTimer.Start();
         }
 
         /// <summary>
@@ -482,8 +445,8 @@ namespace Bio.Algorithms.Assembly.Comparative
         /// </summary>
         private void StatusEventEnd(string message)
         {
-            this.progressTimer.Stop();
-            this.statusMessage = string.Format(CultureInfo.CurrentCulture, message, DateTime.Now);
+            this._progressTimer.Stop();
+            this._statusMessage = string.Format(CultureInfo.CurrentCulture, message, DateTime.Now);
             this.RaiseStatusEvent();
         }
     }

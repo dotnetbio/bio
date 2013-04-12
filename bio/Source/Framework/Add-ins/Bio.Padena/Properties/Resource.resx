@@ -262,4 +262,10 @@
     <value>  Secondary UndangleGraph - Start time: {0:yyyy-MM-dd-HH:mm:ss.fff}</value>
     <comment>Status Message</comment>
   </data>
+  <data name="GraphNodeCountDisplay" xml:space="preserve">
+    <value>Nodes in graph: {0}</value>
+  </data>
+  <data name="TimeSpanReport" xml:space="preserve">
+    <value>Total Time for Task: {0:c}</value>
+  </data>
 </root>

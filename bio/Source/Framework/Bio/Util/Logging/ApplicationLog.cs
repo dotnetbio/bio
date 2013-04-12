@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.IO;
+using System.Runtime.InteropServices;
 
 namespace Bio.Util.Logging
 {
@@ -16,15 +17,42 @@ namespace Bio.Util.Logging
         private static FileInfo _fInfo;
         private static TextWriter _writer;
         private static bool _autoflush = true;
+        private static readonly bool EchoToConsole;
 
         static ApplicationLog()
         {
+            EchoToConsole = ConsoleAttached;
             if (!Ready)
             {
                 Open(Properties.Resource.LogFileName);
             }
         }
 
+        private const uint ATTACH_PARENT_PROCESS = 0x0ffffffff;
+        private const int ERROR_ACCESS_DENIED = 5;
+        [DllImport("kernel32.dll", SetLastError = true)]
+        private static extern bool AttachConsole(uint dwProcessId);
+        [DllImport("kernel32", SetLastError = true)]
+        private static extern bool FreeConsole();
+
+        /// <summary>
+        /// Gets if the current process has a console window.
+        /// </summary>
+        public static bool ConsoleAttached
+        {
+            get
+            {
+                if (AttachConsole(ATTACH_PARENT_PROCESS))
+                {
+                    FreeConsole();
+                    return false;
+                }
+
+                //If the calling process is already attached to a console, 
+                // the error code returned is ERROR_ACCESS_DENIED
+                return Marshal.GetLastWin32Error() == ERROR_ACCESS_DENIED;
+            }
+        }
         /// <summary>
         /// if true (default), a flush occurs after each write, to prevent loss of messages.
         /// if false, calling code should Flush() after critical writes.
@@ -141,6 +169,10 @@ namespace Bio.Util.Logging
                     Flush();
                 }
             }
+
+            if (EchoToConsole)
+                Console.Write(output);
+
             return output;
         }
 
@@ -163,6 +195,9 @@ namespace Bio.Util.Logging
                     Flush();
                 }
             }
+
+            if (EchoToConsole)
+                Console.Write(fmt, args);
             return ret;
         }
 
@@ -181,6 +216,10 @@ namespace Bio.Util.Logging
                     Flush();
                 }
             }
+            
+            if (EchoToConsole)
+                Console.WriteLine(output);
+
             return output + Environment.NewLine;
         }
 
@@ -203,6 +242,10 @@ namespace Bio.Util.Logging
                     Flush();
                 }
             }
+
+            if (EchoToConsole)
+                Console.WriteLine(fmt, args);
+
             return ret + Environment.NewLine;
         }
 
@@ -225,6 +268,10 @@ namespace Bio.Util.Logging
                     Flush();
                 }
             }
+
+            if (EchoToConsole)
+                Console.WriteLine(DateTime.Now.ToString("u", CultureInfo.InvariantCulture) + ": " + string.Format(CultureInfo.InvariantCulture, fmt, args));
+
             return ret + Environment.NewLine;
         }
 

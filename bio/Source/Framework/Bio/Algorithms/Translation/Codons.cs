@@ -31,11 +31,30 @@ namespace Bio.Algorithms.Translation
         /// <returns>The mapped RNA.</returns>
         public static byte Lookup(byte n1, byte n2, byte n3)
         {
+            byte value;
+            if (TryLookup(n1, n2, n3, out value))
+                return value;
+
+            throw new InvalidOperationException(
+                string.Format(null, "({0},{1},{2}) not found.", n1, n2, n3));
+        }
+
+        /// <summary>
+        /// Lookup an amino acid based on a triplet of nucleotides. U U U for instance
+        /// will result in Phenylalanine.
+        /// </summary>
+        /// <param name="n1">The first character.</param>
+        /// <param name="n2">The second character.</param>
+        /// <param name="n3">The third character.</param>
+        /// <param name="value">Mapped RNA value</param>
+        /// <returns>True/False if the value exists</returns>
+        public static bool TryLookup(byte n1, byte n2, byte n3, out byte value)
+        {
             StringBuilder source = new StringBuilder();
             source.Append(char.ToUpper((char)n1, CultureInfo.InvariantCulture));
             source.Append(char.ToUpper((char)n2, CultureInfo.InvariantCulture));
             source.Append(char.ToUpper((char)n3, CultureInfo.InvariantCulture));
-            return codonMap[source.ToString()];
+            return codonMap.TryGetValue(source.ToString(), out value);
         }
 
         /// <summary>
@@ -52,17 +71,35 @@ namespace Bio.Algorithms.Translation
         /// <returns>An amino acid from the protein alphabet</returns>
         public static byte Lookup(ISequence sequence, int offset)
         {
+            byte value;
+            if (TryLookup(sequence, offset, out value))
+                return value;
+
+            throw new InvalidOperationException(
+                string.Format(null, "({0},{1},{2}) not found.", sequence[offset], sequence[offset + 1], sequence[offset + 2]));
+        }
+
+        /// <summary>
+        /// Lookup an amino acid within a sequence starting a certian offset.
+        /// </summary>
+        /// <param name="sequence">The source sequence to lookup from.</param>
+        /// <param name="offset">
+        /// The offset within the sequence from which to look at the next three
+        /// nucleotides. Note that this offset begins its count at zero. Thus
+        /// looking at a sequence described by "AUGGCG" and using a offset of 0
+        /// would lookup the amino acid for codon "AUG" while using a offset of 1
+        /// would lookup the amino acid for codon "UGG".
+        /// </param>
+        /// <param name="value">An amino acid from the protein alphabet</param>
+        /// <returns>True/False if the value exists</returns>
+        public static bool TryLookup(ISequence sequence, int offset, out byte value)
+        {
             if (sequence == null)
-            {
                 throw new ArgumentNullException("sequence");
-            }
-
             if (offset >= sequence.Count - 2)
-            {
                 throw new ArgumentException(Properties.Resource.OffsetOverflow, "offset");
-            }
 
-            return Lookup(sequence[offset], sequence[offset + 1], sequence[offset + 2]);
+            return TryLookup(sequence[offset], sequence[offset + 1], sequence[offset + 2], out value);
         }
 
         /// <summary>

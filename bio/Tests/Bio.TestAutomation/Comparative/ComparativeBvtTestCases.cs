@@ -7,6 +7,7 @@
 using Bio;
 using Bio.Algorithms.Alignment;
 using Bio.Algorithms.Assembly.Padena.Scaffold;
+using Bio.Extensions;
 using Bio.IO.FastA;
 using Bio.Util.Logging;
 using System;
@@ -327,50 +328,32 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Comparative
         public void ValidateComparativeAssembleMethod(string nodeName)
         {
             ComparativeGenomeAssembler assemble = new ComparativeGenomeAssembler();
-            List<ISequence> referenceSeqList = new List<ISequence>();
-            StringBuilder expectedSequence = new StringBuilder(utilityObj.xmlUtil.GetTextValue(nodeName,
-                                    Constants.ExpectedSequenceNode));
+            List<ISequence> referenceSeqList;
+            StringBuilder expectedSequence = new StringBuilder(utilityObj.xmlUtil.GetTextValue(nodeName, Constants.ExpectedSequenceNode));
 
-            string LengthOfMUM = utilityObj.xmlUtil.GetTextValue(nodeName,
-                     Constants.MUMLengthNode);
-            string kmerLength = utilityObj.xmlUtil.GetTextValue(nodeName,
-                     Constants.KmerLengthNode);
-
-            string fixedSeparation = utilityObj.xmlUtil.GetTextValue(nodeName,
-                    Constants.FixedSeparationNode);
-
-            string minimumScore = utilityObj.xmlUtil.GetTextValue(nodeName,
-                     Constants.MinimumScoreNode);
-            string separationFactor = utilityObj.xmlUtil.GetTextValue(nodeName,
-                     Constants.SeparationFactorNode);
-            string maximumSeparation = utilityObj.xmlUtil.GetTextValue(nodeName,
-                     Constants.MaximumSeparationNode);
-            string breakLength = utilityObj.xmlUtil.GetTextValue(nodeName,
-                   Constants.BreakLengthNode);
-
-
+            string LengthOfMUM = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.MUMLengthNode);
+            string kmerLength = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.KmerLengthNode);
+            string fixedSeparation = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FixedSeparationNode);
+            string minimumScore = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.MinimumScoreNode);
+            string separationFactor = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.SeparationFactorNode);
+            string maximumSeparation = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.MaximumSeparationNode);
+            string breakLength = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.BreakLengthNode);
 
             // Gets the reference sequence from the FastA file
-            string filePath = utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.FilePathNode1);
+            string filePath = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode1);
 
             Assert.IsNotNull(filePath);
-            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                "Comparative BVT : Successfully validated the File Path '{0}'.", filePath));
+            ApplicationLog.WriteLine(string.Format(null, "Comparative BVT : Successfully validated the File Path '{0}'.", filePath));
 
             using (FastAParser parser = new FastAParser(filePath))
             {
                 IEnumerable<ISequence> referenceList = parser.Parse();
-
-                foreach (ISequence seq in referenceList)
-                {
-                    referenceSeqList.Add(seq);
-                }
+                Assert.IsNotNull(referenceList);
+                referenceSeqList = new List<ISequence>(referenceList);
             }
 
-            //Get the reads from configurtion file .
-            string readFilePath = utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.FilePathNode2);
+            // Get the reads from configuration file.
+            string readFilePath = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode2);
 
             assemble.LengthOfMum = int.Parse(LengthOfMUM,  CultureInfo.InvariantCulture);
             assemble.KmerLength = int.Parse(kmerLength,  CultureInfo.InvariantCulture);
@@ -381,12 +364,11 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Comparative
             assemble.MaximumSeparation = int.Parse(maximumSeparation, CultureInfo.InvariantCulture);
             assemble.BreakLength = int.Parse(breakLength, CultureInfo.InvariantCulture);
 
-            using (FastASequencePositionParser queryparser = new FastASequencePositionParser(readFilePath))
+            using (var queryparser = new FastASequencePositionParser(readFilePath))
             {
                 IEnumerable<ISequence> output = assemble.Assemble(referenceSeqList, queryparser);
                 StringBuilder longOutput = new StringBuilder();
-                IEnumerable<string> outputStrings = output.Select(a => new string(a.Select(b => (char)b).ToArray())).OrderBy(c => c);
-                foreach (string x in outputStrings)
+                foreach (string x in output.Select(seq => seq.ConvertToString()).OrderBy(c => c))
                     longOutput.Append(x);
 
                 Assert.AreEqual(expectedSequence.ToString().ToUpperInvariant(), longOutput.ToString().ToUpperInvariant());
@@ -416,7 +398,7 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Comparative
             }
 
             ComparativeGenomeAssembler.WriteDelta(result.OrderBy(a => a.FirstSequenceStart), deltaFile);
-            Bio.Util.DeltaAlignmentCollection daCollectionObj = new Bio.Util.DeltaAlignmentCollection(deltaFile, readsFile);
+            var daCollectionObj = new DeltaAlignmentCollection(deltaFile, readsFile);
 
             IEnumerable<ISequence> assembledOutput =
                 ConsensusGeneration.GenerateConsensus(daCollectionObj);

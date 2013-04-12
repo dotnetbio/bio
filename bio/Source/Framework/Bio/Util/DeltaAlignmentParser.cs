@@ -16,7 +16,12 @@ namespace Bio.Util
         /// <summary>
         /// Stream reader for Delta file.
         /// </summary>
-        private StreamReader deltaFileReader;
+        private StreamReader _deltaFileReader;
+
+        /// <summary>
+        /// List holding all the open parsing readers.
+        /// </summary>
+        private List<StreamReader> _parsingReaders = new List<StreamReader>(); 
 
         #endregion
 
@@ -102,18 +107,16 @@ namespace Bio.Util
         /// <returns>Delta alignment.</returns>
         public DeltaAlignment GetDeltaAlignmentAt(long position)
         {
-            bool skipBlankLine = true;
-
-            if (this.deltaFileReader == null)
+            if (this._deltaFileReader == null)
             {
-                this.deltaFileReader = new StreamReader(new FileStream(this.DeltaFilename, FileMode.Open, FileAccess.Read));
+                this._deltaFileReader = new StreamReader(new FileStream(this.DeltaFilename, FileMode.Open, FileAccess.Read));
             }
 
-            this.deltaFileReader.BaseStream.Position = position;
-            this.deltaFileReader.DiscardBufferedData();
+            this._deltaFileReader.BaseStream.Position = position;
+            this._deltaFileReader.DiscardBufferedData();
 
             long deltaPosition = -1;
-            string line = ReadNextLine(this.deltaFileReader);
+            string line = ReadNextLine(this._deltaFileReader);
             if (line == null || !line.StartsWith("@", StringComparison.OrdinalIgnoreCase))
             {
                 throw new FormatException(string.Format(CultureInfo.CurrentCulture, Properties.Resource.CorruptedDeltaAlignmentFile, position, this.DeltaFilename));
@@ -125,7 +128,7 @@ namespace Bio.Util
                 throw new FormatException(string.Format(CultureInfo.CurrentCulture, Properties.Resource.DeltaAlignmentIDDoesnotMatch, deltaPosition, position, this.DeltaFilename));
             }
 
-            line = ReadNextLine(this.deltaFileReader);
+            line = ReadNextLine(this._deltaFileReader);
             if (line == null || !line.StartsWith(">", StringComparison.OrdinalIgnoreCase))
             {
                 string message = string.Format(
@@ -139,7 +142,7 @@ namespace Bio.Util
             string referenceId = line.Substring(1);
 
             // Read next line.
-            line = ReadNextLine(this.deltaFileReader);
+            line = ReadNextLine(this._deltaFileReader);
 
             // Second line - Query sequence id
             string queryId = line;
@@ -158,7 +161,7 @@ namespace Bio.Util
 
             DeltaAlignment deltaAlignment = new DeltaAlignment(refEmpty, querySequence);
             deltaAlignment.Id = deltaPosition;
-            line = ReadNextLine(this.deltaFileReader);
+            line = ReadNextLine(this._deltaFileReader);
             string[] deltaAlignmentProperties = line.Split(" ".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
             if (deltaAlignmentProperties != null && deltaAlignmentProperties.Length == 7)
             {
@@ -183,12 +186,12 @@ namespace Bio.Util
                 }
 
                 // Read next line.
-                line = this.deltaFileReader.ReadLine();
+                line = this._deltaFileReader.ReadLine();
 
                 // Continue reading if blank line found.
-                while (skipBlankLine && line != null && string.IsNullOrEmpty(line))
+                while (line != null && string.IsNullOrEmpty(line))
                 {
-                    line = this.deltaFileReader.ReadLine();
+                    line = this._deltaFileReader.ReadLine();
                 }
             }
 
@@ -201,16 +204,16 @@ namespace Bio.Util
         /// <param name="position">Position of the delta alignment.</param>
         public string GetQuerySeqIdAt(long position)
         {
-            if (this.deltaFileReader == null)
+            if (this._deltaFileReader == null)
             {
-                this.deltaFileReader = new StreamReader(new FileStream(this.DeltaFilename, FileMode.Open, FileAccess.Read));
+                this._deltaFileReader = new StreamReader(new FileStream(this.DeltaFilename, FileMode.Open, FileAccess.Read));
             }
 
-            this.deltaFileReader.BaseStream.Position = position;
-            this.deltaFileReader.DiscardBufferedData();
+            this._deltaFileReader.BaseStream.Position = position;
+            this._deltaFileReader.DiscardBufferedData();
 
             long deltaPosition = -1;
-            string line = ReadNextLine(this.deltaFileReader);
+            string line = ReadNextLine(this._deltaFileReader);
             if (line == null || !line.StartsWith("@", StringComparison.OrdinalIgnoreCase))
             {
                 throw new FormatException(string.Format(CultureInfo.CurrentCulture, Properties.Resource.CorruptedDeltaAlignmentFile, position, this.DeltaFilename));
@@ -222,7 +225,7 @@ namespace Bio.Util
                 throw new FormatException(string.Format(CultureInfo.CurrentCulture, Properties.Resource.DeltaAlignmentIDDoesnotMatch, deltaPosition, position, this.DeltaFilename));
             }
 
-            line = ReadNextLine(this.deltaFileReader);
+            line = ReadNextLine(this._deltaFileReader);
             if (line == null || !line.StartsWith(">", StringComparison.OrdinalIgnoreCase))
             {
                 string message = string.Format(
@@ -234,12 +237,12 @@ namespace Bio.Util
             }
 
             // Read next line.
-            line = ReadNextLine(this.deltaFileReader);
+            line = ReadNextLine(this._deltaFileReader);
             return line;
         }
 
         /// <summary>
-        /// Gets Delta alignment id and query sequence ids paires.
+        /// Gets Delta alignment id and query sequence ids pairs.
         /// </summary>
         public IEnumerable<Tuple<string, string>> GetQuerySeqIds()
         {
@@ -303,11 +306,18 @@ namespace Bio.Util
         public void Close()
         {
             this.DeltaFilename = null;
-            if (this.deltaFileReader != null)
+            if (this._deltaFileReader != null)
             {
-                this.deltaFileReader.Close();
-                this.deltaFileReader = null;
+                this._deltaFileReader.Close();
+                this._deltaFileReader = null;
             }
+
+            foreach (var reader in _parsingReaders)
+            {
+                reader.Dispose();
+            }
+
+            _parsingReaders.Clear();
         }
 
         /// <summary>
@@ -356,10 +366,11 @@ namespace Bio.Util
         /// <returns>IEnumerable of DeltaAlignments.</returns>
         private IEnumerable<DeltaAlignment> ParseFrom(StreamReader streamReader)
         {
+            _parsingReaders.Add(streamReader);
+
             string lastReadQuerySequenceId = string.Empty;
             ISequence sequence = null;
-            bool skipBlankLine = true;
-            string message = string.Empty;
+            string message;
 
             if (streamReader.EndOfStream)
             {
@@ -424,7 +435,7 @@ namespace Bio.Util
                 }
 
                 deltaAlignment.Id = deltaPosition;
-                // Fourth line - properties of deltaalignment
+                // Fourth line - properties of delta alignment
                 // Read next line.
                 line = ReadNextLine(streamReader);
 
@@ -455,7 +466,7 @@ namespace Bio.Util
                     line = streamReader.ReadLine();
 
                     // Continue reading if blank line found.
-                    while (skipBlankLine && line != null && string.IsNullOrEmpty(line))
+                    while (line != null && string.IsNullOrEmpty(line))
                     {
                         line = streamReader.ReadLine();
                     }
@@ -467,6 +478,8 @@ namespace Bio.Util
                 line = streamReader.ReadLine();
             }
             while (line != null);
+
+            streamReader.Close();
         }
         #endregion
         #endregion

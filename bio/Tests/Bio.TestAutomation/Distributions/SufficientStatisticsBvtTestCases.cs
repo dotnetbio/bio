@@ -66,8 +66,10 @@ namespace Bio.TestAutomation.Distributions
         [TestMethod]
         [Priority(0)]
         [TestCategory("Priority0")]
+        [Ignore]
         public void ValidateSufficientStatisticsGetHashCode()
         {
+            // Not used anymore - changes with each .NET release.
             SufficientStatistics boolStat1 = SufficientStatistics.Parse("1");
             Assert.AreEqual(372029325, boolStat1.GetHashCode());
         }

@@ -33,9 +33,11 @@ namespace Bio.IO.FastA
         public const int GBytes = 1024 * MBytes;
 
         /// <summary>
-        /// Buffer size.
+        /// Buffer size that we build the sequences in.  The buffer
+        /// is increased by this amount each time we encounter a sequence
+        /// larger than what we have allocated.
         /// </summary>
-        private const int BufferSize = 256 * MBytes;
+        private const int BufferSize = 64 * MBytes;
 
         /// <summary>
         /// Maximum sequence length.
@@ -261,7 +263,7 @@ namespace Bio.IO.FastA
 
                 if (((bufferPosition + line.Length) >= currentBufferSize))
                 {
-                    Array.Resize<byte>(ref buffer, buffer.Length + BufferSize);
+                    Array.Resize(ref buffer, buffer.Length + BufferSize);
                     currentBufferSize += BufferSize;
                 }
 

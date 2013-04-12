@@ -14,6 +14,6 @@ namespace Bio.Algorithms.Assembly.Padena
         /// <param name="deBruijnGraph">DeBruijn Graph.</param>
         /// <param name="coverageThresholdForContigs">Coverage Threshold for contigs.</param>
         /// <returns>Number of nodes removed.</returns>
-        int RemoveLowCoverageContigs(DeBruijnGraph deBruijnGraph, double coverageThresholdForContigs);
+        long RemoveLowCoverageContigs(DeBruijnGraph deBruijnGraph, double coverageThresholdForContigs);
     }
 }

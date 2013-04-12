@@ -9,8 +9,8 @@ namespace Bio.Util
     /// <summary>
     /// This class provides indexer access to the DeltaAlignments stored in the specified delta alignment file. 
     /// This class uses a file to hold DeltaAlignment id's from the deltaAlignment file.
-    /// As the id of delta alignment itself is the location in the file, 
-    /// using DeltaAlignmentParser and FastASequencePositionParser this class gets the deltaalignment on demand.
+    /// As the id of delta alignment itself is the location in the file, using DeltaAlignmentParser 
+    /// and FastASequencePositionParser this class gets the delta alignment on demand.
     /// </summary>
     public class DeltaAlignmentCollection : IDisposable
     {
@@ -20,34 +20,29 @@ namespace Bio.Util
         private const int BytesPerRecord = 8;
 
         /// <summary>
-        /// DeltaAlignment parser.
-        /// </summary>
-        private DeltaAlignmentParser deltaAlignmentParser;
-
-        /// <summary>
         /// FastASequencePositionParser instance.
         /// </summary>
-        private FastASequencePositionParser fastASequencePositionParser;
+        private FastASequencePositionParser _fastASequencePositionParser;
 
         /// <summary>
         /// File required to store the content of this collection.
         /// </summary>
-        private string collectionFile;
+        private readonly string _collectionFile;
 
         /// <summary>
         /// FileStream to read collectionFile.
         /// </summary>
-        private FileStream collectionFileReader;
+        private FileStream _collectionFileReader;
 
         /// <summary>
         /// Buffer to use while reading collectionFile.
         /// </summary>
-        private byte[] readBuffer = new byte[BytesPerRecord];
+        private byte[] _readBuffer = new byte[BytesPerRecord];
 
         /// <summary>
         /// Flag to indicate whether disposing this instance should dispose FastASequencePositionParser or not.
         /// </summary>
-        private bool disposeFastASequencePositionParser = true;
+        private readonly bool _disposeFastASequencePositionParser = true;
 
         /// <summary>
         /// Initializes a new instance of the DeltaAlignmentCollection class.
@@ -58,10 +53,11 @@ namespace Bio.Util
         {
             this.DeltaAlignmentFilename = deltaAlignmentFilename;
             this.QueryFilename = readsFilename;
-            this.fastASequencePositionParser = new FastASequencePositionParser(this.QueryFilename, true);
-            this.deltaAlignmentParser = new DeltaAlignmentParser(this.DeltaAlignmentFilename, this.fastASequencePositionParser);
-            this.collectionFile = Guid.NewGuid().ToString();
-            this.collectionFileReader = new FileStream(this.collectionFile, FileMode.Create, FileAccess.ReadWrite);
+            this._fastASequencePositionParser = new FastASequencePositionParser(this.QueryFilename, true);
+            this.DeltaAlignmentParser = new DeltaAlignmentParser(this.DeltaAlignmentFilename, this._fastASequencePositionParser);
+            this._collectionFile = Path.GetTempFileName();
+            this._collectionFileReader = new FileStream(this._collectionFile, FileMode.Create, FileAccess.ReadWrite);
+
             this.LoadAllFromFile();
         }
 
@@ -73,25 +69,17 @@ namespace Bio.Util
         public DeltaAlignmentCollection(string deltaAlignmentFilename, FastASequencePositionParser fastASequencePositionParser)
         {
             if (fastASequencePositionParser == null)
-            {
                 throw new ArgumentNullException("fastASequencePositionParser");
-            }
-            this.disposeFastASequencePositionParser = false;
+            
+            this._disposeFastASequencePositionParser = false;
             this.DeltaAlignmentFilename = deltaAlignmentFilename;
             this.QueryFilename = fastASequencePositionParser.Filename;
-            this.fastASequencePositionParser = fastASequencePositionParser;
-            this.deltaAlignmentParser = new DeltaAlignmentParser(this.DeltaAlignmentFilename, this.fastASequencePositionParser);
-            this.collectionFile = Guid.NewGuid().ToString();
-            this.collectionFileReader = new FileStream(this.collectionFile, FileMode.Create, FileAccess.ReadWrite);
+            this._fastASequencePositionParser = fastASequencePositionParser;
+            this.DeltaAlignmentParser = new DeltaAlignmentParser(this.DeltaAlignmentFilename, this._fastASequencePositionParser);
+            this._collectionFile = Guid.NewGuid().ToString();
+            this._collectionFileReader = new FileStream(this._collectionFile, FileMode.Create, FileAccess.ReadWrite);
+            
             this.LoadAllFromFile();
-        }
-
-        /// <summary>
-        /// Finalizes an instance of the DeltaAlignmentCollection class.
-        /// </summary>
-        ~DeltaAlignmentCollection()
-        {
-            this.Dispose(false);
         }
 
         /// <summary>
@@ -112,13 +100,7 @@ namespace Bio.Util
         /// <summary>
         /// Gets the DeltaAlignment parser.
         /// </summary>
-        public DeltaAlignmentParser DeltaAlignmentParser
-        {
-            get
-            {
-                return this.deltaAlignmentParser;
-            }
-        }
+        public DeltaAlignmentParser DeltaAlignmentParser { get; private set; }
 
         /// <summary>
         /// Gets the Delta alignment present at the specified index.
@@ -135,19 +117,13 @@ namespace Bio.Util
                 }
 
                 long positionToSeek = index * BytesPerRecord;
+                this._collectionFileReader.Position = positionToSeek;
 
-                if (this.collectionFileReader.Position != positionToSeek)
-                {
-                    this.collectionFileReader.Position = positionToSeek;
-                }
-
-                if (this.collectionFileReader.Read(this.readBuffer, 0, BytesPerRecord) != BytesPerRecord)
-                {
+                if (this._collectionFileReader.Read(this._readBuffer, 0, BytesPerRecord) != BytesPerRecord)
                     throw new ArgumentException(Properties.Resource.DeltaCollectionFileCorrupted);
-                }
 
-                long position = BitConverter.ToInt64(this.readBuffer, 0);
-                return this.deltaAlignmentParser.GetDeltaAlignmentAt(position);
+                long position = BitConverter.ToInt64(this._readBuffer, 0);
+                return this.DeltaAlignmentParser.GetDeltaAlignmentAt(position);
             }
         }
 
@@ -157,19 +133,19 @@ namespace Bio.Util
         public IEnumerable<List<DeltaAlignment>> GetDeltaAlignmentsByReads()
         {
             List<DeltaAlignment> list = null;
-            string previousQueryID = string.Empty;
-            foreach (DeltaAlignment delta in this.deltaAlignmentParser.Parse())
+            string previousQueryId = string.Empty;
+            foreach (DeltaAlignment delta in this.DeltaAlignmentParser.Parse())
             {
-                if (previousQueryID != delta.QuerySequence.ID)
+                if (previousQueryId != delta.QuerySequence.ID)
                 {
                     if (list != null)
-                    {
                         yield return list;
-                    }
-
                     list = new List<DeltaAlignment>();
                 }
 
+                if (list == null)
+                    list = new List<DeltaAlignment>();
+                
                 list.Add(delta);
             }
         }
@@ -180,29 +156,25 @@ namespace Bio.Util
         /// <param name="sequenceId">Sequence id.</param>
         public List<DeltaAlignment> GetDeltaAlignmentFor(string sequenceId)
         {
-            string fullSequenceId = string.Empty;
-            List<DeltaAlignment> list = new List<DeltaAlignment>();
-            long deltaId = this.GetDeltaAlignmentIDFor(sequenceId, out fullSequenceId);
-            if (deltaId == -1)
-            {
-                return list;
-            }
+            string fullSequenceId;
+            var list = new List<DeltaAlignment>();
 
-            foreach (DeltaAlignment delta in this.deltaAlignmentParser.ParseFrom(deltaId))
+            long deltaId = this.GetDeltaAlignmentIdFor(sequenceId, out fullSequenceId);
+            if (deltaId == -1)
+                return list;
+
+            foreach (DeltaAlignment delta in this.DeltaAlignmentParser.ParseFrom(deltaId))
             {
                 if (fullSequenceId != delta.QuerySequence.ID)
-                {
                     return list;
-                }
 
                 list.Add(delta);
             }
-
             return list;
         }
 
         /// <summary>
-        /// Disposes the underlaying streams used.
+        /// Disposes the underlying streams used.
         /// </summary>
         public void Dispose()
         {
@@ -218,35 +190,34 @@ namespace Bio.Util
         {
             if (disposing)
             {
-                if (this.deltaAlignmentParser != null)
+                if (this.DeltaAlignmentParser != null)
                 {
-                    this.deltaAlignmentParser.Dispose();
-                    this.deltaAlignmentParser = null;
+                    this.DeltaAlignmentParser.Dispose();
+                    this.DeltaAlignmentParser = null;
                 }
 
-                if (this.fastASequencePositionParser != null)
+                if (this._fastASequencePositionParser != null)
                 {
-                    if (disposeFastASequencePositionParser)
+                    if (_disposeFastASequencePositionParser)
                     {
-                        this.fastASequencePositionParser.Dispose();
+                        this._fastASequencePositionParser.Dispose();
                     }
-
-                    this.fastASequencePositionParser = null;
+                    this._fastASequencePositionParser = null;
                 }
 
-                if (this.collectionFileReader != null)
+                if (this._collectionFileReader != null)
                 {
-                    this.collectionFileReader.Dispose();
-                    this.collectionFileReader = null;
+                    this._collectionFileReader.Dispose();
+                    this._collectionFileReader = null;
                 }
 
-                this.readBuffer = null;
+                this._readBuffer = null;
             }
 
             // Delete the collection file on Dispose or GC.
-            if (File.Exists(this.collectionFile))
+            if (File.Exists(this._collectionFile))
             {
-                File.Delete(this.collectionFile);
+                File.Delete(this._collectionFile);
             }
         }
 
@@ -255,19 +226,18 @@ namespace Bio.Util
         /// </summary>
         private void LoadAllFromFile()
         {
-            this.collectionFileReader.Seek(0, SeekOrigin.Begin);
+            this._collectionFileReader.Seek(0, SeekOrigin.Begin);
             this.Count = 0;
-            byte[] bytes;
 
-            foreach (long position in this.deltaAlignmentParser.GetPositions())
+            foreach (long position in this.DeltaAlignmentParser.GetPositions())
             {
-                bytes = BitConverter.GetBytes(position);
-                this.collectionFileReader.Write(bytes, 0, BytesPerRecord);
+                byte[] bytes = BitConverter.GetBytes(position);
+                this._collectionFileReader.Write(bytes, 0, BytesPerRecord);
                 this.Count++;
             }
 
-            this.collectionFileReader.Flush();
-            this.collectionFileReader.Seek(0, SeekOrigin.Begin);
+            this._collectionFileReader.Flush();
+            this._collectionFileReader.Seek(0, SeekOrigin.Begin);
         }
 
         /// <summary>
@@ -276,16 +246,14 @@ namespace Bio.Util
         /// <param name="sequenceId">Sequence id.</param>
         /// <param name="fullSequenceId">Full id of the sequence id.</param>
         /// <returns>Delta alignment id.</returns>
-        private long GetDeltaAlignmentIDFor(string sequenceId, out string fullSequenceId)
+        private long GetDeltaAlignmentIdFor(string sequenceId, out string fullSequenceId)
         {
-            foreach (var data in this.deltaAlignmentParser.GetQuerySeqIds())
+            foreach (var data in this.DeltaAlignmentParser.GetQuerySeqIds())
             {
                 string id = data.Item2;
                 int index = id.LastIndexOf(Helper.PairedReadDelimiter);
                 if (index > 0)
-                {
                     id = id.Substring(0, index);
-                }
 
                 if (id == sequenceId)
                 {

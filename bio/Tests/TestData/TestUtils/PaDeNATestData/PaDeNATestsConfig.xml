@@ -1414,8 +1414,8 @@
     <Erosion>5</Erosion>
     <LowCoverageContig>2</LowCoverageContig>
     <Mean>5</Mean>
-    <AssembledSeqCount>8</AssembledSeqCount>
-    <SequencePath>GCGCGC,TTTTTA,TTTTAA,TTTAAA,TTTTAGCGCG,CGCGCCGCGC,CGCGCG,TTTTTT</SequencePath>
+    <AssembledSeqCount>7</AssembledSeqCount>
+    <SequencePath>GCGCGC,TTTTTA,TTTTTT,CGCGCG,TTTTAAA,TTTTAGCGCGC,GCGCGGCGCG</SequencePath>
   </AssembledSequencesForSequenceReadsWithErosion>
   <AssembledSequencesForSequenceReadsWithLCC>
     <FilePath>TestUtils\PaDeNATestData\ScaffoldPaths.fa</FilePath>

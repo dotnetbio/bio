@@ -73,10 +73,8 @@ namespace Bio.Algorithms.Translation
                     {
                         throw;
                     }
-                    else
-                    {
-                        translatedResult[counter] = AmbiguousProteinAlphabet.Instance.X;
-                    }
+                    
+                    translatedResult[counter] = AmbiguousProteinAlphabet.Instance.X;
                 }
                 ++counter;
             }

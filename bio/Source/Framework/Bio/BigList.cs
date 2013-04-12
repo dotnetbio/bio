@@ -16,12 +16,12 @@ namespace Bio
         /// Default capacity, used while adding first element 
         /// when capacity is not specified.
         /// </summary>
-        private const int _defaultCapacity = 4;
+        private const int DefaultCapacity = 4;
 
         /// <summary>
         /// Empty array.
         /// </summary>
-        private static BigArray<T> _emptyArray = new BigArray<T>(0);
+        private static readonly BigArray<T> _emptyArray = new BigArray<T>(0);
 
         /// <summary>
         /// BigArray instance to store elements.
@@ -40,7 +40,7 @@ namespace Bio
         /// </summary>
         public BigList()
         {
-            this._items = BigList<T>._emptyArray;
+            this._items = _emptyArray;
         }
 
         /// <summary>
@@ -83,7 +83,7 @@ namespace Bio
             else
             {
                 this._size = 0;
-                this._items = new BigArray<T>(BigList<T>._defaultCapacity);
+                this._items = new BigArray<T>(BigList<T>.DefaultCapacity);
                 using (IEnumerator<T> enumerator = collection.GetEnumerator())
                 {
                     while (enumerator.MoveNext())
@@ -92,6 +92,30 @@ namespace Bio
                     }
                 }
             }
+        }
+        /// <summary>
+        /// Initialize a new big list with a collection and known size.
+        /// </summary>
+        /// <param name="collection">Items to add</param>
+        /// <param name="collectionCount">Size of list</param>
+        public BigList(IEnumerable<T> collection,long collectionCount)
+        {
+            if (collection == null)
+            {
+                throw new ArgumentNullException("collection");
+            }
+            if (collectionCount < 0)
+            {
+                throw new ArgumentException("Cannot make new big list with < 0 items","collectionCount");
+            }
+                this._items = new BigArray<T>(collectionCount);
+                int index = 0;
+                foreach (var item in collection)
+                {
+                    this._items[index++] = item;
+                }
+                this._size = collectionCount;
+            
         }
         #endregion
 
@@ -374,6 +398,19 @@ namespace Bio
         }
 
         /// <summary>
+        /// Trims the list and removes all elements above newSize
+        /// </summary>
+        /// <param name="newSize">size of new array</param>
+        public void TrimToSize(long newSize)
+        {
+            if (newSize > this.Count || newSize<0)
+            {
+                throw new ArgumentException("Cannot trim BigList class to value less than 0 or larger than original size","newSize");
+            }
+            this._items.Resize(newSize);
+        }
+
+        /// <summary>
         /// Performs the specified action on each element of the BigList.
         /// </summary>
         /// <param name="action">The delegate to perform on each element of the BigList.</param>
@@ -417,7 +454,7 @@ namespace Bio
                 long newCapacity = 0;
                 if (this._items.Length == 0)
                 {
-                    newCapacity = BigList<T>._defaultCapacity;
+                    newCapacity = BigList<T>.DefaultCapacity;
                 }
                 else if (this._items.Length * 2 < this._items.BlockSize)
                 {

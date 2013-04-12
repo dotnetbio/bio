@@ -150,27 +150,19 @@ namespace Bio.TestAutomation.Util
         public void ValidateStringJoinForEtcString()
         {
             string expectedSequence = utilityObj.xmlUtil.GetTextValue(
-                Constants.IEnumerableExtensionsNode,
-                Constants.ExpectedSequence);
+                Constants.IEnumerableExtensionsNode, Constants.ExpectedSequence);
             string etcString = utilityObj.xmlUtil.GetTextValue(
-                Constants.IEnumerableExtensionsNode,
-                Constants.EtcStringNode);
-            int maxLength = Convert.ToInt32(
-                utilityObj.xmlUtil.GetTextValue(
-                Constants.IEnumerableExtensionsNode,
-                Constants.MaxAttemptString),
-                CultureInfo.InvariantCulture);
-            sequences = utilityObj.xmlUtil.GetTextValue(
-                Constants.IEnumerableExtensionsNode,
-                Constants.Sequence2).Split(';');
+                Constants.IEnumerableExtensionsNode, Constants.EtcStringNode);
+            int maxLength = Convert.ToInt32(utilityObj.xmlUtil.GetTextValue(
+                Constants.IEnumerableExtensionsNode, Constants.MaxAttemptString), CultureInfo.InvariantCulture);
+            sequences = utilityObj.xmlUtil.GetTextValue(Constants.IEnumerableExtensionsNode, Constants.Sequence2).Split(';');
 
-            IEnumerable<string> enumerable = new string[] { sequences[0], sequences[1], sequences[2], null };
+            IEnumerable<string> enumerable = new[] { sequences[0], sequences[1], sequences[2], null };
             string join = enumerable.StringJoin(":", maxLength, etcString);
             Assert.IsNotNull(join);
             Assert.AreEqual(expectedSequence, join);
 
-            ApplicationLog.WriteLine(string.Concat(
-                  "IEnumerableExtensions BVT: Validation of StringJoin method for sequences, seperator, length and etc-string completed successfully."));
+            ApplicationLog.WriteLine("IEnumerableExtensions BVT: Validation of StringJoin method for sequences, separator, length and etc-string completed successfully.");
         }
 
         /// <summary>

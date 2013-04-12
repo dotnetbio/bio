@@ -670,8 +670,9 @@ provided. There is also a default encoding for each alphabet that may be encount
   <data name="KmerLengthIsTooLong" xml:space="preserve">
     <value>Kmer Length is larger than the sequence length</value>
   </data>
-  <data name="KmerLengthShouldBePositive" xml:space="preserve">
-    <value>Kmer Length needs to be a positive value</value>
+  <data name="KmerLengthShouldBeOver12" xml:space="preserve">
+    <value>Kmer Length should be greater than 12</value>
+    <comment>This is needed to ensure the buckets are sensible, less than 12 also makes no sense for assembly.</comment>
   </data>
   <data name="KmerPositionOutOfRange" xml:space="preserve">
     <value>Kmer position or length is out of range for node</value>
@@ -1175,9 +1176,6 @@ file specification, and converts the data to in-memory PhylogeneticTree object.<
   <data name="InvalidRefNumber" xml:space="preserve">
     <value>Invalid reference number found: {0}</value>
   </data>
-  <data name="KmerLengthGreaterThan32" xml:space="preserve">
-    <value>Kmer length more than 32 is not supported</value>
-  </data>
   <data name="MayNotConvert" xml:space="preserve">
     <value>The Converter may not convert a non-missing value into the missing value.</value>
   </data>
@@ -1459,5 +1457,14 @@ Delta alignment file is corrupted. </value>
   </data>
   <data name="ParameterShouldBeofType" xml:space="preserve">
     <value>{0} should be {1} type</value>
+  </data>
+  <data name="KmerLengthEven" xml:space="preserve">
+    <value>K-mers must be even to avoid palindromes</value>
+  </data>
+  <data name="KmerLengthGreaterThan31" xml:space="preserve">
+    <value>K-mer lengths greater than 31 are not supported.</value>
+  </data>
+  <data name="KmerLengthShouldBePositive" xml:space="preserve">
+    <value>Kmer length must be a positive number.</value>
   </data>
 </root>

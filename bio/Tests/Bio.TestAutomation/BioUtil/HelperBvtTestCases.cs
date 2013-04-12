@@ -9,6 +9,7 @@ using System;
 using System.Text;
 using System.Collections.Generic;
 using System.Linq;
+using Bio.Extensions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Bio.Algorithms.Assembly.Padena;
 using Bio.Util;
@@ -46,56 +47,55 @@ namespace Bio.TestAutomation.Util
 
                 assembler.ScaffoldRedundancy = 0;
                 assembler.Depth = 3;
-                CloneLibrary.Instance.AddLibrary("abc", (float)5, (float)20);
+                CloneLibrary.Instance.AddLibrary("abc", 5, 20);
 
                 PadenaAssembly result = (PadenaAssembly)assembler.Assemble(GetReadsForScaffolds(), true);
 
-                Assert.AreEqual(10, result.ContigSequences.Count());
+                Assert.AreEqual(9, result.ContigSequences.Count());
 
-                HashSet<string> expectedContigs = new HashSet<string>
+                var expectedContigs = new List<string>
                 {
                    "GCGCGC",
-                   "TTTTTT",
-                   "TTTTTA",
-                   "TTTTAA",
-                   "TTTAAA",
-                   "ATGCCTCCTATCTTAGC",
-                   "TTTTAGC",
+                   "CGCGCG",
+                   "GCTAAGATAGGAGGCAT",
                    "TTAGCGCG",
-                   "CGCGCCGCGC",
-                   "CGCGCG"
+                   "GCGCGGCGCG",
+                   "TTTTAAA",
+                   "TTTTAGC",
+                   "TTTTTA",
+                   "TTTTTT",
                 };
 
                 foreach (ISequence contig in result.ContigSequences)
                 {
-                    string contigSeq = new string(contig.Select(a => (char)a).ToArray());
+                    string contigSeq = contig.ConvertToString();
                     Assert.IsTrue(
                         expectedContigs.Contains(contigSeq) ||
-                        expectedContigs.Contains(Helper.GetReverseComplement(contigSeq, new char[contigSeq.Length])));
+                        expectedContigs.Contains(contigSeq.GetReverseComplement(new char[contigSeq.Length])), 
+                        "Found unknown contig " + contigSeq);
                 }
 
-                Assert.AreEqual(8, result.Scaffolds.Count());
+                Assert.AreEqual(7, result.Scaffolds.Count());
                 HashSet<string> expectedScaffolds = new HashSet<string>
                 {
-                    "ATGCCTCCTATCTTAGCGCGC",
-                    "TTTTTT",
-                    "TTTTTA",
-                    "TTTTAA",
-                    "TTTAAA",
-                    "CGCGCCGCGC",
+                    "GCGCGCTAAGATAGGAGGCAT",
+                    "CGCGCG",
+                    "TTTTAAA",
                     "TTTTAGC",
-                    "CGCGCG"
+                    "GCGCGGCGCG",
+                    "TTTTTA",
+                    "TTTTTT",
                 };
 
                 foreach (ISequence scaffold in result.Scaffolds)
                 {
-                    string scaffoldSeq = new string(scaffold.Select(a => (char)a).ToArray());
+                    string scaffoldSeq = scaffold.ConvertToString();
                     Assert.IsTrue(
                         expectedScaffolds.Contains(scaffoldSeq) ||
-                        expectedScaffolds.Contains(scaffoldSeq.GetReverseComplement(new char[scaffoldSeq.Length])));
+                        expectedScaffolds.Contains(scaffoldSeq.GetReverseComplement(new char[scaffoldSeq.Length])), 
+                        "Found unknown scaffold " + scaffoldSeq);
                 }
             }
-
         }
 
         /// <summary>

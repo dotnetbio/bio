@@ -542,72 +542,51 @@ using Bio;
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times")]
         void ValidateFormatterGeneralTestCases(string nodeName)
         {
+            // Gets the actual sequence and the alphabet from the Xml
+            string expectedSequence = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.ExpectedSequenceNode);
+            string formattedSequence = expectedSequence.Replace("\r", "").Replace("\n", "").Replace(" ", "");
+
+            string alphabet = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.AlphabetNameNode);
+
+            // Logs information to the log file
+            ApplicationLog.WriteLine(string.Format(null, "FastA Formatter : Validating with Sequence '{0}' and Alphabet '{1}'.", expectedSequence, alphabet));
+
+            // Replacing all the empty characters, Paragraphs and null entries added 
+            // while formatting the xml.
+            ISequence seqOriginal = new Sequence(Utility.GetAlphabet(alphabet), formattedSequence) { ID = "test" };
+            Assert.IsNotNull(seqOriginal);
+
+            // Write it to a file
             using (FastAFormatter formatter = new FastAFormatter(Constants.FastaTempFileName))
             {
-
-                // Gets the actual sequence and the alphabet from the Xml
-                string actualSequence = utilityObj.xmlUtil.GetTextValue(nodeName,
-                    Constants.ExpectedSequenceNode);
-                string formattedActualSequence = actualSequence.Replace("\r", "").Replace("\n", "").Replace(" ", "");
-
-                string alphabet = utilityObj.xmlUtil.GetTextValue(nodeName,
-                    Constants.AlphabetNameNode);
-
-                // Logs information to the log file
-                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                    "FastA Formatter : Validating with Sequence '{0}' and Alphabet '{1}'.",
-                    actualSequence, alphabet));
-
-                // Replacing all the empty characters, Paragraphs and null entries added 
-                // while formatting the xml.
-                Sequence seqOriginal = new Sequence(Utility.GetAlphabet(alphabet),
-                    actualSequence.Replace("\r", "").Replace("\n", "").Replace(" ", ""));
-                seqOriginal.ID = "";
-                Assert.IsNotNull(seqOriginal);
-
                 // Use the formatter to write the original sequences to a temp file
-                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                    "FastA Formatter : Creating the Temp file '{0}'.",
-                    Constants.FastaTempFileName));
+                ApplicationLog.WriteLine(string.Format(null, "FastA Formatter : Creating the Temp file '{0}'.", Constants.FastaTempFileName));
                 formatter.Write(seqOriginal);
-                formatter.Close();
-
-                // Read the new file, then compare the sequences
-                IEnumerable<ISequence> seqsNew = null;
-                using (FastAParser parserObj = new FastAParser(Constants.FastaTempFileName))
-                {
-                    parserObj.Alphabet = Utility.GetAlphabet(alphabet);
-                    seqsNew = parserObj.Parse();
-
-                    char[] seqString = seqsNew.ElementAt(0).Select(a => (char)a).ToArray();
-                    string newSequence = new string(seqString);
-
-                    Assert.IsNotNull(seqsNew);
-                    ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                        "FastA Formatter : New Sequence is '{0}'.",
-                        newSequence));
-
-                    // Now compare the sequences.
-                    int countNew = seqsNew.Count();
-                    Assert.AreEqual(1, countNew);
-
-                    ApplicationLog.WriteLine("The Number of sequences are matching.");
-                    Assert.AreEqual(seqOriginal.ID, seqsNew.ElementAt(0).ID);
-                    Assert.AreEqual(formattedActualSequence, newSequence);
-
-                    Console.WriteLine(string.Format((IFormatProvider)null,
-                        "FastA Formatter : The FASTA sequences '{0}' are matching with Format() method and is as expected.",
-                        newSequence));
-                    ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                        "FastA Formatter : The FASTA sequences '{0}' are matching with Format() method.",
-                        newSequence));
-                }
-
-                // Passed all the tests, delete the tmp file. If we failed an Assert,
-                // the tmp file will still be there in case we need it for debugging.
-                File.Delete(Constants.FastaTempFileName);
-                ApplicationLog.WriteLine("Deleted the temp file created.");
             }
+
+            // Read the new file, then compare the sequences
+            using (FastAParser parserObj = new FastAParser(Constants.FastaTempFileName))
+            {
+                parserObj.Alphabet = Utility.GetAlphabet(alphabet);
+                IEnumerable<ISequence> seqsNew = parserObj.Parse();
+
+                // Get a single sequence
+                ISequence seqNew = seqsNew.FirstOrDefault();
+                Assert.IsNotNull(seqNew);
+
+                string newSequence = seqNew.ConvertToString();
+                ApplicationLog.WriteLine(string.Format(null, "FastA Formatter : New Sequence is '{0}'.", newSequence));
+                Assert.AreEqual(formattedSequence, newSequence);
+                Assert.AreEqual(seqOriginal.ID, seqNew.ID);
+
+                // Verify only one sequence exists.
+                Assert.AreEqual(1, seqsNew.Count());
+            }
+
+            // Passed all the tests, delete the tmp file. If we failed an Assert,
+            // the tmp file will still be there in case we need it for debugging.
+            File.Delete(Constants.FastaTempFileName);
+            ApplicationLog.WriteLine("Deleted the temp file created.");
         }
 
         /// <summary>
