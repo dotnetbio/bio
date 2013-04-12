@@ -634,7 +634,7 @@
     <DanglingLinkThreshold>3</DanglingLinkThreshold>
     <redundantThreshold>10</redundantThreshold>
     <readMapLength>8,8,7,9,8</readMapLength>
-    <contigStartPos>0,4,6,3,2</contigStartPos>
+    <contigStartPos>5,4,6,3,2</contigStartPos>
     <readStartPos>0,0,0,0,0</readStartPos>
   </MapReadsToContigFullOverlap>
   <MapReadsToContigPartialOverlap>
@@ -704,8 +704,8 @@
     <ForwardReadStartPos>0,1</ForwardReadStartPos>
     <ReverseReadStartPos>9,10</ReverseReadStartPos>
     <RerverseReadReverseCompPos>10,11</RerverseReadReverseCompPos>
-    <DistanceBetweenFirstContig>477.0</DistanceBetweenFirstContig>
-    <DistanceBetweenSecondContig>478.000031</DistanceBetweenSecondContig>
+    <DistanceBetweenFirstContig>478.000031</DistanceBetweenFirstContig>
+    <DistanceBetweenSecondContig>477.0</DistanceBetweenSecondContig>
     <FirstContigStandardDeviation>14.1421356</FirstContigStandardDeviation>
     <SecondContigStandardDeviation>14.1421356</SecondContigStandardDeviation>
   </FilterPairedReadReverseOrietnationContigs>
@@ -721,7 +721,7 @@
     <Mean>5</Mean>
     <PairedReadsCount>1</PairedReadsCount>
     <ScaffoldNodes>
-      <ScaffoldNodes1>ATGCCTCCTATCTTAGC</ScaffoldNodes1>
+      <ScaffoldNodes1>GCTAAGATAGGAGGCAT</ScaffoldNodes1>
       <ScaffoldNodes1>TTAGCGCG</ScaffoldNodes1>
       <ScaffoldNodes1>GCGCGC</ScaffoldNodes1>
     </ScaffoldNodes>
@@ -740,7 +740,7 @@
     <Mean>5</Mean>
     <PairedReadsCount>1</PairedReadsCount>
     <ScaffoldNodes>
-      <ScaffoldNodes1>ATGCCTCCTATCTTAGC</ScaffoldNodes1>
+      <ScaffoldNodes1>GCTAAGATAGGAGGCAT</ScaffoldNodes1>
       <ScaffoldNodes1>TTAGCGCG</ScaffoldNodes1>
       <ScaffoldNodes1>GCGCGC</ScaffoldNodes1>
     </ScaffoldNodes>
@@ -766,7 +766,7 @@
     <ScaffoldPathCount>3</ScaffoldPathCount>
     <DepthValue>3</DepthValue>
     <SequencePath>
-      <SequencePath1>ATGCCTCCTATCTTAGCGCGC</SequencePath1>
+      <SequencePath1>GCGCGCTAAGATAGGAGGCAT</SequencePath1>
       <SequencePath1>ATGCCTCCTATCTTAGCGCGC</SequencePath1>
       <SequencePath1>ATGCCTCCTATCTTAGCGCGC</SequencePath1>
     </SequencePath>
@@ -787,10 +787,10 @@
       <ScaffoldNodes1>GCTAGC</ScaffoldNodes1>
       <ScaffoldNodes1>CTAGCATCGAACG</ScaffoldNodes1>
     </ScaffoldNodes>
-    <ScaffoldPathCount>27</ScaffoldPathCount>
+    <ScaffoldPathCount>30</ScaffoldPathCount>
     <DepthValue>20</DepthValue>
     <SequencePath>
-      <SequencePath1>ATGCCTCCTATCTTAGCGCGGCGCGGCGCGGCGCGGCGCGGCGCGGCGCGGCGCGGCGCGC</SequencePath1>
+      <SequencePath1>GCGCGCCGCGCCGCGCCGCGCCGCGCCGCGCCGCGCCGCGCCGCGCCGCGCTAAGATAGGAGGCAT</SequencePath1>
       <SequencePath1>ATGCCTCCTATCTTAGCGCGC</SequencePath1>
       <SequencePath1>ATGCCTCCTATCTTAGCGCGC</SequencePath1>
     </SequencePath>
@@ -853,7 +853,7 @@
     <DanglingLinkThreshold>3</DanglingLinkThreshold>
     <redundantThreshold>10</redundantThreshold>
     <readMapLength>8,8,7,9,8</readMapLength>
-    <contigStartPos>0,4,6,3,2</contigStartPos>
+    <contigStartPos>5,4,6,3,2</contigStartPos>
     <readStartPos>0,0,0,0,0</readStartPos>
   </MapPairedReadsToContigForClustalWContigs>
   <MapPairedReadsToContigForReverseComplementContigs>
@@ -862,7 +862,7 @@
     <DanglingLinkThreshold>3</DanglingLinkThreshold>
     <redundantThreshold>10</redundantThreshold>
     <readMapLength>7,7,7,7,7,7,7,7,7,7,7</readMapLength>
-    <contigStartPos>0,1,1,1,1,1,1,1,1,1,1</contigStartPos>
+    <contigStartPos>10,1,1,1,1,1,1,1,1,1,1</contigStartPos>
     <readStartPos>0,6,7,8,1,6,1,7,4,6,1</readStartPos>
   </MapPairedReadsToContigForReverseComplementContigs>
   <MapPairedReadsToContigForLeftSideContigGenerator>
@@ -952,8 +952,8 @@
     <ForwardReadStartPos>1,0</ForwardReadStartPos>
     <ReverseReadStartPos>10,11</ReverseReadStartPos>
     <RerverseReadReverseCompPos>10,9</RerverseReadReverseCompPos>
-    <DistanceBetweenFirstContig>477.0</DistanceBetweenFirstContig>
-    <DistanceBetweenSecondContig>478.000031</DistanceBetweenSecondContig>
+    <DistanceBetweenFirstContig>478.000031</DistanceBetweenFirstContig>
+    <DistanceBetweenSecondContig>477.0</DistanceBetweenSecondContig>
     <FirstContigStandardDeviation>14.1421356</FirstContigStandardDeviation>
     <SecondContigStandardDeviation>14.1421356</SecondContigStandardDeviation>
     <Redundancy>1</Redundancy>
@@ -967,8 +967,8 @@
     <ForwardReadStartPos>0</ForwardReadStartPos>
     <ReverseReadStartPos>12</ReverseReadStartPos>
     <RerverseReadReverseCompPos>6</RerverseReadReverseCompPos>
-    <DistanceBetweenFirstContig>477.000000</DistanceBetweenFirstContig>
-    <DistanceBetweenSecondContig>483.000000</DistanceBetweenSecondContig>
+    <DistanceBetweenFirstContig>483.000000</DistanceBetweenFirstContig>
+    <DistanceBetweenSecondContig>477.000000</DistanceBetweenSecondContig>
     <FirstContigStandardDeviation>20.000000</FirstContigStandardDeviation>
     <SecondContigStandardDeviation>20.000000</SecondContigStandardDeviation>
     <Redundancy>1</Redundancy>
@@ -1060,8 +1060,8 @@
     <Mean>5</Mean>
     <PairedReadsCount>1</PairedReadsCount>
     <ScaffoldNodes>
+      <ScaffoldNodes1>CAAATTT</ScaffoldNodes1>
       <ScaffoldNodes1>ATGCTCAAAT</ScaffoldNodes1>
-      <ScaffoldNodes1>CAAATT</ScaffoldNodes1>
       <ScaffoldNodes1>CTAGCATCGAACG</ScaffoldNodes1>
     </ScaffoldNodes>
     <ScaffoldPathCount>1</ScaffoldPathCount>
@@ -1079,8 +1079,8 @@
     <Mean>17</Mean>
     <PairedReadsCount>1</PairedReadsCount>
     <ScaffoldNodes>
-      <ScaffoldNodes1>ATGCCTCCTATCTTAGC</ScaffoldNodes1>
-      <ScaffoldNodes1>TTAGCGCG</ScaffoldNodes1>
+      <ScaffoldNodes1>TTAGCGCGCTA</ScaffoldNodes1>
+      <ScaffoldNodes1>GCTAAGATAGGAGGCAT</ScaffoldNodes1>
       <ScaffoldNodes1>GCGCGC</ScaffoldNodes1>
     </ScaffoldNodes>
     <ScaffoldPathCount>1</ScaffoldPathCount>
@@ -1242,7 +1242,7 @@
     <ScaffoldPathCount>1</ScaffoldPathCount>
     <DepthValue>15</DepthValue>
     <SequencePath>
-      <SequencePath1>ATGCCTCCTATCTTAGCGCGC</SequencePath1>
+      <SequencePath1>TAGCGCGCTAAGATAGGAGGCAT</SequencePath1>
     </SequencePath>
   </AssembledPathForReverseWithReverseCompl>
   <AssembledPathForForwardAndPalContig>
@@ -1353,7 +1353,7 @@
       <ScaffoldNodes1>TTAGCGCG</ScaffoldNodes1>
       <ScaffoldNodes1>GCGCGC</ScaffoldNodes1>
     </ScaffoldNodes>
-    <ScaffoldSeq>ATGCCTCCTATCTTAGC,CGCGCCGCGC,CGCGCG,GCGCGC,TTAGCGCG,TTTAAA,TTTTAA,TTTTAGC,TTTTTA,TTTTTT</ScaffoldSeq>
+    <ScaffoldSeq>TTAGCGCG,GCGCGGCGCG,GCTAAGATAGGAGGCAT,TTTTAAA,TTTTAGC,TTTTTA,TTTTTT,GCGCGC,CGCGCG</ScaffoldSeq>
     <ScaffoldPathCount>10</ScaffoldPathCount>
     <DepthValue>3</DepthValue>
   </ScaffoldSequence>
@@ -1370,7 +1370,7 @@
     <Erosion>5</Erosion>
     <LowCoverageContig></LowCoverageContig>
     <AssembledSeqCount>10</AssembledSeqCount>
-    <SequencePath>ATGCCTCCTATCTTAGCGCG,GCGCGC,TTTTTA,CGCGCG,TTTTAAA,TTTTAGC,CGCGCCGCGC,TTTTTT</SequencePath>
+    <SequencePath>CGCGCG,GCGCGC,GCTAAGATAGGAGGCAT,GCGCGGCGCG,TTAGCGCG,TTTTAAA,TTTTAGC,TTTTTA,TTTTTT</SequencePath>
   </AssembledContigsForSequenceReads>
   <AssembledSequencesForSequenceReads>
     <FilePath>TestUtils\PaDeNATestData\ScaffoldPaths.fa</FilePath>
@@ -1385,7 +1385,7 @@
     <Erosion>5</Erosion>
     <LowCoverageContig>2</LowCoverageContig>
     <AssembledSeqCount>9</AssembledSeqCount>
-    <SequencePath>ATGCCTCCTATCTTAGCGCG,TAAAAA,CGCGCCGCGC,CGCGCG,TTTTAA,TTTAAA,TTTTTT,GCGCGC,TTTTAGC</SequencePath>
+    <SequencePath>CGCGCTAAGATAGGAGGCAT,GCGCGGCGCG,TTTTAAA,GCGCGC,CGCGCG,TTTTAGC,TTTTTA,TTTTTT</SequencePath>
   </AssembledSequencesForSequenceReads>
   <AssembledSequencesForSequenceReadsWithErosionAndLCC>
     <FilePath>TestUtils\PaDeNATestData\ScaffoldPaths.fa</FilePath>
@@ -1429,8 +1429,8 @@
     <Mean>5</Mean>
     <Erosion>5</Erosion>
     <LowCoverageContig>2</LowCoverageContig>
-    <AssembledSeqCount>3</AssembledSeqCount>
-    <SequencePath>TTAGCGCG,TTTTTA,GCGCGC</SequencePath>
+    <AssembledSeqCount>2</AssembledSeqCount>
+    <SequencePath>TTAGCGCGCTA,TTTTTA</SequencePath>
   </AssembledSequencesForSequenceReadsWithLCC>
   <AssembledSequencesForEulerData>
     <FilePath>TestUtils\PaDeNATestData\EulerTestDataReads.fasta</FilePath>

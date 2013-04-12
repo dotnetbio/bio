@@ -39,7 +39,7 @@ namespace Bio.Algorithms.Alignment
         /// <summary>
         /// List of supported sequence aligners.
         /// </summary>
-        private static List<ISequenceAligner> all = new List<ISequenceAligner>() 
+        private static readonly List<ISequenceAligner> all = new List<ISequenceAligner>() 
         { 
             smithAlign, 
             needlemanAlign,
@@ -54,13 +54,12 @@ namespace Bio.Algorithms.Alignment
         static SequenceAligners()
         {
             // Get the registered aligners
-            IList<ISequenceAligner> registeredAligners = GetAligners();
+            IEnumerable<ISequenceAligner> registeredAligners = GetAligners();
 
             if (null != registeredAligners)
             {
                 foreach (ISequenceAligner aligner in registeredAligners.Where(
-                    aligner => aligner != null && !all.Any(
-                        sa => string.Compare(sa.Name, aligner.Name, StringComparison.OrdinalIgnoreCase) == 0)))
+                    aligner => aligner != null && all.All(sa => string.Compare(sa.Name, aligner.Name, StringComparison.OrdinalIgnoreCase) != 0)))
                 {
                     all.Add(aligner);
                 }
@@ -130,7 +129,7 @@ namespace Bio.Algorithms.Alignment
         /// Gets all registered aligners in core folder and addins (optional) folders
         /// </summary>
         /// <returns>List of registered aligners</returns>
-        private static IList<ISequenceAligner> GetAligners()
+        private static IEnumerable<ISequenceAligner> GetAligners()
         {
             IList<ISequenceAligner> registeredAligners = new List<ISequenceAligner>();
             IList<ISequenceAligner> addInAligners = RegisteredAddIn.GetComposedInstancesFromAssemblyPath<ISequenceAligner>(
@@ -138,8 +137,7 @@ namespace Bio.Algorithms.Alignment
             if (null != addInAligners && addInAligners.Count > 0)
             {
                 foreach (ISequenceAligner aligner in addInAligners.Where(
-                    aligner => aligner != null && !registeredAligners.Any(
-                        sa => string.Compare(sa.Name, aligner.Name, StringComparison.OrdinalIgnoreCase) == 0)))
+                    aligner => aligner != null && registeredAligners.All(sa => string.Compare(sa.Name, aligner.Name, StringComparison.OrdinalIgnoreCase) != 0)))
                 {
                     registeredAligners.Add(aligner);
                 }

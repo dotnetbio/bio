@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 using PadenaUtil.Properties;
 using Bio.Util.ArgumentParser;
 using System.Globalization;
@@ -160,6 +161,8 @@ namespace PadenaUtil
                 }
                 else if (options.FileNames != null)
                 {
+                    ValidateKmerLength(options.KmerLength, false);
+
                     if (options.Verbose)
                         Output.TraceLevel = OutputLevel.Information | OutputLevel.Verbose;
                     else if (!options.Quiet)
@@ -187,7 +190,7 @@ namespace PadenaUtil
             AssembleWithScaffoldArguments options = new AssembleWithScaffoldArguments();
             CommandLineArguments parser = new CommandLineArguments();
 
-            // add assemble related paraemeters.
+            // add assemble related parameters.
             AddAssembleParameters(parser);
             
             // Add scaffold parameters
@@ -216,6 +219,8 @@ namespace PadenaUtil
                 }
                 else
                 {
+                    ValidateKmerLength(options.KmerLength, options.AllowKmerLengthEstimation);
+
                     if (options.Verbose)
                         Output.TraceLevel = OutputLevel.Information | OutputLevel.Verbose;
                     else if (!options.Quiet)
@@ -226,6 +231,26 @@ namespace PadenaUtil
             else
             {
                 Output.WriteLine(OutputLevel.Required, Resources.AssembleWithScaffoldHelp);
+            }
+        }
+
+        /// <summary>
+        /// Check the kmer length
+        /// </summary>
+        private static void ValidateKmerLength(int kmerLength, bool allowKmerLengthEstimation)
+        {
+            if (allowKmerLengthEstimation == false && NativeMethods.IsConsoleAttached())
+            {
+                if (kmerLength%2 == 0)
+                {
+                    Output.WriteLine(OutputLevel.Required, Resources.BadKmerLength, kmerLength);
+                    Output.Write(OutputLevel.Required, Resources.ContinuePrompt);
+                    string input = Console.ReadLine() ?? string.Empty;
+                    if (!input.StartsWith("Y", StringComparison.OrdinalIgnoreCase))
+                    {
+                        Environment.Exit(-1);
+                    }
+                }
             }
         }
 
@@ -258,6 +283,8 @@ namespace PadenaUtil
                 }
                 else
                 {
+                    ValidateKmerLength(options.KmerLength, options.AllowKmerLengthEstimation);
+
                     if (options.Verbose)
                         Output.TraceLevel = OutputLevel.Information | OutputLevel.Verbose;
                     else if (!options.Quiet)

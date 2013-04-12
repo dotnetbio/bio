@@ -16,12 +16,14 @@ using Bio.Algorithms.Assembly.Graph;
 using Bio.Algorithms.Assembly.Padena;
 using Bio.Algorithms.Assembly.Padena.Scaffold;
 using Bio.Algorithms.Kmer;
+using Bio.Extensions;
 using Bio.IO.FastA;
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Globalization;
+using Bio.Tests.Framework;
 
 namespace Bio.TestAutomation.Algorithms.Assembly.Padena
 {
@@ -1514,12 +1516,11 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
             string expectedGraphsNodeCount = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.GraphNodesCountNode);
 
             // Get the input reads and build kmers
-            IEnumerable<ISequence> sequenceReads = null;
             using (FastAParser parser = new FastAParser(filePath))
             {
-                sequenceReads = parser.Parse();
+                IEnumerable<ISequence> sequenceReads = parser.Parse();
 
-                this.KmerLength = int.Parse(kmerLength, (IFormatProvider)null);
+                this.KmerLength = int.Parse(kmerLength, null);
                 this.SequenceReads.Clear();
 
                 this.SetSequenceReads(sequenceReads.ToList());
@@ -1529,7 +1530,7 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
                 ApplicationLog.WriteLine("Padena P1 : Step1,2 Completed Successfully");
 
                 if (isLargeSizeReads)
-                    Assert.AreEqual(expectedGraphsNodeCount, graph.GetNodes().Count().ToString((IFormatProvider)null));
+                    Assert.AreEqual(Int32.Parse(expectedGraphsNodeCount, null), graph.GetNodes().Count());
                 else
                     ValidateGraph(graph, nodeName);
             }
@@ -1550,20 +1551,15 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
             string nodesRightEdges = utilityObj.xmlUtil.GetTextValue(nodeName,
               Constants.NodeRightEdgesCountNode);
 
-            string[] leftEdgesCount =
-              ReadStringFromFile(nodesLeftEdges).Replace("\r\n", "").Split(',');
-            string[] rightEdgesCount =
-              ReadStringFromFile(nodesRightEdges).Replace("\r\n", "").Split(',');
-            string[] nodesSequences =
-              ReadStringFromFile(nodesSequence).Replace("\r\n", "").Split(',');
+            string[] leftEdgesCount = ReadStringFromFile(nodesLeftEdges).Replace("\r\n", "").Split(',');
+            string[] rightEdgesCount = ReadStringFromFile(nodesRightEdges).Replace("\r\n", "").Split(',');
+            string[] nodesSequences = ReadStringFromFile(nodesSequence).Replace("\r\n", "").Split(',');
 
             // Validate the nodes 
             for (int iseq = 0; iseq < nodesSequences.Length; iseq++)
             {
-                DeBruijnNode dbnodes = graph.GetNodes().Where(n =>
-                  new string(graph.GetNodeSequence(n).Select(a => (char)a).ToArray()) == nodesSequences[iseq]
-                  || new string(graph.GetNodeSequence(n).GetReverseComplementedSequence().Select(a => (char)a).ToArray()) ==
-                  nodesSequences[iseq]).First();
+                DeBruijnNode dbnodes = graph.GetNodes().First(n => graph.GetNodeSequence(n).ConvertToString() == nodesSequences[iseq]
+                                                                || graph.GetNodeSequence(n).GetReverseComplementedSequence().ConvertToString() == nodesSequences[iseq]);
 
                 //Due to parallelization the left edges and right edges count
                 //can be swapped while processing. if actual left edges count 
@@ -2467,23 +2463,17 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// Validate building map reads to contigs.
         /// </summary>
         /// <param name="nodeName">xml node name used for a different testcases</param>
-        /// <param name="IsFullOverlap">True if full overlap else false</param>
-        internal void ValidateMapReadsToContig(string nodeName, bool IsFullOverlap)
+        /// <param name="isFullOverlap">True if full overlap else false</param>
+        internal void ValidateMapReadsToContig(string nodeName, bool isFullOverlap)
         {
-            string filePath = utilityObj.xmlUtil.GetTextValue(nodeName,
-              Constants.FilePathNode);
-            string kmerLength = utilityObj.xmlUtil.GetTextValue(nodeName,
-              Constants.KmerLengthNode);
-            string daglingThreshold = utilityObj.xmlUtil.GetTextValue(nodeName,
-              Constants.DanglingLinkThresholdNode);
-            string redundantThreshold = utilityObj.xmlUtil.GetTextValue(nodeName,
-              Constants.RedundantThreshold);
-            string readMapLengthString = utilityObj.xmlUtil.GetTextValue(nodeName,
-              Constants.ReadMapLength);
-            string readStartPosString = utilityObj.xmlUtil.GetTextValue(nodeName,
-              Constants.ReadStartPos);
-            string contigStartPosString = utilityObj.xmlUtil.GetTextValue(nodeName,
-              Constants.ContigStartPos);
+            string filePath = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode);
+            string kmerLength = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.KmerLengthNode);
+            string daglingThreshold = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.DanglingLinkThresholdNode);
+            string redundantThreshold = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.RedundantThreshold);
+            string readMapLengthString = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.ReadMapLength);
+            string readStartPosString = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.ReadStartPos);
+            string contigStartPosString = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.ContigStartPos);
+
             string[] expectedReadmapLength = readMapLengthString.Split(',');
             string[] expectedReadStartPos = readStartPosString.Split(',');
             string[] expectedContigStartPos = contigStartPosString.Split(',');
@@ -2522,18 +2512,16 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
                 Assert.AreEqual(maps.Count, sequenceReads.Count());
 
                 Dictionary<ISequence, IList<ReadMap>> readMaps = maps[sequenceReads.ToList()[0].ID];
-                IList<ReadMap> readMap = null;
 
                 for (int i = 0; i < SortContigsData(readMaps.Keys.ToList()).Count; i++)
                 {
-                    readMap = readMaps[SortContigsData(readMaps.Keys.ToList())[i]];
+                    IList<ReadMap> readMap = readMaps[SortContigsData(readMaps.Keys.ToList())[i]];
 
-                    if (IsFullOverlap)
+                    if (isFullOverlap)
                     {
-                        Assert.AreEqual(expectedReadmapLength[i], readMap[0].Length.ToString((IFormatProvider)null));
-                        Assert.AreEqual(expectedContigStartPos[i],
-                            readMap[0].StartPositionOfContig.ToString((IFormatProvider)null));
-                        Assert.AreEqual(expectedReadStartPos[i], readMap[0].StartPositionOfRead.ToString((IFormatProvider)null));
+                        Assert.AreEqual(expectedReadmapLength[i], readMap[0].Length.ToString((IFormatProvider)null), "readMap failed for pos " + i);
+                        Assert.AreEqual(expectedContigStartPos[i], readMap[0].StartPositionOfContig.ToString((IFormatProvider)null), "contigStart failed for pos " + i);
+                        Assert.AreEqual(expectedReadStartPos[i], readMap[0].StartPositionOfRead.ToString((IFormatProvider)null), "readStart failed for pos " + i);
                         Assert.AreEqual(readMap[0].ReadOverlap, ContigReadOverlapType.FullOverlap);
                     }
                     else
@@ -2779,32 +2767,20 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// <param name="nodeName">xml node name used for different testcases</param>
         internal void ValidateAssembledPath(string nodeName)
         {
-            string filePath = utilityObj.xmlUtil.GetTextValue(
-                nodeName, Constants.FilePathNode);
-            string kmerLength = utilityObj.xmlUtil.GetTextValue(
-                nodeName, Constants.KmerLengthNode);
-            string daglingThreshold = utilityObj.xmlUtil.GetTextValue(
-                nodeName, Constants.DanglingLinkThresholdNode);
-            string redundantThreshold = utilityObj.xmlUtil.GetTextValue(
-                nodeName, Constants.RedundantThreshold);
-            string library = utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.LibraryName);
-            string StdDeviation = utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.StdDeviation);
-            string mean = utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.Mean);
-            string expectedDepth = utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.DepthNode);
-            string[] assembledPath = utilityObj.xmlUtil.GetTextValues(nodeName,
-                Constants.SequencePathNode);
-
-            IList<ScaffoldPath> paths = new List<ScaffoldPath>();
+            string filePath = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode);
+            string kmerLength = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.KmerLengthNode);
+            string daglingThreshold = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.DanglingLinkThresholdNode);
+            string redundantThreshold = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.RedundantThreshold);
+            string library = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.LibraryName);
+            string StdDeviation = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.StdDeviation);
+            string mean = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.Mean);
+            string expectedDepth = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.DepthNode);
+            string[] assembledPath = utilityObj.xmlUtil.GetTextValues(nodeName, Constants.SequencePathNode);
 
             // Get the input reads and build kmers
-            IEnumerable<ISequence> sequenceReads = null;
             using (FastAParser parser = new FastAParser(filePath))
             {
-                sequenceReads = parser.Parse();
+                IEnumerable<ISequence> sequenceReads = parser.Parse();
 
                 // Build kmers from step1,graph in step2 
                 // Remove the dangling links from graph in step3
@@ -2812,11 +2788,11 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
                 // Pass the graph and build contigs
                 // Validate contig reads
 
-                this.KmerLength = Int32.Parse(kmerLength, (IFormatProvider)null);
-                this.DanglingLinksThreshold = Int32.Parse(daglingThreshold, (IFormatProvider)null);
-                this.DanglingLinksPurger = new DanglingLinksPurger(Int32.Parse(daglingThreshold, (IFormatProvider)null));
-                this.RedundantPathsPurger = new RedundantPathsPurger(Int32.Parse(redundantThreshold, (IFormatProvider)null));
-                this.RedundantPathLengthThreshold = Int32.Parse(redundantThreshold, (IFormatProvider)null);
+                this.KmerLength = Int32.Parse(kmerLength, null);
+                this.DanglingLinksThreshold = Int32.Parse(daglingThreshold, null);
+                this.DanglingLinksPurger = new DanglingLinksPurger(Int32.Parse(daglingThreshold, null));
+                this.RedundantPathsPurger = new RedundantPathsPurger(Int32.Parse(redundantThreshold, null));
+                this.RedundantPathLengthThreshold = Int32.Parse(redundantThreshold, null);
                 this.SequenceReads.Clear();
 
                 this.SetSequenceReads(sequenceReads.ToList());
@@ -2832,12 +2808,10 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
                 IList<ISequence> sortedContigs = SortContigsData(contigs.ToList());
                 ReadContigMapper mapper = new ReadContigMapper();
 
-                ReadContigMap maps = mapper.Map(
-                    sortedContigs, sequenceReads, this.KmerLength);
+                ReadContigMap maps = mapper.Map(sortedContigs, sequenceReads, this.KmerLength);
 
                 // Find map paired reads.
-                CloneLibrary.Instance.AddLibrary(library, float.Parse(mean, (IFormatProvider)null),
-                    float.Parse(StdDeviation, (IFormatProvider)null));
+                CloneLibrary.Instance.AddLibrary(library, float.Parse(mean, null), float.Parse(StdDeviation, null));
                 MatePairMapper mapPairedReads = new MatePairMapper();
                 ContigMatePairs pairedReads = mapPairedReads.MapContigToMatePairs(sequenceReads, maps);
 
@@ -2851,25 +2825,20 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
 
                 // Validate ScaffoldPath using BFS.
                 TracePath trace = new TracePath();
-                paths = trace.FindPaths(graph, contigpairedReads, Int32.Parse(kmerLength, (IFormatProvider)null),
-                    Int32.Parse(expectedDepth, (IFormatProvider)null));
+                IList<ScaffoldPath> paths = trace.FindPaths(graph, contigpairedReads, Int32.Parse(kmerLength, null),
+                                                            Int32.Parse(expectedDepth, null));
 
                 // Assemble paths.
                 PathPurger pathsAssembler = new PathPurger();
                 pathsAssembler.PurgePath(paths);
-                IList<ISequence> seqList = new List<ISequence>();
 
-                // Get a sequence from assembled path.
-                foreach (ScaffoldPath temp in paths)
-                {
-                    seqList.Add(temp.BuildSequenceFromPath(graph,
-                        Int32.Parse(kmerLength, (IFormatProvider)null)));
-                }
+                // Get sequences from assembled path.
+                IList<ISequence> seqList = paths.Select(temp => temp.BuildSequenceFromPath(graph, Int32.Parse(kmerLength, null))).ToList();
 
                 //Validate assembled sequence paths.
-                for (int index = 0; index < seqList.Count; index++)
+                foreach (string sequence in seqList.Select(t => t.ConvertToString()))
                 {
-                    Assert.IsTrue(assembledPath.Contains(new string(seqList[index].Select(a => (char)a).ToArray())));
+                    Assert.IsTrue(assembledPath.Contains(sequence), "Failed to locate " + sequence);
                 }
             }
 
@@ -2908,45 +2877,31 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// <param name="nodeName">xml node name used for different testcases</param>
         internal void ValidateScaffoldPath(string nodeName)
         {
-            string filePath = utilityObj.xmlUtil.GetTextValue(
-                nodeName, Constants.FilePathNode);
-            string kmerLength = utilityObj.xmlUtil.GetTextValue(
-                nodeName, Constants.KmerLengthNode);
-            string daglingThreshold = utilityObj.xmlUtil.GetTextValue(
-                nodeName, Constants.DanglingLinkThresholdNode);
-            string redundantThreshold = utilityObj.xmlUtil.GetTextValue(
-                nodeName, Constants.RedundantThreshold);
-            string[] expectedScaffoldNodes = utilityObj.xmlUtil.GetTextValues(nodeName,
-                Constants.ScaffoldNodes);
-            string libraray = utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.LibraryName);
-            string StdDeviation = utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.StdDeviation);
-            string mean = utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.Mean);
-            string expectedDepth = utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.DepthNode);
-
-            IList<ScaffoldPath> paths =
-             new List<ScaffoldPath>();
+            string filePath = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode);
+            string kmerLength = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.KmerLengthNode);
+            string daglingThreshold = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.DanglingLinkThresholdNode);
+            string redundantThreshold = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.RedundantThreshold);
+            string[] expectedScaffoldNodes = utilityObj.xmlUtil.GetTextValues(nodeName,Constants.ScaffoldNodes);
+            string libraray = utilityObj.xmlUtil.GetTextValue(nodeName,Constants.LibraryName);
+            string stdDeviation = utilityObj.xmlUtil.GetTextValue(nodeName,Constants.StdDeviation);
+            string mean = utilityObj.xmlUtil.GetTextValue(nodeName,Constants.Mean);
+            string expectedDepth = utilityObj.xmlUtil.GetTextValue(nodeName,Constants.DepthNode);
 
             // Get the input reads and build kmers
-            IEnumerable<ISequence> sequenceReads = null;
             using (FastAParser parser = new FastAParser(filePath))
             {
-                sequenceReads = parser.Parse();
+                IEnumerable<ISequence> sequenceReads = parser.Parse();
 
                 // Build kmers from step1,graph in step2 
                 // Remove the dangling links from graph in step3
                 // Remove bubbles form the graph in step4 
                 // Pass the graph and build contigs
                 // Validate contig reads
-                this.KmerLength = Int32.Parse(kmerLength, (IFormatProvider)null);
-                this.DanglingLinksThreshold = Int32.Parse(daglingThreshold, (IFormatProvider)null);
-                this.DanglingLinksPurger = new DanglingLinksPurger(Int32.Parse(daglingThreshold, (IFormatProvider)null));
-                this.RedundantPathsPurger =
-                  new RedundantPathsPurger(Int32.Parse(redundantThreshold, (IFormatProvider)null));
-                this.RedundantPathLengthThreshold = Int32.Parse(redundantThreshold, (IFormatProvider)null);
+                this.KmerLength = Int32.Parse(kmerLength, null);
+                this.DanglingLinksThreshold = Int32.Parse(daglingThreshold, null);
+                this.DanglingLinksPurger = new DanglingLinksPurger(Int32.Parse(daglingThreshold, null));
+                this.RedundantPathsPurger = new RedundantPathsPurger(Int32.Parse(redundantThreshold, null));
+                this.RedundantPathLengthThreshold = Int32.Parse(redundantThreshold, null);
                 this.SequenceReads.Clear();
 
                 this.SetSequenceReads(sequenceReads.ToList());
@@ -2964,8 +2919,7 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
                 ReadContigMap maps = mapper.Map(sortedContigs, sequenceReads, this.KmerLength);
 
                 // Find map paired reads.
-                CloneLibrary.Instance.AddLibrary(libraray, float.Parse(mean, (IFormatProvider)null),
-                   float.Parse(StdDeviation, (IFormatProvider)null));
+                CloneLibrary.Instance.AddLibrary(libraray, float.Parse(mean, null), float.Parse(stdDeviation, null));
 
                 MatePairMapper mapPairedReads = new MatePairMapper();
                 ContigMatePairs pairedReads = mapPairedReads.MapContigToMatePairs(sequenceReads, maps);
@@ -2981,16 +2935,20 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
 
                 // Validate ScaffoldPath using BFS.
                 TracePath trace = new TracePath();
-                paths = trace.FindPaths(graph, contigpairedReads, Int32.Parse(kmerLength, (IFormatProvider)null),
-                  Int32.Parse(expectedDepth, (IFormatProvider)null));
+                IList<ScaffoldPath> paths = trace.FindPaths(graph, contigpairedReads, Int32.Parse(kmerLength, null),
+                                                            Int32.Parse(expectedDepth, null));
 
                 ScaffoldPath scaffold = paths.First();
 
-                for (int i = 0; i < scaffold.Count; i++)
+                foreach (KeyValuePair<Node, Edge> kvp in scaffold)
                 {
-                    Assert.IsTrue(expectedScaffoldNodes.Contains(
-                     new string(graph.GetNodeSequence(scaffold[i].Key).Select(a => (char)a).ToArray()))
-                     || expectedScaffoldNodes.Contains(new string(graph.GetNodeSequence(scaffold[i].Key).GetReverseComplementedSequence().Select(a => (char)a).ToArray())));
+                    ISequence seq = graph.GetNodeSequence(kvp.Key);
+                    string sequence = seq.ConvertToString();
+                    string reversedSequence = seq.GetReverseComplementedSequence().ConvertToString();
+
+                    Assert.IsTrue(expectedScaffoldNodes.Contains(sequence)
+                               || expectedScaffoldNodes.Contains(reversedSequence),
+                               "Failed to find " + sequence + ", or " + reversedSequence);
                 }
             }
 
@@ -3003,45 +2961,32 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// <param name="nodeName">xml node name used for different testcases</param>
         internal void ValidateScaffoldSequence(string nodeName)
         {
-            string filePath = utilityObj.xmlUtil.GetTextValue(
-                nodeName, Constants.FilePathNode);
-            string kmerLength = utilityObj.xmlUtil.GetTextValue(
-                nodeName, Constants.KmerLengthNode);
-            string daglingThreshold = utilityObj.xmlUtil.GetTextValue(
-                nodeName, Constants.DanglingLinkThresholdNode);
-            string redundantThreshold = utilityObj.xmlUtil.GetTextValue(
-                nodeName, Constants.RedundantThreshold);
-            string libraray = utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.LibraryName);
-            string StdDeviation = utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.StdDeviation);
-            string mean = utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.Mean);
-            string expectedScaffoldPathCount = utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.ScaffoldPathCount);
-            string inputRedundancy = utilityObj.xmlUtil.GetTextValue(
-                nodeName, Constants.InputRedundancy);
-            string expectedSeq = utilityObj.xmlUtil.GetTextValue(
-                nodeName, Constants.ScaffoldSeq);
+            string filePath = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode);
+            string kmerLength = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.KmerLengthNode);
+            string daglingThreshold = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.DanglingLinkThresholdNode);
+            string redundantThreshold = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.RedundantThreshold);
+            string libraray = utilityObj.xmlUtil.GetTextValue(nodeName,Constants.LibraryName);
+            string stdDeviation = utilityObj.xmlUtil.GetTextValue(nodeName,Constants.StdDeviation);
+            string mean = utilityObj.xmlUtil.GetTextValue(nodeName,Constants.Mean);
+            string inputRedundancy = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.InputRedundancy);
+            string expectedSeq = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.ScaffoldSeq);
             string[] scaffoldSeqNodes = expectedSeq.Split(',');
 
             // Get the input reads and build kmers
-            IEnumerable<ISequence> sequenceReads = null;
             using (FastAParser parser = new FastAParser(filePath))
             {
-                sequenceReads = parser.Parse();
+                IEnumerable<ISequence> sequenceReads = parser.Parse();
 
                 // Build kmers from step1,graph in step2 
                 // Remove the dangling links from graph in step3
                 // Remove bubbles form the graph in step4 
                 // Pass the graph and build contigs
                 // Validate contig reads
-                this.KmerLength = Int32.Parse(kmerLength, (IFormatProvider)null);
-                this.DanglingLinksThreshold = Int32.Parse(daglingThreshold, (IFormatProvider)null);
-                this.DanglingLinksPurger = new DanglingLinksPurger(Int32.Parse(daglingThreshold, (IFormatProvider)null));
-                this.RedundantPathsPurger =
-                  new RedundantPathsPurger(Int32.Parse(redundantThreshold, (IFormatProvider)null));
-                this.RedundantPathLengthThreshold = Int32.Parse(redundantThreshold, (IFormatProvider)null);
+                this.KmerLength = Int32.Parse(kmerLength, null);
+                this.DanglingLinksThreshold = Int32.Parse(daglingThreshold, null);
+                this.DanglingLinksPurger = new DanglingLinksPurger(Int32.Parse(daglingThreshold, null));
+                this.RedundantPathsPurger = new RedundantPathsPurger(Int32.Parse(redundantThreshold, null));
+                this.RedundantPathLengthThreshold = Int32.Parse(redundantThreshold, null);
                 this.SequenceReads.Clear();
 
                 this.SetSequenceReads(sequenceReads.ToList());
@@ -3053,37 +2998,17 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
                 IEnumerable<ISequence> contigs = this.BuildContigs();
 
                 // Find map paired reads.
-                CloneLibrary.Instance.AddLibrary(libraray, float.Parse(mean, (IFormatProvider)null),
-                 float.Parse(StdDeviation, (IFormatProvider)null));
-                IEnumerable<ISequence> scaffoldSeq = null;
+                CloneLibrary.Instance.AddLibrary(libraray, float.Parse(mean, null),
+                 float.Parse(stdDeviation, null));
+                IEnumerable<ISequence> scaffoldSeq;
 
                 using (GraphScaffoldBuilder scaffold = new GraphScaffoldBuilder())
                 {
                     scaffoldSeq = scaffold.BuildScaffold(
-                       sequenceReads, contigs.ToList(), this.KmerLength, redundancy: Int32.Parse(inputRedundancy, (IFormatProvider)null));
+                       sequenceReads, contigs.ToList(), this.KmerLength, redundancy: Int32.Parse(inputRedundancy, null));
                 }
 
-                List<ISequence> scaffoldSeqList = scaffoldSeq.ToList();
-
-                Assert.AreEqual(expectedScaffoldPathCount, scaffoldSeqList.Count.ToString((IFormatProvider)null));
-                string[] actualSeqs = new string[scaffoldSeqList.Count];
-
-                for (int i = 0; i < scaffoldSeqList.Count; i++)
-                {
-                    actualSeqs[i] = new string(scaffoldSeqList[i].Select(a => (char)a).ToArray());
-                }
-
-                Array.Sort(scaffoldSeqNodes);
-                Array.Sort(actualSeqs);
-                ASCIIEncoding encodingObj = new ASCIIEncoding();
-                for (int i = 0; i < scaffoldSeqList.Count; i++)
-                {
-                    ISequence seq = new Sequence(Alphabets.DNA, encodingObj.GetBytes(actualSeqs[i]));
-
-                    Assert.IsTrue(scaffoldSeqNodes.Contains(actualSeqs[i]) ||
-                        scaffoldSeqNodes.Contains(
-                        new string(seq.GetReverseComplementedSequence().Select(a => (char)a).ToArray())));
-                }
+                AlignmentHelpers.CompareSequenceLists(new HashSet<string>(scaffoldSeqNodes), scaffoldSeq.ToList());
             }
 
             ApplicationLog.WriteLine("PADENA P1 : Scaffold sequence : validation for Padena step6:step8 completed successfully");

@@ -19,7 +19,7 @@ namespace Bio.Algorithms.Translation
         /// <summary>
         /// The mapping dictionary.
         /// </summary>
-        private static Dictionary<string, byte> codonMap = new Dictionary<string, byte>();
+        private static readonly Dictionary<string, byte> codonMap = new Dictionary<string, byte>();
 
         /// <summary>
         /// Lookup an amino acid based on a triplet of nucleotides. U U U for instance
@@ -58,7 +58,7 @@ namespace Bio.Algorithms.Translation
         }
 
         /// <summary>
-        /// Lookup an amino acid within a sequence starting a certian offset.
+        /// Lookup an amino acid within a sequence starting a certain offset.
         /// </summary>
         /// <param name="sequence">The source sequence to lookup from.</param>
         /// <param name="offset">
@@ -76,7 +76,7 @@ namespace Bio.Algorithms.Translation
                 return value;
 
             throw new InvalidOperationException(
-                string.Format(null, "({0},{1},{2}) not found.", sequence[offset], sequence[offset + 1], sequence[offset + 2]));
+                string.Format(null, "({0},{1},{2}) not found.", (char)sequence[offset], (char)sequence[offset + 1], (char)sequence[offset + 2]));
         }
 
         /// <summary>

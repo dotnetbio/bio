@@ -67,7 +67,7 @@ namespace Bio.Algorithms.Translation
                 {
                     translatedResult[counter] = Codons.Lookup(source, i);
                 }
-                catch (KeyNotFoundException)
+                catch (InvalidOperationException)
                 {
                     if (source.Alphabet == Alphabets.RNA)
                     {
@@ -80,9 +80,7 @@ namespace Bio.Algorithms.Translation
             }
 
             var alphabet = source.Alphabet == Alphabets.RNA ? Alphabets.Protein : Alphabets.AmbiguousProtein;
-            Sequence result = new Sequence(alphabet, translatedResult);
-            result.ID = "AA: " + source.ID;
-            return result;
+            return new Sequence(alphabet, translatedResult) {ID = "AA: " + source.ID};
         }
     }
 }

@@ -75,6 +75,7 @@
   <ItemGroup>
     <Compile Include="AssembleArguments.cs" />
     <Compile Include="AssembleWithScaffoldArguments.cs" />
+    <Compile Include="NativeMethods.cs" />
     <Compile Include="Output.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Program.cs" />

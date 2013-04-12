@@ -44,10 +44,10 @@
     <MUMAlignLength>7</MUMAlignLength>
     <GapOpenCost>-10</GapOpenCost>
     <AlphabetName>Dna</AlphabetName>
-    <Score>-700</Score>
+    <Score>-698</Score>
     <ExpectedSequences>
-      <Sequence>-------------------------------CA-T---TA-----T-------GTA-T----A-G-G---TTATCATGCGAACAATTCAACAGACACTGTAGACACAGTACTAGAAAAGAATGTAAC</Sequence>
-      <Sequence>CAAAAGGGATTGCAAATGTTGGAGTGAATGCCATTACCTACCGGCTAGGAGGAGTAGTACAAAGGAGCTATTATCAT-----------------------------A-TA-T---------T-T---</Sequence>
+      <Sequence>-------------------------------CATTA---------T-------GTA-TA----GG-----TTATCATGCGAACAATTCAACAGACACTGTAGACACAGTACTAGAAAAGAATGTAAC</Sequence>
+      <Sequence>CAAAAGGGATTGCAAATGTTGGAGTGAATGCCATTACCTACCGGCTAGGAGGAGTAGTACAAAGGAGCTATTATCAT-------AT-----------------------A-T---------T-T---</Sequence>
     </ExpectedSequences>
   </QuerySeqeunceList>
   <FileStorage>
@@ -496,7 +496,7 @@
     <Score>-339</Score>
     <ExpectedSequences>
       <Sequence>GTGTGTGTGCGTGTGTGTCGTGTCGTGAGACAGTGTGTGTGCGTGTGTGTCGTG</Sequence>
-      <Sequence>--------G-G-G-G-GT--T-T--T---ACA------------------C--A</Sequence>
+      <Sequence>G-G-G-G-G--T-T-T-TA----C---A--CA----------------------</Sequence>
     </ExpectedSequences>
   </OneLineOverlapSequence>
   <!-- One line sequence node which has no match and is used for P1 test cases -->
@@ -751,8 +751,8 @@
     <LISSecondSequenceStart>0,12,26,41</LISSecondSequenceStart>
     <Score>-16</Score>
     <ExpectedSequences>
-      <Sequence>ATGCCC------GGGGGTCCGCGCG--CAAAAAATGGAGCTCTTTTTTTAGAGAGCGTTAA</Sequence>
-      <Sequence>ATGCCCAAAAAAGGGGGTCCGCGCGCTCTTTTTTTGGAGCTC----GTTA-A-AGAG--AG</Sequence>
+      <Sequence>ATGCCC------GGGGGTCCGCGCGCAAAAAAT--GGAGCTCTTTTTTTAGAGAGCGTTAA</Sequence>
+      <Sequence>ATGCCCAAAAAAGGGGGTCCGCGCGCTCTTTTTTTGGAGCTCGTTAA--AGAGAG------</Sequence>
     </ExpectedSequences>
   </OneLineMoreThanTwoMatchOverlapSequence>
   <!-- One line sequence node which has multiple long match with over lap -->
@@ -791,8 +791,8 @@
     <LISSecondSequenceStart>9</LISSecondSequenceStart>
     <Score>62</Score>
     <ExpectedSequences>
-      <Sequence>GTGTGTGTGCGTGTGTGTCGTGTC-GTGAGACAGTGTGTGTGCGTGTGTGTCGTG</Sequence>
-      <Sequence>GGGGGT-TTTACACACCCCCCCCCGGGGGGGCCCCCCCCGGGGGGGCCCCTTTTT</Sequence>
+      <Sequence>GTGTGTGTGCGTGTGTGTCGTGTCGTGAGA-CAGTGTGTGTGCGTGTGTGTCGTG</Sequence>
+      <Sequence>GGGGGTTT-TACACACCCCCCCCCGGGGGGGCCCCCCCCGGGGGGGCCCCTTTTT</Sequence>
     </ExpectedSequences>
   </OneLineMultipleSameLengthMatchOverlapSequence>
   <!-- One line sequence node which has multiple  match with over lap and no cross overlap-->

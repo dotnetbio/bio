@@ -53,6 +53,7 @@ namespace Bio.Util.Logging
                 return Marshal.GetLastWin32Error() == ERROR_ACCESS_DENIED;
             }
         }
+
         /// <summary>
         /// if true (default), a flush occurs after each write, to prevent loss of messages.
         /// if false, calling code should Flush() after critical writes.

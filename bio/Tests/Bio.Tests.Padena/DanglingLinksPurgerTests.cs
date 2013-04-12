@@ -2,6 +2,8 @@
 using System.Linq;
 using Bio;
 using Bio.Algorithms.Assembly.Padena;
+using Bio.Extensions;
+using Bio.Tests.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Bio.Tests
@@ -24,6 +26,7 @@ namespace Bio.Tests
         {
             const int KmerLength = 11;
             const int DangleThreshold = 3;
+
             List<ISequence> readSeqs = TestInputs.GetDanglingReads();
             SequenceReads.Clear();
             this.SetSequenceReads(readSeqs);
@@ -35,25 +38,27 @@ namespace Bio.Tests
             long graphCount = Graph.NodeCount;
 
             long graphEdges = Graph.GetNodes().Select(n => n.ExtensionsCount).Sum();
-            HashSet<string> graphNodes = new HashSet<string>(
-            Graph.GetNodes().Select(n => new string(Graph.GetNodeSequence(n).Select(a => (char)a).ToArray())));
+            HashSet<string> graphNodes = new HashSet<string>(Graph.GetNodes().Select(n => Graph.GetNodeSequence(n).ConvertToString()));
 
             DanglingLinksThreshold = DangleThreshold;
             UnDangleGraph();
+
             long dangleRemovedGraphCount = Graph.NodeCount;
             long dangleRemovedGraphEdge = Graph.GetNodes().Select(n => n.ExtensionsCount).Sum();
-            HashSet<string> dangleRemovedGraphNodes = new HashSet<string>(
-            Graph.GetNodes().Select(n => 
-                {
-                    return new string(Graph.GetNodeSequence(n).Select(a => (char)a).ToArray());
-                }));
+            HashSet<string> dangleRemovedGraphNodes = new HashSet<string>(Graph.GetNodes().Select(n => Graph.GetNodeSequence(n).ConvertToString()));
 
             // Compare the two graphs
             Assert.AreEqual(2, graphCount - dangleRemovedGraphCount);
             Assert.AreEqual(4, graphEdges - dangleRemovedGraphEdge);
             graphNodes.ExceptWith(dangleRemovedGraphNodes);
-            Assert.IsTrue(graphNodes.Contains("TCGAACGATGA"));
-            Assert.IsTrue(graphNodes.Contains("ATCGAACGATG"));
+
+            HashSet<string> expected = new HashSet<string>
+                                           {
+                                               "TCGAACGATGA",
+                                               "CATCGTTCGAT"
+                                           };
+
+            AlignmentHelpers.CompareSequenceLists(expected, graphNodes);
         }
     }
 }

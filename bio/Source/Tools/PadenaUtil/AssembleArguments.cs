@@ -11,6 +11,7 @@ using Bio.IO;
 using Bio.IO.FastA;
 using Bio.Util;
 using PadenaUtil.Properties;
+using Bio.Algorithms.Kmer;
 
 namespace PadenaUtil
 {
@@ -24,7 +25,7 @@ namespace PadenaUtil
         /// <summary>
         /// Length of k-mer.
         /// </summary>
-        public int KmerLength = 10;
+        public int KmerLength = KmerData32.MIN_KMER_LENGTH+1;
 
         /// <summary>
         /// Threshold for removing dangling ends in graph.

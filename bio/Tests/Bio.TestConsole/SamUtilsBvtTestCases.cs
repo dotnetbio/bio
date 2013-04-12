@@ -289,26 +289,21 @@ namespace Bio.TestConsole
         /// <param name="nodeName"> Parent node in Xml</param>
         public void ValidateSamUtils(string nodeName)
         {
-
             ApplicationLog.WriteLine("************************************** SamUtils with Basic command - Start **************************************");
-            string utilCommand = utilityObj.xmlUtil.GetTextValue(
-                nodeName, Constants.CommandNode);
+            string utilCommand = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.CommandNode);
 
             // Run the SamUtils with the commands updated in the xml.
             Utility.RunProcess(@".\TestUtils\RunUtil.cmd", utilCommand);
             ApplicationLog.WriteLine("************************************** SamUtils with Basic command - End **************************************");
 
             // Gets the output file for validation
-            string actualOutputFile = utilityObj.xmlUtil.GetTextValue(
-                nodeName, Constants.ActualOutputFileNode);
-            string expectedOutputFile = utilityObj.xmlUtil.GetTextValue(
-                nodeName, Constants.ExpectedOutputFileNode);
+            string actualOutputFile = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.ActualOutputFileNode);
+            string expectedOutputFile = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.ExpectedOutputFileNode);
 
             // Compares the results file
             Assert.IsTrue(Utility.CompareFiles(expectedOutputFile, actualOutputFile));
 
             ApplicationLog.WriteLine("SamUtils Console BVT : Successfully validated the results of the command");
-            Console.WriteLine("SamUtils Console BVT : Successfully validated the results of the command");
         }
 
         # endregion Helper methods.

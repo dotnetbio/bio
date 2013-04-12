@@ -99,9 +99,13 @@ namespace Bio.Algorithms.Kmer
             }
             
             long count = sequence.Count;
-            if (kmerLength > Math.Min(count, MIN_KMER_LENGTH) || kmerLength > MAX_KMER_LENGTH)
+            long minSize = Math.Min(count/2, MIN_KMER_LENGTH);
+            if (minSize <= 0)
+                minSize = 1;
+
+            if (kmerLength < minSize || kmerLength > MAX_KMER_LENGTH)
             {
-                throw new ArgumentException("Invalid kmerLength must be between " + MIN_KMER_LENGTH + " and " + MAX_KMER_LENGTH, "kmerLength");
+                throw new ArgumentException("Invalid kmerLength must be between " + minSize + " and " + MAX_KMER_LENGTH, "kmerLength");
             }
 
             KmerData32[] kmers = new KmerData32[count - kmerLength + 1];

@@ -307,7 +307,7 @@
                 return;
             }
 
-            if (this.SelectedContig != null) // If there is a contig selected
+            if (this.SelectedContig != null && this.sequencesBottomView.TotalColumns > 0) // If there is a contig selected
             {
                 this.consensusSequence.Visibility = Visibility.Visible;
                 this.consensusLine.Visibility = Visibility.Visible;

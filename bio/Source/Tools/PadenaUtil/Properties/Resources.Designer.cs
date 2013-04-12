@@ -140,8 +140,28 @@ namespace PadenaUtil.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Padena Utility v1.01
-        ///Copyright (c) 2011, The Outercurve Foundation.
+        ///   Looks up a localized string similar to WARNING: kmerLength is set to an even value ({0}) which can lead to infinite loops when building the graphs.
+        ///It is recommended that you use odd numbers to ensure palindrome sequences do not lead to infinite recursion.
+        ///    .
+        /// </summary>
+        internal static string BadKmerLength {
+            get {
+                return ResourceManager.GetString("BadKmerLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to continue (Y/N)?.
+        /// </summary>
+        internal static string ContinuePrompt {
+            get {
+                return ResourceManager.GetString("ContinuePrompt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Padena Utility v1.1
+        ///Copyright (c) 2011-2013, The Outercurve Foundation.
         ///.
         /// </summary>
         internal static string PadenaSplashScreen {

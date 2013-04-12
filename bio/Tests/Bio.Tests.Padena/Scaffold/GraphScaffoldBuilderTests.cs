@@ -3,6 +3,7 @@ using System.Linq;
 using Bio;
 using Bio.Algorithms.Assembly.Padena;
 using Bio.Algorithms.Assembly.Padena.Scaffold;
+using Bio.Tests.Framework;
 using Bio.Util.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -34,12 +35,13 @@ namespace Bio.Tests
             const int kmerLength = 6;
             const int dangleThreshold = 3;
             const int redundantThreshold = 7;
-            List<ISequence> sequences = new List<ISequence>(TestInputs.GetReadsForScaffolds());
+            var sequences = new List<ISequence>(TestInputs.GetReadsForScaffolds());
 
             KmerLength = kmerLength;
             SequenceReads.Clear();
             this.SetSequenceReads(sequences);
             CreateGraph();
+            
             DanglingLinksThreshold = dangleThreshold;
             DanglingLinksPurger = new DanglingLinksPurger(dangleThreshold);
             RedundantPathLengthThreshold = redundantThreshold;
@@ -48,16 +50,18 @@ namespace Bio.Tests
             RemoveRedundancy();
 
             IList<ISequence> contigs = BuildContigs().ToList();
-            Assert.AreEqual(contigs.Count, 10);
-            CloneLibrary.Instance.AddLibrary("abc", (float)5, (float)20);
-            GraphScaffoldBuilder scaffold = new GraphScaffoldBuilder();
-            IEnumerable<ISequence> scaffoldSeq = scaffold.BuildScaffold(
-                sequences, contigs, this.KmerLength, 3, 0);
+            CloneLibrary.Instance.AddLibrary("abc", 5, 20);
 
-            Assert.AreEqual(scaffoldSeq.Count(), 8);
-            Assert.IsTrue(new string(scaffoldSeq.First().Select(a => (char)a).ToArray()).Equals(
-                "ATGCCTCCTATCTTAGCGCGC"));
-            scaffold.Dispose();
+            using (GraphScaffoldBuilder scaffold = new GraphScaffoldBuilder())
+            {
+                IEnumerable<ISequence> scaffoldSeq = scaffold.BuildScaffold(sequences, contigs, this.KmerLength, 3, 0);
+                HashSet<string> expected = new HashSet<string>
+                {
+                    "GCGCGCTAAGATAGGAGGCAT", "CGCGCG", "TTTTAAA", "TTTTAGC", "TTTTTA", "TTTTTT", "GCGCGGCGCG" 
+                };
+                AlignmentHelpers.CompareSequenceLists(expected, scaffoldSeq);
+            }
+
         }
     }
 }

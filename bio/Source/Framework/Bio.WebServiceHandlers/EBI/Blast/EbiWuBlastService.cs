@@ -14,7 +14,6 @@
     [System.Web.Services.WebServiceBindingAttribute(Name = "JDispatcherServiceHttpBinding", Namespace = "http://soap.jdispatcher.ebi.ac.uk")]
     public partial class JDispatcherService : System.Web.Services.Protocols.SoapHttpClientProtocol
     {
-
         private System.Threading.SendOrPostCallback runOperationCompleted;
 
         private System.Threading.SendOrPostCallback getStatusOperationCompleted;

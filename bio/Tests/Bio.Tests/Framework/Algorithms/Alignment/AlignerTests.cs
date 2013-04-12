@@ -41,8 +41,8 @@ namespace Bio.Tests.Algorithms.Alignment
                     SecondSequence = new Sequence(Alphabets.Protein, "AW-HE"),
                     Consensus = new Sequence(Alphabets.AmbiguousProtein, "AWGHE"),
                     Score = 20,
-                    FirstOffset = 4,
-                    SecondOffset = 1
+                    FirstOffset = 0,
+                    SecondOffset = 3
                 };
             align.PairwiseAlignedSequences.Add(alignedSeq);
             expectedOutput.Add(align);
@@ -77,8 +77,8 @@ namespace Bio.Tests.Algorithms.Alignment
                     SecondSequence = new Sequence(Alphabets.Protein, "AW-HE"),
                     Consensus = new Sequence(Alphabets.AmbiguousProtein, "AWGHE"),
                     Score = 20,
-                    FirstOffset = 4,
-                    SecondOffset = 1
+                    FirstOffset = 0,
+                    SecondOffset = 3
                 };
             align.PairwiseAlignedSequences.Add(alignedSeq);
             expectedOutput.Add(align);
@@ -126,8 +126,8 @@ namespace Bio.Tests.Algorithms.Alignment
                 SecondSequence = new Sequence(Alphabets.DNA, "CCC"),
                 Consensus = new Sequence(Alphabets.DNA, "CCC"),
                 Score = 15,
-                FirstOffset = 5,
-                SecondOffset = 4
+                FirstOffset = 0,
+                SecondOffset = 1
             });
 
             expectedOutput.Add(align);
@@ -175,8 +175,8 @@ namespace Bio.Tests.Algorithms.Alignment
                 SecondSequence = new Sequence(Alphabets.DNA, "CCCC"),
                 Consensus = new Sequence(Alphabets.DNA, "CCCC"),
                 Score = 20,
-                FirstOffset = 10,
-                SecondOffset = 11
+                FirstOffset = 1,
+                SecondOffset = 0
             });
 
             expectedOutput.Add(align);
@@ -210,9 +210,9 @@ namespace Bio.Tests.Algorithms.Alignment
             align.PairwiseAlignedSequences.Add(new PairwiseAlignedSequence
             {
                 FirstSequence = new Sequence(Alphabets.Protein, "HEAGAWGHE-E"),
-                SecondSequence = new Sequence(Alphabets.Protein, "---PAW-HEAE"),
-                Consensus = new Sequence(AmbiguousProteinAlphabet.Instance, "HEAXAWGHEAE"),
-                Score = 12,
+                SecondSequence = new Sequence(Alphabets.Protein, "-PA--W-HEAE"),
+                Consensus = new Sequence(AmbiguousProteinAlphabet.Instance, "HXAGAWGHEAE"),
+                Score = -8,
                 FirstOffset = 0,
                 SecondOffset = 0
             });

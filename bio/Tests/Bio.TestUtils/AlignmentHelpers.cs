@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Bio.Algorithms.Alignment;
 using Bio.Extensions;
 using Bio.Util.Logging;
@@ -12,6 +13,52 @@ namespace Bio.Tests.Framework
     /// </summary>
     public static class AlignmentHelpers
     {
+        public static void CompareSequenceLists(HashSet<string> expected, IEnumerable<ISequence> result, bool checkReversedComplement = true)
+        {
+            Console.WriteLine();
+            Console.Write("Expected (Possible): ");
+            foreach (var value in expected)
+                Console.Write(value + ",");
+            Console.WriteLine();
+            Console.Write("Actual:" );
+            foreach (var value in result)
+                Console.Write(value + ",");
+
+            HashSet<string> actual = new HashSet<string>();
+            Assert.AreEqual(expected.Count, result.Count());
+
+            foreach (ISequence sequence in result)
+            {
+                actual.Add(sequence.ConvertToString());
+                if (checkReversedComplement)
+                {
+                    actual.Add(sequence.GetReverseComplementedSequence().ConvertToString());
+                }
+            }
+
+            foreach (var s in expected)
+            {
+                Assert.IsTrue(actual.Contains(s), "Could not locate " + s);
+            }
+        }
+
+        public static void CompareSequenceLists(HashSet<string> expected, HashSet<string> result)
+        {
+            Console.WriteLine();
+            Console.Write("Expected (Possible): ");
+            foreach (var value in expected)
+                Console.Write(value + ",");
+            Console.WriteLine();
+            Console.Write("Actual:");
+            foreach (var value in result)
+                Console.Write(value + ",");
+
+            foreach (var s in result)
+            {
+                Assert.IsTrue(expected.Contains(s), "Could not locate " + s);
+            }
+        }
+
         /// <summary>
         /// Compare the alignment of mummer and defined alignment
         /// </summary>

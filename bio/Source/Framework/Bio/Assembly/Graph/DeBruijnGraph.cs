@@ -151,81 +151,77 @@ namespace Bio.Algorithms.Assembly.Graph
             // Create the consumer task
             Task theConsumer = Task.Factory.StartNew(() =>
             {
-                Thread.BeginCriticalRegion();
-
-                var kmerList = new List<KmerData32>(BlockSize);
-                HashSet<byte> gapSymbols;
-                Alphabets.DNA.TryGetGapSymbols(out gapSymbols);
-                
-                // Generate the kmers from the sequences
-                foreach (ISequence sequence in sequences)
+                try
                 {
-                    // if the sequence alphabet is not of type DNA then ignore it.
-                    bool skipSequence = false;
-                    if (sequence.Alphabet != Alphabets.DNA)
+                    var kmerList = new List<KmerData32>(BlockSize);
+                    HashSet<byte> gapSymbols;
+                    Alphabets.DNA.TryGetGapSymbols(out gapSymbols);
+
+                    // Generate the kmers from the sequences
+                    foreach (ISequence sequence in sequences)
                     {
-                        skipSequence = true;
-                    }
-                    else
-                    {
-                        // if the sequence contains any gap symbols then ignore the sequence.
-                        for (long index = 0; index < sequence.Count; ++index)
+                        // if the sequence alphabet is not of type DNA then ignore it.
+                        bool skipSequence = false;
+                        if (sequence.Alphabet != Alphabets.DNA)
                         {
-                            byte b = sequence[index];
-                            if (gapSymbols.Any(symbol => b == symbol))
+                            skipSequence = true;
+                        }
+                        else
+                        {
+                            // if the sequence contains any gap symbols then ignore the sequence.
+                            for (long index = 0; index < sequence.Count; ++index)
                             {
-                                skipSequence = true;
-                                break;
+                                byte b = sequence[index];
+                                if (gapSymbols.Any(symbol => b == symbol))
+                                {
+                                    skipSequence = true;
+                                    break;
+                                }
                             }
+
+                            if (skipSequence)
+                                break;
                         }
 
                         if (skipSequence)
-                            break;
-                    }
+                        {
+                            Interlocked.Increment(ref this._skippedSequencesCount);
+                            Interlocked.Increment(ref this._processedSequencesCount);
+                            continue;
+                        }
 
-                    if (skipSequence)
-                    {
-                        Interlocked.Increment(ref this._skippedSequencesCount);
-                        Interlocked.Increment(ref this._processedSequencesCount);
-                        continue;
-                    }
-                    
-                    // If the blocking collection count is exceeding 2 million kmers wait for 5 sec 
-                    // so that the task can remove some kmers and create the nodes. 
-                    // This will avoid OutofMemoryException
-                    while (kmerDataCollection.Count > StopAddThreshold)
-                    {
-                        Thread.Sleep(5);
-                    }
-                  
-                    // Convert sequences to k-mers
-                    try
-                    {
+                        // If the blocking collection count is exceeding 2 million kmers wait for 5 sec 
+                        // so that the task can remove some kmers and create the nodes. 
+                        // This will avoid OutofMemoryException
+                        while (kmerDataCollection.Count > StopAddThreshold)
+                        {
+                            Thread.Sleep(5);
+                        }
+
+                        // Convert sequences to k-mers
                         var kmers = KmerData32.GetKmers(sequence, this.KmerLength);
                         kmerList.AddRange(kmers);
+
+                        // Most reads are <=150 basepairs, so this should avoid having to grow the list
+                        // by keeping it below blockSize
+                        if (kmerList.Count > AddThreshold)
+                        {
+                            kmerDataCollection.Add(kmerList);
+                            kmerList = new List<KmerData32>(4092);
+                        }
+
+                        Interlocked.Increment(ref this._processedSequencesCount);
                     }
-                    catch (ArgumentException)
-                    {
-                    }
-                   
-                    // Most reads are <=150 basepairs, so this should avoid having to grow the list
-                    // by keeping it below blockSize
-                    if (kmerList.Count > AddThreshold)
+
+                    if (kmerList.Count <= AddThreshold)
                     {
                         kmerDataCollection.Add(kmerList);
-                        kmerList = new List<KmerData32>(4092);
                     }
-
-                    Interlocked.Increment(ref this._processedSequencesCount);
                 }
-
-                if (kmerList.Count <= AddThreshold)
+                finally
                 {
-                    kmerDataCollection.Add(kmerList);
+                    kmerDataCollection.CompleteAdding();
                 }
-                
-                kmerDataCollection.CompleteAdding();
-                Thread.EndCriticalRegion();
             });
 
             // Consume k-mers by adding them to binary tree structure as nodes
@@ -251,7 +247,7 @@ namespace Bio.Algorithms.Assembly.Graph
             });
 
             // Done filling binary tree
-            theConsumer.Wait(); // Make sure task is finished!
+            theConsumer.Wait(); // Make sure task is finished - also rethrows any exception here.
             kmerDataCollection.Dispose();
             
             // NOTE: To speed enumeration make the nodes into an array and dispose of the collection

@@ -198,9 +198,17 @@ Optional Parameters:
   <data name="AssemblyStarting" xml:space="preserve">
     <value>Beginning assembly processing.</value>
   </data>
+  <data name="BadKmerLength" xml:space="preserve">
+    <value>WARNING: kmerLength is set to an even value ({0}) which can lead to infinite loops when building the graphs.
+It is recommended that you use odd numbers to ensure palindrome sequences do not lead to infinite recursion.
+    </value>
+  </data>
+  <data name="ContinuePrompt" xml:space="preserve">
+    <value>Are you sure you want to continue (Y/N)?</value>
+  </data>
   <data name="PadenaSplashScreen" xml:space="preserve">
-    <value>Padena Utility v1.01
-Copyright (c) 2011, The Outercurve Foundation.
+    <value>Padena Utility v1.1
+Copyright (c) 2011-2013, The Outercurve Foundation.
 </value>
   </data>
   <data name="PadenaUtilHelp" xml:space="preserve">

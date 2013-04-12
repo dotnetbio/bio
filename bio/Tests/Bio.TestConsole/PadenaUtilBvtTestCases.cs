@@ -123,18 +123,15 @@ namespace Bio.TestConsole
         public void ValidatePadenaUtil(string nodeName, bool verbose)
         {
             ApplicationLog.WriteLine("************************************** PadenaUtil with Basic command - Start **************************************");
-            string utilCommand = utilityObj.xmlUtil.GetTextValue(
-                     nodeName, Constants.CommandNode);
+            string utilCommand = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.CommandNode);
 
             // Run the PadenaUtil with the commands updated in the xml.
             Utility.RunProcess(@".\TestUtils\RunUtil.cmd", utilCommand);
             ApplicationLog.WriteLine("************************************** PadenaUtil with Basic command - End **************************************");
 
             // Gets the output file for validation
-            string actualOutputFile = utilityObj.xmlUtil.GetTextValue(
-                     nodeName, Constants.ActualOutputFileNode);
-            string expectedOutputFile = utilityObj.xmlUtil.GetTextValue(
-                     nodeName, Constants.ExpectedOutputFileNode);
+            string actualOutputFile = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.ActualOutputFileNode);
+            string expectedOutputFile = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.ExpectedOutputFileNode);
             
             // Compares the scaffolds of expected file with actual.
             Assert.IsTrue(Utility.ValidateScaffoldsInAFile(expectedOutputFile, actualOutputFile));
@@ -146,14 +143,13 @@ namespace Bio.TestConsole
                 string[] verboseExpected = expectedVerboseResult.Split(',');
                 string actualVerboseString = Utility.standardOut.Replace("\t", "").Replace("\r", "").Replace("\n", "").Replace(" ", "").Trim();
 
-                for (int i = 0; i < verboseExpected.Length; i++)
+                foreach (string text in verboseExpected)
                 {
-                    Assert.IsTrue(actualVerboseString.Contains(verboseExpected[i]));
+                    Assert.IsTrue(actualVerboseString.Contains(text));
                 }
             }
 
             ApplicationLog.WriteLine("PadenaUtil Console BVT : Successfully validated the results of the command");
-            Console.WriteLine("PadenaUtil Console BVT : Successfully validated the results of the command");
         }
 
         # endregion Helper Methods
