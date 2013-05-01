@@ -7,7 +7,6 @@
 
 using System;
 using System.IO;
-
 using Bio.IO.Gff;
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
@@ -341,28 +340,20 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
             {
                 ApplicationLog.WriteLine(
                     "GFF Parser P2 : All the features validated successfully.");
-                Console.WriteLine(
-                    "GFF Parser P2 : All the features validated successfully.");
             }
             catch (InvalidOperationException)
             {
                 ApplicationLog.WriteLine(
-                    "GFF Parser P2 : All the features validated successfully.");
-                Console.WriteLine(
                     "GFF Parser P2 : All the features validated successfully.");
             }
             catch (FormatException)
             {
                 ApplicationLog.WriteLine(
                     "GFF Parser P2 : All the features validated successfully.");
-                Console.WriteLine(
-                    "GFF Parser P2 : All the features validated successfully.");
             }
             catch (NotSupportedException)
             {
                 ApplicationLog.WriteLine(
-                    "GFF Parser P2 : All the features validated successfully.");
-                Console.WriteLine(
                     "GFF Parser P2 : All the features validated successfully.");
             }
         }
@@ -433,8 +424,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
             catch (ArgumentNullException)
             {                
                 ApplicationLog.WriteLine(
-                    "GFF P2 : Exception is validated successfully.");
-                Console.WriteLine(
                     "GFF P2 : Exception is validated successfully.");
             }
         }

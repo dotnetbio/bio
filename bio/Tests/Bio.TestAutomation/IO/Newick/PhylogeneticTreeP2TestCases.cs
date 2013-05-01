@@ -6,12 +6,9 @@
 ***************************************************************************/
 
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Text;
-
 using Bio.IO.Newick;
-using Bio.Phylogenetics;
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
 
@@ -25,7 +22,6 @@ namespace Bio.TestAutomation.IO.Newick
     [TestClass]
     public class PhylogeneticTreeP2TestCases
     {
-
         #region Enums
 
         /// <summary>
@@ -118,8 +114,6 @@ namespace Bio.TestAutomation.IO.Newick
             {
                 ApplicationLog.WriteLine(
                    "GFF Parser P2 : All the features validated successfully.");
-                Console.WriteLine(
-                    "GFF Parser P2 : All the features validated successfully.");
             }
         }
 
@@ -170,10 +164,7 @@ namespace Bio.TestAutomation.IO.Newick
         {
             try
             {
-                string filePath = _utilityObj.xmlUtil.GetTextValue(
-                    nodeName,
-                    Constants.FilePathNode);
-
+                string filePath = _utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode);
                 switch (method)
                 {
                     case AdditionalParameters.TextReader:
@@ -188,8 +179,7 @@ namespace Bio.TestAutomation.IO.Newick
                     case AdditionalParameters.StringBuilder:
                         using (StreamReader reader = File.OpenText(filePath))
                         {
-                            StringBuilder strBuilderObj =
-                                new StringBuilder(reader.ReadToEnd());
+                            StringBuilder strBuilderObj = new StringBuilder(reader.ReadToEnd());
                             using (NewickParser nwParserObj = new NewickParser())
                             {
                                 nwParserObj.Parse(strBuilderObj);
@@ -205,8 +195,6 @@ namespace Bio.TestAutomation.IO.Newick
             catch (FormatException)
             {
                 ApplicationLog.WriteLine(
-                    "GFF Parser P2 : All the features validated successfully.");
-                Console.WriteLine(
                     "GFF Parser P2 : All the features validated successfully.");
             }
         }

@@ -14,7 +14,6 @@ namespace Bio.TestAutomation.Matrix
     [TestClass]
     public class RowKeysAnsiBvtTestCases
     {
-
         #region Global Variables
 
         Utility utilityObj = new Utility(@"TestUtils\MatrixTestsConfig.xml");
@@ -70,8 +69,6 @@ namespace Bio.TestAutomation.Matrix
             if (File.Exists(Constants.FastQTempTxtFileName))
                 File.Delete(Constants.FastQTempTxtFileName);
 
-            Console.WriteLine(
-                "RowKeysAnsi BVT : Validation of GetInstanceFromDenseAnsi() method successful");
             ApplicationLog.WriteLine(
                 "RowKeysAnsi BVT : Validation of GetInstanceFromDenseAnsi() method successful");
         }
@@ -107,8 +104,6 @@ namespace Bio.TestAutomation.Matrix
             if (File.Exists(Constants.FastQTempTxtFileName))
                 File.Delete(Constants.FastQTempTxtFileName);
 
-            Console.WriteLine(
-                "RowKeysAnsi BVT : Validation of GetInstanceFromDenseAnsi(file-access) method successful");
             ApplicationLog.WriteLine(
                 "RowKeysAnsi BVT : Validation of GetInstanceFromDenseAnsi(file-access) method successful");
         }
@@ -149,8 +144,6 @@ namespace Bio.TestAutomation.Matrix
             if (File.Exists(Constants.FastQTempTxtFileName))
                 File.Delete(Constants.FastQTempTxtFileName);
 
-            Console.WriteLine(
-                "RowKeysAnsi BVT : Validation of GetInstanceFromRowKeysAnsi() method successful");
             ApplicationLog.WriteLine(
                 "RowKeysAnsi BVT : Validation of GetInstanceFromRowKeysAnsi() method successful");
         }
@@ -194,8 +187,6 @@ namespace Bio.TestAutomation.Matrix
             if (File.Exists(Constants.KeysTempFile))
                 File.Delete(Constants.KeysTempFile);
 
-            Console.WriteLine(
-                "RowKeysAnsi BVT : Validation of GetInstanceFromRowKeysAnsi(file-access) method successful");
             ApplicationLog.WriteLine(
                 "RowKeysAnsi BVT : Validation of GetInstanceFromRowKeysAnsi(file-access) method successful");
         }

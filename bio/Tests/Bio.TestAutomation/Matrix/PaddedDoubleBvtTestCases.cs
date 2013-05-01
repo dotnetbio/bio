@@ -1,14 +1,10 @@
 ﻿using System;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-
-using Bio.Util;
 using Bio.Util.Logging;
 using Bio.Matrix;
 using Bio.TestAutomation.Util;
-
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Bio.TestAutomation.Matrix
@@ -19,7 +15,6 @@ namespace Bio.TestAutomation.Matrix
     [TestClass]
     public class PaddedDoubleBvtTestCases
     {
-
         #region Global Variables
 
         Utility utilityObj = new Utility(@"TestUtils\MatrixTestsConfig.xml");
@@ -71,8 +66,6 @@ namespace Bio.TestAutomation.Matrix
             if (File.Exists(Constants.FastQTempTxtFileName))
                 File.Delete(Constants.FastQTempTxtFileName);
 
-            Console.WriteLine(
-                "PaddedDouble BVT : Validation of ColKeysInFile() method successful");
             ApplicationLog.WriteLine(
                 "PaddedDouble BVT : Validation of ColKeysInFile() method successful");
         }
@@ -87,17 +80,11 @@ namespace Bio.TestAutomation.Matrix
         [TestCategory("Priority0")]
         public void ValidatePaddedDoubleCreateEmptyInstance()
         {
-            PaddedDouble pdObj =
-    PaddedDouble.CreateEmptyInstance(
-    new string[] { "R0", "R1", "R2" },
-    new string[] { "C0", "C1", "C2", "C3" },
-    double.NaN);
+            PaddedDouble pdObj = PaddedDouble.CreateEmptyInstance(new string[] { "R0", "R1", "R2" }, new string[] { "C0", "C1", "C2", "C3" }, double.NaN);
 
             Assert.AreEqual("3", pdObj.RowCount.ToString((IFormatProvider)null));
             Assert.AreEqual("4", pdObj.ColCount.ToString((IFormatProvider)null));
 
-            Console.WriteLine(
-                "PaddedDouble BVT : Validation of CreateEmptyInstance() method successful");
             ApplicationLog.WriteLine(
                 "PaddedDouble BVT : Validation of CreateEmptyInstance() method successful");
         }
@@ -129,8 +116,6 @@ namespace Bio.TestAutomation.Matrix
                 Assert.IsTrue(denseMatObj.ColKeys.Contains(sparseLineObj[1]));
             }
 
-            Console.WriteLine(
-                "PaddedDouble BVT : Validation of EachSparseLine() method successful");
             ApplicationLog.WriteLine(
                 "PaddedDouble BVT : Validation of EachSparseLine() method successful");
         }
@@ -162,8 +147,6 @@ namespace Bio.TestAutomation.Matrix
             if (File.Exists(Constants.FastQTempTxtFileName))
                 File.Delete(Constants.FastQTempTxtFileName);
 
-            Console.WriteLine(
-                "PaddedDouble BVT : Validation of GetInstance() method successful");
             ApplicationLog.WriteLine(
                 "PaddedDouble BVT : Validation of GetInstance() method successful");
         }
@@ -194,8 +177,6 @@ namespace Bio.TestAutomation.Matrix
             if (File.Exists(Constants.FastQTempTxtFileName))
                 File.Delete(Constants.FastQTempTxtFileName);
 
-            Console.WriteLine(
-                "PaddedDouble BVT : Validation of GetInstanceFromSparse() method successful");
             ApplicationLog.WriteLine(
                 "PaddedDouble BVT : Validation of GetInstanceFromSparse() method successful");
         }
@@ -226,8 +207,6 @@ namespace Bio.TestAutomation.Matrix
             Assert.AreEqual("R0", pdObj.RowKeys[0]);
             Assert.AreEqual("C0", pdObj.ColKeys[0]);
 
-            Console.WriteLine(
-                "PaddedDouble BVT : Validation of GetInstanceFromSparse(enum) method successful");
             ApplicationLog.WriteLine(
                 "PaddedDouble BVT : Validation of GetInstanceFromSparse(enum) method successful");
         }
@@ -261,8 +240,6 @@ namespace Bio.TestAutomation.Matrix
             if (File.Exists(Constants.FastQTempTxtFileName))
                 File.Delete(Constants.FastQTempTxtFileName);
 
-            Console.WriteLine(
-                "PaddedDouble BVT : Validation of RowKeysInFile() method successful");
             ApplicationLog.WriteLine(
                 "PaddedDouble BVT : Validation of RowKeysInFile() method successful");
         }
@@ -281,8 +258,6 @@ namespace Bio.TestAutomation.Matrix
 
             Assert.AreEqual("                      2", sparseString);
 
-            Console.WriteLine(
-                "PaddedDouble BVT : Validation of StoreToSparseVal() method successful");
             ApplicationLog.WriteLine(
                 "PaddedDouble BVT : Validation of StoreToSparseVal() method successful");
         }
@@ -314,8 +289,6 @@ namespace Bio.TestAutomation.Matrix
             if (File.Exists(Constants.FastQTempTxtFileName))
                 File.Delete(Constants.FastQTempTxtFileName);
 
-            Console.WriteLine(
-                "PaddedDouble BVT : Validation of TryGetInstance() method successful");
             ApplicationLog.WriteLine(
                 "PaddedDouble BVT : Validation of TryGetInstance() method successful");
         }
@@ -346,8 +319,6 @@ namespace Bio.TestAutomation.Matrix
             if (File.Exists(Constants.FastQTempTxtFileName))
                 File.Delete(Constants.FastQTempTxtFileName);
 
-            Console.WriteLine(
-                "PaddedDouble BVT : Validation of TryGetInstanceFromSparse(padded double) method successful");
             ApplicationLog.WriteLine(
                 "PaddedDouble BVT : Validation of TryGetInstanceFromSparse(padded double) method successful");
         }
@@ -378,8 +349,6 @@ namespace Bio.TestAutomation.Matrix
             if (File.Exists(Constants.FastQTempTxtFileName))
                 File.Delete(Constants.FastQTempTxtFileName);
 
-            Console.WriteLine(
-                "PaddedDouble BVT : Validation of TryGetInstanceFromSparse(matrix) method successful");
             ApplicationLog.WriteLine(
                 "PaddedDouble BVT : Validation of TryGetInstanceFromSparse(matrix) method successful");
         }

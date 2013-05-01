@@ -60,12 +60,24 @@ namespace Bio.Tests.Framework
         }
 
         /// <summary>
+        /// Internal method to force case ignore
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="ignoreCase"></param>
+        /// <returns></returns>
+        private static string ChangeCase(this string input, bool ignoreCase)
+        {
+            return (ignoreCase) ? input.ToUpperInvariant() : input;
+        }
+
+        /// <summary>
         /// Compare the alignment of mummer and defined alignment
         /// </summary>
         /// <param name="result">output of Aligners</param>
         /// <param name="expectedAlignment">expected output</param>
+        /// <param name="ignoreCase">True to ignore case of sequences</param>
         /// <returns>Compare result of alignments</returns>
-        public static bool CompareAlignment(IList<IPairwiseSequenceAlignment> result, IList<IPairwiseSequenceAlignment> expectedAlignment)
+        public static bool CompareAlignment(IList<IPairwiseSequenceAlignment> result, IList<IPairwiseSequenceAlignment> expectedAlignment, bool ignoreCase = false)
         {
             Assert.AreEqual(expectedAlignment.Count, result.Count, "Different number of alignments generated.");
 
@@ -80,17 +92,17 @@ namespace Bio.Tests.Framework
                     var s1 = result[count].PairwiseAlignedSequences[count1].FirstSequence;
                     var s2 = expectedAlignment[count].PairwiseAlignedSequences[count1].FirstSequence;
                     if (s2 != null)
-                        Assert.AreEqual(s2.ConvertToString(), s1.ConvertToString(), "First sequence did not match.");
+                        Assert.AreEqual(s2.ConvertToString().ChangeCase(ignoreCase), s1.ConvertToString().ChangeCase(ignoreCase), "First sequence did not match.");
 
                     s1 = result[count].PairwiseAlignedSequences[count1].SecondSequence;
                     s2 = expectedAlignment[count].PairwiseAlignedSequences[count1].SecondSequence;
                     if (s2 != null)
-                        Assert.AreEqual(s2.ConvertToString(), s1.ConvertToString(), "Second sequence did not match.");
+                        Assert.AreEqual(s2.ConvertToString().ChangeCase(ignoreCase), s1.ConvertToString().ChangeCase(ignoreCase), "Second sequence did not match.");
 
                     s1 = result[count].PairwiseAlignedSequences[count1].Consensus;
                     s2 = expectedAlignment[count].PairwiseAlignedSequences[count1].Consensus;
                     if (s2 != null)
-                        Assert.AreEqual(s2.ConvertToString(), s1.ConvertToString(), "Consensus did not match.");
+                        Assert.AreEqual(s2.ConvertToString().ChangeCase(ignoreCase), s1.ConvertToString().ChangeCase(ignoreCase), "Consensus did not match.");
 
                     long offset1 = result[count].PairwiseAlignedSequences[count1].FirstOffset;
                     long offset2 = expectedAlignment[count].PairwiseAlignedSequences[count1].FirstOffset;

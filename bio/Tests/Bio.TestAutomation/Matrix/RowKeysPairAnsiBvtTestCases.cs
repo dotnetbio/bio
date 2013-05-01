@@ -15,7 +15,6 @@ namespace Bio.TestAutomation.Matrix
     [TestClass]
     public class RowKeysPairAnsiBvtTestCases
     {
-
         #region Global Variables
 
         Utility utilityObj = new Utility(@"TestUtils\MatrixTestsConfig.xml");
@@ -73,8 +72,6 @@ namespace Bio.TestAutomation.Matrix
             if (File.Exists(Constants.FastQTempTxtFileName))
                 File.Delete(Constants.FastQTempTxtFileName);
 
-            Console.WriteLine(
-                "RowKeysPairAnsi BVT : Validation of GetInstanceFromPairAnsi() method successful");
             ApplicationLog.WriteLine(
                 "RowKeysPairAnsi BVT : Validation of GetInstanceFromPairAnsi() method successful");
         }
@@ -113,8 +110,6 @@ namespace Bio.TestAutomation.Matrix
             if (File.Exists(Constants.FastQTempTxtFileName))
                 File.Delete(Constants.FastQTempTxtFileName);
 
-            Console.WriteLine(
-                "RowKeysPairAnsi BVT : Validation of GetInstanceFromDenseAnsi(file-access) method successful");
             ApplicationLog.WriteLine(
                 "RowKeysPairAnsi BVT : Validation of GetInstanceFromDenseAnsi(file-access) method successful");
         }
@@ -158,8 +153,6 @@ namespace Bio.TestAutomation.Matrix
             if (File.Exists(Constants.KeysTempFile))
                 File.Delete(Constants.KeysTempFile);
 
-            Console.WriteLine(
-                "RowKeysPairAnsi BVT : Validation of GetInstanceFromRowKeysAnsi(file-access) method successful");
             ApplicationLog.WriteLine(
                 "RowKeysPairAnsi BVT : Validation of GetInstanceFromRowKeysAnsi(file-access) method successful");
         }

@@ -5,9 +5,7 @@
  * 
 ***************************************************************************/
 
-using System;
 using System.Collections.Generic;
-
 using Bio.IO;
 using Bio.IO.FastA;
 using Bio.IO.FastQ;
@@ -15,32 +13,31 @@ using Bio.IO.GenBank;
 using Bio.IO.Gff;
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
-
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 #if (SILVERLIGHT == false)
-    namespace Bio.TestAutomation.IO
+
+namespace Bio.TestAutomation.IO
 #else
     namespace Bio.Silverlight.TestAutomation.IO
 #endif
 {
     /// <summary>
-    /// SequenceParser P1 Test case implementation.
+    ///     SequenceParser P1 Test case implementation.
     /// </summary>
     [TestClass]
     public class SequenceParserP1TestCases
     {
-
         #region Global Variables
 
-        Utility utilityObj = new Utility(@"TestUtils\SequenceParser.xml");
+        private readonly Utility utilityObj = new Utility(@"TestUtils\SequenceParser.xml");
 
         #endregion Global Variables
 
         #region Constructor
 
         /// <summary>
-        /// Static constructor to open log and make other settings needed for test
+        ///     Static constructor to open log and make other settings needed for test
         /// </summary>
         static SequenceParserP1TestCases()
         {
@@ -56,9 +53,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         #region SequenceParser TestCases
 
         /// <summary>
-        /// Find a parser name, description for the Fasta file.
-        /// Input : FastA Files
-        /// Validation : Expected parser, parser type and description.
+        ///     Find a parser name, description for the Fasta file.
+        ///     Input : FastA Files
+        ///     Validation : Expected parser, parser type and description.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -69,9 +66,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         }
 
         /// <summary>
-        /// Find a parser name, description for the GenBank file.
-        /// Input : GenBank Files
-        /// Validation : Expected parser, parser type and description.
+        ///     Find a parser name, description for the GenBank file.
+        ///     Input : GenBank Files
+        ///     Validation : Expected parser, parser type and description.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -82,9 +79,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         }
 
         /// <summary>
-        /// Find a parser name, description for the FastQ file.
-        /// Input : FastQ Files
-        /// Validation : Expected parser, parser type and description.
+        ///     Find a parser name, description for the FastQ file.
+        ///     Input : FastQ Files
+        ///     Validation : Expected parser, parser type and description.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -95,9 +92,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         }
 
         /// <summary>
-        /// Find a parser name, description for the Gff file.
-        /// Input : GFF Files
-        /// Validation : Expected parser, parser type and description.
+        ///     Find a parser name, description for the Gff file.
+        ///     Input : GFF Files
+        ///     Validation : Expected parser, parser type and description.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -108,9 +105,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         }
 
         /// <summary>
-        /// Find a formatter name, description for the Fasta file.
-        /// Input : FastA Files
-        /// Validation : Expected formatter, formatter type and description.
+        ///     Find a formatter name, description for the Fasta file.
+        ///     Input : FastA Files
+        ///     Validation : Expected formatter, formatter type and description.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -121,9 +118,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         }
 
         /// <summary>
-        /// Find a formatter name, description for the GenBank file.
-        /// Input : GenBank Files
-        /// Validation : Expected formatter, formatter type and description.
+        ///     Find a formatter name, description for the GenBank file.
+        ///     Input : GenBank Files
+        ///     Validation : Expected formatter, formatter type and description.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -134,9 +131,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         }
 
         /// <summary>
-        /// Find a formatter name, description for the Gff file.
-        /// Input : Gff Files
-        /// Validation : Expected formatter, formatter type and description.
+        ///     Find a formatter name, description for the Gff file.
+        ///     Input : Gff Files
+        ///     Validation : Expected formatter, formatter type and description.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -147,9 +144,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         }
 
         /// <summary>
-        /// Find a formatter name, description for the FastQ file.
-        /// Input : FastQ Files
-        /// Validation : Expected formatter, formatter type and description.
+        ///     Find a formatter name, description for the FastQ file.
+        ///     Input : FastQ Files
+        ///     Validation : Expected formatter, formatter type and description.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -160,8 +157,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         }
 
         /// <summary>
-        /// Valildate SequenceParser class properties.
-        /// Validation : Expected parser, parser type and description.
+        ///     Valildate SequenceParser class properties.
+        ///     Validation : Expected parser, parser type and description.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -170,13 +167,13 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         {
             // Gets the expected sequence from the Xml
             string fastaParserName = utilityObj.xmlUtil.GetTextValue(Constants.FastAFileParserNode,
-                Constants.ParserNameNode);
+                                                                     Constants.ParserNameNode);
             string genBankParserName = utilityObj.xmlUtil.GetTextValue(Constants.GenBankFileParserNode,
-                Constants.ParserNameNode);
+                                                                       Constants.ParserNameNode);
             string gffParserName = utilityObj.xmlUtil.GetTextValue(Constants.GffFileParserNode,
-                Constants.ParserNameNode);
+                                                                   Constants.ParserNameNode);
             string fastQParserName = utilityObj.xmlUtil.GetTextValue(Constants.FastQFileParserNode,
-                Constants.ParserNameNode);
+                                                                     Constants.ParserNameNode);
 
             // Get SequenceParser class properties.
             FastAParser actualFastAParser = SequenceParsers.Fasta;
@@ -191,13 +188,11 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
             Assert.AreEqual(gffParserName, actualGffParserName.Name);
             Assert.AreEqual(fastQParserName, actualFastQParserName.Name);
             Assert.IsNotNull(allParser);
-            Console.WriteLine(string.Format((IFormatProvider)null,
-                "SequenceParser : Type of the parser is validated successfully"));
             ApplicationLog.WriteLine("Type of the parser is validated successfully");
         }
 
         /// <summary>
-        /// Valildate SequenceFormatter class properties.
+        /// Validate SequenceFormatter class properties.
         /// Validation : Expected parser, parser type and description.
         /// </summary>
         [TestMethod]
@@ -207,13 +202,13 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         {
             // Gets the expected sequence from the Xml
             string fastaFormatterName = utilityObj.xmlUtil.GetTextValue(Constants.FastAFileParserNode,
-                Constants.ParserNameNode);
+                                                                        Constants.ParserNameNode);
             string genBankFormatterName = utilityObj.xmlUtil.GetTextValue(Constants.GenBankFileParserNode,
-                Constants.ParserNameNode);
+                                                                          Constants.ParserNameNode);
             string gffFormatterName = utilityObj.xmlUtil.GetTextValue(Constants.GffFileParserNode,
-                Constants.ParserNameNode);
+                                                                      Constants.ParserNameNode);
             string fastQFormatterName = utilityObj.xmlUtil.GetTextValue(Constants.FastQFileParserNode,
-                Constants.ParserNameNode);
+                                                                        Constants.ParserNameNode);
 
             // Get SequenceFormatter class properties.
             FastAFormatter actualFastAFormatter = SequenceFormatters.Fasta;
@@ -228,37 +223,36 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
             Assert.AreEqual(gffFormatterName, actualGffFormatterName.Name);
             Assert.AreEqual(fastQFormatterName, actualFastQFormatterName.Name);
             Assert.IsNotNull(allFormatters);
-            Console.WriteLine(string.Format((IFormatProvider)null,
-                "SequenceFormatter : Type of the parser is validated successfully"));
             ApplicationLog.WriteLine("Type of the parser is validated successfully");
         }
-                
+
         #endregion SequenceParser TestCases
 
         #region Supporting Methods
 
         /// <summary>
-        /// Validates general Sequence Parser.
+        ///     Validates general Sequence Parser.
         /// </summary>
         /// <param name="nodeName">xml node name.</param>
-        /// <param name="IsParser">IsParser is true if testcases is validating Parsers, 
-        /// false if formatter validation</param>
-        void ValidateSequenceFileParser(string nodeName, bool IsParser)
+        /// <param name="IsParser">
+        ///     IsParser is true if testcases is validating Parsers,
+        ///     false if formatter validation
+        /// </param>
+        private void ValidateSequenceFileParser(string nodeName, bool IsParser)
         {
             // Gets the expected sequence from the Xml
             string[] filePaths = utilityObj.xmlUtil.GetTextValues(nodeName,
-                Constants.FilePathsNode);
+                                                                  Constants.FilePathsNode);
             string parserDescription = utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.DescriptionNode);
+                                                                       Constants.DescriptionNode);
             string parserName = utilityObj.xmlUtil.GetTextValue(nodeName,
-               Constants.ParserNameNode);
+                                                                Constants.ParserNameNode);
             string fileTypes = utilityObj.xmlUtil.GetTextValue(nodeName,
-               Constants.FileTypesNode);
+                                                               Constants.FileTypesNode);
 
             // Get a default parser for the file types.
             for (int i = 0; i < filePaths.Length; i++)
             {
-
                 if (IsParser)
                 {
                     using (ISequenceParser parser = SequenceParsers.FindParserByFileName(filePaths[i]))
@@ -285,8 +279,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
                 }
             }
 
-            Console.WriteLine(string.Format((IFormatProvider)null,
-                "SequenceParser : Type of the parser is validated successfully"));
             ApplicationLog.WriteLine("Type of the parser is validated successfully");
         }
 

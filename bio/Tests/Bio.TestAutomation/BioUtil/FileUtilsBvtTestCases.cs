@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using Bio.Util;
+using Bio.Util.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Bio.TestAutomation.Util
@@ -35,7 +36,7 @@ namespace Bio.TestAutomation.Util
             using (commentedStreamReader = FileUtils.OpenTextStripComments(filename))
             {
                 Assert.IsNotNull(commentedStreamReader, "FileUtils BVT: FileUtils OpenTextStripComments Not validated successfully");
-                Console.WriteLine("FileUtils BVT: FileUtils OpenTextStripComments Validated successfully");
+                ApplicationLog.WriteLine("FileUtils BVT: FileUtils OpenTextStripComments Validated successfully");
             }
 
             // Delete temp files
@@ -60,7 +61,7 @@ namespace Bio.TestAutomation.Util
             using (commentedStreamReader = FileUtils.OpenTextStripComments(fileinfo))
             {
                 Assert.IsNotNull(commentedStreamReader, "FileUtils BVT: FileUtils OpenTextStripComments Not validated successfully");
-                Console.WriteLine("FileUtils BVT: FileUtils OpenTextStripComments Validated successfully");
+                ApplicationLog.WriteLine("FileUtils BVT: FileUtils OpenTextStripComments Validated successfully");
             }
 
             // Delete temp files
@@ -84,8 +85,8 @@ namespace Bio.TestAutomation.Util
                 using (commentedStreamReader = FileUtils.StripComments(stream))
                 {
                     Assert.IsNotNull(commentedStreamReader, "FileUtils BVT: FileUtils OpenTextStripComments Not validated successfully");
-                    Console.WriteLine("FileUtils BVT: FileUtils OpenTextStripComments Validated successfully");
-                };
+                    ApplicationLog.WriteLine("FileUtils BVT: FileUtils OpenTextStripComments Validated successfully");
+                }
             }
 
             // Delete temp files
@@ -109,7 +110,7 @@ namespace Bio.TestAutomation.Util
             FileInfo fileinfo = new FileInfo(filename);
             fileContent = FileUtils.ReadLine(fileinfo);
             Assert.IsNull(fileContent, "FileUtils BVT: FileUtils ReadLine Not validated successfully");
-            Console.WriteLine("FileUtils BVT: FileUtils ReadLine Validated successfully");
+            ApplicationLog.WriteLine("FileUtils BVT: FileUtils ReadLine Validated successfully");
 
             File.Delete(filename);
         }
@@ -130,7 +131,7 @@ namespace Bio.TestAutomation.Util
             fileContent = FileUtils.ReadLine(filename);
 
             Assert.IsNull(fileContent, "FileUtils BVT: FileUtils ReadLine Not validated successfully");
-            Console.WriteLine("FileUtils BVT: FileUtils ReadLine Validated successfully");
+            ApplicationLog.WriteLine("FileUtils BVT: FileUtils ReadLine Validated successfully");
 
             File.Delete(filename);
         }
@@ -166,7 +167,7 @@ namespace Bio.TestAutomation.Util
             }
 
             Assert.IsTrue(result, "FileUtils BVT: FileUtils ReadEachLine Not validated successfully");
-            Console.WriteLine("FileUtils BVT: FileUtils ReadEachLine Validated successfully");
+            ApplicationLog.WriteLine("FileUtils BVT: FileUtils ReadEachLine Validated successfully");
             File.Delete(filename);
         }
 
@@ -202,7 +203,7 @@ namespace Bio.TestAutomation.Util
             }
 
             Assert.IsTrue(result, "FileUtils BVT: FileUtils ReadEachLine Not validated successfully");
-            Console.WriteLine("FileUtils BVT: FileUtils ReadEachLine Validated successfully");
+            ApplicationLog.WriteLine("FileUtils BVT: FileUtils ReadEachLine Validated successfully");
             File.Delete(filename);
         }
 
@@ -238,7 +239,7 @@ namespace Bio.TestAutomation.Util
             }
 
             Assert.IsTrue(result, "FileUtils BVT: FileUtils ReadEachLine Not validated successfully");
-            Console.WriteLine("FileUtils BVT: FileUtils ReadEachLine Validated successfully");
+            ApplicationLog.WriteLine("FileUtils BVT: FileUtils ReadEachLine Validated successfully");
             File.Delete(filename);
         }
 

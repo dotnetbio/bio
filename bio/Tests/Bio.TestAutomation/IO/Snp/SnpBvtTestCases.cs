@@ -15,7 +15,6 @@ using Bio.IO.Snp;
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Bio;
 
 namespace Bio.TestAutomation.IO.Snp
 {
@@ -25,7 +24,6 @@ namespace Bio.TestAutomation.IO.Snp
     [TestClass]
     public class SnpBvtTestCases
     {
-
         #region Enums
 
         /// <summary>
@@ -99,8 +97,6 @@ namespace Bio.TestAutomation.IO.Snp
             Assert.IsTrue(snpParser.ParseAlleleOne);
             Assert.AreEqual(Constants.SnpFileTypes, snpParser.SupportedFileTypes);
 
-            Console.WriteLine(
-                "Successfully validated all the properties of Snp Parser class.");
             ApplicationLog.WriteLine
                 ("Successfully validated all the properties of Snp Parser class.");
         }
@@ -154,8 +150,6 @@ namespace Bio.TestAutomation.IO.Snp
             snpItem2.AlleleTwo = 'G';
 
             Assert.IsTrue(snpItem2.Equals(snpItem1));
-
-            Console.WriteLine("Snp Bvt : Successfully validated Equals(snpitem).");
             ApplicationLog.WriteLine("Snp Bvt : Successfully validated Equals(snpitem).");
         }
 
@@ -176,8 +170,6 @@ namespace Bio.TestAutomation.IO.Snp
             snpItem2.AlleleTwo = 'G';
 
             Assert.IsTrue(snpItem2.Equals((object)snpItem1));
-
-            Console.WriteLine("Snp Bvt : Successfully validated Equals(object).");
             ApplicationLog.WriteLine("Snp Bvt : Successfully validated Equals(object).");
         }
 
@@ -194,8 +186,6 @@ namespace Bio.TestAutomation.IO.Snp
             snpItem1.AlleleTwo = 'G';
 
             Assert.AreEqual(0, snpItem1.GetHashCode());
-
-            Console.WriteLine("Snp Bvt : Successfully validated GetHashCode().");
             ApplicationLog.WriteLine("Snp Bvt : Successfully validated GetHashCode().");
         }
 
@@ -273,9 +263,6 @@ namespace Bio.TestAutomation.IO.Snp
 
             ApplicationLog.WriteLine(
                 "Snp Parser BVT: The Snp sequence with position is validated successfully with Parse() method.");
-            // Logs to the GUI (Console.Out) window
-            Console.WriteLine(
-                "Snp Parser BVT: The Snp sequence with position is validated successfully with Parse() method.");
 
             Assert.IsNotNull(sparseSeq.Alphabet);
             Assert.IsTrue(sparseSeq.Alphabet.Name.ToLower(CultureInfo.CurrentCulture).Contains(utilityObj.xmlUtil.GetTextValue(nodename,
@@ -290,9 +277,6 @@ namespace Bio.TestAutomation.IO.Snp
 
             Assert.AreEqual(expSequenceID, sparseSeq.ID);
             ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                "Snp Parser BVT: The Sequence ID is '{0}' and is as expected.", sparseSeq.ID));
-            // Logs to the VSTest GUI (Console.Out) window
-            Console.WriteLine(string.Format((IFormatProvider)null,
                 "Snp Parser BVT: The Sequence ID is '{0}' and is as expected.", sparseSeq.ID));
         }
 

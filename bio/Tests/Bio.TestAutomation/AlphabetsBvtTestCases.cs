@@ -5,16 +5,12 @@
  * 
 ******************************************************************************/
 
-using System;
 using System.Linq;
 using System.Collections.Generic;
-using System.Reflection;
-using System.IO;
 using Bio.Util.Logging;
 using Bio.TestAutomation.Util;
 using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Bio;
 
 #if (SILVERLIGHT == false)
    namespace Bio.TestAutomation
@@ -28,7 +24,6 @@ using Bio;
     [TestClass]
     public class AlphabetsBvtTestCases
     {
-
         #region enum
 
         /// <summary>
@@ -45,7 +40,7 @@ using Bio;
 
         #region Global Variables
 
-        Utility utilityObj = new Utility(@"TestUtils\TestsConfig.xml");        
+        readonly Utility utilityObj = new Utility(@"TestUtils\TestsConfig.xml");        
 
         #endregion Global Variables
 
@@ -165,8 +160,6 @@ using Bio;
 
                 ApplicationLog.WriteLine(
                     "Alphabets BVT: Validation of Static Constructor completed successfully.");
-                Console.WriteLine(
-                    "Alphabets BVT: Validation of Static Constructor method completed successfully.");
         }
 
         /// <summary>
@@ -181,8 +174,6 @@ using Bio;
             Assert.IsTrue(alp.CompareSymbols(65, 65));
 
             ApplicationLog.WriteLine(
-                "Alphabets BVT: Validation of CompareSymbols() method completed successfully.");
-            Console.WriteLine(
                 "Alphabets BVT: Validation of CompareSymbols() method completed successfully.");
         }
 
@@ -436,8 +427,6 @@ using Bio;
 
             ApplicationLog.WriteLine(
                 "Alphabets BVT: Validation of CompareSymbols() method completed successfully.");
-            Console.WriteLine(
-                "Alphabets BVT: Validation of CompareSymbols() method completed successfully.");
         }
 
         /// <summary>
@@ -671,8 +660,6 @@ using Bio;
             Assert.IsTrue(alp.CompareSymbols(65, 65));
 
             ApplicationLog.WriteLine(
-                "Alphabets BVT: Validation of CompareSymbols() method completed successfully.");
-            Console.WriteLine(
                 "Alphabets BVT: Validation of CompareSymbols() method completed successfully.");
         }
 

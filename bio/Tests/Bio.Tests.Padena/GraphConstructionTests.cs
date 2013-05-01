@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Bio;
 using Bio.Algorithms.Assembly.Graph;
 using Bio.Algorithms.Assembly.Padena;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -85,28 +84,29 @@ namespace Bio.Tests
         /// <returns>Expected graph nodes</returns>
         private static HashSet<string> GetGraphNodesForSmallReads()
         {
-            HashSet<string> nodes = new HashSet<string>();
-            nodes.Add("GATGCC");
-            nodes.Add("ATGCCT");
-            nodes.Add("TGCCTC");
-            nodes.Add("GCCTCC");
-            nodes.Add("CCTCCT");
-            nodes.Add("CTCCTA");
-            nodes.Add("TCCTAT");
-            nodes.Add("CCTATC");
-            nodes.Add("CTATCG");
-            nodes.Add("TATCGA");
-            nodes.Add("ATCGAT");
-            nodes.Add("TCGATC");
-            nodes.Add("CGATCG");
-            nodes.Add("GATCGT");
-            nodes.Add("ATCGTC");
-            nodes.Add("TCGTCG");
-            nodes.Add("CGTCGA");
-            nodes.Add("GTCGAT");
-            nodes.Add("TCGATG");
-            nodes.Add("CGATGC");
-            return nodes;
+            return new HashSet<string>
+            {
+                "GATGCC",
+                "ATGCCT",
+                "TGCCTC",
+                "GCCTCC",
+                "CCTCCT",
+                "CTCCTA",
+                "TCCTAT",
+                "CCTATC",
+                "CTATCG",
+                "TATCGA",
+                "ATCGAT",
+                "TCGATC",
+                "CGATCG",
+                "GATCGT",
+                "ATCGTC",
+                "TCGTCG",
+                "CGTCGA",
+                "GTCGAT",
+                "TCGATG",
+                "CGATGC"
+            };
         }
         #endregion
     }

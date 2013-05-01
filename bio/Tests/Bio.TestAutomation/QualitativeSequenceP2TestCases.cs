@@ -9,15 +9,9 @@ using System;
 using System.Globalization;
 using System.Text;
 using System.Linq;
-
-using Bio;
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Collections.Generic;
-using System.Runtime.Serialization;
-using Bio.IO;
-using Bio.IO.FastQ;
 
 #if (SILVERLIGHT == false)
 namespace Bio.TestAutomation
@@ -31,7 +25,6 @@ namespace Bio.TestAutomation
     [TestClass]
     public class QualitativeSequenceP2TestCases
     {
-
         #region Enums
 
         /// <summary>
@@ -42,10 +35,6 @@ namespace Bio.TestAutomation
         {
             FormatType,
             ByteArray,
-            Alphabets,
-            Sequence,
-            Score,
-            Default
         };
 
         /// <summary>
@@ -59,14 +48,13 @@ namespace Bio.TestAutomation
             SolexaToIllumina,
             IlluminaToSanger,
             IlluminaToSolexa,
-            Default
         };
 
-        # endregion Enums
+        #endregion Enums
 
         #region Global Variables
 
-        Utility utilityObj = new Utility(@"TestUtils\QualitativeTestsConfig.xml");
+        readonly Utility utilityObj = new Utility(@"TestUtils\QualitativeTestsConfig.xml");
 
         #endregion Global Variables
 
@@ -124,7 +112,7 @@ namespace Bio.TestAutomation
             }
 
             // Log to VSTest GUI.
-            Console.WriteLine(string.Format((IFormatProvider)null,
+            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                 "Qualitative Sequence P2: Qualitative Sequence Null exception was validated successfully {0}",
                 updatedActualError));
         }
@@ -145,7 +133,7 @@ namespace Bio.TestAutomation
             Assert.IsNotNull(qualSeq);
 
             // Log to VSTest GUI.
-            Console.WriteLine(string.Format((IFormatProvider)null,
+            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                 "Qualitative Sequence P2: Qualitative empty Sequence was validated successfully {0}",
                 qualSeq));
         }
@@ -272,7 +260,7 @@ namespace Bio.TestAutomation
             }
 
             // Log to VSTest GUI.
-            Console.WriteLine(string.Format((IFormatProvider)null,
+            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                 "Qualitative Sequence P2: Qualitative Sequence Null exception was validated successfully {0}",
                 updatedActualError));
         }
@@ -301,7 +289,7 @@ namespace Bio.TestAutomation
             Assert.AreEqual(reversedSeq, new string(reverseQual.Select(a => (char)a).ToArray()));
 
             // Log to VSTest GUI.
-            Console.WriteLine(string.Format((IFormatProvider)null,
+            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                 "Qualitative Sequence P2: Reverse of Qualitative Sequence {0}",
                 reverseQual));
         }
@@ -329,7 +317,7 @@ namespace Bio.TestAutomation
             Assert.AreEqual(reversedSeq, new string(reverseQual.Select(a => (char)a).ToArray()));
 
             // Log to VSTest GUI.
-            Console.WriteLine(string.Format((IFormatProvider)null,
+            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                 "Qualitative Sequence P2: Reverse of Qualitative Sequence {0}",
                 reverseQual));
         }
@@ -357,7 +345,7 @@ namespace Bio.TestAutomation
             Assert.AreEqual(reversedSeq, new string(reverseQual.Select(a => (char)a).ToArray()));
 
             // Log to VSTest GUI.
-            Console.WriteLine(string.Format((IFormatProvider)null,
+            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                 "Qualitative Sequence P2: Reverse of Qualitative Sequence {0}",
                 reverseQual));
         }
@@ -385,7 +373,7 @@ namespace Bio.TestAutomation
             Assert.AreEqual(complementSeq, new string(complementQual.Select(a => (char)a).ToArray()));
 
             // Log to VSTest GUI.
-            Console.WriteLine(string.Format((IFormatProvider)null,
+            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                 "Qualitative Sequence P2: complement Qual of Qualitative Sequence {0}",
                 complementQual));
         }
@@ -413,7 +401,7 @@ namespace Bio.TestAutomation
             Assert.AreEqual(complementSeq, new string(complementQual.Select(a => (char)a).ToArray()));
 
             // Log to VSTest GUI.
-            Console.WriteLine(string.Format((IFormatProvider)null,
+            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                 "Qualitative Sequence P2: complement Qual of Qualitative Sequence {0}",
                 complementQual));
         }
@@ -454,7 +442,7 @@ namespace Bio.TestAutomation
 
             Assert.IsNull(seq);
             // Log to VSTest GUI.
-            Console.WriteLine(string.Format((IFormatProvider)null,
+            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                 "Qualitative Sequence P2: Reverse of Qualitative Sequence {0}",
                 actualError));
         }
@@ -763,7 +751,7 @@ namespace Bio.TestAutomation
                     try
                     {
                         qualSeq = new QualitativeSequence(Alphabets.DNA, expectedFormatType,
-                          UTF8Encoding.UTF8.GetBytes(inputSequence), (byte[])null);
+                          Encoding.UTF8.GetBytes(inputSequence), (byte[])null);
                         Assert.Fail();
                     }
                     catch (ArgumentException ex)
@@ -780,7 +768,7 @@ namespace Bio.TestAutomation
                     try
                     {
                         qualSeq = new QualitativeSequence(Alphabets.DNA, expectedFormatType,
-                            UTF8Encoding.UTF8.GetBytes(inputSequence), scoreArray);
+                            Encoding.UTF8.GetBytes(inputSequence), scoreArray);
                         Assert.Fail();
                     }
                     catch (ArgumentException ex)
@@ -798,7 +786,7 @@ namespace Bio.TestAutomation
 
             // Log to VSTest GUI.
             Assert.IsNull(qualSeq);
-            Console.WriteLine(string.Format((IFormatProvider)null,
+            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                 "Qualitative Sequence P2: Qualitative Sequence Invalid score exception was validated successfully {0}",
                 updatedActualError));
         }
@@ -819,11 +807,11 @@ namespace Bio.TestAutomation
                 nodeName, Constants.inputSequenceNode);
             string inputQuality = utilityObj.xmlUtil.GetTextValue(
                 nodeName, Constants.InputByteArrayNode);
-            byte[] byteArray = UTF8Encoding.UTF8.GetBytes(inputQuality);
+            byte[] byteArray = Encoding.UTF8.GetBytes(inputQuality);
 
             // Create a Qualitative Sequence.
             createdQualitativeSequence = new QualitativeSequence(
-                alphabet, expectedFormatType, UTF8Encoding.UTF8.GetBytes(inputSequence), byteArray);
+                alphabet, expectedFormatType, Encoding.UTF8.GetBytes(inputSequence), byteArray);
 
             return createdQualitativeSequence;
         }
@@ -850,7 +838,7 @@ namespace Bio.TestAutomation
                 nodeName, Constants.QSequenceCount);
             string inputQuality = utilityObj.xmlUtil.GetTextValue(
                  nodeName, Constants.InputByteArrayNode);
-            byte[] byteArray = UTF8Encoding.UTF8.GetBytes(inputQuality);
+            byte[] byteArray = Encoding.UTF8.GetBytes(inputQuality);
             int index = 0;
 
             // Create and validate Qualitative Sequence.
@@ -858,7 +846,7 @@ namespace Bio.TestAutomation
             {
                 case QualitativeSequenceParameters.ByteArray:
                     createdQualitativeSequence = new QualitativeSequence(alphabet, expectedFormatType,
-                      UTF8Encoding.UTF8.GetBytes(inputSequence), byteArray);
+                      Encoding.UTF8.GetBytes(inputSequence), byteArray);
 
                     // Validate score
                     foreach (byte qualScore in createdQualitativeSequence.GetEncodedQualityScores())
@@ -878,16 +866,15 @@ namespace Bio.TestAutomation
             Assert.AreEqual(createdQualitativeSequence.Count.ToString((IFormatProvider)null), expectedSequenceCount);
             Assert.AreEqual(createdQualitativeSequence.FormatType, expectedFormatType);
 
-            // Logs to the VSTest GUI (Console.Out) window
-            Console.WriteLine(string.Format((IFormatProvider)null,
+            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                 "Qualitative Sequence P2:Qualitative Sequence {0} is as expected.",
                 createdQualitativeSequence.ToString()));
 
-            Console.WriteLine(string.Format((IFormatProvider)null,
+            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                 "Qualitative Sequence P2:Qualitative Sequence Score {0} is as expected.",
                 createdQualitativeSequence.GetEncodedQualityScores().ToString()));
 
-            Console.WriteLine(string.Format((IFormatProvider)null,
+            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                 "Qualitative Sequence P2:Qualitative format type {0} is as expected.",
                 createdQualitativeSequence.FormatType));
         }
@@ -1305,7 +1292,7 @@ namespace Bio.TestAutomation
                 updatedActualError.ToLower(CultureInfo.CurrentCulture));
 
             // Log Error message to VSTest GUI.
-            Console.WriteLine(string.Format((IFormatProvider)null,
+            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                 "Qualitative Sequence P2: Validated exception {0}  successfully",
                 updatedActualError));
         }

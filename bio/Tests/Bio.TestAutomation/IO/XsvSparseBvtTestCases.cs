@@ -8,15 +8,10 @@
 using System;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Globalization;
 using System.Collections.Generic;
-
-using Bio;
-using Bio.IO;
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
-
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Bio.Algorithms.Assembly;
 using Bio.IO.Xsv;
@@ -29,7 +24,6 @@ namespace Bio.TestAutomation.IO
     [TestClass]
     public class XsvSparseBvtTestCases
     {
-
         #region Enums
 
         /// <summary>
@@ -102,8 +96,6 @@ namespace Bio.TestAutomation.IO
             Assert.AreEqual(Constants.XsvSparseFileTypes, xsvParser.SupportedFileTypes);
             Assert.AreEqual(Constants.XsvSparseName, xsvParser.Name);
 
-            Console.WriteLine(
-                "Successfully validated all the properties of XsvSparse Parser class.");
             ApplicationLog.WriteLine
                 ("Successfully validated all the properties of XsvSparse Parser class.");
         }
@@ -143,7 +135,6 @@ namespace Bio.TestAutomation.IO
                 Assert.AreEqual(56, contig.Sequences.Count);
             }
             // Log to GUI.
-            Console.WriteLine("Successfully validated the ParseConting() method with Xsv file");
             ApplicationLog.WriteLine("Successfully validated the ParseConting() method with Xsv file");
         }
 
@@ -201,8 +192,6 @@ namespace Bio.TestAutomation.IO
             Assert.AreEqual(Constants.XsvSeperator, formatterObj.Separator);
             Assert.AreEqual(Constants.XsvSeqIdPrefix, formatterObj.SequenceIDPrefix);
 
-            Console.WriteLine(
-                "Successfully validated all the properties of XsvSparse Formatter class.");
             ApplicationLog.WriteLine
                 ("Successfully validated all the properties of XsvSparse Formatter class.");
         }
@@ -268,8 +257,6 @@ namespace Bio.TestAutomation.IO
             Assert.AreEqual(seqId.Length, expectedseqId.Length);
             Assert.AreEqual(seqId, expectedseqId);
 
-            // Log to VSTest GUI.
-            Console.WriteLine("Successfully validated the Write Xsv file");
             ApplicationLog.WriteLine("Successfully validated the Write Xsv file");
         }
 
@@ -333,9 +320,6 @@ namespace Bio.TestAutomation.IO
             }
 
             ApplicationLog.WriteLine(
-                "XsvSparse Parser BVT: The XsvSparse sequence is validated successfully with Parse() method.");
-            // Logs to the GUI (Console.Out) window
-            Console.WriteLine(
                 "XsvSparse Parser BVT: The XsvSparse sequence is validated successfully with Parse() method.");
 
             Assert.IsNotNull(sparseSeq.Alphabet);
@@ -412,8 +396,6 @@ namespace Bio.TestAutomation.IO
                 Assert.AreEqual(seqItem.Index, expectedSeqItem.Index);
             }
 
-            // Log to GUI.
-            Console.WriteLine("Successfully validated the format Xsv file");
             ApplicationLog.WriteLine("Successfully validated the format Xsv file");
         }
 

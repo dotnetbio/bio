@@ -6,15 +6,12 @@
 ******************************************************************************/
 
 using System;
-
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
 using Bio.Web;
 using Bio.Web.Blast;
-
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Net;
-using Bio;
 
 namespace Bio.TestAutomation.Web.AzureBlast
 {
@@ -95,8 +92,6 @@ namespace Bio.TestAutomation.Web.AzureBlast
             {
                 ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                     "AzureWebService P2 : Connection Failed with the error '{0}'", ex.Message));
-                Console.WriteLine(string.Format((IFormatProvider)null,
-                    "AzureWebService P2 : Connection Failed with the error '{0}'", ex.Message));
                 Assert.Inconclusive("Test case ignored due to connection failure");
             }
 
@@ -114,7 +109,6 @@ namespace Bio.TestAutomation.Web.AzureBlast
             catch (WebException)
             {
                 ApplicationLog.WriteLine("AzureWebService P2 : Successfully validated the exception");
-                Console.WriteLine("AzureWebService P2 : Successfully validated the exception");
             }
         }
 
@@ -143,8 +137,6 @@ namespace Bio.TestAutomation.Web.AzureBlast
             {
                 ApplicationLog.WriteLine(
                     "AzureWebService P2 : Successfully validated the Argument null exception");
-                Console.WriteLine(
-                    "AzureWebService P2 : Successfully validated the Argument null exception");
             }
             finally
             {
@@ -161,8 +153,6 @@ namespace Bio.TestAutomation.Web.AzureBlast
             catch (ArgumentNullException)
             {
                 ApplicationLog.WriteLine(
-                    "AzureWebService P2 : Successfully validated the Argument null exception");
-                Console.WriteLine(
                     "AzureWebService P2 : Successfully validated the Argument null exception");
             }
             finally
@@ -224,8 +214,6 @@ namespace Bio.TestAutomation.Web.AzureBlast
             {
                 ApplicationLog.WriteLine(
                     "AzureWebService P2 : Successfully validated the exception");
-                Console.WriteLine(
-                    "AzureWebService P2 : Successfully validated the exception");
             }
         }
 
@@ -268,7 +256,6 @@ namespace Bio.TestAutomation.Web.AzureBlast
             catch (WebException)
             {
                 ApplicationLog.WriteLine("AzureWebService P2 : Successfully validated the exception");
-                Console.WriteLine("AzureWebService P2 : Successfully validated the exception");
             }
         }
 

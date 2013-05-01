@@ -261,7 +261,7 @@ namespace Bio.Algorithms.Assembly.Padena
             }
 
             // for optimal purpose, kmer length should be more than half of longest sequence
-            float minLengthOfKmer = Math.Max(KmerData32.MIN_KMER_LENGTH, maxSeqLength / 2);
+            float minLengthOfKmer = Math.Max(1, maxSeqLength / 2);
             float maxLengthOfKmer = minSeqLength;
 
             int kmerLength = minLengthOfKmer < maxLengthOfKmer
@@ -285,7 +285,7 @@ namespace Bio.Algorithms.Assembly.Padena
                 throw new InvalidOperationException(Properties.Resource.KmerLength);
 
             // Bound to our max size based on data handling.
-            return kmerLength > KmerData32.MAX_KMER_LENGTH ? KmerData32.MAX_KMER_LENGTH : kmerLength;
+            return kmerLength > DeBruijnGraph.MaxKmerLength ? DeBruijnGraph.MaxKmerLength : kmerLength;
         }
 
         /// <summary>
@@ -678,7 +678,7 @@ namespace Bio.Algorithms.Assembly.Padena
             //    _kmerLength++;
 
             // Enforce our boundaries (same as DeBruijnGraph code)
-            _kmerLength = Math.Max(1, Math.Min(KmerData32.MAX_KMER_LENGTH, _kmerLength));
+            _kmerLength = Math.Max(1, Math.Min(DeBruijnGraph.MaxKmerLength, _kmerLength));
 
             if (this.DanglingLinksThreshold == -1)
             {

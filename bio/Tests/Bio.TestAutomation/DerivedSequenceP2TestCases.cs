@@ -6,9 +6,6 @@
 ******************************************************************************/
 
 using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
@@ -23,7 +20,7 @@ namespace Bio.TestAutomation
     {
         #region Global Variables
 
-        Utility utilityObj = new Utility(@"TestUtils\TestsConfig.xml");
+        readonly Utility utilityObj = new Utility(@"TestUtils\TestsConfig.xml");
 
         #endregion Global Variables
 

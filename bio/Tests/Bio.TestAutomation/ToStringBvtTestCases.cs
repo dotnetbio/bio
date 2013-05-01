@@ -6,39 +6,37 @@
 ******************************************************************************/
 
 using System.Collections.Generic;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Bio.Util;
 using System.Globalization;
-using Bio.Algorithms.Alignment;
-using Bio.Algorithms.SuffixTree;
-using Bio.Algorithms.Assembly;
-using Bio.SimilarityMatrices;
-using Bio.Algorithms.Assembly.Padena;
-using Bio.TestAutomation.Util;
 using System.IO;
+using System.Linq;
+using Bio.Algorithms.Alignment;
+using Bio.Algorithms.Assembly;
+using Bio.Algorithms.Assembly.Padena;
+using Bio.Algorithms.SuffixTree;
 using Bio.IO.FastA;
+using Bio.SimilarityMatrices;
+using Bio.TestAutomation.Util;
+using Bio.Util;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Bio.TestAutomation
 {
     /// <summary>
-    /// Bvt Test cases for ToString and ConvertToString of all classes
+    ///     Bvt Test cases for ToString and ConvertToString of all classes
     /// </summary>
     [TestClass]
     public class ToStringBvtTestCases
     {
-
         #region Global Variables
 
-        Utility utilityObj = new Utility(@"TestUtils\TestsConfig.xml");
+        private readonly Utility utilityObj = new Utility(@"TestUtils\TestsConfig.xml");
 
         #endregion Global Variables
 
         #region BVT Test Cases
 
-
         /// <summary>
-        /// Validates Sequence ToString()
+        ///     Validates Sequence ToString()
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -47,20 +45,21 @@ namespace Bio.TestAutomation
         {
             ISequence seqSmall = new Sequence(Alphabets.DNA, "ATCG");
             string seqLargeString = utilityObj.xmlUtil.GetTextValue(Constants.ToStringNodeName,
-                Constants.seqLargeStringNode);
+                                                                    Constants.seqLargeStringNode);
             ISequence seqLarge = new Sequence(Alphabets.DNA, seqLargeString);
             string ActualSmallString = seqSmall.ToString();
             string ActualLargeString = seqLarge.ToString();
             string ExpectedSmallString = "ATCG";
             string seqLargeExpected = utilityObj.xmlUtil.GetTextValue(Constants.ToStringNodeName,
-                Constants.seqLargeExpected2Node);
+                                                                      Constants.seqLargeExpected2Node);
             string expectedLargeString = string.Format(CultureInfo.CurrentCulture,
-                seqLargeExpected, (seqLarge.Count - Helper.AlphabetsToShowInToString));
+                                                       seqLargeExpected,
+                                                       (seqLarge.Count - Helper.AlphabetsToShowInToString));
             Assert.AreEqual(ExpectedSmallString, ActualSmallString);
             Assert.AreEqual(expectedLargeString, ActualLargeString);
 
             //check with blank sequence
-            Sequence seqBlank = new Sequence(Alphabets.DNA, "");
+            var seqBlank = new Sequence(Alphabets.DNA, "");
             string blankString = seqBlank.ToString();
             Assert.AreEqual(string.Empty, blankString);
 
@@ -68,12 +67,12 @@ namespace Bio.TestAutomation
             List<ISequence> seqsList;
             // Gets the expected sequence from the Xml
             string filePath = utilityObj.xmlUtil.GetTextValue(Constants.SimpleFastaNodeName,
-                Constants.FilePathNode);
-            using (StreamReader reader = new StreamReader(filePath))
+                                                              Constants.FilePathNode);
+            using (var reader = new StreamReader(filePath))
             {
                 IEnumerable<ISequence> seq = null;
 
-                using (FastAParser parser = new FastAParser())
+                using (var parser = new FastAParser())
                 {
                     parser.Alphabet = Alphabets.Protein;
                     seq = parser.Parse(reader);
@@ -83,7 +82,7 @@ namespace Bio.TestAutomation
                 }
             }
 
-            string seqString = new string(seqsList[0].Select(a => (char)a).ToArray());
+            var seqString = new string(seqsList[0].Select(a => (char) a).ToArray());
             if (seqString.Length > Helper.AlphabetsToShowInToString)
             {
                 //check if the whole sequence string contains the string retrieved from ToString
@@ -98,7 +97,7 @@ namespace Bio.TestAutomation
 
 
         /// <summary>
-        /// Validates DerivedSequence ToString()
+        ///     Validates DerivedSequence ToString()
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -107,7 +106,7 @@ namespace Bio.TestAutomation
         {
             ISequence seqSmall = new Sequence(Alphabets.DNA, "ATCG");
             string seqLargeStr = utilityObj.xmlUtil.GetTextValue(Constants.ToStringNodeName,
-                Constants.seqLargeStringNode);
+                                                                 Constants.seqLargeStringNode);
             ISequence seqLarge = new Sequence(Alphabets.DNA, seqLargeStr);
             ISequence DeriveSeqSmall = new DerivedSequence(seqSmall, false, true);
             ISequence DeriveSeqLarge = new DerivedSequence(seqLarge, false, true);
@@ -116,9 +115,10 @@ namespace Bio.TestAutomation
             string ActualLargeString = DeriveSeqLarge.ToString();
             string ExpectedSmallString = "TAGC";
             string seqLargeExpected = utilityObj.xmlUtil.GetTextValue(Constants.ToStringNodeName,
-                Constants.seqLargeExpectedNode);
+                                                                      Constants.seqLargeExpectedNode);
             string expectedLargeString = string.Format(CultureInfo.CurrentCulture,
-                seqLargeExpected, (seqLarge.Count - Helper.AlphabetsToShowInToString));
+                                                       seqLargeExpected,
+                                                       (seqLarge.Count - Helper.AlphabetsToShowInToString));
 
             Assert.AreEqual(ExpectedSmallString, ActualSmallString);
             Assert.AreEqual(expectedLargeString, ActualLargeString);
@@ -133,13 +133,14 @@ namespace Bio.TestAutomation
 
             // Create derived Sequence
             ISequence seq = new Sequence(alphabet, expectedSequence);
-            DerivedSequence derSequence = new DerivedSequence(seq, false, false);
+            var derSequence = new DerivedSequence(seq, false, false);
 
             string actualDerivedSeqStr = derSequence.ToString();
             if (actualDerivedSeqStr.Length > Helper.AlphabetsToShowInToString)
             {
                 //check if the whole sequence string contains the string retrieved from ToString
-                Assert.IsTrue(expectedSequence.Contains(derSequence.ToString().Substring(0, Helper.AlphabetsToShowInToString)));
+                Assert.IsTrue(
+                    expectedSequence.Contains(derSequence.ToString().Substring(0, Helper.AlphabetsToShowInToString)));
                 Assert.IsTrue(derSequence.ToString().Contains("... +["));
             }
             else
@@ -149,33 +150,32 @@ namespace Bio.TestAutomation
         }
 
         /// <summary>
-        /// Validates QualitativeSequence ToString
+        ///     Validates QualitativeSequence ToString
         /// </summary>
         [TestMethod]
         [Priority(0)]
         [TestCategory("Priority0")]
         public void ValidateQualitativeSequenceToString()
         {
-            byte[] seqData = new byte[4];
-            seqData[0] = (byte)'A';
-            seqData[1] = (byte)'T';
-            seqData[2] = (byte)'C';
-            seqData[3] = (byte)'G';
-            byte[] qualityScores = new byte[4];
-            qualityScores[0] = (byte)'A';
-            qualityScores[1] = (byte)'A';
-            qualityScores[2] = (byte)'A';
-            qualityScores[3] = (byte)'B';
-            QualitativeSequence seq = new QualitativeSequence(Alphabets.DNA,
-                FastQFormatType.Illumina_v1_3, seqData, qualityScores);
+            var seqData = new byte[4];
+            seqData[0] = (byte) 'A';
+            seqData[1] = (byte) 'T';
+            seqData[2] = (byte) 'C';
+            seqData[3] = (byte) 'G';
+            var qualityScores = new byte[4];
+            qualityScores[0] = (byte) 'A';
+            qualityScores[1] = (byte) 'A';
+            qualityScores[2] = (byte) 'A';
+            qualityScores[3] = (byte) 'B';
+            var seq = new QualitativeSequence(Alphabets.DNA,
+                                              FastQFormatType.Illumina_v1_3, seqData, qualityScores);
             string actualString = seq.ToString();
             string expectedString = "ATCG\r\nAAAB";
             Assert.AreEqual(actualString, expectedString);
-
         }
 
         /// <summary>
-        /// Validates All Alphabets ToString
+        ///     Validates All Alphabets ToString
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -205,20 +205,20 @@ namespace Bio.TestAutomation
         }
 
         /// <summary>
-        /// Validates SequenceRange ToString
+        ///     Validates SequenceRange ToString
         /// </summary>
         [TestMethod]
         [Priority(0)]
         [TestCategory("Priority0")]
         public void ValidateSequenceRangeToString()
         {
-            SequenceRange range = new SequenceRange("chr20", 0, 3);
+            var range = new SequenceRange("chr20", 0, 3);
             string actualString = range.ToString();
             Assert.AreEqual("ID=chr20 Start=0 End=3", actualString);
         }
 
         /// <summary>
-        /// Validates SequenceRangeGrouping ToString
+        ///     Validates SequenceRangeGrouping ToString
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -231,15 +231,15 @@ namespace Bio.TestAutomation
             ranges.Add(range1);
             ranges.Add(range2);
 
-            SequenceRangeGrouping rangegrouping = new SequenceRangeGrouping(ranges);
+            var rangegrouping = new SequenceRangeGrouping(ranges);
             string actualString = rangegrouping.ToString();
             string expectedStr = utilityObj.xmlUtil.GetTextValue(Constants.ToStringNodeName,
-                Constants.SequenceRangeGroupingExpectedNode);
+                                                                 Constants.SequenceRangeGroupingExpectedNode);
             Assert.AreEqual(expectedStr.Replace("\\r\\n", ""), actualString.Replace("\r\n", ""));
         }
 
         /// <summary>
-        /// Validates SequenceStatistics ToString
+        ///     Validates SequenceStatistics ToString
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -247,7 +247,7 @@ namespace Bio.TestAutomation
         public void ValidateSequenceStatisticsToString()
         {
             ISequence seq = new Sequence(Alphabets.DNA, "ATCGATCG");
-            SequenceStatistics seqStats = new SequenceStatistics(seq);
+            var seqStats = new SequenceStatistics(seq);
             string actualString = seqStats.ToString();
             string expectedString = "A - 2\r\nC - 2\r\nG - 2\r\nT - 2\r\n";
             Assert.AreEqual(actualString, expectedString);
@@ -256,10 +256,10 @@ namespace Bio.TestAutomation
             List<ISequence> seqsList;
             IEnumerable<ISequence> sequences = null;
             string filePath = utilityObj.xmlUtil.GetTextValue(Constants.SimpleFastaNodeName,
-                Constants.FilePathNode);
-            using (StreamReader reader = new StreamReader(filePath))
+                                                              Constants.FilePathNode);
+            using (var reader = new StreamReader(filePath))
             {
-                using (FastAParser parser = new FastAParser())
+                using (var parser = new FastAParser())
                 {
                     parser.Alphabet = Alphabets.Protein;
                     sequences = parser.Parse(reader);
@@ -275,11 +275,10 @@ namespace Bio.TestAutomation
                 string seqStatStr = seqStats.ToString();
                 Assert.IsTrue(seqStatStr.Contains(" - "));
             }
-
         }
 
         /// <summary>
-        /// Validates AlignedSequence ToString
+        ///     Validates AlignedSequence ToString
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -288,13 +287,13 @@ namespace Bio.TestAutomation
         {
             IList<ISequence> seqList = new List<ISequence>();
             string actualAlignedSeqString = utilityObj.xmlUtil.GetTextValue(Constants.ToStringNodeName,
-                Constants.AlignedSeqActualNode);
+                                                                            Constants.AlignedSeqActualNode);
             seqList.Add(new Sequence(Alphabets.DNA,
-                actualAlignedSeqString));
+                                     actualAlignedSeqString));
             seqList.Add(new Sequence(Alphabets.DNA, "CAAAAGGGATTGC---"));
             seqList.Add(new Sequence(Alphabets.DNA, "TAGTAGTTCTGCTATATACATTTG"));
             seqList.Add(new Sequence(Alphabets.DNA, "GTTATCATGCGAACAATTCAACAGACACTGTAGA"));
-            NucmerPairwiseAligner num = new NucmerPairwiseAligner();
+            var num = new NucmerPairwiseAligner();
             num.BreakLength = 8;
             num.FixedSeparation = 0;
             num.MinimumScore = 0;
@@ -303,43 +302,43 @@ namespace Bio.TestAutomation
             num.LengthOfMUM = 8;
             IList<ISequence> sequenceList = seqList;
             IList<ISequenceAlignment> alignmentObj = num.Align(sequenceList);
-            AlignedSequence alignedSeqs = (AlignedSequence)alignmentObj[0].AlignedSequences[0];
+            var alignedSeqs = (AlignedSequence) alignmentObj[0].AlignedSequences[0];
 
             string actualString = alignedSeqs.ToString();
             string expectedString = utilityObj.xmlUtil.GetTextValue(Constants.ToStringNodeName,
-                Constants.AlignedSeqExpectedNode);
+                                                                    Constants.AlignedSeqExpectedNode);
             Assert.AreEqual(actualString.Replace("\r\n", ""), expectedString.Replace("\\r\\n", ""));
         }
 
         /// <summary>
-        /// Validates Cluster ToString
+        ///     Validates Cluster ToString
         /// </summary>
         [TestMethod]
         [Priority(0)]
         [TestCategory("Priority0")]
         public void ValidateClusterToString()
         {
-            Match match = new Match();
+            var match = new Match();
 
-            MatchExtension matchExtn1 = new MatchExtension(match);
+            var matchExtn1 = new MatchExtension(match);
             matchExtn1.ID = 1;
             matchExtn1.Length = 20;
-            MatchExtension matchExtn2 = new MatchExtension(match);
+            var matchExtn2 = new MatchExtension(match);
             matchExtn2.ID = 2;
             matchExtn2.Length = 30;
             IList<MatchExtension> extnList = new List<MatchExtension>();
             extnList.Add(matchExtn1);
             extnList.Add(matchExtn2);
 
-            Cluster clust = new Cluster(extnList);
+            var clust = new Cluster(extnList);
             string actualString = clust.ToString();
             string expectedString = utilityObj.xmlUtil.GetTextValue(Constants.ToStringNodeName,
-                Constants.ClusterExpectedNode);
+                                                                    Constants.ClusterExpectedNode);
             Assert.AreEqual(actualString.Replace("\r\n", ""), expectedString.Replace("\\r\\n", ""));
         }
 
         /// <summary>
-        /// Validates DeltaAlignment ToString
+        ///     Validates DeltaAlignment ToString
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -348,22 +347,22 @@ namespace Bio.TestAutomation
         {
             ISequence refSeq = new Sequence(Alphabets.DNA, "ATCGGGGGGGGAAAAAAATTTTCCCCGGGGG");
             ISequence qrySeq = new Sequence(Alphabets.DNA, "GGGGG");
-            DeltaAlignment delta = new DeltaAlignment(refSeq, qrySeq);
+            var delta = new DeltaAlignment(refSeq, qrySeq);
             delta.FirstSequenceEnd = 21;
             delta.SecondSequenceEnd = 20;
             string actualString = delta.ToString();
             string expectedString = utilityObj.xmlUtil.GetTextValue(Constants.ToStringNodeName,
-                Constants.DeltaAlignmentExpectedNode);
+                                                                    Constants.DeltaAlignmentExpectedNode);
             Assert.AreEqual(actualString, expectedString);
 
             // Gets the expected sequence from the Xml
             List<ISequence> seqsList;
             IEnumerable<ISequence> sequences = null;
             string filePath = utilityObj.xmlUtil.GetTextValue(Constants.SimpleFastaNodeName,
-                Constants.FilePathNode);
-            using (StreamReader reader = new StreamReader(filePath))
+                                                              Constants.FilePathNode);
+            using (var reader = new StreamReader(filePath))
             {
-                using (FastAParser parser = new FastAParser())
+                using (var parser = new FastAParser())
                 {
                     parser.Alphabet = Alphabets.Protein;
                     sequences = parser.Parse(reader);
@@ -373,24 +372,24 @@ namespace Bio.TestAutomation
                 }
             }
 
-            DeltaAlignment delta1 = new DeltaAlignment(seqsList[0], qrySeq);
+            var delta1 = new DeltaAlignment(seqsList[0], qrySeq);
             delta1.FirstSequenceEnd = 21;
             delta1.SecondSequenceEnd = 20;
             string actualString1 = delta1.ToString();
             string expectedString1 = utilityObj.xmlUtil.GetTextValue(Constants.ToStringNodeName,
-                Constants.DeltaAlignmentExpected2Node);
+                                                                     Constants.DeltaAlignmentExpected2Node);
             Assert.AreEqual(expectedString1, actualString1);
         }
 
         /// <summary>
-        /// Validates PairwiseAlignedSequence ToString
+        ///     Validates PairwiseAlignedSequence ToString
         /// </summary>
         [TestMethod]
         [Priority(0)]
         [TestCategory("Priority0")]
         public void ValidatePairwiseAlignedSequenceToString()
         {
-            PairwiseAlignedSequence alignedSeq = new PairwiseAlignedSequence();
+            var alignedSeq = new PairwiseAlignedSequence();
             alignedSeq.FirstSequence = new Sequence(Alphabets.Protein, "AWGHE");
             alignedSeq.SecondSequence = new Sequence(Alphabets.Protein, "AW-HE");
             alignedSeq.Consensus = new Sequence(Alphabets.Protein, "AWGHE");
@@ -404,7 +403,7 @@ namespace Bio.TestAutomation
         }
 
         /// <summary>
-        /// Validates PairwiseSequenceAlignment ToString
+        ///     Validates PairwiseSequenceAlignment ToString
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -412,7 +411,7 @@ namespace Bio.TestAutomation
         public void ValidatePairwiseSequenceAlignmentToString()
         {
             IPairwiseSequenceAlignment align = new PairwiseSequenceAlignment();
-            PairwiseAlignedSequence alignedSeq = new PairwiseAlignedSequence();
+            var alignedSeq = new PairwiseAlignedSequence();
             alignedSeq.FirstSequence = new Sequence(Alphabets.Protein, "AWGHE");
             alignedSeq.SecondSequence = new Sequence(Alphabets.Protein, "AW-HE");
             alignedSeq.Consensus = new Sequence(Alphabets.Protein, "AWGHE");
@@ -427,34 +426,34 @@ namespace Bio.TestAutomation
         }
 
         /// <summary>
-        /// Validates Match And MatchExtension ToString
+        ///     Validates Match And MatchExtension ToString
         /// </summary>
         [TestMethod]
         [Priority(0)]
         [TestCategory("Priority0")]
         public void ValidateMatchAndMatchExtensionToString()
         {
-            Match match = new Match();
+            var match = new Match();
             match.Length = 20;
             match.QuerySequenceOffset = 33;
 
-            MatchExtension matchExtn = new MatchExtension(match);
+            var matchExtn = new MatchExtension(match);
             matchExtn.ID = 1;
             matchExtn.Length = 20;
 
             string actualMatchExtnString = matchExtn.ToString();
             string actualMatchstring = match.ToString();
             string ExpectedMatchExtnString = utilityObj.xmlUtil.GetTextValue(Constants.ToStringNodeName,
-                Constants.ExpectedMatchExtnStringNode);
+                                                                             Constants.ExpectedMatchExtnStringNode);
             string ExpectedMatchString = utilityObj.xmlUtil.GetTextValue(Constants.ToStringNodeName,
-                Constants.ExpectedMatchStringNode);
+                                                                         Constants.ExpectedMatchStringNode);
 
             Assert.AreEqual(ExpectedMatchExtnString, actualMatchExtnString);
             Assert.AreEqual(actualMatchstring, ExpectedMatchString);
         }
 
         /// <summary>
-        /// Validates SequenceAlignment ToString
+        ///     Validates SequenceAlignment ToString
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -467,7 +466,7 @@ namespace Bio.TestAutomation
             string origSequence2 = "LNIPSLITLNKSIYVFSKRKKRLSGFLHN";
 
             // Create input sequences
-            List<ISequence> inputSequences = new List<ISequence>();
+            var inputSequences = new List<ISequence>();
             inputSequences.Add(new Sequence(alphabet, origSequence1));
             inputSequences.Add(new Sequence(alphabet, origSequence2));
 
@@ -486,13 +485,15 @@ namespace Bio.TestAutomation
 
             string actualSequenceAlignmentString = alignment.ToString();
             string ExpectedSequenceAlignmentString = utilityObj.xmlUtil.GetTextValue(Constants.ToStringNodeName,
-                Constants.SequenceAlignmentExpectedNode);
+                                                                                     Constants
+                                                                                         .SequenceAlignmentExpectedNode);
 
-            Assert.AreEqual(ExpectedSequenceAlignmentString.Replace("\\r\\n", ""), actualSequenceAlignmentString.Replace("\r\n", ""));
+            Assert.AreEqual(ExpectedSequenceAlignmentString.Replace("\\r\\n", ""),
+                            actualSequenceAlignmentString.Replace("\r\n", ""));
         }
 
         /// <summary>
-        /// Validates Contig ToString
+        ///     Validates Contig ToString
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -511,76 +512,100 @@ namespace Bio.TestAutomation
             ISequence seq2 = new Sequence(Alphabets.DNA, seq2Str);
 
             var assembler = new OverlapDeNovoAssembler
-            {
-                MergeThreshold = mergeThreshold,
-                OverlapAlgorithm = new NeedlemanWunschAligner
-                {
-                    SimilarityMatrix = new DiagonalSimilarityMatrix(matchScore, mismatchScore),
-                    GapOpenCost = gapCost
-                },
-                ConsensusResolver = new SimpleConsensusResolver(consensusThreshold),
-                AssumeStandardOrientation = false
-            };
+                                {
+                                    MergeThreshold = mergeThreshold,
+                                    OverlapAlgorithm = new NeedlemanWunschAligner
+                                                           {
+                                                               SimilarityMatrix =
+                                                                   new DiagonalSimilarityMatrix(matchScore,
+                                                                                                mismatchScore),
+                                                               GapOpenCost = gapCost
+                                                           },
+                                    ConsensusResolver = new SimpleConsensusResolver(consensusThreshold),
+                                    AssumeStandardOrientation = false
+                                };
 
-            var seqAssembly = (IOverlapDeNovoAssembly)assembler.Assemble(new List<ISequence> { seq1, seq2 });
+            var seqAssembly = (IOverlapDeNovoAssembly) assembler.Assemble(new List<ISequence> {seq1, seq2});
 
             Contig contig0 = seqAssembly.Contigs[0];
             string actualString = contig0.ToString();
-            string expectedString = utilityObj.xmlUtil.GetTextValue(Constants.ToStringNodeName, Constants.OverlapDenovoExpectedNode);
+            string expectedString = utilityObj.xmlUtil.GetTextValue(Constants.ToStringNodeName,
+                                                                    Constants.OverlapDenovoExpectedNode);
             Assert.AreEqual(expectedString.Replace("\\r\\n", ""), actualString.Replace("\r\n", ""));
 
             // Get the parameters from Xml
-            int matchScore1 = int.Parse(utilityObj.xmlUtil.GetTextValue(Constants.AssemblyAlgorithmNodeName, Constants.MatchScoreNode), null);
-            int mismatchScore1 = int.Parse(utilityObj.xmlUtil.GetTextValue(Constants.AssemblyAlgorithmNodeName, Constants.MisMatchScoreNode), null);
-            int gapCost1 = int.Parse(utilityObj.xmlUtil.GetTextValue(Constants.AssemblyAlgorithmNodeName, Constants.GapCostNode), null);
-            double mergeThreshold1 = double.Parse(utilityObj.xmlUtil.GetTextValue(Constants.AssemblyAlgorithmNodeName, Constants.MergeThresholdNode), null);
-            double consensusThreshold1 = double.Parse(utilityObj.xmlUtil.GetTextValue(Constants.AssemblyAlgorithmNodeName, Constants.ConsensusThresholdNode), null);
-            string sequence1 = utilityObj.xmlUtil.GetTextValue(Constants.AssemblyAlgorithmNodeName, Constants.SequenceNode1);
-            string sequence2 = utilityObj.xmlUtil.GetTextValue(Constants.AssemblyAlgorithmNodeName, Constants.SequenceNode2);
-            string sequence3 = utilityObj.xmlUtil.GetTextValue(Constants.AssemblyAlgorithmNodeName, Constants.SequenceNode3);
-            IAlphabet alphabet = Utility.GetAlphabet(utilityObj.xmlUtil.GetTextValue(Constants.AssemblyAlgorithmNodeName, Constants.AlphabetNameNode));
+            int matchScore1 =
+                int.Parse(
+                    utilityObj.xmlUtil.GetTextValue(Constants.AssemblyAlgorithmNodeName, Constants.MatchScoreNode), null);
+            int mismatchScore1 =
+                int.Parse(
+                    utilityObj.xmlUtil.GetTextValue(Constants.AssemblyAlgorithmNodeName, Constants.MisMatchScoreNode),
+                    null);
+            int gapCost1 =
+                int.Parse(utilityObj.xmlUtil.GetTextValue(Constants.AssemblyAlgorithmNodeName, Constants.GapCostNode),
+                          null);
+            double mergeThreshold1 =
+                double.Parse(
+                    utilityObj.xmlUtil.GetTextValue(Constants.AssemblyAlgorithmNodeName, Constants.MergeThresholdNode),
+                    null);
+            double consensusThreshold1 =
+                double.Parse(
+                    utilityObj.xmlUtil.GetTextValue(Constants.AssemblyAlgorithmNodeName,
+                                                    Constants.ConsensusThresholdNode), null);
+            string sequence1 = utilityObj.xmlUtil.GetTextValue(Constants.AssemblyAlgorithmNodeName,
+                                                               Constants.SequenceNode1);
+            string sequence2 = utilityObj.xmlUtil.GetTextValue(Constants.AssemblyAlgorithmNodeName,
+                                                               Constants.SequenceNode2);
+            string sequence3 = utilityObj.xmlUtil.GetTextValue(Constants.AssemblyAlgorithmNodeName,
+                                                               Constants.SequenceNode3);
+            IAlphabet alphabet =
+                Utility.GetAlphabet(utilityObj.xmlUtil.GetTextValue(Constants.AssemblyAlgorithmNodeName,
+                                                                    Constants.AlphabetNameNode));
 
             ISequence seq4 = new Sequence(alphabet, sequence1);
             ISequence seq5 = new Sequence(alphabet, sequence2);
             ISequence seq6 = new Sequence(alphabet, sequence3);
 
             var assembler1 = new OverlapDeNovoAssembler
-            {
-                MergeThreshold = mergeThreshold1,
-                OverlapAlgorithm = new PairwiseOverlapAligner
-                {
-                    SimilarityMatrix = new DiagonalSimilarityMatrix(matchScore1, mismatchScore1),
-                    GapOpenCost = gapCost1
-                },
-                ConsensusResolver = new SimpleConsensusResolver(consensusThreshold1),
-                AssumeStandardOrientation = false
-            };
+                                 {
+                                     MergeThreshold = mergeThreshold1,
+                                     OverlapAlgorithm = new PairwiseOverlapAligner
+                                                            {
+                                                                SimilarityMatrix =
+                                                                    new DiagonalSimilarityMatrix(matchScore1,
+                                                                                                 mismatchScore1),
+                                                                GapOpenCost = gapCost1
+                                                            },
+                                     ConsensusResolver = new SimpleConsensusResolver(consensusThreshold1),
+                                     AssumeStandardOrientation = false
+                                 };
 
             // Assembles all the sequences.
-            IOverlapDeNovoAssembly seqAssembly1 = (IOverlapDeNovoAssembly)assembler1.Assemble(new List<ISequence> { seq4, seq5, seq6 });
+            var seqAssembly1 = (IOverlapDeNovoAssembly) assembler1.Assemble(new List<ISequence> {seq4, seq5, seq6});
             Contig contig1 = seqAssembly1.Contigs[0];
             string actualString1 = contig1.ToString();
             const string expectedString1 = "TATAAAGCGCCAAAATTTAGGCACCCGCGGTATT";
-            
+
             Assert.AreEqual(expectedString1, actualString1);
         }
 
         /// <summary>
-        /// Validates MatePair ToString
+        ///     Validates MatePair ToString
         /// </summary>
         [TestMethod]
         [Priority(0)]
         [TestCategory("Priority0")]
         public void ValidateMatePairToString()
         {
-            MatePair p = new MatePair("2K") {ForwardReadID = "F", ReverseReadID = "R"};
+            var p = new MatePair("2K") {ForwardReadID = "F", ReverseReadID = "R"};
             string actualString = p.ToString();
-            string expectedString = utilityObj.xmlUtil.GetTextValue(Constants.ToStringNodeName, Constants.MatePairExpectedNode);
+            string expectedString = utilityObj.xmlUtil.GetTextValue(Constants.ToStringNodeName,
+                                                                    Constants.MatePairExpectedNode);
             Assert.AreEqual(actualString, expectedString);
         }
 
         /// <summary>
-        /// Validates OverlapDenovoAssembly ToString
+        ///     Validates OverlapDenovoAssembly ToString
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -593,76 +618,103 @@ namespace Bio.TestAutomation
             const double mergeThreshold = 4;
             const double consensusThreshold = 66;
 
-            ISequence seq1 = new Sequence(Alphabets.DNA, utilityObj.xmlUtil.GetTextValue(Constants.ToStringNodeName, Constants.Seq1StrNode));
-            ISequence seq2 = new Sequence(Alphabets.DNA, utilityObj.xmlUtil.GetTextValue(Constants.ToStringNodeName, Constants.Seq2StrNode));
+            ISequence seq1 = new Sequence(Alphabets.DNA,
+                                          utilityObj.xmlUtil.GetTextValue(Constants.ToStringNodeName,
+                                                                          Constants.Seq1StrNode));
+            ISequence seq2 = new Sequence(Alphabets.DNA,
+                                          utilityObj.xmlUtil.GetTextValue(Constants.ToStringNodeName,
+                                                                          Constants.Seq2StrNode));
 
-            OverlapDeNovoAssembler assembler = new OverlapDeNovoAssembler
-            {
-                MergeThreshold = mergeThreshold,
-                OverlapAlgorithm = new NeedlemanWunschAligner
-                {
-                    SimilarityMatrix = new DiagonalSimilarityMatrix(matchScore, mismatchScore),
-                    GapOpenCost = gapCost
-                },
-                ConsensusResolver = new SimpleConsensusResolver(consensusThreshold),
-                AssumeStandardOrientation = false
-            };
+            var assembler = new OverlapDeNovoAssembler
+                                {
+                                    MergeThreshold = mergeThreshold,
+                                    OverlapAlgorithm = new NeedlemanWunschAligner
+                                                           {
+                                                               SimilarityMatrix =
+                                                                   new DiagonalSimilarityMatrix(matchScore,
+                                                                                                mismatchScore),
+                                                               GapOpenCost = gapCost
+                                                           },
+                                    ConsensusResolver = new SimpleConsensusResolver(consensusThreshold),
+                                    AssumeStandardOrientation = false
+                                };
 
-            List<ISequence> inputs = new List<ISequence> {seq1, seq2};
-            IOverlapDeNovoAssembly seqAssembly = (IOverlapDeNovoAssembly)assembler.Assemble(inputs);
+            var inputs = new List<ISequence> {seq1, seq2};
+            var seqAssembly = (IOverlapDeNovoAssembly) assembler.Assemble(inputs);
 
             Assert.AreEqual(0, seqAssembly.UnmergedSequences.Count);
             Assert.AreEqual(1, seqAssembly.Contigs.Count);
 
             assembler.OverlapAlgorithm = new SmithWatermanAligner
-            {
-                SimilarityMatrix = new DiagonalSimilarityMatrix(matchScore, mismatchScore),
-                GapOpenCost = gapCost
-            };
-            seqAssembly = (OverlapDeNovoAssembly)assembler.Assemble(inputs);
+                                             {
+                                                 SimilarityMatrix =
+                                                     new DiagonalSimilarityMatrix(matchScore, mismatchScore),
+                                                 GapOpenCost = gapCost
+                                             };
+            seqAssembly = (OverlapDeNovoAssembly) assembler.Assemble(inputs);
 
             string actualString = seqAssembly.ToString();
             const string expectedString = "ACAAAAGCAACAAAAATGAAGGCAATACTAGTAGTTCTGCTATATACATTTGCAACCGCAAATG... +[1678]";
             Assert.AreEqual(expectedString, actualString.Replace("\r\n", ""));
 
             // Get the parameters from Xml
-            int matchScore1 = int.Parse(utilityObj.xmlUtil.GetTextValue(Constants.AssemblyAlgorithmNodeName, Constants.MatchScoreNode), null);
-            int mismatchScore1 = int.Parse(utilityObj.xmlUtil.GetTextValue(Constants.AssemblyAlgorithmNodeName, Constants.MisMatchScoreNode), null);
-            int gapCost1 = int.Parse(utilityObj.xmlUtil.GetTextValue(Constants.AssemblyAlgorithmNodeName, Constants.GapCostNode), null);
-            double mergeThreshold1 = double.Parse(utilityObj.xmlUtil.GetTextValue(Constants.AssemblyAlgorithmNodeName, Constants.MergeThresholdNode), null);
-            double consensusThreshold1 = double.Parse(utilityObj.xmlUtil.GetTextValue(Constants.AssemblyAlgorithmNodeName, Constants.ConsensusThresholdNode), null);
-            
-            string sequence1 = utilityObj.xmlUtil.GetTextValue(Constants.AssemblyAlgorithmNodeName, Constants.SequenceNode1);
-            string sequence2 = utilityObj.xmlUtil.GetTextValue(Constants.AssemblyAlgorithmNodeName, Constants.SequenceNode2);
-            string sequence3 = utilityObj.xmlUtil.GetTextValue(Constants.AssemblyAlgorithmNodeName, Constants.SequenceNode3);
-            IAlphabet alphabet = Utility.GetAlphabet(utilityObj.xmlUtil.GetTextValue(Constants.AssemblyAlgorithmNodeName, Constants.AlphabetNameNode));
+            int matchScore1 =
+                int.Parse(
+                    utilityObj.xmlUtil.GetTextValue(Constants.AssemblyAlgorithmNodeName, Constants.MatchScoreNode), null);
+            int mismatchScore1 =
+                int.Parse(
+                    utilityObj.xmlUtil.GetTextValue(Constants.AssemblyAlgorithmNodeName, Constants.MisMatchScoreNode),
+                    null);
+            int gapCost1 =
+                int.Parse(utilityObj.xmlUtil.GetTextValue(Constants.AssemblyAlgorithmNodeName, Constants.GapCostNode),
+                          null);
+            double mergeThreshold1 =
+                double.Parse(
+                    utilityObj.xmlUtil.GetTextValue(Constants.AssemblyAlgorithmNodeName, Constants.MergeThresholdNode),
+                    null);
+            double consensusThreshold1 =
+                double.Parse(
+                    utilityObj.xmlUtil.GetTextValue(Constants.AssemblyAlgorithmNodeName,
+                                                    Constants.ConsensusThresholdNode), null);
 
-            Sequence seq4 = new Sequence(alphabet, sequence1);
-            Sequence seq5 = new Sequence(alphabet, sequence2);
-            Sequence seq6 = new Sequence(alphabet, sequence3);
+            string sequence1 = utilityObj.xmlUtil.GetTextValue(Constants.AssemblyAlgorithmNodeName,
+                                                               Constants.SequenceNode1);
+            string sequence2 = utilityObj.xmlUtil.GetTextValue(Constants.AssemblyAlgorithmNodeName,
+                                                               Constants.SequenceNode2);
+            string sequence3 = utilityObj.xmlUtil.GetTextValue(Constants.AssemblyAlgorithmNodeName,
+                                                               Constants.SequenceNode3);
+            IAlphabet alphabet =
+                Utility.GetAlphabet(utilityObj.xmlUtil.GetTextValue(Constants.AssemblyAlgorithmNodeName,
+                                                                    Constants.AlphabetNameNode));
 
-            OverlapDeNovoAssembler assembler1 = new OverlapDeNovoAssembler
-            {
-                MergeThreshold = mergeThreshold1,
-                OverlapAlgorithm = new PairwiseOverlapAligner()
-                {
-                    SimilarityMatrix = new DiagonalSimilarityMatrix(matchScore1, mismatchScore1),
-                    GapOpenCost = gapCost1,
-                },
-                ConsensusResolver = new SimpleConsensusResolver(consensusThreshold1),
-                AssumeStandardOrientation = false,
-            };
+            var seq4 = new Sequence(alphabet, sequence1);
+            var seq5 = new Sequence(alphabet, sequence2);
+            var seq6 = new Sequence(alphabet, sequence3);
 
-            List<ISequence> inputs1 = new List<ISequence> {seq4, seq5, seq6};
+            var assembler1 = new OverlapDeNovoAssembler
+                                 {
+                                     MergeThreshold = mergeThreshold1,
+                                     OverlapAlgorithm = new PairwiseOverlapAligner
+                                                            {
+                                                                SimilarityMatrix =
+                                                                    new DiagonalSimilarityMatrix(matchScore1,
+                                                                                                 mismatchScore1),
+                                                                GapOpenCost = gapCost1,
+                                                            },
+                                     ConsensusResolver = new SimpleConsensusResolver(consensusThreshold1),
+                                     AssumeStandardOrientation = false,
+                                 };
+
+            var inputs1 = new List<ISequence> {seq4, seq5, seq6};
 
             // Assembles all the sequences.
-            seqAssembly = (OverlapDeNovoAssembly)assembler1.Assemble(inputs1);
+            seqAssembly = (OverlapDeNovoAssembly) assembler1.Assemble(inputs1);
 
             Assert.AreEqual(0, seqAssembly.UnmergedSequences.Count);
             Assert.AreEqual(1, seqAssembly.Contigs.Count);
-            
+
             assembler1.OverlapAlgorithm = new SmithWatermanAligner();
-            seqAssembly = (OverlapDeNovoAssembly)assembler1.Assemble(inputs1);
+            seqAssembly = (OverlapDeNovoAssembly) assembler1.Assemble(inputs1);
 
             const string expectedString1 = "TYMKWRRGCGCCAAAATTTAGGC\r\n";
             actualString = seqAssembly.ToString();
@@ -670,7 +722,7 @@ namespace Bio.TestAutomation
         }
 
         /// <summary>
-        /// Validates PadenaAssembly ToString
+        ///     Validates PadenaAssembly ToString
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -682,7 +734,7 @@ namespace Bio.TestAutomation
             IList<ISequence> contigList = new List<ISequence>();
             contigList.Add(seq1);
             contigList.Add(seq2);
-            PadenaAssembly denovoAssembly = new PadenaAssembly();
+            var denovoAssembly = new PadenaAssembly();
             denovoAssembly.AddContigs(contigList);
 
             string actualString = denovoAssembly.ToString();
@@ -690,26 +742,29 @@ namespace Bio.TestAutomation
             Assert.AreEqual(actualString, expectedString);
 
             // read sequences from xml
-            string sequence1 = utilityObj.xmlUtil.GetTextValue(Constants.AssemblyAlgorithmNodeName, Constants.SequenceNode1);
-            string sequence2 = utilityObj.xmlUtil.GetTextValue(Constants.AssemblyAlgorithmNodeName, Constants.SequenceNode2);
-            IAlphabet alphabet = Utility.GetAlphabet(utilityObj.xmlUtil.GetTextValue(Constants.AssemblyAlgorithmNodeName, Constants.AlphabetNameNode));
+            string sequence1 = utilityObj.xmlUtil.GetTextValue(Constants.AssemblyAlgorithmNodeName,
+                                                               Constants.SequenceNode1);
+            string sequence2 = utilityObj.xmlUtil.GetTextValue(Constants.AssemblyAlgorithmNodeName,
+                                                               Constants.SequenceNode2);
+            IAlphabet alphabet =
+                Utility.GetAlphabet(utilityObj.xmlUtil.GetTextValue(Constants.AssemblyAlgorithmNodeName,
+                                                                    Constants.AlphabetNameNode));
 
-            Sequence seq3 = new Sequence(alphabet, sequence1);
-            Sequence seq4 = new Sequence(alphabet, sequence2);
+            var seq3 = new Sequence(alphabet, sequence1);
+            var seq4 = new Sequence(alphabet, sequence2);
             IList<ISequence> contigList1 = new List<ISequence>();
             contigList1.Add(seq3);
             contigList1.Add(seq4);
-            PadenaAssembly denovoAssembly1 = new PadenaAssembly();
+            var denovoAssembly1 = new PadenaAssembly();
             denovoAssembly1.AddContigs(contigList1);
 
             string actualString1 = denovoAssembly1.ToString();
             string expectedString1 = "GCCAAAATTTAGGC\r\nTTATGGCGCCCACGGA\r\n";
             Assert.AreEqual(expectedString1, actualString1);
-
         }
 
         /// <summary>
-        /// Validates Sequence ConvertToString()
+        ///     Validates Sequence ConvertToString()
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -717,24 +772,25 @@ namespace Bio.TestAutomation
         public void ValidateSequenceConvertToString()
         {
             string seqLargeString = utilityObj.xmlUtil.GetTextValue(Constants.ToStringNodeName,
-                Constants.seqLargeStringNode);
+                                                                    Constants.seqLargeStringNode);
             ISequence seqLarge = new Sequence(Alphabets.DNA, seqLargeString);
             string ActualLargeString = seqLarge.ToString();
             string seqLargeExpected = utilityObj.xmlUtil.GetTextValue(Constants.ToStringNodeName,
-                Constants.seqLargeExpected2Node);
+                                                                      Constants.seqLargeExpected2Node);
             string expectedLargeString = string.Format(CultureInfo.CurrentCulture,
-                seqLargeExpected, (seqLarge.Count - Helper.AlphabetsToShowInToString));
+                                                       seqLargeExpected,
+                                                       (seqLarge.Count - Helper.AlphabetsToShowInToString));
             Assert.AreEqual(expectedLargeString, ActualLargeString);
 
             List<ISequence> seqsList;
             // Gets the expected sequence from the Xml
             string filePath = utilityObj.xmlUtil.GetTextValue(Constants.SimpleFastaNodeName,
-                Constants.FilePathNode);
-            using (StreamReader reader = new StreamReader(filePath))
+                                                              Constants.FilePathNode);
+            using (var reader = new StreamReader(filePath))
             {
                 IEnumerable<ISequence> seq = null;
 
-                using (FastAParser parser = new FastAParser())
+                using (var parser = new FastAParser())
                 {
                     parser.Alphabet = Alphabets.Protein;
                     seq = parser.Parse(reader);
@@ -744,12 +800,12 @@ namespace Bio.TestAutomation
                 }
             }
 
-            string seqString = new string(seqsList[0].Select(a => (char)a).ToArray());
-            Assert.AreEqual(seqString.Substring(2, 5), ((Sequence)seqsList[0]).ConvertToString(2, 5));
+            var seqString = new string(seqsList[0].Select(a => (char) a).ToArray());
+            Assert.AreEqual(seqString.Substring(2, 5), ((Sequence) seqsList[0]).ConvertToString(2, 5));
         }
 
         /// <summary>
-        /// Validates DerivedSequence ConvertToString()
+        ///     Validates DerivedSequence ConvertToString()
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -757,15 +813,16 @@ namespace Bio.TestAutomation
         public void ValidateDerivedSequenceConvertToString()
         {
             string seqLargeStr = utilityObj.xmlUtil.GetTextValue(Constants.ToStringNodeName,
-                Constants.seqLargeStringNode);
+                                                                 Constants.seqLargeStringNode);
             ISequence seqLarge = new Sequence(Alphabets.DNA, seqLargeStr);
             ISequence DeriveSeqLarge = new DerivedSequence(seqLarge, false, true);
 
             string ActualLargeString = DeriveSeqLarge.ToString();
             string seqLargeExpected = utilityObj.xmlUtil.GetTextValue(Constants.ToStringNodeName,
-                Constants.seqLargeExpectedNode);
+                                                                      Constants.seqLargeExpectedNode);
             string expectedLargeString = string.Format(CultureInfo.CurrentCulture,
-                seqLargeExpected, (seqLarge.Count - Helper.AlphabetsToShowInToString));
+                                                       seqLargeExpected,
+                                                       (seqLarge.Count - Helper.AlphabetsToShowInToString));
 
             Assert.AreEqual(expectedLargeString, ActualLargeString);
 
@@ -778,7 +835,7 @@ namespace Bio.TestAutomation
 
             // Create derived Sequence
             ISequence seq = new Sequence(alphabet, expectedSequence);
-            DerivedSequence derSequence = new DerivedSequence(seq, false, false);
+            var derSequence = new DerivedSequence(seq, false, false);
 
             Assert.AreEqual(expectedSequence.Substring(2, 5), derSequence.ConvertToString(2, 5));
         }

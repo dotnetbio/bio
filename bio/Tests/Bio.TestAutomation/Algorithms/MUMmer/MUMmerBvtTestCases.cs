@@ -253,7 +253,6 @@ namespace Bio.TestAutomation.Algorithms.MUMmer
         /// Input : One line sequence
         /// Validation : Validate the MUMs Output.
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope"), TestMethod]
         [Priority(0)]
         [TestCategory("Priority0")]
         public void ValidateGetMumsWithMaxMatchWithOneLineSequence()
@@ -287,7 +286,6 @@ namespace Bio.TestAutomation.Algorithms.MUMmer
             // Validate MUMs output.
             Assert.IsTrue(ValidateMums(Constants.OneLineSequenceNodeName, actualResult));
 
-            Console.WriteLine("MUMmer BVT : Successfully validated the Mumms");
             ApplicationLog.WriteLine("MUMmer BVT : Successfully validated the Mumms.");
         }
 
@@ -359,7 +357,6 @@ namespace Bio.TestAutomation.Algorithms.MUMmer
         /// <param name="nodeName">Node name which needs to be read for execution.</param>
         /// <param name="isFilePath">Is File Path?</param>
         /// <param name="LISActionType">LIS action type enum</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)")]
         void ValidateFindMatchSuffixGeneralTestCases(string nodeName, bool isFilePath)
         {
             ISequence referenceSeq = null;
@@ -435,9 +432,6 @@ namespace Bio.TestAutomation.Algorithms.MUMmer
             ApplicationLog.WriteLine("MUMmer BVT : Validating the Unique Matches");
             Assert.IsTrue(ValidateUniqueMatches(matches, nodeName, LISParameters.FindUniqueMatches));
 
-            Console.WriteLine(string.Format((IFormatProvider)null,
-                "MUMmer BVT : Successfully validated the all the unique matches for the sequence '{0}' and '{1}'.",
-                referenceSequence, querySequence));
             ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                 "MUMmer BVT : Successfully validated the all the unique matches for the sequence '{0}' and '{1}'.",
                 referenceSequence, querySequence));
@@ -449,7 +443,6 @@ namespace Bio.TestAutomation.Algorithms.MUMmer
         /// <param name="nodeName">Node name to be read from xml</param>
         /// <param name="isFilePath"></param>
         /// <param name="isSeqList">Is MUMmer alignment with List of sequences</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope")]
         void ValidateMUMmerAlignGeneralTestCases(string nodeName, bool isFilePath, bool isSeqList)
         {
             ISequence referenceSeq;
@@ -545,17 +538,16 @@ namespace Bio.TestAutomation.Algorithms.MUMmer
         /// </summary>
         /// <param name="matches">Max Unique Match list</param>
         /// <param name="nodeName">Node name to be read from xml</param>
+        /// <param name="lisActionType"></param>
         /// <returns>True, if successfully validated</returns>        
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)")]
-        bool ValidateUniqueMatches(IEnumerable<Match> matches,
-            string nodeName, LISParameters LISActionType)
+        bool ValidateUniqueMatches(IEnumerable<Match> matches, string nodeName, LISParameters lisActionType)
         {
             // Gets all the unique matches properties to be validated as in xml.
             string[] firstSeqStart = null;
             string[] length = null;
             string[] secondSeqStart = null;
 
-            switch (LISActionType)
+            switch (lisActionType)
             {
                 case LISParameters.PerformLIS:
                     firstSeqStart = utilityObj.xmlUtil.GetTextValue(nodeName,
@@ -586,8 +578,6 @@ namespace Bio.TestAutomation.Algorithms.MUMmer
                     || (0 != string.Compare(secondSeqStart[i],
                     match.QuerySequenceOffset.ToString((IFormatProvider)null), true, CultureInfo.CurrentCulture)))
                 {
-                    Console.WriteLine(string.Format((IFormatProvider)null,
-                        "MUMmer BVT : Unique match not matching at index '{0}'", i.ToString((IFormatProvider)null)));
                     ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                         "MUMmer BVT : Unique match not matching at index '{0}'", i.ToString((IFormatProvider)null)));
                     return false;
@@ -680,7 +670,6 @@ namespace Bio.TestAutomation.Algorithms.MUMmer
             // Validate MUMs output.
             Assert.IsTrue(ValidateMums(nodeName, actualResult));
 
-            Console.WriteLine("MUMmer BVT : Successfully validated the Mumms");
             ApplicationLog.WriteLine("MUMmer BVT : Successfully validated the Mumms.");
         }
 
@@ -702,7 +691,6 @@ namespace Bio.TestAutomation.Algorithms.MUMmer
                    || (0 != string.Compare(length[i], mums.ElementAt(i).Length.ToString((IFormatProvider)null), StringComparison.CurrentCulture))
                    || (0 != string.Compare(secondSeqStart[i], mums.ElementAt(i).QuerySequenceOffset.ToString((IFormatProvider)null), StringComparison.CurrentCulture)))
                 {
-                    Console.WriteLine(string.Format((IFormatProvider)null, "MUMmer P1 : There is no match at '{0}'", i.ToString((IFormatProvider)null)));
                     ApplicationLog.WriteLine(string.Format((IFormatProvider)null, "MUMmer P1 : There is no match at '{0}'", i.ToString((IFormatProvider)null)));
                     return false;
                 }
@@ -842,10 +830,8 @@ namespace Bio.TestAutomation.Algorithms.MUMmer
         /// </summary>
         /// <param name="nodeName">Node name which needs to be read for execution.</param>
         /// <param name="isFilePath">Is File Path?</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope")]
         void ValidateLongestIncreasingSubsequenceTestCases(string nodeName, bool isFilePath)
         {
-
             ISequence referenceSeq = null;
             ISequence querySeq = null;
             string referenceSequence = string.Empty;
@@ -930,9 +916,6 @@ namespace Bio.TestAutomation.Algorithms.MUMmer
             actualLis = lisObj.GetLongestSequence(lisSorted);
             Assert.IsTrue(ValidateUniqueMatches(actualLis, nodeName, LISParameters.PerformLIS));
 
-            Console.WriteLine(string.Format((IFormatProvider)null,
-                "MUMmer BVT : Successfully validated the all the unique matches for the sequence '{0}' and '{1}'.",
-                referenceSequence, querySequence));
             ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                 "MUMmer BVT : Successfully validated the all the unique matches for the sequence '{0}' and '{1}'.",
                 referenceSequence, querySequence));

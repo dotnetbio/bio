@@ -7,32 +7,29 @@
 ******************************************************************************/
 
 using System;
-using Bio;
 using Bio.Algorithms.Translation;
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
-using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Bio.TestAutomation.Algorithms.Translation
 {
     /// <summary>
-    /// Test Automation code for Bio Translation and P2 level validations.
+    ///     Test Automation code for Bio Translation and P2 level validations.
     /// </summary>
     [TestClass]
     public class TranslationP2TestCases
     {
-
         #region Global Variables
 
-        Utility utilityObj = new Utility(@"TestUtils\TestsConfig.xml");
+        private readonly Utility utilityObj = new Utility(@"TestUtils\TestsConfig.xml");
 
         #endregion Global Variables
 
         #region Constructor
 
         /// <summary>
-        /// Static constructor to open log and make other settings needed for test
+        ///     Static constructor to open log and make other settings needed for test
         /// </summary>
         static TranslationP2TestCases()
         {
@@ -48,9 +45,9 @@ namespace Bio.TestAutomation.Algorithms.Translation
         #region  Codons P2 TestCases
 
         /// <summary>
-        /// Validate an aminoacod for a given RNA Sequence with More than 12 characters..
-        /// Input Data :Sequence with more than 12 characters - 'AAAGGGAUGCCUGUUUGA'.
-        /// Output Data : Corresponding amino acid 'Arginine'.
+        ///     Validate an aminoacod for a given RNA Sequence with More than 12 characters..
+        ///     Input Data :Sequence with more than 12 characters - 'AAAGGGAUGCCUGUUUGA'.
+        ///     Output Data : Corresponding amino acid 'Arginine'.
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -58,32 +55,32 @@ namespace Bio.TestAutomation.Algorithms.Translation
         public void ValidateLookupWithMoreThanTwelveChars()
         {
             string alphabetName = utilityObj.xmlUtil.GetTextValue(Constants.SimpleRnaAlphabetNode,
-                Constants.AlphabetNameNode);
+                                                                  Constants.AlphabetNameNode);
             string expectedSeq = utilityObj.xmlUtil.GetTextValue(Constants.CodonsNode,
-                Constants.SequenceWithmoreThanTweleveChars);
+                                                                 Constants.SequenceWithmoreThanTweleveChars);
             string expectedAminoAcid = utilityObj.xmlUtil.GetTextValue(Constants.CodonsNode,
-                Constants.OffsetZeroSixCharsAminoAcidV2);
+                                                                       Constants.OffsetZeroSixCharsAminoAcidV2);
             string expectedOffset = utilityObj.xmlUtil.GetTextValue(Constants.CodonsNode,
-                Constants.OffsetVaule2);
+                                                                    Constants.OffsetVaule2);
             string aminoAcid = null;
 
-            Sequence seq = new Sequence(Utility.GetAlphabet(alphabetName), expectedSeq);
+            var seq = new Sequence(Utility.GetAlphabet(alphabetName), expectedSeq);
             // Validate Codons lookup method.
             aminoAcid = Codons.Lookup(seq, Convert.ToInt32(expectedOffset, null)).ToString();
 
             // Validate amino acids for a given sequence.
             Assert.AreEqual(expectedAminoAcid, aminoAcid);
 
-            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                "Translation P2: Amino Acid {0} is expected.", aminoAcid));
+            ApplicationLog.WriteLine(string.Format(null,
+                                                   "Translation P2: Amino Acid {0} is expected.", aminoAcid));
             ApplicationLog.WriteLine(
                 "Translation P2: Amino Acid validation for a given sequence was completed successfully.");
         }
 
         /// <summary>
-        /// Validate an aminoacod for a given RNA Sequence with More than 12 characters and offset value "1"..
-        /// Input Data :Sequence with more than 12 characters - 'AAAGGGAUGCCUGUUUGA'.
-        /// Output Data : Corresponding amino acid 'Isoleucine'.
+        ///     Validate an aminoacod for a given RNA Sequence with More than 12 characters and offset value "1"..
+        ///     Input Data :Sequence with more than 12 characters - 'AAAGGGAUGCCUGUUUGA'.
+        ///     Output Data : Corresponding amino acid 'Isoleucine'.
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -91,32 +88,32 @@ namespace Bio.TestAutomation.Algorithms.Translation
         public void ValidateLookupWithZeroOffset()
         {
             string alphabetName = utilityObj.xmlUtil.GetTextValue(Constants.SimpleRnaAlphabetNode,
-                Constants.AlphabetNameNode);
+                                                                  Constants.AlphabetNameNode);
             string expectedSeq = utilityObj.xmlUtil.GetTextValue(Constants.CodonsNode,
-                Constants.SequenceWithmoreThanTweleveChars);
+                                                                 Constants.SequenceWithmoreThanTweleveChars);
             string expectedAminoAcid = utilityObj.xmlUtil.GetTextValue(Constants.CodonsNode,
-                Constants.OffsetOneMoreThanTwelveCharsAminoAcidV2);
+                                                                       Constants.OffsetOneMoreThanTwelveCharsAminoAcidV2);
             string expectedOffset = utilityObj.xmlUtil.GetTextValue(Constants.CodonsNode,
-                Constants.OffsetVaule4);
+                                                                    Constants.OffsetVaule4);
             string aminoAcid = null;
 
-            Sequence seq = new Sequence(Utility.GetAlphabet(alphabetName), expectedSeq);
+            var seq = new Sequence(Utility.GetAlphabet(alphabetName), expectedSeq);
             // Validate Codons lookup method.
             aminoAcid = Codons.Lookup(seq, Convert.ToInt32(expectedOffset, null)).ToString();
 
             // Validate amino acids for a given sequence.
             Assert.AreEqual(expectedAminoAcid, aminoAcid);
 
-            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                "Translation P2: Amino Acid {0} is expected.", aminoAcid));
+            ApplicationLog.WriteLine(string.Format(null,
+                                                   "Translation P2: Amino Acid {0} is expected.", aminoAcid));
             ApplicationLog.WriteLine(
                 "Translation P2: Amino Acid validation for a given sequence was completed successfully.");
         }
 
         /// <summary>
-        /// Validate an aminoacod for a given RNA Sequence with 12 characters and offset value "1"..
-        /// Input Data :Sequence with 12 characters - 'AAAGGGAUGCCU'.
-        /// Output Data : Corresponding amino acid 'Isoleucine'.
+        ///     Validate an aminoacod for a given RNA Sequence with 12 characters and offset value "1"..
+        ///     Input Data :Sequence with 12 characters - 'AAAGGGAUGCCU'.
+        ///     Output Data : Corresponding amino acid 'Isoleucine'.
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -124,32 +121,32 @@ namespace Bio.TestAutomation.Algorithms.Translation
         public void ValidateLookupWithOneOffset()
         {
             string alphabetName = utilityObj.xmlUtil.GetTextValue(Constants.SimpleRnaAlphabetNode,
-                Constants.AlphabetNameNode);
+                                                                  Constants.AlphabetNameNode);
             string expectedSeq = utilityObj.xmlUtil.GetTextValue(Constants.CodonsNode,
-                Constants.SequenceWithmoreThanTweleveChars);
+                                                                 Constants.SequenceWithmoreThanTweleveChars);
             string expectedAminoAcid = utilityObj.xmlUtil.GetTextValue(Constants.CodonsNode,
-                Constants.OffsetOneMoreThanTwelveCharsAminoAcidV2);
+                                                                       Constants.OffsetOneMoreThanTwelveCharsAminoAcidV2);
             string expectedOffset = utilityObj.xmlUtil.GetTextValue(Constants.CodonsNode,
-                Constants.OffsetVaule4);
+                                                                    Constants.OffsetVaule4);
             string aminoAcid = null;
 
-            Sequence seq = new Sequence(Utility.GetAlphabet(alphabetName), expectedSeq);
+            var seq = new Sequence(Utility.GetAlphabet(alphabetName), expectedSeq);
             // Validate Codons lookup method.
             aminoAcid = Codons.Lookup(seq, Convert.ToInt32(expectedOffset, null)).ToString();
 
             // Validate amino acids for a given sequence.
             Assert.AreEqual(expectedAminoAcid, aminoAcid);
 
-            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                "Translation P2: Amino Acid {0} is expected.", aminoAcid));
+            ApplicationLog.WriteLine(string.Format(null,
+                                                   "Translation P2: Amino Acid {0} is expected.", aminoAcid));
             ApplicationLog.WriteLine(
                 "Translation P2: Amino Acid validation for a given sequence was completed successfully.");
         }
 
         /// <summary>
-        /// Validate an aminoacod for a given DNA Sequence with offset value "1".
-        /// Input Data : Valid Sequence - 'ATGGCG'.
-        /// Output Data : Corresponding amino acid 'Threonine'.
+        ///     Validate an aminoacod for a given DNA Sequence with offset value "1".
+        ///     Input Data : Valid Sequence - 'ATGGCG'.
+        ///     Output Data : Corresponding amino acid 'Threonine'.
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -157,16 +154,16 @@ namespace Bio.TestAutomation.Algorithms.Translation
         public void ValidateLookupWithDnaSeqAndOffsetValue()
         {
             string alphabetName = utilityObj.xmlUtil.GetTextValue(Constants.SimpleDnaAlphabetNode,
-                Constants.AlphabetNameNode);
+                                                                  Constants.AlphabetNameNode);
             string expectedSeq = utilityObj.xmlUtil.GetTextValue(Constants.TranscribeNode,
-                Constants.DnaSequence);
+                                                                 Constants.DnaSequence);
             string expectedAminoAcid = utilityObj.xmlUtil.GetTextValue(Constants.CodonsNode,
-                Constants.DnaSeqAminoAcidWithOffsetValueOneDna);
+                                                                       Constants.DnaSeqAminoAcidWithOffsetValueOneDna);
             string expectedOffset = utilityObj.xmlUtil.GetTextValue(Constants.CodonsNode,
-                Constants.OffsetVaule4);
+                                                                    Constants.OffsetVaule4);
             ISequence transcribe = null;
 
-            Sequence seq = new Sequence(Utility.GetAlphabet(alphabetName), expectedSeq);
+            var seq = new Sequence(Utility.GetAlphabet(alphabetName), expectedSeq);
             // Transcribe DNA to RNA.
             transcribe = Transcription.Transcribe(seq);
 
@@ -176,8 +173,8 @@ namespace Bio.TestAutomation.Algorithms.Translation
             // Validate amino acids for a given sequence.
             Assert.AreEqual(expectedAminoAcid, aminoAcid);
 
-            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                "Translation P2: Amino Acid {0} is expected.", aminoAcid));
+            ApplicationLog.WriteLine(string.Format(null,
+                                                   "Translation P2: Amino Acid {0} is expected.", aminoAcid));
             ApplicationLog.WriteLine(
                 "Translation P2: Amino Acid validation for a given sequence was completed successfully.");
         }
@@ -187,9 +184,9 @@ namespace Bio.TestAutomation.Algorithms.Translation
         #region  Transcribe P2 TestCases
 
         /// <summary>
-        /// Validate Reverse Transcribe by passing null value.
-        /// Input Data : Invalid Sequence - 'null'
-        /// Output Data : Exception.
+        ///     Validate Reverse Transcribe by passing null value.
+        ///     Input Data : Invalid Sequence - 'null'
+        ///     Output Data : Exception.
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -214,9 +211,9 @@ namespace Bio.TestAutomation.Algorithms.Translation
         }
 
         /// <summary>
-        /// Validate Translation method by passing null value.
-        /// Input Data : Invalid Sequence - 'null'
-        /// Output Data : Exception.
+        ///     Validate Translation method by passing null value.
+        ///     Input Data : Invalid Sequence - 'null'
+        ///     Output Data : Exception.
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -242,9 +239,9 @@ namespace Bio.TestAutomation.Algorithms.Translation
         }
 
         /// <summary>
-        /// Validate Translation method by passing invalid sequence and valid offset value.
-        /// Input Data : Sequence - 'Null' and offset "10".
-        /// Output Data : Exception.
+        ///     Validate Translation method by passing invalid sequence and valid offset value.
+        ///     Input Data : Sequence - 'Null' and offset "10".
+        ///     Output Data : Exception.
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -271,9 +268,9 @@ namespace Bio.TestAutomation.Algorithms.Translation
 
 
         /// <summary>
-        /// Validate Translation method by passing Negative offset value.
-        /// Input Data : Sequence - 'UACCGC' and offset "-10".
-        /// Output Data : Exception.
+        ///     Validate Translation method by passing Negative offset value.
+        ///     Input Data : Sequence - 'UACCGC' and offset "-10".
+        ///     Output Data : Exception.
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -282,7 +279,7 @@ namespace Bio.TestAutomation.Algorithms.Translation
         {
             // Get Node values from XML.
             string expectedSeq = utilityObj.xmlUtil.GetTextValue(Constants.TranslationNode,
-                Constants.RnaSequence);
+                                                                 Constants.RnaSequence);
             bool Exthrown = false;
 
             // Translate Six characters RNA to protein.
@@ -304,10 +301,10 @@ namespace Bio.TestAutomation.Algorithms.Translation
         }
 
         /// <summary>
-        /// Validate Translation method by passing ambigous RNA but
-        /// pretending to be RNA.
-        /// Input Data : Sequence - 'GUNAACAGAAANUGU' and offset "0".
-        /// Output Data : Exception.
+        ///     Validate Translation method by passing ambigous RNA but
+        ///     pretending to be RNA.
+        ///     Input Data : Sequence - 'GUNAACAGAAANUGU' and offset "0".
+        ///     Output Data : Exception.
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -316,7 +313,7 @@ namespace Bio.TestAutomation.Algorithms.Translation
         {
             // Get Node values from XML.
             string rnaSequenceStr = utilityObj.xmlUtil.GetTextValue(Constants.TranslationNode,
-                Constants.AmbiguousRnaSequence);
+                                                                    Constants.AmbiguousRnaSequence);
             bool Exthrown = false;
 
             // Build ambiguous RNA sequence using an RNA alphabet.

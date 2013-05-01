@@ -149,7 +149,7 @@ namespace Bio.TestAutomation.Distributions
         /// <summary>
         /// Validates the ContinuousStatistics(Discrete) method
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "boolStat3"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "discreteStat2"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "boolStat1"), TestMethod]
+        [TestMethod]
         [Priority(0)]
         [TestCategory("Priority0")]
         public void ValidateContinuousStatisticsExplicitDiscrete()
@@ -169,7 +169,7 @@ namespace Bio.TestAutomation.Distributions
         /// <summary>
         /// Validates the int(ContinuousStatistics) method
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "integerCS"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "temp"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "boolStat3"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)"), TestMethod]
+        [TestMethod]
         [Priority(0)]
         [TestCategory("Priority0")]
         public void ValidateContinuousStatisticsExplicitInt()
@@ -187,7 +187,7 @@ namespace Bio.TestAutomation.Distributions
             }
             catch (ArgumentException)
             {
-                Console.WriteLine("ContinuousStatistics : Successfully validated the int(0)");
+                ApplicationLog.WriteLine("ContinuousStatistics : Successfully validated the int(0)");
             }
 
             DiscreteStatistics discreteStat3 = null;
@@ -199,7 +199,7 @@ namespace Bio.TestAutomation.Distributions
             }
             catch (ArgumentException)
             {
-                Console.WriteLine("BooleanStatistics : Successfully validated the int(booleanstatistics)");
+                ApplicationLog.WriteLine("BooleanStatistics : Successfully validated the int(booleanstatistics)");
             }
         }
 

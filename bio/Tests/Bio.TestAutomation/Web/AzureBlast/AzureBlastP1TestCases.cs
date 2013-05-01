@@ -9,14 +9,11 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
 using Bio.Web;
 using Bio.Web.Blast;
-
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Bio;
 
 namespace Bio.TestAutomation.Web.AzureBlast
 {
@@ -333,7 +330,7 @@ namespace Bio.TestAutomation.Web.AzureBlast
             }
             catch (NotImplementedException)
             {
-                Console.WriteLine(string.Format((IFormatProvider)null,
+                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                     "Azure Blast P1 : Validated the exception successfully."));
             }
             finally
@@ -423,14 +420,13 @@ namespace Bio.TestAutomation.Web.AzureBlast
             Assert.IsTrue(queryParams.Settings.ContainsValue(queryProgramValue));
             Assert.AreEqual(queryParams.Settings.Count, 3);
 
-            // Logs to the VSTest GUI (Console.Out) window
-            Console.WriteLine(string.Format((IFormatProvider)null,
+            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                 "Azure Blast P1: Query Sequence {0} is as expected.",
                 querySequence));
-            Console.WriteLine(string.Format((IFormatProvider)null,
+            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                 "Azure Blast P1: DataBase Value {0} is as expected.",
                 queryDatabaseValue));
-            Console.WriteLine(string.Format((IFormatProvider)null,
+            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                 "Azure Blast P1: Program Value {0} is as expected.",
                 queryProgramValue));
         }
@@ -569,14 +565,6 @@ namespace Bio.TestAutomation.Web.AzureBlast
                     expectedBitScore);
                 Assert.AreEqual(hit.Hsps[0].HitSequence.ToString(),
                     expectedHitSequence);
-                Console.WriteLine(string.Format((IFormatProvider)null,
-                    "Azure Blast P1: Hits count '{0}'.", blastResults.Count));
-                Console.WriteLine(string.Format((IFormatProvider)null,
-                    "Azure Blast P1: Accession '{0}'.", hit.Accession));
-                Console.WriteLine(string.Format((IFormatProvider)null,
-                    "Azure Blast P1: Hit Id '{0}'.", hit.Id));
-                Console.WriteLine(string.Format((IFormatProvider)null,
-                    "Azure Blast P1: Hits Count '{0}'.", hit.Hsps.Count));
                 ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                     "Azure Blast P1: Hits count '{0}'.", blastResults.Count));
                 ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
@@ -644,14 +632,12 @@ namespace Bio.TestAutomation.Web.AzureBlast
                     string error = ApplicationLog.WriteLine(string.Concat(
                         "Unexpected error ", reqInfo.Status));
                     Assert.Fail(error);
-                    Console.WriteLine(string.Concat(
-                        "Azure Blast P1: Unexpected error ", reqInfo.Status));
                 }
                 else
                 {
-                    Console.WriteLine(string.Format((IFormatProvider)null,
+                    ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                         "Azure Blast P1: Client Request status has been validated successfully."));
-                    Console.WriteLine(string.Format((IFormatProvider)null,
+                    ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                         "Azure Blast P1: Request status {0} ", reqInfo.Status));
                 }
             }
@@ -714,7 +700,7 @@ namespace Bio.TestAutomation.Web.AzureBlast
                 // validate the cancelled job.
                 Assert.IsTrue(result);
 
-                Console.WriteLine(string.Concat(
+                ApplicationLog.WriteLine(string.Concat(
                     "Azure Blast P1 : Submitted job cancelled was successfully. ",
                     queryProgramValue));
             }

@@ -6,38 +6,24 @@
 ******************************************************************************/
 
 using System;
-using System.Text;
-using System.Linq;
 using System.Collections.Generic;
-
-using Bio;
-using Bio.TestAutomation.Util;
+using System.Linq;
+using System.Text;
 using Bio.Util.Logging;
-
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.IO;
-using System.Runtime.Serialization;
 
 namespace Bio.TestAutomation
 {
     /// <summary>
-    /// Test Automation code for Bio Sparse Sequence BVT level validations
+    ///     Test Automation code for Bio Sparse Sequence BVT level validations
     /// </summary>
     [TestClass]
     public class SparseSequenceBvtTestCases
     {
-
-        #region Global Variables
-
-        ASCIIEncoding encodingObj = new ASCIIEncoding();
-
-        #endregion Global Variables
-
         #region Constructor
 
         /// <summary>
-        /// Static constructor to open log and make other settings needed for test
+        ///     Static constructor to open log and make other settings needed for test
         /// </summary>
         static SparseSequenceBvtTestCases()
         {
@@ -53,76 +39,70 @@ namespace Bio.TestAutomation
         #region Sparse Sequence BVT Test Cases
 
         /// <summary>
-        /// Creates sparse sequence object and validates the constructor.
-        /// Validates if all items are present in sparse sequence instance.
+        ///     Creates sparse sequence object and validates the constructor.
+        ///     Validates if all items are present in sparse sequence instance.
         /// </summary>
         [TestMethod]
         [Priority(0)]
         [TestCategory("Priority0")]
         public void ValidateDnaSparseSequenceConstAlp()
         {
-            SparseSequence sparseSeq = new SparseSequence(Alphabets.DNA);
+            var sparseSeq = new SparseSequence(Alphabets.DNA);
             Assert.IsNotNull(sparseSeq);
             Assert.AreEqual(0, sparseSeq.Count);
             Assert.IsNotNull(sparseSeq.Statistics);
-
-            Console.WriteLine("SparseSequence BVT: Validation of SparseSequence(alp) constructor is completed");
             ApplicationLog.WriteLine("SparseSequence BVT: Validation of SparseSequence(alp) constructor is completed");
         }
 
         /// <summary>
-        /// Creates sparse sequence object and validates the constructor with Index.
-        /// Validates if all items are present in sparse sequence instance.
+        ///     Creates sparse sequence object and validates the constructor with Index.
+        ///     Validates if all items are present in sparse sequence instance.
         /// </summary>
         [TestMethod]
         [Priority(0)]
         [TestCategory("Priority0")]
         public void ValidateDnaSparseSequenceConstAlpIndex()
         {
-            SparseSequence sparseSeq = new SparseSequence(Alphabets.DNA, 0);
+            var sparseSeq = new SparseSequence(Alphabets.DNA, 0);
             Assert.IsNotNull(sparseSeq);
             Assert.AreEqual(0, sparseSeq.Count);
             Assert.IsNotNull(sparseSeq.Statistics);
-
-            Console.WriteLine("SparseSequence BVT: Validation of SparseSequence(alp, index) constructor is completed");
             ApplicationLog.WriteLine("SparseSequence BVT: Validation of SparseSequence(alp, index) constructor is completed");
         }
 
         /// <summary>
-        /// Creates sparse sequence object and validates the constructor with Index, byte.
-        /// Validates if all items are present in sparse sequence instance.
+        ///     Creates sparse sequence object and validates the constructor with Index, byte.
+        ///     Validates if all items are present in sparse sequence instance.
         /// </summary>
         [TestMethod]
         [Priority(0)]
         [TestCategory("Priority0")]
         public void ValidateDnaSparseSequenceConstAlpIndexByte()
         {
-            byte[] byteArrayObj = encodingObj.GetBytes("AGCT");
-            SparseSequence sparseSeq = new SparseSequence(Alphabets.DNA, 1, byteArrayObj[0]);
+            byte[] byteArrayObj = Encoding.ASCII.GetBytes("AGCT");
+            var sparseSeq = new SparseSequence(Alphabets.DNA, 1, byteArrayObj[0]);
             Assert.IsNotNull(sparseSeq);
             Assert.IsNotNull(sparseSeq.Statistics);
             SequenceStatistics seqStatObj = sparseSeq.Statistics;
             Assert.AreEqual(1, seqStatObj.GetCount('A'));
-
-            Console.WriteLine("SparseSequence BVT: Validation of SparseSequence(alp, index, byte) constructor is completed");
             ApplicationLog.WriteLine("SparseSequence BVT: Validation of SparseSequence(alp, index, byte) constructor is completed");
         }
 
         /// <summary>
-        /// Creates sparse sequence object and validates the constructor with Index, byte.
-        /// Validates if all items are present in sparse sequence instance.
+        ///     Creates sparse sequence object and validates the constructor with Index, byte.
+        ///     Validates if all items are present in sparse sequence instance.
         /// </summary>
         [TestMethod]
         [Priority(0)]
         [TestCategory("Priority0")]
         public void ValidateDnaSparseSequenceConstAlpIndexByteList()
         {
-            byte[] byteArrayObj = encodingObj.GetBytes("AGCT");
+            byte[] byteArrayObj = Encoding.ASCII.GetBytes("AGCT");
 
             IEnumerable<byte> seqItems =
-                new List<Byte>() { byteArrayObj[0], byteArrayObj[1], byteArrayObj[2], byteArrayObj[3] };
+                new List<Byte> {byteArrayObj[0], byteArrayObj[1], byteArrayObj[2], byteArrayObj[3]};
 
-            SparseSequence sparseSeq = new SparseSequence(Alphabets.DNA, 4, seqItems);
+            var sparseSeq = new SparseSequence(Alphabets.DNA, 4, seqItems);
             Assert.IsNotNull(sparseSeq);
             Assert.IsNotNull(sparseSeq.Statistics);
             Assert.AreEqual(8, sparseSeq.Count);
@@ -132,13 +112,12 @@ namespace Bio.TestAutomation
             Assert.AreEqual(1, seqStatObj.GetCount('C'));
             Assert.AreEqual(1, seqStatObj.GetCount('T'));
 
-            Console.WriteLine("SparseSequence BVT: Validation of SparseSequence(alp, index, seq items) constructor is completed");
             ApplicationLog.WriteLine("SparseSequence BVT: Validation of SparseSequence(alp, index, seq items) constructor is completed");
         }
 
         /// <summary>
-        /// Creates a sparse a sequence and inserts all sequence items of alphabet. 
-        /// Validates various properties present in the sparse class.
+        ///     Creates a sparse a sequence and inserts all sequence items of alphabet.
+        ///     Validates various properties present in the sparse class.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -148,18 +127,12 @@ namespace Bio.TestAutomation
             IAlphabet alphabet = Alphabets.DNA;
 
             // Create sparse sequence object
-            int insertPosition = 0;
+            const int insertPosition = 0;
             // Create sequence item list
-            IList<byte> sequenceList = new List<byte>();
-
-            foreach (byte item in alphabet)
-            {
-                sequenceList.Add(item);
-            }
+            IList<byte> sequenceList = alphabet.ToList();
 
             // Store sequence item in sparse sequence object using list of sequence items
-            SparseSequence sparseSequence =
-                new SparseSequence(alphabet, insertPosition, sequenceList);
+            var sparseSequence = new SparseSequence(alphabet, insertPosition, sequenceList);
 
             //Validate all properties
             Assert.AreEqual(alphabet.Count + insertPosition, sparseSequence.Count);
@@ -169,225 +142,201 @@ namespace Bio.TestAutomation
             Assert.IsNotNull(sparseSequence.Statistics);
             Assert.IsNotNull(sparseSequence.GetKnownSequenceItems());
 
-            Console.WriteLine(
-                "SparseSequence BVT: Validation of all properties of sparse sequence instance is completed");
-            ApplicationLog.WriteLine(
-                "SparseSequence BVT: Validation of all properties of sparse sequence instance is completed");
+            ApplicationLog.WriteLine("SparseSequence BVT: Validation of all properties of sparse sequence instance is completed");
         }
 
         /// <summary>
-        /// Creates a sparse sequence and validates IndexOfNonGap method
+        ///     Creates a sparse sequence and validates IndexOfNonGap method
         /// </summary>
         [TestMethod]
         [Priority(0)]
         [TestCategory("Priority0")]
         public void ValidateSparseSequenceIndexOfNonGap()
         {
-            SparseSequence sparseSeqObj = new SparseSequence(Alphabets.DNA, 10);
+            var sparseSeqObj = new SparseSequence(Alphabets.DNA, 10);
             sparseSeqObj[8] = Alphabets.DNA.Gap;
             sparseSeqObj[9] = Alphabets.DNA.A;
 
             Assert.AreEqual(9, sparseSeqObj.IndexOfNonGap(8));
             Assert.AreEqual(9, sparseSeqObj.IndexOfNonGap(9));
 
-            Console.WriteLine(
-                "SparseSequenceBVT: Validation of IndexOfNonGap(startPos) method successfully completed");
-            ApplicationLog.WriteLine(
-                "SparseSequenceBVT: Validation of IndexOfNonGap(startPos) method successfully completed");
+            ApplicationLog.WriteLine("SparseSequenceBVT: Validation of IndexOfNonGap(startPos) method successfully completed");
         }
 
         /// <summary>
-        /// Creates a sparse sequence and validates LastIndexOfNonGap method
+        ///     Creates a sparse sequence and validates LastIndexOfNonGap method
         /// </summary>
         [TestMethod]
         [Priority(0)]
         [TestCategory("Priority0")]
         public void ValidateSparseSequenceLastIndexOfNonGap()
         {
-            SparseSequence sparseSeqObj = new SparseSequence(Alphabets.DNA, 10);
+            var sparseSeqObj = new SparseSequence(Alphabets.DNA, 10);
             sparseSeqObj[2] = Alphabets.DNA.Gap;
             sparseSeqObj[1] = Alphabets.DNA.A;
 
             Assert.AreEqual(1, sparseSeqObj.LastIndexOfNonGap(2));
             Assert.AreEqual(1, sparseSeqObj.LastIndexOfNonGap(1));
 
-            Console.WriteLine(
-                "SparseSequenceBVT: Validation of LastIndexOfNonGap() method successfully completed");
-            ApplicationLog.WriteLine(
-                "SparseSequenceBVT: Validation of LastIndexOfNonGap() method successfully completed");
+            ApplicationLog.WriteLine("SparseSequenceBVT: Validation of LastIndexOfNonGap() method successfully completed");
         }
 
         /// <summary>
-        /// Creates a sparse sequence and validates IndexOfNonGap method
+        ///     Creates a sparse sequence and validates IndexOfNonGap method
         /// </summary>
         [TestMethod]
         [Priority(0)]
         [TestCategory("Priority0")]
         public void ValidateSparseSequenceIndexOfNonGapNull()
         {
-            SparseSequence sparseSeqObj = new SparseSequence(Alphabets.DNA, 2);
+            var sparseSeqObj = new SparseSequence(Alphabets.DNA, 2);
             sparseSeqObj[0] = Alphabets.DNA.Gap;
             sparseSeqObj[1] = Alphabets.DNA.A;
 
             Assert.AreEqual(1, sparseSeqObj.IndexOfNonGap());
 
-            Console.WriteLine(
-                "SparseSequenceBVT: Validation of IndexOfNonGap() method successfully completed");
-            ApplicationLog.WriteLine(
-                "SparseSequenceBVT: Validation of IndexOfNonGap() method successfully completed");
+            ApplicationLog.WriteLine("SparseSequenceBVT: Validation of IndexOfNonGap() method successfully completed");
         }
 
         /// <summary>
-        /// Creates a sparse sequence and validates LastIndexOfNonGap method
+        ///     Creates a sparse sequence and validates LastIndexOfNonGap method
         /// </summary>
         [TestMethod]
         [Priority(0)]
         [TestCategory("Priority0")]
         public void ValidateSparseSequenceLastIndexOfNonGapNull()
         {
-            SparseSequence sparseSeqObj = new SparseSequence(Alphabets.DNA, 2);
+            var sparseSeqObj = new SparseSequence(Alphabets.DNA, 2);
             sparseSeqObj[1] = Alphabets.DNA.Gap;
             sparseSeqObj[0] = Alphabets.DNA.A;
 
             Assert.AreEqual(0, sparseSeqObj.LastIndexOfNonGap());
-
-            Console.WriteLine(
-                "SparseSequenceBVT: Validation of LastIndexOfNonGap() method successfully completed");
-            ApplicationLog.WriteLine(
-                "SparseSequenceBVT: Validation of LastIndexOfNonGap() method successfully completed");
+            ApplicationLog.WriteLine("SparseSequenceBVT: Validation of LastIndexOfNonGap() method successfully completed");
         }
 
         /// <summary>
-        /// Creates a sparse sequence and validates LastIndexOfNonGap method
+        ///     Creates a sparse sequence and validates LastIndexOfNonGap method
         /// </summary>
         [TestMethod]
         [Priority(0)]
         [TestCategory("Priority0")]
         public void ValidateSparseSequenceGetReversedSequence()
         {
-            byte[] byteArrayObj = encodingObj.GetBytes("ACGT");
+            byte[] byteArrayObj = Encoding.ASCII.GetBytes("ACGT");
 
             IEnumerable<byte> seqItems =
-                new List<Byte>() { byteArrayObj[0], byteArrayObj[1], byteArrayObj[2], byteArrayObj[3] };
+                new List<Byte> {byteArrayObj[0], byteArrayObj[1], byteArrayObj[2], byteArrayObj[3]};
 
-            SparseSequence sparseSeqObj = new SparseSequence(Alphabets.DNA, 0, seqItems);
+            var sparseSeqObj = new SparseSequence(Alphabets.DNA, 0, seqItems);
             ISequence revSeqObj = sparseSeqObj.GetReversedSequence();
 
-            byteArrayObj = encodingObj.GetBytes("TGCA");
+            byteArrayObj = Encoding.ASCII.GetBytes("TGCA");
 
             for (int i = 0; i < byteArrayObj.Length; i++)
             {
                 Assert.AreEqual(byteArrayObj[i], revSeqObj[i]);
             }
-            Console.WriteLine(
-                "SparseSequenceBVT: Validation of GetReversedSequence() method successfully completed");
-            ApplicationLog.WriteLine(
-                "SparseSequenceBVT: Validation of GetReversedSequence() method successfully completed");
+
+            ApplicationLog.WriteLine("SparseSequenceBVT: Validation of GetReversedSequence() method successfully completed");
         }
 
         /// <summary>
-        /// Creates a sparse sequence and validates GetReverseComplementedSequence method
+        ///     Creates a sparse sequence and validates GetReverseComplementedSequence method
         /// </summary>
         [TestMethod]
         [Priority(0)]
         [TestCategory("Priority0")]
         public void ValidateSparseSequenceGetReversedComplementedSequence()
         {
-            byte[] byteArrayObj = encodingObj.GetBytes("ACGT");
+            byte[] byteArrayObj = Encoding.ASCII.GetBytes("ACGT");
 
             IEnumerable<byte> seqItems =
-                new List<Byte>() { byteArrayObj[0], byteArrayObj[1], byteArrayObj[2], byteArrayObj[3] };
+                new List<Byte> {byteArrayObj[0], byteArrayObj[1], byteArrayObj[2], byteArrayObj[3]};
 
-            SparseSequence sparseSeqObj = new SparseSequence(Alphabets.DNA, 0, seqItems);
+            var sparseSeqObj = new SparseSequence(Alphabets.DNA, 0, seqItems);
             ISequence revSeqObj = sparseSeqObj.GetReverseComplementedSequence();
 
             for (int i = 0; i < byteArrayObj.Length; i++)
             {
                 Assert.AreEqual(byteArrayObj[i], revSeqObj[i]);
             }
-            Console.WriteLine(
-                "SparseSequenceBVT: Validation of GetReverseComplementedSequence() method successfully completed");
-            ApplicationLog.WriteLine(
-                "SparseSequenceBVT: Validation of GetReverseComplementedSequence() method successfully completed");
+
+            ApplicationLog.WriteLine("SparseSequenceBVT: Validation of GetReverseComplementedSequence() method successfully completed");
         }
 
         /// <summary>
-        /// Creates a sparse sequence and validates GetKnownSequenceItems method
+        ///     Creates a sparse sequence and validates GetKnownSequenceItems method
         /// </summary>
         [TestMethod]
         [Priority(0)]
         [TestCategory("Priority0")]
         public void ValidateSparseSequenceGetKnownSequenceItems()
         {
-            byte[] byteArrayObj = encodingObj.GetBytes("ACGT");
+            byte[] byteArrayObj = Encoding.ASCII.GetBytes("ACGT");
 
             IEnumerable<byte> seqItems =
-                new List<Byte>() { byteArrayObj[0], byteArrayObj[1], byteArrayObj[2], byteArrayObj[3] };
+                new List<Byte> {byteArrayObj[0], byteArrayObj[1], byteArrayObj[2], byteArrayObj[3]};
 
-            SparseSequence sparseSeqObj = new SparseSequence(Alphabets.DNA, 0, seqItems);
+            var sparseSeqObj = new SparseSequence(Alphabets.DNA, 0, seqItems);
             IList<IndexedItem<byte>> revSeqObj = sparseSeqObj.GetKnownSequenceItems();
             long i = 0;
-            foreach (IndexedItem<byte> by in revSeqObj)
+            foreach (var by in revSeqObj)
             {
                 Assert.AreEqual(i, by.Index);
                 Assert.AreEqual(byteArrayObj[i], by.Item);
                 i++;
             }
 
-            Console.WriteLine(
-                "SparseSequenceBVT: Validation of GetKnownSequenceItems() method successfully completed");
-            ApplicationLog.WriteLine(
-                "SparseSequenceBVT: Validation of GetKnownSequenceItems() method successfully completed");
+            ApplicationLog.WriteLine("SparseSequenceBVT: Validation of GetKnownSequenceItems() method successfully completed");
         }
 
         /// <summary>
-        /// Creates a sparse sequence and validates GetComplementedSequence method
+        ///     Creates a sparse sequence and validates GetComplementedSequence method
         /// </summary>
         [TestMethod]
         [Priority(0)]
         [TestCategory("Priority0")]
         public void ValidateSparseSequenceGetComplementedSequence()
         {
-            byte[] byteArrayObj = encodingObj.GetBytes("ACGT");
+            byte[] byteArrayObj = Encoding.ASCII.GetBytes("ACGT");
 
             IEnumerable<byte> seqItems =
-                new List<Byte>() { byteArrayObj[0], byteArrayObj[1], byteArrayObj[2], byteArrayObj[3] };
+                new List<Byte> {byteArrayObj[0], byteArrayObj[1], byteArrayObj[2], byteArrayObj[3]};
 
-            SparseSequence sparseSeqObj = new SparseSequence(Alphabets.DNA, 0, seqItems);
+            var sparseSeqObj = new SparseSequence(Alphabets.DNA, 0, seqItems);
             ISequence revSeqObj = sparseSeqObj.GetComplementedSequence();
 
-            byteArrayObj = encodingObj.GetBytes("TGCA");
+            byteArrayObj = Encoding.ASCII.GetBytes("TGCA");
 
             for (int i = 0; i < byteArrayObj.Length; i++)
             {
                 Assert.AreEqual(byteArrayObj[i], revSeqObj[i]);
             }
 
-            Console.WriteLine(
-                "SparseSequenceBVT: Validation of GetComplementedSequence() method successfully completed");
-            ApplicationLog.WriteLine(
-                "SparseSequenceBVT: Validation of GetComplementedSequence() method successfully completed");
+            ApplicationLog.WriteLine("SparseSequenceBVT: Validation of GetComplementedSequence() method successfully completed");
         }
 
         /// <summary>
-        /// Creates a sparse sequence and validates GetSubSequence method
+        ///     Creates a sparse sequence and validates GetSubSequence method
         /// </summary>
         [TestMethod]
         [Priority(0)]
         [TestCategory("Priority0")]
         public void ValidateSparseSequenceGetSubSequence()
         {
-            List<byte> byteList = new List<byte>();
-            byteList.Add(Alphabets.DNA.Gap);
-            byteList.Add(Alphabets.DNA.G);
-            byteList.Add(Alphabets.DNA.A);
-            byteList.Add(Alphabets.DNA.Gap);
-            byteList.Add(Alphabets.DNA.T);
-            byteList.Add(Alphabets.DNA.C);
-            byteList.Add(Alphabets.DNA.Gap);
-            byteList.Add(Alphabets.DNA.Gap);
+            var byteList = new List<byte>
+            {
+                Alphabets.DNA.Gap,
+                Alphabets.DNA.G,
+                Alphabets.DNA.A,
+                Alphabets.DNA.Gap,
+                Alphabets.DNA.T,
+                Alphabets.DNA.C,
+                Alphabets.DNA.Gap,
+                Alphabets.DNA.Gap
+            };
 
-            SparseSequence sparseSeq = new SparseSequence(Alphabets.DNA, 0, byteList);
+            var sparseSeq = new SparseSequence(Alphabets.DNA, 0, byteList);
 
             ISequence result = sparseSeq.GetSubSequence(0, 3);
             Assert.AreEqual(3, result.Count);
@@ -403,26 +352,23 @@ namespace Bio.TestAutomation
             Assert.AreEqual(Alphabets.DNA.Gap, result[0]);
             Assert.AreEqual(Alphabets.DNA.T, result[1]);
 
-            Console.WriteLine(
-                "SparseSequenceBVT: Validation of GetSubSequence() method successfully completed");
-            ApplicationLog.WriteLine(
-                "SparseSequenceBVT: Validation of GetSubSequence() method successfully completed");
+            ApplicationLog.WriteLine("SparseSequenceBVT: Validation of GetSubSequence() method successfully completed");
         }
 
         /// <summary>
-        /// Creates a sparse sequence and validates GetEnumerator method
+        ///     Creates a sparse sequence and validates GetEnumerator method
         /// </summary>
         [TestMethod]
         [Priority(0)]
         [TestCategory("Priority0")]
         public void ValidateSparseSequenceGetEnumerator()
         {
-            byte[] byteArrayObj = encodingObj.GetBytes("ACGT");
+            byte[] byteArrayObj = Encoding.ASCII.GetBytes("ACGT");
 
             IEnumerable<byte> seqItems =
-                new List<Byte>() { byteArrayObj[0], byteArrayObj[1], byteArrayObj[2], byteArrayObj[3] };
+                new List<Byte> {byteArrayObj[0], byteArrayObj[1], byteArrayObj[2], byteArrayObj[3]};
 
-            SparseSequence sparseSeqObj = new SparseSequence(Alphabets.DNA, 0, seqItems);
+            var sparseSeqObj = new SparseSequence(Alphabets.DNA, 0, seqItems);
             IEnumerator<byte> seqObj = sparseSeqObj.GetEnumerator();
             int i = 0;
             while (seqObj.MoveNext())
@@ -437,16 +383,13 @@ namespace Bio.TestAutomation
                 i++;
             }
 
-            Console.WriteLine(
-                "SparseSequenceBVT: Validation of GetEnumerator() method successfully completed");
-            ApplicationLog.WriteLine(
-                "SparseSequenceBVT: Validation of GetEnumerator() method successfully completed");
+            ApplicationLog.WriteLine("SparseSequenceBVT: Validation of GetEnumerator() method successfully completed");
         }
 
         /// <summary>
-        /// Validate by passing indexer value for read only indexer.
-        /// Input Data : Valid Alphabet
-        /// Output Data : Successfully set 
+        ///     Validate by passing indexer value for read only indexer.
+        ///     Input Data : Valid Alphabet
+        ///     Output Data : Successfully set
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -456,47 +399,46 @@ namespace Bio.TestAutomation
             IAlphabet alphabet = Alphabets.DNA;
 
             // Create sequence item list
-            List<byte> sequenceList = new List<byte>();
+            var sequenceList = new List<byte>();
             foreach (byte item in alphabet)
             {
                 sequenceList.Add(item);
             }
 
             // Store sequence item in sparse sequence object using list of sequence items
-            SparseSequence sparseSeq = new SparseSequence(alphabet, 0, sequenceList);
+            var sparseSeq = new SparseSequence(alphabet, 0, sequenceList);
             byte seqItem = new Sequence(Alphabets.DNA, "AGCT")[0];
 
             sparseSeq[0] = seqItem;
             Assert.AreEqual(65, sparseSeq[0]);
 
-            Console.WriteLine(
-                "SparseSequence BVT: Validation of Indexer successfully completed");
-            ApplicationLog.WriteLine(
-                "SparseSequence BVT: Validation of Indexer successfully completed");
+            ApplicationLog.WriteLine("SparseSequence BVT: Validation of Indexer successfully completed");
         }
 
         /// <summary>
-        /// Validates CopyTo
+        ///     Validates CopyTo
         /// </summary>
         [TestMethod]
         [Priority(0)]
         [TestCategory("Priority0")]
         public void ValidateCopyTo()
         {
-            List<byte> byteList = new List<byte>();
-            byteList.Add(Alphabets.DNA.Gap);
-            byteList.Add(Alphabets.DNA.G);
-            byteList.Add(Alphabets.DNA.A);
-            byteList.Add(Alphabets.DNA.Gap);
-            byteList.Add(Alphabets.DNA.T);
-            byteList.Add(Alphabets.DNA.C);
-            byteList.Add(Alphabets.DNA.Gap);
-            byteList.Add(Alphabets.DNA.Gap);
+            var byteList = new List<byte>
+            {
+                Alphabets.DNA.Gap,
+                Alphabets.DNA.G,
+                Alphabets.DNA.A,
+                Alphabets.DNA.Gap,
+                Alphabets.DNA.T,
+                Alphabets.DNA.C,
+                Alphabets.DNA.Gap,
+                Alphabets.DNA.Gap
+            };
 
             ISequence iSeq = new SparseSequence(Alphabets.DNA, 0, byteList);
-            SparseSequence sparseSeq = new SparseSequence(iSeq);
+            var sparseSeq = new SparseSequence(iSeq);
 
-            byte[] array = new byte[byteList.Count];
+            var array = new byte[byteList.Count];
             sparseSeq.CopyTo(array, 0, byteList.Count);
             for (int i = 0; i < byteList.Count; i++)
             {

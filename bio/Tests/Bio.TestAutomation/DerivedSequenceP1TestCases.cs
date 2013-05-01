@@ -7,15 +7,9 @@
 
 using System;
 using System.Linq;
-using System.Collections.Generic;
-using System.Runtime.Serialization;
-
-using Bio;
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.IO;
 
 namespace Bio.TestAutomation
 {
@@ -25,10 +19,9 @@ namespace Bio.TestAutomation
     [TestClass]
     public class DerivedSequenceP1TestCases
     {
-
         #region Global Variables
 
-        Utility utilityObj = new Utility(@"TestUtils\TestsConfig.xml");
+        readonly Utility utilityObj = new Utility(@"TestUtils\TestsConfig.xml");
 
         #endregion Global Variables
 
@@ -73,8 +66,6 @@ namespace Bio.TestAutomation
             // Validate derived Sequence.
             Assert.AreEqual(expectedSequence, new string(derSequence.Select(a => (char)a).ToArray()));
 
-            Console.WriteLine(
-                "DerivedSequenceBvtTestCases:Validation of derived sequence completed successfully");
             ApplicationLog.WriteLine(
                 "DerivedSequenceBvtTestCases:Validation of derived sequence completed successfully");
         }
@@ -105,8 +96,6 @@ namespace Bio.TestAutomation
             }
             catch (NotImplementedException)
             {
-                Console.WriteLine(
-                    "DerivedSequenceBvtTestCases:Validation of IndexOfNonGap() method of derived sequence completed successfully");
                 ApplicationLog.WriteLine(
                     "DerivedSequenceBvtTestCases:Validation of IndexOfNonGap() method of derived sequence completed successfully");
             }
@@ -138,8 +127,6 @@ namespace Bio.TestAutomation
             }
             catch (NotImplementedException)
             {
-                Console.WriteLine(
-                    "DerivedSequenceBvtTestCases:Validation of IndexOfNonGap(int) method of derived sequence completed successfully");
                 ApplicationLog.WriteLine(
                     "DerivedSequenceBvtTestCases:Validation of IndexOfNonGap(int) method of derived sequence completed successfully");
             }
@@ -171,8 +158,6 @@ namespace Bio.TestAutomation
             }
             catch (NotImplementedException)
             {
-                Console.WriteLine(
-                    "DerivedSequenceBvtTestCases:Validation of LastIndexOfNonGap() method of derived sequence completed successfully");
                 ApplicationLog.WriteLine(
                     "DerivedSequenceBvtTestCases:Validation of LastIndexOfNonGap() method of derived sequence completed successfully");
             }
@@ -204,8 +189,6 @@ namespace Bio.TestAutomation
             }
             catch (NotImplementedException)
             {
-                Console.WriteLine(
-                    "DerivedSequenceBvtTestCases:Validation of LastIndexOfNonGap(int) method of derived sequence completed successfully");
                 ApplicationLog.WriteLine(
                     "DerivedSequenceBvtTestCases:Validation of LastIndexOfNonGap(int) method of derived sequence completed successfully");
             }
@@ -238,8 +221,6 @@ namespace Bio.TestAutomation
             Assert.AreEqual(derivedSequence, new string(derSequence.Select(a => (char)a).ToArray()));
             Assert.AreEqual(reverseCompObj, new string(derSequence.GetReverseComplementedSequence().Select(a => (char)a).ToArray()));
 
-            Console.WriteLine(
-                "DerivedSequenceBvtTestCases:Validation of GetReverseComplementedSequence() method of derived sequence completed successfully");
             ApplicationLog.WriteLine(
                 "DerivedSequenceBvtTestCases:Validation of GetReverseComplementedSequence() method of derived sequence completed successfully");
         }
@@ -271,8 +252,6 @@ namespace Bio.TestAutomation
             Assert.AreEqual(derivedSequence, new string(derSequence.Select(a => (char)a).ToArray()));
             Assert.AreEqual(reverseObj, new string(derSequence.GetReversedSequence().Select(a => (char)a).ToArray()));
 
-            Console.WriteLine(
-                "DerivedSequenceBvtTestCases:Validation of GetReversedSequence() method of derived sequence completed successfully");
             ApplicationLog.WriteLine(
                 "DerivedSequenceBvtTestCases:Validation of GetReversedSequence() method of derived sequence completed successfully");
         }
@@ -304,8 +283,6 @@ namespace Bio.TestAutomation
             Assert.AreEqual(derivedSequence, new string(derSequence.Select(a => (char)a).ToArray()));
             Assert.AreEqual(complementObj, new string(derSequence.GetComplementedSequence().Select(a => (char)a).ToArray()));
 
-            Console.WriteLine(
-                "DerivedSequenceBvtTestCases:Validation of GetComplementedSequence() method of derived sequence completed successfully");
             ApplicationLog.WriteLine(
                 "DerivedSequenceBvtTestCases:Validation of GetComplementedSequence() method of derived sequence completed successfully");
         }
@@ -341,8 +318,6 @@ namespace Bio.TestAutomation
             Assert.AreEqual(expSubSequence, new string(derSequence.GetSubSequence(long.Parse(ranges[0],
                 (IFormatProvider)null), long.Parse(ranges[1], (IFormatProvider)null)).Select(a => (char)a).ToArray()));
 
-            Console.WriteLine(
-                "DerivedSequenceBvtTestCases:Validation of GetSubSequence() method of derived sequence completed successfully");
             ApplicationLog.WriteLine(
                 "DerivedSequenceBvtTestCases:Validation of GetSubSequence() method of derived sequence completed successfully");
         }
@@ -370,8 +345,6 @@ namespace Bio.TestAutomation
             // Validate derived Sequence.
             Assert.AreEqual(expectedSequence, new string(derSequence.Select(a => (char)a).ToArray()));
 
-            Console.WriteLine(
-                "DerivedSequenceBvtTestCases:Validation of derived sequence completed successfully");
             ApplicationLog.WriteLine(
                 "DerivedSequenceBvtTestCases:Validation of derived sequence completed successfully");
         }
@@ -402,8 +375,6 @@ namespace Bio.TestAutomation
             }
             catch (NotImplementedException)
             {
-                Console.WriteLine(
-                    "DerivedSequenceBvtTestCases:Validation of IndexOfNonGap() method of derived sequence completed successfully");
                 ApplicationLog.WriteLine(
                     "DerivedSequenceBvtTestCases:Validation of IndexOfNonGap() method of derived sequence completed successfully");
             }
@@ -435,8 +406,6 @@ namespace Bio.TestAutomation
             }
             catch (NotImplementedException)
             {
-                Console.WriteLine(
-                    "DerivedSequenceBvtTestCases:Validation of IndexOfNonGap(int) method of derived sequence completed successfully");
                 ApplicationLog.WriteLine(
                     "DerivedSequenceBvtTestCases:Validation of IndexOfNonGap(int) method of derived sequence completed successfully");
             }
@@ -468,8 +437,6 @@ namespace Bio.TestAutomation
             }
             catch (NotImplementedException)
             {
-                Console.WriteLine(
-                    "DerivedSequenceBvtTestCases:Validation of LastIndexOfNonGap() method of derived sequence completed successfully");
                 ApplicationLog.WriteLine(
                     "DerivedSequenceBvtTestCases:Validation of LastIndexOfNonGap() method of derived sequence completed successfully");
             }
@@ -501,8 +468,6 @@ namespace Bio.TestAutomation
             }
             catch (NotImplementedException)
             {
-                Console.WriteLine(
-                    "DerivedSequenceBvtTestCases:Validation of LastIndexOfNonGap(int) method of derived sequence completed successfully");
                 ApplicationLog.WriteLine(
                     "DerivedSequenceBvtTestCases:Validation of LastIndexOfNonGap(int) method of derived sequence completed successfully");
             }
@@ -535,8 +500,6 @@ namespace Bio.TestAutomation
             Assert.AreEqual(derivedSequence, new string(derSequence.Select(a => (char)a).ToArray()));
             Assert.AreEqual(reverseObj, new string(derSequence.GetReversedSequence().Select(a => (char)a).ToArray()));
 
-            Console.WriteLine(
-                "DerivedSequenceBvtTestCases:Validation of GetReversedSequence() method of derived sequence completed successfully");
             ApplicationLog.WriteLine(
                 "DerivedSequenceBvtTestCases:Validation of GetReversedSequence() method of derived sequence completed successfully");
         }
@@ -572,8 +535,6 @@ namespace Bio.TestAutomation
             Assert.AreEqual(expSubSequence, new string(derSequence.GetSubSequence(long.Parse(ranges[0],
                 (IFormatProvider)null), long.Parse(ranges[1], (IFormatProvider)null)).Select(a => (char)a).ToArray()));
 
-            Console.WriteLine(
-                "DerivedSequenceBvtTestCases:Validation of GetSubSequence() method of derived sequence completed successfully");
             ApplicationLog.WriteLine(
                 "DerivedSequenceBvtTestCases:Validation of GetSubSequence() method of derived sequence completed successfully");
         }

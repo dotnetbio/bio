@@ -9,8 +9,6 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-
-using Bio;
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
 using Bio.Web;
@@ -204,9 +202,8 @@ namespace Bio.TestAutomation.Web.AzureBlast
             // validate the cancelled job.
             Assert.IsTrue(result);
 
-            Console.WriteLine(string.Format((IFormatProvider)null,
-                    "Azure Blast BVT : Submitted job cancelled was successfully.",
-                    queryProgramValue));
+            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
+                    "Azure Blast BVT : Submitted job cancelled was successfully: {0}.", queryProgramValue));
         }
 
         #endregion Azure Blast BVT TestCases
@@ -262,14 +259,13 @@ namespace Bio.TestAutomation.Web.AzureBlast
             Assert.IsTrue(queryParams.Settings.ContainsValue(queryProgramValue));
             Assert.AreEqual(queryParams.Settings.Count, 3);
 
-            // Logs to the VSTest GUI (Console.Out) window
-            Console.WriteLine(string.Format((IFormatProvider)null,
+            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                 "Azure Blast BVT : Query Sequence{0} is as expected.",
                 querySequence));
-            Console.WriteLine(string.Format((IFormatProvider)null,
+            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                 "Azure Blast BVT : DataBase Value{0} is as expected.",
                 queryDatabaseValue));
-            Console.WriteLine(string.Format((IFormatProvider)null,
+            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                 "Azure Blast BVT : Program Value {0} is as expected.",
                 queryProgramValue));
         }
@@ -388,14 +384,6 @@ namespace Bio.TestAutomation.Web.AzureBlast
                 Assert.AreEqual(hit.Id.ToString((IFormatProvider)null), expectedHitId);
                 Assert.AreEqual(hit.Hsps.Count.ToString((IFormatProvider)null), expectedHspHitsCount);
 
-                Console.WriteLine(string.Format((IFormatProvider)null,
-                        "Azure Blast BVT: Hits count '{0}'.", blastResults.Count));
-                Console.WriteLine(string.Format((IFormatProvider)null,
-                    "Azure Blast BVT: Accession '{0}'.", hit.Accession));
-                Console.WriteLine(string.Format((IFormatProvider)null,
-                    "Azure Blast BVT: Hit Id '{0}'.", hit.Id));
-                Console.WriteLine(string.Format((IFormatProvider)null,
-                    "Azure Blast BVT: Hits Count '{0}'.", hit.Hsps.Count));
                 ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                     "Azure Blast BVT: Hits Count '{0}'.", hit.Hsps.Count));
                 ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
@@ -462,14 +450,12 @@ namespace Bio.TestAutomation.Web.AzureBlast
                 string error = ApplicationLog.WriteLine(string.Concat(
                     "Unexpected error", reqInfo.Status));
                 Assert.Fail(error);
-                Console.WriteLine(string.Concat(
-                    "Azure Blast BVT: Unexpected error ", reqInfo.Status));
             }
             else
             {
-                Console.WriteLine(string.Format((IFormatProvider)null,
+                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                     "Azure Blast BVT: Client Request status has been validated successfully."));
-                Console.WriteLine(string.Concat(
+                ApplicationLog.WriteLine(string.Concat(
                     "Azure Blast BVT: Request status ", reqInfo.Status));
             }
         }

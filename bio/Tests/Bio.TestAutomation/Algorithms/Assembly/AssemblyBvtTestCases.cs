@@ -7,7 +7,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using Bio.Algorithms.Alignment;
 using Bio.Algorithms.Assembly;
@@ -15,27 +14,25 @@ using Bio.SimilarityMatrices;
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Bio;
 
 namespace Bio.TestAutomation.Algorithms.Assembly
 {
     /// <summary>
-    /// Assembly Bvt Test case implementation.
+    ///     Assembly Bvt Test case implementation.
     /// </summary>
     [TestClass]
     public class AssemblyBvtTestCases
     {
-
         #region Global Variables
 
-        Utility utilityObj = new Utility(@"TestUtils\TestsConfig.xml");
+        private readonly Utility utilityObj = new Utility(@"TestUtils\TestsConfig.xml");
 
         #endregion Global Variables
 
         #region Constructor
 
         /// <summary>
-        /// Static constructor to open log and make other settings needed for test
+        ///     Static constructor to open log and make other settings needed for test
         /// </summary>
         static AssemblyBvtTestCases()
         {
@@ -51,12 +48,12 @@ namespace Bio.TestAutomation.Algorithms.Assembly
         #region Sequence Assembly BVT Test cases
 
         /// <summary>
-        /// Validates if the Assemble() method assembles the 
-        /// sequences on passing valid sequences as parameter..
-        /// Input: Sequences with Alphabets, matchscore, mismatch score,
-        /// gap cost, merge threshold, consensus threshold.
-        /// Validation: validates unmerged sequences count, contigs count,
-        /// contig sequences count and concensus.
+        ///     Validates if the Assemble() method assembles the
+        ///     sequences on passing valid sequences as parameter..
+        ///     Input: Sequences with Alphabets, matchscore, mismatch score,
+        ///     gap cost, merge threshold, consensus threshold.
+        ///     Validation: validates unmerged sequences count, contigs count,
+        ///     contig sequences count and concensus.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -65,7 +62,7 @@ namespace Bio.TestAutomation.Algorithms.Assembly
         {
             IOverlapDeNovoAssembly assembly = GetSequenceAssembly("assemble");
             string contigConsensus = utilityObj.xmlUtil.GetTextValue(Constants.AssemblyAlgorithmNodeName,
-                Constants.ContigConsensusNode);
+                                                                     Constants.ContigConsensusNode);
             int contigSequencesCount = int.Parse(utilityObj.xmlUtil.GetTextValue(
                 Constants.AssemblyAlgorithmNodeName,
                 Constants.ContigSequencesCountNode), null);
@@ -82,33 +79,30 @@ namespace Bio.TestAutomation.Algorithms.Assembly
             Assert.AreEqual(contigsCount, assembly.Contigs.Count);
             Contig contigRead = assembly.Contigs[0];
 
-            Assert.AreEqual(contigConsensus, new String(contigRead.Consensus.Select(a => (char)a).ToArray()));
+            Assert.AreEqual(contigConsensus, new String(contigRead.Consensus.Select(a => (char) a).ToArray()));
             Assert.AreEqual(contigSequencesCount, contigRead.Sequences.Count);
 
             // Logs the concensus
-            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                "SequenceAssembly BVT : Un Merged Sequences Count is '{0}'.",
-                assembly.UnmergedSequences.Count.ToString((IFormatProvider)null)));
-            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                "SequenceAssembly BVT : Contigs Count is '{0}'.",
-                assembly.Contigs.Count.ToString((IFormatProvider)null)));
-            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                "SequenceAssembly BVT : Contig Sequences Count is '{0}'.",
-                contigRead.Sequences.Count.ToString((IFormatProvider)null)));
-            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                "SequenceAssembly BVT : Consensus read is '{0}'.",
-                contigRead.Consensus.ToString()));
-            Console.WriteLine(string.Format((IFormatProvider)null,
-                "SequenceAssembly BVT : Consensus read is '{0}'.",
-                contigRead.Consensus.ToString()));
+            ApplicationLog.WriteLine(string.Format(null,
+                                                   "SequenceAssembly BVT : Un Merged Sequences Count is '{0}'.",
+                                                   assembly.UnmergedSequences.Count.ToString((IFormatProvider) null)));
+            ApplicationLog.WriteLine(string.Format(null,
+                                                   "SequenceAssembly BVT : Contigs Count is '{0}'.",
+                                                   assembly.Contigs.Count.ToString((IFormatProvider) null)));
+            ApplicationLog.WriteLine(string.Format(null,
+                                                   "SequenceAssembly BVT : Contig Sequences Count is '{0}'.",
+                                                   contigRead.Sequences.Count.ToString((IFormatProvider) null)));
+            ApplicationLog.WriteLine(string.Format(null,
+                                                   "SequenceAssembly BVT : Consensus read is '{0}'.",
+                                                   contigRead.Consensus));
         }
 
         /// <summary>
-        /// Validate if the contig() method is retrieves a valid Contig 
-        /// once a valid index is passed as parameter.
-        /// Input: Sequences with Alphabets, matchscore, mismatch score,
-        ///             gap cost, merge threshold, consensus threshold.
-        /// Validation: Validates valid Contig is read.
+        ///     Validate if the contig() method is retrieves a valid Contig
+        ///     once a valid index is passed as parameter.
+        ///     Input: Sequences with Alphabets, matchscore, mismatch score,
+        ///     gap cost, merge threshold, consensus threshold.
+        ///     Validation: Validates valid Contig is read.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -117,7 +111,7 @@ namespace Bio.TestAutomation.Algorithms.Assembly
         {
             IOverlapDeNovoAssembly assembly = GetSequenceAssembly("contig");
             string contigConsensus = utilityObj.xmlUtil.GetTextValue(Constants.AssemblyAlgorithmNodeName,
-                Constants.ContigConsensusNode);
+                                                                     Constants.ContigConsensusNode);
             int contigSequencesCount = int.Parse(utilityObj.xmlUtil.GetTextValue(
                 Constants.AssemblyAlgorithmNodeName,
                 Constants.ContigSequencesCountNode), null);
@@ -126,18 +120,13 @@ namespace Bio.TestAutomation.Algorithms.Assembly
             Contig contigsRead = assembly.Contigs[0];
 
             // Log the required info.
-            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                "SequenceAssembly BVT : Consensus read is '{0}'.",
-                contigsRead.Consensus.ToString()));
-            Console.WriteLine(string.Format((IFormatProvider)null,
-                "SequenceAssembly BVT : Consensus read is '{0}'.",
-                contigsRead.Consensus.ToString()));
-
-            Assert.AreEqual(contigConsensus, new String(contigsRead.Consensus.Select(a => (char)a).ToArray()));
+            ApplicationLog.WriteLine(string.Format(null,
+                                                   "SequenceAssembly BVT : Consensus read is '{0}'.",
+                                                   contigsRead.Consensus));
+            Assert.AreEqual(contigConsensus, new String(contigsRead.Consensus.Select(a => (char) a).ToArray()));
             Assert.AreEqual(contigSequencesCount, contigsRead.Sequences.Count);
 
             ApplicationLog.WriteLine("SequenceAssembly BVT : Successfully read the Contig.");
-            Console.WriteLine("SequenceAssembly BVT : Successfully read the Contig.");
         }
 
         #endregion Sequence Assembly BVT Test cases
@@ -145,10 +134,10 @@ namespace Bio.TestAutomation.Algorithms.Assembly
         #region Consensus BVT Test cases
 
         /// <summary>
-        /// Validate MakeConsensus() method.
-        /// Input: Sequences with Alphabets, matchscore, mismatch score, 
-        /// gap cost, merge threshold, consensus threshold.
-        /// Validation: Validates valid Contig is read.
+        ///     Validate MakeConsensus() method.
+        ///     Input: Sequences with Alphabets, matchscore, mismatch score,
+        ///     gap cost, merge threshold, consensus threshold.
+        ///     Validation: Validates valid Contig is read.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -158,7 +147,7 @@ namespace Bio.TestAutomation.Algorithms.Assembly
             IOverlapDeNovoAssembly assembly = GetSequenceAssembly("consensus");
 
             string contigConsensus = utilityObj.xmlUtil.GetTextValue(Constants.AssemblyAlgorithmNodeName,
-                Constants.ContigConsensusNode);
+                                                                     Constants.ContigConsensusNode);
             double consensusThreshold = double.Parse(utilityObj.xmlUtil.GetTextValue(
                 Constants.AssemblyAlgorithmNodeName,
                 Constants.ConsensusThresholdNode), null);
@@ -168,19 +157,17 @@ namespace Bio.TestAutomation.Algorithms.Assembly
             // Read the contig from Contig method.
             Contig contigReadForConsensus = assembly.Contigs[0];
             contigReadForConsensus.Consensus = null;
-            OverlapDeNovoAssembler simpleSeqAssembler = new OverlapDeNovoAssembler();
+            var simpleSeqAssembler = new OverlapDeNovoAssembler();
             simpleSeqAssembler.ConsensusResolver = new SimpleConsensusResolver(consensusThreshold);
             simpleSeqAssembler.MakeConsensus(alphabet, contigReadForConsensus);
 
-            Assert.AreEqual(contigConsensus, new String(contigReadForConsensus.Consensus.Select(a => (char)a).ToArray()));
+            Assert.AreEqual(contigConsensus,
+                            new String(contigReadForConsensus.Consensus.Select(a => (char) a).ToArray()));
 
             // Log the required info.
-            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                "SimpleConsensusMethod BVT : Consensus read is '{0}'.",
-                contigReadForConsensus.Consensus.ToString()));
-            Console.WriteLine(string.Format((IFormatProvider)null,
-                "SimpleConsensusMethod BVT : Consensus read is '{0}'.",
-                contigReadForConsensus.Consensus.ToString()));
+            ApplicationLog.WriteLine(string.Format(null,
+                                                   "SimpleConsensusMethod BVT : Consensus read is '{0}'.",
+                                                   contigReadForConsensus.Consensus));
         }
 
         #endregion Consensus BVT Test cases
@@ -188,18 +175,18 @@ namespace Bio.TestAutomation.Algorithms.Assembly
         #region Supported methods
 
         /// <summary>
-        /// Validate Sequence Assembler Test cases based on additional parameter values
+        ///     Validate Sequence Assembler Test cases based on additional parameter values
         /// </summary>
-        /// <param name="additionalParameter">Addtional parameters</param>
-        IOverlapDeNovoAssembly GetSequenceAssembly(string additionalParameter)
+        /// <param name="additionalParameter">Additional parameters</param>
+        private IOverlapDeNovoAssembly GetSequenceAssembly(string additionalParameter)
         {
             // Get the parameters from Xml
             int matchScore = int.Parse(utilityObj.xmlUtil.GetTextValue(Constants.AssemblyAlgorithmNodeName,
-                Constants.MatchScoreNode), null);
+                                                                       Constants.MatchScoreNode), null);
             int mismatchScore = int.Parse(utilityObj.xmlUtil.GetTextValue(Constants.AssemblyAlgorithmNodeName,
-                Constants.MisMatchScoreNode), null);
+                                                                          Constants.MisMatchScoreNode), null);
             int gapCost = int.Parse(utilityObj.xmlUtil.GetTextValue(Constants.AssemblyAlgorithmNodeName,
-                Constants.GapCostNode), null);
+                                                                    Constants.GapCostNode), null);
             double mergeThreshold = double.Parse(utilityObj.xmlUtil.GetTextValue(
                 Constants.AssemblyAlgorithmNodeName,
                 Constants.MergeThresholdNode), null);
@@ -207,11 +194,11 @@ namespace Bio.TestAutomation.Algorithms.Assembly
                 Constants.AssemblyAlgorithmNodeName,
                 Constants.ConsensusThresholdNode), null);
             string sequence1 = utilityObj.xmlUtil.GetTextValue(Constants.AssemblyAlgorithmNodeName,
-                Constants.SequenceNode1);
+                                                               Constants.SequenceNode1);
             string sequence2 = utilityObj.xmlUtil.GetTextValue(Constants.AssemblyAlgorithmNodeName,
-                Constants.SequenceNode2);
+                                                               Constants.SequenceNode2);
             string sequence3 = utilityObj.xmlUtil.GetTextValue(Constants.AssemblyAlgorithmNodeName,
-                Constants.SequenceNode3);
+                                                               Constants.SequenceNode3);
             IAlphabet alphabet = Utility.GetAlphabet(utilityObj.xmlUtil.GetTextValue(
                 Constants.AssemblyAlgorithmNodeName,
                 Constants.AlphabetNameNode));
@@ -221,27 +208,30 @@ namespace Bio.TestAutomation.Algorithms.Assembly
             {
                 case "consensus":
                     // Logs the sequences
-                    ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                        "SimpleConsensusMethod BVT : Sequence 1 used is '{0}'.", sequence1));
-                    ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                        "SimpleConsensusMethod BVT : Sequence 2 used is '{0}'.", sequence2));
-                    ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                        "SimpleConsensusMethod BVT : Sequence 3 used is '{0}'.", sequence3));
+                    ApplicationLog.WriteLine(string.Format(null,
+                                                           "SimpleConsensusMethod BVT : Sequence 1 used is '{0}'.",
+                                                           sequence1));
+                    ApplicationLog.WriteLine(string.Format(null,
+                                                           "SimpleConsensusMethod BVT : Sequence 2 used is '{0}'.",
+                                                           sequence2));
+                    ApplicationLog.WriteLine(string.Format(null,
+                                                           "SimpleConsensusMethod BVT : Sequence 3 used is '{0}'.",
+                                                           sequence3));
                     break;
                 default:
                     // Logs the sequences
-                    ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                        "SequenceAssembly BVT : Sequence 1 used is '{0}'.", sequence1));
-                    ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                        "SequenceAssembly BVT : Sequence 2 used is '{0}'.", sequence2));
-                    ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                        "SequenceAssembly BVT : Sequence 3 used is '{0}'.", sequence3));
+                    ApplicationLog.WriteLine(string.Format(null,
+                                                           "SequenceAssembly BVT : Sequence 1 used is '{0}'.", sequence1));
+                    ApplicationLog.WriteLine(string.Format(null,
+                                                           "SequenceAssembly BVT : Sequence 2 used is '{0}'.", sequence2));
+                    ApplicationLog.WriteLine(string.Format(null,
+                                                           "SequenceAssembly BVT : Sequence 3 used is '{0}'.", sequence3));
                     break;
             }
 
-            Sequence seq1 = new Sequence(alphabet, sequence1);
-            Sequence seq2 = new Sequence(alphabet, sequence2);
-            Sequence seq3 = new Sequence(alphabet, sequence3);
+            var seq1 = new Sequence(alphabet, sequence1);
+            var seq2 = new Sequence(alphabet, sequence2);
+            var seq3 = new Sequence(alphabet, sequence3);
 
             // here is how the above sequences should align:
             // TATAAAGCGCCAA
@@ -250,22 +240,22 @@ namespace Bio.TestAutomation.Algorithms.Assembly
             // 
             // TATAAAGCGCCAAAATTTAGGCACCCGCGGTATT
 
-            OverlapDeNovoAssembler assembler = new OverlapDeNovoAssembler();
+            var assembler = new OverlapDeNovoAssembler();
             assembler.MergeThreshold = mergeThreshold;
             assembler.OverlapAlgorithm = new PairwiseOverlapAligner();
-            ((IPairwiseSequenceAligner)assembler.OverlapAlgorithm).SimilarityMatrix =
+            (assembler.OverlapAlgorithm).SimilarityMatrix =
                 new DiagonalSimilarityMatrix(matchScore, mismatchScore);
-            ((IPairwiseSequenceAligner)assembler.OverlapAlgorithm).GapOpenCost = gapCost;
+            (assembler.OverlapAlgorithm).GapOpenCost = gapCost;
             assembler.ConsensusResolver = new SimpleConsensusResolver(consensusThreshold);
             assembler.AssumeStandardOrientation = false;
 
-            List<ISequence> inputs = new List<ISequence>();
+            var inputs = new List<ISequence>();
             inputs.Add(seq1);
             inputs.Add(seq2);
             inputs.Add(seq3);
 
             // Assembles all the sequences.
-            return (IOverlapDeNovoAssembly)assembler.Assemble(inputs);
+            return (IOverlapDeNovoAssembly) assembler.Assemble(inputs);
         }
 
         #endregion Supported methods

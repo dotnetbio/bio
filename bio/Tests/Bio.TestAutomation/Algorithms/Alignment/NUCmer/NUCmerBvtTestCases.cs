@@ -28,7 +28,6 @@ namespace Bio.TestAutomation.Algorithms.Alignment
     [TestClass]
     public class NUCmerBvtTestCases
     {
-
         #region Enums
 
         /// <summary>
@@ -248,7 +247,6 @@ namespace Bio.TestAutomation.Algorithms.Alignment
                 }
             }
 
-            Console.WriteLine("NUCmer BVT : Successfully validated all the aligned sequences.");
             ApplicationLog.WriteLine("NUCmer BVT : Successfully validated all the aligned sequences.");
         }
 
@@ -272,7 +270,6 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         /// Input : Create a NUCmer object.
         /// Validation : Validate the properties
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)"), TestMethod]
         [Priority(0)]
         [TestCategory("Priority0")]
         public void NUCmerAlignerProperties()
@@ -291,7 +288,6 @@ namespace Bio.TestAutomation.Algorithms.Alignment
                 nucmerObj.MinimumScore.ToString((IFormatProvider)null));
             Assert.AreEqual(Constants.NUCSeparationFactor,
                 nucmerObj.SeparationFactor.ToString((IFormatProvider)null));
-            Console.WriteLine("Successfully validated all the properties of NUCmer Aligner class.");
             ApplicationLog.WriteLine("Successfully validated all the properties of NUCmer Aligner class.");
         }
 
@@ -373,7 +369,6 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         /// <param name="nodeName">Node name which needs to be read for execution.</param>
         /// <param name="isFilePath">Is File Path?</param>
         /// <param name="additionalParam">LIS action type enum</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)")]
         void ValidateFindMatchSuffixGeneralTestCases(string nodeName, bool isFilePath,
             AdditionalParameters additionalParam)
         {
@@ -484,24 +479,21 @@ namespace Bio.TestAutomation.Algorithms.Alignment
                     // Validates the Unique Matches.
                     ApplicationLog.WriteLine("NUCmer BVT : Validating the Unique Matches");
                     Assert.IsTrue(ValidateUniqueMatches(mums, nodeName, additionalParam, isFilePath));
-                    Console.WriteLine(
-                        "NUCmer BVT : Successfully validated the all the unique matches for the sequences.");
+                    ApplicationLog.WriteLine("NUCmer BVT : Successfully validated the all the unique matches for the sequences.");
                     break;
                 case AdditionalParameters.PerformClusterBuilder:
                     // Validates the Unique Matches.
                     ApplicationLog.WriteLine(
                         "NUCmer BVT : Validating the Unique Matches using Cluster Builder");
                     Assert.IsTrue(ValidateUniqueMatches(mums, nodeName, additionalParam, isFilePath));
-                    Console.WriteLine(
-                        "NUCmer BVT : Successfully validated the all the cluster builder matches for the sequences.");
+                    ApplicationLog.WriteLine("NUCmer BVT : Successfully validated the all the cluster builder matches for the sequences.");
                     break;
                 default:
                     break;
             }
 
 
-            ApplicationLog.WriteLine(
-                "NUCmer BVT : Successfully validated the all the unique matches for the sequences.");
+            ApplicationLog.WriteLine("NUCmer BVT : Successfully validated the all the unique matches for the sequences.");
         }
 
         /// <summary>
@@ -586,7 +578,6 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         /// <param name="additionalParam">Unique Match/Sub level LIS/LIS</param>
         /// <param name="isFilePath">Nodes to be read from Text file?</param>
         /// <returns>True, if successfully validated</returns>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)")]
         bool ValidateUniqueMatches(IList<Match> matches,
             string nodeName, AdditionalParameters additionalParam, bool isFilePath)
         {
@@ -642,7 +633,6 @@ namespace Bio.TestAutomation.Algorithms.Alignment
                         || (0 != string.Compare(secondSeqOrderExpected.Replace(",", ""),
                         secondSeqOrderActual.ToString(), true, CultureInfo.CurrentCulture)))
                     {
-                        Console.WriteLine("NUCmer BVT : Unique match not matching");
                         ApplicationLog.WriteLine("NUCmer BVT : Unique match not matching");
                         return false;
                     }
@@ -702,8 +692,6 @@ namespace Bio.TestAutomation.Algorithms.Alignment
                             match.QuerySequenceMumOrder.ToString((IFormatProvider)null), true,
                             CultureInfo.CurrentCulture)))
                         {
-                            Console.WriteLine(string.Format((IFormatProvider)null,
-                                "NUCmer BVT : Unique match not matching at index '{0}'", i.ToString((IFormatProvider)null)));
                             ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                                 "NUCmer BVT : Unique match not matching at index '{0}'", i.ToString((IFormatProvider)null)));
                             return false;
@@ -722,7 +710,6 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         /// </summary>
         /// <param name="nodeName">Node name to be read from xml</param>
         /// <param name="isAlignList">Is align method to take list?</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)")]
         void ValidateNUCmerAlignSimpleGeneralTestCases(string nodeName,
             bool isAlignList)
         {
@@ -802,10 +789,7 @@ namespace Bio.TestAutomation.Algorithms.Alignment
                 }
             }
 
-            Console.WriteLine(
-                "NUCmer BVT : Successfully validated all the aligned sequences.");
-            ApplicationLog.WriteLine(
-                "NUCmer BVT : Successfully validated all the aligned sequences.");
+            ApplicationLog.WriteLine("NUCmer BVT : Successfully validated all the aligned sequences.");
         }
 
         #endregion Supported Methods

@@ -185,8 +185,6 @@ namespace Bio.TestAutomation.IO.Phylip
             Assert.IsFalse(string.IsNullOrEmpty(filePath));
             ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                 "Phylip Parser BVT: Reading the File from location '{0}'", filePath));
-            Console.WriteLine(string.Format((IFormatProvider)null,
-                "Phylip Parser BVT: Reading the File from location '{0}'", filePath));
 
             // Get the rangelist after parsing.
             PhylipParser parserObj = new PhylipParser();
@@ -254,8 +252,6 @@ namespace Bio.TestAutomation.IO.Phylip
                 expectedAlignmentList));
             ApplicationLog.WriteLine(
                 "Phylip Parser BVT: Successfully validated all the Alignment Sequences");
-            Console.WriteLine(
-                "Phylip Parser BVT: Successfully validated all the Alignment Sequences");
         }
 
         /// <summary>
@@ -287,7 +283,7 @@ namespace Bio.TestAutomation.IO.Phylip
                             expectedAlignment[actualSequence.ID], true,
                             CultureInfo.CurrentCulture))
                     {
-                        Console.WriteLine("Failed for " + actualSequence.ID);
+                        ApplicationLog.WriteLine("Failed for " + actualSequence.ID);
                         return false;
                     }
                 }

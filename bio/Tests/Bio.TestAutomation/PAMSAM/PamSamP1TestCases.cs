@@ -7,34 +7,30 @@
 
 using System;
 using System.Collections.Generic;
-
-using Bio;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using Bio.Algorithms.Alignment.MultipleSequenceAlignment;
+using Bio.IO;
 using Bio.IO.FastA;
 using Bio.SimilarityMatrices;
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
-
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Bio.IO;
-using System.Text;
-using System.Linq;
 
 namespace Bio.TestAutomation.Pamsam
 {
     /// <summary>
-    /// The class contains P1 test cases to confirm Muscle MSA alignment.
+    ///     The class contains P1 test cases to confirm Muscle MSA alignment.
     /// </summary>
     [TestClass]
     public class PamSamP1TestCases
     {
-
         #region Enums
 
         /// <summary>
-        /// Different profile aligner method types
+        ///     Different profile aligner method types
         /// </summary>
-        enum AlignType
+        private enum AlignType
         {
             AlignSimpleAllParams,
             AlignSimpleOnlyProfiles,
@@ -42,21 +38,9 @@ namespace Bio.TestAutomation.Pamsam
         }
 
         /// <summary>
-        /// Collection of different score functions
+        ///     Different mathematical functions present in MsaUtils
         /// </summary>
-        enum ScoreType
-        {
-            QScore,
-            TCScore,
-            Offset,
-            MultipleAlignmentScoreFunction,
-            PairWiseScoreFunction
-        }
-
-        /// <summary>
-        /// Different mathematical functions present in MsaUtils
-        /// </summary>
-        enum FunctionType
+        private enum FunctionType
         {
             Correlation,
             FindMaxIndex,
@@ -65,97 +49,109 @@ namespace Bio.TestAutomation.Pamsam
         }
 
         /// <summary>
-        /// Dummy MoleculeType so that can be included in case if it is used in the future
+        ///     Dummy MoleculeType so that can be included in case if it is used in the future
         /// </summary>
-        enum MoleculeType
+        private enum MoleculeType
         {
             Protein,
             RNA,
             DNA
         }
 
+        /// <summary>
+        ///     Collection of different score functions
+        /// </summary>
+        private enum ScoreType
+        {
+            QScore,
+            TCScore,
+            Offset,
+            MultipleAlignmentScoreFunction,
+            PairWiseScoreFunction
+        }
+
         #endregion Enums
 
         #region Global Variables
 
-        /// <summary>
-        /// Initialize input sequence list.
-        /// </summary>
-        List<ISequence> lstSequences;
+        private readonly Utility utilityObj = new Utility(@"TestUtils\MSAConfig.xml");
 
         /// <summary>
-        /// Initialize expected aligned sequence list.
+        ///     Initialize the expected score.
         /// </summary>
-        List<ISequence> expectedSequences;
+        private string expectedScore = string.Empty;
 
         /// <summary>
-        /// Initialize expected aligned sequence list for stage1.
+        ///     Initialize expected aligned sequence list.
         /// </summary>
-        List<ISequence> stage1ExpectedSequences;
+        private List<ISequence> expectedSequences;
 
         /// <summary>
-        /// Initialize expected aligned sequence list for stage2.
+        ///     Initialize gap extend penalty.
         /// </summary>
-        List<ISequence> stage2ExpectedSequences;
+        private int gapExtendPenalty = -1;
 
         /// <summary>
-        /// Initialize expected aligned sequence list for stage3.
+        ///     Initialize the gap open penalty
         /// </summary>
-        List<ISequence> stage3ExpectedSequences;
+        private int gapOpenPenalty = -8;
 
         /// <summary>
-        /// Initialize the expected score.
+        ///     kmer length to generate kmer distance matrix
         /// </summary>
-        string expectedScore = string.Empty;
+        private int kmerLength = 2;
 
         /// <summary>
-        /// Initialize the expected score of Stage1.
+        ///     Initialize input sequence list.
         /// </summary>
-        string stage1ExpectedScore = string.Empty;
+        private List<ISequence> lstSequences;
 
         /// <summary>
-        /// Initialize the expected score of Stage2.
+        ///     Set it with NW/ SW profiler
         /// </summary>
-        string stage2ExpectedScore = string.Empty;
+        private IProfileAligner profileAligner;
 
         /// <summary>
-        /// Initialize the expected score of Stage3.
+        ///     Similarity matrix object
         /// </summary>
-        string stage3ExpectedScore = string.Empty;
+        private SimilarityMatrix similarityMatrix;
 
         /// <summary>
-        /// Similarity matrix object
+        ///     Initialize the expected score of Stage1.
         /// </summary>
-        SimilarityMatrix similarityMatrix;
+        private string stage1ExpectedScore = string.Empty;
 
         /// <summary>
-        /// Set it with NW/ SW profiler
+        ///     Initialize expected aligned sequence list for stage1.
         /// </summary>
-        IProfileAligner profileAligner;
+        private List<ISequence> stage1ExpectedSequences;
 
         /// <summary>
-        /// kmer length to generate kmer distance matrix
+        ///     Initialize the expected score of Stage2.
         /// </summary>
-        int kmerLength = 2;
+        private string stage2ExpectedScore = string.Empty;
 
         /// <summary>
-        /// Initialize the gap open penalty
+        ///     Initialize expected aligned sequence list for stage2.
         /// </summary>
-        int gapOpenPenalty = -8;
+        private List<ISequence> stage2ExpectedSequences;
 
         /// <summary>
-        /// Initialize gap extend penalty.
+        ///     Initialize the expected score of Stage3.
         /// </summary>
-        int gapExtendPenalty = -1;
+        private string stage3ExpectedScore = string.Empty;
 
-        Utility utilityObj = new Utility(@"TestUtils\MSAConfig.xml");
+        /// <summary>
+        ///     Initialize expected aligned sequence list for stage3.
+        /// </summary>
+        private List<ISequence> stage3ExpectedSequences;
 
         #endregion
 
         #region Constructor
 
         /// <summary>
-        /// Static constructor to open log and make other settings needed for test
+        ///     Static constructor to open log and make other settings needed for test
         /// </summary>
         static PamSamP1TestCases()
         {
@@ -173,31 +169,29 @@ namespace Bio.TestAutomation.Pamsam
         #region General Test Cases
 
         /// <summary>
-        /// Validates Muscle sequence alignment with 7 protein sequences and default params
-        /// using its aligned sequences and score
+        ///     Validates Muscle sequence alignment with 7 protein sequences and default params
+        ///     using its aligned sequences and score
         /// </summary>
         [TestMethod]
         [Priority(1)]
         [TestCategory("Priority1")]
         public void ValidatePamsamWithProteinSequences()
         {
-
             ValidatePamsamAlign(Constants.MuscleProteinSequenceNode,
-                MoleculeType.Protein, Constants.ExpectedScoreNode,
-                ProfileAlignerNames.NeedlemanWunschProfileAligner);
+                                MoleculeType.Protein, Constants.ExpectedScoreNode,
+                                ProfileAlignerNames.NeedlemanWunschProfileAligner);
         }
 
         /// <summary>
-        /// Validates Muscle sequence alignment with 7 protein sequences and default params
-        /// using its aligned sequences 
-        /// and score with distance matrix method name as ModifiedMuscle
+        ///     Validates Muscle sequence alignment with 7 protein sequences and default params
+        ///     using its aligned sequences
+        ///     and score with distance matrix method name as ModifiedMuscle
         /// </summary>
         [TestMethod]
         [Priority(1)]
         [TestCategory("Priority1")]
         public void ValidatePamsamWithProteinSequencesAndModifiedMuscle()
         {
-
             ValidatePamsamAlignWithDistanceFunctionaTypes(
                 Constants.MuscleProteinSequenceWithModifiedMuscleNodeName,
                 MoleculeType.Protein, Constants.ExpectedScoreNode,
@@ -205,16 +199,15 @@ namespace Bio.TestAutomation.Pamsam
         }
 
         /// <summary>
-        /// Validates Muscle sequence alignment with 7 protein sequences and default params
-        /// using its aligned sequences 
-        /// and score with distance matrix method name as EuclieanDistance
+        ///     Validates Muscle sequence alignment with 7 protein sequences and default params
+        ///     using its aligned sequences
+        ///     and score with distance matrix method name as EuclieanDistance
         /// </summary>
         [TestMethod]
         [Priority(1)]
         [TestCategory("Priority1")]
         public void ValidatePamsamWithProteinSequencesAndEuclieanDistance()
         {
-
             ValidatePamsamAlignWithDistanceFunctionaTypes(
                 Constants.MuscleProteinSequenceEuclieanDistanceNode,
                 MoleculeType.Protein, Constants.ExpectedScoreNode,
@@ -222,16 +215,15 @@ namespace Bio.TestAutomation.Pamsam
         }
 
         /// <summary>
-        /// Validates Muscle sequence alignment with 7 protein sequences and default params
-        /// using its aligned sequences 
-        /// and score with distance matrix method name as CoVariance
+        ///     Validates Muscle sequence alignment with 7 protein sequences and default params
+        ///     using its aligned sequences
+        ///     and score with distance matrix method name as CoVariance
         /// </summary>
         [TestMethod]
         [Priority(1)]
         [TestCategory("Priority1")]
         public void ValidatePamsamWithProteinSequencesAndCovariance()
         {
-
             ValidatePamsamAlignWithDistanceFunctionaTypes(
                 Constants.MuscleProteinSequenceWithCovarianceNodeName,
                 MoleculeType.Protein, Constants.ExpectedScoreNode,
@@ -239,16 +231,15 @@ namespace Bio.TestAutomation.Pamsam
         }
 
         /// <summary>
-        /// Validates Muscle sequence alignment with 7 protein sequences and default params
-        /// using its aligned sequences 
-        /// and score with distance matrix method name as PearsonCorrelation
+        ///     Validates Muscle sequence alignment with 7 protein sequences and default params
+        ///     using its aligned sequences
+        ///     and score with distance matrix method name as PearsonCorrelation
         /// </summary>
         [TestMethod]
         [Priority(1)]
         [TestCategory("Priority1")]
         public void ValidatePamsamWithProteinSequencesAndPearsonCorrelation()
         {
-
             ValidatePamsamAlignWithDistanceFunctionaTypes(
                 Constants.MuscleProteinSequenceWithPearsonCorrelationNodeName,
                 MoleculeType.Protein, Constants.ExpectedScoreNode,
@@ -256,48 +247,47 @@ namespace Bio.TestAutomation.Pamsam
         }
 
         /// <summary>
-        ///Validates Muscle sequence alignment with 7 protein sequences and default params
-        /// using its aligned sequences 
-        /// and score with Hierarchical Clustering method name as Average
+        ///     Validates Muscle sequence alignment with 7 protein sequences and default params
+        ///     using its aligned sequences
+        ///     and score with Hierarchical Clustering method name as Average
         /// </summary>
         [TestMethod]
         [Priority(1)]
         [TestCategory("Priority1")]
         public void ValidatePamsamWithProteinSequencesAndAverageMethod()
         {
-
             ValidatePamsamAlignWithUpdateDistanceMethodTypes(Constants.MuscleProteinSequenceNode,
-                MoleculeType.Protein, Constants.ExpectedScoreNode,
-                UpdateDistanceMethodsTypes.Average, ProfileAlignerNames.NeedlemanWunschProfileAligner);
+                                                             MoleculeType.Protein, Constants.ExpectedScoreNode,
+                                                             UpdateDistanceMethodsTypes.Average,
+                                                             ProfileAlignerNames.NeedlemanWunschProfileAligner);
         }
 
         /// <summary>
-        /// Validates Muscle sequence alignment with 7 protein sequences and default params
-        /// using its aligned sequences and score with 
-        /// Hierarchical Clustering method name as Complete
+        ///     Validates Muscle sequence alignment with 7 protein sequences and default params
+        ///     using its aligned sequences and score with
+        ///     Hierarchical Clustering method name as Complete
         /// </summary>
         [TestMethod]
         [Priority(1)]
         [TestCategory("Priority1")]
         public void ValidatePamsamWithProteinSequencesAndCompleteMethod()
         {
-
             ValidatePamsamAlignWithUpdateDistanceMethodTypes(Constants.MuscleProteinSequenceWithComplete,
-                MoleculeType.Protein, Constants.ExpectedScoreNode,
-                UpdateDistanceMethodsTypes.Complete, ProfileAlignerNames.NeedlemanWunschProfileAligner);
+                                                             MoleculeType.Protein, Constants.ExpectedScoreNode,
+                                                             UpdateDistanceMethodsTypes.Complete,
+                                                             ProfileAlignerNames.NeedlemanWunschProfileAligner);
         }
 
         /// <summary>
-        /// Validates Muscle sequence alignment with 7 protein sequences and default params
-        /// using its aligned sequences and score with 
-        /// Hierarchical Clustering method name as Single
+        ///     Validates Muscle sequence alignment with 7 protein sequences and default params
+        ///     using its aligned sequences and score with
+        ///     Hierarchical Clustering method name as Single
         /// </summary>
         [TestMethod]
         [Priority(1)]
         [TestCategory("Priority1")]
         public void ValidatePamsamWithProteinSequencesAndSingleMethod()
         {
-
             ValidatePamsamAlignWithUpdateDistanceMethodTypes(
                 Constants.MuscleProteinSequenceWithSingleMethodNodeName,
                 MoleculeType.Protein, Constants.ExpectedScoreNode,
@@ -305,16 +295,15 @@ namespace Bio.TestAutomation.Pamsam
         }
 
         /// <summary>
-        /// Validates Muscle sequence alignment with 7 protein sequences and default params
-        /// using its aligned sequences and score with 
-        /// Hierarchical Clustering method name as WeightedMAFFT
+        ///     Validates Muscle sequence alignment with 7 protein sequences and default params
+        ///     using its aligned sequences and score with
+        ///     Hierarchical Clustering method name as WeightedMAFFT
         /// </summary>
         [TestMethod]
         [Priority(1)]
         [TestCategory("Priority1")]
         public void ValidatePamsamWithProteinSequencesAndWeightedMafftMethod()
         {
-
             ValidatePamsamAlignWithUpdateDistanceMethodTypes(
                 Constants.MuscleProteinSequenceWithWeightedMAFFTNodeName,
                 MoleculeType.Protein, Constants.ExpectedScoreNode,
@@ -323,16 +312,15 @@ namespace Bio.TestAutomation.Pamsam
         }
 
         /// <summary>
-        /// Validates Muscle sequence alignment with 7 protein sequences and default params
-        /// using its aligned sequences and score.
-        /// Profile score method name as InnerProduct
+        ///     Validates Muscle sequence alignment with 7 protein sequences and default params
+        ///     using its aligned sequences and score.
+        ///     Profile score method name as InnerProduct
         /// </summary>
         [TestMethod]
         [Priority(1)]
         [TestCategory("Priority1")]
         public void ValidatePamsamWithProteinSequencesAndInnerProduct()
         {
-
             ValidatePamsamAlignWithProfileScoreFunctionName(
                 Constants.MuscleProteinSequenceWithInnerProductNodeName,
                 MoleculeType.Protein,
@@ -342,16 +330,15 @@ namespace Bio.TestAutomation.Pamsam
         }
 
         /// <summary>
-        /// Validates Muscle sequence alignment with 7 protein sequences and default params
-        /// using its aligned sequences and score.
-        /// Profile score method name as JensenShannonDivergence
+        ///     Validates Muscle sequence alignment with 7 protein sequences and default params
+        ///     using its aligned sequences and score.
+        ///     Profile score method name as JensenShannonDivergence
         /// </summary>
         [TestMethod]
         [Priority(1)]
         [TestCategory("Priority1")]
         public void ValidatePamsamWithProteinSequencesAndJensenShannonDivergence()
         {
-
             ValidatePamsamAlignWithProfileScoreFunctionName(
                 Constants.MuscleProteinWithJensenShannonDivergence,
                 MoleculeType.Protein,
@@ -360,9 +347,9 @@ namespace Bio.TestAutomation.Pamsam
         }
 
         /// <summary>
-        ///Validates Muscle sequence alignment with 7 protein sequences and default params
-        /// using its aligned sequences and score.
-        /// Profile score method name as LogExponentialInnerProduct
+        ///     Validates Muscle sequence alignment with 7 protein sequences and default params
+        ///     using its aligned sequences and score.
+        ///     Profile score method name as LogExponentialInnerProduct
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -377,16 +364,15 @@ namespace Bio.TestAutomation.Pamsam
         }
 
         /// <summary>
-        /// Validates Muscle sequence alignment with 7 protein sequences and default params
-        /// using its aligned sequences and score.
-        /// Profile score method name as LogExponentialInnerProductShifted
+        ///     Validates Muscle sequence alignment with 7 protein sequences and default params
+        ///     using its aligned sequences and score.
+        ///     Profile score method name as LogExponentialInnerProductShifted
         /// </summary>
         [TestMethod]
         [Priority(1)]
         [TestCategory("Priority1")]
         public void ValidatePamsamWithProteinSequencesAndLogExponentialInnerProductShifted()
         {
-
             ValidatePamsamAlignWithProfileScoreFunctionName(
                 Constants.MuscleProteinWithLogExponentialInnerProductShifted,
                 MoleculeType.Protein,
@@ -395,16 +381,15 @@ namespace Bio.TestAutomation.Pamsam
         }
 
         /// <summary>
-        ///Validates Muscle sequence alignment with 7 protein sequences and default params
-        /// using its aligned sequences and score.
-        /// Profile score method name as PearsonCorrelation
+        ///     Validates Muscle sequence alignment with 7 protein sequences and default params
+        ///     using its aligned sequences and score.
+        ///     Profile score method name as PearsonCorrelation
         /// </summary>
         [TestMethod]
         [Priority(1)]
         [TestCategory("Priority1")]
         public void ValidatePamsamWithProteinSequencesAndPearsonCorrelationProfileScore()
         {
-
             ValidatePamsamAlignWithProfileScoreFunctionName(
                 Constants.MuscleProteinWithPearsonCorrelationProfileScore,
                 MoleculeType.Protein,
@@ -414,16 +399,15 @@ namespace Bio.TestAutomation.Pamsam
         }
 
         /// <summary>
-        /// Validates Muscle sequence alignment with 7 protein sequences and default params
-        /// using its aligned sequences and score.
-        /// Profile score method name as SymmetrizedEntropy
+        ///     Validates Muscle sequence alignment with 7 protein sequences and default params
+        ///     using its aligned sequences and score.
+        ///     Profile score method name as SymmetrizedEntropy
         /// </summary>
         [TestMethod]
         [Priority(1)]
         [TestCategory("Priority1")]
         public void ValidatePamsamWithProteinSequencesAndSymmetrizedEntropy()
         {
-
             ValidatePamsamAlignWithProfileScoreFunctionName(
                 Constants.MuscleProteinWithSymmetrizedEntropy,
                 MoleculeType.Protein,
@@ -433,16 +417,15 @@ namespace Bio.TestAutomation.Pamsam
         }
 
         /// <summary>
-        ///Validates Muscle sequence alignment with 7 protein sequences and default params
-        /// using its aligned sequences and score.
-        /// Profile score method name as WeightedEuclideanDistance
+        ///     Validates Muscle sequence alignment with 7 protein sequences and default params
+        ///     using its aligned sequences and score.
+        ///     Profile score method name as WeightedEuclideanDistance
         /// </summary>
         [TestMethod]
         [Priority(1)]
         [TestCategory("Priority1")]
         public void ValidatePamsamWithProteinSequencesAndWeightedEuclideanDistance()
         {
-
             ValidatePamsamAlignWithProfileScoreFunctionName(
                 Constants.MuscleProteinWithWeightedEuclideanDistanceNodeName,
                 MoleculeType.Protein, Constants.ExpectedScoreNode,
@@ -451,9 +434,9 @@ namespace Bio.TestAutomation.Pamsam
         }
 
         /// <summary>
-        /// Validates Muscle sequence alignment with 7 protein sequences and other default params
-        /// using its aligned sequences and score.
-        /// Profile score method name as WeightedInnerProduct
+        ///     Validates Muscle sequence alignment with 7 protein sequences and other default params
+        ///     using its aligned sequences and score.
+        ///     Profile score method name as WeightedInnerProduct
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -469,16 +452,15 @@ namespace Bio.TestAutomation.Pamsam
         }
 
         /// <summary>
-        /// Validates Muscle sequence alignment with 7 protein sequences and default params
-        /// using its aligned sequences and score.
-        /// Profile score method name as WeightedInnerProductShifted
+        ///     Validates Muscle sequence alignment with 7 protein sequences and default params
+        ///     using its aligned sequences and score.
+        ///     Profile score method name as WeightedInnerProductShifted
         /// </summary>
         [TestMethod]
         [Priority(1)]
         [TestCategory("Priority1")]
         public void ValidatePamsamWithProteinSequencesAndWeightedInnerProductShifted()
         {
-
             ValidatePamsamAlignWithProfileScoreFunctionName(
                 Constants.MuscleProteinSequenceWithWeightedInnerProductShifted,
                 MoleculeType.Protein,
@@ -488,8 +470,8 @@ namespace Bio.TestAutomation.Pamsam
         }
 
         /// <summary>
-        /// Validates Muscle sequence alignment with 7 protein sequences
-        /// Stage1 using its aligned sequences and score
+        ///     Validates Muscle sequence alignment with 7 protein sequences
+        ///     Stage1 using its aligned sequences and score
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -497,15 +479,15 @@ namespace Bio.TestAutomation.Pamsam
         public void ValidatePamsamStage1WithProteinSequences()
         {
             ValidatePamsamAlignStage1(Constants.MuscleProteinSequenceNode,
-                MoleculeType.Protein, Constants.ExpectedScoreNode,
-                UpdateDistanceMethodsTypes.Average, DistanceFunctionTypes.EuclideanDistance,
-                ProfileAlignerNames.NeedlemanWunschProfileAligner,
-                ProfileScoreFunctionNames.InnerProduct, false);
+                                      MoleculeType.Protein, Constants.ExpectedScoreNode,
+                                      UpdateDistanceMethodsTypes.Average, DistanceFunctionTypes.EuclideanDistance,
+                                      ProfileAlignerNames.NeedlemanWunschProfileAligner,
+                                      ProfileScoreFunctionNames.InnerProduct, false);
         }
 
         /// <summary>
-        /// Validates Muscle sequence alignment with 7 protein sequences
-        /// alignment Stage2 using its aligned sequences and score
+        ///     Validates Muscle sequence alignment with 7 protein sequences
+        ///     alignment Stage2 using its aligned sequences and score
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -513,15 +495,15 @@ namespace Bio.TestAutomation.Pamsam
         public void ValidatePamsamStage2WithProteinSequences()
         {
             ValidatePamsamAlignStage2(Constants.MuscleProteinSequenceNode,
-                MoleculeType.Protein, Constants.ExpectedScoreNode,
-                UpdateDistanceMethodsTypes.Average, DistanceFunctionTypes.EuclideanDistance,
-                ProfileAlignerNames.NeedlemanWunschProfileAligner,
-                ProfileScoreFunctionNames.InnerProduct);
+                                      MoleculeType.Protein, Constants.ExpectedScoreNode,
+                                      UpdateDistanceMethodsTypes.Average, DistanceFunctionTypes.EuclideanDistance,
+                                      ProfileAlignerNames.NeedlemanWunschProfileAligner,
+                                      ProfileScoreFunctionNames.InnerProduct);
         }
 
         /// <summary>
-        /// Validates Muscle sequence alignment with 7 protein sequences
-        /// Stage3 using its aligned sequences and score
+        ///     Validates Muscle sequence alignment with 7 protein sequences
+        ///     Stage3 using its aligned sequences and score
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -529,38 +511,36 @@ namespace Bio.TestAutomation.Pamsam
         public void ValidatePamsamStage3WithProteinSequences()
         {
             ValidatePamsamAlignStage3(Constants.MuscleProteinSequenceNode,
-                MoleculeType.Protein, Constants.ExpectedScoreNode,
-                UpdateDistanceMethodsTypes.Average, DistanceFunctionTypes.EuclideanDistance,
-                ProfileAlignerNames.NeedlemanWunschProfileAligner,
-                ProfileScoreFunctionNames.InnerProduct, false);
+                                      MoleculeType.Protein, Constants.ExpectedScoreNode,
+                                      UpdateDistanceMethodsTypes.Average, DistanceFunctionTypes.EuclideanDistance,
+                                      ProfileAlignerNames.NeedlemanWunschProfileAligner,
+                                      ProfileScoreFunctionNames.InnerProduct, false);
         }
 
         /// <summary>
-        /// Validates Muscle sequence alignment with 7 Rna sequences
-        /// using its aligned sequences and score
+        ///     Validates Muscle sequence alignment with 7 Rna sequences
+        ///     using its aligned sequences and score
         /// </summary>
         [TestMethod]
         [Priority(1)]
         [TestCategory("Priority1")]
         public void ValidatePamsamWithRnaSequences()
         {
-
             ValidatePamsamAlign(Constants.MuscleRnaSequenceNode,
-                MoleculeType.RNA, Constants.ExpectedScoreNode,
-                ProfileAlignerNames.NeedlemanWunschProfileAligner);
+                                MoleculeType.RNA, Constants.ExpectedScoreNode,
+                                ProfileAlignerNames.NeedlemanWunschProfileAligner);
         }
 
         /// <summary>
-        ///Validates Muscle sequence alignment with 7 Rna sequences
-        /// using its aligned sequences 
-        /// and score with distance matrix method name as ModifiedMuscle
+        ///     Validates Muscle sequence alignment with 7 Rna sequences
+        ///     using its aligned sequences
+        ///     and score with distance matrix method name as ModifiedMuscle
         /// </summary>
         [TestMethod]
         [Priority(1)]
         [TestCategory("Priority1")]
         public void ValidatePamsamWithRnaSequencesAndModifiedMuscle()
         {
-
             ValidatePamsamAlignWithDistanceFunctionaTypes(
                 Constants.MultipleNWProfilerRnaSequenceWithModifiedMuscle,
                 MoleculeType.RNA, Constants.ExpectedScoreNode,
@@ -568,9 +548,9 @@ namespace Bio.TestAutomation.Pamsam
         }
 
         /// <summary>
-        /// Validates Muscle sequence alignment with 7 Rna sequences
-        /// using its aligned sequences 
-        /// and score with distance matrix method name as EuclieanDistance
+        ///     Validates Muscle sequence alignment with 7 Rna sequences
+        ///     using its aligned sequences
+        ///     and score with distance matrix method name as EuclieanDistance
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -578,21 +558,21 @@ namespace Bio.TestAutomation.Pamsam
         public void ValidatePamsamWithRnaSequencesAndEuclieanDistance()
         {
             ValidatePamsamAlignWithDistanceFunctionaTypes(Constants.MuscleRnaSequenceNode,
-                MoleculeType.RNA, Constants.ExpectedScoreNode,
-                DistanceFunctionTypes.EuclideanDistance, ProfileAlignerNames.NeedlemanWunschProfileAligner);
+                                                          MoleculeType.RNA, Constants.ExpectedScoreNode,
+                                                          DistanceFunctionTypes.EuclideanDistance,
+                                                          ProfileAlignerNames.NeedlemanWunschProfileAligner);
         }
 
         /// <summary>
-        /// Validates Muscle sequence alignment with 7 Rna sequences
-        /// using its aligned sequences 
-        /// and score with distance matrix method name as CoVariance
+        ///     Validates Muscle sequence alignment with 7 Rna sequences
+        ///     using its aligned sequences
+        ///     and score with distance matrix method name as CoVariance
         /// </summary>
         [TestMethod]
         [Priority(1)]
         [TestCategory("Priority1")]
         public void ValidatePamsamWithRnaSequencesAndCovariance()
         {
-
             ValidatePamsamAlignWithDistanceFunctionaTypes(
                 Constants.MuscleRnaSequenceWithCoVarianceNodeName,
                 MoleculeType.RNA, Constants.ExpectedScoreNode,
@@ -600,16 +580,15 @@ namespace Bio.TestAutomation.Pamsam
         }
 
         /// <summary>
-        /// Validates Muscle sequence alignment with 7 Rna sequences
-        /// using its aligned sequences 
-        /// and score with distance matrix method name as PearsonCorrelation
+        ///     Validates Muscle sequence alignment with 7 Rna sequences
+        ///     using its aligned sequences
+        ///     and score with distance matrix method name as PearsonCorrelation
         /// </summary>
         [TestMethod]
         [Priority(1)]
         [TestCategory("Priority1")]
         public void ValidatePamsamWithRnaSequencesAndPearsonCorrelation()
         {
-
             ValidatePamsamAlignWithDistanceFunctionaTypes(
                 Constants.MuscleRnaWithPearsonCorrelation,
                 MoleculeType.RNA, Constants.ExpectedScoreNode,
@@ -618,48 +597,47 @@ namespace Bio.TestAutomation.Pamsam
         }
 
         /// <summary>
-        /// Validates Muscle sequence alignment with 7 Rna sequences
-        /// using its aligned sequences 
-        /// and score with Hierarchical Clustering method name as Average
+        ///     Validates Muscle sequence alignment with 7 Rna sequences
+        ///     using its aligned sequences
+        ///     and score with Hierarchical Clustering method name as Average
         /// </summary>
         [TestMethod]
         [Priority(1)]
         [TestCategory("Priority1")]
         public void ValidatePamsamWithRnaSequencesAndAverageMethod()
         {
-
             ValidatePamsamAlignWithUpdateDistanceMethodTypes(Constants.MuscleRnaSequenceNode,
-                MoleculeType.RNA, Constants.ExpectedScoreNode,
-                UpdateDistanceMethodsTypes.Average, ProfileAlignerNames.NeedlemanWunschProfileAligner);
+                                                             MoleculeType.RNA, Constants.ExpectedScoreNode,
+                                                             UpdateDistanceMethodsTypes.Average,
+                                                             ProfileAlignerNames.NeedlemanWunschProfileAligner);
         }
 
         /// <summary>
-        /// Validates Muscle sequence alignment with 7 Rna sequences
-        /// using its aligned sequences and score with 
-        /// Hierarchical Clustering method name as Complete
+        ///     Validates Muscle sequence alignment with 7 Rna sequences
+        ///     using its aligned sequences and score with
+        ///     Hierarchical Clustering method name as Complete
         /// </summary>
         [TestMethod]
         [Priority(1)]
         [TestCategory("Priority1")]
         public void ValidatePamsamWithRnaSequencesAndCompleteMethod()
         {
-
             ValidatePamsamAlignWithUpdateDistanceMethodTypes(Constants.MuscleRnaSequenceNode,
-                MoleculeType.RNA, Constants.ExpectedScoreNode,
-                UpdateDistanceMethodsTypes.Complete, ProfileAlignerNames.NeedlemanWunschProfileAligner);
+                                                             MoleculeType.RNA, Constants.ExpectedScoreNode,
+                                                             UpdateDistanceMethodsTypes.Complete,
+                                                             ProfileAlignerNames.NeedlemanWunschProfileAligner);
         }
 
         /// <summary>
-        ///Validates Muscle sequence alignment with 7 Rna sequences
-        /// using its aligned sequences and score with 
-        /// Hierarchical Clustering method name as Single
+        ///     Validates Muscle sequence alignment with 7 Rna sequences
+        ///     using its aligned sequences and score with
+        ///     Hierarchical Clustering method name as Single
         /// </summary>
         [TestMethod]
         [Priority(1)]
         [TestCategory("Priority1")]
         public void ValidatePamsamWithRnaSequencesAndSingleMethod()
         {
-
             ValidatePamsamAlignWithUpdateDistanceMethodTypes(
                 Constants.MultipleNWProfilerRnaSequenceWithSingleMethod,
                 MoleculeType.RNA, Constants.ExpectedScoreNode,
@@ -668,16 +646,15 @@ namespace Bio.TestAutomation.Pamsam
         }
 
         /// <summary>
-        /// Validates Muscle sequence alignment with 7 Rna sequences
-        /// using its aligned sequences and score with 
-        /// Hierarchical Clustering method name as WeightedMAFFT
+        ///     Validates Muscle sequence alignment with 7 Rna sequences
+        ///     using its aligned sequences and score with
+        ///     Hierarchical Clustering method name as WeightedMAFFT
         /// </summary>
         [TestMethod]
         [Priority(1)]
         [TestCategory("Priority1")]
         public void ValidatePamsamWithRnaSequencesAndWeightedMafftMethod()
         {
-
             ValidatePamsamAlignWithUpdateDistanceMethodTypes(
                 Constants.MultipleNWProfilerRnaSequenceWithWeightedMAFFTMethod,
                 MoleculeType.RNA, Constants.ExpectedScoreNode,
@@ -686,16 +663,15 @@ namespace Bio.TestAutomation.Pamsam
         }
 
         /// <summary>
-        /// Validates Muscle sequence alignment with 7 Rna sequences
-        /// using its aligned sequences and score.
-        /// Profile score method name as InnerProduct
+        ///     Validates Muscle sequence alignment with 7 Rna sequences
+        ///     using its aligned sequences and score.
+        ///     Profile score method name as InnerProduct
         /// </summary>
         [TestMethod]
         [Priority(1)]
         [TestCategory("Priority1")]
         public void ValidatePamsamWithRnaSequencesAndInnerProduct()
         {
-
             ValidatePamsamAlignWithProfileScoreFunctionName(
                 Constants.MultipleNWProfilerRnaSequenceWithInnerProduct,
                 MoleculeType.RNA,
@@ -705,33 +681,32 @@ namespace Bio.TestAutomation.Pamsam
         }
 
         /// <summary>
-        /// Validates Muscle sequence alignment with 7 Rna sequences
-        /// using its aligned sequences and score.
-        /// Profile score method name as JensenShannonDivergence
+        ///     Validates Muscle sequence alignment with 7 Rna sequences
+        ///     using its aligned sequences and score.
+        ///     Profile score method name as JensenShannonDivergence
         /// </summary>
         [TestMethod]
         [Priority(1)]
         [TestCategory("Priority1")]
         public void ValidatePamsamWithRnaSequencesAndJensenShannonDivergence()
         {
-
             ValidatePamsamAlignWithProfileScoreFunctionName(Constants.MuscleRnaWithJensenShannonDivergence,
-                MoleculeType.RNA,
-                Constants.ExpectedScoreNode, ProfileAlignerNames.NeedlemanWunschProfileAligner,
-                ProfileScoreFunctionNames.JensenShannonDivergence);
+                                                            MoleculeType.RNA,
+                                                            Constants.ExpectedScoreNode,
+                                                            ProfileAlignerNames.NeedlemanWunschProfileAligner,
+                                                            ProfileScoreFunctionNames.JensenShannonDivergence);
         }
 
         /// <summary>
-        /// Validates Muscle sequence alignment with 7 Rna sequences
-        /// using its aligned sequences and score.
-        /// Profile score method name as LogExponentialInnerProduct
+        ///     Validates Muscle sequence alignment with 7 Rna sequences
+        ///     using its aligned sequences and score.
+        ///     Profile score method name as LogExponentialInnerProduct
         /// </summary>
         [TestMethod]
         [Priority(1)]
         [TestCategory("Priority1")]
         public void ValidatePamsamWithRnaSequencesAndLogExponentialInnerProduct()
         {
-
             ValidatePamsamAlignWithProfileScoreFunctionName(
                 Constants.MuscleRnaWithLogExponentialInnerProduct,
                 MoleculeType.RNA, Constants.ExpectedScoreNode,
@@ -740,16 +715,15 @@ namespace Bio.TestAutomation.Pamsam
         }
 
         /// <summary>
-        /// Validates Muscle sequence alignment with 7 Rna sequences
-        /// using its aligned sequences and score.
-        /// Profile score method name as LogExponentialInnerProductShifted
+        ///     Validates Muscle sequence alignment with 7 Rna sequences
+        ///     using its aligned sequences and score.
+        ///     Profile score method name as LogExponentialInnerProductShifted
         /// </summary>
         [TestMethod]
         [Priority(1)]
         [TestCategory("Priority1")]
         public void ValidatePamsamWithRnaSequencesAndLogExponentialInnerProductShifted()
         {
-
             ValidatePamsamAlignWithProfileScoreFunctionName(
                 Constants.MultipleNWProfilerRnaSequenceWithLogExponentialInnerProductShiftedNode,
                 MoleculeType.RNA,
@@ -758,16 +732,15 @@ namespace Bio.TestAutomation.Pamsam
         }
 
         /// <summary>
-        /// Validates Muscle sequence alignment with 7 Rna sequences
-        /// using its aligned sequences and score.
-        /// Profile score method name as PearsonCorrelation
+        ///     Validates Muscle sequence alignment with 7 Rna sequences
+        ///     using its aligned sequences and score.
+        ///     Profile score method name as PearsonCorrelation
         /// </summary>
         [TestMethod]
         [Priority(1)]
         [TestCategory("Priority1")]
         public void ValidatePamsamWithRnaSequencesAndPearsonCorrelationProfileScore()
         {
-
             ValidatePamsamAlignWithProfileScoreFunctionName(
                 Constants.MultipleNWProfilerRnaSequenceWithPearsonCorrelationScore,
                 MoleculeType.RNA,
@@ -777,16 +750,15 @@ namespace Bio.TestAutomation.Pamsam
         }
 
         /// <summary>
-        /// Validates Muscle sequence alignment with 7 Rna sequences
-        /// using its aligned sequences and score.
-        /// Profile score method name as SymmetrizedEntropy
+        ///     Validates Muscle sequence alignment with 7 Rna sequences
+        ///     using its aligned sequences and score.
+        ///     Profile score method name as SymmetrizedEntropy
         /// </summary>
         [TestMethod]
         [Priority(1)]
         [TestCategory("Priority1")]
         public void ValidatePamsamWithRnaSequencesAndSymmetrizedEntropy()
         {
-
             ValidatePamsamAlignWithProfileScoreFunctionName(
                 Constants.MuscleRnaWithSymmetrizedEntropy,
                 MoleculeType.RNA,
@@ -796,16 +768,15 @@ namespace Bio.TestAutomation.Pamsam
         }
 
         /// <summary>
-        /// Validates Muscle sequence alignment with 7 Rna sequences
-        /// using its aligned sequences and score.
-        /// Profile score method name as WeightedEuclideanDistance
+        ///     Validates Muscle sequence alignment with 7 Rna sequences
+        ///     using its aligned sequences and score.
+        ///     Profile score method name as WeightedEuclideanDistance
         /// </summary>
         [TestMethod]
         [Priority(1)]
         [TestCategory("Priority1")]
         public void ValidatePamsamWithRnaSequencesAndWeightedEuclideanDistance()
         {
-
             ValidatePamsamAlignWithProfileScoreFunctionName(
                 Constants.MultipleNWProfilerRnaSequenceWithWeightedEuclideanDistance,
                 MoleculeType.RNA, Constants.ExpectedScoreNode,
@@ -814,16 +785,15 @@ namespace Bio.TestAutomation.Pamsam
         }
 
         /// <summary>
-        /// Validates Muscle sequence alignment with 7 Rna sequences
-        /// using its aligned sequences and score.
-        /// Profile score method name as WeightedInnerProduct
+        ///     Validates Muscle sequence alignment with 7 Rna sequences
+        ///     using its aligned sequences and score.
+        ///     Profile score method name as WeightedInnerProduct
         /// </summary>
         [TestMethod]
         [Priority(1)]
         [TestCategory("Priority1")]
         public void ValidatePamsamWithRnaSequencesAndWeightedInnerProduct()
         {
-
             ValidatePamsamAlignWithProfileScoreFunctionName(
                 Constants.MultipleNWProfilerRnaSequenceWithWeightedInnerProduct,
                 MoleculeType.RNA,
@@ -833,16 +803,15 @@ namespace Bio.TestAutomation.Pamsam
         }
 
         /// <summary>
-        /// Validates Muscle sequence alignment with 7 Rna sequences
-        /// using its aligned sequences and score.
-        /// Profile score method name as WeightedInnerProductShifted
+        ///     Validates Muscle sequence alignment with 7 Rna sequences
+        ///     using its aligned sequences and score.
+        ///     Profile score method name as WeightedInnerProductShifted
         /// </summary>
         [TestMethod]
         [Priority(1)]
         [TestCategory("Priority1")]
         public void ValidatePamsamWithRnaSequencesAndWeightedInnerProductShifted()
         {
-
             ValidatePamsamAlignWithProfileScoreFunctionName(
                 Constants.MultipleNWProfilerRnaSequenceWithWeightedInnerProductShifted,
                 MoleculeType.RNA,
@@ -852,18 +821,17 @@ namespace Bio.TestAutomation.Pamsam
         }
 
         /// <summary>
-        /// Validates Muscle sequence alignment with 7 Rna sequences
-        /// using its aligned sequences and score.
-        /// Profile score method name as InnerProductFast
-        /// Input :7 Rna unaligned Sequences
-        /// Output : 7 Rna aligned sequences
+        ///     Validates Muscle sequence alignment with 7 Rna sequences
+        ///     using its aligned sequences and score.
+        ///     Profile score method name as InnerProductFast
+        ///     Input :7 Rna unaligned Sequences
+        ///     Output : 7 Rna aligned sequences
         /// </summary>
         [TestMethod]
         [Priority(1)]
         [TestCategory("Priority1")]
         public void ValidatePamsamWithRnaSequencesAndInnerProductFast()
         {
-
             ValidatePamsamAlignWithProfileScoreFunctionName(
                 Constants.MultipleNWProfilerRnaSequenceWithInnerProductFastNodeName,
                 MoleculeType.RNA,
@@ -873,18 +841,17 @@ namespace Bio.TestAutomation.Pamsam
         }
 
         /// <summary>
-        /// Validates Muscle sequence alignment with 7 Rna sequences
-        /// using its aligned sequences and score.
-        /// Profile score method name as LogExponentialInnerProductFast
-        /// Input :7 Rna unaligned Sequences
-        /// Output : 7 Rna aligned sequences
+        ///     Validates Muscle sequence alignment with 7 Rna sequences
+        ///     using its aligned sequences and score.
+        ///     Profile score method name as LogExponentialInnerProductFast
+        ///     Input :7 Rna unaligned Sequences
+        ///     Output : 7 Rna aligned sequences
         /// </summary>
         [TestMethod]
         [Priority(1)]
         [TestCategory("Priority1")]
         public void ValidatePamsamWithRnaSequencesAndLogExponentialInnerProductFast()
         {
-
             ValidatePamsamAlignWithProfileScoreFunctionName(
                 Constants.MuscleRnaSequenceWithLogExponentialInnerProductFastNode,
                 MoleculeType.RNA,
@@ -894,18 +861,17 @@ namespace Bio.TestAutomation.Pamsam
         }
 
         /// <summary>
-        /// Validates Muscle sequence alignment with 7 Rna sequences
-        /// using its aligned sequences and score.
-        /// Profile score method name as LogExponentialInnerProductShiftedFast
-        /// Input :7 Rna unaligned Sequences
-        /// Output : 7 Rna aligned sequences
+        ///     Validates Muscle sequence alignment with 7 Rna sequences
+        ///     using its aligned sequences and score.
+        ///     Profile score method name as LogExponentialInnerProductShiftedFast
+        ///     Input :7 Rna unaligned Sequences
+        ///     Output : 7 Rna aligned sequences
         /// </summary>
         [TestMethod]
         [Priority(1)]
         [TestCategory("Priority1")]
         public void ValidatePamsamWithRnaSequencesAndLogExponentialInnerProductShiftedFast()
         {
-
             ValidatePamsamAlignWithProfileScoreFunctionName(
                 Constants.MuscleRnaSequenceWithLogExponentialInnerProductFastNode,
                 MoleculeType.RNA,
@@ -915,18 +881,17 @@ namespace Bio.TestAutomation.Pamsam
         }
 
         /// <summary>
-        /// Validates Muscle sequence alignment with 7 Rna sequences
-        /// using its aligned sequences and score.
-        /// Profile score method name as WeightedEuclideanDistanceFast
-        /// Input :7 Rna unaligned Sequences
-        /// Output : 7 Rna aligned sequences
+        ///     Validates Muscle sequence alignment with 7 Rna sequences
+        ///     using its aligned sequences and score.
+        ///     Profile score method name as WeightedEuclideanDistanceFast
+        ///     Input :7 Rna unaligned Sequences
+        ///     Output : 7 Rna aligned sequences
         /// </summary>
         [TestMethod]
         [Priority(1)]
         [TestCategory("Priority1")]
         public void ValidatePamsamWithRnaSequencesAndWeightedEuclideanDistanceFast()
         {
-
             ValidatePamsamAlignWithProfileScoreFunctionName(
                 Constants.MuscleRnaSequenceWithWeightedEuclideanDistanceFast,
                 MoleculeType.RNA, Constants.ExpectedScoreNode,
@@ -935,18 +900,17 @@ namespace Bio.TestAutomation.Pamsam
         }
 
         /// <summary>
-        /// Validates Muscle sequence alignment with 7 Rna sequences
-        /// using its aligned sequences and score.
-        /// Profile score method name as WeightedInnerProductShiftedFast
-        /// Input :7 Rna unaligned Sequences
-        /// Output : 7 Rna aligned sequences
+        ///     Validates Muscle sequence alignment with 7 Rna sequences
+        ///     using its aligned sequences and score.
+        ///     Profile score method name as WeightedInnerProductShiftedFast
+        ///     Input :7 Rna unaligned Sequences
+        ///     Output : 7 Rna aligned sequences
         /// </summary>
         [TestMethod]
         [Priority(1)]
         [TestCategory("Priority1")]
         public void ValidatePamsamWithRnaSequencesAndWeightedInnerProductShiftedFast()
         {
-
             ValidatePamsamAlignWithProfileScoreFunctionName(
                 Constants.MultipleNWProfilerRnaSequenceWithPearsonCorrelationScore,
                 MoleculeType.RNA,
@@ -956,18 +920,17 @@ namespace Bio.TestAutomation.Pamsam
         }
 
         /// <summary>
-        /// Validates Muscle sequence alignment with 7 protein sequences and default params
-        /// using its aligned sequences and score.
-        /// Profile score method name as InnerProductFast
-        /// Input :7 Protein unaligned Sequences
-        /// Output : 7 Protein aligned sequences
+        ///     Validates Muscle sequence alignment with 7 protein sequences and default params
+        ///     using its aligned sequences and score.
+        ///     Profile score method name as InnerProductFast
+        ///     Input :7 Protein unaligned Sequences
+        ///     Output : 7 Protein aligned sequences
         /// </summary>
         [TestMethod]
         [Priority(1)]
         [TestCategory("Priority1")]
         public void ValidatePamsamWithProteinSequencesAndInnerProductFast()
         {
-
             ValidatePamsamAlignWithProfileScoreFunctionName(
                 Constants.MuscleProteinSequenceWithInnerProductFastNode,
                 MoleculeType.Protein,
@@ -977,11 +940,11 @@ namespace Bio.TestAutomation.Pamsam
         }
 
         /// <summary>
-        ///Validates Muscle sequence alignment with 7 protein sequences and default params
-        /// using its aligned sequences and score.
-        /// Profile score method name as LogExponentialInnerProductFast
-        /// Input :7 Protein unaligned Sequences
-        /// Output : 7 Protein aligned sequences
+        ///     Validates Muscle sequence alignment with 7 protein sequences and default params
+        ///     using its aligned sequences and score.
+        ///     Profile score method name as LogExponentialInnerProductFast
+        ///     Input :7 Protein unaligned Sequences
+        ///     Output : 7 Protein aligned sequences
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -996,18 +959,17 @@ namespace Bio.TestAutomation.Pamsam
         }
 
         /// <summary>
-        /// Validates Muscle sequence alignment with 7 protein sequences and default params
-        /// using its aligned sequences and score.
-        /// Profile score method name as LogExponentialInnerProductShiftedFast
-        /// Input :7 Protein unaligned Sequences
-        /// Output : 7 Protein aligned sequences
+        ///     Validates Muscle sequence alignment with 7 protein sequences and default params
+        ///     using its aligned sequences and score.
+        ///     Profile score method name as LogExponentialInnerProductShiftedFast
+        ///     Input :7 Protein unaligned Sequences
+        ///     Output : 7 Protein aligned sequences
         /// </summary>
         [TestMethod]
         [Priority(1)]
         [TestCategory("Priority1")]
         public void ValidatePamsamWithProteinSequencesAndLogExponentialInnerProductShiftedFast()
         {
-
             ValidatePamsamAlignWithProfileScoreFunctionName(
                 Constants.MuscleProteinSequenceWithLogExponentialInnerProductShiftedFastNode,
                 MoleculeType.Protein,
@@ -1016,18 +978,17 @@ namespace Bio.TestAutomation.Pamsam
         }
 
         /// <summary>
-        ///Validates Muscle sequence alignment with 7 protein sequences and default params
-        /// using its aligned sequences and score.
-        /// Profile score method name as WeightedEuclideanDistanceFast
-        /// Input :7 Protein unaligned Sequences
-        /// Output : 7 Protein aligned sequences
+        ///     Validates Muscle sequence alignment with 7 protein sequences and default params
+        ///     using its aligned sequences and score.
+        ///     Profile score method name as WeightedEuclideanDistanceFast
+        ///     Input :7 Protein unaligned Sequences
+        ///     Output : 7 Protein aligned sequences
         /// </summary>
         [TestMethod]
         [Priority(1)]
         [TestCategory("Priority1")]
         public void ValidatePamsamWithProteinSequencesAndWeightedEuclideanDistanceFast()
         {
-
             ValidatePamsamAlignWithProfileScoreFunctionName(
                 Constants.MuscleProteinWithWeightedEuclideanDistanceNodeName,
                 MoleculeType.Protein, Constants.ExpectedScoreNode,
@@ -1036,16 +997,15 @@ namespace Bio.TestAutomation.Pamsam
         }
 
         /// <summary>
-        /// Validates Muscle sequence alignment with 7 protein sequences and default params
-        /// using its aligned sequences and score.
-        /// Profile score method name as WeightedInnerProductShiftedFast
+        ///     Validates Muscle sequence alignment with 7 protein sequences and default params
+        ///     using its aligned sequences and score.
+        ///     Profile score method name as WeightedInnerProductShiftedFast
         /// </summary>
         [TestMethod]
         [Priority(1)]
         [TestCategory("Priority1")]
         public void ValidatePamsamWithProteinSequencesAndWeightedInnerProductShiftedFast()
         {
-
             ValidatePamsamAlignWithProfileScoreFunctionName(
                 Constants.MuscleProteinSequenceWithWeightedInnerProductShiftedFastNode,
                 MoleculeType.Protein,
@@ -1055,8 +1015,8 @@ namespace Bio.TestAutomation.Pamsam
         }
 
         /// <summary>
-        /// Validates Muscle sequence alignment Stage1 with 7 Rna sequences 
-        /// using its aligned sequences and score
+        ///     Validates Muscle sequence alignment Stage1 with 7 Rna sequences
+        ///     using its aligned sequences and score
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -1064,15 +1024,15 @@ namespace Bio.TestAutomation.Pamsam
         public void ValidatePamsamStage1WithRnaSequences()
         {
             ValidatePamsamAlignStage1(Constants.MuscleRnaSequenceNode,
-                MoleculeType.RNA, Constants.ExpectedScoreNode,
-                UpdateDistanceMethodsTypes.Average, DistanceFunctionTypes.EuclideanDistance,
-                ProfileAlignerNames.NeedlemanWunschProfileAligner,
-                ProfileScoreFunctionNames.InnerProduct, false);
+                                      MoleculeType.RNA, Constants.ExpectedScoreNode,
+                                      UpdateDistanceMethodsTypes.Average, DistanceFunctionTypes.EuclideanDistance,
+                                      ProfileAlignerNames.NeedlemanWunschProfileAligner,
+                                      ProfileScoreFunctionNames.InnerProduct, false);
         }
 
         /// <summary>
-        /// Validates Muscle sequence alignment Stage2 with 7 Rna sequences
-        /// using its aligned sequences and score
+        ///     Validates Muscle sequence alignment Stage2 with 7 Rna sequences
+        ///     using its aligned sequences and score
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -1080,15 +1040,15 @@ namespace Bio.TestAutomation.Pamsam
         public void ValidatePamsamStage2WithRnaSequences()
         {
             ValidatePamsamAlignStage2(Constants.MuscleRnaSequenceNode,
-                MoleculeType.RNA, Constants.ExpectedScoreNode,
-                UpdateDistanceMethodsTypes.Average, DistanceFunctionTypes.EuclideanDistance,
-                ProfileAlignerNames.NeedlemanWunschProfileAligner,
-                ProfileScoreFunctionNames.InnerProduct);
+                                      MoleculeType.RNA, Constants.ExpectedScoreNode,
+                                      UpdateDistanceMethodsTypes.Average, DistanceFunctionTypes.EuclideanDistance,
+                                      ProfileAlignerNames.NeedlemanWunschProfileAligner,
+                                      ProfileScoreFunctionNames.InnerProduct);
         }
 
         /// <summary>
-        /// Validates Muscle sequence alignment Stage3 with 7 Rna sequences
-        /// using its aligned sequences and score
+        ///     Validates Muscle sequence alignment Stage3 with 7 Rna sequences
+        ///     using its aligned sequences and score
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -1096,104 +1056,100 @@ namespace Bio.TestAutomation.Pamsam
         public void ValidatePamsamStage3WithRnaSequences()
         {
             ValidatePamsamAlignStage3(Constants.MuscleRnaSequenceNode,
-                MoleculeType.RNA, Constants.ExpectedScoreNode,
-                UpdateDistanceMethodsTypes.Average, DistanceFunctionTypes.EuclideanDistance,
-                ProfileAlignerNames.NeedlemanWunschProfileAligner,
-                ProfileScoreFunctionNames.InnerProduct, false);
+                                      MoleculeType.RNA, Constants.ExpectedScoreNode,
+                                      UpdateDistanceMethodsTypes.Average, DistanceFunctionTypes.EuclideanDistance,
+                                      ProfileAlignerNames.NeedlemanWunschProfileAligner,
+                                      ProfileScoreFunctionNames.InnerProduct, false);
         }
 
         /// <summary>
-        /// Validates Muscle sequence alignment with 10 dna one line sequences and default params
-        /// using its aligned sequences and score
+        ///     Validates Muscle sequence alignment with 10 dna one line sequences and default params
+        ///     using its aligned sequences and score
         /// </summary>
         [TestMethod]
         [Priority(1)]
         [TestCategory("Priority1")]
         public void ValidatePamsamWithOneLineDnaSequences()
         {
-
             ValidatePamsamAlignOneLineSequences(Constants.MuscleDnaOneLineSequence,
-                MoleculeType.DNA, Constants.ExpectedScoreNode,
-                ProfileAlignerNames.NeedlemanWunschProfileAligner);
+                                                MoleculeType.DNA, Constants.ExpectedScoreNode,
+                                                ProfileAlignerNames.NeedlemanWunschProfileAligner);
         }
+
         /// <summary>
-        /// Validates Muscle sequence alignment with 10 Rna one line sequences and default params
-        /// using its aligned sequences and score
+        ///     Validates Muscle sequence alignment with 10 Rna one line sequences and default params
+        ///     using its aligned sequences and score
         /// </summary>
         [TestMethod]
         [Priority(1)]
         [TestCategory("Priority1")]
         public void ValidatePamsamWithOneLineRnaSequences()
         {
-
             ValidatePamsamAlignOneLineSequences(Constants.MuscleRnaOneLineSequence,
-                MoleculeType.RNA, Constants.ExpectedScoreNode,
-                ProfileAlignerNames.NeedlemanWunschProfileAligner);
+                                                MoleculeType.RNA, Constants.ExpectedScoreNode,
+                                                ProfileAlignerNames.NeedlemanWunschProfileAligner);
         }
+
         /// <summary>
-        /// Validates Muscle sequence alignment with 10 Rna one line sequences and default params
-        /// using its aligned sequences and score
+        ///     Validates Muscle sequence alignment with 10 Rna one line sequences and default params
+        ///     using its aligned sequences and score
         /// </summary>
         [TestMethod]
         [Priority(1)]
         [TestCategory("Priority1")]
         public void ValidatePamsamWithOneLineProteinSequences()
         {
-
             ValidatePamsamAlignOneLineSequences(Constants.MuscleProteinOneLineSequence,
-                MoleculeType.Protein, Constants.ExpectedScoreNode,
-                ProfileAlignerNames.NeedlemanWunschProfileAligner);
+                                                MoleculeType.Protein, Constants.ExpectedScoreNode,
+                                                ProfileAlignerNames.NeedlemanWunschProfileAligner);
         }
 
         /// <summary>
-        /// Validates Muscle sequence alignment with Dna sequences and default params 
-        /// with equal gap open cost and penalty(-3,-3) using its aligned sequences and score
+        ///     Validates Muscle sequence alignment with Dna sequences and default params
+        ///     with equal gap open cost and penalty(-3,-3) using its aligned sequences and score
         /// </summary>
         [TestMethod]
         [Priority(1)]
         [TestCategory("Priority1")]
         public void ValidatePamsamDnaSequencesWithEqualGapCostandPenalty()
         {
-
             ValidatePamsamAlignWithGapCost(Constants.MuscleDnaEqualGapCost,
-                MoleculeType.DNA, Constants.ExpectedScoreNode,
-                UpdateDistanceMethodsTypes.Average, DistanceFunctionTypes.EuclideanDistance,
-                ProfileAlignerNames.NeedlemanWunschProfileAligner,
-                ProfileScoreFunctionNames.WeightedInnerProduct, -3, -3, true);
+                                           MoleculeType.DNA, Constants.ExpectedScoreNode,
+                                           UpdateDistanceMethodsTypes.Average, DistanceFunctionTypes.EuclideanDistance,
+                                           ProfileAlignerNames.NeedlemanWunschProfileAligner,
+                                           ProfileScoreFunctionNames.WeightedInnerProduct, -3, -3, true);
         }
 
         /// <summary>
-        /// Validates Muscle sequence alignment with Rna sequences and default params 
-        /// with equal gap open cost and penalty(-3,-3) using its aligned sequences and score
+        ///     Validates Muscle sequence alignment with Rna sequences and default params
+        ///     with equal gap open cost and penalty(-3,-3) using its aligned sequences and score
         /// </summary>
         [TestMethod]
         [Priority(1)]
         [TestCategory("Priority1")]
         public void ValidatePamsamRnaSequencesWithEqualGapCostandPenalty()
         {
-
             ValidatePamsamAlignWithGapCost(Constants.MuscleRnaEqualGapCost,
-                MoleculeType.RNA, Constants.ExpectedScoreNode,
-                UpdateDistanceMethodsTypes.Average, DistanceFunctionTypes.EuclideanDistance,
-                ProfileAlignerNames.NeedlemanWunschProfileAligner,
-                ProfileScoreFunctionNames.WeightedInnerProduct, -3, -3, false);
+                                           MoleculeType.RNA, Constants.ExpectedScoreNode,
+                                           UpdateDistanceMethodsTypes.Average, DistanceFunctionTypes.EuclideanDistance,
+                                           ProfileAlignerNames.NeedlemanWunschProfileAligner,
+                                           ProfileScoreFunctionNames.WeightedInnerProduct, -3, -3, false);
         }
 
         /// <summary>
-        /// Validates Muscle sequence alignment with Protein sequences and default params 
-        /// with equal gap open cost and penalty(-3,-3) using its aligned sequences and score
+        ///     Validates Muscle sequence alignment with Protein sequences and default params
+        ///     with equal gap open cost and penalty(-3,-3) using its aligned sequences and score
         /// </summary>
         [TestMethod]
         [Priority(1)]
         [TestCategory("Priority1")]
         public void ValidatePamsamProteinSequencesWithEqualGapCostandPenalty()
         {
-
             ValidatePamsamAlignWithGapCost(Constants.MuscleProteinEqualGapCost,
-                MoleculeType.Protein, Constants.ExpectedScoreNode,
-                UpdateDistanceMethodsTypes.Average, DistanceFunctionTypes.EuclideanDistance,
-                ProfileAlignerNames.NeedlemanWunschProfileAligner,
-                ProfileScoreFunctionNames.WeightedInnerProduct, -3, -3, false);
+                                           MoleculeType.Protein, Constants.ExpectedScoreNode,
+                                           UpdateDistanceMethodsTypes.Average, DistanceFunctionTypes.EuclideanDistance,
+                                           ProfileAlignerNames.NeedlemanWunschProfileAligner,
+                                           ProfileScoreFunctionNames.WeightedInnerProduct, -3, -3, false);
         }
 
         #endregion
@@ -1201,8 +1157,8 @@ namespace Bio.TestAutomation.Pamsam
         #region KmerDistanceMatrix
 
         /// <summary>
-        /// Validate kmerdistancematrix for stage1 with 7 Protein sequences 
-        /// and default distance function name
+        ///     Validate kmerdistancematrix for stage1 with 7 Protein sequences
+        ///     and default distance function name
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -1210,12 +1166,12 @@ namespace Bio.TestAutomation.Pamsam
         public void ValidatePamsamKmerDistanceMatrixStage1WithProteinSequences()
         {
             ValidateKmerDistanceMatrixStage1(Constants.KmerDistanceMatrixProtein,
-                kmerLength, MoleculeType.Protein);
+                                             kmerLength, MoleculeType.Protein);
         }
 
         /// <summary>
-        /// Validate kmerdistancematrix for stage1 with 7 Protein sequences
-        /// and EuclieanDistance distance function name
+        ///     Validate kmerdistancematrix for stage1 with 7 Protein sequences
+        ///     and EuclieanDistance distance function name
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -1223,12 +1179,12 @@ namespace Bio.TestAutomation.Pamsam
         public void ValidatePamsamKmerDistanceMatrixWithProteinSequencesAndEuclieanDistance()
         {
             ValidateKmerDistanceMatrixStage1(Constants.KmerDistanceMatrixProtein, kmerLength,
-                MoleculeType.Protein, DistanceFunctionTypes.EuclideanDistance);
+                                             MoleculeType.Protein, DistanceFunctionTypes.EuclideanDistance);
         }
 
         /// <summary>
-        /// Validate kmerdistancematrix for stage1 with 7 Protein sequences
-        /// and PearsonCorrelation distance function name
+        ///     Validate kmerdistancematrix for stage1 with 7 Protein sequences
+        ///     and PearsonCorrelation distance function name
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -1236,13 +1192,13 @@ namespace Bio.TestAutomation.Pamsam
         public void ValidatePamsamKmerDistanceMatrixWithProteinSequencesAndPearsonCorrelation()
         {
             ValidateKmerDistanceMatrixStage1(Constants.KmerDistanceMatrixProteinWithPearsonCorrelation,
-                kmerLength,
-                MoleculeType.Protein, DistanceFunctionTypes.PearsonCorrelation);
+                                             kmerLength,
+                                             MoleculeType.Protein, DistanceFunctionTypes.PearsonCorrelation);
         }
 
         /// <summary>
-        /// Validate kmerdistancematrix for stage1 with 7 Protein sequences
-        /// and CoVariance distance function name
+        ///     Validate kmerdistancematrix for stage1 with 7 Protein sequences
+        ///     and CoVariance distance function name
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -1250,12 +1206,12 @@ namespace Bio.TestAutomation.Pamsam
         public void ValidatePamsamKmerDistanceMatrixWithProteinSequencesAndCOVariance()
         {
             ValidateKmerDistanceMatrixStage1(Constants.KmerDistanceMatrixProteinWithCoVariance, kmerLength,
-                MoleculeType.Protein, DistanceFunctionTypes.CoVariance);
+                                             MoleculeType.Protein, DistanceFunctionTypes.CoVariance);
         }
 
         /// <summary>
-        /// Validate kmerdistancematrix for stage1 with 7 Protein sequences
-        /// and ModifiedMUSCLE distance function name
+        ///     Validate kmerdistancematrix for stage1 with 7 Protein sequences
+        ///     and ModifiedMUSCLE distance function name
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -1263,12 +1219,12 @@ namespace Bio.TestAutomation.Pamsam
         public void ValidatePamsamKmerDistanceMatrixWithProteinSequencesAndModifiedMuscle()
         {
             ValidateKmerDistanceMatrixStage1(Constants.KmerDistanceMatrixProteinWithModifiedMuscle,
-                kmerLength,
-                MoleculeType.Protein, DistanceFunctionTypes.ModifiedMUSCLE);
+                                             kmerLength,
+                                             MoleculeType.Protein, DistanceFunctionTypes.ModifiedMUSCLE);
         }
 
         /// <summary>
-        /// Validate kmerdistancematrix for stage1 with 7 Rna sequences and default distance function name
+        ///     Validate kmerdistancematrix for stage1 with 7 Rna sequences and default distance function name
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -1276,12 +1232,12 @@ namespace Bio.TestAutomation.Pamsam
         public void ValidatePamsamKmerDistanceMatrixStage1WithRnaSequences()
         {
             ValidateKmerDistanceMatrixStage1(Constants.KmerDistanceMatrixRna,
-                kmerLength, MoleculeType.RNA);
+                                             kmerLength, MoleculeType.RNA);
         }
 
         /// <summary>
-        /// Validate kmerdistancematrix for stage1 with 7 Rna sequences 
-        /// and EuclieanDistance distance function name
+        ///     Validate kmerdistancematrix for stage1 with 7 Rna sequences
+        ///     and EuclieanDistance distance function name
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -1289,12 +1245,12 @@ namespace Bio.TestAutomation.Pamsam
         public void ValidatePamsamKmerDistanceMatrixWithRnaSequencesAndEuclieanDistance()
         {
             ValidateKmerDistanceMatrixStage1(Constants.KmerDistanceMatrixRna, kmerLength,
-                MoleculeType.RNA, DistanceFunctionTypes.EuclideanDistance);
+                                             MoleculeType.RNA, DistanceFunctionTypes.EuclideanDistance);
         }
 
         /// <summary>
-        /// Validate kmerdistancematrix for stage1 with 7 Rna sequences 
-        /// and PearsonCorrelation distance function name
+        ///     Validate kmerdistancematrix for stage1 with 7 Rna sequences
+        ///     and PearsonCorrelation distance function name
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -1307,8 +1263,8 @@ namespace Bio.TestAutomation.Pamsam
         }
 
         /// <summary>
-        /// Validate kmerdistancematrix for stage1 with 7 Rna sequences 
-        /// and CoVariance distance function name
+        ///     Validate kmerdistancematrix for stage1 with 7 Rna sequences
+        ///     and CoVariance distance function name
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -1316,12 +1272,12 @@ namespace Bio.TestAutomation.Pamsam
         public void ValidatePamsamKmerDistanceMatrixWithRnaSequencesAndCOVariance()
         {
             ValidateKmerDistanceMatrixStage1(Constants.KmerDistanceMatrixRnaWithCoVariance, kmerLength,
-                MoleculeType.RNA, DistanceFunctionTypes.CoVariance);
+                                             MoleculeType.RNA, DistanceFunctionTypes.CoVariance);
         }
 
         /// <summary>
-        /// Validate kmerdistancematrix for stage1 with 7 Rna sequences 
-        /// and Modified MUSCLE distance function name
+        ///     Validate kmerdistancematrix for stage1 with 7 Rna sequences
+        ///     and Modified MUSCLE distance function name
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -1329,7 +1285,7 @@ namespace Bio.TestAutomation.Pamsam
         public void ValidatePamsamKmerDistanceMatrixWithRnaSequencesAndModifiedMuscle()
         {
             ValidateKmerDistanceMatrixStage1(Constants.KmerDistanceMatrixRnaWithModifiedMuscle, kmerLength,
-                MoleculeType.RNA, DistanceFunctionTypes.ModifiedMUSCLE);
+                                             MoleculeType.RNA, DistanceFunctionTypes.ModifiedMUSCLE);
         }
 
         #endregion
@@ -1337,7 +1293,7 @@ namespace Bio.TestAutomation.Pamsam
         #region HierarchicalClusteringStage1&Stage2
 
         /// <summary>
-        /// Validate HierarchicalClustering for stage1  with 7 Protein sequences and kmer distance matrix
+        ///     Validate HierarchicalClustering for stage1  with 7 Protein sequences and kmer distance matrix
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -1345,12 +1301,12 @@ namespace Bio.TestAutomation.Pamsam
         public void ValidatePamsamHierarchicalClusteringStage1()
         {
             ValidateHierarchicalClusteringStage1(Constants.HierarchicalClusteringProteinNode,
-                kmerLength, MoleculeType.Protein);
+                                                 kmerLength, MoleculeType.Protein);
         }
 
         /// <summary>
-        /// Validate HierarchicalClustering for stage1 with 7 Protein sequences, kmer distance matrix 
-        /// and hierarchical clustering method name as Average
+        ///     Validate HierarchicalClustering for stage1 with 7 Protein sequences, kmer distance matrix
+        ///     and hierarchical clustering method name as Average
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -1358,12 +1314,12 @@ namespace Bio.TestAutomation.Pamsam
         public void ValidatePamsamHierarchicalClusteringWithAverage()
         {
             ValidateHierarchicalClusteringStage1(Constants.HierarchicalClusteringProteinNode,
-                kmerLength, MoleculeType.Protein, UpdateDistanceMethodsTypes.Average);
+                                                 kmerLength, MoleculeType.Protein, UpdateDistanceMethodsTypes.Average);
         }
 
         /// <summary>
-        /// Validate HierarchicalClustering for stage1 with 7 Protein sequences, kmer distance matrix 
-        /// and hierarchical clustering method name as Single
+        ///     Validate HierarchicalClustering for stage1 with 7 Protein sequences, kmer distance matrix
+        ///     and hierarchical clustering method name as Single
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -1371,12 +1327,12 @@ namespace Bio.TestAutomation.Pamsam
         public void ValidatePamsamHierarchicalClusteringWithSingle()
         {
             ValidateHierarchicalClusteringStage1(Constants.HierarchicalClusteringProteinWithWeightedMAFFT,
-                kmerLength, MoleculeType.Protein, UpdateDistanceMethodsTypes.Single);
+                                                 kmerLength, MoleculeType.Protein, UpdateDistanceMethodsTypes.Single);
         }
 
         /// <summary>
-        /// Validate HierarchicalClustering for stage1 with 7 Protein sequences, kmer distance matrix 
-        /// and hierarchical clustering method name as Complete
+        ///     Validate HierarchicalClustering for stage1 with 7 Protein sequences, kmer distance matrix
+        ///     and hierarchical clustering method name as Complete
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -1384,12 +1340,12 @@ namespace Bio.TestAutomation.Pamsam
         public void ValidatePamsamHierarchicalClusteringWithComplete()
         {
             ValidateHierarchicalClusteringStage1(Constants.HierarchicalClusteringProteinWithComplete,
-                kmerLength, MoleculeType.Protein, UpdateDistanceMethodsTypes.Complete);
+                                                 kmerLength, MoleculeType.Protein, UpdateDistanceMethodsTypes.Complete);
         }
 
         /// <summary>
-        /// Validate HierarchicalClustering for stage1 with 7 Protein sequences, kmer distance matrix
-        /// and hierarchical clustering method name as WeightedMAFFT
+        ///     Validate HierarchicalClustering for stage1 with 7 Protein sequences, kmer distance matrix
+        ///     and hierarchical clustering method name as WeightedMAFFT
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -1402,8 +1358,8 @@ namespace Bio.TestAutomation.Pamsam
         }
 
         /// <summary>
-        /// Validate HierarchicalClustering for stage1 with 7 Protein sequences, kimura distance matrix
-        /// and stage 1 aligned sequences
+        ///     Validate HierarchicalClustering for stage1 with 7 Protein sequences, kimura distance matrix
+        ///     and stage 1 aligned sequences
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -1411,12 +1367,12 @@ namespace Bio.TestAutomation.Pamsam
         public void ValidatePamsamHierarchicalClusteringStage2()
         {
             ValidateHierarchicalClusteringStage2(Constants.HierarchicalClusteringProteinStage2Node,
-                MoleculeType.Protein);
+                                                 MoleculeType.Protein);
         }
 
         /// <summary>
-        /// Validate HierarchicalClustering for stage1 
-        /// with 7 Protein sequences, kimura distance matrix with hierarchical method name as Average 
+        ///     Validate HierarchicalClustering for stage1
+        ///     with 7 Protein sequences, kimura distance matrix with hierarchical method name as Average
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -1424,13 +1380,13 @@ namespace Bio.TestAutomation.Pamsam
         public void ValidatePamsamHierarchicalClusteringStage2WithAverage()
         {
             ValidateHierarchicalClusteringStage2(Constants.HierarchicalClusteringProteinStage2Node,
-                MoleculeType.Protein,
-                UpdateDistanceMethodsTypes.Average);
+                                                 MoleculeType.Protein,
+                                                 UpdateDistanceMethodsTypes.Average);
         }
 
         /// <summary>
-        /// Validate HierarchicalClustering for stage1 
-        /// with 7 Protein sequences, kimura distance matrix with hierarchical method name as Complete
+        ///     Validate HierarchicalClustering for stage1
+        ///     with 7 Protein sequences, kimura distance matrix with hierarchical method name as Complete
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -1438,12 +1394,12 @@ namespace Bio.TestAutomation.Pamsam
         public void ValidatePamsamHierarchicalClusteringStage2WithComplete()
         {
             ValidateHierarchicalClusteringStage2(Constants.HierarchicalClusteringProteinStage2WithComplete,
-                MoleculeType.Protein, UpdateDistanceMethodsTypes.Complete);
+                                                 MoleculeType.Protein, UpdateDistanceMethodsTypes.Complete);
         }
 
         /// <summary>
-        /// Validate HierarchicalClustering for stage1 
-        /// with 7 Protein sequences, kimura distance matrix with hierarchical method name as Single
+        ///     Validate HierarchicalClustering for stage1
+        ///     with 7 Protein sequences, kimura distance matrix with hierarchical method name as Single
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -1451,12 +1407,12 @@ namespace Bio.TestAutomation.Pamsam
         public void ValidatePamsamHierarchicalClusteringStage2WithSingle()
         {
             ValidateHierarchicalClusteringStage2(Constants.HierarchicalClusteringProteinStage2WithSingle,
-                MoleculeType.Protein, UpdateDistanceMethodsTypes.Single);
+                                                 MoleculeType.Protein, UpdateDistanceMethodsTypes.Single);
         }
 
         /// <summary>
-        /// Validate HierarchicalClustering for stage1 
-        /// with 7 Protein sequences, kimura distance matrix with hierarchical method name as WeightedMAFFT
+        ///     Validate HierarchicalClustering for stage1
+        ///     with 7 Protein sequences, kimura distance matrix with hierarchical method name as WeightedMAFFT
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -1467,8 +1423,9 @@ namespace Bio.TestAutomation.Pamsam
                 Constants.HierarchicalClusteringProteinStage2WithWeightedMAFFT,
                 MoleculeType.Protein, UpdateDistanceMethodsTypes.WeightedMAFFT);
         }
+
         /// <summary>
-        /// Validate HierarchicalClustering for stage1 with 7 Rna sequences and kmer distance matrix
+        ///     Validate HierarchicalClustering for stage1 with 7 Rna sequences and kmer distance matrix
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -1476,12 +1433,12 @@ namespace Bio.TestAutomation.Pamsam
         public void ValidatePamsamHierarchicalClusteringStage1WithRnaSequences()
         {
             ValidateHierarchicalClusteringStage1(Constants.HierarchicalClusteringRnaNode,
-                kmerLength, MoleculeType.Protein);
+                                                 kmerLength, MoleculeType.Protein);
         }
 
         /// <summary>
-        /// Validate HierarchicalClustering for stage1 with 7 Rna sequences and kmer distance matrix 
-        /// and hierarchical clustering method name as Average
+        ///     Validate HierarchicalClustering for stage1 with 7 Rna sequences and kmer distance matrix
+        ///     and hierarchical clustering method name as Average
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -1489,12 +1446,12 @@ namespace Bio.TestAutomation.Pamsam
         public void ValidatePamsamHierarchicalClusteringWithRnaSequencesAndAverage()
         {
             ValidateHierarchicalClusteringStage1(Constants.HierarchicalClusteringRnaNode,
-                kmerLength, MoleculeType.Protein, UpdateDistanceMethodsTypes.Average);
+                                                 kmerLength, MoleculeType.Protein, UpdateDistanceMethodsTypes.Average);
         }
 
         /// <summary>
-        /// Validate HierarchicalClustering for stage1 with 7 Rna sequences and kmer distance matrix 
-        /// and hierarchical clustering method name as Single
+        ///     Validate HierarchicalClustering for stage1 with 7 Rna sequences and kmer distance matrix
+        ///     and hierarchical clustering method name as Single
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -1502,12 +1459,12 @@ namespace Bio.TestAutomation.Pamsam
         public void ValidatePamsamHierarchicalClusteringWithRnaSequencesAndSingle()
         {
             ValidateHierarchicalClusteringStage1(Constants.HierarchicalClusteringRnaWeightedMAFFT,
-                kmerLength, MoleculeType.Protein, UpdateDistanceMethodsTypes.Single);
+                                                 kmerLength, MoleculeType.Protein, UpdateDistanceMethodsTypes.Single);
         }
 
         /// <summary>
-        /// Validate HierarchicalClustering for stage1 with 7 Rna sequences and kmer distance matrix 
-        /// and hierarchical clustering method name as Complete
+        ///     Validate HierarchicalClustering for stage1 with 7 Rna sequences and kmer distance matrix
+        ///     and hierarchical clustering method name as Complete
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -1515,12 +1472,12 @@ namespace Bio.TestAutomation.Pamsam
         public void ValidatePamsamHierarchicalClusteringWithRnaSequencesAndComplete()
         {
             ValidateHierarchicalClusteringStage1(Constants.HierarchicalClusteringRnaNode,
-                kmerLength, MoleculeType.Protein, UpdateDistanceMethodsTypes.Complete);
+                                                 kmerLength, MoleculeType.Protein, UpdateDistanceMethodsTypes.Complete);
         }
 
         /// <summary>
-        /// Validate HierarchicalClustering for stage1 with 7 Rna sequences and kmer distance matrix
-        /// and hierarchical clustering method name as WeightedMAFFT
+        ///     Validate HierarchicalClustering for stage1 with 7 Rna sequences and kmer distance matrix
+        ///     and hierarchical clustering method name as WeightedMAFFT
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -1533,8 +1490,8 @@ namespace Bio.TestAutomation.Pamsam
         }
 
         /// <summary>
-        /// Validate HierarchicalClustering for stage1 with 7 Rna sequences and kimura distance matrix
-        /// and stage 1 aligned sequences
+        ///     Validate HierarchicalClustering for stage1 with 7 Rna sequences and kimura distance matrix
+        ///     and stage 1 aligned sequences
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -1546,8 +1503,8 @@ namespace Bio.TestAutomation.Pamsam
         }
 
         /// <summary>
-        /// Validate HierarchicalClustering for stage1 
-        /// using 7 Rna seqiences, kimura distance matrix with hierarchical method name as Average 
+        ///     Validate HierarchicalClustering for stage1
+        ///     using 7 Rna seqiences, kimura distance matrix with hierarchical method name as Average
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -1560,8 +1517,8 @@ namespace Bio.TestAutomation.Pamsam
         }
 
         /// <summary>
-        /// Validate HierarchicalClustering for stage1 
-        /// using 7 Rna seqiences, kimura distance matrix with hierarchical method name as Complete
+        ///     Validate HierarchicalClustering for stage1
+        ///     using 7 Rna seqiences, kimura distance matrix with hierarchical method name as Complete
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -1574,8 +1531,8 @@ namespace Bio.TestAutomation.Pamsam
         }
 
         /// <summary>
-        /// Validate HierarchicalClustering for stage1 
-        /// using 7 Rna seqiences, kimura distance matrix with hierarchical method name as Single
+        ///     Validate HierarchicalClustering for stage1
+        ///     using 7 Rna seqiences, kimura distance matrix with hierarchical method name as Single
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -1588,8 +1545,8 @@ namespace Bio.TestAutomation.Pamsam
         }
 
         /// <summary>
-        /// Validate HierarchicalClustering for stage1 
-        /// using 7 Rna seqiences, kimura distance matrix with hierarchical method name as WeightedMAFFT
+        ///     Validate HierarchicalClustering for stage1
+        ///     using 7 Rna seqiences, kimura distance matrix with hierarchical method name as WeightedMAFFT
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -1606,7 +1563,7 @@ namespace Bio.TestAutomation.Pamsam
         #region BinaryTree
 
         /// <summary>
-        /// Validate Binary Tree nodes and edges using protein sequences
+        ///     Validate Binary Tree nodes and edges using protein sequences
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -1614,10 +1571,11 @@ namespace Bio.TestAutomation.Pamsam
         public void ValidatePamsamBinaryTreeWithProteinSequences()
         {
             ValidateBinaryTreeNodesandEdges(Constants.MuscleProteinSequenceNode,
-                Constants.BinaryTreeProteinNode, kmerLength, MoleculeType.Protein);
+                                            Constants.BinaryTreeProteinNode, kmerLength, MoleculeType.Protein);
         }
+
         /// <summary>
-        /// Validate Binary Tree nodes and edges using Rna sequences
+        ///     Validate Binary Tree nodes and edges using Rna sequences
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -1625,12 +1583,12 @@ namespace Bio.TestAutomation.Pamsam
         public void ValidatePamsamBinaryTreeWithRnaSequences()
         {
             ValidateBinaryTreeNodesandEdges(Constants.MuscleRnaSequenceNode,
-                Constants.BinaryTreeRnaNode, kmerLength, MoleculeType.RNA);
+                                            Constants.BinaryTreeRnaNode, kmerLength, MoleculeType.RNA);
         }
 
         /// <summary>
-        ///  Validate the binary tree by cutting tree at an edge 
-        ///  and validate the nodes of subtree using Extracting sub tree nodes.
+        ///     Validate the binary tree by cutting tree at an edge
+        ///     and validate the nodes of subtree using Extracting sub tree nodes.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -1638,12 +1596,12 @@ namespace Bio.TestAutomation.Pamsam
         public void ValidatePamsamBinaryTreeDnaWithExtractSubTreeNodesAndCutTree()
         {
             ValidateBinaryTreeWithExtractSubTreeNodesAndCutTree(Constants.MuscleDnaSequenceNode,
-                Constants.BinarySubTree, 3, MoleculeType.DNA);
+                                                                Constants.BinarySubTree, 3, MoleculeType.DNA);
         }
 
         /// <summary>
-        ///  Validate the binary tree by cutting tree at an edge 
-        ///  and validate the nodes of subtree using Extracting sub tree nodes.
+        ///     Validate the binary tree by cutting tree at an edge
+        ///     and validate the nodes of subtree using Extracting sub tree nodes.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -1651,12 +1609,12 @@ namespace Bio.TestAutomation.Pamsam
         public void ValidatePamsamBinaryTreeRnaWithExtractSubTreeNodesAndCutTree()
         {
             ValidateBinaryTreeWithExtractSubTreeNodesAndCutTree(Constants.MuscleRnaSequenceNode,
-                Constants.BinarySubTreeRna, 3, MoleculeType.RNA);
+                                                                Constants.BinarySubTreeRna, 3, MoleculeType.RNA);
         }
 
         /// <summary>
-        ///  Validate the binary tree by cutting tree at an edge 
-        ///  and validate the nodes of subtree using Extracting sub tree nodes.
+        ///     Validate the binary tree by cutting tree at an edge
+        ///     and validate the nodes of subtree using Extracting sub tree nodes.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -1664,25 +1622,25 @@ namespace Bio.TestAutomation.Pamsam
         public void ValidatePamsamBinaryTreeProteinWithExtractSubTreeNodesAndCutTree()
         {
             ValidateBinaryTreeWithExtractSubTreeNodesAndCutTree(Constants.MuscleProteinSequenceNode,
-                Constants.BinarySubTreeProtein, 3, MoleculeType.Protein);
+                                                                Constants.BinarySubTreeProtein, 3, MoleculeType.Protein);
         }
 
         /// <summary>
-        /// Validate the FindSmallestDifference() of binary tree by validating the node.
+        ///     Validate the FindSmallestDifference() of binary tree by validating the node.
         /// </summary>
         public void ValidatePamsamBinaryTreeFindSmallestDifference()
         {
             ValidateBinaryTreeFindSmallestTreeDifference(Constants.BinarySmallestTreeNode,
-                2, MoleculeType.DNA);
+                                                         2, MoleculeType.DNA);
         }
 
         /// <summary>
-        ///Compare Two trees of stage1 and stage 2.
+        ///     Compare Two trees of stage1 and stage 2.
         /// </summary>
         public void ValidatePamsamCompareBinaryTreeofStage1WithStage2()
         {
             ValidateBinaryTreeCompareTrees(Constants.BinarySubTreeNeedRealignment,
-                kmerLength, MoleculeType.DNA);
+                                           kmerLength, MoleculeType.DNA);
         }
 
         #endregion
@@ -1690,7 +1648,7 @@ namespace Bio.TestAutomation.Pamsam
         #region ProfileAligner&ProgressiveAlignment
 
         /// <summary>
-        /// Validate ProgressiveAligner using stage1 Protein sequences.
+        ///     Validate ProgressiveAligner using stage1 Protein sequences.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -1698,11 +1656,11 @@ namespace Bio.TestAutomation.Pamsam
         public void ValidatePamsamProgressiveAlignerStage1WithProtein()
         {
             ValidateProgressiveAlignmentStage1(Constants.MuscleProteinSequenceWithProgresiveAlignerNodeName,
-                MoleculeType.Protein);
+                                               MoleculeType.Protein);
         }
 
         /// <summary>
-        /// Validate ProgressiveAligner using stage1 Rna sequences.
+        ///     Validate ProgressiveAligner using stage1 Rna sequences.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -1713,8 +1671,8 @@ namespace Bio.TestAutomation.Pamsam
         }
 
         /// <summary>
-        /// Validate Profile Aligner GenerateEString() method using two profiles of sub trees
-        /// by cutting the tree at edge index 4
+        ///     Validate Profile Aligner GenerateEString() method using two profiles of sub trees
+        ///     by cutting the tree at edge index 4
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -1725,8 +1683,8 @@ namespace Bio.TestAutomation.Pamsam
         }
 
         /// <summary>
-        /// Validate Profile Aligner GenerateEString() method using two profiles of sub trees
-        /// by cutting the tree at edge index 4
+        ///     Validate Profile Aligner GenerateEString() method using two profiles of sub trees
+        ///     by cutting the tree at edge index 4
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -1734,12 +1692,12 @@ namespace Bio.TestAutomation.Pamsam
         public void ValidatePamsamProfileAlignerGenerateEStringForProtein()
         {
             ValidateProfileAlignerGenerateEString(Constants.ProfileAlignerProtein,
-                MoleculeType.Protein, 4);
+                                                  MoleculeType.Protein, 4);
         }
 
         /// <summary>
-        /// Validate Profile Aligner GenerateSequencesEString() method using two profiles of sub trees
-        /// by cutting the tree at edge index 4
+        ///     Validate Profile Aligner GenerateSequencesEString() method using two profiles of sub trees
+        ///     by cutting the tree at edge index 4
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -1750,8 +1708,8 @@ namespace Bio.TestAutomation.Pamsam
         }
 
         /// <summary>
-        /// Validate Profile Aligner GenerateSequencesEString() method using two profiles of sub trees
-        /// by cutting the tree at edge index 4.
+        ///     Validate Profile Aligner GenerateSequencesEString() method using two profiles of sub trees
+        ///     by cutting the tree at edge index 4.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -1762,8 +1720,8 @@ namespace Bio.TestAutomation.Pamsam
         }
 
         /// <summary>
-        /// Validate Profile Aligner GenerateSequencesEString() method using two profiles of sub trees
-        /// by cutting the tree at edge index 4
+        ///     Validate Profile Aligner GenerateSequencesEString() method using two profiles of sub trees
+        ///     by cutting the tree at edge index 4
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -1771,11 +1729,11 @@ namespace Bio.TestAutomation.Pamsam
         public void ValidatePamsamProfileAlignerGenerateSequencesEStringForProtein()
         {
             ValidateProfileAlignerGenerateSequenceString(Constants.ProfileAlignerProtein,
-                MoleculeType.Protein, 4);
+                                                         MoleculeType.Protein, 4);
         }
 
         /// <summary>
-        /// Validate the extracted profiles of two subtrees by cutting the tree at edge index 4
+        ///     Validate the extracted profiles of two subtrees by cutting the tree at edge index 4
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -1786,7 +1744,7 @@ namespace Bio.TestAutomation.Pamsam
         }
 
         /// <summary>
-        /// Validate the extracted profiles of two subtrees by cutting the tree at edge index 4
+        ///     Validate the extracted profiles of two subtrees by cutting the tree at edge index 4
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -1797,7 +1755,7 @@ namespace Bio.TestAutomation.Pamsam
         }
 
         /// <summary>
-        /// Validate the extracted profiles of two subtrees by cutting the tree at edge index 4
+        ///     Validate the extracted profiles of two subtrees by cutting the tree at edge index 4
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -1808,7 +1766,7 @@ namespace Bio.TestAutomation.Pamsam
         }
 
         /// <summary>
-        /// Validate the generated profile using GenerateProfileAlignment() using stage1 aligned sequences
+        ///     Validate the generated profile using GenerateProfileAlignment() using stage1 aligned sequences
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -1816,11 +1774,11 @@ namespace Bio.TestAutomation.Pamsam
         public void ValidatePamsamGenerateProfileAlignmentWithDna()
         {
             ValidateGenerateProfileAlignmentWithSequences(Constants.ProfileAlignerWithAlignmentNode,
-                MoleculeType.DNA);
+                                                          MoleculeType.DNA);
         }
 
         /// <summary>
-        /// Validate the generated profile using GenerateProfileAlignment() using stage1 aligned sequences
+        ///     Validate the generated profile using GenerateProfileAlignment() using stage1 aligned sequences
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -1828,11 +1786,11 @@ namespace Bio.TestAutomation.Pamsam
         public void ValidatePamsamGenerateProfileAlignmentWithRna()
         {
             ValidateGenerateProfileAlignmentWithSequences(Constants.GenerateProfileAlignerRna,
-                MoleculeType.RNA);
+                                                          MoleculeType.RNA);
         }
 
         /// <summary>
-        /// Validate the generated profile using GenerateProfileAlignment() using stage1 aligned sequences
+        ///     Validate the generated profile using GenerateProfileAlignment() using stage1 aligned sequences
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -1840,12 +1798,12 @@ namespace Bio.TestAutomation.Pamsam
         public void ValidatePamsamGenerateProfileAlignmentWithProtein()
         {
             ValidateGenerateProfileAlignmentWithSequences(Constants.ProfileAlignerProtein,
-                MoleculeType.Protein);
+                                                          MoleculeType.Protein);
         }
 
         /// <summary>
-        /// Validate the generated profile using GenerateProfileAlignment() 
-        /// using profiles of two sub trees by cutting the tree at edge index 3
+        ///     Validate the generated profile using GenerateProfileAlignment()
+        ///     using profiles of two sub trees by cutting the tree at edge index 3
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -1853,12 +1811,12 @@ namespace Bio.TestAutomation.Pamsam
         public void ValidatePamsamGenerateProfileAlignmentUsingProfilesWithDna()
         {
             ValidateGenerateProfileAlignmentWithProfiles(Constants.MultipleProfileAligner,
-                MoleculeType.DNA, 3);
+                                                         MoleculeType.DNA, 3);
         }
 
         /// <summary>
-        /// Validate the generated profile using GenerateProfileAlignment() 
-        /// using profiles of two sub trees by cutting the tree at edge index 3
+        ///     Validate the generated profile using GenerateProfileAlignment()
+        ///     using profiles of two sub trees by cutting the tree at edge index 3
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -1866,12 +1824,12 @@ namespace Bio.TestAutomation.Pamsam
         public void ValidatePamsamGenerateProfileAlignmentUsingProfilesWithRna()
         {
             ValidateGenerateProfileAlignmentWithProfiles(Constants.MultipleProfileAlignerRna,
-                MoleculeType.RNA, 3);
+                                                         MoleculeType.RNA, 3);
         }
 
         /// <summary>
-        /// Validate the generated profile using GenerateProfileAlignment() 
-        /// using profiles of two sub trees by cutting the tree at edge index 3
+        ///     Validate the generated profile using GenerateProfileAlignment()
+        ///     using profiles of two sub trees by cutting the tree at edge index 3
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -1879,7 +1837,7 @@ namespace Bio.TestAutomation.Pamsam
         public void ValidatePamsamGenerateProfileAlignmentUsingProfilesWithProtein()
         {
             ValidateGenerateProfileAlignmentWithProfiles(Constants.MultipleProfileAlignerProtein,
-                MoleculeType.Protein, 3);
+                                                         MoleculeType.Protein, 3);
         }
 
         #endregion
@@ -1887,7 +1845,7 @@ namespace Bio.TestAutomation.Pamsam
         #region KimuraDistanceMatrix
 
         /// <summary>
-        /// Validate kimura distance matrix using stage1 aligned sequences.
+        ///     Validate kimura distance matrix using stage1 aligned sequences.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -1898,7 +1856,7 @@ namespace Bio.TestAutomation.Pamsam
         }
 
         /// <summary>
-        /// Validate kimura distance matrix using stage1 aligned sequences.
+        ///     Validate kimura distance matrix using stage1 aligned sequences.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -1909,7 +1867,7 @@ namespace Bio.TestAutomation.Pamsam
         }
 
         /// <summary>
-        /// Validate kimura distance matrix using stage1 aligned sequences.
+        ///     Validate kimura distance matrix using stage1 aligned sequences.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -1924,11 +1882,11 @@ namespace Bio.TestAutomation.Pamsam
         #region NeedlemanProfileAlignerSerial
 
         /// <summary>
-        /// Creates binarytree using stage2 sequences and 
-        /// cut the binary tree at an random edge to get two profiles.
-        /// Create NeedlemanWunschProfileAlignerSerial instance 
-        /// and execute AlignSimple(Profile A,Profile B).
-        /// Validate the IProfileAlignment properties.
+        ///     Creates binarytree using stage2 sequences and
+        ///     cut the binary tree at an random edge to get two profiles.
+        ///     Create NeedlemanWunschProfileAlignerSerial instance
+        ///     and execute AlignSimple(Profile A,Profile B).
+        ///     Validate the IProfileAlignment properties.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -1944,11 +1902,11 @@ namespace Bio.TestAutomation.Pamsam
         }
 
         /// <summary>
-        /// Creates binarytree using stage2 sequences 
-        /// and cut the binary tree at an random edge to get two profiles.
-        /// Create NeedlemanWunschProfileAlignerSerial instance 
-        /// and execute AlignSimple(sm, gapOpenPenalty, Profile A,Profile B).
-        /// Validate the IProfileAlignment properties.
+        ///     Creates binarytree using stage2 sequences
+        ///     and cut the binary tree at an random edge to get two profiles.
+        ///     Create NeedlemanWunschProfileAlignerSerial instance
+        ///     and execute AlignSimple(sm, gapOpenPenalty, Profile A,Profile B).
+        ///     Validate the IProfileAlignment properties.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -1964,11 +1922,11 @@ namespace Bio.TestAutomation.Pamsam
         }
 
         /// <summary>
-        /// Creates binarytree using stage2 sequences and
-        /// cut the binary tree at an random edge to get two profiles.
-        /// Create NeedlemanWunschProfileAlignerParallel instance and
-        /// execute Align(Profile A,Profile B).
-        /// Validate the IProfileAlignment properties.
+        ///     Creates binarytree using stage2 sequences and
+        ///     cut the binary tree at an random edge to get two profiles.
+        ///     Create NeedlemanWunschProfileAlignerParallel instance and
+        ///     execute Align(Profile A,Profile B).
+        ///     Validate the IProfileAlignment properties.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -1984,11 +1942,11 @@ namespace Bio.TestAutomation.Pamsam
         }
 
         /// <summary>
-        /// Creates binarytree using stage2 sequences and
-        /// cut the binary tree at an random edge to get two profiles.
-        /// Create NeedlemanWunschProfileAlignerParallel instance and
-        /// execute AlignSimple(Profile A,Profile B).
-        /// Validate the IProfileAlignment properties.
+        ///     Creates binarytree using stage2 sequences and
+        ///     cut the binary tree at an random edge to get two profiles.
+        ///     Create NeedlemanWunschProfileAlignerParallel instance and
+        ///     execute AlignSimple(Profile A,Profile B).
+        ///     Validate the IProfileAlignment properties.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -2008,11 +1966,11 @@ namespace Bio.TestAutomation.Pamsam
         #region NeedlemanProfileAlignerParallel
 
         /// <summary>
-        /// Creates binarytree using stage2 sequences and 
-        /// cut the binary tree at an random edge to get two profiles.
-        /// Create NeedlemanWunschProfileAlignerParallel instance 
-        /// and execute AlignSimple(Profile A,Profile B).
-        /// Validate the IProfileAlignment properties.
+        ///     Creates binarytree using stage2 sequences and
+        ///     cut the binary tree at an random edge to get two profiles.
+        ///     Create NeedlemanWunschProfileAlignerParallel instance
+        ///     and execute AlignSimple(Profile A,Profile B).
+        ///     Validate the IProfileAlignment properties.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -2028,11 +1986,11 @@ namespace Bio.TestAutomation.Pamsam
         }
 
         /// <summary>
-        /// Creates binarytree using stage2 sequences 
-        /// and cut the binary tree at an random edge to get two profiles.
-        /// Create NeedlemanWunschProfileAlignerParallel instance 
-        /// and execute AlignSimple(sm, gapOpenPenalty, Profile A,Profile B).
-        /// Validate the IProfileAlignment properties.
+        ///     Creates binarytree using stage2 sequences
+        ///     and cut the binary tree at an random edge to get two profiles.
+        ///     Create NeedlemanWunschProfileAlignerParallel instance
+        ///     and execute AlignSimple(sm, gapOpenPenalty, Profile A,Profile B).
+        ///     Validate the IProfileAlignment properties.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -2048,11 +2006,11 @@ namespace Bio.TestAutomation.Pamsam
         }
 
         /// <summary>
-        /// Creates binarytree using stage2 sequences and 
-        /// cut the binary tree at an random edge to get two profiles.
-        /// Create NeedlemanWunschProfileAlignerParallel instance 
-        /// and execute AlignSimple(Profile A,Profile B).
-        /// Validate the IProfileAlignment properties.
+        ///     Creates binarytree using stage2 sequences and
+        ///     cut the binary tree at an random edge to get two profiles.
+        ///     Create NeedlemanWunschProfileAlignerParallel instance
+        ///     and execute AlignSimple(Profile A,Profile B).
+        ///     Validate the IProfileAlignment properties.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -2068,11 +2026,11 @@ namespace Bio.TestAutomation.Pamsam
         }
 
         /// <summary>
-        /// Creates binarytree using stage2 sequences 
-        /// and cut the binary tree at an random edge to get two profiles.
-        /// Create NeedlemanWunschProfileAlignerParallel instance 
-        /// and execute AlignSimple(sm, gapOpenPenalty, Profile A,Profile B).
-        /// Validate the IProfileAlignment properties.
+        ///     Creates binarytree using stage2 sequences
+        ///     and cut the binary tree at an random edge to get two profiles.
+        ///     Create NeedlemanWunschProfileAlignerParallel instance
+        ///     and execute AlignSimple(sm, gapOpenPenalty, Profile A,Profile B).
+        ///     Validate the IProfileAlignment properties.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -2089,11 +2047,11 @@ namespace Bio.TestAutomation.Pamsam
 
 
         /// <summary>
-        /// Creates binarytree using stage2 sequences and
-        /// cut the binary tree at an random edge to get two profiles.
-        /// Create NeedlemanWunschProfileAlignerParallel instance and
-        /// execute Align(Profile A,Profile B).
-        /// Validate the IProfileAlignment properties.
+        ///     Creates binarytree using stage2 sequences and
+        ///     cut the binary tree at an random edge to get two profiles.
+        ///     Create NeedlemanWunschProfileAlignerParallel instance and
+        ///     execute Align(Profile A,Profile B).
+        ///     Validate the IProfileAlignment properties.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -2109,11 +2067,11 @@ namespace Bio.TestAutomation.Pamsam
         }
 
         /// <summary>
-        /// Creates binarytree using stage2 sequences and
-        /// cut the binary tree at an random edge to get two profiles.
-        /// Create NeedlemanWunschProfileAlignerParallel instance and
-        /// execute AlignSimple(Profile A,Profile B).
-        /// Validate the IProfileAlignment properties.
+        ///     Creates binarytree using stage2 sequences and
+        ///     cut the binary tree at an random edge to get two profiles.
+        ///     Create NeedlemanWunschProfileAlignerParallel instance and
+        ///     execute AlignSimple(Profile A,Profile B).
+        ///     Validate the IProfileAlignment properties.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -2129,11 +2087,11 @@ namespace Bio.TestAutomation.Pamsam
         }
 
         /// <summary>
-        /// Creates binarytree using stage2 sequences and
-        /// cut the binary tree at an random edge to get two profiles.
-        /// Create NeedlemanWunschProfileAlignerParallel instance and
-        /// execute AlignSimple(Profile A,Profile B).
-        /// Validate the IProfileAlignment properties.
+        ///     Creates binarytree using stage2 sequences and
+        ///     cut the binary tree at an random edge to get two profiles.
+        ///     Create NeedlemanWunschProfileAlignerParallel instance and
+        ///     execute AlignSimple(Profile A,Profile B).
+        ///     Validate the IProfileAlignment properties.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -2149,9 +2107,9 @@ namespace Bio.TestAutomation.Pamsam
         }
 
         /// <summary>
-        /// Creates NeedlemanWunschProfileAlignerParallel instance with
-        /// profilescorefunction name as "WeightedInnerProduct".
-        /// Execute Align() method and Validate IProfileAlignment
+        ///     Creates NeedlemanWunschProfileAlignerParallel instance with
+        ///     profilescorefunction name as "WeightedInnerProduct".
+        ///     Execute Align() method and Validate IProfileAlignment
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -2166,9 +2124,9 @@ namespace Bio.TestAutomation.Pamsam
         }
 
         /// <summary>
-        /// Creates NeedlemanWunschProfileAlignerParallel instance with
-        /// profilescorefunction name as "WeightedInnerProductShiftedFast".
-        /// Execute Align() method and Validate IProfileAlignment
+        ///     Creates NeedlemanWunschProfileAlignerParallel instance with
+        ///     profilescorefunction name as "WeightedInnerProductShiftedFast".
+        ///     Execute Align() method and Validate IProfileAlignment
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -2183,9 +2141,9 @@ namespace Bio.TestAutomation.Pamsam
         }
 
         /// <summary>
-        /// Creates NeedlemanWunschProfileAlignerParallel instance with
-        /// profilescorefunction name as "WeightedEuclideanDistanceFast".
-        /// Execute Align() method and Validate IProfileAlignment
+        ///     Creates NeedlemanWunschProfileAlignerParallel instance with
+        ///     profilescorefunction name as "WeightedEuclideanDistanceFast".
+        ///     Execute Align() method and Validate IProfileAlignment
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -2200,9 +2158,9 @@ namespace Bio.TestAutomation.Pamsam
         }
 
         /// <summary>
-        /// Creates NeedlemanWunschProfileAlignerParallel instance with
-        /// profilescorefunction name as "WeightedEuclideanDistance".
-        /// Execute Align() method and Validate IProfileAlignment
+        ///     Creates NeedlemanWunschProfileAlignerParallel instance with
+        ///     profilescorefunction name as "WeightedEuclideanDistance".
+        ///     Execute Align() method and Validate IProfileAlignment
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -2217,9 +2175,9 @@ namespace Bio.TestAutomation.Pamsam
         }
 
         /// <summary>
-        /// Creates NeedlemanWunschProfileAlignerParallel instance with
-        /// profilescorefunction name as "PearsonCorrelation".
-        /// Execute Align() method and Validate IProfileAlignment
+        ///     Creates NeedlemanWunschProfileAlignerParallel instance with
+        ///     profilescorefunction name as "PearsonCorrelation".
+        ///     Execute Align() method and Validate IProfileAlignment
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -2234,9 +2192,9 @@ namespace Bio.TestAutomation.Pamsam
         }
 
         /// <summary>
-        /// Creates NeedlemanWunschProfileAlignerParallel instance with
-        /// profilescorefunction name as "LogExponentialInnerProductShiftedFast".
-        /// Execute Align() method and Validate IProfileAlignment
+        ///     Creates NeedlemanWunschProfileAlignerParallel instance with
+        ///     profilescorefunction name as "LogExponentialInnerProductShiftedFast".
+        ///     Execute Align() method and Validate IProfileAlignment
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -2251,9 +2209,9 @@ namespace Bio.TestAutomation.Pamsam
         }
 
         /// <summary>
-        /// Creates NeedlemanWunschProfileAlignerParallel instance with
-        /// profilescorefunction name as "LogExponentialInnerProductShifted".
-        /// Execute Align() method and Validate IProfileAlignment
+        ///     Creates NeedlemanWunschProfileAlignerParallel instance with
+        ///     profilescorefunction name as "LogExponentialInnerProductShifted".
+        ///     Execute Align() method and Validate IProfileAlignment
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -2268,9 +2226,9 @@ namespace Bio.TestAutomation.Pamsam
         }
 
         /// <summary>
-        /// Creates NeedlemanWunschProfileAlignerParallel instance with
-        /// profilescorefunction name as "LogExponentialInnerProductFast".
-        /// Execute Align() method and Validate IProfileAlignment
+        ///     Creates NeedlemanWunschProfileAlignerParallel instance with
+        ///     profilescorefunction name as "LogExponentialInnerProductFast".
+        ///     Execute Align() method and Validate IProfileAlignment
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -2285,9 +2243,9 @@ namespace Bio.TestAutomation.Pamsam
         }
 
         /// <summary>
-        /// Creates NeedlemanWunschProfileAlignerParallel instance with
-        /// profilescorefunction name as "LogExponentialInnerProduct".
-        /// Execute Align() method and Validate IProfileAlignment
+        ///     Creates NeedlemanWunschProfileAlignerParallel instance with
+        ///     profilescorefunction name as "LogExponentialInnerProduct".
+        ///     Execute Align() method and Validate IProfileAlignment
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -2302,9 +2260,9 @@ namespace Bio.TestAutomation.Pamsam
         }
 
         /// <summary>
-        /// Creates NeedlemanWunschProfileAlignerParallel instance with
-        /// profilescorefunction name as "JensenShannonDivergence".
-        /// Execute Align() method and Validate IProfileAlignment
+        ///     Creates NeedlemanWunschProfileAlignerParallel instance with
+        ///     profilescorefunction name as "JensenShannonDivergence".
+        ///     Execute Align() method and Validate IProfileAlignment
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -2319,9 +2277,9 @@ namespace Bio.TestAutomation.Pamsam
         }
 
         /// <summary>
-        /// Creates NeedlemanWunschProfileAlignerParallel instance with
-        /// profilescorefunction name as "InnerProductFast".
-        /// Execute Align() method and Validate IProfileAlignment
+        ///     Creates NeedlemanWunschProfileAlignerParallel instance with
+        ///     profilescorefunction name as "InnerProductFast".
+        ///     Execute Align() method and Validate IProfileAlignment
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -2336,9 +2294,9 @@ namespace Bio.TestAutomation.Pamsam
         }
 
         /// <summary>
-        /// Creates NeedlemanWunschProfileAlignerParallel instance with
-        /// profilescorefunction name as "InnerProduct".
-        /// Execute Align() method and Validate IProfileAlignment
+        ///     Creates NeedlemanWunschProfileAlignerParallel instance with
+        ///     profilescorefunction name as "InnerProduct".
+        ///     Execute Align() method and Validate IProfileAlignment
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -2357,7 +2315,7 @@ namespace Bio.TestAutomation.Pamsam
         #region MsaUtils
 
         /// <summary>
-        /// Validate the QScore of 12 Pamsam aligned Rna sequences against benchmark sequences
+        ///     Validate the QScore of 12 Pamsam aligned Rna sequences against benchmark sequences
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -2365,11 +2323,11 @@ namespace Bio.TestAutomation.Pamsam
         public void ValidateAlignmentQualityScoreWithRnaSequences()
         {
             ValidateAlignmentScore(Constants.RnaWith12SequencesNode,
-                MoleculeType.RNA, ScoreType.QScore);
+                                   MoleculeType.RNA, ScoreType.QScore);
         }
 
         /// <summary>
-        /// Validate the TCScore of 12 Pamsam aligned Rna sequences against benchmark sequences
+        ///     Validate the TCScore of 12 Pamsam aligned Rna sequences against benchmark sequences
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -2377,12 +2335,12 @@ namespace Bio.TestAutomation.Pamsam
         public void ValidateAlignmentTCScoreWithRnaSequences()
         {
             ValidateAlignmentScore(Constants.RnaWith12SequencesNode,
-                MoleculeType.RNA, ScoreType.TCScore);
+                                   MoleculeType.RNA, ScoreType.TCScore);
         }
 
         /// <summary>
-        /// Execute the CalculateOffset().
-        /// Validate the number of residues whose position index will be negative 
+        ///     Execute the CalculateOffset().
+        ///     Validate the number of residues whose position index will be negative
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -2390,11 +2348,11 @@ namespace Bio.TestAutomation.Pamsam
         public void ValidateAlignmentOffsetWithRnaSequences()
         {
             ValidateAlignmentScore(Constants.RnaWith12SequencesNode,
-                MoleculeType.RNA, ScoreType.Offset);
+                                   MoleculeType.RNA, ScoreType.Offset);
         }
 
         /// <summary>
-        /// Validate the Multiple alignment score of Pamsam aligned sequences
+        ///     Validate the Multiple alignment score of Pamsam aligned sequences
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -2402,11 +2360,11 @@ namespace Bio.TestAutomation.Pamsam
         public void ValidateMultipleAlignmentScoreWithRnaSequences()
         {
             ValidateAlignmentScore(Constants.RnaWith12SequencesNode,
-                MoleculeType.RNA, ScoreType.MultipleAlignmentScoreFunction);
+                                   MoleculeType.RNA, ScoreType.MultipleAlignmentScoreFunction);
         }
 
         /// <summary>
-        /// Validate the pairwise score function of a pair of aligned sequences
+        ///     Validate the pairwise score function of a pair of aligned sequences
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -2414,12 +2372,12 @@ namespace Bio.TestAutomation.Pamsam
         public void ValidatePairWiseScoreFunctionWithRnaSequences()
         {
             ValidateAlignmentScore(Constants.RnaWith12SequencesNode,
-                MoleculeType.RNA, ScoreType.PairWiseScoreFunction);
+                                   MoleculeType.RNA, ScoreType.PairWiseScoreFunction);
         }
 
         /// <summary>
-        /// Get two profiles after cutting the edge of binary tree.
-        /// Validate the correlation value of two profiles.
+        ///     Get two profiles after cutting the edge of binary tree.
+        ///     Validate the correlation value of two profiles.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -2427,12 +2385,12 @@ namespace Bio.TestAutomation.Pamsam
         public void ValidateCorrelationWithRnaSequences()
         {
             ValidateFunctionCalculations(Constants.RnaFunctionsNode,
-                MoleculeType.RNA, 4, FunctionType.Correlation);
+                                         MoleculeType.RNA, 4, FunctionType.Correlation);
         }
 
         /// <summary>
-        /// Get profiles after cutting the edge of binary tree.
-        /// Validate the max index value of a profile.
+        ///     Get profiles after cutting the edge of binary tree.
+        ///     Validate the max index value of a profile.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -2440,12 +2398,12 @@ namespace Bio.TestAutomation.Pamsam
         public void ValidateFindMaxIndexWithRnaSequences()
         {
             ValidateFunctionCalculations(Constants.RnaFunctionsNode,
-                MoleculeType.RNA, 4, FunctionType.FindMaxIndex);
+                                         MoleculeType.RNA, 4, FunctionType.FindMaxIndex);
         }
 
         /// <summary>
-        /// Get profiles after cutting the edge of binary tree.
-        /// Validate the JensenShanonDivergence value of two profiles.
+        ///     Get profiles after cutting the edge of binary tree.
+        ///     Validate the JensenShanonDivergence value of two profiles.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -2453,12 +2411,12 @@ namespace Bio.TestAutomation.Pamsam
         public void ValidateJensenShanonDivergenceWithRnaSequences()
         {
             ValidateFunctionCalculations(Constants.RnaFunctionsNode,
-                MoleculeType.RNA, 4, FunctionType.JensenShanonDivergence);
+                                         MoleculeType.RNA, 4, FunctionType.JensenShanonDivergence);
         }
 
         /// <summary>
-        /// Get profiles after cutting the edge of binary tree.
-        /// Validate the KullbackLeiblerDistance of two profiles.
+        ///     Get profiles after cutting the edge of binary tree.
+        ///     Validate the KullbackLeiblerDistance of two profiles.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -2466,12 +2424,12 @@ namespace Bio.TestAutomation.Pamsam
         public void ValidateKullbackLeiblerDistanceWithRnaSequences()
         {
             ValidateFunctionCalculations(Constants.RnaFunctionsNode,
-                MoleculeType.RNA, 4, FunctionType.KullbackLeiblerDistance);
+                                         MoleculeType.RNA, 4, FunctionType.KullbackLeiblerDistance);
         }
 
         /// <summary>
-        /// Get pam sam aligned sequences. Execute UnAlign() method 
-        /// and verify that it does not contains gap
+        ///     Get pam sam aligned sequences. Execute UnAlign() method
+        ///     and verify that it does not contains gap
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -2490,11 +2448,11 @@ namespace Bio.TestAutomation.Pamsam
         public void ValidateAlignmentQualityScoreWithProteinSequences()
         {
             ValidateAlignmentScore(Constants.ProteinWith12SequencesNode,
-                MoleculeType.Protein, ScoreType.QScore);
+                                   MoleculeType.Protein, ScoreType.QScore);
         }
 
         /// <summary>
-        /// Validate the TCScore of 12 Pamsam aligned Protein sequences against benchmark sequences
+        ///     Validate the TCScore of 12 Pamsam aligned Protein sequences against benchmark sequences
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -2502,12 +2460,12 @@ namespace Bio.TestAutomation.Pamsam
         public void ValidateAlignmentTCScoreWithProteinSequences()
         {
             ValidateAlignmentScore(Constants.ProteinWith12SequencesNode,
-                MoleculeType.Protein, ScoreType.TCScore);
+                                   MoleculeType.Protein, ScoreType.TCScore);
         }
 
         /// <summary>
-        /// Execute the CalculateOffset().
-        /// Validate the number of residues whose position index will be negative 
+        ///     Execute the CalculateOffset().
+        ///     Validate the number of residues whose position index will be negative
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -2515,11 +2473,11 @@ namespace Bio.TestAutomation.Pamsam
         public void ValidateAlignmentOffsetWithProteinSequences()
         {
             ValidateAlignmentScore(Constants.ProteinWith12SequencesNode,
-                MoleculeType.Protein, ScoreType.Offset);
+                                   MoleculeType.Protein, ScoreType.Offset);
         }
 
         /// <summary>
-        /// Validate the Multiple alignment score of Pamsam aligned sequences
+        ///     Validate the Multiple alignment score of Pamsam aligned sequences
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -2527,11 +2485,11 @@ namespace Bio.TestAutomation.Pamsam
         public void ValidateMultipleAlignmentScoreWithProteinSequences()
         {
             ValidateAlignmentScore(Constants.ProteinWith12SequencesNode,
-                MoleculeType.Protein, ScoreType.MultipleAlignmentScoreFunction);
+                                   MoleculeType.Protein, ScoreType.MultipleAlignmentScoreFunction);
         }
 
         /// <summary>
-        /// Validate the pairwise score function of a pair of aligned sequences
+        ///     Validate the pairwise score function of a pair of aligned sequences
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -2539,12 +2497,12 @@ namespace Bio.TestAutomation.Pamsam
         public void ValidatePairWiseScoreFunctionWithProteinSequences()
         {
             ValidateAlignmentScore(Constants.ProteinWith12SequencesNode,
-                MoleculeType.Protein, ScoreType.PairWiseScoreFunction);
+                                   MoleculeType.Protein, ScoreType.PairWiseScoreFunction);
         }
 
         /// <summary>
-        /// Get two profiles after cutting the edge of binary tree.
-        /// Validate the correlation value of two profiles.
+        ///     Get two profiles after cutting the edge of binary tree.
+        ///     Validate the correlation value of two profiles.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -2552,12 +2510,12 @@ namespace Bio.TestAutomation.Pamsam
         public void ValidateCorrelationWithProteinSequences()
         {
             ValidateFunctionCalculations(Constants.ProteinFunctionsNode,
-                MoleculeType.Protein, 4, FunctionType.Correlation);
+                                         MoleculeType.Protein, 4, FunctionType.Correlation);
         }
 
         /// <summary>
-        /// Get profiles after cutting the edge of binary tree.
-        /// Validate the max index value of a profile.
+        ///     Get profiles after cutting the edge of binary tree.
+        ///     Validate the max index value of a profile.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -2565,12 +2523,12 @@ namespace Bio.TestAutomation.Pamsam
         public void ValidateFindMaxIndexWithProteinSequences()
         {
             ValidateFunctionCalculations(Constants.ProteinFunctionsNode,
-                MoleculeType.Protein, 4, FunctionType.FindMaxIndex);
+                                         MoleculeType.Protein, 4, FunctionType.FindMaxIndex);
         }
 
         /// <summary>
-        /// Get profiles after cutting the edge of binary tree.
-        /// Validate the JensenShanonDivergence value of two profiles.
+        ///     Get profiles after cutting the edge of binary tree.
+        ///     Validate the JensenShanonDivergence value of two profiles.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -2578,12 +2536,12 @@ namespace Bio.TestAutomation.Pamsam
         public void ValidateJensenShanonDivergenceWithProteinSequences()
         {
             ValidateFunctionCalculations(Constants.ProteinFunctionsNode,
-                MoleculeType.Protein, 4, FunctionType.JensenShanonDivergence);
+                                         MoleculeType.Protein, 4, FunctionType.JensenShanonDivergence);
         }
 
         /// <summary>
-        /// Get profiles after cutting the edge of binary tree.
-        /// Validate the KullbackLeiblerDistance of two profiles.
+        ///     Get profiles after cutting the edge of binary tree.
+        ///     Validate the KullbackLeiblerDistance of two profiles.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -2591,7 +2549,7 @@ namespace Bio.TestAutomation.Pamsam
         public void ValidateKullbackLeiblerDistanceWithProteinSequences()
         {
             ValidateFunctionCalculations(Constants.ProteinFunctionsNode,
-                MoleculeType.Protein, 4, FunctionType.KullbackLeiblerDistance);
+                                         MoleculeType.Protein, 4, FunctionType.KullbackLeiblerDistance);
         }
 
         #endregion
@@ -2601,15 +2559,15 @@ namespace Bio.TestAutomation.Pamsam
         #region Helper Methods
 
         /// <summary>
-        /// Read from xml config and initialize all member variables
+        ///     Read from xml config and initialize all member variables
         /// </summary>
         /// <param name="nodeName">xml node name</param>
         /// <param name="expectedScoreNode">Expected score xml node</param>
-        void Initialize(string nodeName, string expectedScoreNode)
+        private void Initialize(string nodeName, string expectedScoreNode)
         {
             // Read all the input sequences from xml config file
             IAlphabet alphabet = Utility.GetAlphabet(utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.AlphabetNameNode));
+                                                                                     Constants.AlphabetNameNode));
             if (alphabet == Alphabets.DNA)
             {
                 similarityMatrix = new SimilarityMatrix(
@@ -2687,15 +2645,15 @@ namespace Bio.TestAutomation.Pamsam
             expectedSequences.Add(seq8);
 
             profileAligner = new NeedlemanWunschProfileAlignerParallel(
-                        similarityMatrix, ProfileScoreFunctionNames.WeightedInnerProduct,
-                        gapOpenPenalty, gapExtendPenalty, Environment.ProcessorCount);
+                similarityMatrix, ProfileScoreFunctionNames.WeightedInnerProduct,
+                gapOpenPenalty, gapExtendPenalty, Environment.ProcessorCount);
 
             expectedScore = utilityObj.xmlUtil.GetTextValue(nodeName, expectedScoreNode);
 
             // Parallel Option will only get set if the PAMSAMMultipleSequenceAligner is getting called
             // To test separately distance matrix, binary tree etc.. 
             // Set the parallel option using below ctor.
-            PAMSAMMultipleSequenceAligner msa = new PAMSAMMultipleSequenceAligner(
+            var msa = new PAMSAMMultipleSequenceAligner(
                 lstSequences,
                 kmerLength, DistanceFunctionTypes.EuclideanDistance,
                 UpdateDistanceMethodsTypes.Average,
@@ -2705,37 +2663,36 @@ namespace Bio.TestAutomation.Pamsam
 
             if (null != msa)
             {
-                Console.WriteLine(String.Format((IFormatProvider)null,
-                    "Initialization of all variables successfully completed for xml node {0}", nodeName));
-                ApplicationLog.WriteLine(String.Format((IFormatProvider)null,
-                    "Initialization of all variables successfully completed for xml node {0}", nodeName));
+                ApplicationLog.WriteLine(String.Format(null,
+                                                       "Initialization of all variables successfully completed for xml node {0}",
+                                                       nodeName));
             }
         }
 
         /// <summary>
-        /// Read from xml config and initialize all stage 1 member variables
+        ///     Read from xml config and initialize all stage 1 member variables
         /// </summary>
         /// <param name="nodeName">xml node name</param>
-        void InitializeStage1Variables(string nodeName)
+        private void InitializeStage1Variables(string nodeName)
         {
             // Read all the input sequences from xml config file
             IAlphabet alphabet = Utility.GetAlphabet(utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.AlphabetNameNode));
+                                                                                     Constants.AlphabetNameNode));
             // Read all expected Sequences for stage1 
             string sequenceString1 = utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.Stage1ExpectedSequenceNode1);
+                                                                     Constants.Stage1ExpectedSequenceNode1);
             string sequenceString2 = utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.Stage1ExpectedSequenceNode2);
+                                                                     Constants.Stage1ExpectedSequenceNode2);
             string sequenceString3 = utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.Stage1ExpectedSequenceNode3);
+                                                                     Constants.Stage1ExpectedSequenceNode3);
             string sequenceString4 = utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.Stage1ExpectedSequenceNode4);
+                                                                     Constants.Stage1ExpectedSequenceNode4);
             string sequenceString5 = utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.Stage1ExpectedSequenceNode5);
+                                                                     Constants.Stage1ExpectedSequenceNode5);
             string sequenceString6 = utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.Stage1ExpectedSequenceNode6);
+                                                                     Constants.Stage1ExpectedSequenceNode6);
             string sequenceString7 = utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.Stage1ExpectedSequenceNode7);
+                                                                     Constants.Stage1ExpectedSequenceNode7);
 
             // Get all expected stage1 sequences object
             ISequence seq1 = new Sequence(alphabet, sequenceString1);
@@ -2756,41 +2713,38 @@ namespace Bio.TestAutomation.Pamsam
             stage1ExpectedSequences.Add(seq7);
 
             stage1ExpectedScore = utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.Stage1ExpectedScoreNode);
+                                                                  Constants.Stage1ExpectedScoreNode);
 
-            Console.WriteLine(String.Format((IFormatProvider)null,
-                "PamsamP1Test:: Initialization of stage1 variables successfully completed for xml node {0}",
-                nodeName));
-            ApplicationLog.WriteLine(String.Format((IFormatProvider)null,
-                "PamsamP1Test:: Initialization of stage1 variables successfully completed for xml node {0}",
-                nodeName));
+            ApplicationLog.WriteLine(String.Format(null,
+                                                   "PamsamP1Test:: Initialization of stage1 variables successfully completed for xml node {0}",
+                                                   nodeName));
         }
 
         /// <summary>
-        /// Read from xml config and initialize all stage 2 member variables
+        ///     Read from xml config and initialize all stage 2 member variables
         /// </summary>
         /// <param name="nodeName">xml node name</param>
-        void InitializeStage2Variables(string nodeName)
+        private void InitializeStage2Variables(string nodeName)
         {
             // Read all the input sequences from xml config file
             IAlphabet alphabet = Utility.GetAlphabet(utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.AlphabetNameNode));
+                                                                                     Constants.AlphabetNameNode));
 
             // Read all expected Sequences for stage1 
             string sequenceString1 = utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.Stage2ExpectedSequenceNode1);
+                                                                     Constants.Stage2ExpectedSequenceNode1);
             string sequenceString2 = utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.Stage2ExpectedSequenceNode2);
+                                                                     Constants.Stage2ExpectedSequenceNode2);
             string sequenceString3 = utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.Stage2ExpectedSequenceNode3);
+                                                                     Constants.Stage2ExpectedSequenceNode3);
             string sequenceString4 = utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.Stage2ExpectedSequenceNode4);
+                                                                     Constants.Stage2ExpectedSequenceNode4);
             string sequenceString5 = utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.Stage2ExpectedSequenceNode5);
+                                                                     Constants.Stage2ExpectedSequenceNode5);
             string sequenceString6 = utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.Stage2ExpectedSequenceNode6);
+                                                                     Constants.Stage2ExpectedSequenceNode6);
             string sequenceString7 = utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.Stage2ExpectedSequenceNode7);
+                                                                     Constants.Stage2ExpectedSequenceNode7);
 
             // Get all expected stage1 sequences object
             ISequence seq1 = new Sequence(alphabet, sequenceString1);
@@ -2811,40 +2765,37 @@ namespace Bio.TestAutomation.Pamsam
             stage2ExpectedSequences.Add(seq7);
 
             stage2ExpectedScore = utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.Stage2ExpectedScoreNode);
-            Console.WriteLine(String.Format((IFormatProvider)null,
-                "PamsamP1Test:: Initialization of stage2 variables successfully completed for xml node {0}",
-                nodeName));
-            ApplicationLog.WriteLine(String.Format((IFormatProvider)null,
-                "PamsamP1Test:: Initialization of stage2 variables successfully completed for xml node {0}",
-                nodeName));
+                                                                  Constants.Stage2ExpectedScoreNode);
+            ApplicationLog.WriteLine(String.Format(null,
+                                                   "PamsamP1Test:: Initialization of stage2 variables successfully completed for xml node {0}",
+                                                   nodeName));
         }
 
         /// <summary>
-        /// Read from xml config and initialize all stage 3 member variables
+        ///     Read from xml config and initialize all stage 3 member variables
         /// </summary>
         /// <param name="nodeName">xml node name</param>
-        void InitializeStage3Variables(string nodeName)
+        private void InitializeStage3Variables(string nodeName)
         {
             // Read all the input sequences from xml config file
             IAlphabet alphabet = Utility.GetAlphabet(utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.AlphabetNameNode));
+                                                                                     Constants.AlphabetNameNode));
 
             // Read all expected Sequences for stage1 
             string sequenceString1 = utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.Stage3ExpectedSequenceNode1);
+                                                                     Constants.Stage3ExpectedSequenceNode1);
             string sequenceString2 = utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.Stage3ExpectedSequenceNode2);
+                                                                     Constants.Stage3ExpectedSequenceNode2);
             string sequenceString3 = utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.Stage3ExpectedSequenceNode3);
+                                                                     Constants.Stage3ExpectedSequenceNode3);
             string sequenceString4 = utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.Stage3ExpectedSequenceNode4);
+                                                                     Constants.Stage3ExpectedSequenceNode4);
             string sequenceString5 = utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.Stage3ExpectedSequenceNode5);
+                                                                     Constants.Stage3ExpectedSequenceNode5);
             string sequenceString6 = utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.Stage3ExpectedSequenceNode6);
+                                                                     Constants.Stage3ExpectedSequenceNode6);
             string sequenceString7 = utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.Stage3ExpectedSequenceNode7);
+                                                                     Constants.Stage3ExpectedSequenceNode7);
 
             // Get all expected stage1 sequences object
             ISequence seq1 = new Sequence(alphabet, sequenceString1);
@@ -2865,24 +2816,21 @@ namespace Bio.TestAutomation.Pamsam
             stage3ExpectedSequences.Add(seq7);
 
             stage3ExpectedScore = utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.Stage3ExpectedScoreNode);
-            Console.WriteLine(String.Format((IFormatProvider)null,
-                "PamsamP1Test:: Initialization of stage3 variables successfully completed for xml node {0}",
-                nodeName));
-            ApplicationLog.WriteLine(String.Format((IFormatProvider)null,
-                "PamsamP1Test:: Initialization of stage3 variables successfully completed for xml node {0}",
-                nodeName));
+                                                                  Constants.Stage3ExpectedScoreNode);
+            ApplicationLog.WriteLine(String.Format(null,
+                                                   "PamsamP1Test:: Initialization of stage3 variables successfully completed for xml node {0}",
+                                                   nodeName));
         }
 
         /// <summary>
-        /// Add 3 more one line sequences and sequences count is 10.
+        ///     Add 3 more one line sequences and sequences count is 10.
         /// </summary>
         /// <param name="nodeName"></param>
-        void AddOneLineSequences(string nodeName)
+        private void AddOneLineSequences(string nodeName)
         {
             // Read all the input sequences from xml config file
             IAlphabet alphabet = Utility.GetAlphabet(utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.AlphabetNameNode));
+                                                                                     Constants.AlphabetNameNode));
 
             string sequenceString8 = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.Sequence8);
             string sequenceString9 = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.Sequence9);
@@ -2910,145 +2858,129 @@ namespace Bio.TestAutomation.Pamsam
         }
 
         /// <summary>
-        /// Validate Muscle multiple sequence alignment with different profiler and hierarchical clustering method name.
+        ///     Validate Muscle multiple sequence alignment with different profiler and hierarchical clustering method name.
         /// </summary>
         /// <param name="nodeName">xml node name.</param>
         /// <param name="moleculeType">molecule type of sequences</param>
         /// <param name="expectedScoreNode">Expected score node</param>
         /// <param name="hierarchicalClusteringMethodName">hierarchical clustering method name</param>
         /// <param name="profileName">SW/NW profiler</param>
-        void ValidatePamsamAlignWithUpdateDistanceMethodTypes(string nodeName,
-            MoleculeType moleculeType, string expectedScoreNode,
-            UpdateDistanceMethodsTypes hierarchicalClusteringMethodName,
-            ProfileAlignerNames profileName)
+        private void ValidatePamsamAlignWithUpdateDistanceMethodTypes(string nodeName,
+                                                                      MoleculeType moleculeType,
+                                                                      string expectedScoreNode,
+                                                                      UpdateDistanceMethodsTypes
+                                                                          hierarchicalClusteringMethodName,
+                                                                      ProfileAlignerNames profileName)
         {
             ValidatePamsamAlign(nodeName, moleculeType, expectedScoreNode,
-                hierarchicalClusteringMethodName, DistanceFunctionTypes.EuclideanDistance,
-                profileName, ProfileScoreFunctionNames.WeightedInnerProduct, kmerLength,
-                false, false);
-            Console.WriteLine(
-                String.Format((IFormatProvider)null,
-                "PamsamP1Test:: Pamsam alignment validation completed successfully for {0} moleculetype with different hierarchical clustering method name {1}",
-                moleculeType.ToString(),
-                hierarchicalClusteringMethodName.ToString()));
+                                hierarchicalClusteringMethodName, DistanceFunctionTypes.EuclideanDistance,
+                                profileName, ProfileScoreFunctionNames.WeightedInnerProduct, kmerLength,
+                                false, false);
             ApplicationLog.WriteLine(
-                String.Format((IFormatProvider)null,
-                "PamsamP1Test:: Pamsam alignment validation completed successfully for {0} moleculetype with different hierarchical clustering method name {1}",
-                moleculeType.ToString(),
-                hierarchicalClusteringMethodName.ToString()));
+                String.Format(null,
+                              "PamsamP1Test:: Pamsam alignment validation completed successfully for {0} moleculetype with different hierarchical clustering method name {1}",
+                              moleculeType.ToString(),
+                              hierarchicalClusteringMethodName.ToString()));
         }
 
         /// <summary>
-        /// Validate Muscle multiple sequence alignment with different profiler and distance matrix method name.
+        ///     Validate Muscle multiple sequence alignment with different profiler and distance matrix method name.
         /// </summary>
         /// <param name="nodeName">xml node name.</param>
         /// <param name="moleculeType">molecule type of sequences</param>
         /// <param name="expectedScoreNode">expected score xml node</param>
         /// <param name="distanceFunctionName">Distance function name</param>
         /// <param name="distanceMatrixName">kmerdistancematrix method name.</param>
-        /// <param name="profileName">SW/NW profiler</param>        
-        void ValidatePamsamAlignWithDistanceFunctionaTypes(string nodeName,
-            MoleculeType moleculeType, string expectedScoreNode,
-            DistanceFunctionTypes distanceFunctionName, ProfileAlignerNames profileName)
+        /// <param name="profileName">SW/NW profiler</param>
+        private void ValidatePamsamAlignWithDistanceFunctionaTypes(string nodeName,
+                                                                   MoleculeType moleculeType, string expectedScoreNode,
+                                                                   DistanceFunctionTypes distanceFunctionName,
+                                                                   ProfileAlignerNames profileName)
         {
             ValidatePamsamAlign(nodeName, moleculeType, expectedScoreNode,
-                UpdateDistanceMethodsTypes.Average, distanceFunctionName,
-                profileName, ProfileScoreFunctionNames.WeightedInnerProduct, kmerLength,
-                false, false);
+                                UpdateDistanceMethodsTypes.Average, distanceFunctionName,
+                                profileName, ProfileScoreFunctionNames.WeightedInnerProduct, kmerLength,
+                                false, false);
 
-            Console.WriteLine(String.Format((IFormatProvider)null,
-                @"PamsamP1Test:: Pamsam alignment validation completed successfully for {0} 
+            ApplicationLog.WriteLine(String.Format(null,
+                                                   @"PamsamP1Test:: Pamsam alignment validation completed successfully for {0} 
                 moleculetype with different kmer distance method name {1}",
-                moleculeType.ToString(), distanceFunctionName.ToString()));
-            ApplicationLog.WriteLine(String.Format((IFormatProvider)null,
-                @"PamsamP1Test:: Pamsam alignment validation completed successfully for {0} 
-                moleculetype with different kmer distance method name {1}",
-                moleculeType.ToString(), distanceFunctionName.ToString()));
+                                                   moleculeType.ToString(), distanceFunctionName.ToString()));
         }
 
         /// <summary>
-        /// Validate Muscle multiple sequence alignment with different 
-        /// profiler and profile score function name.
+        ///     Validate Muscle multiple sequence alignment with different
+        ///     profiler and profile score function name.
         /// </summary>
         /// <param name="nodeName">xml node name.</param>
         /// <param name="moleculeType">molecule type of sequences</param>
         /// <param name="expectedScoreNode">expected score xml node</param>
         /// <param name="profileName">SW/NW profiler</param>
-        /// <param name="profileScoreFunctionName">Profile score function name</param>        
-        void ValidatePamsamAlignWithProfileScoreFunctionName(string nodeName,
-            MoleculeType moleculeType, string expectedScoreNode,
-            ProfileAlignerNames profileName, ProfileScoreFunctionNames profileScoreFunctionName)
+        /// <param name="profileScoreFunctionName">Profile score function name</param>
+        private void ValidatePamsamAlignWithProfileScoreFunctionName(string nodeName,
+                                                                     MoleculeType moleculeType, string expectedScoreNode,
+                                                                     ProfileAlignerNames profileName,
+                                                                     ProfileScoreFunctionNames profileScoreFunctionName)
         {
             ValidatePamsamAlign(nodeName, moleculeType, expectedScoreNode,
-                UpdateDistanceMethodsTypes.Average,
-                DistanceFunctionTypes.EuclideanDistance, profileName,
-                profileScoreFunctionName, kmerLength,
-                false, false);
+                                UpdateDistanceMethodsTypes.Average,
+                                DistanceFunctionTypes.EuclideanDistance, profileName,
+                                profileScoreFunctionName, kmerLength,
+                                false, false);
 
-            Console.WriteLine(String.Format((IFormatProvider)null,
-                @"PamsamP1Test:: Pamsam alignment validation completed successfully for {0} 
+            ApplicationLog.WriteLine(String.Format(null,
+                                                   @"PamsamP1Test:: Pamsam alignment validation completed successfully for {0} 
                 moleculetype with different profile score function name {1}",
-                moleculeType.ToString(), profileScoreFunctionName.ToString()));
-            ApplicationLog.WriteLine(String.Format((IFormatProvider)null,
-                @"PamsamP1Test:: Pamsam alignment validation completed successfully for {0} 
-                moleculetype with different profile score function name {1}",
-                moleculeType.ToString(), profileScoreFunctionName.ToString()));
+                                                   moleculeType.ToString(), profileScoreFunctionName.ToString()));
         }
 
         /// <summary>
-        /// Validate Muscle multiple sequence alignment with default values.
+        ///     Validate Muscle multiple sequence alignment with default values.
         /// </summary>
         /// <param name="nodeName">xml node name.</param>
         /// <param name="moleculeType">Molecule Type.</param>
         /// <param name="expectedScoreNode">expected score xml node</param>
         /// <param name="profileName">Profile name</param>
-        void ValidatePamsamAlign(string nodeName, MoleculeType moleculeType,
-            string expectedScoreNode, ProfileAlignerNames profileName)
+        private void ValidatePamsamAlign(string nodeName, MoleculeType moleculeType,
+                                         string expectedScoreNode, ProfileAlignerNames profileName)
         {
             ValidatePamsamAlign(nodeName, moleculeType, expectedScoreNode,
-                UpdateDistanceMethodsTypes.Average,
-                DistanceFunctionTypes.EuclideanDistance, profileName,
-                ProfileScoreFunctionNames.WeightedInnerProduct, kmerLength,
-                false, false);
+                                UpdateDistanceMethodsTypes.Average,
+                                DistanceFunctionTypes.EuclideanDistance, profileName,
+                                ProfileScoreFunctionNames.WeightedInnerProduct, kmerLength,
+                                false, false);
 
-            Console.WriteLine(String.Format((IFormatProvider)null,
-                 "PamsamP1Test:: Pamsam alignment validation completed successfully for {0} moleculetype with all default params",
-                 moleculeType.ToString()));
-            ApplicationLog.WriteLine(String.Format((IFormatProvider)null,
-                "PamsamP1Test:: Pamsam alignment validation completed successfully for {0} moleculetype with all default params",
-                moleculeType.ToString()));
+            ApplicationLog.WriteLine(String.Format(null,
+                                                   "PamsamP1Test:: Pamsam alignment validation completed successfully for {0} moleculetype with all default params",
+                                                   moleculeType.ToString()));
         }
 
         /// <summary>
-        /// Validate Muscle multiple sequence alignment with default values.
+        ///     Validate Muscle multiple sequence alignment with default values.
         /// </summary>
         /// <param name="nodeName">xml node name.</param>
         /// <param name="moleculeType">Molecule Type.</param>
         /// <param name="expectedScoreNode">expected score xml node</param>
         /// <param name="profileName">Profile name</param>
-        void ValidatePamsamAlignOneLineSequences(string nodeName,
-            MoleculeType moleculeType, string expectedScoreNode,
-            ProfileAlignerNames profileName)
+        private void ValidatePamsamAlignOneLineSequences(string nodeName,
+                                                         MoleculeType moleculeType, string expectedScoreNode,
+                                                         ProfileAlignerNames profileName)
         {
             // Use different kmerlength = 3 for one line sequences
             ValidatePamsamAlign(nodeName, moleculeType, expectedScoreNode,
-                UpdateDistanceMethodsTypes.Average,
-                DistanceFunctionTypes.EuclideanDistance, profileName,
-                ProfileScoreFunctionNames.WeightedInnerProduct, 3,
-                true, false);
+                                UpdateDistanceMethodsTypes.Average,
+                                DistanceFunctionTypes.EuclideanDistance, profileName,
+                                ProfileScoreFunctionNames.WeightedInnerProduct, 3,
+                                true, false);
 
-            Console.WriteLine(String.Format((IFormatProvider)null,
-                 @"PamsamP1Test:: Pamsam alignment validation completed successfully with one line sequences
+            ApplicationLog.WriteLine(String.Format(null,
+                                                   @"PamsamP1Test:: Pamsam alignment validation completed successfully with one line sequences
                 for {0} moleculetype with all default params",
-                 moleculeType.ToString()));
-            ApplicationLog.WriteLine(String.Format((IFormatProvider)null,
-               @"PamsamP1Test:: Pamsam alignment validation completed successfully with one line sequences
-                for {0} moleculetype with all default params",
-                moleculeType.ToString()));
+                                                   moleculeType.ToString()));
         }
 
         /// <summary>
-        /// Validate Muscle multiple sequence alignment.
+        ///     Validate Muscle multiple sequence alignment.
         /// </summary>
         /// <param name="nodeName">xml node name</param>
         /// <param name="moleculeType">molecule type</param>
@@ -3060,8 +2992,8 @@ namespace Bio.TestAutomation.Pamsam
         /// <param name="kmrlength">Kmer length</param>
         /// <param name="addOnelineSequences">Add one line sequence?</param>
         /// <param name="IsAlignForMoreSeq">Is Alignment for multiple sequences</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "moleculeType")]
-        void ValidatePamsamAlign(
+        [SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "moleculeType")]
+        private void ValidatePamsamAlign(
             string nodeName, MoleculeType moleculeType, string expectedScoreNode,
             UpdateDistanceMethodsTypes hierarchicalClusteringMethodName,
             DistanceFunctionTypes distanceFunctionName,
@@ -3076,10 +3008,12 @@ namespace Bio.TestAutomation.Pamsam
             }
 
             // MSA aligned sequences.
-            PAMSAMMultipleSequenceAligner msa = new PAMSAMMultipleSequenceAligner(lstSequences,
-                kmrlength, distanceFunctionName, hierarchicalClusteringMethodName,
-                profileAlignerName, profileScoreName, similarityMatrix, gapOpenPenalty,
-                gapExtendPenalty, 2, 2);
+            var msa = new PAMSAMMultipleSequenceAligner(lstSequences,
+                                                        kmrlength, distanceFunctionName,
+                                                        hierarchicalClusteringMethodName,
+                                                        profileAlignerName, profileScoreName, similarityMatrix,
+                                                        gapOpenPenalty,
+                                                        gapExtendPenalty, 2, 2);
 
             // Validate the aligned Sequence and score
             int index = 0;
@@ -3092,12 +3026,11 @@ namespace Bio.TestAutomation.Pamsam
                 }
             }
 
-            Console.WriteLine("Alignment Score is {0}", msa.AlignmentScore.ToString((IFormatProvider)null));
-            Assert.IsTrue(expectedScore.Contains(msa.AlignmentScore.ToString((IFormatProvider)null)));
+            Assert.IsTrue(expectedScore.Contains(msa.AlignmentScore.ToString((IFormatProvider) null)));
         }
 
         /// <summary>
-        /// Validate Muscle multiple sequence alignment with gap open cost and penalty.
+        ///     Validate Muscle multiple sequence alignment with gap open cost and penalty.
         /// </summary>
         /// <param name="nodeName">xml node name</param>
         /// <param name="moleculeType">molecule type</param>
@@ -3109,7 +3042,7 @@ namespace Bio.TestAutomation.Pamsam
         /// <param name="gpOpenPenalty">Gap open penalty</param>
         /// <param name="gpExtendPenalty">Gap extended penalty</param>
         /// <param name="IsAlignedLargeSeq">True for large sequence else false</param>
-        void ValidatePamsamAlignWithGapCost(
+        private void ValidatePamsamAlignWithGapCost(
             string nodeName, MoleculeType moleculeType, string expectedScoreNode,
             UpdateDistanceMethodsTypes hierarchicalClusteringMethodName,
             DistanceFunctionTypes distanceFunctionName,
@@ -3120,10 +3053,12 @@ namespace Bio.TestAutomation.Pamsam
             Initialize(nodeName, expectedScoreNode);
 
             // MSA aligned sequences with sepcified gap costs.
-            PAMSAMMultipleSequenceAligner msa = new PAMSAMMultipleSequenceAligner(lstSequences,
-                kmerLength, distanceFunctionName, hierarchicalClusteringMethodName,
-                profileAlignerName, profileScoreName, similarityMatrix, gpOpenPenalty,
-                gpExtendPenalty, 2, 2);
+            var msa = new PAMSAMMultipleSequenceAligner(lstSequences,
+                                                        kmerLength, distanceFunctionName,
+                                                        hierarchicalClusteringMethodName,
+                                                        profileAlignerName, profileScoreName, similarityMatrix,
+                                                        gpOpenPenalty,
+                                                        gpExtendPenalty, 2, 2);
 
             // Validate the aligned Sequence and score
             int index = 0;
@@ -3131,24 +3066,20 @@ namespace Bio.TestAutomation.Pamsam
             {
                 if (IsAlignedLargeSeq)
                 {
-                    Assert.AreEqual(new string(seq.Select(a => (char)a).ToArray()),
-                        new string(expectedSequences[index].Select(a => (char)a).ToArray()));
+                    Assert.AreEqual(new string(seq.Select(a => (char) a).ToArray()),
+                                    new string(expectedSequences[index].Select(a => (char) a).ToArray()));
                     index++;
                 }
             }
 
-            Console.WriteLine("Expected Score :{0}", msa.AlignmentScore.ToString((IFormatProvider)null));
-            Assert.IsTrue(expectedScore.Contains(msa.AlignmentScore.ToString((IFormatProvider)null)));
-            Console.WriteLine(String.Format((IFormatProvider)null,
-                 "PamsamP1Test:: Pamsam alignment completed successfully with equal gap cost for {0} moleculetype with all default params",
-                 moleculeType.ToString()));
-            ApplicationLog.WriteLine(String.Format((IFormatProvider)null,
-                 "PamsamP1Test:: Pamsam alignment completed successfully with equal gap cost for {0} moleculetype with all default params",
-                 moleculeType.ToString()));
+            Assert.IsTrue(expectedScore.Contains(msa.AlignmentScore.ToString((IFormatProvider) null)));
+            ApplicationLog.WriteLine(String.Format(null,
+                                                   "PamsamP1Test:: Pamsam alignment completed successfully with equal gap cost for {0} moleculetype with all default params",
+                                                   moleculeType.ToString()));
         }
 
         /// <summary>
-        /// Validate Stage 1 aligned sequences and score of Muscle multiple sequence alignment.
+        ///     Validate Stage 1 aligned sequences and score of Muscle multiple sequence alignment.
         /// </summary>
         /// <param name="nodeName">xml node name</param>
         /// <param name="moleculeType">molecule type</param>
@@ -3158,23 +3089,23 @@ namespace Bio.TestAutomation.Pamsam
         /// <param name="profileAlignerName">SW/NW profiler</param>
         /// <param name="profileScoreName">Profile score function name.</param>
         /// <param name="IsAlignStage1">True for Alignment stage1 validation</param>
-        void ValidatePamsamAlignStage1(string nodeName, MoleculeType moleculeType,
-            string expectedScoreNode,
-            UpdateDistanceMethodsTypes hierarchicalClusteringMethodName,
-            DistanceFunctionTypes distanceFunctionName,
-            ProfileAlignerNames profileAlignerName,
-            ProfileScoreFunctionNames profileScoreName,
-            bool IsAlignStage1)
+        private void ValidatePamsamAlignStage1(string nodeName, MoleculeType moleculeType,
+                                               string expectedScoreNode,
+                                               UpdateDistanceMethodsTypes hierarchicalClusteringMethodName,
+                                               DistanceFunctionTypes distanceFunctionName,
+                                               ProfileAlignerNames profileAlignerName,
+                                               ProfileScoreFunctionNames profileScoreName,
+                                               bool IsAlignStage1)
         {
             Initialize(nodeName, expectedScoreNode);
             InitializeStage1Variables(nodeName);
 
             // MSA aligned sequences.
-            PAMSAMMultipleSequenceAligner msa =
+            var msa =
                 new PAMSAMMultipleSequenceAligner(lstSequences, kmerLength,
-                    distanceFunctionName, hierarchicalClusteringMethodName,
-                    profileAlignerName, profileScoreName, similarityMatrix,
-                    gapOpenPenalty, gapExtendPenalty, 2, 2);
+                                                  distanceFunctionName, hierarchicalClusteringMethodName,
+                                                  profileAlignerName, profileScoreName, similarityMatrix,
+                                                  gapOpenPenalty, gapExtendPenalty, 2, 2);
 
             // Validate the aligned Sequence and score of stage1
             Assert.AreEqual(stage1ExpectedSequences.Count, msa.AlignedSequences.Count);
@@ -3183,26 +3114,22 @@ namespace Bio.TestAutomation.Pamsam
             {
                 if (IsAlignStage1)
                 {
-                    Assert.AreEqual(new string(stage1ExpectedSequences[index].Select(a => (char)a).ToArray()),
-                        new string(seq.Select(a => (char)a).ToArray()));
+                    Assert.AreEqual(new string(stage1ExpectedSequences[index].Select(a => (char) a).ToArray()),
+                                    new string(seq.Select(a => (char) a).ToArray()));
                     index++;
                 }
             }
 
-            Console.WriteLine("Stage1 Score:{0}", msa.AlignmentScoreA.ToString((IFormatProvider)null));
             Assert.IsTrue(stage1ExpectedScore.Contains(
-                msa.AlignmentScoreA.ToString((IFormatProvider)null)));
+                msa.AlignmentScoreA.ToString((IFormatProvider) null)));
 
-            Console.WriteLine(String.Format((IFormatProvider)null,
-                 "PamsamP1Test:: Pamsam stage1 alignment completed successfully for {0} moleculetype with all default params",
-                 moleculeType.ToString()));
-            ApplicationLog.WriteLine(String.Format((IFormatProvider)null,
-                 "PamsamP1Test:: Pamsam  stage1 alignment completed successfully for {0} moleculetype with all default params",
-                 moleculeType.ToString()));
+            ApplicationLog.WriteLine(String.Format(null,
+                                                   "PamsamP1Test:: Pamsam  stage1 alignment completed successfully for {0} moleculetype with all default params",
+                                                   moleculeType.ToString()));
         }
 
         /// <summary>
-        /// Validate Stage 2 aligned sequences and score of Muscle multiple sequence alignment.
+        ///     Validate Stage 2 aligned sequences and score of Muscle multiple sequence alignment.
         /// </summary>
         /// <param name="nodeName">xml node name</param>
         /// <param name="moleculeType">molecule type</param>
@@ -3211,22 +3138,24 @@ namespace Bio.TestAutomation.Pamsam
         /// <param name="distanceFunctionName">kmerdistancematrix method name.</param>
         /// <param name="profileAlignerName">SW/NW profiler</param>
         /// <param name="profileScoreName">Profile score function name.</param>
-        void ValidatePamsamAlignStage2(
-                                      string nodeName,
-                                      MoleculeType moleculeType,
-                                      string expectedScoreNode,
-                                      UpdateDistanceMethodsTypes hierarchicalClusteringMethodName,
-                                      DistanceFunctionTypes distanceFunctionName,
-                                      ProfileAlignerNames profileAlignerName,
-                                      ProfileScoreFunctionNames profileScoreName)
+        private void ValidatePamsamAlignStage2(
+            string nodeName,
+            MoleculeType moleculeType,
+            string expectedScoreNode,
+            UpdateDistanceMethodsTypes hierarchicalClusteringMethodName,
+            DistanceFunctionTypes distanceFunctionName,
+            ProfileAlignerNames profileAlignerName,
+            ProfileScoreFunctionNames profileScoreName)
         {
             Initialize(nodeName, expectedScoreNode);
             InitializeStage2Variables(nodeName);
 
             // MSA aligned sequences.
-            PAMSAMMultipleSequenceAligner msa = new PAMSAMMultipleSequenceAligner(lstSequences,
-                kmerLength, distanceFunctionName, hierarchicalClusteringMethodName,
-                profileAlignerName, profileScoreName, similarityMatrix, gapOpenPenalty, gapExtendPenalty, 2, 2);
+            var msa = new PAMSAMMultipleSequenceAligner(lstSequences,
+                                                        kmerLength, distanceFunctionName,
+                                                        hierarchicalClusteringMethodName,
+                                                        profileAlignerName, profileScoreName, similarityMatrix,
+                                                        gapOpenPenalty, gapExtendPenalty, 2, 2);
 
             if (null != msa.AlignedSequencesB)
             {
@@ -3235,23 +3164,20 @@ namespace Bio.TestAutomation.Pamsam
                 int index = 0;
                 foreach (ISequence seq in msa.AlignedSequencesB)
                 {
-                    Assert.AreEqual(new string(stage2ExpectedSequences[index].Select(a => (char)a).ToArray()),
-                        new string(seq.Select(a => (char)a).ToArray()));
+                    Assert.AreEqual(new string(stage2ExpectedSequences[index].Select(a => (char) a).ToArray()),
+                                    new string(seq.Select(a => (char) a).ToArray()));
                     index++;
                 }
-                Assert.AreEqual(stage2ExpectedScore, msa.AlignmentScoreB.ToString((IFormatProvider)null));
+                Assert.AreEqual(stage2ExpectedScore, msa.AlignmentScoreB.ToString((IFormatProvider) null));
             }
 
-            Console.WriteLine(String.Format((IFormatProvider)null,
-                 "PamsamP1Test:: Pamsam stage2 alignment completed successfully for {0} moleculetype with all default params",
-                 moleculeType.ToString()));
-            ApplicationLog.WriteLine(String.Format((IFormatProvider)null,
-                 "PamsamP1Test:: Pamsam  stage2 alignment completed successfully for {0} moleculetype with all default params",
-                 moleculeType.ToString()));
+            ApplicationLog.WriteLine(String.Format(null,
+                                                   "PamsamP1Test:: Pamsam  stage2 alignment completed successfully for {0} moleculetype with all default params",
+                                                   moleculeType.ToString()));
         }
 
         /// <summary>
-        /// Validate Stage 3 aligned sequences and score of Muscle multiple sequence alignment.
+        ///     Validate Stage 3 aligned sequences and score of Muscle multiple sequence alignment.
         /// </summary>
         /// <param name="nodeName">xml node name</param>
         /// <param name="moleculeType">molecule type</param>
@@ -3261,20 +3187,23 @@ namespace Bio.TestAutomation.Pamsam
         /// <param name="profileAlignerName">SW/NW profiler</param>
         /// <param name="profileScoreName">Profile score function name.</param>
         /// <param name="IsStageAlignment">True for release stage3 validations</param>
-        void ValidatePamsamAlignStage3(string nodeName, MoleculeType moleculeType,
-            string expectedScoreNode, UpdateDistanceMethodsTypes hierarchicalClusteringMethodName,
-            DistanceFunctionTypes distanceFunctionName,
-            ProfileAlignerNames profileAlignerName,
-            ProfileScoreFunctionNames profileScoreName,
-            bool IsStageAlignment)
+        private void ValidatePamsamAlignStage3(string nodeName, MoleculeType moleculeType,
+                                               string expectedScoreNode,
+                                               UpdateDistanceMethodsTypes hierarchicalClusteringMethodName,
+                                               DistanceFunctionTypes distanceFunctionName,
+                                               ProfileAlignerNames profileAlignerName,
+                                               ProfileScoreFunctionNames profileScoreName,
+                                               bool IsStageAlignment)
         {
             Initialize(nodeName, expectedScoreNode);
             InitializeStage3Variables(nodeName);
 
             // MSA aligned sequences.
-            PAMSAMMultipleSequenceAligner msa = new PAMSAMMultipleSequenceAligner(lstSequences,
-                kmerLength, distanceFunctionName, hierarchicalClusteringMethodName,
-                profileAlignerName, profileScoreName, similarityMatrix, gapOpenPenalty, gapExtendPenalty, 2, 2);
+            var msa = new PAMSAMMultipleSequenceAligner(lstSequences,
+                                                        kmerLength, distanceFunctionName,
+                                                        hierarchicalClusteringMethodName,
+                                                        profileAlignerName, profileScoreName, similarityMatrix,
+                                                        gapOpenPenalty, gapExtendPenalty, 2, 2);
 
             // Validate the aligned Sequence and score of stage2
             Assert.AreEqual(stage3ExpectedSequences.Count, msa.AlignedSequences.Count);
@@ -3283,30 +3212,26 @@ namespace Bio.TestAutomation.Pamsam
             {
                 if (IsStageAlignment)
                 {
-                    Assert.AreEqual(new string(stage3ExpectedSequences[index].Select(a => (char)a).ToArray()),
-                        new string(seq.Select(a => (char)a).ToArray()));
+                    Assert.AreEqual(new string(stage3ExpectedSequences[index].Select(a => (char) a).ToArray()),
+                                    new string(seq.Select(a => (char) a).ToArray()));
                     index++;
                 }
             }
-            Console.WriteLine("Score{0}\n", msa.AlignmentScoreC.ToString((IFormatProvider)null));
-            Assert.IsTrue(stage3ExpectedScore.Contains(msa.AlignmentScoreC.ToString((IFormatProvider)null)));
+            Assert.IsTrue(stage3ExpectedScore.Contains(msa.AlignmentScoreC.ToString((IFormatProvider) null)));
 
-            Console.WriteLine(String.Format((IFormatProvider)null,
-                "PamsamP1Test:: Pamsam stage3 alignment completed successfully for {0} moleculetype with all default params",
-                moleculeType.ToString()));
-            ApplicationLog.WriteLine(String.Format((IFormatProvider)null,
-                "PamsamP1Test:: Pamsam  stage3 alignment completed successfully for {0} moleculetype with all default params",
-                moleculeType.ToString()));
+            ApplicationLog.WriteLine(String.Format(null,
+                                                   "PamsamP1Test:: Pamsam  stage3 alignment completed successfully for {0} moleculetype with all default params",
+                                                   moleculeType.ToString()));
         }
 
         /// <summary>
-        /// Validate Distance Matrix with default distancefunctionname
+        ///     Validate Distance Matrix with default distancefunctionname
         /// </summary>
         /// <param name="nodeName">xml node name.</param>
         /// <param name="kmrlength">kmr length</param>
         /// <param name="moleculeType">molecule type.</param>
-        void ValidateKmerDistanceMatrixStage1(string nodeName,
-            int kmrlength, MoleculeType moleculeType)
+        private void ValidateKmerDistanceMatrixStage1(string nodeName,
+                                                      int kmrlength, MoleculeType moleculeType)
         {
             switch (moleculeType)
             {
@@ -3330,27 +3255,22 @@ namespace Bio.TestAutomation.Pamsam
             // Validate the matrix
             ValidateDistanceMatrix(nodeName, matrix);
 
-            Console.WriteLine(String.Format((IFormatProvider)null,
-                            @"PamsamP1Test:: kmer distance matrix generation and validation completed success for {0} 
-                            moleculetype with default params",
-                                                             moleculeType.ToString()));
-            ApplicationLog.WriteLine(String.Format((IFormatProvider)null,
-                  @"PamsamP1Test:: kmer distance matrix generation and validation completed success for {0} 
+            ApplicationLog.WriteLine(String.Format(null,
+                                                   @"PamsamP1Test:: kmer distance matrix generation and validation completed success for {0} 
                     moleculetype with default params",
-                                                     moleculeType.ToString()));
+                                                   moleculeType.ToString()));
         }
 
         /// <summary>
-        /// Validate DistanceMatrix at stage1 using different DistanceFunction names.
+        ///     Validate DistanceMatrix at stage1 using different DistanceFunction names.
         /// </summary>
         /// <param name="nodeName">Xml Node Name</param>
         /// <param name="kmrlength">Kmer length</param>
         /// <param name="moleculeType">Molecule type</param>
         /// <param name="distanceFunctionName">Distance function name</param>
-        void ValidateKmerDistanceMatrixStage1(string nodeName, int kmrlength, MoleculeType moleculeType,
-            DistanceFunctionTypes distanceFunctionName)
+        private void ValidateKmerDistanceMatrixStage1(string nodeName, int kmrlength, MoleculeType moleculeType,
+                                                      DistanceFunctionTypes distanceFunctionName)
         {
-
             switch (moleculeType)
             {
                 case MoleculeType.DNA:
@@ -3372,53 +3292,47 @@ namespace Bio.TestAutomation.Pamsam
 
             // Validate the matrix
             ValidateDistanceMatrix(nodeName, matrix);
-            Console.WriteLine(String.Format((IFormatProvider)null,
-                              @"PamsamP1Test:: kmer distance matrix generation and validation completed success for {0} 
-                              moleculetype with different distance method name {1}",
-                                                                                   moleculeType.ToString(),
-                                                                                   distanceFunctionName.ToString()));
-            ApplicationLog.WriteLine(String.Format((IFormatProvider)null,
-                  @"PamsamP1Test:: kmer distance matrix generation and validation completed success for {0} 
+            ApplicationLog.WriteLine(String.Format(null,
+                                                   @"PamsamP1Test:: kmer distance matrix generation and validation completed success for {0} 
                     moleculetype with different distance method name {1}",
-                                                                         moleculeType.ToString(),
-                                                                         distanceFunctionName.ToString()));
+                                                   moleculeType.ToString(),
+                                                   distanceFunctionName.ToString()));
         }
 
         /// <summary>
-        /// Validate Distance Matrix
+        ///     Validate Distance Matrix
         /// </summary>
         /// <param name="nodeName">xml node name.</param>
         /// <param name="matrix">distance matrix</param>
-        void ValidateDistanceMatrix(string nodeName, IDistanceMatrix matrix)
+        private void ValidateDistanceMatrix(string nodeName, IDistanceMatrix matrix)
         {
             // Read expected values from config
             string expectedDimension = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.Dimension);
             string expectedMinimumValue = utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.MinimumValue);
+                                                                          Constants.MinimumValue);
             string expectedNearestDistances = utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.NearestDistances);
+                                                                              Constants.NearestDistances);
 
             // Validate values in distance matrix
-            Assert.AreEqual(expectedDimension, matrix.Dimension.ToString((IFormatProvider)null));
-            Assert.AreEqual(expectedMinimumValue, matrix.MinimumValue.ToString((IFormatProvider)null));
+            Assert.AreEqual(expectedDimension, matrix.Dimension.ToString((IFormatProvider) null));
+            Assert.AreEqual(expectedMinimumValue, matrix.MinimumValue.ToString((IFormatProvider) null));
             for (int idist = 0; idist < matrix.NearestDistances.Length; idist++)
             {
-                Console.WriteLine("Nearest Distance :{0}\n", matrix.NearestDistances[idist].ToString((IFormatProvider)null));
                 Assert.IsTrue(expectedNearestDistances.Contains(
-                    matrix.NearestDistances[idist].ToString((IFormatProvider)null)));
+                    matrix.NearestDistances[idist].ToString((IFormatProvider) null)));
             }
         }
 
         /// <summary>
-        /// Validate Hierarchical Clustering for stage1
+        ///     Validate Hierarchical Clustering for stage1
         /// </summary>
         /// <param name="nodeName">xml node name.</param>
         /// <param name="kmrlength">kmer length for distance matrix</param>
         /// <param name="moleculeType">molecule type of input sequences</param>
         /// <param name="hierarchicalMethodName">hierarchical method name.</param>
-        void ValidateHierarchicalClusteringStage1(string nodeName,
-            int kmrlength, MoleculeType moleculeType,
-            UpdateDistanceMethodsTypes hierarchicalMethodName)
+        private void ValidateHierarchicalClusteringStage1(string nodeName,
+                                                          int kmrlength, MoleculeType moleculeType,
+                                                          UpdateDistanceMethodsTypes hierarchicalMethodName)
         {
             switch (moleculeType)
             {
@@ -3440,32 +3354,26 @@ namespace Bio.TestAutomation.Pamsam
 
             // Get the hierarchical clustering using default params
             IHierarchicalClustering hierarcicalClustering = GetHierarchicalClustering(matrix,
-                hierarchicalMethodName);
+                                                                                      hierarchicalMethodName);
 
             ValidateHierarchicalClustering(nodeName, hierarcicalClustering.Nodes,
-                hierarcicalClustering.Edges);
+                                           hierarcicalClustering.Edges);
 
-            Console.WriteLine(String.Format((IFormatProvider)null,
-                 @"PamsamP1Test:: herarchical clustering stage1 nodes and edges generation and 
+            ApplicationLog.WriteLine(String.Format(null,
+                                                   @"PamsamP1Test:: herarchical clustering stage1 nodes and edges generation and 
                     validation completed success for {0} moleculetype with different 
                     hierarchical clustering method name {1}",
-                                                            moleculeType.ToString(),
-                                                            hierarchicalMethodName.ToString()));
-            ApplicationLog.WriteLine(String.Format((IFormatProvider)null,
-                  @"PamsamP1Test:: herarchical clustering stage1 nodes and edges generation and 
-                    validation completed success for {0} moleculetype with different 
-                    hierarchical clustering method name {1}",
-                                                            moleculeType.ToString(),
-                                                            hierarchicalMethodName.ToString()));
+                                                   moleculeType.ToString(),
+                                                   hierarchicalMethodName.ToString()));
         }
 
         /// <summary>
-        /// Validate Hierarchical Clustering for stage2 using 
-        /// kimura distance matrix and other default params.
+        ///     Validate Hierarchical Clustering for stage2 using
+        ///     kimura distance matrix and other default params.
         /// </summary>
         /// <param name="nodeName">xml node name</param>
         /// <param name="moleculeType">molecule type of sequences</param>
-        void ValidateHierarchicalClusteringStage2(string nodeName, MoleculeType moleculeType)
+        private void ValidateHierarchicalClusteringStage2(string nodeName, MoleculeType moleculeType)
         {
             switch (moleculeType)
             {
@@ -3492,26 +3400,22 @@ namespace Bio.TestAutomation.Pamsam
             IHierarchicalClustering hierarcicalClustering = GetHierarchicalClustering(matrix);
 
             ValidateHierarchicalClustering(nodeName, hierarcicalClustering.Nodes,
-                hierarcicalClustering.Edges);
+                                           hierarcicalClustering.Edges);
 
-            Console.WriteLine(String.Format((IFormatProvider)null,
-               @"PamsamP1Test:: herarchical clustering stage2 nodes and edges generation and 
+            ApplicationLog.WriteLine(String.Format(null,
+                                                   @"PamsamP1Test:: herarchical clustering stage2 nodes and edges generation and 
                    validation completed success for {0} moleculetype with default params",
-                                                                                         moleculeType.ToString()));
-            ApplicationLog.WriteLine(String.Format((IFormatProvider)null,
-                 @"PamsamP1Test:: herarchical clustering stage2 nodes and edges generation and 
-                   validation completed success for {0} moleculetype with default params",
-                                                                                         moleculeType.ToString()));
+                                                   moleculeType.ToString()));
         }
 
         /// <summary>
-        /// Validate Hierarchical Clustering for stage1 using kmer distance matrix
+        ///     Validate Hierarchical Clustering for stage1 using kmer distance matrix
         /// </summary>
         /// <param name="nodeName">xml node name</param>
         /// <param name="moleculeType">molecule type of sequences</param>
         /// <param name="kmrlength">kmer length to generate distance matrix</param>
-        void ValidateHierarchicalClusteringStage1(string nodeName,
-            int kmrlength, MoleculeType moleculeType)
+        private void ValidateHierarchicalClusteringStage1(string nodeName,
+                                                          int kmrlength, MoleculeType moleculeType)
         {
             switch (moleculeType)
             {
@@ -3536,27 +3440,23 @@ namespace Bio.TestAutomation.Pamsam
 
             // Validate the hierarchical clustering
             ValidateHierarchicalClustering(nodeName, hierarcicalClustering.Nodes,
-                hierarcicalClustering.Edges);
+                                           hierarcicalClustering.Edges);
 
-            Console.WriteLine(String.Format((IFormatProvider)null,
-              @"PamsamP1Test:: hierarchical clustering stage1 nodes and edges generation and 
+            ApplicationLog.WriteLine(String.Format(null,
+                                                   @"PamsamP1Test:: hierarchical clustering stage1 nodes and edges generation and 
                    validation completed successfully for {0} moleculetype with default params",
-                 moleculeType.ToString()));
-            ApplicationLog.WriteLine(String.Format((IFormatProvider)null,
-                 @"PamsamP1Test:: hierarchical clustering stage1 nodes and edges generation and 
-                   validation completed successfully for {0} moleculetype with default params",
-                   moleculeType.ToString()));
+                                                   moleculeType.ToString()));
         }
 
         /// <summary>
-        /// Validate Hierarchical Clustering for stage2 using kimura distance matrix 
-        /// and hierarchical method name
+        ///     Validate Hierarchical Clustering for stage2 using kimura distance matrix
+        ///     and hierarchical method name
         /// </summary>
         /// <param name="nodeName">xml node name</param>
         /// <param name="moleculeType">molecule type of sequences</param>
         /// <param name="hierarchicalMethodName">hierarchical method name</param>
-        void ValidateHierarchicalClusteringStage2(string nodeName, MoleculeType moleculeType,
-            UpdateDistanceMethodsTypes hierarchicalMethodName)
+        private void ValidateHierarchicalClusteringStage2(string nodeName, MoleculeType moleculeType,
+                                                          UpdateDistanceMethodsTypes hierarchicalMethodName)
         {
             switch (moleculeType)
             {
@@ -3580,40 +3480,34 @@ namespace Bio.TestAutomation.Pamsam
 
             // Get hierarchical clustering using method name
             IHierarchicalClustering hierarcicalClustering = GetHierarchicalClustering(matrix,
-                hierarchicalMethodName);
+                                                                                      hierarchicalMethodName);
 
             ValidateHierarchicalClustering(nodeName, hierarcicalClustering.Nodes,
-                hierarcicalClustering.Edges);
+                                           hierarcicalClustering.Edges);
 
-            Console.WriteLine(String.Format((IFormatProvider)null,
-                  @"PamsamP1Test:: hierarchical clustering stage2 nodes and edges generation and 
+            ApplicationLog.WriteLine(String.Format(null,
+                                                   @"PamsamP1Test:: hierarchical clustering stage2 nodes and edges generation and 
                     validation completed success for {0} moleculetype with different 
                     hierarchical clustering method name {1}",
-                                                            moleculeType.ToString(),
-                                                            hierarchicalMethodName.ToString()));
-            ApplicationLog.WriteLine(String.Format((IFormatProvider)null,
-                  @"PamsamP1Test:: hierarchical clustering stage2 nodes and edges generation and 
-                    validation completed success for {0} moleculetype with different 
-                    hierarchical clustering method name {1}",
-                                                            moleculeType.ToString(),
-                                                            hierarchicalMethodName.ToString()));
+                                                   moleculeType.ToString(),
+                                                   hierarchicalMethodName.ToString()));
         }
 
         /// <summary>
-        /// Validate the nodes and edges of hierarchical clustering object.
+        ///     Validate the nodes and edges of hierarchical clustering object.
         /// </summary>
         /// <param name="nodeName">xml node name.</param>
         /// <param name="nodes">binary tree nodes</param>
         /// <param name="edges">binary tree edges</param>
-        void ValidateHierarchicalClustering(string nodeName, List<BinaryGuideTreeNode> nodes,
-            List<BinaryGuideTreeEdge> edges)
+        private void ValidateHierarchicalClustering(string nodeName, List<BinaryGuideTreeNode> nodes,
+                                                    List<BinaryGuideTreeEdge> edges)
         {
             // Validate the nodes and edges.
             string expectedEdgeCount = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.EdgesCount);
             string expectedNodesLeftChild = utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.NodesLeftChild);
+                                                                            Constants.NodesLeftChild);
             string expectedNodesRightChild = utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.NodesRightChild);
+                                                                             Constants.NodesRightChild);
             string expectednode = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.Nodes);
             string[] expectedNodes = expectednode.Split(',');
             int index = 0;
@@ -3622,34 +3516,34 @@ namespace Bio.TestAutomation.Pamsam
 
             foreach (BinaryGuideTreeNode node in nodes)
             {
-                Console.WriteLine("Nodes {0}\n", node.ID.ToString((IFormatProvider)null));
-                Assert.AreEqual(expectedNodes[index], node.ID.ToString((IFormatProvider)null));
+                Assert.AreEqual(expectedNodes[index], node.ID.ToString((IFormatProvider) null));
                 if (null != node.LeftChildren)
                 {
                     Assert.IsTrue(expectedNodesLeftChild.Contains(
-                        node.LeftChildren.ID.ToString((IFormatProvider)null)));
+                        node.LeftChildren.ID.ToString((IFormatProvider) null)));
                     leftchildindex++;
                 }
                 if (null != node.RightChildren)
                 {
                     Assert.IsTrue(expectedNodesRightChild.Contains(
-                        node.RightChildren.ID.ToString((IFormatProvider)null)));
+                        node.RightChildren.ID.ToString((IFormatProvider) null)));
                     rightchildindex++;
                 }
                 index++;
             }
-            Assert.AreEqual(expectedEdgeCount, edges.Count.ToString((IFormatProvider)null));
+            Assert.AreEqual(expectedEdgeCount, edges.Count.ToString((IFormatProvider) null));
         }
 
         /// <summary>
-        /// Get Hierarchical Clustering using kmerdistancematrix\kimura 
-        /// distance matrix and hierarchical method name.
+        ///     Get Hierarchical Clustering using kmerdistancematrix\kimura
+        ///     distance matrix and hierarchical method name.
         /// </summary>
         /// <param name="distanceMatrix">distance matrix.</param>
         /// <param name="hierarchicalClusteringMethodName">Hierarchical clustering method name.</param>
         /// <returns>Hierarchical clustering</returns>
-        static IHierarchicalClustering GetHierarchicalClustering(IDistanceMatrix distanceMatrix,
-             UpdateDistanceMethodsTypes hierarchicalClusteringMethodName)
+        private static IHierarchicalClustering GetHierarchicalClustering(IDistanceMatrix distanceMatrix,
+                                                                         UpdateDistanceMethodsTypes
+                                                                             hierarchicalClusteringMethodName)
         {
             // Hierarchical clustering
             IHierarchicalClustering hierarcicalClustering =
@@ -3660,12 +3554,12 @@ namespace Bio.TestAutomation.Pamsam
         }
 
         /// <summary>
-        /// Get Hierarchical Clustering using kmerdistancematrix\kimura distance matrix.
+        ///     Get Hierarchical Clustering using kmerdistancematrix\kimura distance matrix.
         /// </summary>
         /// <param name="distanceMatrix"></param>
         /// <param name="hierarchicalClusteringMethodName"></param>
         /// <returns>Hierarchical clustering</returns>
-        static IHierarchicalClustering GetHierarchicalClustering(IDistanceMatrix distanceMatrix)
+        private static IHierarchicalClustering GetHierarchicalClustering(IDistanceMatrix distanceMatrix)
         {
             // Hierarchical clustering with default distance method name
             IHierarchicalClustering hierarcicalClustering =
@@ -3676,49 +3570,48 @@ namespace Bio.TestAutomation.Pamsam
         }
 
         /// <summary>
-        /// Get distance matrix with default distance function name
+        ///     Get distance matrix with default distance function name
         /// </summary>
         /// <param name="kmrlength">kmr length</param>
         /// <param name="moleculeType">Molecule Type</param>
         /// <returns>Distance matrix</returns>
-        IDistanceMatrix GetKmerDistanceMatrix(int kmrlength)
+        private IDistanceMatrix GetKmerDistanceMatrix(int kmrlength)
         {
-
             // Generate DistanceMatrix
-            KmerDistanceMatrixGenerator kmerDistanceMatrixGenerator =
+            var kmerDistanceMatrixGenerator =
                 new KmerDistanceMatrixGenerator(lstSequences, kmrlength, lstSequences[0].Alphabet);
 
             return kmerDistanceMatrixGenerator.DistanceMatrix;
         }
 
         /// <summary>
-        /// Get distance matrix with distance function name
+        ///     Get distance matrix with distance function name
         /// </summary>
         /// <param name="kmrlength">kmr length</param>
         /// <param name="moleculeType">Molecule Type</param>
         /// <param name="distanceFunctionName">distance matrix function name.</param>
         /// <returns>Distance matrix</returns>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "moleculeType")]
-        IDistanceMatrix GetKmerDistanceMatrix(int kmrlength, MoleculeType moleculeType,
-            DistanceFunctionTypes distanceFunctionName)
+        [SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "moleculeType")]
+        private IDistanceMatrix GetKmerDistanceMatrix(int kmrlength, MoleculeType moleculeType,
+                                                      DistanceFunctionTypes distanceFunctionName)
         {
             // Generate DistanceMatrix
-            KmerDistanceMatrixGenerator kmerDistanceMatrixGenerator =
+            var kmerDistanceMatrixGenerator =
                 new KmerDistanceMatrixGenerator(lstSequences, kmrlength,
-                    lstSequences[0].Alphabet, distanceFunctionName);
+                                                lstSequences[0].Alphabet, distanceFunctionName);
 
             return kmerDistanceMatrixGenerator.DistanceMatrix;
         }
 
         /// <summary>
-        /// Get kimura distanc matrix using stage1 aligned sequences
+        ///     Get kimura distanc matrix using stage1 aligned sequences
         /// </summary>
         /// <param name="alignedSequences">aligned Sequences of stage 1</param>
         /// <returns>Distance matrix</returns>
-        static IDistanceMatrix GetKimuraDistanceMatrix(List<ISequence> alignedSequences)
+        private static IDistanceMatrix GetKimuraDistanceMatrix(List<ISequence> alignedSequences)
         {
             // Generate DistanceMatrix from Multiple Sequence Alignment
-            KimuraDistanceMatrixGenerator kimuraDistanceMatrixGenerator =
+            var kimuraDistanceMatrixGenerator =
                 new KimuraDistanceMatrixGenerator();
             kimuraDistanceMatrixGenerator.GenerateDistanceMatrix(alignedSequences);
 
@@ -3726,34 +3619,35 @@ namespace Bio.TestAutomation.Pamsam
         }
 
         /// <summary>
-        /// Get the aligned sequence for stage1
+        ///     Get the aligned sequence for stage1
         /// </summary>
         /// <param name="moleculeType">Molecule Type</param>
         /// <returns>List of sequences</returns>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "moleculeType")]
-        List<ISequence> GetStage1AlignedSequence(MoleculeType moleculeType)
+        [SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "moleculeType")]
+        private List<ISequence> GetStage1AlignedSequence(MoleculeType moleculeType)
         {
             // MSA aligned sequences.
-            PAMSAMMultipleSequenceAligner msa =
+            var msa =
                 new PAMSAMMultipleSequenceAligner(lstSequences,
-                    kmerLength, DistanceFunctionTypes.EuclideanDistance,
-                    UpdateDistanceMethodsTypes.Average,
-                    ProfileAlignerNames.NeedlemanWunschProfileAligner,
-                    ProfileScoreFunctionNames.InnerProduct, similarityMatrix, gapOpenPenalty,
-                    gapExtendPenalty, 2, 2);
+                                                  kmerLength, DistanceFunctionTypes.EuclideanDistance,
+                                                  UpdateDistanceMethodsTypes.Average,
+                                                  ProfileAlignerNames.NeedlemanWunschProfileAligner,
+                                                  ProfileScoreFunctionNames.InnerProduct, similarityMatrix,
+                                                  gapOpenPenalty,
+                                                  gapExtendPenalty, 2, 2);
 
             return msa.AlignedSequencesA;
         }
 
         /// <summary>
-        /// Validate the binary tree leaves, root using unaligned sequences.
+        ///     Validate the binary tree leaves, root using unaligned sequences.
         /// </summary>
         /// <param name="initNodeName">Init Node name</param>
         /// <param name="nodeName">xml node name</param>
         /// <param name="kmrLength">kmer length to generate distance matrix</param>
         /// <param name="moleculeType">molecule type of sequences</param>
-        void ValidateBinaryTreeNodesandEdges(string initNodeName, string nodeName,
-            int kmrLength, MoleculeType moleculeType)
+        private void ValidateBinaryTreeNodesandEdges(string initNodeName, string nodeName,
+                                                     int kmrLength, MoleculeType moleculeType)
         {
             Initialize(initNodeName, Constants.ExpectedScoreNode);
             IDistanceMatrix matrix = GetKmerDistanceMatrix(kmrLength);
@@ -3762,26 +3656,22 @@ namespace Bio.TestAutomation.Pamsam
 
             ValidateBinaryTree(binaryTree, nodeName);
 
-            Console.WriteLine(String.Format((IFormatProvider)null,
-                           @"PamsamP1Test:: Validation of binary tree nodes and edges completed successfully for 
+            ApplicationLog.WriteLine(String.Format(null,
+                                                   @"PamsamP1Test:: Validation of binary tree nodes and edges completed successfully for 
                             {0} moleculetype",
-                           moleculeType.ToString()));
-            ApplicationLog.WriteLine(String.Format((IFormatProvider)null,
-                           @"PamsamP1Test:: Validation of binary tree nodes and edges completed successfully for 
-                            {0} moleculetype",
-                           moleculeType.ToString()));
+                                                   moleculeType.ToString()));
         }
 
         /// <summary>
-        /// Validate the binary sub tree by cutting the tree and validating nodes 
-        /// of sub tree using ExtractSubTreeNodes()
+        ///     Validate the binary sub tree by cutting the tree and validating nodes
+        ///     of sub tree using ExtractSubTreeNodes()
         /// </summary>
         /// <param name="initNodeName">xml node name.</param>
         /// <param name="nodeName">binary tree node name</param>
         /// <param name="edgeIndex">edge index to cut the tree</param>
         /// <param name="moleculeType">molecule type</param>
-        void ValidateBinaryTreeWithExtractSubTreeNodesAndCutTree(string initNodeName, string nodeName,
-            int edgeIndex, MoleculeType moleculeType)
+        private void ValidateBinaryTreeWithExtractSubTreeNodesAndCutTree(string initNodeName, string nodeName,
+                                                                         int edgeIndex, MoleculeType moleculeType)
         {
             Initialize(initNodeName, Constants.ExpectedScoreNode);
             IDistanceMatrix matrix = GetKmerDistanceMatrix(kmerLength);
@@ -3796,87 +3686,79 @@ namespace Bio.TestAutomation.Pamsam
 
             // Validate the Binary Tree
             string expectedNodesLeftChild = utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.NodesLeftChild);
+                                                                            Constants.NodesLeftChild);
             string expectedNodesRightChild = utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.NodesRightChild);
+                                                                             Constants.NodesRightChild);
             string expectednode = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.Nodes);
 
             int index = 0;
 
             foreach (BinaryGuideTreeNode node in nodes)
             {
-                Console.WriteLine("Nodes :{0}\n", node.ID.ToString((IFormatProvider)null));
-                Assert.IsTrue(expectednode.Contains(node.ID.ToString((IFormatProvider)null)));
+                Assert.IsTrue(expectednode.Contains(node.ID.ToString((IFormatProvider) null)));
                 if (null != node.LeftChildren)
                 {
-                    Console.WriteLine("Left Nodes :{0}\n", node.LeftChildren.ID.ToString((IFormatProvider)null));
-                    Assert.IsTrue(expectedNodesLeftChild.Contains(node.LeftChildren.ID.ToString((IFormatProvider)null)));
+                    Assert.IsTrue(expectedNodesLeftChild.Contains(node.LeftChildren.ID.ToString((IFormatProvider) null)));
                 }
                 if (null != node.RightChildren)
                 {
-                    Console.WriteLine("Right Nodes :{0}\n", node.RightChildren.ID.ToString((IFormatProvider)null));
-                    Assert.IsTrue(expectedNodesRightChild.Contains(node.RightChildren.ID.ToString((IFormatProvider)null)));
+                    Assert.IsTrue(
+                        expectedNodesRightChild.Contains(node.RightChildren.ID.ToString((IFormatProvider) null)));
                 }
                 index++;
             }
 
-            Console.WriteLine(String.Format((IFormatProvider)null,
-                            @"PamsamP1Test:: Validate Binary tree by cutting tree at an edge index {0}.
-                            Validation of subtree nodes and edges completed successfully for 
-                            {1} moleculetype",
-                                             edgeIndex,
-                                             moleculeType.ToString()));
-            ApplicationLog.WriteLine(String.Format((IFormatProvider)null,
-                 @"PamsamP1Test:: Validate Binary tree by cutting tree at an edge index {0}.
+            ApplicationLog.WriteLine(String.Format(null,
+                                                   @"PamsamP1Test:: Validate Binary tree by cutting tree at an edge index {0}.
                    Validation of subtree nodes and edges completed successfully for {1} moleculetype",
-                                                                                                     edgeIndex,
-                                                                                                     moleculeType.ToString()));
+                                                   edgeIndex,
+                                                   moleculeType.ToString()));
         }
 
         /// <summary>
-        /// Validate the leaves and root of binary tree
+        ///     Validate the leaves and root of binary tree
         /// </summary>
         /// <param name="binaryTree">binary tree object.</param>
         /// <param name="nodeName">xml node name.</param>
-        void ValidateBinaryTree(BinaryGuideTree binaryTree, string nodeName)
+        private void ValidateBinaryTree(BinaryGuideTree binaryTree, string nodeName)
         {
             string rootId = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.RootId);
             string leavesCount = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.LeavesCount);
             string expectedNodesLeftChild = utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.NodesLeftChild);
+                                                                            Constants.NodesLeftChild);
             string expectedNodesRightChild = utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.NodesRightChild);
+                                                                             Constants.NodesRightChild);
             string expectednode = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.Nodes);
             string[] expectedNodes = expectednode.Split(',');
 
 
-            Assert.AreEqual(rootId, binaryTree.Root.ID.ToString((IFormatProvider)null));
-            Assert.AreEqual(leavesCount, binaryTree.NumberOfLeaves.ToString((IFormatProvider)null));
+            Assert.AreEqual(rootId, binaryTree.Root.ID.ToString((IFormatProvider) null));
+            Assert.AreEqual(leavesCount, binaryTree.NumberOfLeaves.ToString((IFormatProvider) null));
             int index = 0;
             foreach (BinaryGuideTreeNode node in binaryTree.Nodes)
             {
-                Assert.AreEqual(expectedNodes[index], node.ID.ToString((IFormatProvider)null));
+                Assert.AreEqual(expectedNodes[index], node.ID.ToString((IFormatProvider) null));
                 if (node.LeftChildren != null)
                 {
-                    Console.WriteLine("Nodes:{0}", node.LeftChildren.ID.ToString((IFormatProvider)null));
-                    Assert.IsTrue(expectedNodesLeftChild.Contains(node.LeftChildren.ID.ToString((IFormatProvider)null)));
+                    Assert.IsTrue(expectedNodesLeftChild.Contains(node.LeftChildren.ID.ToString((IFormatProvider) null)));
                 }
                 if (node.RightChildren != null)
                 {
-                    Assert.IsTrue(expectedNodesRightChild.Contains(node.RightChildren.ID.ToString((IFormatProvider)null)));
+                    Assert.IsTrue(
+                        expectedNodesRightChild.Contains(node.RightChildren.ID.ToString((IFormatProvider) null)));
                 }
                 index++;
             }
         }
 
         /// <summary>
-        /// Validate the binary tree leaves, root using unaligned sequences.
+        ///     Validate the binary tree leaves, root using unaligned sequences.
         /// </summary>
         /// <param name="nodeName">xml node name</param>
         /// <param name="kmrLength">kmer length to generate distance matrix</param>
         /// <param name="moleculeType">molecule type of sequences</param>
-        void ValidateBinaryTreeFindSmallestTreeDifference(string nodeName, int kmrLength,
-            MoleculeType moleculeType)
+        private void ValidateBinaryTreeFindSmallestTreeDifference(string nodeName, int kmrLength,
+                                                                  MoleculeType moleculeType)
         {
             Initialize(Constants.MuscleDnaSequenceNode, Constants.ExpectedScoreNode);
             IDistanceMatrix matrix = GetKmerDistanceMatrix(kmrLength);
@@ -3887,32 +3769,28 @@ namespace Bio.TestAutomation.Pamsam
 
             // Validate the node
             string expectedNodesLeftChild = utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.NodesLeftChild);
+                                                                            Constants.NodesLeftChild);
             string expectedNodesRightChild = utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.NodesRightChild);
+                                                                             Constants.NodesRightChild);
             string expectednode = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.Nodes);
 
-            Assert.AreEqual(node.ID.ToString((IFormatProvider)null), expectednode);
-            Assert.AreEqual(node.LeftChildren.ID.ToString((IFormatProvider)null), expectedNodesLeftChild);
-            Assert.AreEqual(node.RightChildren.ID.ToString((IFormatProvider)null), expectedNodesRightChild);
+            Assert.AreEqual(node.ID.ToString((IFormatProvider) null), expectednode);
+            Assert.AreEqual(node.LeftChildren.ID.ToString((IFormatProvider) null), expectedNodesLeftChild);
+            Assert.AreEqual(node.RightChildren.ID.ToString((IFormatProvider) null), expectedNodesRightChild);
 
-            Console.WriteLine(String.Format((IFormatProvider)null,
-                 @"PamsamP1Test:: Find smallest nodes between two subtrees 
+            ApplicationLog.WriteLine(String.Format(null,
+                                                   @"PamsamP1Test:: Find smallest nodes between two subtrees 
                    and Validation of smallest node completed successfully for moleculetype {0}",
-                                                                                               moleculeType.ToString()));
-            ApplicationLog.WriteLine(String.Format((IFormatProvider)null,
-                   @"PamsamP1Test:: Find smallest nodes between two subtrees 
-                   and Validation of smallest node completed successfully for moleculetype {0}",
-                                                                                               moleculeType.ToString()));
+                                                   moleculeType.ToString()));
         }
 
         /// <summary>
-        /// Compare the two tree and validate the nodes whcih needs realignment.
+        ///     Compare the two tree and validate the nodes whcih needs realignment.
         /// </summary>
         /// <param name="nodeName">xml node name.</param>
         /// <param name="kmrLength">kmr length to generate distance matrix.</param>
         /// <param name="moleculeType">Molecule Type</param>
-        void ValidateBinaryTreeCompareTrees(string nodeName, int kmrLength, MoleculeType moleculeType)
+        private void ValidateBinaryTreeCompareTrees(string nodeName, int kmrLength, MoleculeType moleculeType)
         {
             BinaryGuideTree stage1BinaryTree = GetStage1BinaryTree(kmrLength, moleculeType);
             BinaryGuideTree stage2BinaryTree = GetStage2BinaryTree(moleculeType);
@@ -3925,28 +3803,24 @@ namespace Bio.TestAutomation.Pamsam
             {
                 if (node.NeedReAlignment)
                 {
-                    Assert.AreEqual(node.ID.ToString((IFormatProvider)null), expectedNodes[index]);
+                    Assert.AreEqual(node.ID.ToString((IFormatProvider) null), expectedNodes[index]);
                 }
                 index++;
             }
 
-            Console.WriteLine(String.Format((IFormatProvider)null,
-                  @"PamsamP1Test:: Comparison and Validation of stage1 and stage2 binary tree
+            ApplicationLog.WriteLine(String.Format(null,
+                                                   @"PamsamP1Test:: Comparison and Validation of stage1 and stage2 binary tree
                    completed successfully for moleculetype {0}",
-                                                               moleculeType.ToString()));
-            ApplicationLog.WriteLine(String.Format((IFormatProvider)null,
-                  @"PamsamP1Test:: Comparison and Validation of stage1 and stage2 binary tree
-                   completed successfully for moleculetype {0}",
-                                                               moleculeType.ToString()));
+                                                   moleculeType.ToString()));
         }
 
         /// <summary>
-        /// Get stage 1 binary tree using kmerdistance matrix and hierarchical clustering.
+        ///     Get stage 1 binary tree using kmerdistance matrix and hierarchical clustering.
         /// </summary>
         /// <param name="kmrLength">kmr length to generate distance matrix.</param>
         /// <param name="moleculeType">Molecule Type.</param>
         /// <returns>returns stage1 binary tree</returns>
-        BinaryGuideTree GetStage1BinaryTree(int kmrLength, MoleculeType moleculeType)
+        private BinaryGuideTree GetStage1BinaryTree(int kmrLength, MoleculeType moleculeType)
         {
             switch (moleculeType)
             {
@@ -3968,11 +3842,11 @@ namespace Bio.TestAutomation.Pamsam
         }
 
         /// <summary>
-        /// Get Stage2 binary tree using kimura distance matrix and hierarchical clustering.
+        ///     Get Stage2 binary tree using kimura distance matrix and hierarchical clustering.
         /// </summary>
         /// <param name="moleculeType">Molecule Type.</param>
         /// <returns>returns stage2 binary tree</returns>
-        BinaryGuideTree GetStage2BinaryTree(MoleculeType moleculeType)
+        private BinaryGuideTree GetStage2BinaryTree(MoleculeType moleculeType)
         {
             switch (moleculeType)
             {
@@ -3995,25 +3869,25 @@ namespace Bio.TestAutomation.Pamsam
         }
 
         /// <summary>
-        /// Get the binary tree object using hierarchical clustering object
+        ///     Get the binary tree object using hierarchical clustering object
         /// </summary>
         /// <param name="hierarchicalClustering">hierarchical Clustering</param>
         /// <returns></returns>
-        static BinaryGuideTree GetBinaryTree(IHierarchicalClustering hierarchicalClustering)
+        private static BinaryGuideTree GetBinaryTree(IHierarchicalClustering hierarchicalClustering)
         {
             // Generate Guide Tree
-            BinaryGuideTree binaryGuideTree =
+            var binaryGuideTree =
                 new BinaryGuideTree(hierarchicalClustering);
 
             return binaryGuideTree;
         }
 
         /// <summary>
-        /// Validate Progressive Alignment of Stage 1
+        ///     Validate Progressive Alignment of Stage 1
         /// </summary>
         /// <param name="nodeName">xml node name.</param>
         /// <param name="moleculeType">Molecule Type.</param>
-        void ValidateProgressiveAlignmentStage1(string nodeName, MoleculeType moleculeType)
+        private void ValidateProgressiveAlignmentStage1(string nodeName, MoleculeType moleculeType)
         {
             Initialize(nodeName, Constants.ExpectedScoreNode);
             InitializeStage1Variables(nodeName);
@@ -4027,37 +3901,32 @@ namespace Bio.TestAutomation.Pamsam
             string expectedSeqString = string.Empty;
             foreach (ISequence seq in expectedSequences)
             {
-                expectedSeqString += new string(seq.Select(a => (char)a).ToArray()) + ",";
+                expectedSeqString += new string(seq.Select(a => (char) a).ToArray()) + ",";
             }
 
             // Validate expected sequence
             foreach (ISequence seq in alignedSequences)
             {
-                Console.WriteLine("Sequence:{0}\n", new string(seq.Select(a => (char)a).ToArray()));
-                Assert.IsTrue(expectedSeqString.Contains(new string(seq.Select(a => (char)a).ToArray())));
-
+                Assert.IsTrue(expectedSeqString.Contains(new string(seq.Select(a => (char) a).ToArray())));
             }
 
-            Console.WriteLine(String.Format((IFormatProvider)null,
-                  @"PamsamP1Test:: Validation and generation of stage1 aligned sequences
+            ApplicationLog.WriteLine(String.Format(null,
+                                                   @"PamsamP1Test:: Validation and generation of stage1 aligned sequences
                    using progressivealignment completed successfully for moleculetype {0}",
-                                                                                          moleculeType.ToString()));
-            ApplicationLog.WriteLine(String.Format((IFormatProvider)null,
-                  @"PamsamP1Test:: Validation and generation of stage1 aligned sequences
-                   using progressivealignment completed successfully for moleculetype {0}",
-                                                                                          moleculeType.ToString()));
+                                                   moleculeType.ToString()));
         }
 
         /// <summary>
-        /// Get the progressive aligned sequences using input sequences and its binary tree
+        ///     Get the progressive aligned sequences using input sequences and its binary tree
         /// </summary>
         /// <param name="sequences">input sequences</param>
         /// <param name="binaryGuidTree">binary tree</param>
         /// <param name="moleculeType">Molecule type</param>
         /// <returns>returns the list of aligned sequences</returns>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "moleculeType")]
-        List<ISequence> GetProgressiveAlignerAlignedSequences(List<ISequence> sequences,
-            BinaryGuideTree binaryGuidTree, MoleculeType moleculeType)
+        [SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "moleculeType")]
+        private List<ISequence> GetProgressiveAlignerAlignedSequences(List<ISequence> sequences,
+                                                                      BinaryGuideTree binaryGuidTree,
+                                                                      MoleculeType moleculeType)
         {
             // Progressive Alignment
             IProgressiveAligner progressiveAligner = new ProgressiveAligner(profileAligner);
@@ -4067,12 +3936,12 @@ namespace Bio.TestAutomation.Pamsam
         }
 
         /// <summary>
-        /// Validate the Profile Aligner GenerateEString() method using profiles of sub trees.
+        ///     Validate the Profile Aligner GenerateEString() method using profiles of sub trees.
         /// </summary>
         /// <param name="nodeName">xml node name</param>
         /// <param name="edgeIndex">Edge index to cut tree.</param>
         /// <param name="moleculeType">Molecule Type</param>
-        void ValidateProfileAlignerGenerateEString(string nodeName, MoleculeType moleculeType, int edgeIndex)
+        private void ValidateProfileAlignerGenerateEString(string nodeName, MoleculeType moleculeType, int edgeIndex)
         {
             switch (moleculeType)
             {
@@ -4088,7 +3957,8 @@ namespace Bio.TestAutomation.Pamsam
                     Initialize(Constants.MuscleRnaSequenceNode, Constants.ExpectedScoreNode);
                     InitializeStage2Variables(Constants.MuscleRnaSequenceNode);
                     break;
-            };
+            }
+            ;
 
             // Get Stage2 Binary Tree
             List<ISequence> stage1AlignedSequences = GetStage1AlignedSequence(moleculeType);
@@ -4108,30 +3978,24 @@ namespace Bio.TestAutomation.Pamsam
 
             for (int index = 0; index < eStringSubtreeEdge.Count; index++)
             {
-                //Assert.IsTrue(expectedTreeEdges.Contains(eStringSubtreeEdge[index].ToString((IFormatProvider)null)));
-                Console.WriteLine("eStringEdges : {0}\n", eStringSubtreeEdge[index].ToString((IFormatProvider)null));
-                Assert.IsTrue(expectedTreeEdges.Contains(eStringSubtreeEdge[index].ToString((IFormatProvider)null)));
+                Assert.IsTrue(expectedTreeEdges.Contains(eStringSubtreeEdge[index].ToString((IFormatProvider) null)));
             }
 
-            Assert.IsTrue(expectedTreeRoot.Contains(eStringSubtreeRoot[0].ToString((IFormatProvider)null)));
+            Assert.IsTrue(expectedTreeRoot.Contains(eStringSubtreeRoot[0].ToString((IFormatProvider) null)));
 
-            Console.WriteLine(String.Format((IFormatProvider)null,
-                   @"PamsamP1Test:: Validation and generation of subtrees roots and edges
-                     using profile aligner GenerateEString() completed successfully for moleculetype{0}",
-                                                                                                        moleculeType.ToString()));
-            ApplicationLog.WriteLine(String.Format((IFormatProvider)null,
-                  @"PamsamP1Test:: Validation and generation of subtrees roots and edges
+            ApplicationLog.WriteLine(String.Format(null,
+                                                   @"PamsamP1Test:: Validation and generation of subtrees roots and edges
                    using profile aligner GenerateEString() completed successfully for moleculetype{0}",
-                                                                                                      moleculeType.ToString()));
+                                                   moleculeType.ToString()));
         }
 
         /// <summary>
-        /// Validate the Profile Aligner GenerateEString() method using profiles of sub trees.
+        ///     Validate the Profile Aligner GenerateEString() method using profiles of sub trees.
         /// </summary>
         /// <param name="nodeName">xml node name</param>
         /// <param name="moleculeType">Molecule Type</param>
         /// <param name="edgeIndex">Edge index to cut tree.</param>
-        void ValidateProfileExtraction(string nodeName, MoleculeType moleculeType, int edgeIndex)
+        private void ValidateProfileExtraction(string nodeName, MoleculeType moleculeType, int edgeIndex)
         {
             switch (moleculeType)
             {
@@ -4159,31 +4023,30 @@ namespace Bio.TestAutomation.Pamsam
             List<int>[] removedPositions = null;
             IProfileAlignment[] separatedProfileAlignments =
                 ProfileAlignment.ProfileExtraction(stage1AlignedSequences, leafNodeIndices[0],
-                leafNodeIndices[1], out removedPositions);
+                                                   leafNodeIndices[1], out removedPositions);
 
             // Validate the profiles.
             string expectedColSize = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.ColumnSize);
             string expectedProfileCount = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.ProfileMatrix);
 
-            Assert.AreEqual(expectedColSize, separatedProfileAlignments[0].ProfilesMatrix.ColumnSize.ToString((IFormatProvider)null));
-            Assert.IsTrue(expectedProfileCount.Contains(separatedProfileAlignments[0].ProfilesMatrix.ProfilesMatrix.Count.ToString((IFormatProvider)null)));
+            Assert.AreEqual(expectedColSize,
+                            separatedProfileAlignments[0].ProfilesMatrix.ColumnSize.ToString((IFormatProvider) null));
+            Assert.IsTrue(
+                expectedProfileCount.Contains(
+                    separatedProfileAlignments[0].ProfilesMatrix.ProfilesMatrix.Count.ToString((IFormatProvider) null)));
 
-            Console.WriteLine(String.Format((IFormatProvider)null,
-               @"PamsamP1Test:: Validation and generation of stage1 aligned sequences subtrees profile
+            ApplicationLog.WriteLine(String.Format(null,
+                                                   @"PamsamP1Test:: Validation and generation of stage1 aligned sequences subtrees profile
                             using profile aligner ProfileExtraction() completed successfully for moleculetype{0}",
-                                                                                                                 moleculeType.ToString()));
-            ApplicationLog.WriteLine(String.Format((IFormatProvider)null,
-                  @"PamsamP1Test:: Validation and generation of stage1 aligned sequences subtrees profile
-                            using profile aligner ProfileExtraction() completed successfully for moleculetype{0}",
-                                                                                                                 moleculeType.ToString()));
+                                                   moleculeType.ToString()));
         }
 
         /// <summary>
-        /// Validate the Profile Aligner GenerateEString() method using profiles of sub trees.
+        ///     Validate the Profile Aligner GenerateEString() method using profiles of sub trees.
         /// </summary>
         /// <param name="nodeName">xml node name</param>
         /// <param name="moleculeType">Molecule Type</param>
-        void ValidateGenerateProfileAlignmentWithSequences(string nodeName, MoleculeType moleculeType)
+        private void ValidateGenerateProfileAlignmentWithSequences(string nodeName, MoleculeType moleculeType)
         {
             switch (moleculeType)
             {
@@ -4205,27 +4068,23 @@ namespace Bio.TestAutomation.Pamsam
             string expectedColSize = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.ColumnSize);
             string expectedRowSize = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.RowSize);
 
-            Assert.AreEqual(profile.ProfilesMatrix.ColumnSize.ToString((IFormatProvider)null), expectedColSize);
-            Assert.AreEqual(profile.ProfilesMatrix.RowSize.ToString((IFormatProvider)null), expectedRowSize);
+            Assert.AreEqual(profile.ProfilesMatrix.ColumnSize.ToString((IFormatProvider) null), expectedColSize);
+            Assert.AreEqual(profile.ProfilesMatrix.RowSize.ToString((IFormatProvider) null), expectedRowSize);
 
-            Console.WriteLine(String.Format((IFormatProvider)null,
-                @"PamsamP1Test:: Validation and generation of stage1 aligned sequences profile
+            ApplicationLog.WriteLine(String.Format(null,
+                                                   @"PamsamP1Test:: Validation and generation of stage1 aligned sequences profile
                             using profile aligner GenerateProfileAlignment() completed successfully for moleculetype{0}",
-                                                                                                                        moleculeType.ToString()));
-            ApplicationLog.WriteLine(String.Format((IFormatProvider)null,
-                  @"PamsamP1Test:: Validation and generation of stage1 aligned sequences profile
-                            using profile aligner GenerateProfileAlignment() completed successfully for moleculetype{0}",
-                                                                                                                        moleculeType.ToString()));
+                                                   moleculeType.ToString()));
         }
 
         /// <summary>
-        /// Validate the Profile Aligner GenerateEString() method using profiles of sub trees.
+        ///     Validate the Profile Aligner GenerateEString() method using profiles of sub trees.
         /// </summary>
         /// <param name="nodeName">xml node name</param>
         /// <param name="moleculeType">Molecule Type</param>
         /// <param name="edgeIndex">Edge index to cut tree.</param>
-        void ValidateGenerateProfileAlignmentWithProfiles(string nodeName,
-            MoleculeType moleculeType, int edgeIndex)
+        private void ValidateGenerateProfileAlignmentWithProfiles(string nodeName,
+                                                                  MoleculeType moleculeType, int edgeIndex)
         {
             switch (moleculeType)
             {
@@ -4241,7 +4100,8 @@ namespace Bio.TestAutomation.Pamsam
                     Initialize(Constants.MuscleRnaSequenceNode, Constants.ExpectedScoreNode);
                     InitializeStage2Variables(Constants.MuscleRnaSequenceNode);
                     break;
-            };
+            }
+            ;
             BinaryGuideTree binaryTree = GetStage2BinaryTree(moleculeType);
 
             // Cut the tree
@@ -4255,33 +4115,29 @@ namespace Bio.TestAutomation.Pamsam
             // Now again get combined profile
             IProfileAlignment profile =
                 ProfileAlignment.GenerateProfileAlignment(separatedProfileAlignments[0],
-                separatedProfileAlignments[0]);
+                                                          separatedProfileAlignments[0]);
 
             // Validate the profile alignment
             string expectedColSize = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.ColumnSize);
             string expectedRowSize = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.RowSize);
 
-            Assert.AreEqual(profile.ProfilesMatrix.ColumnSize.ToString((IFormatProvider)null), expectedColSize);
-            Assert.AreEqual(profile.ProfilesMatrix.RowSize.ToString((IFormatProvider)null), expectedRowSize);
+            Assert.AreEqual(profile.ProfilesMatrix.ColumnSize.ToString((IFormatProvider) null), expectedColSize);
+            Assert.AreEqual(profile.ProfilesMatrix.RowSize.ToString((IFormatProvider) null), expectedRowSize);
 
-            Console.WriteLine(String.Format((IFormatProvider)null,
-                            @"PamsamP1Test:: Validation and generation of subtrees profiles
+            ApplicationLog.WriteLine(String.Format(null,
+                                                   @"PamsamP1Test:: Validation and generation of subtrees profiles
                             using profile aligner GenerateProfileAlignment() completed successfully for moleculetype{0}",
-                                                                                                                        moleculeType.ToString()));
-            ApplicationLog.WriteLine(String.Format((IFormatProvider)null,
-                  @"PamsamP1Test:: Validation and generation of subtrees profiles
-                            using profile aligner GenerateProfileAlignment() completed successfully for moleculetype{0}",
-                                                                                                                        moleculeType.ToString()));
+                                                   moleculeType.ToString()));
         }
 
         /// <summary>
-        /// Validate the Profile Aligner GenerateSequenceString() method using profiles of sub trees.
+        ///     Validate the Profile Aligner GenerateSequenceString() method using profiles of sub trees.
         /// </summary>
         /// <param name="nodeName">xml node name</param>
         /// <param name="moleculeType">Molecule Type</param>
         /// <param name="edgeIndex">Edge index to cut tree.</param>
-        void ValidateProfileAlignerGenerateSequenceString(string nodeName,
-            MoleculeType moleculeType, int edgeIndex)
+        private void ValidateProfileAlignerGenerateSequenceString(string nodeName,
+                                                                  MoleculeType moleculeType, int edgeIndex)
         {
             switch (moleculeType)
             {
@@ -4297,7 +4153,8 @@ namespace Bio.TestAutomation.Pamsam
                     Initialize(Constants.MuscleRnaSequenceNode, Constants.ExpectedScoreNode);
                     InitializeStage2Variables(Constants.MuscleRnaSequenceNode);
                     break;
-            };
+            }
+            ;
 
             // Get Stage2 Binary Tree
             List<ISequence> stage1AlignedSequences = GetStage1AlignedSequence(moleculeType);
@@ -4311,31 +4168,26 @@ namespace Bio.TestAutomation.Pamsam
             List<int> eStringSubtreeEdge = profileAligner.GenerateEString(profileAligner.AlignedA);
 
             string expectedSequence = utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.GenerateSequenceString);
+                                                                      Constants.GenerateSequenceString);
 
             ISequence sequence = profileAligner.GenerateSequenceFromEString(
                 eStringSubtreeEdge, stage1AlignedSequences[0]);
 
-            Console.WriteLine("Stage1 Sequence : {0}", new string(sequence.Select(a => (char)a).ToArray()));
-            Assert.IsTrue(expectedSequence.Contains(new string(sequence.Select(a => (char)a).ToArray())));
+            Assert.IsTrue(expectedSequence.Contains(new string(sequence.Select(a => (char) a).ToArray())));
 
-            Console.WriteLine(String.Format((IFormatProvider)null,
-                              @"PamsamP1Test:: Validation and generation of subtrees sequences
+            ApplicationLog.WriteLine(String.Format(null,
+                                                   @"PamsamP1Test:: Validation and generation of subtrees sequences
                               using profile aligner GenerateSequenceFromEString() completed successfully for moleculetype{0}",
-                                                                                                                             moleculeType.ToString()));
-            ApplicationLog.WriteLine(String.Format((IFormatProvider)null,
-                              @"PamsamP1Test:: Validation and generation of subtrees sequences
-                              using profile aligner GenerateSequenceFromEString() completed successfully for moleculetype{0}",
-                                                                                                                             moleculeType.ToString()));
+                                                   moleculeType.ToString()));
         }
 
         /// <summary>
-        /// Get the profiles of two sub tree by cutting the tree at an edge
+        ///     Get the profiles of two sub tree by cutting the tree at an edge
         /// </summary>
         /// <param name="edgeIndex">edge index to cut the tree</param>
         /// <param name="binaryTree">binary tree object</param>
         /// <param name="sequences">list of sequences</param>
-        void GetAlignedProfiles(int edgeIndex, BinaryGuideTree binaryTree, List<ISequence> sequences)
+        private void GetAlignedProfiles(int edgeIndex, BinaryGuideTree binaryTree, List<ISequence> sequences)
         {
             // Cut Tree at an edge and get sequences.
             List<int>[] leafNodeIndices = binaryTree.SeparateSequencesByCuttingTree(edgeIndex);
@@ -4348,11 +4200,11 @@ namespace Bio.TestAutomation.Pamsam
         }
 
         /// <summary>
-        /// Validate the kimura distance matrix using stage 1 aligned sequences.
+        ///     Validate the kimura distance matrix using stage 1 aligned sequences.
         /// </summary>
         /// <param name="nodeName">xml node name.</param>
         /// <param name="moleculeType">Molecule Type.</param>
-        void ValidateKimuraDistanceMatrix(string nodeName, MoleculeType moleculeType)
+        private void ValidateKimuraDistanceMatrix(string nodeName, MoleculeType moleculeType)
         {
             switch (moleculeType)
             {
@@ -4371,31 +4223,27 @@ namespace Bio.TestAutomation.Pamsam
             IDistanceMatrix matrix = GetKimuraDistanceMatrix(stage1AlignedSequences);
             ValidateDistanceMatrix(nodeName, matrix);
 
-            Console.WriteLine(String.Format((IFormatProvider)null,
-              @"PamsamP1Test:: kimura distance matrix generation and validation completed success for {0} 
-                  moleculetype with default params",
-                                                   moleculeType.ToString()));
-            ApplicationLog.WriteLine(String.Format((IFormatProvider)null,
-                  @"PamsamP1Test:: kimura distance matrix generation and validation completed success for {0} 
+            ApplicationLog.WriteLine(String.Format(null,
+                                                   @"PamsamP1Test:: kimura distance matrix generation and validation completed success for {0} 
                     moleculetype with default params",
-                                                     moleculeType.ToString()));
+                                                   moleculeType.ToString()));
         }
 
         /// <summary>
-        /// Creates binarytree using stage1 sequences and
-        /// cut the binary tree at an random edge to get two profiles.
-        /// Create NeedlemanWunschProfileAlignerSerial\Parallel instance 
-        /// according to degree of parallelism
-        /// and execute AlignSimple\Align() method using two profiles.
-        /// Validate the IProfileAlignment properties.
+        ///     Creates binarytree using stage1 sequences and
+        ///     cut the binary tree at an random edge to get two profiles.
+        ///     Create NeedlemanWunschProfileAlignerSerial\Parallel instance
+        ///     according to degree of parallelism
+        ///     and execute AlignSimple\Align() method using two profiles.
+        ///     Validate the IProfileAlignment properties.
         /// </summary>
         /// <param name="nodeName">xml node name</param>
         /// <param name="moleculeType">Molecule Type</param>
         /// <param name="degreeOfParallelism">if 1 it is serial Profiler else parallel profiler</param>
         /// <param name="edgeIndex">edge index to cut the tree</param>
         /// <param name="overloadType">Execute Align()\AlignSimple()</param>
-        void ValidateProfileAlignerAlign(string nodeName, MoleculeType moleculeType,
-            int degreeOfParallelism, int edgeIndex, AlignType overloadType)
+        private void ValidateProfileAlignerAlign(string nodeName, MoleculeType moleculeType,
+                                                 int degreeOfParallelism, int edgeIndex, AlignType overloadType)
         {
             switch (moleculeType)
             {
@@ -4432,25 +4280,26 @@ namespace Bio.TestAutomation.Pamsam
             IProfileAlignment alignedProfile = null;
             if (1 == degreeOfParallelism)
             {
-                NeedlemanWunschProfileAlignerSerial nwprofileAligner = new
+                var nwprofileAligner = new
                     NeedlemanWunschProfileAlignerSerial(similarityMatrix,
-                    ProfileScoreFunctionNames.InnerProductFast,
-                    gapOpenPenalty, gapExtendPenalty, 2);
+                                                        ProfileScoreFunctionNames.InnerProductFast,
+                                                        gapOpenPenalty, gapExtendPenalty, 2);
 
                 switch (overloadType)
                 {
                     case AlignType.AlignSimpleAllParams:
                         alignedProfile = nwprofileAligner.AlignSimple(similarityMatrix,
-                            gapOpenPenalty, separatedProfileAlignments[0], separatedProfileAlignments[1]);
+                                                                      gapOpenPenalty, separatedProfileAlignments[0],
+                                                                      separatedProfileAlignments[1]);
                         break;
                     case AlignType.AlignSimpleOnlyProfiles:
                         alignedProfile = nwprofileAligner.AlignSimple(separatedProfileAlignments[0],
-                            separatedProfileAlignments[1]);
+                                                                      separatedProfileAlignments[1]);
                         break;
                     case AlignType.AlignAllParams:
                         alignedProfile = nwprofileAligner.Align(similarityMatrix, gapOpenPenalty,
-                            gapExtendPenalty, separatedProfileAlignments[0],
-                            separatedProfileAlignments[1]);
+                                                                gapExtendPenalty, separatedProfileAlignments[0],
+                                                                separatedProfileAlignments[1]);
                         break;
                 }
             }
@@ -4458,7 +4307,7 @@ namespace Bio.TestAutomation.Pamsam
             {
                 if (Environment.ProcessorCount >= degreeOfParallelism)
                 {
-                    NeedlemanWunschProfileAlignerParallel nwprofileAlignerParallel = new
+                    var nwprofileAlignerParallel = new
                         NeedlemanWunschProfileAlignerParallel(
                         similarityMatrix,
                         ProfileScoreFunctionNames.InnerProductFast,
@@ -4473,8 +4322,9 @@ namespace Bio.TestAutomation.Pamsam
                     {
                         case AlignType.AlignSimpleAllParams:
                             alignedProfile = nwprofileAlignerParallel.AlignSimple(similarityMatrix,
-                                gapOpenPenalty, separatedProfileAlignments[0],
-                                separatedProfileAlignments[1]);
+                                                                                  gapOpenPenalty,
+                                                                                  separatedProfileAlignments[0],
+                                                                                  separatedProfileAlignments[1]);
                             break;
                         case AlignType.AlignSimpleOnlyProfiles:
                             alignedProfile = nwprofileAlignerParallel.AlignSimple(
@@ -4491,16 +4341,12 @@ namespace Bio.TestAutomation.Pamsam
                 }
                 else
                 {
-                    Console.WriteLine(
-                        String.Format((IFormatProvider)null, @"PamsamP1Test: NeedlemanWunschProfileAlignerParallel could not be instantiated
-                        as number of processor is {0} and degree of parallelism {1}",
-                                                                                    Environment.ProcessorCount.ToString((IFormatProvider)null),
-                                                                                    degreeOfParallelism));
                     ApplicationLog.WriteLine(
-                        String.Format((IFormatProvider)null, @"PamsamP1Test: NeedlemanWunschProfileAlignerParallel could not be instantiated
+                        String.Format(null,
+                                      @"PamsamP1Test: NeedlemanWunschProfileAlignerParallel could not be instantiated
                         as number of processor is {0} and degree of parallelism {1}",
-                                                                                    Environment.ProcessorCount.ToString((IFormatProvider)null),
-                                                                                    degreeOfParallelism));
+                                      Environment.ProcessorCount.ToString((IFormatProvider) null),
+                                      degreeOfParallelism));
                 }
             }
 
@@ -4509,25 +4355,18 @@ namespace Bio.TestAutomation.Pamsam
                 // Validate profile alignement 
                 string expectedRowSize = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.RowSize);
                 string expectedColSize = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.ColumnSize);
-                Assert.AreEqual(expectedColSize, alignedProfile.ProfilesMatrix.ColumnSize.ToString((IFormatProvider)null));
-                Assert.AreEqual(expectedRowSize, alignedProfile.ProfilesMatrix.RowSize.ToString((IFormatProvider)null));
+                Assert.AreEqual(expectedColSize,
+                                alignedProfile.ProfilesMatrix.ColumnSize.ToString((IFormatProvider) null));
+                Assert.AreEqual(expectedRowSize, alignedProfile.ProfilesMatrix.RowSize.ToString((IFormatProvider) null));
 
-                Console.WriteLine(
-                    String.Format((IFormatProvider)null, @"PamsamP1Test: {0} {1} method validation completed successfully with
-                    number of processor is {2} and degree of parallelism {3} for molecule type {4}",
-                                                          profileAligner.ToString(),
-                                                          overloadType,
-                                                          Environment.ProcessorCount.ToString((IFormatProvider)null),
-                                                          degreeOfParallelism,
-                                                          moleculeType));
                 ApplicationLog.WriteLine(
-                    String.Format((IFormatProvider)null, @"PamsamP1Test: {0} {1} method validation completed successfully with
+                    String.Format(null, @"PamsamP1Test: {0} {1} method validation completed successfully with
                     number of processor is {2} and degree of parallelism {3} for molecule type {4}",
-                                                          profileAligner.ToString(),
-                                                          overloadType,
-                                                          Environment.ProcessorCount.ToString((IFormatProvider)null),
-                                                          degreeOfParallelism,
-                                                          moleculeType));
+                                  profileAligner,
+                                  overloadType,
+                                  Environment.ProcessorCount.ToString((IFormatProvider) null),
+                                  degreeOfParallelism,
+                                  moleculeType));
             }
             else
             {
@@ -4536,20 +4375,21 @@ namespace Bio.TestAutomation.Pamsam
         }
 
         /// <summary>
-        /// Creates binarytree using stage1 sequences and
-        /// cut the binary tree at an random edge to get two profiles.
-        /// Create NeedlemanWunschProfileAlignerSerial\Parallel instance 
-        /// according to degree of parallelism 
-        /// and using profile function score . Execute Align() method.
-        /// Validates the IProfileAlignment properties.
+        ///     Creates binarytree using stage1 sequences and
+        ///     cut the binary tree at an random edge to get two profiles.
+        ///     Create NeedlemanWunschProfileAlignerSerial\Parallel instance
+        ///     according to degree of parallelism
+        ///     and using profile function score . Execute Align() method.
+        ///     Validates the IProfileAlignment properties.
         /// </summary>
         /// <param name="nodeName">xml node name</param>
         /// <param name="degreeOfParallelism">if 1 it is serial Profiler else parallel profiler</param>
         /// <param name="edgeIndex">edge index to cut the tree</param>
         /// <param name="profileFunction">profile function score name</param>
         /// <param name="moleculeType">Molecule Type</param>
-        void ValidateProfileAlignerAlignWithProfileFunctionScore(string nodeName, int degreeOfParallelism,
-            ProfileScoreFunctionNames profileFunction, int edgeIndex, MoleculeType moleculeType)
+        private void ValidateProfileAlignerAlignWithProfileFunctionScore(string nodeName, int degreeOfParallelism,
+                                                                         ProfileScoreFunctionNames profileFunction,
+                                                                         int edgeIndex, MoleculeType moleculeType)
         {
             switch (moleculeType)
             {
@@ -4586,64 +4426,55 @@ namespace Bio.TestAutomation.Pamsam
             if (1 == degreeOfParallelism)
             {
                 aligner = new NeedlemanWunschProfileAlignerSerial(similarityMatrix,
-                    profileFunction, gapOpenPenalty, gapExtendPenalty, 2);
+                                                                  profileFunction, gapOpenPenalty, gapExtendPenalty, 2);
             }
             else
             {
                 if (Environment.ProcessorCount >= degreeOfParallelism)
                 {
                     aligner = new NeedlemanWunschProfileAlignerParallel(similarityMatrix,
-                        profileFunction, gapOpenPenalty, gapExtendPenalty, 2);
+                                                                        profileFunction, gapOpenPenalty,
+                                                                        gapExtendPenalty, 2);
                 }
                 else
                 {
-                    Console.WriteLine(
-                        String.Format((IFormatProvider)null, @"PamsamP1Test: NeedlemanWunschProfileAlignerParallel could not be instantiated
-                        as number of processor is {0} and degree of parallelism {1}",
-                                                                                    Environment.ProcessorCount.ToString((IFormatProvider)null),
-                                                                                    degreeOfParallelism));
                     ApplicationLog.WriteLine(
-                        String.Format((IFormatProvider)null, @"PamsamP1Test: NeedlemanWunschProfileAlignerParallel could not be instantiated
+                        String.Format(null,
+                                      @"PamsamP1Test: NeedlemanWunschProfileAlignerParallel could not be instantiated
                         as number of processor is {0} and degree of parallelism {1}",
-                                                                                    Environment.ProcessorCount.ToString((IFormatProvider)null),
-                                                                                    degreeOfParallelism));
-
+                                      Environment.ProcessorCount.ToString((IFormatProvider) null),
+                                      degreeOfParallelism));
                 }
             }
 
             IProfileAlignment profileAlignment = aligner.Align(separatedProfileAlignments[0],
-                separatedProfileAlignments[0]);
+                                                               separatedProfileAlignments[0]);
 
             // Validate profile alignement 
             string expectedRowSize = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.RowSize);
             string expectedColSize = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.ColumnSize);
-            Assert.IsTrue(expectedColSize.Contains(profileAlignment.ProfilesMatrix.ColumnSize.ToString((IFormatProvider)null)));
-            Assert.IsTrue(expectedRowSize.Contains(profileAlignment.ProfilesMatrix.RowSize.ToString((IFormatProvider)null)));
+            Assert.IsTrue(
+                expectedColSize.Contains(profileAlignment.ProfilesMatrix.ColumnSize.ToString((IFormatProvider) null)));
+            Assert.IsTrue(
+                expectedRowSize.Contains(profileAlignment.ProfilesMatrix.RowSize.ToString((IFormatProvider) null)));
 
-            Console.WriteLine(
-                String.Format((IFormatProvider)null, @"PamsamP1Test: {0} Align() method validation completed successfully with
-                number of processor is {1} and degree of parallelism {2} for molecule type {3}",
-                                                                                               profileAligner.ToString(),
-                                                                                               Environment.ProcessorCount.ToString((IFormatProvider)null),
-                                                                                               degreeOfParallelism,
-                                                                                               moleculeType));
             ApplicationLog.WriteLine(
-                String.Format((IFormatProvider)null, @"PamsamP1Test: {0} Align() method validation completed successfully with
+                String.Format(null, @"PamsamP1Test: {0} Align() method validation completed successfully with
                 number of processor is {1} and degree of parallelism {2} for molecule type {3}",
-                                                                                               profileAligner.ToString(),
-                                                                                               Environment.ProcessorCount.ToString((IFormatProvider)null),
-                                                                                               degreeOfParallelism,
-                                                                                               moleculeType));
+                              profileAligner,
+                              Environment.ProcessorCount.ToString((IFormatProvider) null),
+                              degreeOfParallelism,
+                              moleculeType));
         }
 
         /// <summary>
-        /// Validate different alignment score functions 
-        /// using input sequences and reference sequences
+        ///     Validate different alignment score functions
+        ///     using input sequences and reference sequences
         /// </summary>
         /// <param name="nodeName">xml node name</param>
         /// <param name="type">Molecule Type</param>
         /// <param name="scoreType">Score Function Type.</param>
-        void ValidateAlignmentScore(string nodeName, MoleculeType type, ScoreType scoreType)
+        private void ValidateAlignmentScore(string nodeName, MoleculeType type, ScoreType scoreType)
         {
             string inputFilePath = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode);
             string refFilePath = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.RefFilePathNode);
@@ -4669,19 +4500,17 @@ namespace Bio.TestAutomation.Pamsam
                     case ScoreType.QScore:
                         string expectedQScore = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.QScoreNode);
                         float qScore = MsaUtils.CalculateAlignmentScoreQ(alignedSequences, refSeqList);
-                        Console.WriteLine("Q Score :{0}", qScore.ToString((IFormatProvider)null));
-                        Assert.IsTrue(expectedQScore.Contains(qScore.ToString((IFormatProvider)null).Substring(0, 4)));
+                        Assert.IsTrue(expectedQScore.Contains(qScore.ToString((IFormatProvider) null).Substring(0, 4)));
                         break;
                     case ScoreType.TCScore:
                         string expectedTCScore = utilityObj.xmlUtil.GetTextValue(nodeName,
-                            Constants.TCScoreNode);
+                                                                                 Constants.TCScoreNode);
                         float tcScore = MsaUtils.CalculateAlignmentScoreQ(alignedSequences, refSeqList);
-                        Console.WriteLine("T Score :{0}", tcScore.ToString((IFormatProvider)null));
-                        Assert.IsTrue(expectedTCScore.Contains(tcScore.ToString((IFormatProvider)null)));
+                        Assert.IsTrue(expectedTCScore.Contains(tcScore.ToString((IFormatProvider) null)));
                         break;
                     case ScoreType.Offset:
                         string expectedResiduesCount = utilityObj.xmlUtil.GetTextValue(nodeName,
-                            Constants.ResiduesCountNode);
+                                                                                       Constants.ResiduesCountNode);
                         List<int> positions = MsaUtils.CalculateOffset(alignedSequences[0], refSeqList[0]);
                         int residuesCount = 0;
                         for (int i = 0; i < positions.Count; i++)
@@ -4692,52 +4521,45 @@ namespace Bio.TestAutomation.Pamsam
                             }
                         }
 
-                        Console.WriteLine("residuesCount :{0}", residuesCount.ToString((IFormatProvider)null));
-                        Assert.IsTrue(expectedResiduesCount.Contains(residuesCount.ToString((IFormatProvider)null)));
+                        Assert.IsTrue(expectedResiduesCount.Contains(residuesCount.ToString((IFormatProvider) null)));
                         break;
                     case ScoreType.MultipleAlignmentScoreFunction:
                         string expectedAlignScore = utilityObj.xmlUtil.GetTextValue(nodeName,
-                            Constants.ExpectedScoreNode);
+                                                                                    Constants.ExpectedScoreNode);
                         float score = MsaUtils.MultipleAlignmentScoreFunction(
                             alignedSequences, similarityMatrix, gapOpenPenalty, gapExtendPenalty);
-                        Console.WriteLine("score :{0}", score.ToString((IFormatProvider)null));
-                        Assert.IsTrue(expectedAlignScore.Contains(score.ToString((IFormatProvider)null)));
+                        Assert.IsTrue(expectedAlignScore.Contains(score.ToString((IFormatProvider) null)));
                         break;
                     case ScoreType.PairWiseScoreFunction:
                         string expectedPairwiseScore = utilityObj.xmlUtil.GetTextValue(nodeName,
-                            Constants.PairWiseScoreNode);
+                                                                                       Constants.PairWiseScoreNode);
                         float pairwiseScore = MsaUtils.PairWiseScoreFunction(
                             alignedSequences[0], alignedSequences[1], similarityMatrix,
                             gapOpenPenalty, gapExtendPenalty);
-                        Console.WriteLine("pairwiseScore :{0}", pairwiseScore.ToString((IFormatProvider)null));
-                        Assert.IsTrue(expectedPairwiseScore.Contains(pairwiseScore.ToString((IFormatProvider)null)));
+                        Assert.IsTrue(expectedPairwiseScore.Contains(pairwiseScore.ToString((IFormatProvider) null)));
                         break;
                 }
 
-                Console.WriteLine(
-                    String.Format((IFormatProvider)null, @"PamsamP1Test:{0} validation completed successfully for molecule type {1}",
-                    scoreType.ToString(),
-                    type));
                 ApplicationLog.WriteLine(
-                    String.Format((IFormatProvider)null, @"PamsamP1Test:{0} validation completed successfully for molecule type {1}",
-                    scoreType.ToString(),
-                    type));
+                    String.Format(null, @"PamsamP1Test:{0} validation completed successfully for molecule type {1}",
+                                  scoreType.ToString(),
+                                  type));
             }
             finally
             {
                 if (parser != null)
-                    ((IDisposable)parser).Dispose();
+                    (parser).Dispose();
                 if (refParser != null)
-                    ((IDisposable)refParser).Dispose();
+                    (refParser).Dispose();
             }
         }
 
         /// <summary>
-        /// Validate the UnAlign method is removing gaps from the sequence
+        ///     Validate the UnAlign method is removing gaps from the sequence
         /// </summary>
         /// <param name="nodeName">xml node name</param>
         /// <param name="type">Molecule Type</param>
-        void ValidateUNAlign(string nodeName, MoleculeType type)
+        private void ValidateUNAlign(string nodeName, MoleculeType type)
         {
             string inputFilePath = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode);
 
@@ -4748,35 +4570,31 @@ namespace Bio.TestAutomation.Pamsam
                 IEnumerable<ISequence> sequences = parser.Parse();
                 List<ISequence> seqList = sequences.ToList();
                 IList<ISequence> alignedSequences = GetPAMSAMAlignedSequences(type, seqList);
-                byte gapItem = (byte)'-';
+                var gapItem = (byte) '-';
                 Assert.IsTrue(alignedSequences[0].Contains(gapItem));
                 ISequence unalignedseq = MsaUtils.UnAlign(alignedSequences[0]);
                 Assert.IsFalse(unalignedseq.Contains(gapItem));
 
-                Console.WriteLine(
-                    String.Format((IFormatProvider)null, @"PamsamP1Test:Validation of UnAlign() method of MsaUtils completed 
-                                            successfully for molecule type {0}",
-                                                                               type));
                 ApplicationLog.WriteLine(
-                    String.Format((IFormatProvider)null, @"PamsamP1Test:Validation of UnAlign() method of MsaUtils completed 
+                    String.Format(null, @"PamsamP1Test:Validation of UnAlign() method of MsaUtils completed 
                                             successfully for molecule type {0}",
-                                                                               type));
+                                  type));
             }
             finally
             {
                 if (parser != null)
-                    ((IDisposable)parser).Dispose();
+                    (parser).Dispose();
             }
         }
 
         /// <summary>
-        /// Get Pamsam aligned sequences
+        ///     Get Pamsam aligned sequences
         /// </summary>
         /// <param name="moleculeType">Molecule Type.</param>
         /// <param name="sequences">sequences.</param>
         /// <returns>returns aligned sequences</returns>
-        IList<ISequence> GetPAMSAMAlignedSequences(MoleculeType moleculeType,
-            IList<ISequence> sequences)
+        private IList<ISequence> GetPAMSAMAlignedSequences(MoleculeType moleculeType,
+                                                           IList<ISequence> sequences)
         {
             switch (moleculeType)
             {
@@ -4794,25 +4612,25 @@ namespace Bio.TestAutomation.Pamsam
                     break;
             }
             // MSA aligned sequences.
-            PAMSAMMultipleSequenceAligner msa = new PAMSAMMultipleSequenceAligner(sequences,
-                kmerLength, DistanceFunctionTypes.EuclideanDistance,
-                UpdateDistanceMethodsTypes.Average,
-                ProfileAlignerNames.NeedlemanWunschProfileAligner,
-                ProfileScoreFunctionNames.InnerProductFast, similarityMatrix,
-                gapOpenPenalty, gapExtendPenalty, 2, 2);
+            var msa = new PAMSAMMultipleSequenceAligner(sequences,
+                                                        kmerLength, DistanceFunctionTypes.EuclideanDistance,
+                                                        UpdateDistanceMethodsTypes.Average,
+                                                        ProfileAlignerNames.NeedlemanWunschProfileAligner,
+                                                        ProfileScoreFunctionNames.InnerProductFast, similarityMatrix,
+                                                        gapOpenPenalty, gapExtendPenalty, 2, 2);
 
             return msa.AlignedSequences;
         }
 
         /// <summary>
-        /// Validate function calculations of MsaUtils class.
+        ///     Validate function calculations of MsaUtils class.
         /// </summary>
         /// <param name="nodeName">xml node name</param>
         /// <param name="moleculeType">Molecule Type</param>
         /// <param name="edgeIndex">Edge Index</param>
         /// <param name="functionType">Function Type.</param>
-        void ValidateFunctionCalculations(string nodeName,
-            MoleculeType moleculeType, int edgeIndex, FunctionType functionType)
+        private void ValidateFunctionCalculations(string nodeName,
+                                                  MoleculeType moleculeType, int edgeIndex, FunctionType functionType)
         {
             // Get Two profiles
             IProfileAlignment[] separatedProfileAlignments = GetProfiles(moleculeType, edgeIndex);
@@ -4824,56 +4642,48 @@ namespace Bio.TestAutomation.Pamsam
                         separatedProfileAlignments[0].ProfilesMatrix.ProfilesMatrix[0],
                         separatedProfileAlignments[1].ProfilesMatrix.ProfilesMatrix[0]);
                     string expectedCorrelation = utilityObj.xmlUtil.GetTextValue(nodeName,
-                        Constants.CorrelationNode);
-                    Console.WriteLine("Coorelation:{0}", correlation.ToString((IFormatProvider)null));
-                    Assert.IsTrue(expectedCorrelation.Contains(correlation.ToString((IFormatProvider)null)));
+                                                                                 Constants.CorrelationNode);
+                    Assert.IsTrue(expectedCorrelation.Contains(correlation.ToString((IFormatProvider) null)));
                     break;
                 case FunctionType.FindMaxIndex:
                     string expectedMaxIndex = utilityObj.xmlUtil.GetTextValue(nodeName,
-                        Constants.MaxIndexNode);
+                                                                              Constants.MaxIndexNode);
                     int index = MsaUtils.FindMaxIndex(
                         separatedProfileAlignments[0].ProfilesMatrix.ProfilesMatrix[0]);
-                    Console.WriteLine("Index:{0}", index.ToString((IFormatProvider)null));
-                    Assert.AreEqual(expectedMaxIndex, index.ToString((IFormatProvider)null));
+                    Assert.AreEqual(expectedMaxIndex, index.ToString((IFormatProvider) null));
                     break;
                 case FunctionType.JensenShanonDivergence:
                     string expectedJsDivergence = utilityObj.xmlUtil.GetTextValue(nodeName,
-                        Constants.JensenShanonDivergenceNode);
+                                                                                  Constants.JensenShanonDivergenceNode);
                     float jsdivergence = MsaUtils.JensenShannonDivergence(
                         separatedProfileAlignments[0].ProfilesMatrix.ProfilesMatrix[0],
                         separatedProfileAlignments[1].ProfilesMatrix.ProfilesMatrix[0]);
-                    Console.WriteLine("jsdivergence:{0}", jsdivergence.ToString((IFormatProvider)null));
-                    Assert.IsTrue(expectedJsDivergence.Contains(jsdivergence.ToString((IFormatProvider)null)));
+                    Assert.IsTrue(expectedJsDivergence.Contains(jsdivergence.ToString((IFormatProvider) null)));
                     break;
                 case FunctionType.KullbackLeiblerDistance:
                     string expectedKlDistance = utilityObj.xmlUtil.GetTextValue(nodeName,
-                        Constants.KullbackLeiblerDistanceNode);
+                                                                                Constants.KullbackLeiblerDistanceNode);
                     float kldistance = MsaUtils.KullbackLeiblerDistance(
                         separatedProfileAlignments[0].ProfilesMatrix.ProfilesMatrix[0],
                         separatedProfileAlignments[1].ProfilesMatrix.ProfilesMatrix[0]);
-                    Console.WriteLine("kldistance:{0}", kldistance.ToString((IFormatProvider)null));
-                    Assert.AreEqual(expectedKlDistance, kldistance.ToString((IFormatProvider)null));
+                    Assert.AreEqual(expectedKlDistance, kldistance.ToString((IFormatProvider) null));
                     break;
             }
 
-            Console.WriteLine(String.Format((IFormatProvider)null, @"Validation of {0} function calculation of MsaUtils completed 
+            ApplicationLog.WriteLine(String.Format(null, @"Validation of {0} function calculation of MsaUtils completed 
                                             successfully for molecule type {1}",
-                                         functionType,
-                                         moleculeType));
-            ApplicationLog.WriteLine(String.Format((IFormatProvider)null, @"Validation of {0} function calculation of MsaUtils completed 
-                                            successfully for molecule type {1}",
-                                            functionType,
-                                            moleculeType));
+                                                   functionType,
+                                                   moleculeType));
         }
 
         /// <summary>
-        /// Creates binarytree using stage1 sequences.
-        /// Cut the binary tree at an random edge to get two profiles.
+        ///     Creates binarytree using stage1 sequences.
+        ///     Cut the binary tree at an random edge to get two profiles.
         /// </summary>
         /// <param name="moleculeType">Molecule Type.</param>
         /// <param name="edgeIndex">Random edge index.</param>
         /// <returns>Returns profiles</returns>
-        IProfileAlignment[] GetProfiles(MoleculeType moleculeType, int edgeIndex)
+        private IProfileAlignment[] GetProfiles(MoleculeType moleculeType, int edgeIndex)
         {
             switch (moleculeType)
             {

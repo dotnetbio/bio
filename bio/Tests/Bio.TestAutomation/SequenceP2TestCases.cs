@@ -6,31 +6,28 @@
 ******************************************************************************/
 
 using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Bio.TestAutomation
 {
     /// <summary>
-    /// Test Automation code for Bio Sequence P2 level validations..
+    ///     Test Automation code for Bio Sequence P2 level validations..
     /// </summary>
     [TestClass]
     public class SequenceP2TestCases
     {
         #region Global Variables
 
-        Utility utilityObj = new Utility(@"TestUtils\TestsConfig.xml");
+        private readonly Utility utilityObj = new Utility(@"TestUtils\TestsConfig.xml");
 
         #endregion Global Variables
 
         #region Constructor
 
         /// <summary>
-        /// Static constructor to open log and make other settings needed for test
+        ///     Static constructor to open log and make other settings needed for test
         /// </summary>
         static SequenceP2TestCases()
         {
@@ -44,9 +41,9 @@ namespace Bio.TestAutomation
         #endregion
 
         #region P2 Test Cases
-        
+
         /// <summary>
-        /// Invalidates CopyTo
+        ///     Invalidates CopyTo
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -55,15 +52,15 @@ namespace Bio.TestAutomation
         {
             // Get input and expected values from xml
             string expectedSequence = utilityObj.xmlUtil.GetTextValue(Constants.RnaDerivedSequenceNode,
-                Constants.ExpectedSequence);
+                                                                      Constants.ExpectedSequence);
             string alphabetName = utilityObj.xmlUtil.GetTextValue(Constants.RnaDerivedSequenceNode,
-                Constants.AlphabetNameNode);
+                                                                  Constants.AlphabetNameNode);
             IAlphabet alphabet = Utility.GetAlphabet(alphabetName);
 
             // Create a Sequence object.
             ISequence iseqObj =
                 new Sequence(alphabet, expectedSequence);
-            Sequence seqObj = new Sequence(iseqObj);
+            var seqObj = new Sequence(iseqObj);
             //check with null array
             byte[] array = null;
             try

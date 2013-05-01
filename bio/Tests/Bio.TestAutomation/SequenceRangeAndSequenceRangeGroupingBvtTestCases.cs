@@ -1,37 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
 using Bio.IO;
 using Bio.IO.Bed;
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
-
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 #if (SILVERLIGHT == false)
-    namespace Bio.TestAutomation
+
+namespace Bio.TestAutomation
 #else
     namespace Bio.Silverlight.TestAutomation
 #endif
 {
     /// <summary>
-    /// Test Automation code for Bio SequenceRange BVT level validations.
+    ///     Test Automation code for Bio SequenceRange BVT level validations.
     /// </summary>
     [TestClass]
     public class SequenceRangeAndSequenceRangeGroupingBvtTestCases
     {
-
         #region Global Variables
 
-        Utility utilityObj = new Utility(@"TestUtils\BedTestsConfig.xml");
+        private readonly Utility utilityObj = new Utility(@"TestUtils\BedTestsConfig.xml");
 
         #endregion Global Variables
 
         #region Constructor
 
         /// <summary>
-        /// Static constructor to open log and make other settings needed for test
+        ///     Static constructor to open log and make other settings needed for test
         /// </summary>
         static SequenceRangeAndSequenceRangeGroupingBvtTestCases()
         {
@@ -47,9 +45,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         #region SequenceRangeAndSequenceRangeGroupingBvtTestCases
 
         /// <summary>
-        /// Validate creation of SequenceRange.
-        /// Input Data : Valid Range ID,Start and End.
-        /// Output Data : Validation of created SequenceRange.
+        ///     Validate creation of SequenceRange.
+        ///     Input Data : Valid Range ID,Start and End.
+        ///     Output Data : Validation of created SequenceRange.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -57,29 +55,25 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         public void ValidateSequenceRange()
         {
             // Get values from xml.
-            string expectedRangeID = utilityObj.xmlUtil.GetTextValue(
-                Constants.SequenceRangeNode, Constants.IDNode);
-            string expectedStartIndex = utilityObj.xmlUtil.GetTextValue(
-                Constants.SequenceRangeNode, Constants.StartNode);
-            string expectedEndIndex = utilityObj.xmlUtil.GetTextValue(
-                Constants.SequenceRangeNode, Constants.EndNode);
+            string expectedRangeId = utilityObj.xmlUtil.GetTextValue(Constants.SequenceRangeNode, Constants.IDNode);
+            string expectedStartIndex = utilityObj.xmlUtil.GetTextValue(Constants.SequenceRangeNode, Constants.StartNode);
+            string expectedEndIndex = utilityObj.xmlUtil.GetTextValue(Constants.SequenceRangeNode, Constants.EndNode);
 
             // Create a SequenceRange.
-            SequenceRange seqRange = new SequenceRange(expectedRangeID,
-                long.Parse(expectedStartIndex, (IFormatProvider)null), long.Parse(expectedEndIndex, (IFormatProvider)null));
+            var seqRange = new SequenceRange(expectedRangeId,
+                                             long.Parse(expectedStartIndex, null), long.Parse(expectedEndIndex, null));
 
             // Validate created SequenceRange.
-            Assert.AreEqual(expectedRangeID, seqRange.ID.ToString((IFormatProvider)null));
-            Assert.AreEqual(expectedStartIndex, seqRange.Start.ToString((IFormatProvider)null));
-            Assert.AreEqual(expectedEndIndex, seqRange.End.ToString((IFormatProvider)null));
-            Console.WriteLine(
-                "SequenceRange BVT : Successfully validated the SequenceStart,SequenceID and SequenceEnd.");
+            Assert.AreEqual(expectedRangeId, seqRange.ID.ToString(null));
+            Assert.AreEqual(expectedStartIndex, seqRange.Start.ToString((IFormatProvider) null));
+            Assert.AreEqual(expectedEndIndex, seqRange.End.ToString((IFormatProvider) null));
+            ApplicationLog.WriteLine("SequenceRange BVT : Successfully validated the SequenceStart,SequenceID and SequenceEnd.");
         }
 
         /// <summary>
-        /// Validate comparison of two SequenceRanges.
-        /// Input Data : Valid Range ID,Start and End.
-        /// Output Data : Validation of cmompareTo.
+        ///     Validate comparison of two SequenceRanges.
+        ///     Input Data : Valid Range ID,Start and End.
+        ///     Output Data : Validation of cmompareTo.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -87,40 +81,31 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         public void ValidateCompareTwoSequenceRanges()
         {
             // Get values from xml.
-            string expectedRangeID = utilityObj.xmlUtil.GetTextValue(
-                Constants.SequenceRangeNode, Constants.IDNode);
-            string expectedStartIndex = utilityObj.xmlUtil.GetTextValue(
-                Constants.SequenceRangeNode, Constants.StartNode);
-            string expectedEndIndex = utilityObj.xmlUtil.GetTextValue(
-                Constants.SequenceRangeNode, Constants.EndNode);
-            string expectedRangeID1 = utilityObj.xmlUtil.GetTextValue(
-                Constants.SequenceRangeNode, Constants.IDNode1);
-            string expectedStartIndex1 = utilityObj.xmlUtil.GetTextValue(
-                Constants.SequenceRangeNode, Constants.StartNode1);
-            string expectedEndIndex1 = utilityObj.xmlUtil.GetTextValue(
-                Constants.SequenceRangeNode, Constants.EndNode1);
+            string expectedRangeId = utilityObj.xmlUtil.GetTextValue(Constants.SequenceRangeNode, Constants.IDNode);
+            string expectedStartIndex = utilityObj.xmlUtil.GetTextValue(Constants.SequenceRangeNode, Constants.StartNode);
+            string expectedEndIndex = utilityObj.xmlUtil.GetTextValue(Constants.SequenceRangeNode, Constants.EndNode);
+            string expectedRangeId1 = utilityObj.xmlUtil.GetTextValue(Constants.SequenceRangeNode, Constants.IDNode1);
+            string expectedStartIndex1 = utilityObj.xmlUtil.GetTextValue(Constants.SequenceRangeNode, Constants.StartNode1);
+            string expectedEndIndex1 = utilityObj.xmlUtil.GetTextValue(Constants.SequenceRangeNode, Constants.EndNode1);
 
             // Create first SequenceRange.
-            SequenceRange seqRange = new SequenceRange(expectedRangeID,
-                long.Parse(expectedStartIndex, (IFormatProvider)null), long.Parse(expectedEndIndex, (IFormatProvider)null));
+            var seqRange = new SequenceRange(expectedRangeId, long.Parse(expectedStartIndex, null), long.Parse(expectedEndIndex, null));
 
             // Create second SequenceRange.
-            SequenceRange secondSeqRange = new SequenceRange(expectedRangeID1,
-                long.Parse(expectedStartIndex1, (IFormatProvider)null), long.Parse(expectedEndIndex1, (IFormatProvider)null));
+            var secondSeqRange = new SequenceRange(expectedRangeId1, long.Parse(expectedStartIndex1, null), long.Parse(expectedEndIndex1, null));
 
             // Compare two SequenceRanges which are identical.
             int result = seqRange.CompareTo(secondSeqRange);
 
             // Validate result of comparison.
             Assert.AreEqual(0, result);
-            Console.WriteLine(
-                "SequenceRange BVT : Successfully validated the SequenceRange comparison");
+            ApplicationLog.WriteLine("SequenceRange BVT : Successfully validated the SequenceRange comparison");
         }
 
         /// <summary>
-        /// Validate creation of SequenceRangeGrouping.
-        /// Input Data : Valid Range ID,Start and End.
-        /// Output Data : Validation of created SequenceRangeGrouping.
+        ///     Validate creation of SequenceRangeGrouping.
+        ///     Input Data : Valid Range ID,Start and End.
+        ///     Output Data : Validation of created SequenceRangeGrouping.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -131,9 +116,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         }
 
         /// <summary>
-        /// Validate addition of SequenceRange to SequenceRangeGrouping.
-        /// Input Data : Valid Range ID,Start and End.
-        /// Output Data : Validation of adding SequenceRange to SequenceRangeGrouping.
+        ///     Validate addition of SequenceRange to SequenceRangeGrouping.
+        ///     Input Data : Valid Range ID,Start and End.
+        ///     Output Data : Validation of adding SequenceRange to SequenceRangeGrouping.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -144,9 +129,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         }
 
         /// <summary>
-        /// Validate getGroup() of SequenceRangeGrouping.
-        /// Input Data : Valid Range ID,Start and End.
-        /// Output Data : Validation of getGroup() method.
+        ///     Validate getGroup() of SequenceRangeGrouping.
+        ///     Input Data : Valid Range ID,Start and End.
+        ///     Output Data : Validation of getGroup() method.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -157,9 +142,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         }
 
         /// <summary>
-        /// Validate SequenceRange MergeOveralp.
-        /// Input Data : Valid small size BED file.
-        /// Output Data : Validation of SequenceRange MergeOveralp.
+        ///     Validate SequenceRange MergeOveralp.
+        ///     Input Data : Valid small size BED file.
+        ///     Output Data : Validation of SequenceRange MergeOveralp.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -170,9 +155,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         }
 
         /// <summary>
-        /// Validate Merge two bed files.
-        /// Input Data : Valid small size BED file.
-        /// Output Data : Validation of Merge two bed files.
+        ///     Validate Merge two bed files.
+        ///     Input Data : Valid small size BED file.
+        ///     Output Data : Validation of Merge two bed files.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -183,9 +168,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         }
 
         /// <summary>
-        /// Validate Intersect sequence range grouping without pieces of intervals
-        /// Input Data : Two bed files..
-        /// Output Data : Validate Intersect sequence range grouping.
+        ///     Validate Intersect sequence range grouping without pieces of intervals
+        ///     Input Data : Two bed files..
+        ///     Output Data : Validate Intersect sequence range grouping.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -196,9 +181,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         }
 
         /// <summary>
-        /// Validate Intersect sequence range grouping with pieces of intervals
-        /// Input Data : Two bed files..
-        /// Output Data : Validate Intersect sequence range grouping.
+        ///     Validate Intersect sequence range grouping with pieces of intervals
+        ///     Input Data : Two bed files..
+        ///     Output Data : Validate Intersect sequence range grouping.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -209,10 +194,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         }
 
         /// <summary>
-        /// Validate Intersect sequence range grouping without pieces of intervals
-        /// for small size bed files.
-        /// Input Data : Two small size bed files..
-        /// Output Data : Validate Intersect sequence range grouping.
+        ///     Validate Intersect sequence range grouping without pieces of intervals
+        ///     for small size bed files.
+        ///     Input Data : Two small size bed files..
+        ///     Output Data : Validate Intersect sequence range grouping.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -220,14 +205,14 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         public void ValidateIntersectSequenceRangeGroupingForSmallSizeBedFiles()
         {
             IntersectSequenceRange(Constants.IntersectWithoutPiecesOfIntervalsForSmallSizeFile,
-                false, true);
+                                   false, true);
         }
 
         /// <summary>
-        /// Validate Intersect sequence range grouping with pieces of intervals
-        /// for small size bed files.
-        /// Input Data : Two small size bed files..
-        /// Output Data : Validate Intersect sequence range grouping.
+        ///     Validate Intersect sequence range grouping with pieces of intervals
+        ///     for small size bed files.
+        ///     Input Data : Two small size bed files..
+        ///     Output Data : Validate Intersect sequence range grouping.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -235,13 +220,13 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         public void ValidateIntersectSequenceRangeGroupingWithPiecesOfIntervalsForSmallSizeBedFiles()
         {
             IntersectSequenceRange(Constants.IntersectWithPiecesOfIntervalsForSmallSizeFile,
-                true, false);
+                                   true, false);
         }
 
         /// <summary>
-        /// Validate Flatten method
-        /// Input Data : SequenceRangeGroup
-        /// Output Data : SequenceRangeList.
+        ///     Validate Flatten method
+        ///     Input Data : SequenceRangeGroup
+        ///     Output Data : SequenceRangeList.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -261,15 +246,15 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
             string[] rangeIDs = expectedRangeIDs.Split(',');
             string[] rangeStarts = expectedStartIndex.Split(',');
             string[] rangeEnds = expectedEndIndex.Split(',');
-            SequenceRangeGrouping seqRangeGrouping = new SequenceRangeGrouping();
+            var seqRangeGrouping = new SequenceRangeGrouping();
             List<ISequenceRange> rangeList = null;
 
             // Create a SequenceRange and add to SequenceRangeList.
             for (int i = 0; i < rangeIDs.Length; i++)
             {
-                SequenceRange seqRange = new SequenceRange(rangeIDs[i],
-                    long.Parse(rangeStarts[i], (IFormatProvider)null),
-                    long.Parse(rangeEnds[i], (IFormatProvider)null));
+                var seqRange = new SequenceRange(rangeIDs[i],
+                                                 long.Parse(rangeStarts[i], null),
+                                                 long.Parse(rangeEnds[i], null));
 
                 seqRangeGrouping.Add(seqRange);
             }
@@ -281,22 +266,21 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
             // Validate created SequenceRanges.
             foreach (ISequenceRange seqRange in rangeList)
             {
-                Assert.AreEqual(rangeStarts[j], seqRange.Start.ToString((IFormatProvider)null));
-                Assert.AreEqual(rangeEnds[j], seqRange.End.ToString((IFormatProvider)null));
-                Assert.AreEqual(rangeIDs[j], seqRange.ID.ToString((IFormatProvider)null));
+                Assert.AreEqual(rangeStarts[j], seqRange.Start.ToString((IFormatProvider) null));
+                Assert.AreEqual(rangeEnds[j], seqRange.End.ToString((IFormatProvider) null));
+                Assert.AreEqual(rangeIDs[j], seqRange.ID.ToString(null));
                 j++;
             }
 
-            Assert.AreEqual(expectedSequenceRangeCount, rangeList.Count.ToString((IFormatProvider)null));
-            Console.WriteLine(
-                "SequenceRange BVT : Successfully validated the SequenceStart,SequenceID and SequenceEnd.");
+            Assert.AreEqual(expectedSequenceRangeCount, rangeList.Count.ToString((IFormatProvider) null));
+            ApplicationLog.WriteLine("SequenceRange BVT : Successfully validated the SequenceStart,SequenceID and SequenceEnd.");
         }
 
         /// <summary>
-        /// Validate subtract two small size Bed files with minimal overlap and 
-        /// with non overlapping pieces of intervals
-        /// Input Data : Valid BED file.
-        /// Output Data : Validation of subtract operation.
+        ///     Validate subtract two small size Bed files with minimal overlap and
+        ///     with non overlapping pieces of intervals
+        ///     Input Data : Valid BED file.
+        ///     Output Data : Validation of subtract operation.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -304,14 +288,14 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         public void ValidateSubtractTwoBedFilesWithMinimalandNonOverlap()
         {
             SubtractSequenceRange(Constants.SubtractSmallBedFilesWithMinimalOverlapNodeName,
-                false, true);
+                                  false, true);
         }
 
         /// <summary>
-        /// Validate subtract two small size Bed files and 
-        /// with non overlapping pieces of intervals
-        /// Input Data : Valid BED file.
-        /// Output Data : Validation of subtract operation.
+        ///     Validate subtract two small size Bed files and
+        ///     with non overlapping pieces of intervals
+        ///     Input Data : Valid BED file.
+        ///     Output Data : Validation of subtract operation.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -319,14 +303,14 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         public void ValidateSubtractTwoBedFilesWithNonOverlapIntervals()
         {
             SubtractSequenceRange(Constants.SubtractSmallBedFilesNodeName,
-                false, false);
+                                  false, false);
         }
 
         /// <summary>
-        /// Validate subtract two small size Bed files and 
-        /// intervals with no overlap
-        /// Input Data : Valid BED file.
-        /// Output Data : Validation of subtract operation.
+        ///     Validate subtract two small size Bed files and
+        ///     intervals with no overlap
+        ///     Input Data : Valid BED file.
+        ///     Output Data : Validation of subtract operation.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -334,7 +318,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         public void ValidateSubtractTwoBedFilesUsingIntervalsWithNoOverlap()
         {
             SubtractSequenceRange(Constants.SubtractSmallBedFilesWithIntervalsNodeName,
-                true, true);
+                                  true, true);
         }
 
         #endregion SequenceRangeAndSequenceRangeGroupingBvtTestCases
@@ -342,7 +326,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         # region Sequence Range Parser test cases.
 
         /// <summary>
-        /// Validates public properties of SequenceRangeParsers class.
+        ///     Validates public properties of SequenceRangeParsers class.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -356,10 +340,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
             Assert.AreEqual(Constants.BedParser, parserRange[0].ToString());
 
             //Validate Bed property
-            System.Type parserType = SequenceRangeParsers.Bed.GetType();
+            Type parserType = SequenceRangeParsers.Bed.GetType();
             Assert.AreEqual(parserType.ToString(), Constants.BedParser);
-            ApplicationLog.WriteLine(string.Concat(
-              "Sequence Range Parser BVT: Validation of Sequence Range Parser Public properties completed successfully."));
+            ApplicationLog.WriteLine("Sequence Range Parser BVT: Validation of Sequence Range Parser Public properties completed successfully.");
         }
 
         # endregion Sequence Range Parser test cases.
@@ -367,7 +350,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         # region Sequence Range Formatter test cases.
 
         /// <summary>
-        /// Validates public properties of SequenceRangeFormatters class.
+        ///     Validates public properties of SequenceRangeFormatters class.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -381,10 +364,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
             Assert.AreEqual(Constants.BedFormatter, formatterRange[0].ToString());
 
             //Validate Bed property
-            System.Type formatterType = SequenceRangeFormatters.Bed.GetType();
+            Type formatterType = SequenceRangeFormatters.Bed.GetType();
             Assert.AreEqual(formatterType.ToString(), Constants.BedFormatter);
-            ApplicationLog.WriteLine(string.Concat(
-              "Sequence Range Formatter BVT: Validation of Sequence Range Formatter Public properties completed successfully."));
+            ApplicationLog.WriteLine(
+                "Sequence Range Formatter BVT: Validation of Sequence Range Formatter Public properties completed successfully.");
         }
 
         # endregion Sequence Range Formatter test cases.
@@ -392,11 +375,11 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         #region Helper Methods
 
         /// <summary>
-        /// Create a SequenceRangeGrouping by passing RangeID,Start and End Index.
-        /// and validate created SequenceRange.
+        ///     Create a SequenceRangeGrouping by passing RangeID,Start and End Index.
+        ///     and validate created SequenceRange.
         /// </summary>
         /// <param name="nodeName">Xml Node name for different inputs.</param>
-        void CreateSequenceRangeGrouping(string nodeName)
+        private void CreateSequenceRangeGrouping(string nodeName)
         {
             // Get values from xml.
             string expectedRangeIDs = utilityObj.xmlUtil.GetTextValue(
@@ -411,14 +394,14 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
             string[] rangeIDs = expectedRangeIDs.Split(',');
             string[] rangeStarts = expectedStartIndex.Split(',');
             string[] rangeEnds = expectedEndIndex.Split(',');
-            SequenceRangeGrouping seqRangeGrouping = new SequenceRangeGrouping();
+            var seqRangeGrouping = new SequenceRangeGrouping();
             List<ISequenceRange> rangeList = null;
 
             // Create a SequenceRange and add to SequenceRangeList.
             for (int i = 0; i < rangeIDs.Length; i++)
             {
-                SequenceRange seqRange = new SequenceRange(rangeIDs[i],
-                    long.Parse(rangeStarts[i], (IFormatProvider)null), long.Parse(rangeEnds[i], (IFormatProvider)null));
+                var seqRange = new SequenceRange(rangeIDs[i],
+                                                 long.Parse(rangeStarts[i], null), long.Parse(rangeEnds[i], null));
 
                 seqRangeGrouping.Add(seqRange);
             }
@@ -437,25 +420,26 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
                 // Validate created SequenceRanges.
                 foreach (ISequenceRange seqRange in rangeList)
                 {
-                    Assert.AreEqual(rangeStarts[j], seqRange.Start.ToString((IFormatProvider)null));
-                    Assert.AreEqual(rangeEnds[j], seqRange.End.ToString((IFormatProvider)null));
-                    Assert.AreEqual(rangeIDs[j], seqRange.ID.ToString((IFormatProvider)null));
+                    Assert.AreEqual(rangeStarts[j], seqRange.Start.ToString((IFormatProvider) null));
+                    Assert.AreEqual(rangeEnds[j], seqRange.End.ToString((IFormatProvider) null));
+                    Assert.AreEqual(rangeIDs[j], seqRange.ID.ToString(null));
                     j++;
                 }
             }
             Assert.AreEqual(expectedSequenceRangeCount,
-                rangeList.Count.ToString((IFormatProvider)null));
-            Console.WriteLine(
+                            rangeList.Count.ToString((IFormatProvider) null));
+            ApplicationLog.WriteLine(
                 "SequenceRange BVT : Successfully validated the SequenceStart, SequenceID and SequenceEnd.");
         }
 
         /// <summary>
-        /// Validate Intersect SequenceRangeGrouping.
+        ///     Validate Intersect SequenceRangeGrouping.
         /// </summary>
         /// <param name="nodeName">Xml Node name for different inputs.</param>
         /// <param name="overlappingBasePair">Value of overlappingBasePair</param>
-        void IntersectSequenceRange(string nodeName,
-            bool overlappingBasePair, bool IsParentSeqRangeRequired)
+        /// <param name="isParentSeqRangeRequired"></param>
+        private void IntersectSequenceRange(string nodeName,
+                                            bool overlappingBasePair, bool isParentSeqRangeRequired)
         {
             // Get values from xml.
             string[] expectedRangeIDs = utilityObj.xmlUtil.GetTextValue(
@@ -465,139 +449,110 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
             string[] expectedEndIndex = utilityObj.xmlUtil.GetTextValue(
                 nodeName, Constants.EndNode).Split(',');
             string referenceFilePath = utilityObj.xmlUtil.GetTextValue(
-               nodeName, Constants.FilePathNode);
+                nodeName, Constants.FilePathNode);
             string queryFilePath = utilityObj.xmlUtil.GetTextValue(
-               nodeName, Constants.QueryFilePath);
+                nodeName, Constants.QueryFilePath);
             string minimalOverlap = utilityObj.xmlUtil.GetTextValue(
-              nodeName, Constants.OverlapValue);
-            string rangeID = string.Empty;
-            bool result = false;
-            List<ISequenceRange> rangeList = null;
+                nodeName, Constants.OverlapValue);
 
             // Parse a BED file.
-            BedParser parserObj = new BedParser();
+            var parserObj = new BedParser();
             SequenceRangeGrouping referenceGroup = parserObj.ParseRangeGrouping(referenceFilePath);
             SequenceRangeGrouping queryGroup = parserObj.ParseRangeGrouping(queryFilePath);
 
-            IntersectOutputType outputType = IntersectOutputType.OverlappingIntervals;
+            var outputType = IntersectOutputType.OverlappingIntervals;
             if (overlappingBasePair)
             {
                 outputType = IntersectOutputType.OverlappingPiecesOfIntervals;
             }
 
             // Intersect a SequenceRangeGroup.
-            SequenceRangeGrouping intersectGroup = referenceGroup.Intersect(queryGroup,
-                long.Parse(minimalOverlap, (IFormatProvider)null), outputType);
+            SequenceRangeGrouping intersectGroup = referenceGroup.Intersect(queryGroup, long.Parse(minimalOverlap, null), outputType);
 
             // Get a intersect SequenceGroup Id.
             IEnumerable<string> groupIds = intersectGroup.GroupIDs;
             int j = 0;
-            foreach (string grpID in groupIds)
+            foreach (string grpId in groupIds)
             {
-                rangeID = grpID;
+                string rangeId = grpId;
 
-                rangeList = intersectGroup.GetGroup(rangeID);
+                List<ISequenceRange> rangeList = intersectGroup.GetGroup(rangeId);
 
                 // Validate intersect sequence range.
                 foreach (ISequenceRange range in rangeList)
                 {
-                    Assert.AreEqual(expectedStartIndex[j], range.Start.ToString((IFormatProvider)null));
-                    Assert.AreEqual(expectedEndIndex[j], range.End.ToString((IFormatProvider)null));
-                    Assert.AreEqual(expectedRangeIDs[j], range.ID.ToString((IFormatProvider)null));
+                    Assert.AreEqual(expectedStartIndex[j], range.Start.ToString((IFormatProvider) null));
+                    Assert.AreEqual(expectedEndIndex[j], range.End.ToString((IFormatProvider) null));
+                    Assert.AreEqual(expectedRangeIDs[j], range.ID.ToString(null));
                     j++;
                 }
             }
 
             // Validate ParentSeqRanges.
-            result = ValidateParentSeqRange(intersectGroup,
-                referenceGroup, queryGroup, IsParentSeqRangeRequired);
+            bool result = ValidateParentSeqRange(intersectGroup, referenceGroup, queryGroup, isParentSeqRangeRequired);
             Assert.IsTrue(result);
 
             ApplicationLog.WriteLine(
                 "Intersect SequenceRangeGrouping BVT: Successfully validated the intersect SequeID, Start and End Ranges");
-            Console.WriteLine(string.Format((IFormatProvider)null,
-                "Intersect SequenceRangeGrouping BVT: Successfully validated the merged SequeID, Start and End Ranges"));
         }
 
         /// <summary>
-        /// Validate Merge SequenceRangeGrouping.
+        ///     Validate Merge SequenceRangeGrouping.
         /// </summary>
         /// <param name="nodeName">Xml Node name for different inputs.</param>
-        /// <param name="IsMergePam">Merge parameter</param>
-        /// <param name="IsParentSeqRangesRequired">Is Parent Sequence Range required?</param>
-        void MergeSequenceRange(string nodeName,
-            bool IsMergePam, bool IsParentSeqRangesRequired)
+        /// <param name="isMergePam">Merge parameter</param>
+        /// <param name="isParentSeqRangesRequired">Is Parent Sequence Range required?</param>
+        private void MergeSequenceRange(string nodeName, bool isMergePam, bool isParentSeqRangesRequired)
         {
             // Get values from xml.
-            string[] expectedRangeIDs = utilityObj.xmlUtil.GetTextValue(
-                nodeName, Constants.IDNode).Split(',');
-            string[] expectedStartIndex = utilityObj.xmlUtil.GetTextValue(
-                nodeName, Constants.StartNode).Split(',');
-            string[] expectedEndIndex = utilityObj.xmlUtil.GetTextValue(
-                nodeName, Constants.EndNode).Split(',');
-            string filePath = utilityObj.xmlUtil.GetTextValue(
-                nodeName, Constants.FilePathNode);
-            string queryFilePath = utilityObj.xmlUtil.GetTextValue(
-               nodeName, Constants.QueryFilePath);
-            string rangeID = string.Empty;
-            bool result = false;
-            List<ISequenceRange> rangeList = null;
-            SequenceRangeGrouping mergedGroup = null;
+            string[] expectedRangeIDs = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.IDNode).Split(',');
+            string[] expectedStartIndex = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.StartNode).Split(',');
+            string[] expectedEndIndex = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.EndNode).Split(',');
+            string filePath = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode);
+            string queryFilePath = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.QueryFilePath);
 
             // Parse a BED file.
-            BedParser parserObj = new BedParser();
+            var parserObj = new BedParser();
             SequenceRangeGrouping referenceGroup = parserObj.ParseRangeGrouping(filePath);
             SequenceRangeGrouping queryGroup = parserObj.ParseRangeGrouping(queryFilePath);
 
             // Merge a SequenceRangeGroup.
-            if (IsMergePam)
-            {
-                mergedGroup = referenceGroup.MergeOverlaps(queryGroup, 0, IsParentSeqRangesRequired);
-            }
-            else
-            {
-                mergedGroup = referenceGroup.MergeOverlaps();
-            }
+            SequenceRangeGrouping mergedGroup = isMergePam ? referenceGroup.MergeOverlaps(queryGroup, 0, isParentSeqRangesRequired) : referenceGroup.MergeOverlaps();
 
             // Get a merged SequenceGroup Id.
             IEnumerable<string> groupIds = mergedGroup.GroupIDs;
 
             int j = 0;
-            foreach (string grpID in groupIds)
+            foreach (string grpId in groupIds)
             {
-                rangeID = grpID;
+                string rangeId = grpId;
 
-                rangeList = mergedGroup.GetGroup(rangeID);
+                List<ISequenceRange> rangeList = mergedGroup.GetGroup(rangeId);
 
                 // Validate merged sequence range.
                 foreach (ISequenceRange range in rangeList)
                 {
-                    Assert.AreEqual(expectedStartIndex[j], range.Start.ToString((IFormatProvider)null));
-                    Assert.AreEqual(expectedEndIndex[j], range.End.ToString((IFormatProvider)null));
-                    Assert.AreEqual(expectedRangeIDs[j], range.ID.ToString((IFormatProvider)null));
+                    Assert.AreEqual(expectedStartIndex[j], range.Start.ToString((IFormatProvider) null));
+                    Assert.AreEqual(expectedEndIndex[j], range.End.ToString((IFormatProvider) null));
+                    Assert.AreEqual(expectedRangeIDs[j], range.ID.ToString(null));
                     j++;
                 }
             }
 
             // Validate Parent SequenceRanges.
-            result = ValidateParentSeqRange(mergedGroup,
-                referenceGroup, queryGroup, IsParentSeqRangesRequired);
+            bool result = ValidateParentSeqRange(mergedGroup,referenceGroup, queryGroup, isParentSeqRangesRequired);
             Assert.IsTrue(result);
 
-            ApplicationLog.WriteLine(
-                "Merge SequenceRangeGrouping BVT: Successfully validated the merged SequeID, Start and End Ranges");
-            Console.WriteLine(string.Format((IFormatProvider)null,
-                "Merge SequenceRangeGrouping BVT: Successfully validated the merged SequeID, Start and End Ranges"));
+            ApplicationLog.WriteLine("Merge SequenceRangeGrouping BVT: Successfully validated the merged SequeID, Start and End Ranges");
         }
 
         /// <summary>
-        /// Validate Subtract SequenceRangeGrouping.
+        ///     Validate Subtract SequenceRangeGrouping.
         /// </summary>
         /// <param name="nodeName">Xml Node name for different inputs.</param>
         /// <param name="overlappingBasePair">Value of overlappingBasePair</param>
-        /// <param name="IsParentSeqRangesRequired">Is Parent Sequence Range required?</param>
-        void SubtractSequenceRange(string nodeName,
-            bool overlappingBasePair, bool IsParentSeqRangeRequired)
+        /// <param name="isParentSeqRangeRequired"></param>
+        private void SubtractSequenceRange(string nodeName, bool overlappingBasePair, bool isParentSeqRangeRequired)
         {
             // Get values from xml.
             string[] expectedRangeIDs = utilityObj.xmlUtil.GetTextValue(
@@ -607,22 +562,20 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
             string[] expectedEndIndex = utilityObj.xmlUtil.GetTextValue(
                 nodeName, Constants.EndNode).Split(',');
             string referenceFilePath = utilityObj.xmlUtil.GetTextValue(
-               nodeName, Constants.FilePathNode);
+                nodeName, Constants.FilePathNode);
             string queryFilePath = utilityObj.xmlUtil.GetTextValue(
-               nodeName, Constants.QueryFilePath);
+                nodeName, Constants.QueryFilePath);
             string minimalOverlap = utilityObj.xmlUtil.GetTextValue(
-              nodeName, Constants.OverlapValue);
+                nodeName, Constants.OverlapValue);
             string rangeID = string.Empty;
             bool result = false;
 
-            List<ISequenceRange> rangeList = null;
-
             // Parse a BED file.
-            BedParser parserObj = new BedParser();
+            var parserObj = new BedParser();
             SequenceRangeGrouping referenceGroup = parserObj.ParseRangeGrouping(referenceFilePath);
             SequenceRangeGrouping queryGroup = parserObj.ParseRangeGrouping(queryFilePath);
 
-            SubtractOutputType subtractOutputType = SubtractOutputType.NonOverlappingPiecesOfIntervals;
+            var subtractOutputType = SubtractOutputType.NonOverlappingPiecesOfIntervals;
             if (overlappingBasePair)
             {
                 subtractOutputType = SubtractOutputType.IntervalsWithNoOverlap;
@@ -630,7 +583,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
             // Subtract a SequenceRangeGroup.
             SequenceRangeGrouping subtractGroup = referenceGroup.Subtract(queryGroup,
-                long.Parse(minimalOverlap, (IFormatProvider)null), subtractOutputType, IsParentSeqRangeRequired);
+                                                                          long.Parse(minimalOverlap, null),
+                                                                          subtractOutputType, isParentSeqRangeRequired);
 
             // Get a intersect SequenceGroup Id.
             IEnumerable<string> groupIds = subtractGroup.GroupIDs;
@@ -640,41 +594,37 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
             {
                 rangeID = grpID;
 
-                rangeList = subtractGroup.GetGroup(rangeID);
+                List<ISequenceRange> rangeList = subtractGroup.GetGroup(rangeID);
 
                 // Validate intersect sequence range.
                 foreach (ISequenceRange range in rangeList)
                 {
-                    Assert.AreEqual(expectedStartIndex[j], range.Start.ToString((IFormatProvider)null));
-                    Assert.AreEqual(expectedEndIndex[j], range.End.ToString((IFormatProvider)null));
-                    Assert.AreEqual(expectedRangeIDs[j], range.ID.ToString((IFormatProvider)null));
+                    Assert.AreEqual(expectedStartIndex[j], range.Start.ToString((IFormatProvider) null));
+                    Assert.AreEqual(expectedEndIndex[j], range.End.ToString((IFormatProvider) null));
+                    Assert.AreEqual(expectedRangeIDs[j], range.ID.ToString(null));
                     j++;
                 }
             }
 
             // Validate ParentSeqRanges.
-            result = ValidateParentSeqRange(
-                subtractGroup, referenceGroup, queryGroup, IsParentSeqRangeRequired);
+            result = ValidateParentSeqRange(subtractGroup, referenceGroup, queryGroup, isParentSeqRangeRequired);
             Assert.IsTrue(result);
 
-            ApplicationLog.WriteLine(
-                "Subtract SequenceRangeGrouping BVT: Successfully validated the subtract SequeID, Start and End Ranges");
-            Console.WriteLine(string.Format((IFormatProvider)null,
-                "Subtract SequenceRangeGrouping BVT: Successfully validated the subtracted SequeID, Start and End Ranges"));
+            ApplicationLog.WriteLine("Subtract SequenceRangeGrouping BVT: Successfully validated the subtract SequeID, Start and End Ranges");
         }
 
         /// <summary>
         /// Validate Parent Sequence ranges in result sequence range.
         /// </summary>
         /// <param name="resultSeq">Result seq range group.</param>
-        /// <param name="refSeqRange">Reference seq range group.</param>
-        /// <param name="querySeqRange">Query seq range group.</param>
-        /// <param name="minOverlap">Minimum overlap.</param>
-        /// <param name="isParentSeqRangeRequired">Flag to indicate whether 
-        /// result should contain parent seq ranges or not.</param>
+        /// <param name="refSeq">Reference seq range group.</param>
+        /// <param name="querySeq">Query seq range group.</param>
+        /// <param name="isParentSeqRangeRequired">
+        /// Flag to indicate whether result should contain parent seq ranges or not.
+        /// </param>
         /// <returns>Returns true if the parent seq ranges are valid; otherwise returns false.</returns>
         private static bool ValidateParentSeqRange(SequenceRangeGrouping resultSeq, SequenceRangeGrouping refSeq,
-            SequenceRangeGrouping querySeq, bool IsParentSeqRangeRequired)
+                                                   SequenceRangeGrouping querySeq, bool isParentSeqRangeRequired)
         {
             IList<ISequenceRange> refSeqRangeList = new List<ISequenceRange>();
             IList<ISequenceRange> querySeqRangeList = new List<ISequenceRange>();
@@ -695,7 +645,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
                 foreach (ISequenceRange resultRange in resultSeq.GetGroup(groupId))
                 {
-                    if (!IsParentSeqRangeRequired)
+                    if (!isParentSeqRangeRequired)
                     {
                         if (resultRange.ParentSeqRanges.Count != 0)
                         {
@@ -704,12 +654,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
                     }
                     else
                     {
-                        int refSeqRangeCount =
-                            refSeqRangeList.Where(S => resultRange.ParentSeqRanges.Contains(S)).Count();
-                        int querySeqRangeCount =
-                            querySeqRangeList.Where(S => resultRange.ParentSeqRanges.Contains(S)).Count();
-
-
+                        int refSeqRangeCount = refSeqRangeList.Count(s => resultRange.ParentSeqRanges.Contains(s));
+                        int querySeqRangeCount = querySeqRangeList.Count(s => resultRange.ParentSeqRanges.Contains(s));
                         if (resultRange.ParentSeqRanges.Count != refSeqRangeCount + querySeqRangeCount)
                         {
                             return false;

@@ -7,12 +7,11 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using Bio;
 using Bio.Algorithms.Alignment;
-using Bio.Algorithms.Alignment.Legacy;
 using Bio.Extensions;
 using Bio.IO.FastA;
 using Bio.SimilarityMatrices;
@@ -24,19 +23,18 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Bio.TestAutomation.Algorithms.Alignment
 {
     /// <summary>
-    /// Smith Waterman Alignment algorithm P2 test cases
+    ///     Smith Waterman Alignment algorithm P2 test cases
     /// </summary>
     [TestClass]
     public class SmithWatermanP2TestCases
     {
-
         #region Enums
 
         /// <summary>
-        /// Alignment Parameters which are used for different test cases 
-        /// based on which the test cases are executed.
+        ///     Alignment Parameters which are used for different test cases
+        ///     based on which the test cases are executed.
         /// </summary>
-        enum AlignParameters
+        private enum AlignParameters
         {
             AlignList,
             AllParam,
@@ -44,56 +42,19 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         };
 
         /// <summary>
-        /// Alignment Type Parameters which are used for different test cases 
-        /// based on which the test cases are executed.
+        ///     Alignment Type Parameters which are used for different test cases
+        ///     based on which the test cases are executed.
         /// </summary>
-        enum AlignmentType
+        private enum AlignmentType
         {
             SimpleAlign,
             Align,
         };
 
         /// <summary>
-        /// Input sequences to get aligned in different cases.
+        ///     Types of invalid sequence
         /// </summary>
-        enum SequenceCaseType
-        {
-            LowerCase,
-            UpperCase,
-            LowerUpperCase,
-            Default
-        }
-
-        /// <summary>
-        /// Types of invalid similarity matrix
-        /// </summary>
-        enum SimilarityMatrixInvalidTypes
-        {
-            NonMatchingSimilarityMatrix,
-            EmptySimilaityMatrix,
-            OnlyAlphabetSimilarityMatrix,
-            FewAlphabetsSimilarityMatrix,
-            ModifiedSimilarityMatrix,
-            NullSimilarityMatrix,
-            EmptySequence,
-            ExpectedErrorMessage,
-        }
-
-        /// <summary>
-        /// Similarity Matrix Parameters which are used for different test cases 
-        /// based on which the test cases are executed with different Similarity Matrixes.
-        /// </summary>
-        enum SimilarityMatrixParameters
-        {
-            TextReader,
-            DiagonalMatrix,
-            Default
-        };
-
-        /// <summary>
-        /// Types of invalid sequence
-        /// </summary>
-        enum InvalidSequenceType
+        private enum InvalidSequenceType
         {
             SequenceWithSpecialChars,
             AlphabetMap,
@@ -106,18 +67,55 @@ namespace Bio.TestAutomation.Algorithms.Alignment
             Default
         }
 
+        /// <summary>
+        ///     Input sequences to get aligned in different cases.
+        /// </summary>
+        private enum SequenceCaseType
+        {
+            LowerCase,
+            UpperCase,
+            LowerUpperCase,
+            Default
+        }
+
+        /// <summary>
+        ///     Types of invalid similarity matrix
+        /// </summary>
+        private enum SimilarityMatrixInvalidTypes
+        {
+            NonMatchingSimilarityMatrix,
+            EmptySimilaityMatrix,
+            OnlyAlphabetSimilarityMatrix,
+            FewAlphabetsSimilarityMatrix,
+            ModifiedSimilarityMatrix,
+            NullSimilarityMatrix,
+            EmptySequence,
+            ExpectedErrorMessage,
+        }
+
+        /// <summary>
+        ///     Similarity Matrix Parameters which are used for different test cases
+        ///     based on which the test cases are executed with different Similarity Matrixes.
+        /// </summary>
+        private enum SimilarityMatrixParameters
+        {
+            TextReader,
+            DiagonalMatrix,
+            Default
+        };
+
         #endregion Enums
 
         #region Global Variables
 
-        Utility utilityObj = new Utility(@"TestUtils\TestsConfig.xml");
+        private readonly Utility utilityObj = new Utility(@"TestUtils\TestsConfig.xml");
 
         #endregion Global Variables
 
         #region Constructor
 
         /// <summary>
-        /// Static constructor to open log and make other settings needed for test
+        ///     Static constructor to open log and make other settings needed for test
         /// </summary>
         static SmithWatermanP2TestCases()
         {
@@ -133,12 +131,12 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         #region Test Cases
 
         /// <summary>
-        /// Pass a Valid Sequence(Lower case) with valid GapPenalty, Similarity Matrix 
-        /// which is in a text file using the method Align(sequence1, sequence2) 
-        /// and validate if the aligned sequence is as expected and 
-        /// also validate the score for the same
-        /// Input : FastA File
-        /// Validation : Aligned sequence and score.
+        ///     Pass a Valid Sequence(Lower case) with valid GapPenalty, Similarity Matrix
+        ///     which is in a text file using the method Align(sequence1, sequence2)
+        ///     and validate if the aligned sequence is as expected and
+        ///     also validate the score for the same
+        ///     Input : FastA File
+        ///     Validation : Aligned sequence and score.
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -153,12 +151,12 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         }
 
         /// <summary>
-        /// Pass a Valid Sequence(Upper case) with valid GapPenalty, Similarity Matrix 
-        /// which is in a text file using the method Align(sequence1, sequence2) 
-        /// and validate if the aligned sequence is as expected and 
-        /// also validate the score for the same
-        /// Input : FastA File
-        /// Validation : Aligned sequence and score.
+        ///     Pass a Valid Sequence(Upper case) with valid GapPenalty, Similarity Matrix
+        ///     which is in a text file using the method Align(sequence1, sequence2)
+        ///     and validate if the aligned sequence is as expected and
+        ///     also validate the score for the same
+        ///     Input : FastA File
+        ///     Validation : Aligned sequence and score.
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -173,12 +171,12 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         }
 
         /// <summary>
-        /// Pass a Valid 1000 BP Sequence with valid GapPenalty, Similarity Matrix 
-        /// which is in a text file using the method Align(sequence1, sequence2) 
-        /// and validate if the aligned sequence is as expected and 
-        /// also validate the score for the same
-        /// Input : 1000 BP FastA File
-        /// Validation : Aligned sequence and score.
+        ///     Pass a Valid 1000 BP Sequence with valid GapPenalty, Similarity Matrix
+        ///     which is in a text file using the method Align(sequence1, sequence2)
+        ///     and validate if the aligned sequence is as expected and
+        ///     also validate the score for the same
+        ///     Input : 1000 BP FastA File
+        ///     Validation : Aligned sequence and score.
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -193,14 +191,13 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         }
 
 
-
         /// <summary>
-        /// Pass a Valid Sequence(Lower and Upper case) with valid GapPenalty, Similarity Matrix 
-        /// which is in a text file using the method Align(sequence1, sequence2) 
-        /// and validate if the aligned sequence is as expected and 
-        /// also validate the score for the same
-        /// Input : FastA File
-        /// Validation : Aligned sequence and score.
+        ///     Pass a Valid Sequence(Lower and Upper case) with valid GapPenalty, Similarity Matrix
+        ///     which is in a text file using the method Align(sequence1, sequence2)
+        ///     and validate if the aligned sequence is as expected and
+        ///     also validate the score for the same
+        ///     Input : FastA File
+        ///     Validation : Aligned sequence and score.
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -215,12 +212,12 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         }
 
         /// <summary>
-        /// Pass a Valid Sequence(Lower case) with valid GapPenalty, Similarity Matrix 
-        /// from code using the method Align(sequence1, sequence2) 
-        /// and validate if the aligned sequence is as expected and 
-        /// also validate the score for the same
-        /// Input : FastA File
-        /// Validation : Aligned sequence and score.
+        ///     Pass a Valid Sequence(Lower case) with valid GapPenalty, Similarity Matrix
+        ///     from code using the method Align(sequence1, sequence2)
+        ///     and validate if the aligned sequence is as expected and
+        ///     also validate the score for the same
+        ///     Input : FastA File
+        ///     Validation : Aligned sequence and score.
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -235,12 +232,12 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         }
 
         /// <summary>
-        /// Pass a Valid Sequence(Upper case) with valid GapPenalty, Similarity Matrix 
-        /// from code using the method Align(sequence1, sequence2) 
-        /// and validate if the aligned sequence is as expected and 
-        /// also validate the score for the same
-        /// Input : FastA File
-        /// Validation : Aligned sequence and score.
+        ///     Pass a Valid Sequence(Upper case) with valid GapPenalty, Similarity Matrix
+        ///     from code using the method Align(sequence1, sequence2)
+        ///     and validate if the aligned sequence is as expected and
+        ///     also validate the score for the same
+        ///     Input : FastA File
+        ///     Validation : Aligned sequence and score.
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -255,12 +252,12 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         }
 
         /// <summary>
-        /// Pass a Valid Sequence(Lower and Upper case) with valid GapPenalty, Similarity Matrix 
-        /// from code using the method Align(sequence1, sequence2) 
-        /// and validate if the aligned sequence is as expected and 
-        /// also validate the score for the same
-        /// Input : FastA File
-        /// Validation : Aligned sequence and score.
+        ///     Pass a Valid Sequence(Lower and Upper case) with valid GapPenalty, Similarity Matrix
+        ///     from code using the method Align(sequence1, sequence2)
+        ///     and validate if the aligned sequence is as expected and
+        ///     also validate the score for the same
+        ///     Input : FastA File
+        ///     Validation : Aligned sequence and score.
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -275,12 +272,12 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         }
 
         /// <summary>
-        /// Pass a Valid Sequence(Lower case) with valid GapPenalty, Similarity Matrix 
-        /// which is in a text file using the method AlignList
-        /// and validate if the aligned sequence is as expected and 
-        /// also validate the score for the same
-        /// Input : FastA File
-        /// Validation : Aligned sequence and score.
+        ///     Pass a Valid Sequence(Lower case) with valid GapPenalty, Similarity Matrix
+        ///     which is in a text file using the method AlignList
+        ///     and validate if the aligned sequence is as expected and
+        ///     also validate the score for the same
+        ///     Input : FastA File
+        ///     Validation : Aligned sequence and score.
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -295,12 +292,12 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         }
 
         /// <summary>
-        /// Pass a Valid Sequence(Upper case) with valid GapPenalty, Similarity Matrix 
-        /// which is in a text file using the method AlignList
-        /// and validate if the aligned sequence is as expected and 
-        /// also validate the score for the same
-        /// Input : FastA File
-        /// Validation : Aligned sequence and score.
+        ///     Pass a Valid Sequence(Upper case) with valid GapPenalty, Similarity Matrix
+        ///     which is in a text file using the method AlignList
+        ///     and validate if the aligned sequence is as expected and
+        ///     also validate the score for the same
+        ///     Input : FastA File
+        ///     Validation : Aligned sequence and score.
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -315,12 +312,12 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         }
 
         /// <summary>
-        /// Pass a Valid Sequence(Lower and Upper case) with valid GapPenalty, Similarity Matrix 
-        /// which is in a text file using the method AlignList 
-        /// and validate if the aligned sequence is as expected and 
-        /// also validate the score for the same
-        /// Input : FastA File
-        /// Validation : Aligned sequence and score.
+        ///     Pass a Valid Sequence(Lower and Upper case) with valid GapPenalty, Similarity Matrix
+        ///     which is in a text file using the method AlignList
+        ///     and validate if the aligned sequence is as expected and
+        ///     also validate the score for the same
+        ///     Input : FastA File
+        ///     Validation : Aligned sequence and score.
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -328,17 +325,17 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         public void SmithWatermanSimpleAlignListLowerUpperCaseSequencesFromTextFile()
         {
             ValidateSmithWatermanAlignment(Constants.SmithWatermanAlignAlgorithmNodeName, true,
-                SequenceCaseType.LowerUpperCase,
-                AlignParameters.AlignList);
+                                           SequenceCaseType.LowerUpperCase,
+                                           AlignParameters.AlignList);
         }
 
         /// <summary>
-        /// Pass a Valid Sequence(Lower case)  with valid GapPenalty, Similarity Matrix 
-        /// from text file using the method AlignList
-        /// and validate if the aligned sequence is as expected and 
-        /// also validate the score for the same
-        /// Input : FastA File
-        /// Validation : Aligned sequence and score.
+        ///     Pass a Valid Sequence(Lower case)  with valid GapPenalty, Similarity Matrix
+        ///     from text file using the method AlignList
+        ///     and validate if the aligned sequence is as expected and
+        ///     also validate the score for the same
+        ///     Input : FastA File
+        ///     Validation : Aligned sequence and score.
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -346,17 +343,17 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         public void SmithWatermanSimpleAlignAllParamsLowerCaseSequencesFromTextFile()
         {
             ValidateSmithWatermanAlignment(Constants.SmithWatermanAlignAlgorithmNodeName, true,
-                SequenceCaseType.LowerCase,
-                AlignParameters.AllParam);
+                                           SequenceCaseType.LowerCase,
+                                           AlignParameters.AllParam);
         }
 
         /// <summary>
-        /// Pass a Valid Sequence(Upper case) with valid GapPenalty, Similarity Matrix 
-        /// from text file using the method AlignList 
-        /// and validate if the aligned sequence is as expected and 
-        /// also validate the score for the same
-        /// Input : FastA File
-        /// Validation : Aligned sequence and score.
+        ///     Pass a Valid Sequence(Upper case) with valid GapPenalty, Similarity Matrix
+        ///     from text file using the method AlignList
+        ///     and validate if the aligned sequence is as expected and
+        ///     also validate the score for the same
+        ///     Input : FastA File
+        ///     Validation : Aligned sequence and score.
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -364,17 +361,17 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         public void SmithWatermanSimpleAlignAllParamsUpperCaseSequencesFromTextFile()
         {
             ValidateSmithWatermanAlignment(Constants.SmithWatermanAlignAlgorithmNodeName, true,
-                SequenceCaseType.UpperCase,
-                AlignParameters.AllParam);
+                                           SequenceCaseType.UpperCase,
+                                           AlignParameters.AllParam);
         }
 
         /// <summary>
-        /// Pass a Valid Sequence(Lower and Upper case) with valid GapPenalty, Similarity Matrix 
-        /// from text file using the method AlignList 
-        /// and validate if the aligned sequence is as expected and 
-        /// also validate the score for the same
-        /// Input : FastA File
-        /// Validation : Aligned sequence and score.
+        ///     Pass a Valid Sequence(Lower and Upper case) with valid GapPenalty, Similarity Matrix
+        ///     from text file using the method AlignList
+        ///     and validate if the aligned sequence is as expected and
+        ///     also validate the score for the same
+        ///     Input : FastA File
+        ///     Validation : Aligned sequence and score.
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -382,14 +379,14 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         public void SmithWatermanSimpleAlignAllParamsLowerUpperCaseSequencesFromTextFile()
         {
             ValidateSmithWatermanAlignment(Constants.SmithWatermanAlignAlgorithmNodeName, true,
-                SequenceCaseType.LowerUpperCase, AlignParameters.AllParam);
+                                           SequenceCaseType.LowerUpperCase, AlignParameters.AllParam);
         }
 
         /// <summary>
-        /// Pass a Valid Sequence with valid GapPenalty, Similarity Matrix (Non Matching)
-        /// from text file and validate if Align(se1,seq2) throws expected exception
-        /// Input : Two Input sequence and Non Matching similarity matrix
-        /// Validation : Exception should be thrown
+        ///     Pass a Valid Sequence with valid GapPenalty, Similarity Matrix (Non Matching)
+        ///     from text file and validate if Align(se1,seq2) throws expected exception
+        ///     Input : Two Input sequence and Non Matching similarity matrix
+        ///     Validation : Exception should be thrown
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -403,10 +400,10 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         }
 
         /// <summary>
-        /// Pass a Valid Sequence with valid GapPenalty, Similarity Matrix (Non Matching)
-        /// from text file and validate if Align using List throws expected exception
-        /// Input : Input sequence List and Non Matching similarity matrix
-        /// Validation : Exception should be thrown
+        ///     Pass a Valid Sequence with valid GapPenalty, Similarity Matrix (Non Matching)
+        ///     from text file and validate if Align using List throws expected exception
+        ///     Input : Input sequence List and Non Matching similarity matrix
+        ///     Validation : Exception should be thrown
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -420,10 +417,10 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         }
 
         /// <summary>
-        /// Pass a Valid Sequence with valid GapPenalty, Similarity Matrix (Non Matching)
-        /// from text file and validate if Align using all params throws expected exception
-        /// Input : Input sequence and Non Matching similarity matrix
-        /// Validation : Exception should be thrown
+        ///     Pass a Valid Sequence with valid GapPenalty, Similarity Matrix (Non Matching)
+        ///     from text file and validate if Align using all params throws expected exception
+        ///     Input : Input sequence and Non Matching similarity matrix
+        ///     Validation : Exception should be thrown
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -437,10 +434,10 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         }
 
         /// <summary>
-        /// Pass a Valid Sequence with valid GapPenalty, Similarity Matrix (Empty)
-        /// from text file and validate if Align(se1,seq2) throws expected exception
-        /// Input : Two Input sequence and Empty similarity matrix
-        /// Validation : Exception should be thrown
+        ///     Pass a Valid Sequence with valid GapPenalty, Similarity Matrix (Empty)
+        ///     from text file and validate if Align(se1,seq2) throws expected exception
+        ///     Input : Two Input sequence and Empty similarity matrix
+        ///     Validation : Exception should be thrown
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -454,10 +451,10 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         }
 
         /// <summary>
-        /// Pass a Valid Sequence with valid GapPenalty, Similarity Matrix (Empty)
-        /// from text file and validate if Align using List throws expected exception
-        /// Input : Input sequence List and Empty similarity matrix
-        /// Validation : Exception should be thrown
+        ///     Pass a Valid Sequence with valid GapPenalty, Similarity Matrix (Empty)
+        ///     from text file and validate if Align using List throws expected exception
+        ///     Input : Input sequence List and Empty similarity matrix
+        ///     Validation : Exception should be thrown
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -472,10 +469,10 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         }
 
         /// <summary>
-        /// Pass a Valid Sequence with valid GapPenalty, Similarity Matrix (Empty)
-        /// from text file and validate if Align using all params throws expected exception
-        /// Input : Input sequence and Empty similarity matrix
-        /// Validation : Exception should be thrown
+        ///     Pass a Valid Sequence with valid GapPenalty, Similarity Matrix (Empty)
+        ///     from text file and validate if Align using all params throws expected exception
+        ///     Input : Input sequence and Empty similarity matrix
+        ///     Validation : Exception should be thrown
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -491,10 +488,10 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         }
 
         /// <summary>
-        /// Pass a Valid Sequence with valid GapPenalty, Similarity Matrix (Only Alphabet)
-        /// from text file and validate if Align(se1,seq2) throws expected exception
-        /// Input : Two Input sequence and Only Alphabet similarity matrix
-        /// Validation : Exception should be thrown
+        ///     Pass a Valid Sequence with valid GapPenalty, Similarity Matrix (Only Alphabet)
+        ///     from text file and validate if Align(se1,seq2) throws expected exception
+        ///     Input : Two Input sequence and Only Alphabet similarity matrix
+        ///     Validation : Exception should be thrown
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -509,10 +506,10 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         }
 
         /// <summary>
-        /// Pass a Valid Sequence with valid GapPenalty, Similarity Matrix (Only Alphabet)
-        /// from text file and validate if Align using List throws expected exception
-        /// Input : Input sequence List and Only Alphabet similarity matrix
-        /// Validation : Exception should be thrown
+        ///     Pass a Valid Sequence with valid GapPenalty, Similarity Matrix (Only Alphabet)
+        ///     from text file and validate if Align using List throws expected exception
+        ///     Input : Input sequence List and Only Alphabet similarity matrix
+        ///     Validation : Exception should be thrown
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -528,10 +525,10 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         }
 
         /// <summary>
-        /// Pass a Valid Sequence with valid GapPenalty, Similarity Matrix (Only Alphabet)
-        /// from text file and validate if Align using all params throws expected exception
-        /// Input : Input sequence and Only Alphabet similarity matrix
-        /// Validation : Exception should be thrown
+        ///     Pass a Valid Sequence with valid GapPenalty, Similarity Matrix (Only Alphabet)
+        ///     from text file and validate if Align using all params throws expected exception
+        ///     Input : Input sequence and Only Alphabet similarity matrix
+        ///     Validation : Exception should be thrown
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -547,10 +544,10 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         }
 
         /// <summary>
-        /// Pass a Valid Sequence with valid GapPenalty, Similarity Matrix (Modified)
-        /// from text file and validate if Align(se1,seq2) throws expected exception
-        /// Input : Two Input sequence and Modified similarity matrix
-        /// Validation : Exception should be thrown
+        ///     Pass a Valid Sequence with valid GapPenalty, Similarity Matrix (Modified)
+        ///     from text file and validate if Align(se1,seq2) throws expected exception
+        ///     Input : Two Input sequence and Modified similarity matrix
+        ///     Validation : Exception should be thrown
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -566,10 +563,10 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         }
 
         /// <summary>
-        /// Pass a Valid Sequence with valid GapPenalty, Similarity Matrix (Modified)
-        /// from text file and validate if Align using list throws expected exception
-        /// Input : Input sequence list and Modified similarity matrix
-        /// Validation : Exception should be thrown
+        ///     Pass a Valid Sequence with valid GapPenalty, Similarity Matrix (Modified)
+        ///     from text file and validate if Align using list throws expected exception
+        ///     Input : Input sequence list and Modified similarity matrix
+        ///     Validation : Exception should be thrown
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -585,10 +582,10 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         }
 
         /// <summary>
-        /// Pass a Valid Sequence with valid GapPenalty, Similarity Matrix (Modified)
-        /// from text file and validate if Align using all params throws expected exception
-        /// Input : Input sequence and Modified similarity matrix
-        /// Validation : Exception should be thrown
+        ///     Pass a Valid Sequence with valid GapPenalty, Similarity Matrix (Modified)
+        ///     from text file and validate if Align using all params throws expected exception
+        ///     Input : Input sequence and Modified similarity matrix
+        ///     Validation : Exception should be thrown
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -604,10 +601,10 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         }
 
         /// <summary>
-        /// Pass a Valid Sequence with valid GapPenalty, Similarity Matrix (Few Alphabet)
-        /// from text file and validate if Align(se1,seq2) throws expected exception
-        /// Input : Two Input sequence and Few Alphabet similarity matrix
-        /// Validation : Exception should be thrown
+        ///     Pass a Valid Sequence with valid GapPenalty, Similarity Matrix (Few Alphabet)
+        ///     from text file and validate if Align(se1,seq2) throws expected exception
+        ///     Input : Two Input sequence and Few Alphabet similarity matrix
+        ///     Validation : Exception should be thrown
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -623,10 +620,10 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         }
 
         /// <summary>
-        /// Pass a Valid Sequence with valid GapPenalty, Similarity Matrix (Few Alphabet)
-        /// from text file and validate if Align using list throws expected exception
-        /// Input : Input sequence list and Few Alphabet similarity matrix
-        /// Validation : Exception should be thrown
+        ///     Pass a Valid Sequence with valid GapPenalty, Similarity Matrix (Few Alphabet)
+        ///     from text file and validate if Align using list throws expected exception
+        ///     Input : Input sequence list and Few Alphabet similarity matrix
+        ///     Validation : Exception should be thrown
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -642,10 +639,10 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         }
 
         /// <summary>
-        /// Pass a Valid Sequence with valid GapPenalty, Similarity Matrix (Few Alphabet)
-        /// from text file and validate if Align using all params throws expected exception
-        /// Input : Input sequence and Few Alphabet similarity matrix
-        /// Validation : Exception should be thrown
+        ///     Pass a Valid Sequence with valid GapPenalty, Similarity Matrix (Few Alphabet)
+        ///     from text file and validate if Align using all params throws expected exception
+        ///     Input : Input sequence and Few Alphabet similarity matrix
+        ///     Validation : Exception should be thrown
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -661,10 +658,10 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         }
 
         /// <summary>
-        /// Pass a Valid Sequence with valid GapPenalty, Similarity Matrix (Empty)
-        /// from code and validate if Align(se1,seq2) throws expected exception
-        /// Input : Two Input sequence and Empty similarity matrix
-        /// Validation : Exception should be thrown
+        ///     Pass a Valid Sequence with valid GapPenalty, Similarity Matrix (Empty)
+        ///     from code and validate if Align(se1,seq2) throws expected exception
+        ///     Input : Two Input sequence and Empty similarity matrix
+        ///     Validation : Exception should be thrown
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -680,10 +677,10 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         }
 
         /// <summary>
-        /// Pass a Valid Sequence with valid GapPenalty, Similarity Matrix (Empty)
-        /// from text file and validate if Align using List throws expected exception
-        /// Input : Input sequence List and Empty similarity matrix
-        /// Validation : Exception should be thrown
+        ///     Pass a Valid Sequence with valid GapPenalty, Similarity Matrix (Empty)
+        ///     from text file and validate if Align using List throws expected exception
+        ///     Input : Input sequence List and Empty similarity matrix
+        ///     Validation : Exception should be thrown
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -699,10 +696,10 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         }
 
         /// <summary>
-        /// Pass a Valid Sequence with valid GapPenalty, Similarity Matrix (Empty)
-        /// from code and validate if Align using all params throws expected exception
-        /// Input : Input sequence List and Empty similarity matrix
-        /// Validation : Exception should be thrown
+        ///     Pass a Valid Sequence with valid GapPenalty, Similarity Matrix (Empty)
+        ///     from code and validate if Align using all params throws expected exception
+        ///     Input : Input sequence List and Empty similarity matrix
+        ///     Validation : Exception should be thrown
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -718,10 +715,10 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         }
 
         /// <summary>
-        /// Pass a Valid Sequence with valid GapPenalty, Similarity Matrix (Only Alphabet)
-        /// from code and validate if Align(seq1,seq2) throws expected exception
-        /// Input : Input sequence List and Only Alphabet similarity matrix
-        /// Validation : Exception should be thrown
+        ///     Pass a Valid Sequence with valid GapPenalty, Similarity Matrix (Only Alphabet)
+        ///     from code and validate if Align(seq1,seq2) throws expected exception
+        ///     Input : Input sequence List and Only Alphabet similarity matrix
+        ///     Validation : Exception should be thrown
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -737,10 +734,10 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         }
 
         /// <summary>
-        /// Pass a Valid Sequence with valid GapPenalty, Similarity Matrix (Only Alphabet)
-        /// from code and validate if Align using list throws expected exception
-        /// Input : Input sequence List and Only Alphabet similarity matrix
-        /// Validation : Exception should be thrown
+        ///     Pass a Valid Sequence with valid GapPenalty, Similarity Matrix (Only Alphabet)
+        ///     from code and validate if Align using list throws expected exception
+        ///     Input : Input sequence List and Only Alphabet similarity matrix
+        ///     Validation : Exception should be thrown
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -756,10 +753,10 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         }
 
         /// <summary>
-        /// Pass a Valid Sequence with valid GapPenalty, Similarity Matrix (Only Alphabet)
-        /// from code and validate if Align using all params throws expected exception
-        /// Input : Input sequence List and Only Alphabet similarity matrix
-        /// Validation : Exception should be thrown
+        ///     Pass a Valid Sequence with valid GapPenalty, Similarity Matrix (Only Alphabet)
+        ///     from code and validate if Align using all params throws expected exception
+        ///     Input : Input sequence List and Only Alphabet similarity matrix
+        ///     Validation : Exception should be thrown
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -775,10 +772,10 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         }
 
         /// <summary>
-        /// Pass a Valid Sequence with valid GapPenalty, Similarity Matrix (Null)
-        /// from code and validate if Align using all params throws expected exception
-        /// Input : Input sequence and Few Alphabet similarity matrix
-        /// Validation : Exception should be thrown
+        ///     Pass a Valid Sequence with valid GapPenalty, Similarity Matrix (Null)
+        ///     from code and validate if Align using all params throws expected exception
+        ///     Input : Input sequence and Few Alphabet similarity matrix
+        ///     Validation : Exception should be thrown
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -794,10 +791,10 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         }
 
         /// <summary>
-        /// Pass a Valid Sequence with valid GapPenalty, Similarity Matrix (Null)
-        /// from code and validate if Align using all params throws expected exception
-        /// Input : Input sequence and Few Alphabet similarity matrix
-        /// Validation : Exception should be thrown
+        ///     Pass a Valid Sequence with valid GapPenalty, Similarity Matrix (Null)
+        ///     from code and validate if Align using all params throws expected exception
+        ///     Input : Input sequence and Few Alphabet similarity matrix
+        ///     Validation : Exception should be thrown
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -813,10 +810,10 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         }
 
         /// <summary>
-        /// Pass a Valid Sequence with valid GapPenalty, Similarity Matrix (Null)
-        /// from code and validate if Align using all params throws expected exception
-        /// Input : Input sequence and Few Alphabet similarity matrix
-        /// Validation : Exception should be thrown
+        ///     Pass a Valid Sequence with valid GapPenalty, Similarity Matrix (Null)
+        ///     from code and validate if Align using all params throws expected exception
+        ///     Input : Input sequence and Few Alphabet similarity matrix
+        ///     Validation : Exception should be thrown
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -832,10 +829,10 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         }
 
         /// <summary>
-        /// Pass a Valid Sequence with valid GapPenalty, Invalid DiagonalSimilarityMatrix
-        /// from text file and validate if Align using all params throws expected exception
-        /// Input : Input sequence and Few Alphabet similarity matrix
-        /// Validation : Exception should be thrown
+        ///     Pass a Valid Sequence with valid GapPenalty, Invalid DiagonalSimilarityMatrix
+        ///     from text file and validate if Align using all params throws expected exception
+        ///     Input : Input sequence and Few Alphabet similarity matrix
+        ///     Validation : Exception should be thrown
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -851,10 +848,10 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         }
 
         /// <summary>
-        /// Pass a Valid Sequence with valid GapPenalty, Invalid DiagonalSimilarityMatrix
-        /// from text file and validate if Align using all params throws expected exception
-        /// Input : Input sequence and Invalid DiagonalSimilarityMatrix
-        /// Validation : Exception should be thrown
+        ///     Pass a Valid Sequence with valid GapPenalty, Invalid DiagonalSimilarityMatrix
+        ///     from text file and validate if Align using all params throws expected exception
+        ///     Input : Input sequence and Invalid DiagonalSimilarityMatrix
+        ///     Validation : Exception should be thrown
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -870,10 +867,10 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         }
 
         /// <summary>
-        /// Pass a Valid Sequence with valid GapPenalty, Invalid DiagonalSimilarityMatrix
-        /// from text file and validate if Align using all params throws expected exception
-        /// Input : Input sequence and Invalid DiagonalSimilarityMatrix
-        /// Validation : Exception should be thrown
+        ///     Pass a Valid Sequence with valid GapPenalty, Invalid DiagonalSimilarityMatrix
+        ///     from text file and validate if Align using all params throws expected exception
+        ///     Input : Input sequence and Invalid DiagonalSimilarityMatrix
+        ///     Validation : Exception should be thrown
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -889,10 +886,10 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         }
 
         /// <summary>
-        /// Pass a In Valid Sequence with valid GapPenalty, Similarity Matrix
-        /// from text file and validate if Parser throws expected exception
-        /// Input : Input sequence List and Only Alphabet similarity matrix
-        /// Validation : Exception should be thrown
+        ///     Pass a In Valid Sequence with valid GapPenalty, Similarity Matrix
+        ///     from text file and validate if Parser throws expected exception
+        ///     Input : Input sequence List and Only Alphabet similarity matrix
+        ///     Validation : Exception should be thrown
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -909,10 +906,10 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         }
 
         /// <summary>
-        /// Pass a In Valid Sequence with valid GapPenalty, Similarity Matrix
-        /// from text file and validate if Parser throws expected exception
-        /// Input : Input sequence List and Only Alphabet similarity matrix
-        /// Validation : Exception should be thrown
+        ///     Pass a In Valid Sequence with valid GapPenalty, Similarity Matrix
+        ///     from text file and validate if Parser throws expected exception
+        ///     Input : Input sequence List and Only Alphabet similarity matrix
+        ///     Validation : Exception should be thrown
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -929,10 +926,10 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         }
 
         /// <summary>
-        /// Pass a In Valid Sequence with valid GapPenalty, Similarity Matrix
-        /// from text file and validate if Parser throws expected exception
-        /// Input : Input sequence List and Only Alphabet similarity matrix
-        /// Validation : Exception should be thrown
+        ///     Pass a In Valid Sequence with valid GapPenalty, Similarity Matrix
+        ///     from text file and validate if Parser throws expected exception
+        ///     Input : Input sequence List and Only Alphabet similarity matrix
+        ///     Validation : Exception should be thrown
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -949,10 +946,10 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         }
 
         /// <summary>
-        /// Pass Empty Sequence with valid GapPenalty, Similarity Matrix
-        /// from text file and validate if Parser throws expected exception
-        /// Input : Input sequence List and Only Alphabet similarity matrix
-        /// Validation : Exception should be thrown
+        ///     Pass Empty Sequence with valid GapPenalty, Similarity Matrix
+        ///     from text file and validate if Parser throws expected exception
+        ///     Input : Input sequence List and Only Alphabet similarity matrix
+        ///     Validation : Exception should be thrown
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -969,10 +966,10 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         }
 
         /// <summary>
-        /// Pass Empty Sequence with valid GapPenalty, Similarity Matrix
-        /// from text file and validate if Parser throws expected exception
-        /// Input : Input sequence List and Only Alphabet similarity matrix
-        /// Validation : Exception should be thrown
+        ///     Pass Empty Sequence with valid GapPenalty, Similarity Matrix
+        ///     from text file and validate if Parser throws expected exception
+        ///     Input : Input sequence List and Only Alphabet similarity matrix
+        ///     Validation : Exception should be thrown
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -989,10 +986,10 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         }
 
         /// <summary>
-        /// Pass Empty Sequence with valid GapPenalty, Similarity Matrix
-        /// from text file and validate if Parser throws expected exception
-        /// Input : Input sequence List and Only Alphabet similarity matrix
-        /// Validation : Exception should be thrown
+        ///     Pass Empty Sequence with valid GapPenalty, Similarity Matrix
+        ///     from text file and validate if Parser throws expected exception
+        ///     Input : Input sequence List and Only Alphabet similarity matrix
+        ///     Validation : Exception should be thrown
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -1009,10 +1006,10 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         }
 
         /// <summary>
-        /// Pass invalid Sequence(Contains Gap) with valid GapPenalty, Similarity Matrix
-        /// from text file and validate if Parser throws expected exception
-        /// Input : Input sequence List and Only Alphabet similarity matrix
-        /// Validation : Exception should be thrown
+        ///     Pass invalid Sequence(Contains Gap) with valid GapPenalty, Similarity Matrix
+        ///     from text file and validate if Parser throws expected exception
+        ///     Input : Input sequence List and Only Alphabet similarity matrix
+        ///     Validation : Exception should be thrown
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -1029,10 +1026,10 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         }
 
         /// <summary>
-        /// Pass invalid Sequence(Contains Gap) with valid GapPenalty, Similarity Matrix
-        /// from text file and validate if Align using all params throws expected exception
-        /// Input : Input sequence List and Only Alphabet similarity matrix
-        /// Validation : Exception should be thrown
+        ///     Pass invalid Sequence(Contains Gap) with valid GapPenalty, Similarity Matrix
+        ///     from text file and validate if Align using all params throws expected exception
+        ///     Input : Input sequence List and Only Alphabet similarity matrix
+        ///     Validation : Exception should be thrown
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -1049,10 +1046,10 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         }
 
         /// <summary>
-        /// Pass invalid Sequence(Contains Gap) with valid GapPenalty, Similarity Matrix 
-        /// from text file and validate if Align using all params throws expected exception
-        /// Input : Input sequence List and Only Alphabet similarity matrix
-        /// Validation : Exception should be thrown
+        ///     Pass invalid Sequence(Contains Gap) with valid GapPenalty, Similarity Matrix
+        ///     from text file and validate if Align using all params throws expected exception
+        ///     Input : Input sequence List and Only Alphabet similarity matrix
+        ///     Validation : Exception should be thrown
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -1069,10 +1066,10 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         }
 
         /// <summary>
-        /// Pass invalid Sequence(Unicode) with valid GapPenalty, Similarity Matrix
-        /// from text file and validate if Align using all params throws expected exception
-        /// Input : Input sequence List and Only Alphabet similarity matrix
-        /// Validation : Exception should be thrown
+        ///     Pass invalid Sequence(Unicode) with valid GapPenalty, Similarity Matrix
+        ///     from text file and validate if Align using all params throws expected exception
+        ///     Input : Input sequence List and Only Alphabet similarity matrix
+        ///     Validation : Exception should be thrown
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -1089,10 +1086,10 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         }
 
         /// <summary>
-        /// Pass invalid Sequence(Unicode) with valid GapPenalty, Similarity Matrix
-        /// from text file and validate if Align using all params throws expected exception
-        /// Input : Input sequence List and Only Alphabet similarity matrix
-        /// Validation : Exception should be thrown
+        ///     Pass invalid Sequence(Unicode) with valid GapPenalty, Similarity Matrix
+        ///     from text file and validate if Align using all params throws expected exception
+        ///     Input : Input sequence List and Only Alphabet similarity matrix
+        ///     Validation : Exception should be thrown
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -1109,10 +1106,10 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         }
 
         /// <summary>
-        /// Pass invalid Sequence(Unicode) with valid GapPenalty, Similarity Matrix 
-        /// from text file and validate if Align using all params throws expected exception
-        /// Input : Input sequence List and Only Alphabet similarity matrix
-        /// Validation : Exception should be thrown
+        ///     Pass invalid Sequence(Unicode) with valid GapPenalty, Similarity Matrix
+        ///     from text file and validate if Align using all params throws expected exception
+        ///     Input : Input sequence List and Only Alphabet similarity matrix
+        ///     Validation : Exception should be thrown
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -1129,10 +1126,10 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         }
 
         /// <summary>
-        /// Pass invalid Sequence(Spaces) with valid GapPenalty, Similarity Matrix
-        /// from text file and validate if Align using all params throws expected exception
-        /// Input : Input sequence List and Only Alphabet similarity matrix
-        /// Validation : Exception should be thrown
+        ///     Pass invalid Sequence(Spaces) with valid GapPenalty, Similarity Matrix
+        ///     from text file and validate if Align using all params throws expected exception
+        ///     Input : Input sequence List and Only Alphabet similarity matrix
+        ///     Validation : Exception should be thrown
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -1149,10 +1146,10 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         }
 
         /// <summary>
-        /// Pass invalid Sequence(Spaces) with valid GapPenalty, Similarity Matrix
-        /// from text file and validate if Align using all params throws expected exception
-        /// Input : Input sequence List and Only Alphabet similarity matrix
-        /// Validation : Exception should be thrown
+        ///     Pass invalid Sequence(Spaces) with valid GapPenalty, Similarity Matrix
+        ///     from text file and validate if Align using all params throws expected exception
+        ///     Input : Input sequence List and Only Alphabet similarity matrix
+        ///     Validation : Exception should be thrown
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -1169,10 +1166,10 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         }
 
         /// <summary>
-        /// Pass invalid Sequence(Spaces) with valid GapPenalty, Similarity Matrix
-        /// from text file and validate if Align using all params throws expected exception
-        /// Input : Input sequence List and Only Alphabet similarity matrix
-        /// Validation : Exception should be thrown
+        ///     Pass invalid Sequence(Spaces) with valid GapPenalty, Similarity Matrix
+        ///     from text file and validate if Align using all params throws expected exception
+        ///     Input : Input sequence List and Only Alphabet similarity matrix
+        ///     Validation : Exception should be thrown
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -1190,12 +1187,12 @@ namespace Bio.TestAutomation.Algorithms.Alignment
 
 
         /// <summary>
-        /// Pass a Valid Sequence with valid GapPenalty, Similarity Matrix 
-        /// which is in a text file using the method Align(two sequences) 
-        /// and validate if the aligned sequence is as expected and 
-        /// also validate the score for the same
-        /// Input : FastA DNA File
-        /// Validation : Aligned sequence and score.
+        ///     Pass a Valid Sequence with valid GapPenalty, Similarity Matrix
+        ///     which is in a text file using the method Align(two sequences)
+        ///     and validate if the aligned sequence is as expected and
+        ///     also validate the score for the same
+        ///     Input : FastA DNA File
+        ///     Validation : Aligned sequence and score.
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -1211,12 +1208,12 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         }
 
         /// <summary>
-        /// Pass a Valid Sequence with valid GapPenalty, Similarity Matrix 
-        /// which is in a text file using the method Align(two sequences) 
-        /// and validate if the aligned sequence is as expected and 
-        /// also validate the score for the same
-        /// Input : FastA DNA File
-        /// Validation : Aligned sequence and score.
+        ///     Pass a Valid Sequence with valid GapPenalty, Similarity Matrix
+        ///     which is in a text file using the method Align(two sequences)
+        ///     and validate if the aligned sequence is as expected and
+        ///     also validate the score for the same
+        ///     Input : FastA DNA File
+        ///     Validation : Aligned sequence and score.
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -1232,12 +1229,12 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         }
 
         /// <summary>
-        /// Pass a Valid Sequence with valid GapPenalty, Similarity Matrix 
-        /// which is in a text file using the method Align(two sequences) 
-        /// and validate if the aligned sequence is as expected and 
-        /// also validate the score for the same
-        /// Input : FastA DNA File
-        /// Validation : Aligned sequence and score.
+        ///     Pass a Valid Sequence with valid GapPenalty, Similarity Matrix
+        ///     which is in a text file using the method Align(two sequences)
+        ///     and validate if the aligned sequence is as expected and
+        ///     also validate the score for the same
+        ///     Input : FastA DNA File
+        ///     Validation : Aligned sequence and score.
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -1253,12 +1250,12 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         }
 
         /// <summary>
-        /// Pass a Valid Sequence with valid GapPenalty, Similarity Matrix 
-        /// which is in a text file using the method Align(two sequences) 
-        /// and validate if the aligned sequence is as expected and 
-        /// also validate the score for the same
-        /// Input : FastA Protein File with Max Gap Cost
-        /// Validation : Aligned sequence and score.
+        ///     Pass a Valid Sequence with valid GapPenalty, Similarity Matrix
+        ///     which is in a text file using the method Align(two sequences)
+        ///     and validate if the aligned sequence is as expected and
+        ///     also validate the score for the same
+        ///     Input : FastA Protein File with Max Gap Cost
+        ///     Validation : Aligned sequence and score.
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -1274,12 +1271,12 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         }
 
         /// <summary>
-        /// Pass a Valid Sequence with valid GapPenalty, Similarity Matrix 
-        /// which is in a text file using the method Align(two sequences) 
-        /// and validate if the aligned sequence is as expected and 
-        /// also validate the score for the same
-        /// Input : FastA Protein File with Max Gap Cost
-        /// Validation : Aligned sequence and score.
+        ///     Pass a Valid Sequence with valid GapPenalty, Similarity Matrix
+        ///     which is in a text file using the method Align(two sequences)
+        ///     and validate if the aligned sequence is as expected and
+        ///     also validate the score for the same
+        ///     Input : FastA Protein File with Max Gap Cost
+        ///     Validation : Aligned sequence and score.
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -1295,12 +1292,12 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         }
 
         /// <summary>
-        /// Pass a Valid Sequence with valid GapPenalty, Similarity Matrix 
-        /// which is in a text file using the method Align(two sequences) 
-        /// and validate if the aligned sequence is as expected and 
-        /// also validate the score for the same
-        /// Input : FastA Protein File with Max Gap Cost
-        /// Validation : Aligned sequence and score.
+        ///     Pass a Valid Sequence with valid GapPenalty, Similarity Matrix
+        ///     which is in a text file using the method Align(two sequences)
+        ///     and validate if the aligned sequence is as expected and
+        ///     also validate the score for the same
+        ///     Input : FastA Protein File with Max Gap Cost
+        ///     Validation : Aligned sequence and score.
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -1316,12 +1313,12 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         }
 
         /// <summary>
-        /// Pass a Valid Sequence with valid GapPenalty, Similarity Matrix 
-        /// which is in a text file using the method Align(two sequences) 
-        /// and validate if the aligned sequence is as expected and 
-        /// also validate the score for the same
-        /// Input : FastA Protein File with Max Gap Cost
-        /// Validation : Aligned sequence and score.
+        ///     Pass a Valid Sequence with valid GapPenalty, Similarity Matrix
+        ///     which is in a text file using the method Align(two sequences)
+        ///     and validate if the aligned sequence is as expected and
+        ///     also validate the score for the same
+        ///     Input : FastA Protein File with Max Gap Cost
+        ///     Validation : Aligned sequence and score.
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -1337,12 +1334,12 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         }
 
         /// <summary>
-        /// Pass a Valid Sequence with valid GapPenalty, Similarity Matrix 
-        /// which is in a text file using the method Align(two sequences) 
-        /// and validate if the aligned sequence is as expected and 
-        /// also validate the score for the same
-        /// Input : FastA Protein File with Max Gap Cost
-        /// Validation : Aligned sequence and score.
+        ///     Pass a Valid Sequence with valid GapPenalty, Similarity Matrix
+        ///     which is in a text file using the method Align(two sequences)
+        ///     and validate if the aligned sequence is as expected and
+        ///     also validate the score for the same
+        ///     Input : FastA Protein File with Max Gap Cost
+        ///     Validation : Aligned sequence and score.
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -1359,12 +1356,12 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         }
 
         /// <summary>
-        /// Pass a Valid Sequence with valid GapPenalty, Similarity Matrix 
-        /// which is in a text file using the method Align(two sequences) 
-        /// and validate if the aligned sequence is as expected and 
-        /// also validate the score for the same
-        /// Input : FastA Protein File with Max Gap Cost
-        /// Validation : Aligned sequence and score.
+        ///     Pass a Valid Sequence with valid GapPenalty, Similarity Matrix
+        ///     which is in a text file using the method Align(two sequences)
+        ///     and validate if the aligned sequence is as expected and
+        ///     also validate the score for the same
+        ///     Input : FastA Protein File with Max Gap Cost
+        ///     Validation : Aligned sequence and score.
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -1380,12 +1377,12 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         }
 
         /// <summary>
-        /// Pass a Valid Sequence with valid GapPenalty, Similarity Matrix 
-        /// which is in a text file using the method Align(two sequences) 
-        /// and validate if the aligned sequence is as expected and 
-        /// also validate the score for the same
-        /// Input : FastA Protein File with Max Gap Cost
-        /// Validation : Aligned sequence and score.
+        ///     Pass a Valid Sequence with valid GapPenalty, Similarity Matrix
+        ///     which is in a text file using the method Align(two sequences)
+        ///     and validate if the aligned sequence is as expected and
+        ///     also validate the score for the same
+        ///     Input : FastA Protein File with Max Gap Cost
+        ///     Validation : Aligned sequence and score.
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -1404,37 +1401,38 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         #region Helper Methods
 
         /// <summary>
-        /// Validates SmithWatermanAlignment algorithm for the parameters passed.
+        ///     Validates SmithWatermanAlignment algorithm for the parameters passed.
         /// </summary>
         /// <param name="nodeName">Xml node name</param>
         /// <param name="isTextFile">Is text file an input.</param>
         /// <param name="caseType">Case Type</param>
         /// <param name="additionalParameter">parameter based on which certain validations are done.</param>
-        void ValidateSmithWatermanAlignment(string nodeName,
-            bool isTextFile, SequenceCaseType caseType,
-            AlignParameters additionalParameter)
+        private void ValidateSmithWatermanAlignment(string nodeName,
+                                                    bool isTextFile, SequenceCaseType caseType,
+                                                    AlignParameters additionalParameter)
         {
             ValidateSmithWatermanAlignment(nodeName, isTextFile, caseType, additionalParameter,
-                AlignmentType.SimpleAlign);
+                                           AlignmentType.SimpleAlign);
         }
 
         /// <summary>
-        /// Validates SmithWatermanAlignment algorithm for the parameters passed.
+        ///     Validates SmithWatermanAlignment algorithm for the parameters passed.
         /// </summary>
         /// <param name="nodeName">Xml node name</param>
         /// <param name="isTextFile">Is text file an input.</param>
         /// <param name="caseType">Case Type</param>
         /// <param name="additionalParameter">parameter based on which certain validations are done.</param>
         /// <param name="alignType">Is the Align type Simple or Align with Gap Extension cost?</param>
-        void ValidateSmithWatermanAlignment(string nodeName, bool isTextFile,
-            SequenceCaseType caseType, AlignParameters additionalParameter, AlignmentType alignType)
+        private void ValidateSmithWatermanAlignment(string nodeName, bool isTextFile,
+                                                    SequenceCaseType caseType, AlignParameters additionalParameter,
+                                                    AlignmentType alignType)
         {
             ValidateSmithWatermanAlignment(nodeName, isTextFile, caseType, additionalParameter,
-                alignType, SimilarityMatrixParameters.Default);
+                                           alignType, SimilarityMatrixParameters.Default);
         }
 
         /// <summary>
-        /// Validates SmithWatermanAlignment algorithm for the parameters passed.
+        ///     Validates SmithWatermanAlignment algorithm for the parameters passed.
         /// </summary>
         /// <param name="nodeName">Xml node name</param>
         /// <param name="isTextFile">Is text file an input.</param>
@@ -1442,13 +1440,16 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         /// <param name="additionalParameter">parameter based on which certain validations are done.</param>
         /// <param name="alignType">Is the Align type Simple or Align with Gap Extension cost?</param>
         /// <param name="similarityMatrixParam">Similarity Matrix</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]
-        void ValidateSmithWatermanAlignment(string nodeName, bool isTextFile,
-            SequenceCaseType caseType, AlignParameters additionalParameter,
-            AlignmentType alignType, SimilarityMatrixParameters similarityMatrixParam)
+        [SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"),
+         SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]
+        private void ValidateSmithWatermanAlignment(string nodeName, bool isTextFile,
+                                                    SequenceCaseType caseType, AlignParameters additionalParameter,
+                                                    AlignmentType alignType,
+                                                    SimilarityMatrixParameters similarityMatrixParam)
         {
             Sequence aInput, bInput;
-            IAlphabet alphabet = Utility.GetAlphabet(utilityObj.xmlUtil.GetTextValue(nodeName, Constants.AlphabetNameNode));
+            IAlphabet alphabet =
+                Utility.GetAlphabet(utilityObj.xmlUtil.GetTextValue(nodeName, Constants.AlphabetNameNode));
 
             if (isTextFile)
             {
@@ -1460,9 +1461,9 @@ namespace Bio.TestAutomation.Algorithms.Alignment
                 ISequence originalSequence1 = null;
                 ISequence originalSequence2 = null;
 
-                using (FastAParser parseObjectForFile1 = new FastAParser(filePath1))
+                using (var parseObjectForFile1 = new FastAParser(filePath1))
                 {
-                    using (FastAParser parseObjectForFile2 = new FastAParser(filePath2))
+                    using (var parseObjectForFile2 = new FastAParser(filePath2))
                     {
                         parseObjectForFile1.Alphabet = alphabet;
                         parseObjectForFile2.Alphabet = alphabet;
@@ -1473,7 +1474,7 @@ namespace Bio.TestAutomation.Algorithms.Alignment
 
                 // Create input sequence for sequence string in different cases.             
                 GetSequenceWithCaseType(originalSequence1.ConvertToString(), originalSequence2.ConvertToString(),
-                    alphabet, caseType, out aInput, out bInput);
+                                        alphabet, caseType, out aInput, out bInput);
             }
             else
             {
@@ -1482,16 +1483,18 @@ namespace Bio.TestAutomation.Algorithms.Alignment
 
                 // Create input sequence for sequence string in different cases.
                 GetSequenceWithCaseType(
-                                        originalSequence1,
-                                        originalSequence2,
-                                        alphabet,
-                                        caseType,
-                                        out aInput,
-                                        out bInput);
+                    originalSequence1,
+                    originalSequence2,
+                    alphabet,
+                    caseType,
+                    out aInput,
+                    out bInput);
             }
 
-            ApplicationLog.WriteLine(string.Format("SmithWatermanAligner P2 : First sequence used is '{0}'.", aInput.ConvertToString()));
-            ApplicationLog.WriteLine(string.Format("SmithWatermanAligner P2 : Second sequence used is '{0}'.", bInput.ConvertToString()));
+            ApplicationLog.WriteLine(string.Format("SmithWatermanAligner P2 : First sequence used is '{0}'.",
+                                                   aInput.ConvertToString()));
+            ApplicationLog.WriteLine(string.Format("SmithWatermanAligner P2 : Second sequence used is '{0}'.",
+                                                   bInput.ConvertToString()));
 
             // Create similarity matrix object for a given file.
             string blosumFilePath = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.BlosumFilePathNode);
@@ -1505,9 +1508,9 @@ namespace Bio.TestAutomation.Algorithms.Alignment
                 case SimilarityMatrixParameters.DiagonalMatrix:
                     string matchValue = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.MatchScoreNode);
                     string misMatchValue = utilityObj.xmlUtil.GetTextValue(nodeName,
-                        Constants.MisMatchScoreNode);
+                                                                           Constants.MisMatchScoreNode);
                     sm = new DiagonalSimilarityMatrix(int.Parse(matchValue, null),
-                        int.Parse(misMatchValue, null));
+                                                      int.Parse(misMatchValue, null));
                     break;
                 default:
                     sm = new SimilarityMatrix(blosumFilePath);
@@ -1515,10 +1518,11 @@ namespace Bio.TestAutomation.Algorithms.Alignment
             }
 
             int gapOpenCost = int.Parse(utilityObj.xmlUtil.GetTextValue(nodeName, Constants.GapOpenCostNode), null);
-            int gapExtensionCost = int.Parse(utilityObj.xmlUtil.GetTextValue(nodeName, Constants.GapExtensionCostNode), null);
+            int gapExtensionCost = int.Parse(utilityObj.xmlUtil.GetTextValue(nodeName, Constants.GapExtensionCostNode),
+                                             null);
 
             // Create SmithWatermanAligner instance and set its values.
-            SmithWatermanAligner smithWatermanObj = new SmithWatermanAligner();
+            var smithWatermanObj = new SmithWatermanAligner();
             if (additionalParameter != AlignParameters.AllParam)
             {
                 smithWatermanObj.SimilarityMatrix = sm;
@@ -1534,10 +1538,10 @@ namespace Bio.TestAutomation.Algorithms.Alignment
                     switch (alignType)
                     {
                         case AlignmentType.Align:
-                            result = smithWatermanObj.Align(new List<ISequence>() { aInput, bInput });
+                            result = smithWatermanObj.Align(new List<ISequence> {aInput, bInput});
                             break;
                         default:
-                            result = smithWatermanObj.AlignSimple(new List<ISequence>() { aInput, bInput });
+                            result = smithWatermanObj.AlignSimple(new List<ISequence> {aInput, bInput});
                             break;
                     }
                     break;
@@ -1557,7 +1561,7 @@ namespace Bio.TestAutomation.Algorithms.Alignment
                     {
                         case AlignmentType.Align:
                             result = smithWatermanObj.Align(sm, gapOpenCost,
-                                gapExtensionCost, aInput, bInput);
+                                                            gapExtensionCost, aInput, bInput);
                             break;
                         default:
                             result = smithWatermanObj.AlignSimple(sm, gapOpenCost, aInput, bInput);
@@ -1575,47 +1579,51 @@ namespace Bio.TestAutomation.Algorithms.Alignment
             {
                 case AlignmentType.Align:
                     expectedScore = utilityObj.xmlUtil.GetTextValue(nodeName,
-                        Constants.ExpectedGapExtensionScoreNode);
+                                                                    Constants.ExpectedGapExtensionScoreNode);
 
                     switch (caseType)
                     {
                         case SequenceCaseType.LowerCase:
                             expectedSequence1 = utilityObj.xmlUtil.GetTextValue(nodeName,
-                               Constants.ExpectedGapExtensionSequence1InLower);
+                                                                                Constants
+                                                                                    .ExpectedGapExtensionSequence1InLower);
                             expectedSequence2 = utilityObj.xmlUtil.GetTextValue(nodeName,
-                               Constants.ExpectedGapExtensionSequence2InLower);
+                                                                                Constants
+                                                                                    .ExpectedGapExtensionSequence2InLower);
                             break;
                         default:
                             expectedSequence1 = utilityObj.xmlUtil.GetTextValue(nodeName,
-                                Constants.ExpectedGapExtensionSequence1Node);
+                                                                                Constants
+                                                                                    .ExpectedGapExtensionSequence1Node);
                             expectedSequence2 = utilityObj.xmlUtil.GetTextValue(nodeName,
-                                Constants.ExpectedGapExtensionSequence2Node);
+                                                                                Constants
+                                                                                    .ExpectedGapExtensionSequence2Node);
                             break;
                     }
                     break;
                 default:
                     expectedScore = utilityObj.xmlUtil.GetTextValue(nodeName,
-                        Constants.ExpectedScoreNode);
+                                                                    Constants.ExpectedScoreNode);
 
                     switch (caseType)
                     {
                         case SequenceCaseType.LowerCase:
                             expectedSequence1 = utilityObj.xmlUtil.GetTextValue(nodeName,
-                              Constants.ExpectedSequence1inLowerNode);
+                                                                                Constants.ExpectedSequence1inLowerNode);
                             expectedSequence2 = utilityObj.xmlUtil.GetTextValue(nodeName,
-                              Constants.ExpectedSequence2inLowerNode);
+                                                                                Constants.ExpectedSequence2inLowerNode);
                             break;
                         case SequenceCaseType.LowerUpperCase:
                             expectedSequence1 = utilityObj.xmlUtil.GetTextValue(nodeName,
-                              Constants.ExpectedSequence1inLowerNode);
+                                                                                Constants.ExpectedSequence1inLowerNode);
                             expectedSequence2 = utilityObj.xmlUtil.GetTextValue(nodeName,
-                              Constants.ExpectedSequenceNode2);
+                                                                                Constants.ExpectedSequenceNode2);
                             break;
                         default:
                             expectedSequence1 = utilityObj.xmlUtil.GetTextValue(nodeName,
-                                                 Constants.ExpectedSequenceNode1);
+                                                                                Constants.ExpectedSequenceNode1);
                             expectedSequence2 = utilityObj.xmlUtil.GetTextValue(nodeName,
-                                                 Constants.ExpectedSequenceNode2);
+                                                                                Constants.ExpectedSequenceNode2);
                             break;
                     }
 
@@ -1626,26 +1634,28 @@ namespace Bio.TestAutomation.Algorithms.Alignment
             IList<IPairwiseSequenceAlignment> expectedOutput = new List<IPairwiseSequenceAlignment>();
 
             IPairwiseSequenceAlignment align = new PairwiseSequenceAlignment();
-            PairwiseAlignedSequence alignedSeq = new PairwiseAlignedSequence
-            {
-                FirstSequence = new Sequence(alphabet, expectedSequence1),
-                SecondSequence = new Sequence(alphabet, expectedSequence2),
-                Score = Convert.ToInt32(expectedScore, null),
-                FirstOffset = Int32.MinValue,
-                SecondOffset = Int32.MinValue,
-            };
+            var alignedSeq = new PairwiseAlignedSequence
+                                 {
+                                     FirstSequence = new Sequence(alphabet, expectedSequence1),
+                                     SecondSequence = new Sequence(alphabet, expectedSequence2),
+                                     Score = Convert.ToInt32(expectedScore, null),
+                                     FirstOffset = Int32.MinValue,
+                                     SecondOffset = Int32.MinValue,
+                                 };
             align.PairwiseAlignedSequences.Add(alignedSeq);
             expectedOutput.Add(align);
 
             ApplicationLog.WriteLine(string.Format(null, "SmithWatermanAligner P2 : Final Score '{0}'.", expectedScore));
-            ApplicationLog.WriteLine(string.Format(null, "SmithWatermanAligner P2 : Aligned First Sequence is '{0}'.", expectedSequence1));
-            ApplicationLog.WriteLine(string.Format(null, "SmithWatermanAligner P2 : Aligned Second Sequence is '{0}'.", expectedSequence2));
+            ApplicationLog.WriteLine(string.Format(null, "SmithWatermanAligner P2 : Aligned First Sequence is '{0}'.",
+                                                   expectedSequence1));
+            ApplicationLog.WriteLine(string.Format(null, "SmithWatermanAligner P2 : Aligned Second Sequence is '{0}'.",
+                                                   expectedSequence2));
 
             Assert.IsTrue(CompareAlignment(result, expectedOutput));
         }
 
         /// <summary>
-        /// InValidates SmithWatermanAlignment with invalid sequence.
+        ///     InValidates SmithWatermanAlignment with invalid sequence.
         /// </summary>
         /// <param name="nodeName">Xml node name</param>
         /// <param name="isTextFile">Is text file an input.</param>
@@ -1653,13 +1663,16 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         /// <param name="additionalParameter">parameter based on which certain validations are done.</param>
         /// <param name="alignType">Is the Align type Simple or Align with Gap Extension cost?</param>
         /// <param name="sequenceType">Sequence Type</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope")]
-        void InValidateSmithWatermanAlignmentWithInvalidSequence(string nodeName,
-            bool isTextFile, InvalidSequenceType invalidSequenceType, AlignParameters additionalParameter,
-            AlignmentType alignType, InvalidSequenceType sequenceType)
+        [SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope")]
+        private void InValidateSmithWatermanAlignmentWithInvalidSequence(string nodeName,
+                                                                         bool isTextFile,
+                                                                         InvalidSequenceType invalidSequenceType,
+                                                                         AlignParameters additionalParameter,
+                                                                         AlignmentType alignType,
+                                                                         InvalidSequenceType sequenceType)
         {
             IAlphabet alphabet = Utility.GetAlphabet(utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.AlphabetNameNode));
+                                                                                     Constants.AlphabetNameNode));
 
             Exception actualException = null;
             Sequence aInput = null;
@@ -1675,10 +1688,10 @@ namespace Bio.TestAutomation.Algorithms.Alignment
                 {
                     // Parse the files and get the sequence.
                     IEnumerable<ISequence> seqs = null;
-                    using (FastAParser parser = new FastAParser(filepath))
+                    using (var parser = new FastAParser(filepath))
                     {
                         seqs = parser.Parse();
-                        aInput = new Sequence(alphabet, new string(seqs.ElementAt(0).Select(a => (char)a).ToArray()));
+                        aInput = new Sequence(alphabet, new string(seqs.ElementAt(0).Select(a => (char) a).ToArray()));
                     }
                 }
                 catch (FileFormatException ex)
@@ -1689,7 +1702,7 @@ namespace Bio.TestAutomation.Algorithms.Alignment
             else
             {
                 string originalSequence = utilityObj.xmlUtil.GetTextValue(nodeName,
-                    Constants.InvalidSequence1);
+                                                                          Constants.InvalidSequence1);
 
                 // Create input sequence for sequence string in different cases.
                 try
@@ -1704,23 +1717,22 @@ namespace Bio.TestAutomation.Algorithms.Alignment
 
             if (actualException == null)
             {
-
                 bInput = aInput;
 
                 // Create similarity matrix object for a given file.
                 string blosumFilePath = utilityObj.xmlUtil.GetTextValue(nodeName,
-                    Constants.BlosumFilePathNode);
+                                                                        Constants.BlosumFilePathNode);
 
-                SimilarityMatrix sm = new SimilarityMatrix(blosumFilePath);
+                var sm = new SimilarityMatrix(blosumFilePath);
 
                 int gapOpenCost = int.Parse(utilityObj.xmlUtil.GetTextValue(nodeName,
-                    Constants.GapOpenCostNode), (IFormatProvider)null);
+                                                                            Constants.GapOpenCostNode), null);
 
                 int gapExtensionCost = int.Parse(utilityObj.xmlUtil.GetTextValue(nodeName,
-                    Constants.GapExtensionCostNode), (IFormatProvider)null);
+                                                                                 Constants.GapExtensionCostNode), null);
 
                 // Create SmithWatermanAligner instance and set its values.
-                SmithWatermanAligner smithWatermanObj = new SmithWatermanAligner();
+                var smithWatermanObj = new SmithWatermanAligner();
                 if (additionalParameter != AlignParameters.AllParam)
                 {
                     smithWatermanObj.SimilarityMatrix = sm;
@@ -1737,7 +1749,7 @@ namespace Bio.TestAutomation.Algorithms.Alignment
                             case AlignmentType.Align:
                                 try
                                 {
-                                    smithWatermanObj.Align(new List<ISequence>() { aInput, bInput });
+                                    smithWatermanObj.Align(new List<ISequence> {aInput, bInput});
                                 }
                                 catch (ArgumentException ex)
                                 {
@@ -1747,7 +1759,7 @@ namespace Bio.TestAutomation.Algorithms.Alignment
                             default:
                                 try
                                 {
-                                    smithWatermanObj.AlignSimple(new List<ISequence>() { aInput, bInput });
+                                    smithWatermanObj.AlignSimple(new List<ISequence> {aInput, bInput});
                                 }
                                 catch (ArgumentException ex)
                                 {
@@ -1788,7 +1800,7 @@ namespace Bio.TestAutomation.Algorithms.Alignment
                                 try
                                 {
                                     smithWatermanObj.Align(sm, gapOpenCost,
-                                        gapExtensionCost, aInput, bInput);
+                                                           gapExtensionCost, aInput, bInput);
                                 }
                                 catch (ArgumentException ex)
                                 {
@@ -1799,7 +1811,7 @@ namespace Bio.TestAutomation.Algorithms.Alignment
                                 try
                                 {
                                     smithWatermanObj.AlignSimple(sm, gapOpenCost,
-                                        aInput, bInput);
+                                                                 aInput, bInput);
                                 }
                                 catch (ArgumentException ex)
                                 {
@@ -1815,29 +1827,29 @@ namespace Bio.TestAutomation.Algorithms.Alignment
 
             // Validate Error messages for Invalid Sequence types.
             string expectedErrorMessage = GetExpectedErrorMeesageWithInvalidSequenceType(nodeName,
-                sequenceType);
+                                                                                         sequenceType);
 
             Assert.AreEqual(expectedErrorMessage, actualException.Message);
 
             ApplicationLog.WriteLine(string.Concat(
                 "SmithWatermanAligner P2 : Expected Error message is thrown ", expectedErrorMessage));
-
-            Console.WriteLine(string.Concat(
-                "SmithWatermanAligner P2 : Expected Error message is thrown ", expectedErrorMessage));
         }
 
         /// <summary>
-        /// Validates SmithWatermanAlignment algorithm for the parameters passed.
+        ///     Validates SmithWatermanAlignment algorithm for the parameters passed.
         /// </summary>
         /// <param name="nodeName">Xml node name</param>
         /// <param name="isTextFile">Is text file an input.</param>
         /// <param name="invalidType">Invalid type</param>
         /// <param name="additionalParameter">parameter based on which certain validations are done.</param>
         /// <param name="alignType">Is the Align type Simple or Align with Gap Extension cost?</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]
-        void InValidateSmithWatermanAlignmentWithInvalidSimilarityMatrix(string nodeName,
-            bool isTextFile, SimilarityMatrixInvalidTypes invalidType,
-            AlignParameters additionalParameter, AlignmentType alignType)
+        [SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]
+        private void InValidateSmithWatermanAlignmentWithInvalidSimilarityMatrix(string nodeName,
+                                                                                 bool isTextFile,
+                                                                                 SimilarityMatrixInvalidTypes
+                                                                                     invalidType,
+                                                                                 AlignParameters additionalParameter,
+                                                                                 AlignmentType alignType)
         {
             Sequence aInput = null;
             Sequence bInput = null;
@@ -1845,19 +1857,19 @@ namespace Bio.TestAutomation.Algorithms.Alignment
             ISequence inputSequence2;
 
             IAlphabet alphabet = Utility.GetAlphabet(utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.AlphabetNameNode));
+                                                                                     Constants.AlphabetNameNode));
             if (isTextFile)
             {
                 // Read the xml file for getting both the files for aligning.
                 string firstInputFilepath = utilityObj.xmlUtil.GetTextValue(nodeName,
-                    Constants.FilePathNode1);
+                                                                            Constants.FilePathNode1);
                 string secondInputFilepath = utilityObj.xmlUtil.GetTextValue(nodeName,
-                    Constants.FilePathNode2);
+                                                                             Constants.FilePathNode2);
 
                 // Parse the files and get the sequence.
-                using (FastAParser parseObjectForFile1 = new FastAParser(firstInputFilepath))
+                using (var parseObjectForFile1 = new FastAParser(firstInputFilepath))
                 {
-                    using (FastAParser parseObjectForFile2 = new FastAParser(secondInputFilepath))
+                    using (var parseObjectForFile2 = new FastAParser(secondInputFilepath))
                     {
                         parseObjectForFile1.Alphabet = alphabet;
                         parseObjectForFile2.Alphabet = alphabet;
@@ -1867,9 +1879,9 @@ namespace Bio.TestAutomation.Algorithms.Alignment
                 }
 
                 // Create input sequence for sequence string in different cases.
-                GetSequenceWithCaseType(new string(inputSequence1.Select(a => (char)a).ToArray()),
-                    new string(inputSequence2.Select(a => (char)a).ToArray()),
-                    alphabet, SequenceCaseType.LowerCase, out aInput, out bInput);
+                GetSequenceWithCaseType(new string(inputSequence1.Select(a => (char) a).ToArray()),
+                                        new string(inputSequence2.Select(a => (char) a).ToArray()),
+                                        alphabet, SequenceCaseType.LowerCase, out aInput, out bInput);
             }
             else
             {
@@ -1878,19 +1890,15 @@ namespace Bio.TestAutomation.Algorithms.Alignment
 
                 // Create input sequence for sequence string in different cases.
                 GetSequenceWithCaseType(firstInputSequence, secondInputSequence,
-                    alphabet, SequenceCaseType.LowerCase, out aInput, out bInput);
+                                        alphabet, SequenceCaseType.LowerCase, out aInput, out bInput);
             }
 
             ApplicationLog.WriteLine(string.Concat(
-                "SmithWatermanAligner P2 : First sequence used is '{0}'.", new string(aInput.Select(a => (char)a).ToArray())));
+                "SmithWatermanAligner P2 : First sequence used is '{0}'.",
+                new string(aInput.Select(a => (char) a).ToArray())));
             ApplicationLog.WriteLine(string.Concat(
-                "SmithWatermanAligner P2 : Second sequence used is '{0}'.", new string(bInput.Select(a => (char)a).ToArray())));
-
-            Console.WriteLine(string.Concat(
-                "SmithWatermanAligner P2 : First sequence used is '{0}'.", new string(aInput.Select(a => (char)a).ToArray())));
-            Console.WriteLine(string.Concat(
-                "SmithWatermanAligner P2 : Second sequence used is '{0}'.", new string(bInput.Select(a => (char)a).ToArray())));
-
+                "SmithWatermanAligner P2 : Second sequence used is '{0}'.",
+                new string(bInput.Select(a => (char) a).ToArray())));
 
             // Create similarity matrix object for a invalid file.
             string blosumFilePath = GetSimilarityMatrixFileWithInvalidType(nodeName, invalidType);
@@ -1914,13 +1922,13 @@ namespace Bio.TestAutomation.Algorithms.Alignment
             if (actualExpection == null)
             {
                 int gapOpenCost = int.Parse(utilityObj.xmlUtil.GetTextValue(nodeName,
-                    Constants.GapOpenCostNode), (IFormatProvider)null);
+                                                                            Constants.GapOpenCostNode), null);
 
                 int gapExtensionCost = int.Parse(utilityObj.xmlUtil.GetTextValue(nodeName,
-                    Constants.GapExtensionCostNode), (IFormatProvider)null);
+                                                                                 Constants.GapExtensionCostNode), null);
 
                 // Create SmithWatermanAligner instance and set its values.
-                SmithWatermanAligner smithWatermanObj = new SmithWatermanAligner();
+                var smithWatermanObj = new SmithWatermanAligner();
                 if (additionalParameter != AlignParameters.AllParam)
                 {
                     smithWatermanObj.SimilarityMatrix = sm;
@@ -1937,7 +1945,7 @@ namespace Bio.TestAutomation.Algorithms.Alignment
                             case AlignmentType.Align:
                                 try
                                 {
-                                    smithWatermanObj.Align(new List<ISequence>() { aInput, bInput });
+                                    smithWatermanObj.Align(new List<ISequence> {aInput, bInput});
                                 }
                                 catch (ArgumentException ex)
                                 {
@@ -1947,7 +1955,7 @@ namespace Bio.TestAutomation.Algorithms.Alignment
                             default:
                                 try
                                 {
-                                    smithWatermanObj.AlignSimple(new List<ISequence>() { aInput, bInput });
+                                    smithWatermanObj.AlignSimple(new List<ISequence> {aInput, bInput});
                                 }
                                 catch (ArgumentException ex)
                                 {
@@ -1988,7 +1996,7 @@ namespace Bio.TestAutomation.Algorithms.Alignment
                                 try
                                 {
                                     smithWatermanObj.Align(sm, gapOpenCost, gapExtensionCost,
-                                        aInput, bInput);
+                                                           aInput, bInput);
                                 }
                                 catch (ArgumentException ex)
                                 {
@@ -2014,24 +2022,21 @@ namespace Bio.TestAutomation.Algorithms.Alignment
 
             // Validate that expected exception is thrown using error message.
             string expectedErrorMessage = GetExpectedErrorMeesageWithInvalidSimilarityMatrixType(nodeName,
-                invalidType);
+                                                                                                 invalidType);
             Assert.AreEqual(expectedErrorMessage, actualExpection.Message);
 
             ApplicationLog.WriteLine(string.Concat(
                 "SmithWatermanAligner P2 : Expected Error message is thrown ", expectedErrorMessage));
-
-            Console.WriteLine(string.Concat(
-                "SmithWatermanAligner P2 : Expected Error message is thrown ", expectedErrorMessage));
         }
 
         /// <summary>
-        /// Gets the expected error message for invalid similarity matrix type.
+        ///     Gets the expected error message for invalid similarity matrix type.
         /// </summary>
         /// <param name="nodeName">xml node</param>
         /// <param name="invalidType">similarity matrix invalid type.</param>
         /// <returns>Returns expected error message</returns>
-        string GetExpectedErrorMeesageWithInvalidSimilarityMatrixType(string nodeName,
-            SimilarityMatrixInvalidTypes invalidType)
+        private string GetExpectedErrorMeesageWithInvalidSimilarityMatrixType(string nodeName,
+                                                                              SimilarityMatrixInvalidTypes invalidType)
         {
             string expectedErrorMessage = string.Empty;
             switch (invalidType)
@@ -2039,31 +2044,31 @@ namespace Bio.TestAutomation.Algorithms.Alignment
                 case SimilarityMatrixInvalidTypes.FewAlphabetsSimilarityMatrix:
                 case SimilarityMatrixInvalidTypes.NonMatchingSimilarityMatrix:
                     expectedErrorMessage = utilityObj.xmlUtil.GetTextValue(nodeName,
-                        Constants.ExpectedErrorMessage);
+                                                                           Constants.ExpectedErrorMessage);
                     break;
                 case SimilarityMatrixInvalidTypes.EmptySimilaityMatrix:
                     expectedErrorMessage = utilityObj.xmlUtil.GetTextValue(nodeName,
-                        Constants.EmptyMatrixErrorMessage);
+                                                                           Constants.EmptyMatrixErrorMessage);
                     break;
                 case SimilarityMatrixInvalidTypes.OnlyAlphabetSimilarityMatrix:
                     expectedErrorMessage = utilityObj.xmlUtil.GetTextValue(nodeName,
-                        Constants.SimilarityMatrixFewerLinesException);
+                                                                           Constants.SimilarityMatrixFewerLinesException);
                     break;
                 case SimilarityMatrixInvalidTypes.ModifiedSimilarityMatrix:
                     expectedErrorMessage = utilityObj.xmlUtil.GetTextValue(nodeName,
-                        Constants.ModifiedMatrixErrorMessage);
+                                                                           Constants.ModifiedMatrixErrorMessage);
                     break;
                 case SimilarityMatrixInvalidTypes.NullSimilarityMatrix:
                     expectedErrorMessage = utilityObj.xmlUtil.GetTextValue(nodeName,
-                        Constants.NullErrorMessage);
+                                                                           Constants.NullErrorMessage);
                     break;
                 case SimilarityMatrixInvalidTypes.EmptySequence:
                     expectedErrorMessage = utilityObj.xmlUtil.GetFileTextValue(nodeName,
-                        Constants.EmptySequenceErrorMessage);
+                                                                               Constants.EmptySequenceErrorMessage);
                     break;
                 case SimilarityMatrixInvalidTypes.ExpectedErrorMessage:
                     expectedErrorMessage = utilityObj.xmlUtil.GetFileTextValue(nodeName,
-                        Constants.ExpectedErrorMessage);
+                                                                               Constants.ExpectedErrorMessage);
                     break;
                 default:
                     break;
@@ -2073,40 +2078,39 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         }
 
         /// <summary>
-        /// Gets the expected error message for invalid sequence type.
+        ///     Gets the expected error message for invalid sequence type.
         /// </summary>
         /// <param name="nodeName">xml node</param>
-        /// <param name="invalidType">invalid sequence type.</param>
+        /// <param name="sequenceType">invalid sequence type.</param>
         /// <returns>Returns expected error message</returns>
-        string GetExpectedErrorMeesageWithInvalidSequenceType(string nodeName,
-            InvalidSequenceType sequenceType)
+        private string GetExpectedErrorMeesageWithInvalidSequenceType(string nodeName, InvalidSequenceType sequenceType)
         {
             string expectedErrorMessage = string.Empty;
             switch (sequenceType)
             {
                 case InvalidSequenceType.SequenceWithInvalidChars:
                     expectedErrorMessage = utilityObj.xmlUtil.GetTextValue(nodeName,
-                        Constants.EmptySequenceErrorMessage);
+                                                                           Constants.EmptySequenceErrorMessage);
                     break;
                 case InvalidSequenceType.InvalidSequence:
                     expectedErrorMessage = utilityObj.xmlUtil.GetTextValue(nodeName,
-                        Constants.InvalidSequenceErrorMessage);
+                                                                           Constants.InvalidSequenceErrorMessage);
                     break;
                 case InvalidSequenceType.SequenceWithUnicodeChars:
                     expectedErrorMessage = utilityObj.xmlUtil.GetTextValue(nodeName,
-                        Constants.UnicodeSequenceErrorMessage);
+                                                                           Constants.UnicodeSequenceErrorMessage);
                     break;
                 case InvalidSequenceType.SequenceWithSpaces:
                     expectedErrorMessage = utilityObj.xmlUtil.GetTextValue(nodeName,
-                        Constants.SequenceWithSpaceErrorMessage);
+                                                                           Constants.SequenceWithSpaceErrorMessage);
                     break;
                 case InvalidSequenceType.AlphabetMap:
                     expectedErrorMessage = utilityObj.xmlUtil.GetTextValue(nodeName,
-                        Constants.InvalidAlphabetErrorMessage);
+                                                                           Constants.InvalidAlphabetErrorMessage);
                     break;
                 default:
                     expectedErrorMessage = utilityObj.xmlUtil.GetTextValue(nodeName,
-                        Constants.ExpectedErrorMessage);
+                                                                           Constants.ExpectedErrorMessage);
                     break;
             }
 
@@ -2114,13 +2118,13 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         }
 
         /// <summary>
-        /// Gets the similarity matrix file name for a given invalid similarity matrix type.
+        ///     Gets the similarity matrix file name for a given invalid similarity matrix type.
         /// </summary>
         /// <param name="nodeName">xml node.</param>
         /// <param name="invalidType">similarity matrix invalid type.</param>
         /// <returns>Returns similarity matrix file name.</returns>
-        string GetSimilarityMatrixFileWithInvalidType(string nodeName,
-            SimilarityMatrixInvalidTypes invalidType)
+        private string GetSimilarityMatrixFileWithInvalidType(string nodeName,
+                                                              SimilarityMatrixInvalidTypes invalidType)
         {
             string invalidFileNode = string.Empty;
             string invalidFilePath = string.Empty;
@@ -2152,20 +2156,20 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         }
 
         /// <summary>
-        /// Gets the input file name for a given invalid sequence type.
+        ///     Gets the input file name for a given invalid sequence type.
         /// </summary>
         /// <param name="nodeName">xml node.</param>
-        /// <param name="invalidType">sequence invalid type.</param>
+        /// <param name="invalidSequenceType"></param>
         /// <returns>Returns input file name.</returns>
-        string GetInputFileNameWithInvalidType(string nodeName,
-            InvalidSequenceType invalidSequenceType)
+        private string GetInputFileNameWithInvalidType(string nodeName,
+                                                       InvalidSequenceType invalidSequenceType)
         {
             string invalidFilePath = string.Empty;
             switch (invalidSequenceType)
             {
                 case InvalidSequenceType.SequenceWithSpecialChars:
                     invalidFilePath = utilityObj.xmlUtil.GetTextValue(nodeName,
-                        Constants.InvalidFilePathNode1);
+                                                                      Constants.InvalidFilePathNode1);
                     break;
                 case InvalidSequenceType.EmptySequence:
                     invalidFilePath = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.EmptyFilePath1);
@@ -2187,7 +2191,7 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         }
 
         /// <summary>
-        /// Creates the sequence object with sequences in different cases 
+        ///     Creates the sequence object with sequences in different cases
         /// </summary>
         /// <param name="firstSequenceString">First sequence string.</param>
         /// <param name="secondSequenceString">Second sequence string.</param>
@@ -2196,45 +2200,52 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         /// <param name="firstInputSequence">First input sequence object.</param>
         /// <param name="secondInputSequence">Second input sequence object.</param>
         private static void GetSequenceWithCaseType(string firstSequenceString, string secondSequenceString,
-            IAlphabet alphabet, SequenceCaseType caseType, out Sequence firstInputSequence,
-            out Sequence secondInputSequence)
+                                                    IAlphabet alphabet, SequenceCaseType caseType,
+                                                    out Sequence firstInputSequence,
+                                                    out Sequence secondInputSequence)
         {
             switch (caseType)
             {
                 case SequenceCaseType.LowerCase:
                     firstInputSequence = new Sequence(alphabet,
-                        firstSequenceString.ToString((IFormatProvider)null).ToLower(CultureInfo.CurrentCulture));
+                                                      firstSequenceString.ToString(null)
+                                                                         .ToLower(CultureInfo.CurrentCulture));
                     secondInputSequence = new Sequence(alphabet,
-                        secondSequenceString.ToString((IFormatProvider)null).ToLower(CultureInfo.CurrentCulture));
+                                                       secondSequenceString.ToString(null)
+                                                                           .ToLower(CultureInfo.CurrentCulture));
                     break;
                 case SequenceCaseType.UpperCase:
                     firstInputSequence = new Sequence(alphabet,
-                        firstSequenceString.ToString((IFormatProvider)null).ToUpper(CultureInfo.CurrentCulture));
+                                                      firstSequenceString.ToString(null)
+                                                                         .ToUpper(CultureInfo.CurrentCulture));
                     secondInputSequence = new Sequence(alphabet,
-                        secondSequenceString.ToString((IFormatProvider)null).ToUpper(CultureInfo.CurrentCulture));
+                                                       secondSequenceString.ToString(null)
+                                                                           .ToUpper(CultureInfo.CurrentCulture));
                     break;
                 case SequenceCaseType.LowerUpperCase:
                     firstInputSequence = new Sequence(alphabet,
-                        firstSequenceString.ToString((IFormatProvider)null).ToLower(CultureInfo.CurrentCulture));
+                                                      firstSequenceString.ToString(null)
+                                                                         .ToLower(CultureInfo.CurrentCulture));
                     secondInputSequence = new Sequence(alphabet,
-                        secondSequenceString.ToString((IFormatProvider)null).ToUpper(CultureInfo.CurrentCulture));
+                                                       secondSequenceString.ToString(null)
+                                                                           .ToUpper(CultureInfo.CurrentCulture));
                     break;
                 case SequenceCaseType.Default:
                 default:
-                    firstInputSequence = new Sequence(alphabet, firstSequenceString.ToString((IFormatProvider)null));
-                    secondInputSequence = new Sequence(alphabet, secondSequenceString.ToString((IFormatProvider)null));
+                    firstInputSequence = new Sequence(alphabet, firstSequenceString.ToString(null));
+                    secondInputSequence = new Sequence(alphabet, secondSequenceString.ToString(null));
                     break;
             }
         }
 
         /// <summary>
-        /// Compare the alignment of mummer and defined alignment
+        ///     Compare the alignment of mummer and defined alignment
         /// </summary>
         /// <param name="actualAlignment"></param>
         /// <param name="expectedAlignment">expected output</param>
         /// <returns>Compare result of alignments</returns>
         private static bool CompareAlignment(IList<IPairwiseSequenceAlignment> actualAlignment,
-            IList<IPairwiseSequenceAlignment> expectedAlignment)
+                                             IList<IPairwiseSequenceAlignment> expectedAlignment)
         {
             return AlignmentHelpers.CompareAlignment(actualAlignment, expectedAlignment);
         }

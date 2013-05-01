@@ -4,9 +4,8 @@
  *  This file contains the Comparative Bvt test cases.
  * 
 ***************************************************************************/
-using Bio;
+
 using Bio.Algorithms.Alignment;
-using Bio.Algorithms.Assembly.Padena.Scaffold;
 using Bio.Extensions;
 using Bio.IO.FastA;
 using Bio.Util.Logging;
@@ -489,11 +488,7 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Comparative
 
                 string[] seqArray = searchSequences.ElementAt(0).Split(',');
 
-                for (int i = 0; i < seqArray.Length; i++)
-                {
-                    ISequence searchSeq = new Sequence(seqAlphabet, encodingObj.GetBytes(seqArray[i]));
-                    searchSeqList.Add(searchSeq);
-                }
+                searchSeqList.AddRange(seqArray.Select(t => new Sequence(seqAlphabet, encodingObj.GetBytes(t))).Cast<ISequence>());
             }
 
             foreach (ISequence reference in referenceSeqList)
@@ -528,15 +523,9 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Comparative
         /// </summary>
         /// <param name="list">list of ienumberable</param>
         /// <returns>Delta Alignments</returns>
-        IEnumerable<DeltaAlignment> CovertListToIEnumerable(IList<IEnumerable<DeltaAlignment>> list)
+        IEnumerable<DeltaAlignment> CovertListToIEnumerable(IEnumerable<IEnumerable<DeltaAlignment>> list)
         {
-            foreach (IEnumerable<DeltaAlignment> iEnumDelta in list)
-            {
-                foreach (DeltaAlignment delAlign in iEnumDelta)
-                {
-                    yield return delAlign;
-                }
-            }
+            return list.SelectMany(iEnumDelta => iEnumDelta);
         }
 
         /// <summary>
@@ -554,17 +543,18 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Comparative
             IEnumerable<DeltaAlignment> repeatDeltaValues = null;
 
             ComparativeGenomeAssembler.WriteDelta(this.CovertListToIEnumerable(deltaValues), deltaFile);
-            Bio.Util.DeltaAlignmentCollection daCollectionObj = new Bio.Util.DeltaAlignmentCollection(deltaFile, readsFile);
+            DeltaAlignmentCollection daCollectionObj = new DeltaAlignmentCollection(deltaFile, readsFile);
             repeatDeltaValues = RepeatResolver.ResolveAmbiguity(daCollectionObj);
 
             //Compare the delta's with the expected .
             Assert.IsTrue(CompareDeltaValues(nodeName, repeatDeltaValues));
         }
 
-        /// </summary>
+        /// <summary>
         /// Validate Step 3 of Comparative assembly i.e. RefineLayout() method.
         /// <param name="nodeName">Parent node in Xml</param>
         /// <param name="isFilePath">Represents sequence is in a file or not.</param>
+        /// </summary>
         public void RefineLayout(string nodeName, bool isFilePath)
         {
             List<DeltaAlignment> repeatDeltaValues = null;
@@ -586,7 +576,7 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Comparative
             string readFilePath = utilityObj.xmlUtil.GetTextValue(nodeName,
                     Constants.FilePathNode2);
 
-            using (Bio.Util.DeltaAlignmentCollection deltaColl = new Bio.Util.DeltaAlignmentCollection(deltaFile, readFilePath))
+            using (var deltaColl = new DeltaAlignmentCollection(deltaFile, readFilePath))
             {
 
                 //Validate RefineLayout().
@@ -621,7 +611,6 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Comparative
                    || (0 != string.Compare(secondSeqStart[index], deltas.ElementAt(index).SecondSequenceStart.ToString((IFormatProvider)null), StringComparison.CurrentCulture))
                    || (0 != string.Compare(secondSeqEnd[index], deltas.ElementAt(index).SecondSequenceEnd.ToString((IFormatProvider)null), StringComparison.CurrentCulture)))
                 {
-                    Console.WriteLine(string.Format((IFormatProvider)null, "Delta Alignment : There is no match at '{0}'", index.ToString((IFormatProvider)null)));
                     ApplicationLog.WriteLine(string.Format((IFormatProvider)null, "Delta Alignment : There is no match at '{0}'", index.ToString((IFormatProvider)null)));
                     return false;
                 }

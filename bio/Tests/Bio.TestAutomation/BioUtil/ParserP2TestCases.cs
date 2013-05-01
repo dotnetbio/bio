@@ -6,7 +6,6 @@
 ******************************************************************************/
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Bio.Util;
@@ -69,7 +68,7 @@ namespace Bio.TestAutomation.Util
         /// <summary>
         /// Validate TryParseAll method of Parser by passing null sequences.
         /// Input Data : Null Sequences.
-        /// Output Data : Vaildate Exception.
+        /// Output Data : Validate Exception.
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -86,8 +85,8 @@ namespace Bio.TestAutomation.Util
             }
             catch (Exception ex)
             {
-                Console.WriteLine(string.Format((IFormatProvider)null,
-                "Parser P2: Validation of ParseAll method for NULL Sequences completed successfully.",
+                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
+                "Parser P2: Validation of ParseAll method for NULL Sequences completed successfully : {0}.",
                 ex.Message));
             }
         }
@@ -95,7 +94,7 @@ namespace Bio.TestAutomation.Util
         /// <summary>
         /// Validate ParseAll method of Parser by passing null sequences.
         /// Input Data : Null Sequences.
-        /// Output Data : Vaildate Exception.
+        /// Output Data : Validate Exception.
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -111,8 +110,8 @@ namespace Bio.TestAutomation.Util
             }
             catch (Exception ex)
             {
-                Console.WriteLine(string.Format((IFormatProvider)null,
-                "Parser P2: Validation of ParseAll method for NULL Sequences completed successfully.",
+                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
+                "Parser P2: Validation of ParseAll method for NULL Sequences completed successfully : {0}.",
                 ex.Message));
             }
         }
@@ -120,7 +119,7 @@ namespace Bio.TestAutomation.Util
         /// <summary>
         /// Validate TryParse method of Parser by passing null sequences.
         /// Input Data : Null Sequences.
-        /// Output Data : Vaildate Exception.
+        /// Output Data : Validate Exception.
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -128,17 +127,17 @@ namespace Bio.TestAutomation.Util
         public void ValidateTryParseForNullSequences()
         {
             sequences = new string[] { null };
-            int expectedResult = 0;
 
             try
             {
+                int expectedResult = 0;
                 Parser.TryParse(sequences[0], out expectedResult);
                 Assert.Fail();
             }
             catch (Exception ex)
             {
-                Console.WriteLine(string.Format((IFormatProvider)null,
-                "Parser P2: Validation of TryParse method for NULL Sequences completed successfully.",
+                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
+                "Parser P2: Validation of TryParse method for NULL Sequences completed successfully: {0}.",
                 ex.Message));
             }
         }
@@ -146,7 +145,7 @@ namespace Bio.TestAutomation.Util
         /// <summary>
         /// Validate Parse method of Parser by passing null sequences.
         /// Input Data : Null Sequences.
-        /// Output Data : Vaildate Exception.
+        /// Output Data : Validate Exception.
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -154,7 +153,7 @@ namespace Bio.TestAutomation.Util
         public void ValidateParseForSequenceValues()
         {
             sequences = new string[] { null };
-            int expectedResult = 0;
+            const int expectedResult = 0;
 
             try
             {
@@ -163,8 +162,8 @@ namespace Bio.TestAutomation.Util
             }
             catch (Exception ex)
             {
-                Console.WriteLine(string.Format((IFormatProvider)null,
-                "Parser P2: Validation of Parse method for NULL Sequences completed successfully.",
+                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
+                "Parser P2: Validation of Parse method for NULL Sequences completed successfully: {0}.",
                 ex.Message));
             }
         }

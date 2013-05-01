@@ -205,15 +205,11 @@ namespace Bio.TestAutomation.IO.Nexus
             {
                 ApplicationLog.WriteLine(
                    "Nexus Parser P2 : All the features validated successfully.");
-                Console.WriteLine(
-                    "Nexus Parser P2 : All the features validated successfully.");
             }
             catch (FormatException)
             {
                 ApplicationLog.WriteLine(
                    "Nexus Parser P2 : All the features validated successfully.");
-                Console.WriteLine(
-                    "Nexus Parser P2 : All the features validated successfully.");
             }
         }
 

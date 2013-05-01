@@ -51,19 +51,20 @@ namespace Bio.TestAutomation.Util
 
                 PadenaAssembly result = (PadenaAssembly)assembler.Assemble(GetReadsForScaffolds(), true);
 
-                Assert.AreEqual(9, result.ContigSequences.Count());
+                Assert.AreEqual(10, result.ContigSequences.Count());
 
                 var expectedContigs = new List<string>
                 {
-                   "GCGCGC",
-                   "CGCGCG",
-                   "GCTAAGATAGGAGGCAT",
-                   "TTAGCGCG",
-                   "GCGCGGCGCG",
-                   "TTTTAAA",
-                   "TTTTAGC",
-                   "TTTTTA",
                    "TTTTTT",
+                   "TTAGCGCG",
+                   "CGCGCCGCGC",
+                   "CGCGCG",
+                   "GCGCGC",
+                   "TTTTTA",
+                   "TTTTAGC",
+                   "TTTTAA",
+                   "TTTAAA",
+                   "ATGCCTCCTATCTTAGC",
                 };
 
                 foreach (ISequence contig in result.ContigSequences)
@@ -75,16 +76,17 @@ namespace Bio.TestAutomation.Util
                         "Found unknown contig " + contigSeq);
                 }
 
-                Assert.AreEqual(7, result.Scaffolds.Count());
-                HashSet<string> expectedScaffolds = new HashSet<string>
+                Assert.AreEqual(8, result.Scaffolds.Count());
+                var expectedScaffolds = new List<string>
                 {
-                    "GCGCGCTAAGATAGGAGGCAT",
+                    "ATGCCTCCTATCTTAGCGCGC",
                     "CGCGCG",
-                    "TTTTAAA",
-                    "TTTTAGC",
-                    "GCGCGGCGCG",
+                    "CGCGCCGCGC",
                     "TTTTTA",
                     "TTTTTT",
+                    "TTTTAGC",
+                    "TTTTAA",
+                    "TTTAAA",
                 };
 
                 foreach (ISequence scaffold in result.Scaffolds)

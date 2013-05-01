@@ -6,26 +6,24 @@
 ******************************************************************************/
 
 using System.Collections.Generic;
+using System.Linq;
 using Bio.Algorithms.Alignment;
 using Bio.Util.Logging;
-using System.Linq;
-using Bio;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SM = Bio.SimilarityMatrices.SimilarityMatrix;
 
 namespace Bio.TestAutomation.Algorithms.Alignment
 {
     /// <summary>
-    /// Test Automation code for Bio Sequences and P1 level validations.
+    ///     Test Automation code for Bio Sequences and P1 level validations.
     /// </summary>
     [TestClass]
     public class PairwiseAlignedSequenceP1TestCases
     {
-
         #region Constructor
 
         /// <summary>
-        /// Static constructor to open log and make other settings needed for test
+        ///     Static constructor to open log and make other settings needed for test
         /// </summary>
         static PairwiseAlignedSequenceP1TestCases()
         {
@@ -41,7 +39,7 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         #region PairwiseAlignedSequence P1 TestCases
 
         /// <summary>
-        /// Validate the attributes in PairwiseAlignedSequence.
+        ///     Validate the attributes in PairwiseAlignedSequence.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -87,20 +85,21 @@ namespace Bio.TestAutomation.Algorithms.Alignment
             searchSeq.ID = "Q3";
             searchSeqs.Add(searchSeq);
 
-            NucmerPairwiseAligner nucmer = new NucmerPairwiseAligner();
+            var nucmer = new NucmerPairwiseAligner();
             nucmer.MaximumSeparation = 0;
             nucmer.MinimumScore = 2;
             nucmer.SeparationFactor = 0.12F;
             nucmer.LengthOfMUM = 5;
             nucmer.BreakLength = 2;
-            IList<IPairwiseSequenceAlignment> result = nucmer.Align(referenceSeqs, searchSeqs).Select(a => a as IPairwiseSequenceAlignment).ToList();
+            IList<IPairwiseSequenceAlignment> result =
+                nucmer.Align(referenceSeqs, searchSeqs).Select(a => a as IPairwiseSequenceAlignment).ToList();
 
             // Check if output is not null
             Assert.AreNotEqual(null, result);
 
-            List<IPairwiseSequenceAlignment> expectedOutput = new List<IPairwiseSequenceAlignment>();
+            var expectedOutput = new List<IPairwiseSequenceAlignment>();
             IPairwiseSequenceAlignment align = new PairwiseSequenceAlignment();
-            PairwiseAlignedSequence alignedSeq = new PairwiseAlignedSequence();
+            var alignedSeq = new PairwiseAlignedSequence();
 
             alignedSeq.FirstSequence = new Sequence(Alphabets.DNA, "AAAGGGA");
             alignedSeq.SecondSequence = new Sequence(Alphabets.DNA, "AAAGGGA");
@@ -187,7 +186,7 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         }
 
         /// <summary>
-        /// Validate PairwiseAlignedSequence with Multiple reference.
+        ///     Validate PairwiseAlignedSequence with Multiple reference.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -218,18 +217,19 @@ namespace Bio.TestAutomation.Algorithms.Alignment
             searchSeq.ID = "Q1";
             searchSeqs.Add(searchSeq);
 
-            NucmerPairwiseAligner nucmer = new NucmerPairwiseAligner();
+            var nucmer = new NucmerPairwiseAligner();
             nucmer.FixedSeparation = 0;
             nucmer.MinimumScore = 2;
             nucmer.SeparationFactor = -1;
             nucmer.LengthOfMUM = 3;
-            IList<IPairwiseSequenceAlignment> result = nucmer.Align(referenceSeqs, searchSeqs).Select(a => a as IPairwiseSequenceAlignment).ToList();
+            IList<IPairwiseSequenceAlignment> result =
+                nucmer.Align(referenceSeqs, searchSeqs).Select(a => a as IPairwiseSequenceAlignment).ToList();
 
             // Check if output is not null
             Assert.AreNotEqual(null, result);
             IList<IPairwiseSequenceAlignment> expectedOutput = new List<IPairwiseSequenceAlignment>();
             IPairwiseSequenceAlignment align = new PairwiseSequenceAlignment();
-            PairwiseAlignedSequence alignedSeq = new PairwiseAlignedSequence();
+            var alignedSeq = new PairwiseAlignedSequence();
             alignedSeq.FirstSequence = new Sequence(Alphabets.DNA, "GCGCATCCCC");
             alignedSeq.SecondSequence = new Sequence(Alphabets.DNA, "GCGC--CCCC");
             alignedSeq.Consensus = new Sequence(Alphabets.DNA, "GCGCATCCCC");
@@ -248,11 +248,11 @@ namespace Bio.TestAutomation.Algorithms.Alignment
             expectedOutput.Add(align);
             Assert.IsTrue(CompareAlignment(result, expectedOutput));
             ApplicationLog.WriteLine(
-                 "PairwiseAlignedSequence P1: Successfully validated Sequence with Multiple Reference.");
+                "PairwiseAlignedSequence P1: Successfully validated Sequence with Multiple Reference.");
         }
 
         /// <summary>
-        /// Validate PairwiseAlignedSequence with multiple reference & query sequences
+        ///     Validate PairwiseAlignedSequence with multiple reference & query sequences
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -288,19 +288,20 @@ namespace Bio.TestAutomation.Algorithms.Alignment
             searchSeq.ID = "Q11";
             searchSeqs.Add(searchSeq);
 
-            NucmerPairwiseAligner nucmer = new NucmerPairwiseAligner();
+            var nucmer = new NucmerPairwiseAligner();
             nucmer.FixedSeparation = 0;
             nucmer.MinimumScore = 2;
             nucmer.SeparationFactor = -1;
             nucmer.LengthOfMUM = 3;
-            IList<IPairwiseSequenceAlignment> result = nucmer.Align(referenceSeqs, searchSeqs).Select(a => a as IPairwiseSequenceAlignment).ToList();
+            IList<IPairwiseSequenceAlignment> result =
+                nucmer.Align(referenceSeqs, searchSeqs).Select(a => a as IPairwiseSequenceAlignment).ToList();
 
             // Check if output is not null
             Assert.AreNotEqual(null, result);
 
             IList<IPairwiseSequenceAlignment> expectedOutput = new List<IPairwiseSequenceAlignment>();
             IPairwiseSequenceAlignment align = new PairwiseSequenceAlignment();
-            PairwiseAlignedSequence alignedSeq = new PairwiseAlignedSequence();
+            var alignedSeq = new PairwiseAlignedSequence();
 
             alignedSeq.FirstSequence = new Sequence(Alphabets.DNA, "GCGCATCCCC");
             alignedSeq.SecondSequence = new Sequence(Alphabets.DNA, "GCGC--CCCC");
@@ -330,36 +331,37 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         #region Supporting Methods
 
         /// <summary>
-        /// Compare the alignment of mummer and defined alignment
+        ///     Compare the alignment of mummer and defined alignment
         /// </summary>
         /// <param name="result">output of Aligners</param>
         /// <param name="expectedAlignment">expected output</param>
         /// <returns>Compare result of alignments</returns>
         private static bool CompareAlignment(
-                IList<IPairwiseSequenceAlignment> result,
-                IList<IPairwiseSequenceAlignment> expectedAlignment)
+            IList<IPairwiseSequenceAlignment> result,
+            IList<IPairwiseSequenceAlignment> expectedAlignment)
         {
             bool output = true;
             if (result.Count == expectedAlignment.Count)
             {
                 for (int count = 0; count < result.Count; count++)
                 {
-                    if (result[count].PairwiseAlignedSequences.Count == expectedAlignment[count].PairwiseAlignedSequences.Count)
+                    if (result[count].PairwiseAlignedSequences.Count ==
+                        expectedAlignment[count].PairwiseAlignedSequences.Count)
                     {
                         for (int count1 = 0; count1 < result[count].PairwiseAlignedSequences.Count; count1++)
                         {
                             if (result[count].PairwiseAlignedSequences[count1].FirstSequence.ToString().Equals(
-                                    expectedAlignment[count].PairwiseAlignedSequences[count1].FirstSequence.ToString())
+                                expectedAlignment[count].PairwiseAlignedSequences[count1].FirstSequence.ToString())
                                 && result[count].PairwiseAlignedSequences[count1].SecondSequence.ToString().Equals(
                                     expectedAlignment[count].PairwiseAlignedSequences[count1].SecondSequence.ToString())
                                 && result[count].PairwiseAlignedSequences[count1].Consensus.ToString().Equals(
                                     expectedAlignment[count].PairwiseAlignedSequences[count1].Consensus.ToString())
                                 && result[count].PairwiseAlignedSequences[count1].FirstOffset ==
-                                    expectedAlignment[count].PairwiseAlignedSequences[count1].FirstOffset
+                                   expectedAlignment[count].PairwiseAlignedSequences[count1].FirstOffset
                                 && result[count].PairwiseAlignedSequences[count1].SecondOffset ==
-                                    expectedAlignment[count].PairwiseAlignedSequences[count1].SecondOffset
+                                   expectedAlignment[count].PairwiseAlignedSequences[count1].SecondOffset
                                 && result[count].PairwiseAlignedSequences[count1].Score ==
-                                    expectedAlignment[count].PairwiseAlignedSequences[count1].Score)
+                                expectedAlignment[count].PairwiseAlignedSequences[count1].Score)
                             {
                                 output = true;
                             }
@@ -386,4 +388,3 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         #endregion Supporting Methods
     }
 }
-

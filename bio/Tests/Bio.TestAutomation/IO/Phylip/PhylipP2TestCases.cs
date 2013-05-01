@@ -191,14 +191,10 @@ namespace Bio.TestAutomation.IO.Phylip
             {
                 ApplicationLog.WriteLine(
                     "Phylip Parser P2 : All the features validated successfully.");
-                Console.WriteLine(
-                    "Phylip Parser P2 : All the features validated successfully.");
             }
             catch (FormatException)
             {
                 ApplicationLog.WriteLine(
-                    "Phylip Parser P2 : All the features validated successfully.");
-                Console.WriteLine(
                     "Phylip Parser P2 : All the features validated successfully.");
             }
         }

@@ -142,6 +142,7 @@ namespace PadenaUtil
             parser.Parameter(ArgumentType.Optional, "Redundancy", ArgumentValueType.Int, "r", "Number of paired read required to connect two contigs.");
             parser.Parameter(ArgumentType.Optional, "Depth", ArgumentValueType.Int, "d", "Depth for graph traversal.");
             parser.Parameter(ArgumentType.Optional, "Verbose", ArgumentValueType.Bool, "v", "Display verbose logging during processing.");
+            parser.Parameter(ArgumentType.Optional, "ForceKmer", ArgumentValueType.Bool, "fk", "Force specified k-mer to be used without a warning prompt.");
 
             if (args.Length > 0)
             {
@@ -161,8 +162,8 @@ namespace PadenaUtil
                 }
                 else if (options.FileNames != null)
                 {
-                    ValidateKmerLength(options.KmerLength, false);
-
+                    if (!options.ForceKmer)
+                        ValidateKmerLength(options.KmerLength, false);
                     if (options.Verbose)
                         Output.TraceLevel = OutputLevel.Information | OutputLevel.Verbose;
                     else if (!options.Quiet)
@@ -219,8 +220,8 @@ namespace PadenaUtil
                 }
                 else
                 {
-                    ValidateKmerLength(options.KmerLength, options.AllowKmerLengthEstimation);
-
+                    if (!options.ForceKmer)
+                        ValidateKmerLength(options.KmerLength, options.AllowKmerLengthEstimation);
                     if (options.Verbose)
                         Output.TraceLevel = OutputLevel.Information | OutputLevel.Verbose;
                     else if (!options.Quiet)
@@ -314,6 +315,7 @@ namespace PadenaUtil
             parser.Parameter(ArgumentType.Optional, "OutputFile", ArgumentValueType.String, "o", "Output file");
             parser.Parameter(ArgumentType.Optional, "Verbose", ArgumentValueType.Bool, "v", "Display verbose logging during processing.");
             parser.Parameter(ArgumentType.DefaultArgument, "Filename", ArgumentValueType.String, "", "Input file of reads");
+            parser.Parameter(ArgumentType.Optional, "ForceKmer", ArgumentValueType.Bool, "fk", "Force specified k-mer to be used without a warning prompt.");
         }
 
         /// <summary>

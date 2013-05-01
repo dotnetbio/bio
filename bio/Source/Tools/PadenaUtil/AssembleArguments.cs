@@ -11,7 +11,6 @@ using Bio.IO;
 using Bio.IO.FastA;
 using Bio.Util;
 using PadenaUtil.Properties;
-using Bio.Algorithms.Kmer;
 
 namespace PadenaUtil
 {
@@ -25,7 +24,7 @@ namespace PadenaUtil
         /// <summary>
         /// Length of k-mer.
         /// </summary>
-        public int KmerLength = KmerData32.MIN_KMER_LENGTH+1;
+        public int KmerLength = 13;
 
         /// <summary>
         /// Threshold for removing dangling ends in graph.
@@ -56,6 +55,11 @@ namespace PadenaUtil
         /// Threshold used for removing low-coverage contigs.
         /// </summary>
         public int ContigCoverageThreshold = -1;
+
+        /// <summary>
+        /// Force specified kmer (no warning prompt)
+        /// </summary>
+        public bool ForceKmer = false;
 
         /// <summary>
         /// Help.

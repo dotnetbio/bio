@@ -6,7 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Bio.Algorithms.Kmer;
 using Bio.Util;
-using System.Diagnostics;
+using System.Text;
 
 namespace Bio.Algorithms.Assembly.Graph
 {
@@ -15,38 +15,29 @@ namespace Bio.Algorithms.Assembly.Graph
     /// Graph is encoded as a collection of de Bruijn nodes.
     /// The nodes themselves hold the adjacency information.
     /// </summary>
-    public class DeBruijnGraph 
+    public class DeBruijnGraph
     {
+        private const int StopAddThreshold = 2000000;
+        
         /// <summary>
-        /// Size of Kmer List to grab, somewhat arbitrary but want to keep list size below large object threshold, which is ~85 kb 
+        /// Max kmer length allowed
         /// </summary>
-        const int BlockSize = 4096;
+        public const int MaxKmerLength = 31;
 
         /// <summary>
-        /// When to add list to blocking collection, most short reads are greater than 151bp so this should avoid needing to grow the list
+        /// Holds dna symbols.
         /// </summary>
-        const int AddThreshold = BlockSize - 151;
+        private readonly char[] _dnaSymbols = new[] { 'A', 'T', 'G', 'C' };
 
         /// <summary>
-        /// When to pause the add to the blocking collection.
+        /// Holds complement dna symbols.
         /// </summary>
-        const int StopAddThreshold = 2000000 / BlockSize;
+        private readonly char[] _dnaSymbolsComplement = new[] { 'T', 'A', 'C', 'G' };
 
         /// <summary>
         /// Holds node count.
         /// </summary>
         private long _nodeCount;
-
-        /// <summary>
-        /// Collection of nodes in the graph.
-        /// </summary>
-        private IEnumerable<DeBruijnNode> _nodes;
-
-        /// <summary>
-        /// Flag to indicate if the node collection should be compacted
-        /// must be set whenever nodes are deleted;
-        /// </summary>
-        private bool _nodesNeedCompacting;
 
         /// <summary>
         /// Holds the number of input sequences processed while building graph.
@@ -58,15 +49,14 @@ namespace Bio.Algorithms.Assembly.Graph
         /// </summary>
         private long _skippedSequencesCount;
 
-        private int _kmerLength;
-
         /// <summary>
         /// Initializes a new instance of the DeBruijnGraph class.
         /// </summary>
         /// <param name="kmerLength">Length of the kmer.</param>
         public DeBruijnGraph(int kmerLength)
         {
-            this.KmerLength = kmerLength;
+            Root = null;
+            KmerLength = kmerLength;
         }
 
         /// <summary>
@@ -75,22 +65,18 @@ namespace Bio.Algorithms.Assembly.Graph
         public long NodeCount
         {
             get { return this._nodeCount; }
+            set { this._nodeCount = value; }
         }
 
         /// <summary>
-        /// Gets the k-mer length of the graph.
+        /// Gets the kmerlength of the graph.
         /// </summary>
-        public int KmerLength
-        {
-            get { return _kmerLength; }
+        public int KmerLength { get; private set; }
 
-            private set
-            {
-                // Enforce our boundaries - minimum allowed here is "1" to max value.
-                // We will further constrain this later to sequence length.
-                _kmerLength = Math.Max(1, Math.Min(KmerData32.MAX_KMER_LENGTH, value));
-            }
-        }
+        /// <summary>
+        /// Gets the root node of the graph.
+        /// </summary>
+        public DeBruijnNode Root { get; private set; }
 
         /// <summary>
         /// Gets number of sequences processed while building the graph.
@@ -144,35 +130,41 @@ namespace Bio.Algorithms.Assembly.Graph
             if (sequences == null)
                 throw new ArgumentNullException("sequences");
 
-            // Build the dictionary of kmers to debruijin nodes
-            var kmerManager = new KmerDictionary();
-            var kmerDataCollection = new BlockingCollection<List<KmerData32>>();
+            if (KmerLength <= 0)
+                throw new ArgumentException("KmerLengthShouldBePositive");
 
-            // Create the consumer task
-            Task theConsumer = Task.Factory.StartNew(() =>
+            if (KmerLength > MaxKmerLength)
+                throw new ArgumentException("KmerLengthGreaterThan32");
+
+            var kmerDataCollection = new BlockingCollection<DeBruijnNode>();
+
+            Task.Factory.StartNew(() =>
             {
                 try
                 {
-                    var kmerList = new List<KmerData32>(BlockSize);
+                    IAlphabet alphabet = Alphabets.DNA;
+
                     HashSet<byte> gapSymbols;
-                    Alphabets.DNA.TryGetGapSymbols(out gapSymbols);
+                    alphabet.TryGetGapSymbols(out gapSymbols);
 
                     // Generate the kmers from the sequences
                     foreach (ISequence sequence in sequences)
                     {
                         // if the sequence alphabet is not of type DNA then ignore it.
-                        bool skipSequence = false;
                         if (sequence.Alphabet != Alphabets.DNA)
                         {
-                            skipSequence = true;
+                            Interlocked.Increment(ref _skippedSequencesCount);
+                            Interlocked.Increment(ref _processedSequencesCount);
+                            continue;
                         }
-                        else
+
+                        // if the sequence contains any gap symbols then ignore the sequence.
+                        bool skipSequence = false;
+                        foreach (byte symbol in gapSymbols)
                         {
-                            // if the sequence contains any gap symbols then ignore the sequence.
                             for (long index = 0; index < sequence.Count; ++index)
                             {
-                                byte b = sequence[index];
-                                if (gapSymbols.Any(symbol => b == symbol))
+                                if (sequence[index] == symbol)
                                 {
                                     skipSequence = true;
                                     break;
@@ -185,37 +177,29 @@ namespace Bio.Algorithms.Assembly.Graph
 
                         if (skipSequence)
                         {
-                            Interlocked.Increment(ref this._skippedSequencesCount);
-                            Interlocked.Increment(ref this._processedSequencesCount);
+                            Interlocked.Increment(ref _skippedSequencesCount);
+                            Interlocked.Increment(ref _processedSequencesCount);
                             continue;
                         }
 
-                        // If the blocking collection count is exceeding 2 million kmers wait for 5 sec 
-                        // so that the task can remove some kmers and create the nodes. 
+                        // if the blocking collection count is exceeding 2 million wait for 5 sec 
+                        // so that the task can remove some kmers and creat the nodes. 
                         // This will avoid OutofMemoryException
                         while (kmerDataCollection.Count > StopAddThreshold)
                         {
                             Thread.Sleep(5);
                         }
 
-                        // Convert sequences to k-mers
-                        var kmers = KmerData32.GetKmers(sequence, this.KmerLength);
-                        kmerList.AddRange(kmers);
-
-                        // Most reads are <=150 basepairs, so this should avoid having to grow the list
-                        // by keeping it below blockSize
-                        if (kmerList.Count > AddThreshold)
+                        // Generate the kmers from each sequence
+                        long count = sequence.Count;
+                        for (long i = 0; i <= count - KmerLength; ++i)
                         {
-                            kmerDataCollection.Add(kmerList);
-                            kmerList = new List<KmerData32>(4092);
+                            var kmerData = new KmerData32();
+                            bool orientation = kmerData.SetKmerData(sequence, i, KmerLength);
+                            kmerDataCollection.Add(new DeBruijnNode(kmerData, orientation, 1));
                         }
 
-                        Interlocked.Increment(ref this._processedSequencesCount);
-                    }
-
-                    if (kmerList.Count <= AddThreshold)
-                    {
-                        kmerDataCollection.Add(kmerList);
+                        Interlocked.Increment(ref _processedSequencesCount);
                     }
                 }
                 finally
@@ -224,49 +208,88 @@ namespace Bio.Algorithms.Assembly.Graph
                 }
             });
 
-            // Consume k-mers by adding them to binary tree structure as nodes
-            Parallel.ForEach(kmerDataCollection.GetConsumingEnumerable(), 
-                new ParallelOptions() { MaxDegreeOfParallelism = Environment.ProcessorCount }, newKmerList =>
+            // The main thread will then process all the data - this will loop until the above
+            // task completes adding the kmers.
+            foreach (var newNode in kmerDataCollection.GetConsumingEnumerable())
             {
-                foreach (KmerData32 newKmer in newKmerList)
+                // Create a new node
+                if (Root == null) // first element being added
                 {
-                    // Create Vertex
-                    DeBruijnNode node = kmerManager.SetNewOrGetOld(newKmer);
-                    Debug.Assert(newKmer.KmerData == node.NodeValue.KmerData);
+                    Root = newNode; // set node as root of the tree
+                    NodeCount++;
+                    continue;
+                }
 
-                    // Need to lock node if doing this in parallel
-                    if (node.KmerCount <= 255)
+                int result = 0;
+                DeBruijnNode temp = Root;
+                DeBruijnNode parent = Root;
+
+                // Search the tree where the new node should be inserted
+                while (temp != null)
+                {
+                    result = newNode.NodeValue.CompareTo(temp.NodeValue);
+                    if (result == 0)
                     {
-                        lock (node)
+                        if (temp.KmerCount <= 255)
                         {
-                            if (node.KmerCount <= 255)
-                                node.KmerCount++;
+                            temp.KmerCount++;
+                            break;
                         }
                     }
+                    else if (result > 0) // move to right sub-tree
+                    {
+                        parent = temp;
+                        temp = temp.Right;
+                    }
+                    else if (result < 0) // move to left sub-tree
+                    {
+                        parent = temp;
+                        temp = temp.Left;
+                    }
                 }
-            });
 
-            // Done filling binary tree
-            theConsumer.Wait(); // Make sure task is finished - also rethrows any exception here.
-            kmerDataCollection.Dispose();
-            
-            // NOTE: To speed enumeration make the nodes into an array and dispose of the collection
-            this._nodeCount = kmerManager.NodeCount;
-            this._nodes = kmerManager.GenerateNodeArray();
-            
-            // Generate the links
-            this.GenerateLinks(kmerManager);
-            
-            // Since we no longer need to search for values delete tree structure, also set left and right nodes of child array to null
-            // So that they are available for GC if no longer needed
-            kmerManager = null;
-            foreach (DeBruijnNode node in _nodes)
-            {
-                node.Left = null; node.Right = null;
+                // position found
+                if (result > 0) // add as right child
+                {
+                    parent.Right = newNode;
+                    NodeCount++;
+                }
+                else if (result < 0) // add as left child
+                {
+                    parent.Left = newNode;
+                    NodeCount++;
+                }
             }
+
+            // Done adding - we can throw away the kmer collection as we now have the graph
+            kmerDataCollection.Dispose();
             this.GraphBuildCompleted = true;
+
+            // Generate the links
+            this.GenerateLinks();
         }
-        
+
+        /// <summary>
+        /// Searches for a particular node in the tree.
+        /// </summary>
+        /// <param name="kmerValue">The node to be searched.</param>
+        /// <returns>Actual node in the tree.</returns>
+        public DeBruijnNode SearchTree(KmerData32 kmerValue)
+        {
+            DeBruijnNode startNode = Root;
+            while (startNode != null)
+            {
+                int result = kmerValue.CompareTo(startNode.NodeValue);
+                if (result == 0)  // not found
+                    break;
+
+                // Search left if the value is smaller than the current node
+                startNode = result < 0 ? startNode.Left : startNode.Right;
+            }
+
+            return startNode;
+        }
+
         /// <summary>
         /// Gets the nodes present in this graph.
         /// Nodes marked for delete are not returned.
@@ -274,34 +297,22 @@ namespace Bio.Algorithms.Assembly.Graph
         /// <returns>The list of all available nodes in the graph.</returns>
         public IEnumerable<DeBruijnNode> GetNodes()
         {
-            //Removing deleted nodes and then returning array
-            if (_nodesNeedCompacting)
-            {
-                RemoveDeletedNodesFromArray();
-            }
-            return _nodes;
-        }
-        /// <summary>
-        /// Return all nodes in the array with the visit flag set to false.
-        /// </summary>
-        /// <returns></returns>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate")]
-        public IEnumerable<DeBruijnNode> GetUnvisitedNodes()
-        {
-            foreach (var node in this._nodes)
-            {
-                if (node.IsVisited == false && node.IsDeleted==false)
-                    yield return node;
-            }
-        }
+            var traversalStack = new Stack<DeBruijnNode>();
 
-        /// <summary>
-        /// Change the VisitFlag of all nodes in the graph
-        /// </summary>
-        /// <param name="stateToSet">Visited or Not?</param>
-        public void SetNodeVisitState(bool stateToSet)
-        {
-            Parallel.ForEach(_nodes, node => node.IsVisited = stateToSet);
+            traversalStack.Push(Root);
+            while (traversalStack.Count > 0)
+            {
+                DeBruijnNode current = traversalStack.Pop();
+                if (current != null)
+                {
+                    traversalStack.Push(current.Right);
+                    traversalStack.Push(current.Left);
+                    if (!current.IsDeleted)
+                        yield return current;
+                }
+            }
+
+            traversalStack.TrimExcess();
         }
 
         /// <summary>
@@ -312,59 +323,41 @@ namespace Bio.Algorithms.Assembly.Graph
         public ISequence GetNodeSequence(DeBruijnNode node)
         {
             if (node == null)
-            {
                 throw new ArgumentNullException("node");
-            }
 
-            return new Sequence(Alphabets.DNA, node.GetOriginalSymbols(this.KmerLength));
+            return new Sequence(Alphabets.DNA, node.GetOriginalSymbols(KmerLength));
         }
 
         /// <summary>
         /// Remove all nodes in input list from graph.
         /// </summary>
-        /// <param name="nodesToRemove">Nodes to be removed.</param>
-        public void RemoveNodes(IEnumerable<DeBruijnNode> nodesToRemove)
+        /// <param name="nodes">Nodes to be removed.</param>
+        public void RemoveNodes(IEnumerable<DeBruijnNode> nodes)
         {
-            if (nodesToRemove == null)
+            if (nodes == null)
+                throw new ArgumentNullException("nodes");
+
+            foreach (DeBruijnNode node in nodes.Where(node => !node.IsDeleted))
             {
-                throw new ArgumentNullException("nodesToRemove");
-            }
-            long oldCount = this._nodeCount;
-            foreach (DeBruijnNode node in nodesToRemove)
-            {
-                if (!node.IsDeleted)
-                {
-                    node.IsDeleted = true;
-                    Interlocked.Decrement(ref this._nodeCount);
-                }
-            }
-            if (oldCount != _nodeCount)
-            {
-                _nodesNeedCompacting = true;
+                node.IsDeleted = true;
+                Interlocked.Decrement(ref _nodeCount);
             }
         }
 
         /// <summary>
         /// Removes the nodes which are maked for delete.
         /// </summary>
-        public long RemoveMarkedNodes()
+        public int RemoveMarkedNodes()
         {
-            long count = 0;
-            Parallel.ForEach(
-                this.GetNodes(),
-                (node) =>
+            int count = 0;
+            Parallel.ForEach(GetMarkedNodes(),
+                node =>
                 {
-                    if (node.IsMarkedForDelete && !node.IsDeleted)
-                    {
-                        node.IsDeleted = true;
-                        Interlocked.Increment(ref count);
-                        Interlocked.Decrement(ref this._nodeCount);
-                    }
+                    node.IsDeleted = true;
+                    Interlocked.Increment(ref count);
+                    Interlocked.Decrement(ref _nodeCount);
                 });
-            if (count > 0)
-            {
-                _nodesNeedCompacting = true;
-            }
+
             return count;
         }
 
@@ -379,248 +372,90 @@ namespace Bio.Algorithms.Assembly.Graph
         public byte GetNextSymbolFrom(DeBruijnNode node, bool isForwardDirection, bool isSameOrientation)
         {
             if (node == null)
-            {
                 throw new ArgumentNullException("node");
-            }
 
-            byte[] nextSequence = isSameOrientation ? node.GetOriginalSymbols(this.KmerLength) : node.GetReverseComplementOfOriginalSymbols(this.KmerLength);
+            byte[] nextSequence = isSameOrientation
+                ? node.GetOriginalSymbols(KmerLength)
+                : node.GetReverseComplementOfOriginalSymbols(KmerLength);
 
-            if (isForwardDirection)
-            {
-                return nextSequence.Last();
-            }
-            else
-            {
-                return nextSequence.First();
-            }
+            return isForwardDirection ? nextSequence.Last() : nextSequence.First();
         }
-        
+
         /// <summary>
         /// Adds the links between the nodes of the graph.
         /// </summary>
-        private void GenerateLinks(KmerDictionary kmerManager)
+        private void GenerateLinks()
         {
-            //Prepare a mask to remove the bits representing the first nucleotide (or left most bits in the encoded kmer)
-            //First calculate how many bits do you have to move down a character until you are at the start of the kmer encoded sequence
-            int distancetoShift=2*(this.KmerLength-1);
-            ulong rightMask = ~( ((ulong)3) << distancetoShift);
-            Parallel.ForEach(
-               this._nodes,
+            Parallel.ForEach(GetNodes(),
                 node =>
                 {
-                    DeBruijnNode searchResult = null;
+                    DeBruijnNode searchResult;
                     KmerData32 searchNodeValue = new KmerData32();
-                    //Right Extensions - Remove first position from the value
-                    //remove the left most value by using an exclusive 
-                    ulong nextKmer = node.NodeValue.KmerData & rightMask;
-                    //now move it over two to get make a position for the next pair of bits to represent a new nucleotide
-                    
-                        
-                    nextKmer= nextKmer << 2;
-                    for (ulong i = 0; i < 4; i++)
+                    string kmerString, kmerStringRc;
+                    if (node.NodeDataOrientation)
                     {
-                        ulong tmpNextKmer = nextKmer | i;// Equivalent to "ACGTA"+"N" where N is the 0-3 encoding for A,C,G,T
-                        //Now to set the kmer value to this, the orientationForward value is equal to false if the 
-                        //reverese compliment of the kmer is used instead of the kmer value itself.
-                        bool matchIsRC = searchNodeValue.SetKmerData(tmpNextKmer, this.KmerLength);
-                        searchResult = kmerManager.TryGetOld(searchNodeValue);
+                        kmerString = Encoding.Default.GetString(node.NodeValue.GetKmerData(KmerLength));
+                        kmerStringRc = Encoding.Default.GetString(node.NodeValue.GetReverseComplementOfKmerData(KmerLength));
+                    }
+                    else
+                    {
+                        kmerStringRc = Encoding.Default.GetString(node.NodeValue.GetKmerData(KmerLength));
+                        kmerString = Encoding.Default.GetString(node.NodeValue.GetReverseComplementOfKmerData(KmerLength));
+                    }
+
+                    // Right Extensions
+                    string nextKmer = kmerString.Substring(1);
+                    string nextKmerRC = kmerStringRc.Substring(0, KmerLength - 1);
+                    for (int i = 0; i < _dnaSymbols.Length; i++)
+                    {
+                        string tmpNextKmer = nextKmer + _dnaSymbols[i];
+                        searchNodeValue.SetKmerData(Encoding.Default.GetBytes(tmpNextKmer), KmerLength);
+                        searchResult = SearchTree(searchNodeValue);
+
                         if (searchResult != null)
                         {
-                            node.SetExtensionNode(true, matchIsRC, searchResult);
+                            node.SetExtensionNode(true, searchResult.NodeDataOrientation, searchResult);
+                        }
+                        else
+                        {
+                            string tmpnextKmerRC = _dnaSymbolsComplement[i] + nextKmerRC;
+                            searchNodeValue.SetKmerData(Encoding.Default.GetBytes(tmpnextKmerRC), KmerLength);
+                            searchResult = SearchTree(searchNodeValue);
+                            if (searchResult != null)
+                            {
+                                node.SetExtensionNode(true, !searchResult.NodeDataOrientation, searchResult);
+                            }
                         }
                     }
+
                     // Left Extensions
-                    nextKmer = node.NodeValue.KmerData;
-                    //Chop off the right most basepair
-                    nextKmer >>= 2;
-                    for (ulong i = 0; i < 4; i++)//cycle through A,C,G,T
+                    nextKmer = kmerString.Substring(0, KmerLength - 1);
+                    nextKmerRC = kmerStringRc.Substring(1);
+                    for (int i = 0; i < _dnaSymbols.Length; i++)
                     {
-                        //add the character on to the left side of the kmer
-                        ulong tmpNextKmer = (i<<distancetoShift) | nextKmer; //equivalent to "N" + "ACGAT" where the basepair is added on as the 2 bits
-                        bool matchIsRC=searchNodeValue.SetKmerData(tmpNextKmer, this.KmerLength);
-                        searchResult = kmerManager.TryGetOld(searchNodeValue);
+                        string tmpNextKmer = _dnaSymbols[i] + nextKmer;
+                        searchNodeValue.SetKmerData(Encoding.Default.GetBytes(tmpNextKmer), KmerLength);
+                        searchResult = SearchTree(searchNodeValue);
                         if (searchResult != null)
                         {
-                            node.SetExtensionNode(false, matchIsRC, searchResult);
+                            node.SetExtensionNode(false, searchResult.NodeDataOrientation, searchResult);
+                        }
+                        else
+                        {
+                            string tmpNextKmerRC = nextKmerRC + _dnaSymbolsComplement[i];
+                            searchNodeValue.SetKmerData(Encoding.Default.GetBytes(tmpNextKmerRC), KmerLength);
+                            searchResult = SearchTree(searchNodeValue);
+                            if (searchResult != null)
+                            {
+                                node.SetExtensionNode(false, !searchResult.NodeDataOrientation, searchResult);
+                            }
                         }
                     }
                 });
-            this.LinkGenerationCompleted = true;
+
+            LinkGenerationCompleted = true;
         }
 
-       
-        /// <summary>
-        /// Cleans out the deleted nodes from the array
-        /// </summary>
-        private void RemoveDeletedNodesFromArray()
-        {
-            //compacts the node array by replacing all positions with deleted nodes early in the list with nodes from the end of the array.
-            if (_nodes is List<DeBruijnNode>)
-            {
-                CompactDeletedNodesFromList();
-            }
-            else if (_nodes is BigList<DeBruijnNode>)
-            {
-                CompactDeletedNodesFromBigList();
-            }
-            else
-            {
-                throw new Exception("Unknown Node Array Type");
-            }
-            _nodesNeedCompacting = false;
-        }
-
-        /// <summary>
-        /// Compact the node list by removing deleted nodes
-        /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2201:DoNotRaiseReservedExceptionTypes")]
-        private void CompactDeletedNodesFromList()
-        {
-            //start 3 threads, one to find indexes to fill, one to find things to fill them with, and one to do the filling
-            var lnodes = _nodes as List<DeBruijnNode>;
-            if (lnodes == null)
-            {
-                throw new NullReferenceException("Tried to use node collection as list when it was null or another type");
-            }
-            BlockingCollection<int> deletedFrontIndexes = new BlockingCollection<int>();
-            BlockingCollection<DeBruijnNode> undeletedBackNodes = new BlockingCollection<DeBruijnNode>();
-            int spotsToFind = lnodes.Count - (int) _nodeCount;
-            //task to find empty spots in top of list
-            int emptySpotsFound = 0;
-            Task findEmptyFrontIndexes = Task.Factory.StartNew(() =>
-            {
-                Thread.BeginCriticalRegion();
-                for (int curForward = 0; curForward < _nodeCount && emptySpotsFound!=spotsToFind; curForward++)
-                {
-                    DeBruijnNode cnode = lnodes[curForward];
-                    if (cnode.IsDeleted)
-                    {
-                        deletedFrontIndexes.Add(curForward);
-                        emptySpotsFound++;
-                    }
-                }
-                deletedFrontIndexes.CompleteAdding();
-                Thread.EndCriticalRegion();
-            });
-            //task to find undeleted nodes in back of list
-            int filledSpotsFound = 0;
-            Task findFullBackIndexes = Task.Factory.StartNew(() =>
-            {
-                Thread.BeginCriticalRegion();
-                for (int curBackward = (lnodes.Count - 1); curBackward >= _nodeCount  && filledSpotsFound!=spotsToFind; curBackward--)
-                {
-                    DeBruijnNode cnode = lnodes[curBackward];
-                    if (!cnode.IsDeleted)
-                    {
-                        undeletedBackNodes.Add(cnode);
-                        filledSpotsFound++;
-                    }
-                }
-                undeletedBackNodes.CompleteAdding();
-                findEmptyFrontIndexes.Wait();
-                //This will prevent the program from hanging if a bad area is found in the code so that there is nothing to fill an index
-                if (emptySpotsFound != filledSpotsFound)
-                {
-                    throw new ApplicationException("The node array in the graph has become corrupted, node count does not match the number of undeleted nodes");
-                }
-                Thread.EndCriticalRegion();
-            });
-            //task to move things that have been found in the back to the front
-            Task moveNodes = Task.Factory.StartNew(() =>
-            {
-                Thread.BeginCriticalRegion();
-                //the logic here requires that the items missing in the front match those in the back
-                while (!deletedFrontIndexes.IsCompleted && !undeletedBackNodes.IsCompleted)
-                {
-                    DeBruijnNode tm; int index;
-                    tm=undeletedBackNodes.Take();
-                    index = deletedFrontIndexes.Take();
-                    if (tm == null)
-                    {
-                        throw new NullReferenceException("Cannot move null node!");
-                    }
-                    lnodes[index] = tm;
-                }
-            });
-            Task.WaitAll(new Task[] { findEmptyFrontIndexes, findFullBackIndexes, moveNodes });
-            //now the tail should only be deleted nodes and nodes that have been copied further up in the list
-            lnodes.RemoveRange((int)_nodeCount, lnodes.Count - (int)_nodeCount);
-        }
-
-        /// <summary>
-        /// Compact the node list by removing deleted nodes
-        /// </summary>
-        private void CompactDeletedNodesFromBigList()
-        {
-            //NOTE: Same method as CompactDeletedNodesFromList but using long instead of int
-            //start 3 threads, one to find indexes to fill, one to find things to fill them with, and one to do the filling
-            var lnodes = _nodes as BigList<DeBruijnNode>;
-            if (lnodes == null)
-            {
-                throw new Exception("Tried to use node collection as list when it was null or another type");
-            }
-
-            BlockingCollection<long> deletedFrontIndexes = new BlockingCollection<long>();
-            BlockingCollection<DeBruijnNode> undeletedBackNodes = new BlockingCollection<DeBruijnNode>();
-            //task to find empty spots in top of list
-            long emptySpotsFound = 0;
-            Task findEmptyFrontIndexes = Task.Factory.StartNew(() =>
-            {
-                Thread.BeginCriticalRegion();
-                for (long curForward = 0; curForward < _nodeCount; curForward++)
-                {
-                    DeBruijnNode cnode = lnodes[curForward];
-                    if (cnode.IsDeleted)
-                    {
-                        deletedFrontIndexes.Add(curForward);
-                        emptySpotsFound++;
-                    }
-                }
-                deletedFrontIndexes.CompleteAdding();
-                Thread.EndCriticalRegion();
-            });
-            //task to find undeleted nodes in back of list
-            long filledSpotsFound = 0;
-            Task findFullBackIndexes = Task.Factory.StartNew(() =>
-            {
-                Thread.BeginCriticalRegion();
-                for (long curBackward = (lnodes.Count - 1); curBackward >= _nodeCount; curBackward--)
-                {
-                    DeBruijnNode cnode = lnodes[curBackward];
-                    if (!cnode.IsDeleted)
-                    {
-                        undeletedBackNodes.Add(cnode);
-                        filledSpotsFound++;
-                    }
-                }
-                undeletedBackNodes.CompleteAdding();
-                findEmptyFrontIndexes.Wait();
-                //This will prevent the program from hanging if a bad area is found in the code so that there is nothing to fill an index
-                if (emptySpotsFound != filledSpotsFound)
-                {
-                    throw new Exception("The node array in the graph has become corrupted, node count does not match the number of undeleted nodes");
-                }
-                Thread.EndCriticalRegion();
-            });
-            //task to move things that have been found in the back to the front
-            Task moveNodes = Task.Factory.StartNew(() =>
-            {
-                Thread.BeginCriticalRegion();
-                //the logic here requires that the items missing in the front match those in the back
-                while (!deletedFrontIndexes.IsCompleted)
-                {
-                    DeBruijnNode tm; long index;
-                    undeletedBackNodes.TryTake(out tm, -1);
-                    deletedFrontIndexes.TryTake(out index, -1);
-                    lnodes[index] = tm;
-                }
-            });
-            Task.WaitAll(new Task[] { findEmptyFrontIndexes, findFullBackIndexes, moveNodes });
-            //now the tail should only be deleted nodes and nodes that have been copied further up in the list
-            lnodes.TrimToSize(_nodeCount);
-        }
-
-#if FALSE
         /// <summary>
         /// Gets the nodes present in this graph.
         /// Nodes marked for delete are not returned.
@@ -628,14 +463,41 @@ namespace Bio.Algorithms.Assembly.Graph
         /// <returns>List of DeBruin node that are maked for deletion.</returns>
         private IEnumerable<DeBruijnNode> GetMarkedNodes()
         {
-            foreach (var node in this.GetNodes())
+            var traversalStack = new Stack<DeBruijnNode>();
+
+            traversalStack.Push(Root);
+            while (traversalStack.Count > 0)
             {
-                if (node.IsMarkedForDelete)
+                DeBruijnNode current = traversalStack.Pop();
+                if (current != null)
                 {
-                    yield return node;
+                    traversalStack.Push(current.Right);
+                    traversalStack.Push(current.Left);
+
+                    if (current.IsMarkedForDelete && !current.IsDeleted)
+                        yield return current;
                 }
             }
+
+            traversalStack.TrimExcess();
         }
-#endif
+
+        /// <summary>
+        /// Change the VisitFlag of all nodes in the graph
+        /// </summary>
+        /// <param name="stateToSet">Visited or Not?</param>
+        public void SetNodeVisitState(bool stateToSet)
+        {
+            Parallel.ForEach(GetNodes(), node => node.IsVisited = stateToSet);
+        }
+
+        /// <summary>
+        /// Return all nodes in the array with the visit flag set to false.
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<DeBruijnNode> GetUnvisitedNodes()
+        {
+            return GetNodes().Where(node => node.IsVisited == false /*& node.IsDeleted == false*/);
+        }
     }
 }

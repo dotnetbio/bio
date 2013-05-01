@@ -10,15 +10,11 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Threading;
-
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
 using Bio.Web;
 using Bio.Web.Blast;
-
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Runtime.Serialization;
-using Bio;
 
 namespace Bio.TestAutomation.Web.Blast
 {
@@ -28,7 +24,6 @@ namespace Bio.TestAutomation.Web.Blast
     [TestClass]
     public class BlastP1TestCases
     {
-
         #region Enum
 
         /// <summary>
@@ -135,10 +130,9 @@ namespace Bio.TestAutomation.Web.Blast
                 Assert.AreEqual(queryParams.Settings.Count.ToString((IFormatProvider)null),
                     expectedParametersCount);
 
-                // Logs to the VSTest GUI (Console.Out) window
-                Console.WriteLine(string.Format((IFormatProvider)null,
+                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                     "Blast P1: Validation of default database parameter  was completed successfully."));
-                Console.WriteLine(string.Format((IFormatProvider)null,
+                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                     "Blast P1: Default database {0} is as expected.", defaultDataBaseValue));
             }
             finally
@@ -186,10 +180,9 @@ namespace Bio.TestAutomation.Web.Blast
                 Assert.AreEqual(queryParams.Settings.Count.ToString(
                     (IFormatProvider)null), expectedParametersCount);
 
-                // Logs to the VSTest GUI (Console.Out) window
-                Console.WriteLine(string.Format((IFormatProvider)null,
+                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                     "Blast P1: Validation of Swissprot database parameter  was completed successfully."));
-                Console.WriteLine(string.Format((IFormatProvider)null,
+                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                     "Blast P1: Default database {0} is as expected.", swissprotDBValue));
             }
             finally
@@ -237,10 +230,9 @@ namespace Bio.TestAutomation.Web.Blast
                 Assert.AreEqual(queryParams.Settings.Count.ToString(
                     (IFormatProvider)null), expectedParametersCount);
 
-                // Logs to the VSTest GUI (Console.Out) window
-                Console.WriteLine(string.Format((IFormatProvider)null,
+                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                     "Blast P1: Validation of tblastx program parameter  was completed successfully."));
-                Console.WriteLine(string.Format((IFormatProvider)null,
+                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                     "Blast P1: tblastx parameter {0} is as expected.", tblastXValue));
             }
             finally
@@ -289,10 +281,9 @@ namespace Bio.TestAutomation.Web.Blast
                 Assert.AreEqual(queryParams.Settings.Count.ToString((
                     IFormatProvider)null), expectedParametersCount);
 
-                // Logs to the VSTest GUI (Console.Out) window
-                Console.WriteLine(string.Format((IFormatProvider)null,
+                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                     "Blast P1: Validation of expect parameter  was completed successfully."));
-                Console.WriteLine(string.Format((IFormatProvider)null,
+                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                     "Blast P1: expect value  parameter {0} is as expected.", optionalParameterValue));
             }
             finally
@@ -1024,10 +1015,10 @@ namespace Bio.TestAutomation.Web.Blast
                 // Validate default proxy server.
                 Assert.IsNotNull(accessor.Proxy.Address.AbsoluteUri.ToString((IFormatProvider)null));
 
-                // Logs to the VSTest GUI (Console.Out) window
-                Console.WriteLine(string.Format((IFormatProvider)null,
+                // Logs to the VSTest GUI (ApplicationLog.Out) window
+                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                     "Blast P1: Validation of GetBrowserProxy method was completed successfully."));
-                Console.WriteLine(string.Format((IFormatProvider)null,
+                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                     "Blast P1: Proxy web uri {0} is as expected.",
                     accessor.Proxy.Address.AbsoluteUri.ToString((IFormatProvider)null)));
             }
@@ -1071,9 +1062,9 @@ namespace Bio.TestAutomation.Web.Blast
 
             // Validate a created parameter..
             Assert.AreEqual(param.Description.ToString((IFormatProvider)null), newParameter);
-            Console.WriteLine(string.Format((IFormatProvider)null,
+            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                 "Validation of new parameter was completed successfully."));
-            Console.WriteLine(string.Format((IFormatProvider)null,
+            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                 "Blast P1: new parameter {0} is as expected.",
                 param.Description.ToString((IFormatProvider)null)));
         }
@@ -1112,9 +1103,9 @@ namespace Bio.TestAutomation.Web.Blast
 
             // Validate created parameter.
             Assert.AreEqual(param.Description.ToString((IFormatProvider)null), newParameter);
-            Console.WriteLine(string.Format((IFormatProvider)null,
+            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                 "Validation of new parameter was completed successfully."));
-            Console.WriteLine(string.Format((IFormatProvider)null,
+            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                 "Blast P1: new parameter {0} is as expected.", param.Description.ToString((IFormatProvider)null)));
         }
 
@@ -1152,9 +1143,9 @@ namespace Bio.TestAutomation.Web.Blast
 
             // Validate created parameter.
             Assert.AreEqual(param.Description.ToString((IFormatProvider)null), newParameter);
-            Console.WriteLine(string.Format((IFormatProvider)null,
+            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                 "Validation of new parameter was completed successfully."));
-            Console.WriteLine(string.Format((IFormatProvider)null,
+            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                 "Blast P1: new parameter {0} is as expected.", param.Description.ToString((IFormatProvider)null)));
         }
 
@@ -1241,7 +1232,7 @@ namespace Bio.TestAutomation.Web.Blast
             }
             catch (NotImplementedException)
             {
-                Console.WriteLine(string.Format((IFormatProvider)null,
+                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                     "Ncbi Blast P1 : Validated the exception successfully."));
             }
             finally
@@ -1327,10 +1318,10 @@ namespace Bio.TestAutomation.Web.Blast
                 // Validate request identifier returned by web service.
                 Assert.IsNotNull(reqId);
 
-                // Logs to the VSTest GUI (Console.Out) window
-                Console.WriteLine(string.Format((IFormatProvider)null,
+                // Logs to the VSTest GUI (ApplicationLog.Out) window
+                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                     "Blast P1: Validation of SubmitSearchRequest() method was completed successfully."));
-                Console.WriteLine(string.Format((IFormatProvider)null,
+                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                     "Blast P1: Request Id {0} is as expected.", reqId));
             }
             finally
@@ -1371,10 +1362,10 @@ namespace Bio.TestAutomation.Web.Blast
                 // Validate added sequence to request setting configuration.
                 Assert.IsTrue(queryParams.Settings.ContainsValue(querySequence));
 
-                // Logs to the VSTest GUI (Console.Out) window
-                Console.WriteLine(string.Format((IFormatProvider)null,
+                // Logs to the VSTest GUI (ApplicationLog.Out) window
+                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                     "Blast P1: Validation of Add method was completed successfully."));
-                Console.WriteLine(string.Format((IFormatProvider)null,
+                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                     "Blast P1: Query Sequence{0} is as expected.", querySequence));
             }
             finally
@@ -1434,12 +1425,12 @@ namespace Bio.TestAutomation.Web.Blast
 
                 // Validate the Submitted request.
                 Assert.IsTrue(requestResult.IsSuccessful);
-                Console.WriteLine(string.Format((IFormatProvider)null, "Http Request was submitted successfully"));
-                Console.WriteLine(string.Format((IFormatProvider)null, "Blast P1: DataBase Value {0} is as expected.",
+                ApplicationLog.WriteLine(string.Format((IFormatProvider)null, "Http Request was submitted successfully"));
+                ApplicationLog.WriteLine(string.Format((IFormatProvider)null, "Blast P1: DataBase Value {0} is as expected.",
                     queryDatabaseValue));
-                Console.WriteLine(string.Format((IFormatProvider)null, "Blast P1: Program Value {0} is as expected.",
+                ApplicationLog.WriteLine(string.Format((IFormatProvider)null, "Blast P1: Program Value {0} is as expected.",
                     queryProgramValue));
-                Console.WriteLine(string.Format((IFormatProvider)null, "Blast P1: Query sequence {0} is as expected.",
+                ApplicationLog.WriteLine(string.Format((IFormatProvider)null, "Blast P1: Query sequence {0} is as expected.",
                     querySequence));
                 webAccessor.Close();
             }
@@ -1486,7 +1477,7 @@ namespace Bio.TestAutomation.Web.Blast
             Assert.IsTrue(File.Exists(blastFilePath));
 
             // Logs information to the log file
-            Console.WriteLine(string.Format((IFormatProvider)null,
+            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                 "Blast P1: File Exists in the Path '{0}'.", blastFilePath));
 
             // Parse a Blast xml file.
@@ -1539,15 +1530,15 @@ namespace Bio.TestAutomation.Web.Blast
                 (IFormatProvider)null));
 
             // Log results to VSTest GUI.
-            Console.WriteLine(string.Format((IFormatProvider)null, "Blast P1: Bit Sequence '{0}'.",
+            ApplicationLog.WriteLine(string.Format((IFormatProvider)null, "Blast P1: Bit Sequence '{0}'.",
                 highScoreSgment.HitSequence.ToString()));
-            Console.WriteLine(string.Format((IFormatProvider)null, "Blast P1: Bit Score '{0}'.",
+            ApplicationLog.WriteLine(string.Format((IFormatProvider)null, "Blast P1: Bit Score '{0}'.",
                 highScoreSgment.BitScore));
-            Console.WriteLine(string.Format((IFormatProvider)null, "Blast P1: Bit Alignment '{0}'.",
+            ApplicationLog.WriteLine(string.Format((IFormatProvider)null, "Blast P1: Bit Alignment '{0}'.",
                 highScoreSgment.AlignmentLength));
-            Console.WriteLine(string.Format((IFormatProvider)null, "Blast P1: Hits Count '{0}'.",
+            ApplicationLog.WriteLine(string.Format((IFormatProvider)null, "Blast P1: Hits Count '{0}'.",
                 record.Hits[0].Hsps.Count));
-            Console.WriteLine(string.Format((IFormatProvider)null, "Blast P1: Results Count '{0}'.",
+            ApplicationLog.WriteLine(string.Format((IFormatProvider)null, "Blast P1: Results Count '{0}'.",
                 blastResults.Count));
         }
 
@@ -1669,12 +1660,12 @@ namespace Bio.TestAutomation.Web.Blast
                 Hit hit = record.Hits[0];
                 Assert.AreEqual(hit.Accession, expectedAccession);
                 Assert.AreEqual(hit.Id.ToString((IFormatProvider)null), expectedHitId);
-                Console.WriteLine(string.Format((IFormatProvider)null,
+                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                     "Blast BVT: Hits count '{0}'.", blastResults.Count));
-                Console.WriteLine(string.Format((IFormatProvider)null,
+                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                     "Blast BVT: Accession '{0}'.", hit.Accession));
-                Console.WriteLine(string.Format((IFormatProvider)null, "Blast BVT: Hit Id '{0}'.", hit.Id));
-                Console.WriteLine(string.Format((IFormatProvider)null,
+                ApplicationLog.WriteLine(string.Format((IFormatProvider)null, "Blast BVT: Hit Id '{0}'.", hit.Id));
+                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                     "Blast BVT: Hits Count '{0}'.", hit.Hsps.Count));
             }
             // Validate the results Synchronously with the results got earlier.
@@ -1694,7 +1685,6 @@ namespace Bio.TestAutomation.Web.Blast
                 else
                 {
                     ApplicationLog.WriteLine("No significant hits found with the these parameters.");
-                    Console.WriteLine("No significant hits found with the these parameters.");
                 }
             }
         }
@@ -1795,10 +1785,10 @@ namespace Bio.TestAutomation.Web.Blast
                 Assert.AreEqual(hit.Accession, expectedAccession);
                 Assert.AreEqual(hit.Id.ToString((IFormatProvider)null), expectedHitId);
 
-                Console.WriteLine(string.Format((IFormatProvider)null, "Blast BVT: Hits count '{0}'.", blastResults.Count));
-                Console.WriteLine(string.Format((IFormatProvider)null, "Blast BVT: Accession '{0}'.", hit.Accession));
-                Console.WriteLine(string.Format((IFormatProvider)null, "Blast BVT: Hit Id '{0}'.", hit.Id));
-                Console.WriteLine(string.Format((IFormatProvider)null, "Blast BVT: Hits Count '{0}'.", hit.Hsps.Count));
+                ApplicationLog.WriteLine(string.Format((IFormatProvider)null, "Blast BVT: Hits count '{0}'.", blastResults.Count));
+                ApplicationLog.WriteLine(string.Format((IFormatProvider)null, "Blast BVT: Accession '{0}'.", hit.Accession));
+                ApplicationLog.WriteLine(string.Format((IFormatProvider)null, "Blast BVT: Hit Id '{0}'.", hit.Id));
+                ApplicationLog.WriteLine(string.Format((IFormatProvider)null, "Blast BVT: Hits Count '{0}'.", hit.Hsps.Count));
             }
         }
 

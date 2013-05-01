@@ -6,16 +6,11 @@
 ***************************************************************************/
 
 using System;
-using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
-using Bio.IO;
 using Bio.IO.GenBank;
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
-using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Bio;
 
 #if (SILVERLIGHT == false)
     namespace Bio.TestAutomation.IO.GenBank
@@ -424,21 +419,15 @@ using Bio;
             {
                 ApplicationLog.WriteLine(
                     "GenBank Parser : Successfully validated the exception:");
-                Console.WriteLine(
-                    "GenBank Parser : Successfully validated the exception:");
             }
             catch (InvalidDataException)
             {
                 ApplicationLog.WriteLine(
                     "GenBank Parser : Successfully validated the exception:");
-                Console.WriteLine(
-                    "GenBank Parser : Successfully validated the exception:");
             }
             catch (Exception)
             {
                 ApplicationLog.WriteLine(
-                    "GenBank Parser : Successfully validated the exception:");
-                Console.WriteLine(
                     "GenBank Parser : Successfully validated the exception:");
             }
         }

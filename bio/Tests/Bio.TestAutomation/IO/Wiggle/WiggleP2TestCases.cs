@@ -156,8 +156,6 @@ namespace Bio.TestAutomation.IO.Wiggle
             {
                 ApplicationLog.WriteLine(
                     "Wiggle P2 test cases : Successfully validated the exception:", exception.Message);
-                Console.WriteLine(
-                    "Wiggle P2 test cases : Successfully validated the exception:", exception.Message);
             }
         }
 
@@ -182,11 +180,9 @@ namespace Bio.TestAutomation.IO.Wiggle
             {
                 ApplicationLog.WriteLine(
                     "Wiggle P2 test cases : Successfully validated Format exception:", exception.Message);
-                Console.WriteLine(
-                    "Wiggle P2 test cases : Successfully validated Format exception:", exception.Message);
             }
         }
 
-        # endregion Supporting methods
+        #endregion Supporting methods
     }
 }

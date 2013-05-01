@@ -10,14 +10,11 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-
 using Bio.IO.Snp;
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
-
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Text;
-using Bio;
 
 namespace Bio.TestAutomation.IO.Snp
 {
@@ -27,7 +24,6 @@ namespace Bio.TestAutomation.IO.Snp
     [TestClass]
     public class SnpP1TestCases
     {
-
         #region Enums
 
         /// <summary>
@@ -189,9 +185,6 @@ namespace Bio.TestAutomation.IO.Snp
                 Assert.AreEqual(expSequenceID, sparseSeq.ID);
                 ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                     "Snp Parser P1: The Sequence ID is '{0}' and is as expected.", sparseSeq.ID));
-                // Logs to the VSTest GUI (Console.Out) window
-                Console.WriteLine(string.Format((IFormatProvider)null,
-                    "Snp Parser P1: The Sequence ID is '{0}' and is as expected.", sparseSeq.ID));
             }
             else
             {
@@ -223,16 +216,10 @@ namespace Bio.TestAutomation.IO.Snp
                     Assert.AreEqual(expectedSequenceIds[i], tempSparseSeq.ID);
                     ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                         "Snp Parser P1: The Sequence ID is '{0}' and is as expected.", tempSparseSeq.ID));
-                    // Logs to the VSTest GUI (Console.Out) window
-                    Console.WriteLine(string.Format((IFormatProvider)null,
-                        "Snp Parser P1: The Sequence ID is '{0}' and is as expected.", tempSparseSeq.ID));
                 }
             }
 
             ApplicationLog.WriteLine(
-                "Snp Parser P1: The Snp sequence with position is validated successfully with Parse() method.");
-            // Logs to the VSTest GUI (Console.Out) window
-            Console.WriteLine(
                 "Snp Parser P1: The Snp sequence with position is validated successfully with Parse() method.");
 
             Assert.IsNotNull(sparseSeq.Alphabet);

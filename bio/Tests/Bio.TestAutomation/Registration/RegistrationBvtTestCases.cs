@@ -7,42 +7,39 @@
 ***************************************************************************/
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-
-using Bio;
 using Bio.Algorithms.Alignment;
+using Bio.Algorithms.Assembly;
 using Bio.IO;
 using Bio.Registration;
 using Bio.SimilarityMatrices;
 using Bio.Util.Logging;
-
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Bio.Algorithms.Assembly;
 
 namespace Bio.TestAutomation.Registration
 {
-
     /// <summary>
-    /// Registration BVT Test case implementation.
+    ///     Registration BVT Test case implementation.
     /// </summary>
     [TestClass]
     public class RegistrationBvtTestCases
     {
-
         #region Constants
 
-        const string AddInsFolder = "\\Add-ins";
-        const string BioTestAutomationDll = "\\Bio.TestAutomation.dll";
+        private const string AddInsFolder = "\\Add-ins";
+        private const string BioTestAutomationDll = "\\Bio.TestAutomation.dll";
 
         #endregion Constants
 
         #region Constructor
 
         /// <summary>
-        /// Static constructor to open log and make other settings needed for test
+        ///     Static constructor to open log and make other settings needed for test
         /// </summary>
         static RegistrationBvtTestCases()
         {
@@ -58,9 +55,9 @@ namespace Bio.TestAutomation.Registration
         #region Register Addins BVT Test cases
 
         /// <summary>
-        /// Validates Registered Aligners.
-        /// Input : Register Two Aligners.
-        /// Validation : Validate the Aligners Registered.
+        ///     Validates Registered Aligners.
+        ///     Input : Register Two Aligners.
+        ///     Validation : Validate the Aligners Registered.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -79,9 +76,9 @@ namespace Bio.TestAutomation.Registration
         }
 
         /// <summary>
-        /// Validates Registered Assemblies.
-        /// Input : Register One Assembly.
-        /// Validation : Validate the Assembly Registered.
+        ///     Validates Registered Assemblies.
+        ///     Input : Register One Assembly.
+        ///     Validation : Validate the Assembly Registered.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -102,31 +99,28 @@ namespace Bio.TestAutomation.Registration
                     string description = string.Empty;
 
                     registeredAssemblers.FirstOrDefault(IA => string.Compare(name = IA.Name,
-                        assembler.Name, StringComparison.OrdinalIgnoreCase) == 0);
+                                                                             assembler.Name,
+                                                                             StringComparison.OrdinalIgnoreCase) == 0);
                     registeredAssemblers.FirstOrDefault(IA => string.Compare(description = IA.Description,
-                        assembler.Description, StringComparison.OrdinalIgnoreCase) == 0);
+                                                                             assembler.Description,
+                                                                             StringComparison.OrdinalIgnoreCase) == 0);
 
                     // Validates the Name and Description
                     Assert.AreEqual(assembler.Name, name);
                     Assert.AreEqual(assembler.Description, description);
-                    Console.WriteLine(
-                        string.Format((IFormatProvider)null, @"Successfully validated the Registered components for Assembly '{0}'.",
-                        name));
                     ApplicationLog.WriteLine(
-                        string.Format((IFormatProvider)null, @"Successfully validated the Registered components for Assembly '{0}'.",
-                        name));
+                        string.Format(null, @"Successfully validated the Registered components for Assembly '{0}'.",
+                                      name));
                 }
             }
             else
             {
-                Console.WriteLine("No Components to Register.");
                 ApplicationLog.WriteLine("No Components to Register.");
                 Assert.Fail();
             }
             DeleteAddinsFolder();
         }
 
-#if FALSE
         /// <summary>
         /// Validates Registered Alphabets.
         /// Input : Register One Alphabet.
@@ -135,6 +129,7 @@ namespace Bio.TestAutomation.Registration
         [TestMethod]
         [Priority(0)]
         [TestCategory("Priority0")]
+        [Ignore]
         public void RegisterAddinsRegisterAlphabet()
         {
             CreateAddinsFolder();
@@ -142,21 +137,17 @@ namespace Bio.TestAutomation.Registration
             finalValue.Add(new TestAutomationAlphabet());
 
             // Gets the registered Alphabets
-            IList<IAlphabet> registeredAlphabets = Alphabets.GetAlphabets();
-            if (null != registeredAlphabets && registeredAlphabets.Count > 0)
+            IList<IAlphabet> registeredAlphabets = Alphabets.All.ToList();
+            if (registeredAlphabets.Count > 0)
             {
                 foreach (IAlphabet alphabet in finalValue)
                 {
                     string name = string.Empty;
 
-                    registeredAlphabets.FirstOrDefault(IA => string.Compare(name = IA.Name,
-                        alphabet.Name, StringComparison.OrdinalIgnoreCase) == 0);
+                    registeredAlphabets.FirstOrDefault(ia => string.Compare(name = ia.Name, alphabet.Name, StringComparison.OrdinalIgnoreCase) == 0);
 
                     // Validates the Name
                     Assert.AreEqual(alphabet.Name, name);
-                    Console.WriteLine(
-                        string.Format((IFormatProvider)null, @"Successfully validated the Registered components for Alphabet '{0}'.",
-                        name));
                     ApplicationLog.WriteLine(
                         string.Format((IFormatProvider)null, @"Successfully validated the Registered components for Alphabet '{0}'.",
                         name));
@@ -164,18 +155,16 @@ namespace Bio.TestAutomation.Registration
             }
             else
             {
-                Console.WriteLine("No Components to Register.");
                 ApplicationLog.WriteLine("No Components to Register.");
                 Assert.Fail();
             }
             DeleteAddinsFolder();
         }
-#endif
 
         /// <summary>
-        /// Validates Registered Formatter.
-        /// Input : Register One Formatter.
-        /// Validation : Validate the Formatter Registered.
+        ///     Validates Registered Formatter.
+        ///     Input : Register One Formatter.
+        ///     Validation : Validate the Formatter Registered.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -196,24 +185,22 @@ namespace Bio.TestAutomation.Registration
                     string description = string.Empty;
 
                     registeredFormatters.FirstOrDefault(IA => string.Compare(name = IA.Name,
-                        formatter.Name, StringComparison.OrdinalIgnoreCase) == 0);
+                                                                             formatter.Name,
+                                                                             StringComparison.OrdinalIgnoreCase) == 0);
                     registeredFormatters.FirstOrDefault(IA => string.Compare(description = IA.Description,
-                        formatter.Description, StringComparison.OrdinalIgnoreCase) == 0);
+                                                                             formatter.Description,
+                                                                             StringComparison.OrdinalIgnoreCase) == 0);
 
                     // Validates the Name and Description
                     Assert.AreEqual(formatter.Name, name);
                     Assert.AreEqual(formatter.Description, description);
-                    Console.WriteLine(
-                        string.Format((IFormatProvider)null, @"Successfully validated the Registered components for Formatter '{0}'.",
-                        name));
                     ApplicationLog.WriteLine(
-                        string.Format((IFormatProvider)null, @"Successfully validated the Registered components for Formatter '{0}'.",
-                        name));
+                        string.Format(null, @"Successfully validated the Registered components for Formatter '{0}'.",
+                                      name));
                 }
             }
             else
             {
-                Console.WriteLine("No Components to Register.");
                 ApplicationLog.WriteLine("No Components to Register.");
                 Assert.Fail();
             }
@@ -221,9 +208,9 @@ namespace Bio.TestAutomation.Registration
         }
 
         /// <summary>
-        /// Validates Registered Parsers.
-        /// Input : Register One Parser.
-        /// Validation : Validate the Parser Registered.
+        ///     Validates Registered Parsers.
+        ///     Input : Register One Parser.
+        ///     Validation : Validate the Parser Registered.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -243,24 +230,22 @@ namespace Bio.TestAutomation.Registration
                     string description = string.Empty;
 
                     registeredParsers.FirstOrDefault(IA => string.Compare(name = IA.Name,
-                        parser.Name, StringComparison.OrdinalIgnoreCase) == 0);
+                                                                          parser.Name,
+                                                                          StringComparison.OrdinalIgnoreCase) == 0);
                     registeredParsers.FirstOrDefault(IA => string.Compare(description = IA.Description,
-                        parser.Description, StringComparison.OrdinalIgnoreCase) == 0);
+                                                                          parser.Description,
+                                                                          StringComparison.OrdinalIgnoreCase) == 0);
 
                     // Validates the Name and Description
                     Assert.AreEqual(parser.Name, name);
                     Assert.AreEqual(parser.Description, description);
-                    Console.WriteLine(
-                        string.Format((IFormatProvider)null, @"Successfully validated the Registered components for Parser '{0}'.",
-                        name));
                     ApplicationLog.WriteLine(
-                        string.Format((IFormatProvider)null, @"Successfully validated the Registered components for Parser '{0}'.",
-                        name));
+                        string.Format(null, @"Successfully validated the Registered components for Parser '{0}'.",
+                                      name));
                 }
             }
             else
             {
-                Console.WriteLine("No Components to Register.");
                 ApplicationLog.WriteLine("No Components to Register.");
                 Assert.Fail();
             }
@@ -268,9 +253,9 @@ namespace Bio.TestAutomation.Registration
         }
 
         /// <summary>
-        /// Validates Registered Instances.
-        /// Input : Register Two Aligners.
-        /// Validation : Validate the Instances Registered.
+        ///     Validates Registered Instances.
+        ///     Input : Register Two Aligners.
+        ///     Validation : Validate the Instances Registered.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -284,7 +269,7 @@ namespace Bio.TestAutomation.Registration
 
             // Gets the registered Instances for the path passed
             string assemblyPath = string.Concat(RegisteredAddIn.AddinFolderPath,
-                BioTestAutomationDll);
+                                                BioTestAutomationDll);
             IList<ISequenceAligner> registeredAligners =
                 RegisteredAddIn.GetInstancesFromAssembly<ISequenceAligner>(assemblyPath);
 
@@ -293,9 +278,9 @@ namespace Bio.TestAutomation.Registration
         }
 
         /// <summary>
-        /// Validates Registered Instances.
-        /// Input : Register Two Aligners.
-        /// Validation : Validate the Instances Registered.
+        ///     Validates Registered Instances.
+        ///     Input : Register Two Aligners.
+        ///     Validation : Validate the Instances Registered.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -310,16 +295,16 @@ namespace Bio.TestAutomation.Registration
             // Gets the registered Instances for the path passed and the filter
             IList<ISequenceAligner> registeredAligners =
                 RegisteredAddIn.GetInstancesFromAssemblyPath<ISequenceAligner>(
-                RegisteredAddIn.AddinFolderPath, "*.dll");
+                    RegisteredAddIn.AddinFolderPath, "*.dll");
 
             RegisterAlignGeneralTestCases(registeredAligners, finalValue);
             DeleteAddinsFolder();
         }
 
         /// <summary>
-        /// Validates Registered Instances.
-        /// Input : Register Two Aligners.
-        /// Validation : Validate the Instances Registered.
+        ///     Validates Registered Instances.
+        ///     Input : Register Two Aligners.
+        ///     Validation : Validate the Instances Registered.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -337,14 +322,13 @@ namespace Bio.TestAutomation.Registration
 
             if (0 == registeredAligners.Count)
             {
-                Console.WriteLine("Referring from the Bio.dll, hence validation is not required.");
                 ApplicationLog.WriteLine("Referring from the Bio.dll, hence validation is not required.");
             }
             DeleteAddinsFolder();
         }
 
         /// <summary>
-        /// Validates the properties
+        ///     Validates the properties
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -355,13 +339,9 @@ namespace Bio.TestAutomation.Registration
             // Validate the property values if exists
             Assert.IsTrue(!string.IsNullOrEmpty(RegisteredAddIn.AddinFolderPath));
             Assert.IsTrue(string.IsNullOrEmpty(RegisteredAddIn.CoreFolderPath));
-            Console.WriteLine(
-                string.Format((IFormatProvider)null, "Successfully validate the property AddInFolderPath with value '{0}'",
-                RegisteredAddIn.AddinFolderPath));
-            Console.WriteLine("Successfully validate the property CoreFolderPath");
             ApplicationLog.WriteLine(
-                string.Format((IFormatProvider)null, "Successfully validate the property AddInFolderPath with value '{0}'",
-                RegisteredAddIn.AddinFolderPath));
+                string.Format(null, "Successfully validate the property AddInFolderPath with value '{0}'",
+                              RegisteredAddIn.AddinFolderPath));
             ApplicationLog.WriteLine("Successfully validate the property CoreFolderPath");
             DeleteAddinsFolder();
         }
@@ -371,13 +351,12 @@ namespace Bio.TestAutomation.Registration
         #region Registration Components
 
         /// <summary>
-        /// Creating new aligner class which is extended from ISequenceAligner. 
-        /// Also registered for auto-plugin by the registration attribute as true
+        ///     Creating new aligner class which is extended from ISequenceAligner.
+        ///     Also registered for auto-plugin by the registration attribute as true
         /// </summary>
-        [RegistrableAttribute(true)]
+        [Registrable(true)]
         public sealed class TestAutomationSequenceAligner : ISequenceAligner
         {
-
             #region ISequenceAligner members
 
             string ISequenceAligner.Name
@@ -392,50 +371,26 @@ namespace Bio.TestAutomation.Registration
 
             IConsensusResolver ISequenceAligner.ConsensusResolver
             {
-                get
-                {
-                    throw new NotImplementedException();
-                }
-                set
-                {
-                    throw new NotImplementedException();
-                }
+                get { throw new NotImplementedException(); }
+                set { throw new NotImplementedException(); }
             }
 
             SimilarityMatrix ISequenceAligner.SimilarityMatrix
             {
-                get
-                {
-                    throw new NotImplementedException();
-                }
-                set
-                {
-                    throw new NotImplementedException();
-                }
+                get { throw new NotImplementedException(); }
+                set { throw new NotImplementedException(); }
             }
 
             int ISequenceAligner.GapOpenCost
             {
-                get
-                {
-                    throw new NotImplementedException();
-                }
-                set
-                {
-                    throw new NotImplementedException();
-                }
+                get { throw new NotImplementedException(); }
+                set { throw new NotImplementedException(); }
             }
 
             int ISequenceAligner.GapExtensionCost
             {
-                get
-                {
-                    throw new NotImplementedException();
-                }
-                set
-                {
-                    throw new NotImplementedException();
-                }
+                get { throw new NotImplementedException(); }
+                set { throw new NotImplementedException(); }
             }
 
             IList<ISequenceAlignment> ISequenceAligner.AlignSimple(IEnumerable<ISequence> inputSequences)
@@ -452,83 +407,64 @@ namespace Bio.TestAutomation.Registration
         }
 
         /// <summary>
-        /// Creating new pairwise aligner class which is extended from IPairwiseSequenceAligner. 
-        /// Also registered for auto-plugin by the registration attribute as true   
+        ///     Creating new pairwise aligner class which is extended from IPairwiseSequenceAligner.
+        ///     Also registered for auto-plugin by the registration attribute as true
         /// </summary>
-        [RegistrableAttribute(true)]
+        [Registrable(true)]
         public sealed class TestAutomationPairwiseSequenceAligner : IPairwiseSequenceAligner
         {
-
             #region IPairwiseSequenceAligner Members
 
             /// <summary>
-            /// Similarity Matrix
+            ///     Similarity Matrix
             /// </summary>
-            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1065:DoNotRaiseExceptionsInUnexpectedLocations")]
+            [SuppressMessage("Microsoft.Design", "CA1065:DoNotRaiseExceptionsInUnexpectedLocations")]
             public SimilarityMatrix SimilarityMatrix
             {
-                get
-                {
-                    throw new NotImplementedException();
-                }
-                set
-                {
-                    throw new NotImplementedException();
-                }
+                get { throw new NotImplementedException(); }
+                set { throw new NotImplementedException(); }
             }
 
             /// <summary>
-            /// Gap open Cost
+            ///     Gap open Cost
             /// </summary>
-            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1065:DoNotRaiseExceptionsInUnexpectedLocations")]
+            [SuppressMessage("Microsoft.Design", "CA1065:DoNotRaiseExceptionsInUnexpectedLocations")]
             public int GapOpenCost
             {
-                get
-                {
-                    throw new NotImplementedException();
-                }
-                set
-                {
-                    throw new NotImplementedException();
-                }
+                get { throw new NotImplementedException(); }
+                set { throw new NotImplementedException(); }
             }
 
             /// <summary>
-            /// Gap extension cost
+            ///     Gap extension cost
             /// </summary>
-            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1065:DoNotRaiseExceptionsInUnexpectedLocations")]
+            [SuppressMessage("Microsoft.Design", "CA1065:DoNotRaiseExceptionsInUnexpectedLocations")]
             public int GapExtensionCost
             {
-                get
-                {
-                    throw new NotImplementedException();
-                }
-                set
-                {
-                    throw new NotImplementedException();
-                }
+                get { throw new NotImplementedException(); }
+                set { throw new NotImplementedException(); }
             }
 
             /// <summary>
-            /// Align Simple
+            ///     Align Simple
             /// </summary>
             /// <param name="sequence1">Sequence 1</param>
             /// <param name="sequence2">Sequence 2</param>
             /// <returns>Not Implemented exception</returns>
             public IList<IPairwiseSequenceAlignment> AlignSimple(ISequence sequence1, ISequence sequence2)
             {
-                throw new System.NotImplementedException();
+                throw new NotImplementedException();
             }
 
             /// <summary>
-            /// Align
+            ///     Align
             /// </summary>
             /// <param name="sequence1">Sequence 1</param>
             /// <param name="sequence2">Sequence 2</param>
             /// <returns>Not Implemented exception</returns>
             public IList<IPairwiseSequenceAlignment> Align(ISequence sequence1, ISequence sequence2)
             {
-                throw new System.NotImplementedException();
+                throw new NotImplementedException();
             }
 
             #endregion
@@ -536,7 +472,7 @@ namespace Bio.TestAutomation.Registration
             #region ISequenceAligner Members
 
             /// <summary>
-            /// Name of the aligner
+            ///     Name of the aligner
             /// </summary>
             public string Name
             {
@@ -544,7 +480,7 @@ namespace Bio.TestAutomation.Registration
             }
 
             /// <summary>
-            /// Name of the description
+            ///     Name of the description
             /// </summary>
             public string Description
             {
@@ -552,48 +488,43 @@ namespace Bio.TestAutomation.Registration
             }
 
             /// <summary>
-            /// Consensus Resolver
+            ///     Consensus Resolver
             /// </summary>
-            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1065:DoNotRaiseExceptionsInUnexpectedLocations")]
+            [SuppressMessage("Microsoft.Design", "CA1065:DoNotRaiseExceptionsInUnexpectedLocations")]
             IConsensusResolver ISequenceAligner.ConsensusResolver
             {
-                get
-                {
-                    throw new NotImplementedException();
-                }
-                set
-                {
-                    throw new NotImplementedException();
-                }
+                get { throw new NotImplementedException(); }
+                set { throw new NotImplementedException(); }
             }
 
             /// <summary>
-            /// Align Simple
+            ///     Align Simple
             /// </summary>
             /// <param name="inputSequences">Input Sequences</param>
             /// <returns>Not Implemented exception</returns>
             IList<ISequenceAlignment> ISequenceAligner.AlignSimple(IEnumerable<ISequence> inputSequences)
             {
-                throw new System.NotImplementedException();
+                throw new NotImplementedException();
             }
 
             /// <summary>
-            /// Align
+            ///     Align
             /// </summary>
             /// <param name="inputSequences">Input Sequences</param>
             /// <returns>Not Implemented exception</returns>
             IList<ISequenceAlignment> ISequenceAligner.Align(IEnumerable<ISequence> inputSequences)
             {
-                throw new System.NotImplementedException();
+                throw new NotImplementedException();
             }
+
             #endregion
         }
 
         /// <summary>
-        /// Creating new assembler class which is extended from IDeNovoAssembler. 
-        /// Also registered for auto-plugin by the registration attribute as true
+        ///     Creating new assembler class which is extended from IDeNovoAssembler.
+        ///     Also registered for auto-plugin by the registration attribute as true
         /// </summary>
-        [RegistrableAttribute(true)]
+        [Registrable(true)]
         public sealed class TestAutomationSequenceAssembler : IDeNovoAssembler
         {
             #region IDeNovoAssembler Members
@@ -610,20 +541,19 @@ namespace Bio.TestAutomation.Registration
 
             IDeNovoAssembly IDeNovoAssembler.Assemble(IEnumerable<ISequence> inputSequences)
             {
-                throw new System.NotImplementedException();
+                throw new NotImplementedException();
             }
 
             #endregion
         }
 
         /// <summary>
-        /// Creating new alphabet class which is extended from IAlphabet. 
-        /// Also registered for auto-plugin by the registration attribute as true
+        ///     Creating new alphabet class which is extended from IAlphabet.
+        ///     Also registered for auto-plugin by the registration attribute as true
         /// </summary>
-        [RegistrableAttribute(true)]
+        [Registrable(true)]
         public sealed class TestAutomationAlphabet : IAlphabet
         {
-
             #region IAlphabet Members
 
             string IAlphabet.Name
@@ -633,47 +563,44 @@ namespace Bio.TestAutomation.Registration
 
             bool IAlphabet.HasGaps
             {
-                get { throw new System.NotImplementedException(); }
+                get { throw new NotImplementedException(); }
             }
 
             bool IAlphabet.HasAmbiguity
             {
-                get { throw new System.NotImplementedException(); }
+                get { throw new NotImplementedException(); }
             }
 
             bool IAlphabet.HasTerminations
             {
-                get { throw new System.NotImplementedException(); }
+                get { throw new NotImplementedException(); }
             }
 
             /// <summary>
-            /// Gets a value indicating whether this alphabet supports complement or not.
+            ///     Gets a value indicating whether this alphabet supports complement or not.
             /// </summary>
-            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1065:DoNotRaiseExceptionsInUnexpectedLocations")]
+            [SuppressMessage("Microsoft.Design", "CA1065:DoNotRaiseExceptionsInUnexpectedLocations")]
             public bool IsComplementSupported
             {
-                get { throw new System.NotImplementedException(); }
+                get { throw new NotImplementedException(); }
             }
 
             /// <summary>
-            /// Gets the count of symbols present in this alphabet.
-            /// This incldues basic symbols, gaps, terminations and ambiguous symbols present in this alphabet.
+            ///     Gets the count of symbols present in this alphabet.
+            ///     This incldues basic symbols, gaps, terminations and ambiguous symbols present in this alphabet.
             /// </summary>
-            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1065:DoNotRaiseExceptionsInUnexpectedLocations")]
+            [SuppressMessage("Microsoft.Design", "CA1065:DoNotRaiseExceptionsInUnexpectedLocations")]
             public int Count
             {
-                get
-                {
-                    throw new NotImplementedException();
-                }
+                get { throw new NotImplementedException(); }
             }
 
             /// <summary>
-            /// Provides array like access to the symbols in this alphabet.
+            ///     Provides array like access to the symbols in this alphabet.
             /// </summary>
             /// <param name="index">Index of symbol present in this alphabet.</param>
             /// <returns>A byte which represents the symbol.</returns>
-            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1065:DoNotRaiseExceptionsInUnexpectedLocations")]
+            [SuppressMessage("Microsoft.Design", "CA1065:DoNotRaiseExceptionsInUnexpectedLocations")]
             public byte this[int index]
             {
                 get { throw new NotImplementedException(); }
@@ -682,7 +609,7 @@ namespace Bio.TestAutomation.Registration
             #endregion
 
             /// <summary>
-            /// Gets the ambigious characters present in alphabet.
+            ///     Gets the ambigious characters present in alphabet.
             /// </summary>
             public HashSet<byte> GetAmbiguousSymbols()
             {
@@ -690,7 +617,7 @@ namespace Bio.TestAutomation.Registration
             }
 
             /// <summary>
-            /// Gets the consensus symbol present in alphabet.
+            ///     Gets the consensus symbol present in alphabet.
             /// </summary>
             public byte GetConsensusSymbol(HashSet<byte> symbols)
             {
@@ -698,9 +625,9 @@ namespace Bio.TestAutomation.Registration
             }
 
             /// <summary>
-            /// Maps A to A  and a to A
-            /// that is key will contain unique values.
-            /// This will be used in the IsValidSymbol method to address Scenarios like a == A, G == g etc.
+            ///     Maps A to A  and a to A
+            ///     that is key will contain unique values.
+            ///     This will be used in the IsValidSymbol method to address Scenarios like a == A, G == g etc.
             /// </summary>
             public byte[] GetSymbolValueMap()
             {
@@ -752,7 +679,7 @@ namespace Bio.TestAutomation.Registration
                 throw new NotImplementedException();
             }
 
-            System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+            IEnumerator IEnumerable.GetEnumerator()
             {
                 throw new NotImplementedException();
             }
@@ -786,21 +713,18 @@ namespace Bio.TestAutomation.Registration
             {
                 throw new NotImplementedException();
             }
-
         }
 
         /// <summary>
-        /// Creating new formatter class which is extended from ISequenceFormatter. 
-        /// Also registered for auto-plugin by the registration attribute as true
+        ///     Creating new formatter class which is extended from ISequenceFormatter.
+        ///     Also registered for auto-plugin by the registration attribute as true
         /// </summary>
-        [RegistrableAttribute(true)]
+        [Registrable(true)]
         public sealed class TestAutomationSequenceFormatter : IFormatter
         {
-
             #region ISequenceFormatter Members
 
             /// <summary>
-            /// 
             /// </summary>
             public string Name
             {
@@ -808,7 +732,6 @@ namespace Bio.TestAutomation.Registration
             }
 
             /// <summary>
-            /// 
             /// </summary>
             public string Description
             {
@@ -816,25 +739,23 @@ namespace Bio.TestAutomation.Registration
             }
 
             /// <summary>
-            /// 
             /// </summary>
-            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1065:DoNotRaiseExceptionsInUnexpectedLocations")]
+            [SuppressMessage("Microsoft.Design", "CA1065:DoNotRaiseExceptionsInUnexpectedLocations")]
             public string SupportedFileTypes
             {
-                get { throw new System.NotImplementedException(); }
+                get { throw new NotImplementedException(); }
             }
 
             #endregion
         }
 
         /// <summary>
-        /// Creating new parser class which is extended from ISequenceParser. 
-        /// Also registered for auto-plugin by the registration attribute as true
+        ///     Creating new parser class which is extended from ISequenceParser.
+        ///     Also registered for auto-plugin by the registration attribute as true
         /// </summary>
-        [RegistrableAttribute(true)]
+        [Registrable(true)]
         public sealed class TestAutomationSequenceParser : IParser
         {
-
             #region ISequenceParser Members
 
             string IParser.Name
@@ -849,9 +770,8 @@ namespace Bio.TestAutomation.Registration
 
             string IParser.SupportedFileTypes
             {
-                get { throw new System.NotImplementedException(); }
+                get { throw new NotImplementedException(); }
             }
-
 
             #endregion
         }
@@ -861,13 +781,12 @@ namespace Bio.TestAutomation.Registration
         #region Supported Methods
 
         /// <summary>
-        /// General Register Aligner test case validation goes here.
+        ///     General Register Aligner test case validation goes here.
         /// </summary>
         /// <param name="registeredAligners">Registered Aligners</param>
         /// <param name="finalValue">Expected Registered Aligners</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)")]
-        static void RegisterAlignGeneralTestCases(IList<ISequenceAligner> registeredAligners,
-            IList<ISequenceAligner> finalValue)
+        private static void RegisterAlignGeneralTestCases(IList<ISequenceAligner> registeredAligners,
+                                                          IList<ISequenceAligner> finalValue)
         {
             if (null != registeredAligners && registeredAligners.Count > 0)
             {
@@ -877,7 +796,8 @@ namespace Bio.TestAutomation.Registration
                     string description = string.Empty;
 
                     registeredAligners.FirstOrDefault(IA => string.Compare(name = IA.Name,
-                        aligner.Name, StringComparison.OrdinalIgnoreCase) == 0);
+                                                                           aligner.Name,
+                                                                           StringComparison.OrdinalIgnoreCase) == 0);
                     registeredAligners.FirstOrDefault(IA => string.Compare(
                         description = IA.Description, aligner.Description,
                         StringComparison.OrdinalIgnoreCase) == 0);
@@ -885,29 +805,25 @@ namespace Bio.TestAutomation.Registration
                     // Validates the Name and Description
                     Assert.AreEqual(aligner.Name, name);
                     Assert.AreEqual(aligner.Description, description);
-                    Console.WriteLine(
-                        string.Format((IFormatProvider)null, @"Successfully validated the Registered Instances for '{0}'.",
-                        name));
                     ApplicationLog.WriteLine(
-                        string.Format((IFormatProvider)null, @"Successfully validated the Registered Instances for '{0}'.",
-                        name));
+                        string.Format(null, @"Successfully validated the Registered Instances for '{0}'.",
+                                      name));
                 }
             }
             else
             {
-                Console.WriteLine("No Components to Register.");
                 ApplicationLog.WriteLine("No Components to Register.");
                 Assert.Fail();
             }
         }
 
         /// <summary>
-        /// Creates the Add-ins folder
+        ///     Creates the Add-ins folder
         /// </summary>
-        static void CreateAddinsFolder()
+        private static void CreateAddinsFolder()
         {
             // Gets the Add-ins folder name
-            Uri uri = new Uri(Assembly.GetCallingAssembly().CodeBase);
+            var uri = new Uri(Assembly.GetCallingAssembly().CodeBase);
             string addInsFolderPath = Uri.UnescapeDataString(string.Concat(
                 Path.GetDirectoryName(uri.AbsolutePath),
                 AddInsFolder));
@@ -921,18 +837,17 @@ namespace Bio.TestAutomation.Registration
             {
                 // Copies the Bio.TestAutomation.dll to Add-ins folder
                 File.Copy(Uri.UnescapeDataString(uri.AbsolutePath),
-                    string.Concat(addInsFolderPath, BioTestAutomationDll), true);
+                          string.Concat(addInsFolderPath, BioTestAutomationDll), true);
             }
         }
 
         /// <summary>
-        /// Deletes the Add-ins folder if exists
+        ///     Deletes the Add-ins folder if exists
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
-        static void DeleteAddinsFolder()
+        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
+        private static void DeleteAddinsFolder()
         {
-
-            Uri uri = new Uri(Assembly.GetCallingAssembly().CodeBase);
+            var uri = new Uri(Assembly.GetCallingAssembly().CodeBase);
             string addInsFolderPath = Uri.UnescapeDataString(string.Concat(
                 Path.GetDirectoryName(uri.AbsolutePath),
                 AddInsFolder));
@@ -943,15 +858,17 @@ namespace Bio.TestAutomation.Registration
                 if (Directory.Exists(addInsFolderPath))
                     Directory.Delete(addInsFolderPath, true);
             }
-            catch { }
+            catch
+            {
+            }
         }
 
         /// <summary>
-        /// Gets all registered specified classes in core folder and addins (optional) folders
+        ///     Gets all registered specified classes in core folder and addins (optional) folders
         /// </summary>
         /// <param name="includeAddinFolder">include add-ins folder or not</param>
         /// <returns>List of registered classes</returns>
-        private static IList<T> GetClasses<T>(bool includeAddinFolder) 
+        private static IList<T> GetClasses<T>(bool includeAddinFolder)
             where T : class
         {
             IList<T> registeredAligners = new List<T>();
@@ -963,7 +880,7 @@ namespace Bio.TestAutomation.Registration
                 {
                     addInAligners =
                         RegisteredAddIn.GetInstancesFromAssemblyPath<T>(RegisteredAddIn.AddinFolderPath,
-                        RegisteredAddIn.DLLFilter);
+                                                                        RegisteredAddIn.DLLFilter);
                     if (null != addInAligners && addInAligners.Count > 0)
                     {
                         foreach (T aligner in addInAligners)

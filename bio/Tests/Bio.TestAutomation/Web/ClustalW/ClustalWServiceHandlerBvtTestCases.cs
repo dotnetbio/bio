@@ -10,21 +10,18 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Threading;
 using Bio.Algorithms.Alignment;
-
 using Bio.IO.ClustalW;
 using Bio.IO.FastA;
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
 using Bio.Web;
 using Bio.Web.ClustalW;
-
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Bio;
 
 namespace Bio.TestAutomation.Web.ClustalW
 {
     /// <summary>
-    /// BVT test cases to validate ClustalW service integartion classes
+    /// BVT test cases to validate ClustalW service integration classes
     /// </summary>  
     /// Disabling the test cases as the ClustalW web service is down at the time of release
     [TestClass]
@@ -159,13 +156,10 @@ namespace Bio.TestAutomation.Web.ClustalW
                 ServiceParameters svcparameters =
                   handler.SubmitRequest(sequence.ToList(), parameters);
                 Assert.IsFalse(string.IsNullOrEmpty(svcparameters.JobId));
-                Console.WriteLine(string.Concat("JobId", svcparameters.JobId));
                 ApplicationLog.WriteLine(string.Concat("JobId", svcparameters.JobId));
                 foreach (string key in svcparameters.Parameters.Keys)
                 {
                     Assert.IsFalse(string.IsNullOrEmpty(svcparameters.Parameters[key].ToString()));
-                    Console.WriteLine(string.Format((IFormatProvider)null, "{0}:{1}",
-                      key, svcparameters.Parameters[key].ToString()));
                     ApplicationLog.WriteLine(string.Format((IFormatProvider)null, "{0}:{1}",
                       key, svcparameters.Parameters[key].ToString()));
                 }
@@ -176,16 +170,13 @@ namespace Bio.TestAutomation.Web.ClustalW
                 Assert.IsNotNull(result.SequenceAlignment);
                 foreach (IAlignedSequence alignSeq in result.SequenceAlignment.AlignedSequences)
                 {
-                    Console.WriteLine("Aligned Sequence Sequences :");
                     ApplicationLog.WriteLine("Aligned Sequence Sequences :");
                     foreach (ISequence seq in alignSeq.Sequences)
                     {
-                        Console.WriteLine(string.Concat("Sequence:", seq.ToString()));
                         ApplicationLog.WriteLine(string.Concat("Sequence:", seq.ToString()));
                     }
                 }
             }
-            Console.WriteLine(@"ClustalWServiceHandler BVT : Submit job and Get Results is successfully completed using FetchResultSync()");
             ApplicationLog.WriteLine(@"ClustalWServiceHandler BVT : Submit job and Get Results is successfully completed using FetchResultSync()");
         }
 
@@ -225,12 +216,9 @@ namespace Bio.TestAutomation.Web.ClustalW
                 // Submit job and validate it returned valid job id and control id 
                 ServiceParameters svcparameters = handler.SubmitRequest(sequence.ToList(), parameters);
                 Assert.IsFalse(string.IsNullOrEmpty(svcparameters.JobId));
-                Console.WriteLine(string.Concat("JobId:", svcparameters.JobId));
                 foreach (string key in svcparameters.Parameters.Keys)
                 {
                     Assert.IsFalse(string.IsNullOrEmpty(svcparameters.Parameters[key].ToString()));
-                    Console.WriteLine(string.Format((IFormatProvider)null, "{0}:{1}",
-                      key, svcparameters.Parameters[key].ToString()));
                 }
 
                 // Get the results and validate it is not null.
@@ -262,19 +250,14 @@ namespace Bio.TestAutomation.Web.ClustalW
                 Assert.IsNotNull(result.SequenceAlignment);
                 foreach (IAlignedSequence alignSeq in result.SequenceAlignment.AlignedSequences)
                 {
-                    Console.WriteLine("Aligned Sequence Sequences : ");
                     ApplicationLog.WriteLine("Aligned Sequence Sequences : ");
                     foreach (ISequence seq in alignSeq.Sequences)
                     {
-                        Console.WriteLine(string.Concat("Sequence:", seq.ToString()));
                         ApplicationLog.WriteLine(string.Concat("Sequence:", seq.ToString()));
                     }
                 }
             }
-            Console.WriteLine(@"ClustalWServiceHandler BVT : Submit job and Get Results is 
-      successfully completed using FetchResultAsync()");
-            ApplicationLog.WriteLine(@"ClustalWServiceHandler BVT : Submit job and Get Results 
-      is successfully completed using FetchResultAsync()");
+            ApplicationLog.WriteLine(@"ClustalWServiceHandler BVT : Submit job and Get Results is successfully completed using FetchResultAsync()");
         }
 
         /// <summary>
@@ -320,15 +303,11 @@ namespace Bio.TestAutomation.Web.ClustalW
 
                 // Validate the submit job results
                 Assert.IsFalse(string.IsNullOrEmpty(svcparams.JobId));
-                Console.WriteLine("JobId:" + svcparams.JobId);
                 foreach (string key in svcparams.Parameters.Keys)
                 {
                     Assert.IsFalse(string.IsNullOrEmpty(svcparams.Parameters[key].ToString()));
-                    Console.WriteLine(string.Format((IFormatProvider)null, "{0} : {1}",
-                      key, svcparams.Parameters[key].ToString()));
                 }
 
-                aryHandler = null;
                 _resetEvent.Close();
                 _resetEvent.Dispose();
             }
@@ -345,21 +324,16 @@ namespace Bio.TestAutomation.Web.ClustalW
             Assert.IsNotNull(e.SearchResult.SequenceAlignment);
             foreach (IAlignedSequence alignSeq in e.SearchResult.SequenceAlignment.AlignedSequences)
             {
-                Console.WriteLine("Aligned Sequence Sequences :");
                 ApplicationLog.WriteLine("Aligned Sequence Sequences :");
                 foreach (ISequence seq in alignSeq.Sequences)
                 {
-                    Console.WriteLine(string.Concat("Sequence:", seq.ToString()));
                     ApplicationLog.WriteLine(string.Concat("Sequence:", seq.ToString()));
                 }
             }
 
             _resetEvent.Set();
 
-            Console.WriteLine(@"ClustalWServiceHandler BVT : Submit job and Get Results is 
-      successfully completed using event");
-            ApplicationLog.WriteLine(@"ClustalWServiceHandler BVT : Submit job and Get Results 
-      is successfully completed using event");
+            ApplicationLog.WriteLine(@"ClustalWServiceHandler BVT : Submit job and Get Results is successfully completed using event");
         }
 
         /// <summary>
@@ -400,20 +374,15 @@ namespace Bio.TestAutomation.Web.ClustalW
                 bool result = handler.CancelRequest(svcparams);
 
                 Assert.IsTrue(result);
-                Console.WriteLine(string.Concat("JobId:", svcparams.JobId));
                 ApplicationLog.WriteLine(string.Concat("JobId:", svcparams.JobId));
                 Assert.IsFalse(string.IsNullOrEmpty(svcparams.JobId));
                 foreach (string key in svcparams.Parameters.Keys)
                 {
                     Assert.IsFalse(string.IsNullOrEmpty(svcparams.Parameters[key].ToString()));
-                    Console.WriteLine(string.Format((IFormatProvider)null, "{0} : {1}",
-                      key, svcparams.Parameters[key].ToString()));
                     ApplicationLog.WriteLine(string.Format((IFormatProvider)null, "{0} : {1}",
                       key, svcparams.Parameters[key].ToString()));
                 }
             }
-            Console.WriteLine(
-              "ClustalWServiceHandler BVT : Cancel job is submitted as expected");
             ApplicationLog.WriteLine(
               "ClustalWServiceHandler BVT : Cancel job is submitted as expected");
         }

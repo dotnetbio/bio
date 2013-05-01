@@ -1291,11 +1291,11 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
                 KmerData32 kmerData = new KmerData32();
                 kmerData.SetKmerData(seq, lstKmers[0].Kmers.First().Positions[0], this.KmerLength);
 
-                DeBruijnNode node = new DeBruijnNode(kmerData, 1);
+                DeBruijnNode node = new DeBruijnNode(kmerData, true, 1);
                 kmerData = new KmerData32();
                 kmerData.SetKmerData(seq, lstKmers[1].Kmers.First().Positions[0], this.KmerLength);
 
-                DeBruijnNode leftnode = new DeBruijnNode(kmerData, 1);
+                DeBruijnNode leftnode = new DeBruijnNode(kmerData, true, 1);
                 node.SetExtensionNode(false, true, leftnode);
 
                 Assert.AreEqual(lstKmers[1].Kmers.First().Count, node.LeftExtensionNodesCount);
@@ -1332,11 +1332,11 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
                 KmerData32 kmerData = new KmerData32();
                 kmerData.SetKmerData(seq, lstKmers[0].Kmers.First().Positions[0], this.KmerLength);
 
-                DeBruijnNode node = new DeBruijnNode(kmerData, 1);
+                DeBruijnNode node = new DeBruijnNode(kmerData, true, 1);
                 kmerData = new KmerData32();
                 kmerData.SetKmerData(seq, lstKmers[1].Kmers.First().Positions[0], this.KmerLength);
 
-                DeBruijnNode leftnode = new DeBruijnNode(kmerData, 1);
+                DeBruijnNode leftnode = new DeBruijnNode(kmerData, true, 1);
                 node.SetExtensionNode(false, true, leftnode);
                 Assert.AreEqual(lstKmers[1].Kmers.First().Count, node.LeftExtensionNodesCount);
             }
@@ -1371,11 +1371,11 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
                 KmerData32 kmerData = new KmerData32();
                 kmerData.SetKmerData(seq, lstKmers[0].Kmers.First().Positions[0], this.KmerLength);
 
-                DeBruijnNode node = new DeBruijnNode(kmerData, 1);
+                DeBruijnNode node = new DeBruijnNode(kmerData, true, 1);
                 kmerData = new KmerData32();
                 kmerData.SetKmerData(seq, lstKmers[1].Kmers.First().Positions[0], this.KmerLength);
 
-                DeBruijnNode rightNode = new DeBruijnNode(kmerData, 1);
+                DeBruijnNode rightNode = new DeBruijnNode(kmerData, true, 1);
                 node.SetExtensionNode(true, true, rightNode);
                 Assert.AreEqual(lstKmers[1].Kmers.First().Count, node.RightExtensionNodesCount);
             }
@@ -1393,15 +1393,14 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
             string kmerLength = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.KmerLengthNode);
 
             // Get the input reads and build kmers
-            IEnumerable<ISequence> sequenceReads = null;
             using (FastAParser parser = new FastAParser(filePath))
             {
-                sequenceReads = parser.Parse();
+                IEnumerable<ISequence> sequenceReads = parser.Parse();
 
                 // Build kmers from step1,graph in step2 
                 // and remove the dangling links from graph in step3
                 // Validate the graph
-                this.KmerLength = int.Parse(kmerLength, (IFormatProvider)null);
+                this.KmerLength = int.Parse(kmerLength, null);
                 this.SequenceReads.Clear();
                 this.SetSequenceReads(sequenceReads.ToList());
                 this.CreateGraph();
@@ -1410,9 +1409,7 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
                 ValidateGraph(this.Graph, nodeName);
             }
 
-            ApplicationLog.WriteLine(
-                @"Padena BVT :ParallelDeNovoAssembler.UndangleGraph() 
-                    validation for Padena step3 completed successfully");
+            ApplicationLog.WriteLine(@"Padena BVT :ParallelDeNovoAssembler.UndangleGraph() validation for Padena step3 completed successfully");
         }
 
         /// <summary>
@@ -1430,30 +1427,27 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
             string[] expectedDanglings = danglingSequence.Split(',');
 
             // Get the input reads and build kmers
-            IEnumerable<ISequence> sequenceReads = null;
             using (FastAParser parser = new FastAParser(filePath))
             {
-                sequenceReads = parser.Parse();
+                IEnumerable<ISequence> sequenceReads = parser.Parse();
 
                 // Build kmers from step1,graph in step2 
                 // and remove the dangling links from graph in step3
                 // Validate the graph
-                this.KmerLength = int.Parse(kmerLength, (IFormatProvider)null);
+                this.KmerLength = int.Parse(kmerLength, null);
                 this.SequenceReads.Clear();
 
                 this.SetSequenceReads(sequenceReads.ToList());
                 this.CreateGraph();
 
                 // Find the dangling node
-                DanglingLinksPurger danglingLinksPurger =
-                    new DanglingLinksPurger(int.Parse(kmerLength, (IFormatProvider)null) + 1);
-                DeBruijnPathList danglingnodes =
-                    danglingLinksPurger.DetectErroneousNodes(this.Graph);
+                DanglingLinksPurger danglingLinksPurger = new DanglingLinksPurger(int.Parse(kmerLength, null) + 1);
+                DeBruijnPathList danglingnodes = danglingLinksPurger.DetectErroneousNodes(this.Graph);
                 foreach (DeBruijnPath dbnodes in danglingnodes.Paths)
                 {
                     foreach (DeBruijnNode node in dbnodes.PathNodes)
                     {
-                        expectedDanglings.Contains(this.Graph.GetNodeSequence(node).ToString());
+                        Assert.IsTrue(expectedDanglings.Contains(Graph.GetNodeSequence(node).ToString()));
                     }
                 }
             }

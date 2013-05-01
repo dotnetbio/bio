@@ -9,113 +9,52 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using Bio.IO;
 using Bio.IO.GenBank;
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
-using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Bio;
 
 #if (SILVERLIGHT == false)
-    namespace Bio.TestAutomation.IO.GenBank
+namespace Bio.TestAutomation.IO.GenBank
 #else
-    namespace Bio.Silverlight.TestAutomation.IO.GenBank
+namespace Bio.Silverlight.TestAutomation.IO.GenBank
 #endif
 {
     /// <summary>
-    /// GenBank Bvt parser and formatter Test case implementation.
+    ///     GenBank Bvt parser and formatter Test case implementation.
     /// </summary>
     [TestClass]
     public class GenBankBvtTestCases
     {
-
         #region Global Variables
 
         // Global variables which store the information of xml file values and is used across the class file.
-        static string _filepath;
-        static string _alpName;
-        static string _seqId;
-        static string _strTopo;
-        static string _strType;
-        static string _div;
-        static string _version;
-        static string _date;
-        static string _primId;
-        static string _expSeq;
 
-        Utility utilityObj = new Utility(@"TestUtils\TestsConfig.xml");
+        private readonly Utility utilityObj = new Utility(@"TestUtils\TestsConfig.xml");
 
         #endregion Global Variables
 
         #region Properties
 
-        static string AlphabetName
-        {
-            get { return GenBankBvtTestCases._alpName; }
-            set { GenBankBvtTestCases._alpName = value; }
-        }
-
-        static string FilePath
-        {
-            get { return GenBankBvtTestCases._filepath; }
-            set { GenBankBvtTestCases._filepath = value; }
-        }
-
-        static string SeqId
-        {
-            get { return GenBankBvtTestCases._seqId; }
-            set { GenBankBvtTestCases._seqId = value; }
-        }
-
-        static string StrandTopology
-        {
-            get { return GenBankBvtTestCases._strTopo; }
-            set { GenBankBvtTestCases._strTopo = value; }
-        }
-
-        static string StrandType
-        {
-            get { return GenBankBvtTestCases._strType; }
-            set { GenBankBvtTestCases._strType = value; }
-        }
-
-        static string Div
-        {
-            get { return GenBankBvtTestCases._div; }
-            set { GenBankBvtTestCases._div = value; }
-        }
-
-        static string Version
-        {
-            get { return GenBankBvtTestCases._version; }
-            set { GenBankBvtTestCases._version = value; }
-        }
-
-        static string SequenceDate
-        {
-            get { return GenBankBvtTestCases._date; }
-            set { GenBankBvtTestCases._date = value; }
-        }
-
-        static string PrimaryId
-        {
-            get { return GenBankBvtTestCases._primId; }
-            set { GenBankBvtTestCases._primId = value; }
-        }
-
-        static string ExpectedSequence
-        {
-            get { return GenBankBvtTestCases._expSeq; }
-            set { GenBankBvtTestCases._expSeq = value; }
-        }
+        static string AlphabetName { get; set; }
+        static string FilePath { get; set; }
+        static string SeqId { get; set; }
+        static string StrandTopology { get; set; }
+        static string StrandType { get; set; }
+        static string Div { get; set; }
+        static string Version { get; set; }
+        static string SequenceDate { get; set; }
+        static string PrimaryId { get; set; }
+        static string ExpectedSequence { get; set; }
 
         #endregion Properties
 
         #region Constructor
 
         /// <summary>
-        /// Static constructor to open log and make other settings needed for test
+        ///     Static constructor to open log and make other settings needed for test
         /// </summary>
         static GenBankBvtTestCases()
         {
@@ -131,12 +70,12 @@ using Bio;
         #region GenBank Parser BVT Test cases
 
         /// <summary>
-        /// Parse a valid GenBank file (Small size sequence less than 35 kb) and 
-        /// convert the same to one sequence using Parse(file-name) method and 
-        /// validate with the expected sequence.
-        /// Input : GenBank File
-        /// Validation: Properties like StrandType, StrandTopology, Division, Date, 
-        /// Version, PrimaryID, Sequence, Metadata Count and Sequence ID
+        ///     Parse a valid GenBank file (Small size sequence less than 35 kb) and
+        ///     convert the same to one sequence using Parse(file-name) method and
+        ///     validate with the expected sequence.
+        ///     Input : GenBank File
+        ///     Validation: Properties like StrandType, StrandTopology, Division, Date,
+        ///     Version, PrimaryID, Sequence, Metadata Count and Sequence ID
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -157,55 +96,52 @@ using Bio;
 
                 // test the metadata that is tricky to parse, and will not be tested implicitly by
                 // testing the formatting
-                GenBankMetadata metadata = (GenBankMetadata)seq.Metadata["GenBank"];
+                var metadata = (GenBankMetadata) seq.Metadata["GenBank"];
                 if (metadata.Locus.Strand != SequenceStrandType.None)
                 {
                     Assert.AreEqual(StrandType,
-                        metadata.Locus.Strand.ToString());
+                                    metadata.Locus.Strand.ToString());
                 }
                 Assert.AreEqual(StrandTopology.ToUpper(CultureInfo.CurrentCulture),
-                    metadata.Locus.StrandTopology.ToString().ToUpper(CultureInfo.CurrentCulture));
+                                metadata.Locus.StrandTopology.ToString().ToUpper(CultureInfo.CurrentCulture));
                 Assert.AreEqual(Div, metadata.Locus.DivisionCode.ToString());
                 Assert.AreEqual(DateTime.Parse(SequenceDate, null),
-                    metadata.Locus.Date);
+                                metadata.Locus.Date);
 
-                Assert.AreEqual(Version, metadata.Version.Version.ToString((IFormatProvider)null));
+                Assert.AreEqual(Version, metadata.Version.Version.ToString(null));
                 Assert.AreEqual(PrimaryId, metadata.Version.GiNumber);
                 ApplicationLog.WriteLine(
                     "GenBank Parser BVT: Successfully validated the StrandType, StrandTopology, Division, Date, Version, PrimaryID Properties");
 
                 // test the sequence string            
-                Assert.AreEqual(ExpectedSequence, new string(seq.Select(a => (char)a).ToArray()));
+                Assert.AreEqual(ExpectedSequence, new string(seq.Select(a => (char) a).ToArray()));
 
                 ApplicationLog.WriteLine(
                     "GenBank Parser BVT: Successfully validated the Sequence");
-                Console.WriteLine(string.Format((IFormatProvider)null,
-                    "GenBank Parser BVT: Successfully validated the Sequence '{0}'",
-                    ExpectedSequence));
             }
         }
 
         /// <summary>
-        /// Parse a valid GenBank file (Small size sequence less than 35 kb) and 
-        /// convert the same to one sequence using Parse(Stream) method and 
-        /// validate with the expected sequence.
-        /// Input : GenBank File
-        /// Validation: Properties like StrandType, StrandTopology, Division, Date, 
-        /// Version, PrimaryID, Sequence, Metadata Count and Sequence ID
+        ///     Parse a valid GenBank file (Small size sequence less than 35 kb) and
+        ///     convert the same to one sequence using Parse(Stream) method and
+        ///     validate with the expected sequence.
+        ///     Input : GenBank File
+        ///     Validation: Properties like StrandType, StrandTopology, Division, Date,
+        ///     Version, PrimaryID, Sequence, Metadata Count and Sequence ID
         /// </summary>
         [TestMethod]
         [Priority(0)]
         [TestCategory("Priority0")]
         public void GenBankParserValidateParseFileNameWithStream()
         {
-            InitializeXmlVariables();            
-            List<ISequence> seq=null;   
-            IEnumerable<ISequence> seqList=null;
+            InitializeXmlVariables();
+            List<ISequence> seq = null;
+            IEnumerable<ISequence> seqList = null;
 
             // Parse the Stream.           
             using (ISequenceParser parserObj = new GenBankParser())
             {
-                using (StreamReader reader = new StreamReader(FilePath))
+                using (var reader = new StreamReader(FilePath))
                 {
                     seqList = parserObj.Parse(reader);
                     seq = seqList.ToList();
@@ -218,41 +154,38 @@ using Bio;
 
                 // test the metadata that is tricky to parse, and will not be tested implicitly by
                 // testing the formatting
-                GenBankMetadata metadata = (GenBankMetadata)seq[0].Metadata["GenBank"];
+                var metadata = (GenBankMetadata) seq[0].Metadata["GenBank"];
                 if (metadata.Locus.Strand != SequenceStrandType.None)
                 {
                     Assert.AreEqual(StrandType,
-                        metadata.Locus.Strand.ToString());
+                                    metadata.Locus.Strand.ToString());
                 }
                 Assert.AreEqual(StrandTopology.ToUpper(CultureInfo.CurrentCulture),
-                    metadata.Locus.StrandTopology.ToString().ToUpper(CultureInfo.CurrentCulture));
+                                metadata.Locus.StrandTopology.ToString().ToUpper(CultureInfo.CurrentCulture));
                 Assert.AreEqual(Div, metadata.Locus.DivisionCode.ToString());
                 Assert.AreEqual(DateTime.Parse(SequenceDate, null),
-                    metadata.Locus.Date);
+                                metadata.Locus.Date);
 
-                Assert.AreEqual(Version, metadata.Version.Version.ToString((IFormatProvider)null));
+                Assert.AreEqual(Version, metadata.Version.Version.ToString(null));
                 Assert.AreEqual(PrimaryId, metadata.Version.GiNumber);
                 ApplicationLog.WriteLine(
                     "GenBank Parser BVT: Successfully validated the StrandType, StrandTopology, Division, Date, Version, PrimaryID Properties");
 
                 // test the sequence string            
-                Assert.AreEqual(ExpectedSequence, new string(seq[0].Select(a => (char)a).ToArray()));
+                Assert.AreEqual(ExpectedSequence, new string(seq[0].Select(a => (char) a).ToArray()));
 
                 ApplicationLog.WriteLine(
                     "GenBank Parser BVT: Successfully validated the Sequence");
-                Console.WriteLine(string.Format((IFormatProvider)null,
-                    "GenBank Parser BVT: Successfully validated the Sequence '{0}'",
-                    ExpectedSequence));
             }
         }
 
         /// <summary>
-        /// Parse a valid GenBank file (Small size sequence less than 35 kb) and 
-        /// convert the same to one sequence using ParseOne(file-name) method and 
-        /// set Alphabet and Encoding value and validate with the expected sequence.
-        /// Input : GenBank File
-        /// Output : Properties like StrandType, StrandTopology, Division, Date, 
-        /// Version, PrimaryID, Sequence, Metadata Count and Sequence ID
+        ///     Parse a valid GenBank file (Small size sequence less than 35 kb) and
+        ///     convert the same to one sequence using ParseOne(file-name) method and
+        ///     set Alphabet and Encoding value and validate with the expected sequence.
+        ///     Input : GenBank File
+        ///     Output : Properties like StrandType, StrandTopology, Division, Date,
+        ///     Version, PrimaryID, Sequence, Metadata Count and Sequence ID
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -299,37 +232,34 @@ using Bio;
                 IEnumerable<ISequence> seq = parserObj.Parse();
 
                 Assert.AreEqual(Utility.GetAlphabet(AlphabetName),
-                    seq.ElementAt(0).Alphabet);
+                                seq.ElementAt(0).Alphabet);
                 Assert.AreEqual(SeqId, seq.ElementAt(0).ID);
                 ApplicationLog.WriteLine(
                     "GenBank Parser BVT: Successfully validated the Alphabet, Molecular type, Sequence ID and Display ID");
 
                 // test the metadata that is tricky to parse, and will not be tested implicitly by
                 // testing the formatting
-                GenBankMetadata metadata = (GenBankMetadata)seq.ElementAt(0).Metadata["GenBank"];
+                var metadata = (GenBankMetadata) seq.ElementAt(0).Metadata["GenBank"];
                 if (metadata.Locus.Strand != SequenceStrandType.None)
                 {
                     Assert.AreEqual(StrandType,
-                        metadata.Locus.Strand.ToString());
+                                    metadata.Locus.Strand.ToString());
                 }
                 Assert.AreEqual(StrandTopology.ToUpper(CultureInfo.CurrentCulture),
-                    metadata.Locus.StrandTopology.ToString().ToUpper(
-                    CultureInfo.CurrentCulture));
+                                metadata.Locus.StrandTopology.ToString().ToUpper(
+                                    CultureInfo.CurrentCulture));
                 Assert.AreEqual(Div, metadata.Locus.DivisionCode.ToString());
                 Assert.AreEqual(DateTime.Parse(SequenceDate, null),
-                    metadata.Locus.Date);
-                Assert.AreEqual(Version, metadata.Version.Version.ToString((IFormatProvider)null));
+                                metadata.Locus.Date);
+                Assert.AreEqual(Version, metadata.Version.Version.ToString(null));
                 Assert.AreEqual(PrimaryId, metadata.Version.GiNumber);
                 ApplicationLog.WriteLine(
                     "GenBank Parser BVT: Successfully validated the StrandType, StrandTopology, Division, Date, Version, PrimaryID Properties");
 
                 // test the sequence string            
-                Assert.AreEqual(ExpectedSequence, new string(seq.ElementAt(0).Select(a => (char)a).ToArray()));
+                Assert.AreEqual(ExpectedSequence, new string(seq.ElementAt(0).Select(a => (char) a).ToArray()));
                 ApplicationLog.WriteLine(
                     "GenBank Parser BVT: Successfully validated the Sequence");
-                Console.WriteLine(string.Format((IFormatProvider)null,
-                    "GenBank Parser BVT: Successfully validated the Sequence '{0}'",
-                    ExpectedSequence));
             }
         }
 
@@ -338,13 +268,13 @@ using Bio;
         #region GenBank Formatter BVT Test cases
 
         /// <summary>
-        /// Write a valid Sequence (Small size sequence  less than 35 kb) to a 
-        /// GenBank file using GenBankFormatter(File-Info) constructor and 
-        /// validate the same.
-        /// Input : GenBank Sequence
-        /// Validation :  Read the GenBank file to which the sequence was formatted 
-        /// using File-Info and Validate Properties like StrandType, StrandTopology,
-        /// Division, Date, Version, PrimaryID, Sequence, Metadata Count and Sequence ID
+        ///     Write a valid Sequence (Small size sequence  less than 35 kb) to a
+        ///     GenBank file using GenBankFormatter(File-Info) constructor and
+        ///     validate the same.
+        ///     Input : GenBank Sequence
+        ///     Validation :  Read the GenBank file to which the sequence was formatted
+        ///     using File-Info and Validate Properties like StrandType, StrandTopology,
+        ///     Division, Date, Version, PrimaryID, Sequence, Metadata Count and Sequence ID
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -358,14 +288,14 @@ using Bio;
             using (ISequenceParser parser1 = new GenBankParser(FilePath))
             {
                 IEnumerable<ISequence> seqList1 = parser1.Parse();
-                string tempFileName = System.IO.Path.GetTempFileName();
+                string tempFileName = Path.GetTempFileName();
 
                 string expectedUpdatedSequence =
                     ExpectedSequence.Replace("\r", "").Replace("\n", "").Replace(" ", "");
-                Sequence orgSeq =
-                     new Sequence(Utility.GetAlphabet(AlphabetName), expectedUpdatedSequence);
+                var orgSeq =
+                    new Sequence(Utility.GetAlphabet(AlphabetName), expectedUpdatedSequence);
                 orgSeq.Metadata.Add("GenBank",
-          (GenBankMetadata)seqList1.ElementAt(0).Metadata["GenBank"]);
+                                    seqList1.ElementAt(0).Metadata["GenBank"]);
                 orgSeq.ID = seqList1.ElementAt(0).ID;
 
                 using (ISequenceFormatter formatter = new GenBankFormatter(tempFileName))
@@ -374,34 +304,34 @@ using Bio;
                     formatter.Close();
 
                     // parse            
-                    GenBankParser parserObj = new GenBankParser(tempFileName);
+                    var parserObj = new GenBankParser(tempFileName);
 
                     IEnumerable<ISequence> seqList = parserObj.Parse();
                     ISequence seq = seqList.ElementAt(0);
                     Assert.AreEqual(Utility.GetAlphabet(AlphabetName), seq.Alphabet);
                     Assert.AreEqual(SeqId, seq.ID);
                     ApplicationLog.WriteLine(
-                    "GenBank Formatter BVT: Successfully validated the Alphabet, Molecular type, Sequence ID and Display ID");
+                        "GenBank Formatter BVT: Successfully validated the Alphabet, Molecular type, Sequence ID and Display ID");
 
                     // test the metadata that is tricky to parse, and will not be tested implicitly by
                     // testing the formatting 
-                    GenBankMetadata metadata = (GenBankMetadata)seq.Metadata["GenBank"];
+                    var metadata = (GenBankMetadata) seq.Metadata["GenBank"];
                     if (metadata.Locus.Strand != SequenceStrandType.None)
                     {
                         Assert.AreEqual(StrandType, metadata.Locus.Strand.ToString());
                     }
-                    Assert.AreEqual(StrandTopology.ToUpper(CultureInfo.CurrentCulture), metadata.Locus.StrandTopology.ToString().ToUpper(CultureInfo.CurrentCulture));
+                    Assert.AreEqual(StrandTopology.ToUpper(CultureInfo.CurrentCulture),
+                                    metadata.Locus.StrandTopology.ToString().ToUpper(CultureInfo.CurrentCulture));
                     Assert.AreEqual(Div, metadata.Locus.DivisionCode.ToString());
                     Assert.AreEqual(DateTime.Parse(SequenceDate, null), metadata.Locus.Date);
-                    Assert.AreEqual(Version, metadata.Version.Version.ToString((IFormatProvider)null));
+                    Assert.AreEqual(Version, metadata.Version.Version.ToString(null));
                     Assert.AreEqual(PrimaryId, metadata.Version.GiNumber);
                     ApplicationLog.WriteLine(
-                    "GenBank Formatter BVT: Successfully validated the StrandType, StrandTopology, Division, Date, Version, PrimaryID Properties");
+                        "GenBank Formatter BVT: Successfully validated the StrandType, StrandTopology, Division, Date, Version, PrimaryID Properties");
 
                     // test the sequence string            
-                    Assert.AreEqual(ExpectedSequence, new string(seq.Select(a => (char)a).ToArray()));
+                    Assert.AreEqual(ExpectedSequence, new string(seq.Select(a => (char) a).ToArray()));
                     ApplicationLog.WriteLine("GenBank Formatter BVT: Successfully validated the Sequence");
-                    Console.WriteLine(string.Format((IFormatProvider)null, "GenBank Formatter BVT: Successfully validated the Sequence '{0}'", ExpectedSequence));
                     parserObj.Close();
                     parserObj.Dispose();
                     File.Delete(tempFileName);
@@ -410,13 +340,13 @@ using Bio;
         }
 
         /// <summary>
-        /// Write a valid Sequence (Small size sequence  less than 35 kb) to a 
-        /// GenBank file using GenBankFormatter(File-Path) constructor and 
-        /// validate the same.
-        /// Input : GenBank Sequence
-        /// Validation :  Read the GenBank file to which the sequence was formatted 
-        /// using File-Path and Validate Properties like StrandType, StrandTopology,
-        /// Division, Date, Version, PrimaryID, Sequence, Metadata Count and Sequence ID
+        ///     Write a valid Sequence (Small size sequence  less than 35 kb) to a
+        ///     GenBank file using GenBankFormatter(File-Path) constructor and
+        ///     validate the same.
+        ///     Input : GenBank Sequence
+        ///     Validation :  Read the GenBank file to which the sequence was formatted
+        ///     using File-Path and Validate Properties like StrandType, StrandTopology,
+        ///     Division, Date, Version, PrimaryID, Sequence, Metadata Count and Sequence ID
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -427,12 +357,12 @@ using Bio;
             using (ISequenceParser parserObj = new GenBankParser(FilePath))
             {
                 IEnumerable<ISequence> seqList1 = parserObj.Parse();
-                string tempFileName = System.IO.Path.GetTempFileName();
+                string tempFileName = Path.GetTempFileName();
                 string expectedUpdatedSequence =
                     ExpectedSequence.Replace("\r", "").Replace("\n", "").Replace(" ", "");
-                Sequence orgSeq = new Sequence(Utility.GetAlphabet(AlphabetName), expectedUpdatedSequence);
+                var orgSeq = new Sequence(Utility.GetAlphabet(AlphabetName), expectedUpdatedSequence);
                 orgSeq.ID = seqList1.ElementAt(0).ID;
-                orgSeq.Metadata.Add("GenBank", (GenBankMetadata)seqList1.ElementAt(0).Metadata["GenBank"]);
+                orgSeq.Metadata.Add("GenBank", seqList1.ElementAt(0).Metadata["GenBank"]);
                 using (ISequenceFormatter formatter = new GenBankFormatter(tempFileName))
                 {
                     formatter.Write(orgSeq);
@@ -450,30 +380,26 @@ using Bio;
 
                     // test the metadata that is tricky to parse, and will not be tested implicitly by
                     // testing the formatting
-                    GenBankMetadata metadata =
-                        (GenBankMetadata)orgSeq.Metadata["GenBank"];
+                    var metadata =
+                        (GenBankMetadata) orgSeq.Metadata["GenBank"];
                     if (metadata.Locus.Strand != SequenceStrandType.None)
                     {
                         Assert.AreEqual(StrandType,
-                            metadata.Locus.Strand.ToString());
+                                        metadata.Locus.Strand.ToString());
                     }
                     Assert.AreEqual(StrandTopology.ToUpper(CultureInfo.CurrentCulture),
-                        metadata.Locus.StrandTopology.ToString().ToUpper(CultureInfo.CurrentCulture));
+                                    metadata.Locus.StrandTopology.ToString().ToUpper(CultureInfo.CurrentCulture));
                     Assert.AreEqual(Div, metadata.Locus.DivisionCode.ToString());
                     Assert.AreEqual(DateTime.Parse(SequenceDate, null),
-                        metadata.Locus.Date);
-                    Assert.AreEqual(Version, metadata.Version.Version.ToString((IFormatProvider)null));
+                                    metadata.Locus.Date);
+                    Assert.AreEqual(Version, metadata.Version.Version.ToString(null));
                     Assert.AreEqual(PrimaryId, metadata.Version.GiNumber);
                     ApplicationLog.WriteLine(
                         "GenBank Formatter BVT: Successfully validated the StrandType, StrandTopology, Division, Date, Version, PrimaryID Properties");
 
                     // test the sequence string            
-                    Assert.AreEqual(ExpectedSequence, new string(seq.Select(a => (char)a).ToArray()));
-                    ApplicationLog.WriteLine(
-                        "GenBank Formatter BVT: Successfully validated the Sequence");
-                    Console.WriteLine(string.Format((IFormatProvider)null,
-                        "GenBank Formatter BVT: Successfully validated the Sequence '{0}'",
-                        ExpectedSequence));
+                    Assert.AreEqual(ExpectedSequence, new string(seq.Select(a => (char) a).ToArray()));
+                    ApplicationLog.WriteLine("GenBank Formatter BVT: Successfully validated the Sequence");
                     parserObjFromFile.Close();
                     parserObjFromFile.Dispose();
                     File.Delete(tempFileName);
@@ -482,13 +408,13 @@ using Bio;
         }
 
         /// <summary>
-        /// Parse a GenBank File (Small size sequence less than 35 kb) using Parse() 
-        /// method and Format the same to a GenBank file using GenBankFormatter(File-Info) 
-        /// constructor and validate the same.
-        /// Input : GenBank File
-        /// Validation :  Read the New GenBank file to which the sequence was formatted 
-        /// using File-Info and Validate Properties like StrandType, StrandTopology,
-        /// Division, Date, Version, PrimaryID, Sequence, Metadata Count and Sequence ID
+        ///     Parse a GenBank File (Small size sequence less than 35 kb) using Parse()
+        ///     method and Format the same to a GenBank file using GenBankFormatter(File-Info)
+        ///     constructor and validate the same.
+        ///     Input : GenBank File
+        ///     Validation :  Read the New GenBank file to which the sequence was formatted
+        ///     using File-Info and Validate Properties like StrandType, StrandTopology,
+        ///     Division, Date, Version, PrimaryID, Sequence, Metadata Count and Sequence ID
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -500,7 +426,7 @@ using Bio;
             ISequenceParser parserObj = new GenBankParser(FilePath);
 
             IEnumerable<ISequence> seqList = parserObj.Parse();
-            string tempFileName = System.IO.Path.GetTempFileName();
+            string tempFileName = Path.GetTempFileName();
             ISequence seq = seqList.ElementAt(0);
 
             using (ISequenceFormatter formatter = new GenBankFormatter(tempFileName))
@@ -519,29 +445,26 @@ using Bio;
 
                 // test the metadata that is tricky to parse, and will not be tested implicitly by
                 // testing the formatting
-                GenBankMetadata metadata = (GenBankMetadata)seq.Metadata["GenBank"];
+                var metadata = (GenBankMetadata) seq.Metadata["GenBank"];
                 if (metadata.Locus.Strand != SequenceStrandType.None)
                 {
                     Assert.AreEqual(StrandType,
-                        metadata.Locus.Strand.ToString());
+                                    metadata.Locus.Strand.ToString());
                 }
                 Assert.AreEqual(StrandTopology.ToUpper(CultureInfo.CurrentCulture),
-                    metadata.Locus.StrandTopology.ToString().ToUpper(CultureInfo.CurrentCulture));
+                                metadata.Locus.StrandTopology.ToString().ToUpper(CultureInfo.CurrentCulture));
                 Assert.AreEqual(Div, metadata.Locus.DivisionCode.ToString());
                 Assert.AreEqual(DateTime.Parse(SequenceDate, null),
-                    metadata.Locus.Date);
-                Assert.AreEqual(Version, metadata.Version.Version.ToString((IFormatProvider)null));
+                                metadata.Locus.Date);
+                Assert.AreEqual(Version, metadata.Version.Version.ToString(null));
                 Assert.AreEqual(PrimaryId, metadata.Version.GiNumber);
                 ApplicationLog.WriteLine(
                     "GenBank Formatter BVT: Successfully validated the StrandType, StrandTopology, Division, Date, Version, PrimaryID Properties");
 
                 // test the sequence string            
-                Assert.AreEqual(ExpectedSequence, new string(seq.Select(a => (char)a).ToArray()));
+                Assert.AreEqual(ExpectedSequence, new string(seq.Select(a => (char) a).ToArray()));
                 ApplicationLog.WriteLine(
                     "GenBank Formatter BVT: Successfully validated the Sequence");
-                Console.WriteLine(string.Format((IFormatProvider)null,
-                    "GenBank Formatter BVT: Successfully validated the Sequence '{0}'",
-                    ExpectedSequence));
                 parserObj.Close();
                 parserObj.Dispose();
                 File.Delete(tempFileName);
@@ -549,13 +472,13 @@ using Bio;
         }
 
         /// <summary>
-        /// Parse a GenBank File (Small size sequence less than 35 kb) using Parse() 
-        /// method and Write the same to a GenBank file using 
-        /// GenBankFormatter(File-Path) constructor and validate the same.
-        /// Input : GenBank File
-        /// Validation :  Read the New GenBank file to which the sequence was formatted 
-        /// using File-Path and Validate Properties like StrandType, StrandTopology,
-        /// Division, Date, Version, PrimaryID, Sequence, Metadata Count and Sequence ID
+        ///     Parse a GenBank File (Small size sequence less than 35 kb) using Parse()
+        ///     method and Write the same to a GenBank file using
+        ///     GenBankFormatter(File-Path) constructor and validate the same.
+        ///     Input : GenBank File
+        ///     Validation :  Read the New GenBank file to which the sequence was formatted
+        ///     using File-Path and Validate Properties like StrandType, StrandTopology,
+        ///     Division, Date, Version, PrimaryID, Sequence, Metadata Count and Sequence ID
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -568,7 +491,7 @@ using Bio;
             {
                 IEnumerable<ISequence> seqList = parserObj.Parse();
                 ISequence seq = seqList.ElementAt(0);
-                string tempFileName = System.IO.Path.GetTempFileName();
+                string tempFileName = Path.GetTempFileName();
                 using (ISequenceFormatter formatter = new GenBankFormatter(tempFileName))
                 {
                     formatter.Write(seq);
@@ -585,47 +508,43 @@ using Bio;
 
                     // test the metadata that is tricky to parse, and will not be tested implicitly by
                     // testing the formatting
-                    GenBankMetadata metadata =
-                        (GenBankMetadata)seq.Metadata["GenBank"];
+                    var metadata =
+                        (GenBankMetadata) seq.Metadata["GenBank"];
                     if (metadata.Locus.Strand != SequenceStrandType.None)
                     {
                         Assert.AreEqual(StrandType,
-                            metadata.Locus.Strand.ToString());
+                                        metadata.Locus.Strand.ToString());
                     }
                     Assert.AreEqual(StrandTopology.ToUpper(CultureInfo.CurrentCulture),
-                        metadata.Locus.StrandTopology.ToString().ToUpper(CultureInfo.CurrentCulture));
+                                    metadata.Locus.StrandTopology.ToString().ToUpper(CultureInfo.CurrentCulture));
                     Assert.AreEqual(Div, metadata.Locus.DivisionCode.ToString());
                     Assert.AreEqual(DateTime.Parse(SequenceDate, null),
-                        metadata.Locus.Date);
-                    Assert.AreEqual(Version, metadata.Version.Version.ToString((IFormatProvider)null));
+                                    metadata.Locus.Date);
+                    Assert.AreEqual(Version, metadata.Version.Version.ToString(null));
                     Assert.AreEqual(PrimaryId, metadata.Version.GiNumber);
                     ApplicationLog.WriteLine(
                         "GenBank Formatter BVT: Successfully validated the StrandType, StrandTopology, Division, Date, Version, PrimaryID Properties");
 
                     // test the sequence string
-                    Assert.AreEqual(ExpectedSequence, new string(seq.Select(a => (char)a).ToArray()));
+                    Assert.AreEqual(ExpectedSequence, new string(seq.Select(a => (char) a).ToArray()));
 
                     ApplicationLog.WriteLine(
                         "GenBank Formatter BVT: Successfully validated the Sequence");
-                    Console.WriteLine(string.Format((IFormatProvider)null,
-                        "GenBank Formatter BVT: Successfully validated the Sequence '{0}'",
-                        ExpectedSequence));
                     parserObjFromFile.Close();
                     parserObjFromFile.Dispose();
                     File.Delete(tempFileName);
-
                 }
             }
         }
 
         /// <summary>
-        /// Write a valid Sequence (Small size sequence  less than 35 kb) to a 
-        /// GenBank file using GenBankFormatter() through a Stream  and 
-        /// validate the same.
-        /// Input : GenBank Sequence
-        /// Validation :  Read the GenBank file to which the sequence was formatted 
-        /// using File-Info and Validate Properties like StrandType, StrandTopology,
-        /// Division, Date, Version, PrimaryID, Sequence, Metadata Count and Sequence ID
+        ///     Write a valid Sequence (Small size sequence  less than 35 kb) to a
+        ///     GenBank file using GenBankFormatter() through a Stream  and
+        ///     validate the same.
+        ///     Input : GenBank Sequence
+        ///     Validation :  Read the GenBank file to which the sequence was formatted
+        ///     using File-Info and Validate Properties like StrandType, StrandTopology,
+        ///     Division, Date, Version, PrimaryID, Sequence, Metadata Count and Sequence ID
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -637,57 +556,57 @@ using Bio;
             // Create a Sequence with all attributes.
             // Parse and update the properties instead of parsing entire file.            
             using (ISequenceParser parser1 = new GenBankParser(FilePath))
-            {               
+            {
                 IEnumerable<ISequence> seqList1 = parser1.Parse();
-                string tempFileName = System.IO.Path.GetTempFileName();
+                string tempFileName = Path.GetTempFileName();
                 GenBankMetadata metadata = null;
-                ISequence seq =null;
+                ISequence seq = null;
                 string expectedUpdatedSequence =
                     ExpectedSequence.Replace("\r", "").Replace("\n", "").Replace(" ", "");
-                Sequence orgSeq =
-                     new Sequence(Utility.GetAlphabet(AlphabetName), expectedUpdatedSequence);
+                var orgSeq =
+                    new Sequence(Utility.GetAlphabet(AlphabetName), expectedUpdatedSequence);
                 orgSeq.Metadata.Add("GenBank",
-                (GenBankMetadata)seqList1.ElementAt(0).Metadata["GenBank"]);
+                                    seqList1.ElementAt(0).Metadata["GenBank"]);
                 orgSeq.ID = seqList1.ElementAt(0).ID;
 
                 using (ISequenceFormatter formatter = new GenBankFormatter())
                 {
-                    using (StreamWriter writer = new StreamWriter(tempFileName))
+                    using (var writer = new StreamWriter(tempFileName))
                     {
                         formatter.Open(writer);
-                        formatter.Write(orgSeq);                        
+                        formatter.Write(orgSeq);
                     }
                 }
-                    using (GenBankParser parserObj = new GenBankParser(tempFileName))
-                    {
-                        IEnumerable<ISequence> seqList = parserObj.Parse();
-                        seq= seqList.ElementAt(0);
-                        Assert.AreEqual(Utility.GetAlphabet(AlphabetName), seq.Alphabet);
-                        Assert.AreEqual(SeqId, seq.ID);
-                        ApplicationLog.WriteLine(
+                using (var parserObj = new GenBankParser(tempFileName))
+                {
+                    IEnumerable<ISequence> seqList = parserObj.Parse();
+                    seq = seqList.ElementAt(0);
+                    Assert.AreEqual(Utility.GetAlphabet(AlphabetName), seq.Alphabet);
+                    Assert.AreEqual(SeqId, seq.ID);
+                    ApplicationLog.WriteLine(
                         "GenBank Formatter BVT: Successfully validated the Alphabet, Molecular type, Sequence ID and Display ID");
 
-                        // test the metadata that is tricky to parse, and will not be tested implicitly by
-                        // testing the formatting 
-                        metadata = (GenBankMetadata)seq.Metadata["GenBank"];
-                        if (metadata.Locus.Strand != SequenceStrandType.None)
-                        {
-                            Assert.AreEqual(StrandType, metadata.Locus.Strand.ToString());
-                        }
+                    // test the metadata that is tricky to parse, and will not be tested implicitly by
+                    // testing the formatting 
+                    metadata = (GenBankMetadata) seq.Metadata["GenBank"];
+                    if (metadata.Locus.Strand != SequenceStrandType.None)
+                    {
+                        Assert.AreEqual(StrandType, metadata.Locus.Strand.ToString());
                     }
-                    Assert.AreEqual(StrandTopology.ToUpper(CultureInfo.CurrentCulture), metadata.Locus.StrandTopology.ToString().ToUpper(CultureInfo.CurrentCulture));
-                    Assert.AreEqual(Div, metadata.Locus.DivisionCode.ToString());
-                    Assert.AreEqual(DateTime.Parse(SequenceDate, null), metadata.Locus.Date);
-                    Assert.AreEqual(Version, metadata.Version.Version.ToString((IFormatProvider)null));
-                    Assert.AreEqual(PrimaryId, metadata.Version.GiNumber);
-                    ApplicationLog.WriteLine(
+                }
+                Assert.AreEqual(StrandTopology.ToUpper(CultureInfo.CurrentCulture),
+                                metadata.Locus.StrandTopology.ToString().ToUpper(CultureInfo.CurrentCulture));
+                Assert.AreEqual(Div, metadata.Locus.DivisionCode.ToString());
+                Assert.AreEqual(DateTime.Parse(SequenceDate, null), metadata.Locus.Date);
+                Assert.AreEqual(Version, metadata.Version.Version.ToString(null));
+                Assert.AreEqual(PrimaryId, metadata.Version.GiNumber);
+                ApplicationLog.WriteLine(
                     "GenBank Formatter BVT: Successfully validated the StrandType, StrandTopology, Division, Date, Version, PrimaryID Properties");
 
-                    // test the sequence string            
-                    Assert.AreEqual(ExpectedSequence, new string(seq.Select(a => (char)a).ToArray()));
-                    ApplicationLog.WriteLine("GenBank Formatter BVT: Successfully validated the Sequence");
-                    Console.WriteLine(string.Format((IFormatProvider)null, "GenBank Formatter BVT: Successfully validated the Sequence '{0}'", ExpectedSequence));                    
-                    File.Delete(tempFileName);                
+                // test the sequence string            
+                Assert.AreEqual(ExpectedSequence, new string(seq.Select(a => (char) a).ToArray()));
+                ApplicationLog.WriteLine("GenBank Formatter BVT: Successfully validated the Sequence");
+                File.Delete(tempFileName);
             }
         }
 
@@ -696,9 +615,9 @@ using Bio;
         #region Helper Methods
 
         /// <summary>
-        /// Initializes Xml Variables
+        ///     Initializes Xml Variables
         /// </summary>
-        void InitializeXmlVariables()
+        private void InitializeXmlVariables()
         {
             // Initialization of xml strings.
             FilePath = utilityObj.xmlUtil.GetTextValue(

@@ -6,17 +6,11 @@
 ******************************************************************************/
 
 using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Runtime.Serialization;
 using System.Text;
-using Bio.IO.FastQ;
+using Bio.Extensions;
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Bio;
 
 #if (SILVERLIGHT == false)
 namespace Bio.TestAutomation
@@ -38,8 +32,6 @@ namespace Bio.TestAutomation
         /// </summary>
         enum QualitativeSequenceParameters
         {
-            SequenceByte,
-            Sequence,
             Score,
             ByteArray,
             IndexOf,
@@ -51,16 +43,13 @@ namespace Bio.TestAutomation
             DefaultScoreWithSequence,
             MaxDefaultScore,
             MinDefaultScore,
-            GetEnumerator,
-            GetObjectData,
-            Default
         };
 
         #endregion Enums
 
         #region Global Variables
 
-        Utility utilityObj = new Utility(@"TestUtils\QualitativeTestsConfig.xml");
+        readonly Utility utilityObj = new Utility(@"TestUtils\QualitativeTestsConfig.xml");
 
         #endregion Global Variables
 
@@ -671,7 +660,7 @@ namespace Bio.TestAutomation
                 nodeName, Constants.MaxScoreNode);
             string inputQuality = utilityObj.xmlUtil.GetTextValue(
                 nodeName, Constants.InputByteArrayNode);
-            byte[] byteArray = UTF8Encoding.UTF8.GetBytes(inputQuality);
+            byte[] byteArray = Encoding.UTF8.GetBytes(inputQuality);
             int index = 0;
 
             // Create and validate Qualitative Sequence.
@@ -688,7 +677,7 @@ namespace Bio.TestAutomation
                     break;
                 case QualitativeSequenceParameters.ByteArray:
                     createdQualitativeSequence = new QualitativeSequence(alphabet, expectedFormatType,
-                       UTF8Encoding.UTF8.GetBytes(inputSequence), byteArray);
+                       Encoding.UTF8.GetBytes(inputSequence), byteArray);
 
                     // Validate score
                     foreach (byte qualScore in createdQualitativeSequence.GetEncodedQualityScores())
@@ -704,22 +693,12 @@ namespace Bio.TestAutomation
             // Validate createdSequence qualitative sequence.
             Assert.IsNotNull(createdQualitativeSequence);
             Assert.AreEqual(createdQualitativeSequence.Alphabet, alphabet);
-            Assert.AreEqual(new string(createdQualitativeSequence.Select(a => (char)a).ToArray()), expectedSequence);
+            Assert.AreEqual(createdQualitativeSequence.ConvertToString(), expectedSequence);
             Assert.AreEqual(createdQualitativeSequence.Count.ToString((IFormatProvider)null), expectedSequenceCount);
+            ApplicationLog.WriteLine(string.Format(null, "Qualitative Sequence P1:Qualitative Sequence {0} is as expected.", createdQualitativeSequence));
+            ApplicationLog.WriteLine(string.Format(null, "Qualitative Sequence P1:Qualitative Sequence Score {0} is as expected.", createdQualitativeSequence.GetEncodedQualityScores()));
             Assert.AreEqual(createdQualitativeSequence.FormatType, expectedFormatType);
-
-            // Logs to the VSTest GUI (Console.Out) window
-            Console.WriteLine(string.Format((IFormatProvider)null,
-                "Qualitative Sequence P1:Qualitative Sequence {0} is as expected.",
-                createdQualitativeSequence.ToString()));
-
-            Console.WriteLine(string.Format((IFormatProvider)null,
-                "Qualitative Sequence P1:Qualitative Sequence Score {0} is as expected.",
-                createdQualitativeSequence.GetEncodedQualityScores().ToString()));
-
-            Console.WriteLine(string.Format((IFormatProvider)null,
-                "Qualitative Sequence P1:Qualitative format type {0} is as expected.",
-                createdQualitativeSequence.FormatType));
+            ApplicationLog.WriteLine(string.Format(null, "Qualitative Sequence P1:Qualitative format type {0} is as expected.", createdQualitativeSequence.FormatType));
         }
 
         /// <summary>
@@ -727,8 +706,7 @@ namespace Bio.TestAutomation
         /// <param name="nodeName">xml node name.</param>
         /// <param name="indexParam">Different Qualitative Sequence parameters.</param>
         /// </summary>
-        void ValidateGeneralQualitativeSeqItemIndices(
-            string nodeName, QualitativeSequenceParameters indexParam)
+        void ValidateGeneralQualitativeSeqItemIndices(string nodeName, QualitativeSequenceParameters indexParam)
         {
             // Gets the actual sequence and the alphabet from the Xml
             IAlphabet alphabet = Utility.GetAlphabet(utilityObj.xmlUtil.GetTextValue(
@@ -783,8 +761,8 @@ namespace Bio.TestAutomation
                     break;
             }
 
-            // Logs to the VSTest GUI (Console.Out) window
-            Console.WriteLine("Qualitative Sequence P1 : Qualitative SequenceItems indices validation completed successfully.");
+            // Logs to the VSTest GUI window
+            ApplicationLog.WriteLine("Qualitative Sequence P1 : Qualitative SequenceItems indices validation completed successfully.");
         }
 
         /// <summary>
@@ -793,8 +771,7 @@ namespace Bio.TestAutomation
         /// <param name="nodeName">xml node name.</param>
         /// <param name="parameters">Different Qualitative Score method parameter.</param>
         /// </summary>
-        void ValidateFastQDefaultScores(
-            string nodeName, QualitativeSequenceParameters parameters)
+        void ValidateFastQDefaultScores(string nodeName, QualitativeSequenceParameters parameters)
         {
             // Gets the actual sequence and the alphabet from the Xml
             IAlphabet alphabet = Utility.GetAlphabet(utilityObj.xmlUtil.GetTextValue(
@@ -830,7 +807,7 @@ namespace Bio.TestAutomation
                     }
 
                     // Log VSTest GUI.
-                    Console.WriteLine(string.Format((IFormatProvider)null,
+                    ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                         "Qualitative Sequence P1:Qualitative Sequence Default score {0} is as expected.",
                         qualityScoresString[0]));
                     break;
@@ -849,13 +826,13 @@ namespace Bio.TestAutomation
                     }
 
                     // Log VSTest GUI.
-                    Console.WriteLine(string.Format((IFormatProvider)null,
+                    ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                         "Qualitative Sequence P1:Qualitative Sequence Default score {0} is as expected.",
                         qualityScoresString[0]));
                     break;
                 case QualitativeSequenceParameters.MaxDefaultScore:
                     createdQualitativeSequence = new QualitativeSequence(
-                        alphabet, expectedFormatType, UTF8Encoding.UTF8.GetBytes(inputSequence),
+                        alphabet, expectedFormatType, Encoding.UTF8.GetBytes(inputSequence),
                         expectedMaxScores);
                     i = 0;
                     // Validate default maximum score.
@@ -867,13 +844,13 @@ namespace Bio.TestAutomation
                     }
 
                     // Log VSTest GUI.
-                    Console.WriteLine(string.Format((IFormatProvider)null,
+                    ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                         "Qualitative Sequence P1:Qualitative Sequence Maximum score {0} is as expected.",
                         QualitativeSequence.GetMaxEncodedQualScore(expectedFormatType)));
                     break;
                 case QualitativeSequenceParameters.MinDefaultScore:
                     createdQualitativeSequence = new QualitativeSequence(
-                        alphabet, expectedFormatType, UTF8Encoding.UTF8.GetBytes(inputSequence),
+                        alphabet, expectedFormatType, Encoding.UTF8.GetBytes(inputSequence),
                        expectedMinScores);
 
                     i = 0;
@@ -886,8 +863,7 @@ namespace Bio.TestAutomation
                     }
 
                     // Log VSTest GUI.
-                    Console.WriteLine(string.Format((IFormatProvider)null,
-                        "Qualitative Sequence P1:Qualitative Sequence Minimum score {0} is as expected.",
+                    ApplicationLog.WriteLine(string.Format(null, "Qualitative Sequence P1:Qualitative Sequence Minimum score {0} is as expected.",
                         QualitativeSequence.GetMinEncodedQualScore(expectedFormatType)));
                     break;
                 default:

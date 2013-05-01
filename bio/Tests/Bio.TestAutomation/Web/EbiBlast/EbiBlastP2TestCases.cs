@@ -6,15 +6,11 @@
 ******************************************************************************/
 
 using System;
-
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
 using Bio.Web;
 using Bio.Web.Blast;
-
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Net;
-using Bio;
 
 namespace Bio.TestAutomation.Web.EbiBlast
 {
@@ -24,7 +20,6 @@ namespace Bio.TestAutomation.Web.EbiBlast
     [TestClass]
     public class EbiBlastP2TestCases
     {
-
         #region Global Variables
 
         Utility utilityObj = new Utility(@"TestUtils\TestsConfig.xml");
@@ -73,8 +68,6 @@ namespace Bio.TestAutomation.Web.EbiBlast
             {
                 ApplicationLog.WriteLine(
                     "EbiWebService P2 : Successfully validated the Argument null exception");
-                Console.WriteLine(
-                    "EbiWebService P2 : Successfully validated the Argument null exception");
             }
             finally
             {
@@ -108,8 +101,6 @@ namespace Bio.TestAutomation.Web.EbiBlast
             {
                 ApplicationLog.WriteLine(
                     "EbiWebService P2 : Successfully validated the Argument null exception");
-                Console.WriteLine(
-                    "EbiWebService P2 : Successfully validated the Argument null exception");
             }
 
             // Validate EbiWebService ctor by passing null config.
@@ -121,8 +112,6 @@ namespace Bio.TestAutomation.Web.EbiBlast
             catch (ArgumentNullException)
             {
                 ApplicationLog.WriteLine(
-                    "EbiWebService P2 : Successfully validated the Argument null exception");
-                Console.WriteLine(
                     "EbiWebService P2 : Successfully validated the Argument null exception");
             }
             finally
@@ -155,8 +144,6 @@ namespace Bio.TestAutomation.Web.EbiBlast
             {
                 ApplicationLog.WriteLine(
                     "EbiWebService P2 : Successfully validated the exception");
-                Console.WriteLine(
-                    "EbiWebService P2 : Successfully validated the exception");
             }
             finally
             {
@@ -188,8 +175,6 @@ namespace Bio.TestAutomation.Web.EbiBlast
             catch (Exception)
             {
                 ApplicationLog.WriteLine(
-                    "EbiWebService P2 : Successfully validated the exception");
-                Console.WriteLine(
                     "EbiWebService P2 : Successfully validated the exception");
             }
             finally
@@ -240,8 +225,6 @@ namespace Bio.TestAutomation.Web.EbiBlast
             catch (Exception)
             {
                 ApplicationLog.WriteLine(
-                    "EbiWebService P2 : Successfully validated the exception");
-                Console.WriteLine(
                     "EbiWebService P2 : Successfully validated the exception");
             }
         }

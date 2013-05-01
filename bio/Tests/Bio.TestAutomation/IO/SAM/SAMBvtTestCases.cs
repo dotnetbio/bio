@@ -11,13 +11,11 @@ using System.Collections.Generic;
 using System.IO;
 using Bio.Algorithms.Alignment;
 using Bio.IO;
-using Bio.IO.BAM;
 using Bio.IO.FastA;
 using Bio.IO.SAM;
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Bio;
 
 namespace Bio.TestAutomation.IO.SAM
 {
@@ -138,7 +136,6 @@ namespace Bio.TestAutomation.IO.SAM
                 Assert.AreEqual(Constants.SAMFileType, parser.SupportedFileTypes);
                 Assert.AreEqual(Constants.SAMName, parser.Name);
             }
-            Console.WriteLine("Successfully validated all the properties of SAM Parser class.");
             ApplicationLog.WriteLine("Successfully validated all the properties of SAM Parser class.");
         }
 
@@ -278,8 +275,6 @@ namespace Bio.TestAutomation.IO.SAM
                 {
                     ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                        "SAM Parser BVT : Validated the exception successfully"));
-                    Console.WriteLine(string.Format((IFormatProvider)null,
-                        "SAM Parser BVT : Validated the exception successfully"));
                 }
             }
             finally
@@ -320,8 +315,6 @@ namespace Bio.TestAutomation.IO.SAM
                 {
                     ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                        "SAM Parser BVT : Validated the exception successfully"));
-                    Console.WriteLine(string.Format((IFormatProvider)null,
-                        "SAM Parser BVT : Validated the exception successfully"));
                 }
 
             }
@@ -391,7 +384,6 @@ namespace Bio.TestAutomation.IO.SAM
             Assert.AreEqual(Constants.SAMFileType, parser.SupportedFileTypes);
             Assert.AreEqual(Constants.SAMName, parser.Name);
 
-            Console.WriteLine("Successfully validated all the properties of SAM Parser class.");
             ApplicationLog.WriteLine("Successfully validated all the properties of SAM Parser class.");
         }
 

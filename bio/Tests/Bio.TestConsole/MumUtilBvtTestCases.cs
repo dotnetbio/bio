@@ -1,9 +1,7 @@
 ﻿using System;
 using System.IO;
-using System.Text;
 using Bio.Util.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SD = System.Diagnostics;
 using Bio.TestConsole.Util;
 
 namespace Bio.TestConsole
@@ -16,7 +14,7 @@ namespace Bio.TestConsole
     {
         #region Global Variables
 
-        Utility utilityObj = new Utility(@"TestUtils\UtilitiesTestsConfig.xml");        
+        readonly Utility utilityObj = new Utility(@"TestUtils\UtilitiesTestsConfig.xml");        
 
         #endregion Global Variables
 

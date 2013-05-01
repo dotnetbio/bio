@@ -5,14 +5,10 @@
  * 
 ***************************************************************************/
 
-using Bio;
 using Bio.Algorithms.Assembly.Comparative;
 using Bio.Algorithms.Alignment;
-using Bio.Algorithms.Assembly.Padena.Scaffold;
-using Bio.IO.FastA;
 using Bio.Util.Logging;
 using System;
-using System.Text;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -78,10 +74,7 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Comparative
             }
             catch (ArgumentNullException)
             {
-                ApplicationLog.WriteLine(
-                    "GenerateConsensus P2 : Successfully validated the exception");
-                Console.WriteLine(
-                    "GenerateConsensus P2 : Successfully validated the exception");
+                ApplicationLog.WriteLine("GenerateConsensus P2 : Successfully validated the exception");
             }
         }
 
@@ -111,55 +104,49 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Comparative
             {
                 foreach (var delta in RepeatResolver.ResolveAmbiguity(null))
                 {
-                    Console.WriteLine(delta.Errors);
+                    ApplicationLog.WriteLine("{0}", delta.Errors);
                 }
-                Assert.Fail();
+
                 ApplicationLog.WriteLine("Resolve Ambiguity P2 : Exception not thrown");
+                Assert.Fail();
             }
             catch (ArgumentNullException ex)
             {
                 actualException = ex.Message;
-                ApplicationLog.WriteLine(
-                    "Resolve Ambiguity P2 : Successfully validated the exception");
-                Console.WriteLine(
-                    "Resolve Ambiguity P2 : Successfully validated the exception");
+                ApplicationLog.WriteLine("Resolve Ambiguity P2 : Successfully validated the exception");
             }
 
             string expectedMessage = GetExpectedErrorMessageWithInvalidSequenceType(Constants.RepeatResolution, ExceptionTypes.ResolveAmbiguityNullDeltas);
             Assert.AreEqual(expectedMessage, actualException.Replace("\n", "").Replace("\r", ""));
         }
 
-        # endregion Comparative P2 test cases
+        #endregion Comparative P2 test cases
 
         #region Supporting methods
 
         /// <summary>
         /// Validate exceptions from RefineLayout() with null reads/null delta's.
         /// </summary>
+        /// <param name="nodeName"></param>
         /// <param name="exceptionType">Layout refinement different parameters</param>
-        /// <param name="deltaValues">Deltas for layout Refinemenr</param>
         public void ValidateRefineLayoutMethod(string nodeName, ExceptionTypes exceptionType)
         {
             string actualException = null;
 
             try
             {
-                int count = 0;
                 DeltaAlignmentCollection coll = null;
                 IEnumerable<DeltaAlignment> alignments = LayoutRefiner.RefineLayout(coll);
                 if (alignments.Count() >= 0)
                 {
+                    ApplicationLog.WriteLine("RefineLayout P2 : Exception not thrown.");
                     Assert.Fail();
-                    ApplicationLog.WriteLine("RefineLayout P2 : Exception not thrown and executed {0} loop.", count);
                 }
             }
             catch (ArgumentNullException ex)
             {
                 actualException = ex.Message;
-                ApplicationLog.WriteLine(
-                    "Refine Layout P2 : Successfully validated the exception");
-                Console.WriteLine(
-                    "Refine Layout P2 : Successfully validated the exception");
+                ApplicationLog.WriteLine("Refine Layout P2 : Successfully validated the exception");
             }
 
             string expectedMessage = GetExpectedErrorMessageWithInvalidSequenceType(nodeName, exceptionType);
@@ -171,7 +158,7 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Comparative
         /// Gets the expected error message for invalid sequence type.
         /// </summary>
         /// <param name="nodeName">xml node</param>
-        /// <param name="invalidType">Invalid sequence type.</param>
+        /// <param name="sequenceType"></param>
         /// <returns>Returns expected error message</returns>
         string GetExpectedErrorMessageWithInvalidSequenceType(string nodeName,
             ExceptionTypes sequenceType)

@@ -18,7 +18,7 @@ namespace Bio.TestConsole
     {
         #region Global Variables
 
-        Utility utilityObj = new Utility(@"TestUtils\UtilitiesTestsConfig.xml");
+        readonly Utility utilityObj = new Utility(@"TestUtils\UtilitiesTestsConfig.xml");
 
         #endregion Global Variables
 

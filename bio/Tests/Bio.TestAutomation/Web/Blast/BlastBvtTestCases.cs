@@ -4,23 +4,16 @@
  * This file contains the Blast Web Service BVT test cases.
  * 
 ******************************************************************************/
-
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Threading;
-
-using Bio;
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
 using Bio.Web;
 using Bio.Web.Blast;
-
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-using System.Runtime.Serialization;
-
 
 namespace Bio.TestAutomation.Web.Blast
 {
@@ -30,7 +23,6 @@ namespace Bio.TestAutomation.Web.Blast
     [TestClass]
     public class BlastBvtTestCases
     {
-
         #region Global Variables
 
         Utility utilityObj = new Utility(@"TestUtils\TestsConfig.xml");
@@ -163,12 +155,10 @@ namespace Bio.TestAutomation.Web.Blast
                 string error = ApplicationLog.WriteLine(
                     string.Concat("Unexpected error ", reqInfo.Status));
                 Assert.Fail(error);
-                Console.WriteLine(
-                    string.Concat("Unexpected error ", reqInfo.Status));
             }
             else
             {
-                Console.WriteLine(
+                ApplicationLog.WriteLine(
                     string.Concat("Request status ", reqInfo.Status));
             }
         }
@@ -229,12 +219,10 @@ namespace Bio.TestAutomation.Web.Blast
                 string error = ApplicationLog.WriteLine(string.Concat(
                     "Unexpected error ", reqInfo.Status));
                 Assert.Fail(error);
-                Console.WriteLine(string.Concat("Unexpected error ",
-                    reqInfo.Status));
             }
             else
             {
-                Console.WriteLine(string.Concat(
+                ApplicationLog.WriteLine(string.Concat(
                     "Request status ", reqInfo.Status));
             }
         }
@@ -273,7 +261,7 @@ namespace Bio.TestAutomation.Web.Blast
 
             Assert.IsTrue(File.Exists(blastFilePath));
             // Logs information to the log file
-            Console.WriteLine(string.Format((IFormatProvider)null,
+            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                 "Blast BVT: File Exists in the Path '{0}'.", blastFilePath));
 
             // Parse a Blast xml file.
@@ -308,15 +296,15 @@ namespace Bio.TestAutomation.Web.Blast
                 (IFormatProvider)null));
 
             // Log results to VSTest GUI.
-            Console.WriteLine(string.Format((IFormatProvider)null, "Blast BVT: Bit Sequence '{0}'.",
+            ApplicationLog.WriteLine(string.Format((IFormatProvider)null, "Blast BVT: Bit Sequence '{0}'.",
             highScoreSgment.HitSequence.ToString()));
-            Console.WriteLine(string.Format((IFormatProvider)null, "Blast BVT: Bit Score '{0}'.",
+            ApplicationLog.WriteLine(string.Format((IFormatProvider)null, "Blast BVT: Bit Score '{0}'.",
                 highScoreSgment.BitScore));
-            Console.WriteLine(string.Format((IFormatProvider)null, "Blast BVT: Bit Alignment '{0}'.",
+            ApplicationLog.WriteLine(string.Format((IFormatProvider)null, "Blast BVT: Bit Alignment '{0}'.",
                 highScoreSgment.AlignmentLength));
-            Console.WriteLine(string.Format((IFormatProvider)null, "Blast BVT: Hits Count '{0}'.",
+            ApplicationLog.WriteLine(string.Format((IFormatProvider)null, "Blast BVT: Hits Count '{0}'.",
                 record.Hits[0].Hsps.Count));
-            Console.WriteLine(string.Format((IFormatProvider)null, "Blast BVT: Results Count '{0}'.",
+            ApplicationLog.WriteLine(string.Format((IFormatProvider)null, "Blast BVT: Results Count '{0}'.",
                 blastResults.Count));
         }
 
@@ -354,7 +342,7 @@ namespace Bio.TestAutomation.Web.Blast
 
             Assert.IsTrue(File.Exists(blastFilePath));
             // Logs information to the log file
-            Console.WriteLine(string.Format((IFormatProvider)null,
+            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                 "Blast BVT: File Exists in the Path '{0}'.", blastFilePath));
 
             // Parse a Blast xml file.
@@ -396,15 +384,15 @@ namespace Bio.TestAutomation.Web.Blast
                 (IFormatProvider)null));
 
             // Log results to VSTest GUI.
-            Console.WriteLine(string.Format((IFormatProvider)null, "Blast BVT: Bit Sequence '{0}'.",
+            ApplicationLog.WriteLine(string.Format((IFormatProvider)null, "Blast BVT: Bit Sequence '{0}'.",
                highScoreSgment.HitSequence.ToString()));
-            Console.WriteLine(string.Format((IFormatProvider)null, "Blast BVT: Bit Score '{0}'.",
+            ApplicationLog.WriteLine(string.Format((IFormatProvider)null, "Blast BVT: Bit Score '{0}'.",
                 highScoreSgment.BitScore));
-            Console.WriteLine(string.Format((IFormatProvider)null, "Blast BVT: Bit Alignment '{0}'.",
+            ApplicationLog.WriteLine(string.Format((IFormatProvider)null, "Blast BVT: Bit Alignment '{0}'.",
                 highScoreSgment.AlignmentLength));
-            Console.WriteLine(string.Format((IFormatProvider)null, "Blast BVT: Hits Count '{0}'.",
+            ApplicationLog.WriteLine(string.Format((IFormatProvider)null, "Blast BVT: Hits Count '{0}'.",
                 record.Hits[0].Hsps.Count));
-            Console.WriteLine(string.Format((IFormatProvider)null, "Blast BVT: Results Count '{0}'.",
+            ApplicationLog.WriteLine(string.Format((IFormatProvider)null, "Blast BVT: Results Count '{0}'.",
                 blastResults.Count));
         }
 
@@ -460,13 +448,13 @@ namespace Bio.TestAutomation.Web.Blast
 
                 // Validate the Submitted request.
                 Assert.IsTrue(requestResult.IsSuccessful);
-                Console.WriteLine(string.Format((IFormatProvider)null,
+                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                     "Http Request was submitted successfully"));
-                Console.WriteLine(string.Format((IFormatProvider)null,
+                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                     "Blast BVT: DataBase Value {0} is as expected.", queryDatabaseValue));
-                Console.WriteLine(string.Format((IFormatProvider)null,
+                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                     "Blast BVT: Program Value {0} is as expected.", queryProgramValue));
-                Console.WriteLine(string.Format((IFormatProvider)null,
+                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                     "Blast BVT: Query sequence {0} is as expected.", querySequence));
 
                 // Close Web service request.
@@ -531,13 +519,13 @@ namespace Bio.TestAutomation.Web.Blast
 
                 // Validate the Submitted request.
                 Assert.IsTrue(requestResult.IsSuccessful);
-                Console.WriteLine(string.Format((IFormatProvider)null,
+                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                     "Http Request was submitted successfully"));
-                Console.WriteLine(string.Format((IFormatProvider)null,
+                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                     "Blast BVT: DataBase Value {0} is as expected.", queryDatabaseValue));
-                Console.WriteLine(string.Format((IFormatProvider)null,
+                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                     "Blast BVT: Program Value {0} is as expected.", queryProgramValue));
-                Console.WriteLine(string.Format((IFormatProvider)null,
+                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                     "Blast BVT: Query sequence {0} is as expected.", querySequence));
                 webAccessor.Close();
             }
@@ -578,9 +566,9 @@ namespace Bio.TestAutomation.Web.Blast
 
             // Validate the Submitted request.
             Assert.IsTrue(result);
-            Console.WriteLine(string.Format((IFormatProvider)null,
+            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                 "Validation of IsValid method was completed successfully."));
-            Console.WriteLine(string.Format((IFormatProvider)null,
+            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                 "Blast BVT: new parameter {0} is as expected.", newParameter));
         }
 
@@ -694,12 +682,12 @@ namespace Bio.TestAutomation.Web.Blast
                 Assert.AreEqual(hit.Accession, expectedAccession);
                 Assert.AreEqual(hit.Id.ToString((IFormatProvider)null), expectedHitId);
                 Assert.AreEqual(hit.Hsps.Count.ToString((IFormatProvider)null), expectedHitsCount);
-                Console.WriteLine(string.Format((IFormatProvider)null,
+                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                 "Blast BVT: Hits count '{0}'.", blastResults.Count));
-                Console.WriteLine(string.Format((IFormatProvider)null,
+                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                     "Blast BVT: Accession '{0}'.", hit.Accession));
-                Console.WriteLine(string.Format((IFormatProvider)null, "Blast BVT: Hit Id '{0}'.", hit.Id));
-                Console.WriteLine(string.Format((IFormatProvider)null,
+                ApplicationLog.WriteLine(string.Format((IFormatProvider)null, "Blast BVT: Hit Id '{0}'.", hit.Id));
+                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                     "Blast BVT: Hits Count '{0}'.", hit.Hsps.Count));
             }
         }
@@ -818,12 +806,12 @@ namespace Bio.TestAutomation.Web.Blast
                 Assert.AreEqual(hit.Accession, expectedAccession);
                 Assert.AreEqual(hit.Id.ToString((IFormatProvider)null), expectedHitId);
                 Assert.AreEqual(hit.Hsps.Count.ToString((IFormatProvider)null), expectedHitsCount);
-                Console.WriteLine(string.Format(null,
+                ApplicationLog.WriteLine(string.Format(null,
                     "Blast BVT: Hits count '{0}'.", blastResults.Count));
-                Console.WriteLine(string.Format(null,
+                ApplicationLog.WriteLine(string.Format(null,
                     "Blast BVT: Accession '{0}'.", hit.Accession));
-                Console.WriteLine(string.Format(null, "Blast BVT: Hit Id '{0}'.", hit.Id));
-                Console.WriteLine(string.Format(null,
+                ApplicationLog.WriteLine(string.Format(null, "Blast BVT: Hit Id '{0}'.", hit.Id));
+                ApplicationLog.WriteLine(string.Format(null,
                     "Blast BVT: Hits Count '{0}'.", hit.Hsps.Count));
                 // Validate the results Synchronously with the results got earlier.
                 IList<BlastResult> syncBlastResults =
@@ -840,7 +828,6 @@ namespace Bio.TestAutomation.Web.Blast
                 else
                 {
                     ApplicationLog.WriteLine("No significant hits found with the these parameters.");
-                    Console.WriteLine("No significant hits found with the these parameters.");
                 }
             }
         }
@@ -897,7 +884,7 @@ namespace Bio.TestAutomation.Web.Blast
             searchParams.Add(queryDatabaseParameter, queryDatabaseValue);
             searchParams.Add(queryProgramParameter, queryProgramValue);
 
-            // Careate a request without passing sequence.
+            // Create a request without passing sequence.
             string reqId = service.SubmitRequest(sequence, searchParams);
 
             // validate request identifier.
@@ -954,12 +941,12 @@ namespace Bio.TestAutomation.Web.Blast
                 Assert.AreEqual(hit.Accession, expectedAccession);
                 Assert.AreEqual(hit.Id.ToString((IFormatProvider)null), expectedHitId);
                 Assert.AreEqual(hit.Hsps.Count.ToString((IFormatProvider)null), expectedHitsCount);
-                Console.WriteLine(string.Format((IFormatProvider)null,
+                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                "Blast BVT: Hits count '{0}'.", blastResults.Count));
-                Console.WriteLine(string.Format((IFormatProvider)null,
+                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                     "Blast BVT: Accession '{0}'.", hit.Accession));
-                Console.WriteLine(string.Format((IFormatProvider)null, "Blast BVT: Hit Id '{0}'.", hit.Id));
-                Console.WriteLine(string.Format((IFormatProvider)null,
+                ApplicationLog.WriteLine(string.Format((IFormatProvider)null, "Blast BVT: Hit Id '{0}'.", hit.Id));
+                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                     "Blast BVT: Hits Count '{0}'.", hit.Hsps.Count));
             }
         }
@@ -1029,8 +1016,6 @@ namespace Bio.TestAutomation.Web.Blast
 
                 ApplicationLog.WriteLine(
                     "NciWebService : Successfully validated the Ncbi WebService Properties");
-                Console.WriteLine(
-                    "NcbiWebService : Successfully validated the Ncbi WebService Properties");
             }
             finally
             {
@@ -1097,12 +1082,11 @@ namespace Bio.TestAutomation.Web.Blast
                 Assert.IsTrue(queryParams.Settings.ContainsValue(queryProgramValue));
                 Assert.AreEqual(queryParams.Settings.Count, 3);
 
-                // Logs to the VSTest GUI (Console.Out) window
-                Console.WriteLine(string.Format((IFormatProvider)null,
+                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                     "Blast BVT: Query Sequence{0} is as expected.", querySequence));
-                Console.WriteLine(string.Format((IFormatProvider)null,
+                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                     "Blast BVT: DataBase Value{0} is as expected.", queryDatabaseValue));
-                Console.WriteLine(string.Format((IFormatProvider)null,
+                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                     "Blast BVT: Program Value {0} is as expected.", queryProgramValue));
             }
             finally
@@ -1160,7 +1144,7 @@ namespace Bio.TestAutomation.Web.Blast
                 // validate the cancelled job.
                 Assert.IsTrue(result);
 
-                Console.WriteLine(string.Concat(
+                ApplicationLog.WriteLine(string.Concat(
                     "NCBI Blast P1 : Submitted job cancelled was successfully.",
                     queryProgramValue));
             }

@@ -10,21 +10,19 @@ using Bio.Algorithms.Alignment;
 using Bio.Util.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SM = Bio.SimilarityMatrices.SimilarityMatrix;
-using Bio;
 
 namespace Bio.TestAutomation.Algorithms.Alignment
 {
     /// <summary>
-    /// Test Automation code for Bio Sequences and BVT level validations.
+    ///     Test Automation code for Bio Sequences and BVT level validations.
     /// </summary>
     [TestClass]
     public class PairwiseAlignmentAttributesBvtTestCases
     {
-
         #region Constructor
 
         /// <summary>
-        /// Static constructor to open log and make other settings needed for test
+        ///     Static constructor to open log and make other settings needed for test
         /// </summary>
         static PairwiseAlignmentAttributesBvtTestCases()
         {
@@ -40,14 +38,14 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         #region PairwiseAlignmentAttributes Bvt TestCases
 
         /// <summary>
-        /// Validate the attributes in PairwiseAlignmentAttributes.
+        ///     Validate the attributes in PairwiseAlignmentAttributes.
         /// </summary>
         [TestMethod]
         [Priority(0)]
         [TestCategory("Priority0")]
         public void ValidatePairwiseAlignmentAttributes()
         {
-            PairwiseAlignmentAttributes pwAlignAttrib = new PairwiseAlignmentAttributes();
+            var pwAlignAttrib = new PairwiseAlignmentAttributes();
             Dictionary<string, AlignmentInfo> attributes = pwAlignAttrib.Attributes;
 
             AlignmentInfo similarityMatrixObj = attributes["SIMILARITYMATRIX"];
@@ -56,7 +54,7 @@ namespace Bio.TestAutomation.Algorithms.Alignment
 
             Assert.AreEqual("Similarity Matrix", similarityMatrixObj.Name);
 
-            StringListValidator validator = new StringListValidator(
+            var validator = new StringListValidator(
                 "Diagonal (Match x Mismatch)",
                 SM.StandardSimilarityMatrix.AmbiguousDna.ToString(),
                 SM.StandardSimilarityMatrix.AmbiguousRna.ToString(),
@@ -82,4 +80,3 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         #endregion PairwiseAlignmentAttributes Bvt TestCases
     }
 }
-

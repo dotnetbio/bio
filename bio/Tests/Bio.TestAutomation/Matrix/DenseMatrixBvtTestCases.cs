@@ -99,8 +99,6 @@ namespace Bio.TestAutomation.Matrix
                 Constants.DenseAnsiStringNode),
                 denseAnsiObj.ToString2D().Replace("\r", "").Replace("\n", "").Replace("\t", ""));
 
-            Console.WriteLine(
-                "DenseMatrix BVT : Validation of AsDenseAnsi() method successful");
             ApplicationLog.WriteLine(
                 "DenseMatrix BVT : Validation of AsDenseAnsi() method successful");
         }
@@ -133,8 +131,6 @@ namespace Bio.TestAutomation.Matrix
                 Constants.DenseMatrixStringNode),
                 denseMatObj.ToString2D().Replace("\r", "").Replace("\n", "").Replace("\t", ""));
 
-            Console.WriteLine(
-                "DenseMatrix BVT : Validation of AsDenseMatrix() method successful");
             ApplicationLog.WriteLine(
                 "DenseMatrix BVT : Validation of AsDenseMatrix() method successful");
         }
@@ -168,8 +164,6 @@ namespace Bio.TestAutomation.Matrix
                 Constants.DenseMatrixStringNode),
                 padDoub.ToString2D().Replace("\r", "").Replace("\n", "").Replace("\t", ""));
 
-            Console.WriteLine(
-                "DenseMatrix BVT : Validation of PaddedDouble() method successful");
             ApplicationLog.WriteLine(
                 "DenseMatrix BVT : Validation of PaddedDouble() method successful");
         }
@@ -201,8 +195,6 @@ namespace Bio.TestAutomation.Matrix
                 Constants.DenseMatrixStringNode),
                 sparseMatrixObj.ToString2D().Replace("\r", "").Replace("\n", "").Replace("\t", ""));
 
-            Console.WriteLine(
-                "DenseMatrix BVT : Validation of AsSparseMatrix() method successful");
             ApplicationLog.WriteLine(
                 "DenseMatrix BVT : Validation of AsSparseMatrix() method successful");
         }
@@ -226,8 +218,6 @@ namespace Bio.TestAutomation.Matrix
                 Assert.AreEqual(colView["R" + i.ToString((IFormatProvider)null)], denseMatObj[i, 0]);
             }
 
-            Console.WriteLine(
-                "DenseMatrix BVT : Validation of ColView(index) method successful");
             ApplicationLog.WriteLine(
                 "DenseMatrix BVT : Validation of ColView(index) method successful");
         }
@@ -251,8 +241,6 @@ namespace Bio.TestAutomation.Matrix
                 Assert.AreEqual(colView["R" + i.ToString((IFormatProvider)null)], denseMatObj[i, 0]);
             }
 
-            Console.WriteLine(
-                "DenseMatrix BVT : Validation of ColView(key) method successful");
             ApplicationLog.WriteLine(
                 "DenseMatrix BVT : Validation of ColView(key) method successful");
         }
@@ -276,8 +264,6 @@ namespace Bio.TestAutomation.Matrix
                 Assert.AreEqual(rowView["C" + i.ToString((IFormatProvider)null)], denseMatObj[0, i]);
             }
 
-            Console.WriteLine(
-                "DenseMatrix BVT : Validation of RowView(index) method successful");
             ApplicationLog.WriteLine(
                 "DenseMatrix BVT : Validation of RowView(index) method successful");
         }
@@ -301,8 +287,6 @@ namespace Bio.TestAutomation.Matrix
                 Assert.AreEqual(rowView["C" + i.ToString((IFormatProvider)null)], denseMatObj[0, i]);
             }
 
-            Console.WriteLine(
-                "DenseMatrix BVT : Validation of RowView(key) method successful");
             ApplicationLog.WriteLine(
                 "DenseMatrix BVT : Validation of RowView(key) method successful");
         }
@@ -321,8 +305,6 @@ namespace Bio.TestAutomation.Matrix
             DenseMatrix<string, string, double> denseMatObj = GetDenseMatrix();
             Assert.IsTrue(denseMatObj.ContainsColKey("C0"));
 
-            Console.WriteLine(
-                "DenseMatrix BVT : Validation of ContainsColKey() method successful");
             ApplicationLog.WriteLine(
                 "DenseMatrix BVT : Validation of ContainsColKey() method successful");
         }
@@ -341,8 +323,6 @@ namespace Bio.TestAutomation.Matrix
             DenseMatrix<string, string, double> denseMatObj = GetDenseMatrix();
             Assert.IsTrue(denseMatObj.ContainsRowAndColKeys("R0", "C0"));
 
-            Console.WriteLine(
-                "DenseMatrix BVT : Validation of ContainsRowAndColKeys() method successful");
             ApplicationLog.WriteLine(
                 "DenseMatrix BVT : Validation of ContainsRowAndColKeys() method successful");
         }
@@ -361,8 +341,6 @@ namespace Bio.TestAutomation.Matrix
             DenseMatrix<string, string, double> denseMatObj = GetDenseMatrix();
             Assert.IsTrue(denseMatObj.ContainsRowKey("R0"));
 
-            Console.WriteLine(
-                "DenseMatrix BVT : Validation of ContainsRowKey() method successful");
             ApplicationLog.WriteLine(
                 "DenseMatrix BVT : Validation of ContainsRowKey() method successful");
         }
@@ -398,8 +376,6 @@ namespace Bio.TestAutomation.Matrix
                 Constants.DenseConvertValueStringNode),
                 matObj.ToString2D().Replace("\r", "").Replace("\n", "").Replace("\t", ""));
 
-            Console.WriteLine(
-                "DenseMatrix BVT : Validation of ConvertValueView() method successful");
             ApplicationLog.WriteLine(
                 "DenseMatrix BVT : Validation of ConvertValueView() method successful");
         }
@@ -422,8 +398,6 @@ namespace Bio.TestAutomation.Matrix
 
             Assert.AreEqual(denseMatObj[0, 0].ToString((IFormatProvider)null), enumObj.Current.Value.ToString((IFormatProvider)null));
 
-            Console.WriteLine(
-                "DenseMatrix BVT : Validation of GetEnumerator() method successful");
             ApplicationLog.WriteLine(
                 "DenseMatrix BVT : Validation of GetEnumerator() method successful");
         }
@@ -445,8 +419,6 @@ namespace Bio.TestAutomation.Matrix
             Assert.AreEqual(denseMatObj[0, 1].ToString((IFormatProvider)null),
                 denseMatObj.GetValueOrMissing(0, 1).ToString((IFormatProvider)null));
 
-            Console.WriteLine(
-                "DenseMatrix BVT : Validation of GetValueOrMissing() method successful");
             ApplicationLog.WriteLine(
                 "DenseMatrix BVT : Validation of GetValueOrMissing() method successful");
         }
@@ -468,8 +440,6 @@ namespace Bio.TestAutomation.Matrix
             Assert.AreEqual(denseMatObj["R0", "C0"].ToString((IFormatProvider)null),
                 denseMatObj.GetValueOrMissing("R0", "C0").ToString((IFormatProvider)null));
 
-            Console.WriteLine(
-                "DenseMatrix BVT : Validation of GetValueOrMissing(key) method successful");
             ApplicationLog.WriteLine(
                 "DenseMatrix BVT : Validation of GetValueOrMissing(key) method successful");
         }
@@ -507,8 +477,6 @@ namespace Bio.TestAutomation.Matrix
                 Constants.DenseMatrixStringNode),
                 parentMatrixObj.ToString2D().Replace("\r", "").Replace("\n", "").Replace("\t", ""));
 
-            Console.WriteLine(
-                "DenseMatrix BVT : Validation of HashableView() method successful");
             ApplicationLog.WriteLine(
                 "DenseMatrix BVT : Validation of HashableView() method successful");
         }
@@ -530,8 +498,6 @@ namespace Bio.TestAutomation.Matrix
             Assert.IsTrue(denseMatObj.IsMissing(double.NaN));
             Assert.IsFalse(denseMatObj.IsMissing(1.0));
 
-            Console.WriteLine(
-                "DenseMatrix BVT : Validation of IsMissing() method successful");
             ApplicationLog.WriteLine(
                 "DenseMatrix BVT : Validation of IsMissing() method successful");
         }
@@ -569,8 +535,6 @@ namespace Bio.TestAutomation.Matrix
                 }
             }
 
-            Console.WriteLine(
-                "DenseMatrix BVT : Validation of IsMissing(index) method successful");
             ApplicationLog.WriteLine(
                 "DenseMatrix BVT : Validation of IsMissing(index) method successful");
         }
@@ -607,8 +571,6 @@ namespace Bio.TestAutomation.Matrix
                 }
             }
 
-            Console.WriteLine(
-                "DenseMatrix BVT : Validation of IsMissing(key) method successful");
             ApplicationLog.WriteLine(
                 "DenseMatrix BVT : Validation of IsMissing(key) method successful");
         }
@@ -629,8 +591,6 @@ namespace Bio.TestAutomation.Matrix
 
             Assert.IsFalse(denseMatObj.IsMissingAll());
 
-            Console.WriteLine(
-                "DenseMatrix BVT : Validation of IsMissingAll() method successful");
             ApplicationLog.WriteLine(
                 "DenseMatrix BVT : Validation of IsMissingAll() method successful");
         }
@@ -658,8 +618,6 @@ namespace Bio.TestAutomation.Matrix
 
             Assert.IsTrue(tempDenseMatObj.IsMissingAllInCol(0));
 
-            Console.WriteLine(
-                "DenseMatrix BVT : Validation of IsMissingAllInCol(index) method successful");
             ApplicationLog.WriteLine(
                 "DenseMatrix BVT : Validation of IsMissingAllInCol(index) method successful");
         }
@@ -687,8 +645,6 @@ namespace Bio.TestAutomation.Matrix
 
             Assert.IsTrue(tempDenseMatObj.IsMissingAllInCol("C0"));
 
-            Console.WriteLine(
-                "DenseMatrix BVT : Validation of IsMissingAllInCol(key) method successful");
             ApplicationLog.WriteLine(
                 "DenseMatrix BVT : Validation of IsMissingAllInCol(key) method successful");
         }
@@ -716,8 +672,6 @@ namespace Bio.TestAutomation.Matrix
 
             Assert.IsTrue(tempDenseMatObj.IsMissingAllInRow(0));
 
-            Console.WriteLine(
-                "DenseMatrix BVT : Validation of IsMissingAllInRow(index) method successful");
             ApplicationLog.WriteLine(
                 "DenseMatrix BVT : Validation of IsMissingAllInRow(index) method successful");
         }
@@ -745,8 +699,6 @@ namespace Bio.TestAutomation.Matrix
 
             Assert.IsTrue(tempDenseMatObj.IsMissingAllInRow("R0"));
 
-            Console.WriteLine(
-                "DenseMatrix BVT : Validation of IsMissingAllInRow(key) method successful");
             ApplicationLog.WriteLine(
                 "DenseMatrix BVT : Validation of IsMissingAllInRow(key) method successful");
         }
@@ -773,8 +725,6 @@ namespace Bio.TestAutomation.Matrix
 
             Assert.IsTrue(tempDenseMatObj.IsMissingAllInSomeCol());
 
-            Console.WriteLine(
-                "DenseMatrix BVT : Validation of IsMissingAllInSomeCol() method successful");
             ApplicationLog.WriteLine(
                 "DenseMatrix BVT : Validation of IsMissingAllInSomeCol() method successful");
         }
@@ -801,8 +751,6 @@ namespace Bio.TestAutomation.Matrix
 
             Assert.IsTrue(tempDenseMatObj.IsMissingAllInSomeRow());
 
-            Console.WriteLine(
-                "DenseMatrix BVT : Validation of IsMissingAllInSomeRow() method successful");
             ApplicationLog.WriteLine(
                 "DenseMatrix BVT : Validation of IsMissingAllInSomeRow() method successful");
         }
@@ -829,8 +777,6 @@ namespace Bio.TestAutomation.Matrix
 
             Assert.IsFalse(tempDenseMatObj.IsMissingSome());
 
-            Console.WriteLine(
-                "DenseMatrix BVT : Validation of IsMissingSome() method successful");
             ApplicationLog.WriteLine(
                 "DenseMatrix BVT : Validation of IsMissingSome() method successful");
         }
@@ -857,8 +803,6 @@ namespace Bio.TestAutomation.Matrix
 
             Assert.IsFalse(tempDenseMatObj.MatrixEquals(denseMatObj));
 
-            Console.WriteLine(
-                "DenseMatrix BVT : Validation of MatrixEquals() method successful");
             ApplicationLog.WriteLine(
                 "DenseMatrix BVT : Validation of MatrixEquals() method successful");
         }
@@ -898,8 +842,6 @@ namespace Bio.TestAutomation.Matrix
 
             Assert.AreEqual(denseMatObj.RowCount, mergeMatrix.RowCount);
 
-            Console.WriteLine(
-                "DenseMatrix BVT : Validation of MergeColsView() method successful");
             ApplicationLog.WriteLine(
                 "DenseMatrix BVT : Validation of MergeColsView() method successful");
         }
@@ -937,8 +879,6 @@ namespace Bio.TestAutomation.Matrix
 
             Assert.AreEqual(denseMatObj.ColCount, mergeMatrix.ColCount);
 
-            Console.WriteLine(
-                "DenseMatrix BVT : Validation of MergeRowsView() method successful");
             ApplicationLog.WriteLine(
                 "DenseMatrix BVT : Validation of MergeRowsView() method successful");
         }
@@ -965,8 +905,6 @@ namespace Bio.TestAutomation.Matrix
             Assert.AreEqual(denseMatObj.RowKeys.Count, matObj.RowKeys.Count);
             Assert.AreEqual(denseMatObj.MissingValue, matObj.MissingValue);
 
-            Console.WriteLine(
-                "DenseMatrix BVT : Validation of PermuteColValuesForEachRowView(random) method successful");
             ApplicationLog.WriteLine(
                 "DenseMatrix BVT : Validation of PermuteColValuesForEachRowView(random) method successful");
         }
@@ -999,8 +937,6 @@ namespace Bio.TestAutomation.Matrix
             Assert.AreEqual(denseMatObj.RowKeys.Count, matObj.RowKeys.Count);
             Assert.AreEqual(denseMatObj.MissingValue, matObj.MissingValue);
 
-            Console.WriteLine(
-                "DenseMatrix BVT : Validation of PermuteColValuesForEachRowView(Int) method successful");
             ApplicationLog.WriteLine(
                 "DenseMatrix BVT : Validation of PermuteColValuesForEachRowView(Int) method successful");
         }
@@ -1033,8 +969,6 @@ namespace Bio.TestAutomation.Matrix
             Assert.AreEqual(denseMatObj.RowKeys.Count, matObj.RowKeys.Count);
             Assert.AreEqual(denseMatObj.MissingValue, matObj.MissingValue);
 
-            Console.WriteLine(
-                "DenseMatrix BVT : Validation of PermuteColValuesForEachRowView(key) method successful");
             ApplicationLog.WriteLine(
                 "DenseMatrix BVT : Validation of PermuteColValuesForEachRowView(key) method successful");
         }
@@ -1061,8 +995,6 @@ namespace Bio.TestAutomation.Matrix
             Assert.AreEqual(denseMatObj.RowKeys.Count, matObj.RowKeys.Count);
             Assert.AreEqual(denseMatObj.MissingValue, matObj.MissingValue);
 
-            Console.WriteLine(
-                "DenseMatrix BVT : Validation of PermuteRowValuesForEachColView(random) method successful");
             ApplicationLog.WriteLine(
                 "DenseMatrix BVT : Validation of PermuteRowValuesForEachColView(random) method successful");
         }
@@ -1095,8 +1027,6 @@ namespace Bio.TestAutomation.Matrix
             Assert.AreEqual(denseMatObj.RowKeys.Count, matObj.RowKeys.Count);
             Assert.AreEqual(denseMatObj.MissingValue, matObj.MissingValue);
 
-            Console.WriteLine(
-                "DenseMatrix BVT : Validation of PermuteRowValuesForEachColView(Int) method successful");
             ApplicationLog.WriteLine(
                 "DenseMatrix BVT : Validation of PermuteRowValuesForEachColView(Int) method successful");
         }
@@ -1127,8 +1057,6 @@ namespace Bio.TestAutomation.Matrix
             }
             catch (KeyNotFoundException)
             {
-                Console.WriteLine(
-                    "DenseMatrix BVT : Validation of Remove() method successful");
                 ApplicationLog.WriteLine(
                     "DenseMatrix BVT : Validation of Remove() method successful");
             }
@@ -1160,8 +1088,6 @@ namespace Bio.TestAutomation.Matrix
             }
             catch (KeyNotFoundException)
             {
-                Console.WriteLine(
-                    "DenseMatrix BVT : Validation of Remove(key) method successful");
                 ApplicationLog.WriteLine(
                     "DenseMatrix BVT : Validation of Remove(key) method successful");
             }
@@ -1189,8 +1115,6 @@ namespace Bio.TestAutomation.Matrix
             Assert.AreEqual("3", newMatObj["R1", "G1"].ToString((IFormatProvider)null));
             Assert.AreEqual("3", newMatObj["R2", "G0"].ToString((IFormatProvider)null));
 
-            Console.WriteLine(
-                "DenseMatrix BVT : Validation of RenameColsView() method successful");
             ApplicationLog.WriteLine(
                 "DenseMatrix BVT : Validation of RenameColsView() method successful");
         }
@@ -1217,8 +1141,6 @@ namespace Bio.TestAutomation.Matrix
             Assert.AreEqual("3", newMatObj["G1", "C1"].ToString((IFormatProvider)null));
             Assert.AreEqual("3", newMatObj["G2", "C0"].ToString((IFormatProvider)null));
 
-            Console.WriteLine(
-                "DenseMatrix BVT : Validation of RenameRowsView() method successful");
             ApplicationLog.WriteLine(
                 "DenseMatrix BVT : Validation of RenameRowsView() method successful");
         }
@@ -1259,8 +1181,6 @@ namespace Bio.TestAutomation.Matrix
                 Assert.AreEqual(denseMatObj[0, 0], viewObj[0, 0]);
             }
 
-            Console.WriteLine(
-                "DenseMatrix BVT : Validation of SelectColsView() method successful");
             ApplicationLog.WriteLine(
                 "DenseMatrix BVT : Validation of SelectColsView() method successful");
         }
@@ -1303,8 +1223,6 @@ namespace Bio.TestAutomation.Matrix
                 Assert.AreEqual(denseMatObj[0, 0], viewObj[0, 0]);
             }
 
-            Console.WriteLine(
-                "DenseMatrix BVT : Validation of SelectColsView(key) method successful");
             ApplicationLog.WriteLine(
                 "DenseMatrix BVT : Validation of SelectColsView(key) method successful");
         }
@@ -1349,8 +1267,6 @@ namespace Bio.TestAutomation.Matrix
                 Assert.AreEqual(denseMatObj[0, 0], viewObj[0, 0]);
             }
 
-            Console.WriteLine(
-                "DenseMatrix BVT : Validation of SelectColsView(ColIndexSeq) method successful");
             ApplicationLog.WriteLine(
                 "DenseMatrix BVT : Validation of SelectColsView(ColIndexSeq) method successful");
         }
@@ -1395,8 +1311,6 @@ namespace Bio.TestAutomation.Matrix
                 Assert.AreEqual(denseMatObj[0, 0], viewObj[0, 0]);
             }
 
-            Console.WriteLine(
-                "DenseMatrix BVT : Validation of SelectColsView(keyseq) method successful");
             ApplicationLog.WriteLine(
                 "DenseMatrix BVT : Validation of SelectColsView(keyseq) method successful");
         }
@@ -1439,8 +1353,6 @@ namespace Bio.TestAutomation.Matrix
                 Assert.AreEqual(denseMatObj[0, 0], viewObj[0, 0]);
             }
 
-            Console.WriteLine(
-                "DenseMatrix BVT : Validation of SelectRowsView() method successful");
             ApplicationLog.WriteLine(
                 "DenseMatrix BVT : Validation of SelectRowsView() method successful");
         }
@@ -1483,8 +1395,6 @@ namespace Bio.TestAutomation.Matrix
                 Assert.AreEqual(denseMatObj[0, 0], viewObj[0, 0]);
             }
 
-            Console.WriteLine(
-                "DenseMatrix BVT : Validation of SelectRowsView(key) method successful");
             ApplicationLog.WriteLine(
                 "DenseMatrix BVT : Validation of SelectRowsView(key) method successful");
         }
@@ -1529,8 +1439,6 @@ namespace Bio.TestAutomation.Matrix
                 Assert.AreEqual(denseMatObj[0, 0], viewObj[0, 0]);
             }
 
-            Console.WriteLine(
-                "DenseMatrix BVT : Validation of SelectRowsView(indexseq) method successful");
             ApplicationLog.WriteLine(
                 "DenseMatrix BVT : Validation of SelectRowsView(indexseq) method successful");
         }
@@ -1575,8 +1483,6 @@ namespace Bio.TestAutomation.Matrix
                 Assert.AreEqual(denseMatObj[0, 0], viewObj[0, 0]);
             }
 
-            Console.WriteLine(
-                "DenseMatrix BVT : Validation of SelectRowsView(keyseq) method successful");
             ApplicationLog.WriteLine(
                 "DenseMatrix BVT : Validation of SelectRowsView(keyseq) method successful");
         }
@@ -1624,8 +1530,6 @@ namespace Bio.TestAutomation.Matrix
                 Assert.AreEqual(denseMatObj[0, 0], viewObj[0, 0]);
             }
 
-            Console.WriteLine(
-                "DenseMatrix BVT : Validation of SelectRowsAndColsView(indexseq) method successful");
             ApplicationLog.WriteLine(
                 "DenseMatrix BVT : Validation of SelectRowsAndColsView(indexseq) method successful");
         }
@@ -1674,8 +1578,6 @@ namespace Bio.TestAutomation.Matrix
                 Assert.AreEqual(denseMatObj[0, 0], viewObj[0, 0]);
             }
 
-            Console.WriteLine(
-                "DenseMatrix BVT : Validation of SelectRowsAndColsView(keyseq) method successful");
             ApplicationLog.WriteLine(
                 "DenseMatrix BVT : Validation of SelectRowsAndColsView(keyseq) method successful");
         }
@@ -1702,8 +1604,6 @@ namespace Bio.TestAutomation.Matrix
             Assert.AreEqual("10", denseMatObj[denseMatObj.RowCount - 1,
                 denseMatObj.ColCount - 1].ToString((IFormatProvider)null));
 
-            Console.WriteLine(
-                "DenseMatrix BVT : Validation of SetValueOrMissing(index) method successful");
             ApplicationLog.WriteLine(
                 "DenseMatrix BVT : Validation of SetValueOrMissing(index) method successful");
         }
@@ -1732,8 +1632,6 @@ namespace Bio.TestAutomation.Matrix
                 denseMatObj.RowCount - 1,
                 denseMatObj.ColCount - 1].ToString((IFormatProvider)null));
 
-            Console.WriteLine(
-                "DenseMatrix BVT : Validation of SetValueOrMissing(key) method successful");
             ApplicationLog.WriteLine(
                 "DenseMatrix BVT : Validation of SetValueOrMissing(key) method successful");
         }
@@ -1760,8 +1658,6 @@ namespace Bio.TestAutomation.Matrix
             Assert.AreNotEqual("R0", rkValsObj[0].RowKey);
             Assert.AreNotEqual("C0", rkValsObj[0].ColKey);
 
-            Console.WriteLine(
-                "DenseMatrix BVT : Validation of Shuffle() method successful");
             ApplicationLog.WriteLine(
                 "DenseMatrix BVT : Validation of Shuffle() method successful");
         }
@@ -1787,8 +1683,6 @@ namespace Bio.TestAutomation.Matrix
             // Validate if the shuffle doesnt return R0 or C0 at the first Row/col key
             Assert.AreEqual(expStrJoin, strJoin);
 
-            Console.WriteLine(
-                "DenseMatrix BVT : Validation of StringJoin() method successful");
             ApplicationLog.WriteLine(
                 "DenseMatrix BVT : Validation of StringJoin() method successful");
         }
@@ -1814,8 +1708,6 @@ namespace Bio.TestAutomation.Matrix
             // Validate if the shuffle doesnt return R0 or C0 at the first Row/col key
             Assert.AreEqual(expStrJoin, strJoin);
 
-            Console.WriteLine(
-                "DenseMatrix BVT : Validation of StringJoin(separator) method successful");
             ApplicationLog.WriteLine(
                 "DenseMatrix BVT : Validation of StringJoin(separator) method successful");
         }
@@ -1841,8 +1733,6 @@ namespace Bio.TestAutomation.Matrix
             // Validate if the shuffle doesnt return R0 or C0 at the first Row/col key
             Assert.AreEqual(expStrJoin, strJoin);
 
-            Console.WriteLine(
-                "DenseMatrix BVT : Validation of StringJoin(separator, max, etc) method successful");
             ApplicationLog.WriteLine(
                 "DenseMatrix BVT : Validation of StringJoin(separator, max, etc) method successful");
         }
@@ -1875,8 +1765,6 @@ namespace Bio.TestAutomation.Matrix
             Assert.AreEqual(denseMatObj[0, 0], rowKeyColKeyList[0].Value);
             Assert.AreEqual(denseMatObj[0, 1], rowKeyColKeyList[1].Value);
 
-            Console.WriteLine(
-                "DenseMatrix BVT : Validation of SubSequence() method successful");
             ApplicationLog.WriteLine(
                 "DenseMatrix BVT : Validation of SubSequence() method successful");
         }
@@ -1911,8 +1799,6 @@ namespace Bio.TestAutomation.Matrix
                 Constants.DenseAnsiStringNode),
                 denseAnsiObj.ToString2D().Replace("\r", "").Replace("\n", "").Replace("\t", ""));
 
-            Console.WriteLine(
-                "DenseMatrix BVT : Validation of ToDenseAnsi() method successful");
             ApplicationLog.WriteLine(
                 "DenseMatrix BVT : Validation of ToDenseAnsi() method successful");
         }
@@ -1945,8 +1831,6 @@ namespace Bio.TestAutomation.Matrix
             Assert.AreEqual(denseMatObj.RowKeys.Count, newDenseObj.RowKeys.Count);
             Assert.AreEqual(denseMatObj.Values.Count(), newDenseObj.Values.Count());
 
-            Console.WriteLine(
-                "DenseMatrix BVT : Validation of ToDenseMatrix() method successful");
             ApplicationLog.WriteLine(
                 "DenseMatrix BVT : Validation of ToDenseMatrix() method successful");
         }
@@ -1974,8 +1858,6 @@ namespace Bio.TestAutomation.Matrix
                     keyVal.Value);
             }
 
-            Console.WriteLine(
-                "DenseMatrix BVT : Validation of ToHashSet() method successful");
             ApplicationLog.WriteLine(
                 "DenseMatrix BVT : Validation of ToHashSet() method successful");
         }
@@ -2006,8 +1888,6 @@ namespace Bio.TestAutomation.Matrix
                     keyVal.Value);
             }
 
-            Console.WriteLine(
-                "DenseMatrix BVT : Validation of ToHashSet(comparer) method successful");
             ApplicationLog.WriteLine(
                 "DenseMatrix BVT : Validation of ToHashSet(comparer) method successful");
         }
@@ -2041,8 +1921,6 @@ namespace Bio.TestAutomation.Matrix
                 Constants.DenseMatrixStringNode),
                 padDoub.ToString2D().Replace("\r", "").Replace("\n", "").Replace("\t", ""));
 
-            Console.WriteLine(
-                "DenseMatrix BVT : Validation of ToPaddedDouble() method successful");
             ApplicationLog.WriteLine(
                 "DenseMatrix BVT : Validation of ToPaddedDouble() method successful");
         }
@@ -2076,8 +1954,6 @@ namespace Bio.TestAutomation.Matrix
                 Constants.DenseMatrixStringNode),
                 sparseMatrixObj.ToString2D().Replace("\r", "").Replace("\n", "").Replace("\t", ""));
 
-            Console.WriteLine(
-                "DenseMatrix BVT : Validation of ToSparseMatrix() method successful");
             ApplicationLog.WriteLine(
                 "DenseMatrix BVT : Validation of ToSparseMatrix() method successful");
         }
@@ -2100,8 +1976,6 @@ namespace Bio.TestAutomation.Matrix
                 Constants.DenseMatrixStringNode),
                 denseMatObj.ToString2D().Replace("\r", "").Replace("\n", "").Replace("\t", ""));
 
-            Console.WriteLine(
-                "DenseMatrix BVT : Validation of ToString2D() method successful");
             ApplicationLog.WriteLine(
                 "DenseMatrix BVT : Validation of ToString2D() method successful");
         }
@@ -2135,8 +2009,6 @@ namespace Bio.TestAutomation.Matrix
             Assert.AreEqual("R0", rowKeyColKeyList[0].RowKey);
             Assert.AreEqual("C0", rowKeyColKeyList[0].ColKey);
 
-            Console.WriteLine(
-                "DenseMatrix BVT : Validation of ToQueue() method successful");
             ApplicationLog.WriteLine(
                 "DenseMatrix BVT : Validation of ToQueue() method successful");
         }
@@ -2171,8 +2043,6 @@ namespace Bio.TestAutomation.Matrix
                 Constants.DenseTransposeStringNode),
                 transViewObj.ToString2D().Replace("\r", "").Replace("\n", "").Replace("\t", ""));
 
-            Console.WriteLine(
-                "DenseMatrix BVT : Validation of TransposeView() method successful");
             ApplicationLog.WriteLine(
                 "DenseMatrix BVT : Validation of TransposeView() method successful");
         }
@@ -2195,8 +2065,6 @@ namespace Bio.TestAutomation.Matrix
             Assert.IsTrue(denseMatObj.TryGetValue(0, 0, out tempVal));
             Assert.AreEqual(tempVal, denseMatObj[0, 0]);
 
-            Console.WriteLine(
-                "DenseMatrix BVT : Validation of TryGetValue(index) method successful");
             ApplicationLog.WriteLine(
                 "DenseMatrix BVT : Validation of TryGetValue(index) method successful");
         }
@@ -2219,8 +2087,6 @@ namespace Bio.TestAutomation.Matrix
             Assert.IsTrue(denseMatObj.TryGetValue("R0", "C0", out tempVal));
             Assert.AreEqual(tempVal, denseMatObj["R0", "C0"]);
 
-            Console.WriteLine(
-                "DenseMatrix BVT : Validation of TryGetValue(key) method successful");
             ApplicationLog.WriteLine(
                 "DenseMatrix BVT : Validation of TryGetValue(key) method successful");
         }
@@ -2250,8 +2116,6 @@ namespace Bio.TestAutomation.Matrix
                 Constants.ValueStringNode);
             Assert.AreEqual(expectedValue, strBuilder.ToString());
 
-            Console.WriteLine(
-                "DenseMatrix BVT : Validation of Values() method successful");
             ApplicationLog.WriteLine(
                 "DenseMatrix BVT : Validation of Values() method successful");
         }
@@ -2278,8 +2142,6 @@ namespace Bio.TestAutomation.Matrix
 
             ValidateWriteMethod(expectedFileValue);
 
-            Console.WriteLine(
-                "DenseMatrix BVT : Validation of WriteDense() method successful");
             ApplicationLog.WriteLine(
                 "DenseMatrix BVT : Validation of WriteDense() method successful");
         }
@@ -2309,8 +2171,6 @@ namespace Bio.TestAutomation.Matrix
 
             ValidateWriteMethod(expectedFileValue);
 
-            Console.WriteLine(
-                "DenseMatrix BVT : Validation of WriteDense(Writer) method successful");
             ApplicationLog.WriteLine(
                 "DenseMatrix BVT : Validation of WriteDense(Writer) method successful");
         }
@@ -2337,8 +2197,6 @@ namespace Bio.TestAutomation.Matrix
 
             ValidateWriteMethod(expectedFileValue);
 
-            Console.WriteLine(
-                "DenseMatrix BVT : Validation of WriteDense<T>() method successful");
             ApplicationLog.WriteLine(
                 "DenseMatrix BVT : Validation of WriteDense<T>() method successful");
         }
@@ -2367,8 +2225,6 @@ namespace Bio.TestAutomation.Matrix
 
             ValidateWriteMethod(expectedFileValue);
 
-            Console.WriteLine(
-                "DenseMatrix BVT : Validation of WriteDenseAnsi() method successful");
             ApplicationLog.WriteLine(
                 "DenseMatrix BVT : Validation of WriteDenseAnsi() method successful");
         }
@@ -2399,8 +2255,6 @@ namespace Bio.TestAutomation.Matrix
 
             ValidateWriteMethod(expectedFileValue);
 
-            Console.WriteLine(
-                "DenseMatrix BVT : Validation of WriteDenseAnsi(writer) method successful");
             ApplicationLog.WriteLine(
                 "DenseMatrix BVT : Validation of WriteDenseAnsi(writer) method successful");
         }
@@ -2429,8 +2283,6 @@ namespace Bio.TestAutomation.Matrix
 
             ValidateWriteMethod(expectedFileValue);
 
-            Console.WriteLine(
-                "DenseMatrix BVT : Validation of WritePaddedDouble() method successful");
             ApplicationLog.WriteLine(
                 "DenseMatrix BVT : Validation of WritePaddedDouble() method successful");
         }
@@ -2461,8 +2313,6 @@ namespace Bio.TestAutomation.Matrix
 
             ValidateWriteMethod(expectedFileValue);
 
-            Console.WriteLine(
-                "DenseMatrix BVT : Validation of WritePaddedDouble(writer) method successful");
             ApplicationLog.WriteLine(
                 "DenseMatrix BVT : Validation of WritePaddedDouble(writer) method successful");
         }
@@ -2489,8 +2339,6 @@ namespace Bio.TestAutomation.Matrix
 
             ValidateWriteMethod(expectedFileValue);
 
-            Console.WriteLine(
-                "DenseMatrix BVT : Validation of WriteDenseAnsi() method successful");
             ApplicationLog.WriteLine(
                 "DenseMatrix BVT : Validation of WriteDenseAnsi() method successful");
         }
@@ -2519,8 +2367,6 @@ namespace Bio.TestAutomation.Matrix
 
             ValidateWriteMethod(expectedFileValue);
 
-            Console.WriteLine(
-                "DenseMatrix BVT : Validation of WriteDense(writer) method successful");
             ApplicationLog.WriteLine(
                 "DenseMatrix BVT : Validation of WriteDense(writer) method successful");
         }
@@ -2547,8 +2393,6 @@ namespace Bio.TestAutomation.Matrix
 
             ValidateWriteMethod(expectedFileValue);
 
-            Console.WriteLine(
-                "DenseMatrix BVT : Validation of WriteSparse<T>() method successful");
             ApplicationLog.WriteLine(
                 "DenseMatrix BVT : Validation of WriteSparse<T>() method successful");
         }
@@ -2578,8 +2422,6 @@ namespace Bio.TestAutomation.Matrix
 
             ValidateWriteMethod(expectedFileValue);
 
-            Console.WriteLine(
-                "DenseMatrix BVT : Validation of WriteSparse<T>(writer) method successful");
             ApplicationLog.WriteLine(
                 "DenseMatrix BVT : Validation of WriteSparse<T>(writer) method successful");
         }
@@ -2613,8 +2455,6 @@ namespace Bio.TestAutomation.Matrix
             Assert.AreEqual("R0", rowKeys[0].ToString((IFormatProvider)null));
             Assert.AreEqual("1", valArrayObj[0, 0].ToString((IFormatProvider)null));
 
-            Console.WriteLine(
-                "DenseMatrix BVT : Validation of all properties successful");
             ApplicationLog.WriteLine(
                 "DenseMatrix BVT : Validation of all properties successful");
         }
@@ -2721,8 +2561,6 @@ namespace Bio.TestAutomation.Matrix
             Assert.AreEqual(rowKeySeq.Length, denseMatrixObj.RowKeys.Count);
             Assert.AreEqual(colKeySeq.Length, denseMatrixObj.ColKeys.Count);
 
-            Console.WriteLine(
-                "DenseMatrix BVT : Validation of DenseMatrix Constructor successful");
             ApplicationLog.WriteLine(
                 "DenseMatrix BVT : Validation of DenseMatrix Constructor successful");
         }

@@ -10,9 +10,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Text;
 using Bio.TestAutomation.Util;
-using Bio;
 using Bio.IO.Gff;
 using Bio.Util.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -671,8 +669,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
             Assert.IsTrue(valFeat);
             ApplicationLog.WriteLine(
                 "Gff Parser P1 : Successfully validated all the Features for a give Sequence in GFF File.");
-            Console.WriteLine(
-                "Gff Parser P1 : Successfully validated all the Features for a give Sequence in GFF File.");
 
             string expectedSequence = utilityObj.xmlUtil.GetTextValue(nodeName,
                 Constants.ExpectedSequenceNode);
@@ -683,11 +679,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
             Assert.AreEqual(expectedSequence, sequenceInString);
             ApplicationLog.WriteLine(string.Format((IFormatProvider)null,   
-                "Gff Parser P1: The Gff sequence '{0}' validation after Parse() is found to be as expected.",
-                sequenceInString));
-
-            // Logs to the VSTest GUI (Console.Out) window
-            Console.WriteLine(string.Format((IFormatProvider)null,
                 "Gff Parser P1: The Gff sequence '{0}' validation after Parse() is found to be as expected.",
                 sequenceInString));
 
@@ -717,9 +708,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
                 Constants.SequenceIdNode);
             Assert.AreEqual(expectedSequenceId, seq.ID);
             ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                "Gff Parser P1: The Sequence ID is '{0}' and is as expected.", seq.ID));
-            // Logs to the VSTest GUI (Console.Out) window
-            Console.WriteLine(string.Format((IFormatProvider)null,
                 "Gff Parser P1: The Sequence ID is '{0}' and is as expected.", seq.ID));
         }
 
@@ -780,8 +768,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
                 Assert.IsTrue(valFeat);
                 ApplicationLog.WriteLine(
                     "Gff Parser P1 : Successfully validated all the Features for a give Sequence in GFF File.");
-                Console.WriteLine(
-                    "Gff Parser P1 : Successfully validated all the Features for a give Sequence in GFF File.");
 
                 Sequence seq = (Sequence)seqs[i];
                 Assert.IsNotNull(seq);                
@@ -800,11 +786,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
                     "Gff Parser P1: The Gff sequence '{0}' validation after Parse() is found to be as expected.",
                     sequenceInString1));
 
-                // Logs to the VSTest GUI (Console.Out) window
-                Console.WriteLine(string.Format((IFormatProvider)null,
-                    "Gff Parser P1: The Gff sequence '{0}' validation after Parse() is found to be as expected.",
-                    sequenceInString1));
-
                 Assert.AreEqual(expectedSequences[i].Length, sequenceInString1.Length);
                 ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                     "Gff Parser P1: The Gff Length sequence '{0}' is as expected.",
@@ -819,9 +800,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
                 Assert.AreEqual(seqIds[i], seq.ID);
                 ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                    "Gff Parser P1: The Sequence ID is '{0}' and is as expected.", seq.ID));
-                // Logs to the VSTest GUI (Console.Out) window
-                Console.WriteLine(string.Format((IFormatProvider)null,
                     "Gff Parser P1: The Sequence ID is '{0}' and is as expected.", seq.ID));
             }
         }
@@ -1242,8 +1220,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
             Assert.IsTrue(val);
             ApplicationLog.WriteLine(
                 "GFF Formatter P1 : All the features validated successfully.");
-            Console.WriteLine(
-                "GFF Formatter P1 : All the features validated successfully.");
 
             // Now compare the sequences.
             int countNew = seqsNew.Count();
@@ -1254,9 +1230,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
             string newSeq = new string(seqTemp.Select(x => (char)x).ToArray());
 
             Assert.AreEqual(orgSeq, newSeq);
-            Console.WriteLine(string.Format((IFormatProvider)null,
-                "Gff Formatter P1: The Gff sequences '{0}' are matching with Format() method and is as expected.",
-                newSeq));
             ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                 "Gff Formatter P1: The Gff sequences '{0}' are matching with Format() method.",
                 newSeq));
@@ -1306,9 +1279,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
             Assert.AreEqual(expectedString.ToLower(CultureInfo.CurrentCulture),
                 modifedformatString.ToLower(CultureInfo.CurrentCulture));
-            Console.WriteLine(string.Format((IFormatProvider)null,
-                "Gff Formatter P1: The Gff Format String '{0}' are matching with FormatString() method and is as expected.",
-                formatString));
             ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                 "Gff Formatter P1: The Gff Format String '{0}' are matching with FormatString() method and is as expected.",
                 formatString));
@@ -1366,8 +1336,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
                 Assert.IsTrue(valFeat);
                 ApplicationLog.WriteLine(
                     "Gff Formatter P1 : Successfully validated all the Features for a give Sequence in GFF File.");
-                Console.WriteLine(
-                    "Gff Formatter P1 : Successfully validated all the Features for a give Sequence in GFF File.");
 
                 Sequence seq = (Sequence)seqs[i];
                 Assert.IsNotNull(seq);
@@ -1384,11 +1352,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
                 }
                 Assert.AreEqual(expectedSequences[i], newSeq);
                 ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                    "Gff Formatter P1: The Gff sequence '{0}' validation after Parse() is found to be as expected.",
-                    newSeq));
-
-                // Logs to the VSTest GUI (Console.Out) window
-                Console.WriteLine(string.Format((IFormatProvider)null,
                     "Gff Formatter P1: The Gff sequence '{0}' validation after Parse() is found to be as expected.",
                     newSeq));
 
@@ -1412,10 +1375,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
                 Assert.AreEqual(seqIds[i], seq.ID);
                 ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                    "Gff Formatter P1: The Sequence ID is '{0}' and is as expected.",
-                    seq.ID));
-                // Logs to the VSTest GUI (Console.Out) window
-                Console.WriteLine(string.Format((IFormatProvider)null,
                     "Gff Formatter P1: The Sequence ID is '{0}' and is as expected.",
                     seq.ID));
             }

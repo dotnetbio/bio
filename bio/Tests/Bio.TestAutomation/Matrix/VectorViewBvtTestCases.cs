@@ -1,13 +1,7 @@
 ﻿using System;
-using System.IO;
-using System.Text;
-using System.Threading.Tasks;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-
 using Bio.Matrix;
 using Bio.TestAutomation.Util;
-using Bio.Util;
 using Bio.Util.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -19,7 +13,6 @@ namespace Bio.TestAutomation.Matrix
     [TestClass]
     public class VectorViewBvtTestCases
     {
-
         #region Global Variables
 
         Utility utilityObj = new Utility(@"TestUtils\MatrixTestsConfig.xml");
@@ -65,8 +58,6 @@ namespace Bio.TestAutomation.Matrix
 
             Assert.AreEqual("1", rowView["C0"].ToString((IFormatProvider)null));
 
-            Console.WriteLine(
-                "VectorView BVT : Validation of Add() method successful");
             ApplicationLog.WriteLine(
                 "VectorView BVT : Validation of Add() method successful");
         }
@@ -92,8 +83,6 @@ namespace Bio.TestAutomation.Matrix
 
             Assert.AreEqual("1", rowView["C0"].ToString((IFormatProvider)null));
 
-            Console.WriteLine(
-                "VectorView BVT : Validation of Add(Key value pair) method successful");
             ApplicationLog.WriteLine(
                 "VectorView BVT : Validation of Add(Key value pair) method successful");
         }
@@ -123,8 +112,6 @@ namespace Bio.TestAutomation.Matrix
             }
             catch (KeyNotFoundException)
             {
-                Console.WriteLine(
-                    "VectorView BVT : Validation of Remove() method successful");
                 ApplicationLog.WriteLine(
                     "VectorView BVT : Validation of Remove() method successful");
             }
@@ -157,8 +144,6 @@ namespace Bio.TestAutomation.Matrix
             }
             catch (KeyNotFoundException)
             {
-                Console.WriteLine(
-                    "VectorView BVT : Validation of Remove(Key value pair) method successful");
                 ApplicationLog.WriteLine(
                     "VectorView BVT : Validation of Remove(Key value pair) method successful");
             }
@@ -183,8 +168,6 @@ namespace Bio.TestAutomation.Matrix
 
             Assert.AreEqual(0, rowView.Count);
 
-            Console.WriteLine(
-                "VectorView BVT : Validation of Clear() method successful");
             ApplicationLog.WriteLine(
                 "VectorView BVT : Validation of Clear() method successful");
         }
@@ -208,8 +191,6 @@ namespace Bio.TestAutomation.Matrix
 
             Assert.IsTrue(rowView.Contains(keyValPairObj));
 
-            Console.WriteLine(
-                "VectorView BVT : Validation of Contains() method successful");
             ApplicationLog.WriteLine(
                 "VectorView BVT : Validation of Contains() method successful");
         }
@@ -231,8 +212,6 @@ namespace Bio.TestAutomation.Matrix
 
             Assert.IsTrue(rowView.ContainsKey("C0"));
 
-            Console.WriteLine(
-                "VectorView BVT : Validation of ContainsKey() method successful");
             ApplicationLog.WriteLine(
                 "VectorView BVT : Validation of ContainsKey() method successful");
         }
@@ -258,8 +237,6 @@ namespace Bio.TestAutomation.Matrix
 
             Assert.AreEqual(keyValPairObj[0].Value, rowView["C0"]);
 
-            Console.WriteLine(
-                "VectorView BVT : Validation of CopyTo() method successful");
             ApplicationLog.WriteLine(
                 "VectorView BVT : Validation of CopyTo() method successful");
         }
@@ -284,8 +261,6 @@ namespace Bio.TestAutomation.Matrix
 
             Assert.AreEqual(val, denseMatObj[0, 0]);
 
-            Console.WriteLine(
-                "VectorView BVT : Validation of TryGetValue() method successful");
             ApplicationLog.WriteLine(
                 "VectorView BVT : Validation of TryGetValue() method successful");
         }
@@ -310,8 +285,6 @@ namespace Bio.TestAutomation.Matrix
             Assert.AreEqual(denseMatObj.ColCount, rowView.Keys.Count);
             Assert.AreEqual(denseMatObj.ColCount, rowView.Values.Count);
 
-            Console.WriteLine(
-                "VectorView BVT : Validation of all properties successful");
             ApplicationLog.WriteLine(
                 "VectorView BVT : Validation of all properties successful");
         }
@@ -339,8 +312,6 @@ namespace Bio.TestAutomation.Matrix
 
             Assert.AreEqual("1", colView["R0"].ToString((IFormatProvider)null));
 
-            Console.WriteLine(
-                "VectorView BVT : Validation of Add() method successful");
             ApplicationLog.WriteLine(
                 "VectorView BVT : Validation of Add() method successful");
         }
@@ -366,8 +337,6 @@ namespace Bio.TestAutomation.Matrix
 
             Assert.AreEqual("1", colView["R0"].ToString((IFormatProvider)null));
 
-            Console.WriteLine(
-                "VectorView BVT : Validation of Add(Key value pair) method successful");
             ApplicationLog.WriteLine(
                 "VectorView BVT : Validation of Add(Key value pair) method successful");
         }
@@ -397,8 +366,6 @@ namespace Bio.TestAutomation.Matrix
             }
             catch (KeyNotFoundException)
             {
-                Console.WriteLine(
-                    "VectorView BVT : Validation of Remove() method successful");
                 ApplicationLog.WriteLine(
                     "VectorView BVT : Validation of Remove() method successful");
             }
@@ -431,8 +398,6 @@ namespace Bio.TestAutomation.Matrix
             }
             catch (KeyNotFoundException)
             {
-                Console.WriteLine(
-                    "VectorView BVT : Validation of Remove(Key value pair) method successful");
                 ApplicationLog.WriteLine(
                     "VectorView BVT : Validation of Remove(Key value pair) method successful");
             }
@@ -457,8 +422,6 @@ namespace Bio.TestAutomation.Matrix
 
             Assert.AreEqual(0, colView.Count);
 
-            Console.WriteLine(
-                "VectorView BVT : Validation of Clear() method successful");
             ApplicationLog.WriteLine(
                 "VectorView BVT : Validation of Clear() method successful");
         }
@@ -482,8 +445,6 @@ namespace Bio.TestAutomation.Matrix
 
             Assert.IsTrue(colView.Contains(keyValPairObj));
 
-            Console.WriteLine(
-                "VectorView BVT : Validation of Contains() method successful");
             ApplicationLog.WriteLine(
                 "VectorView BVT : Validation of Contains() method successful");
         }
@@ -505,8 +466,6 @@ namespace Bio.TestAutomation.Matrix
 
             Assert.IsTrue(colView.ContainsKey("R0"));
 
-            Console.WriteLine(
-                "VectorView BVT : Validation of ContainsKey() method successful");
             ApplicationLog.WriteLine(
                 "VectorView BVT : Validation of ContainsKey() method successful");
         }
@@ -532,8 +491,6 @@ namespace Bio.TestAutomation.Matrix
 
             Assert.AreEqual(keyValPairObj[0].Value, colView["R0"]);
 
-            Console.WriteLine(
-                "VectorView BVT : Validation of CopyTo() method successful");
             ApplicationLog.WriteLine(
                 "VectorView BVT : Validation of CopyTo() method successful");
         }
@@ -558,8 +515,6 @@ namespace Bio.TestAutomation.Matrix
 
             Assert.AreEqual(val, denseMatObj[0, 0]);
 
-            Console.WriteLine(
-                "VectorView BVT : Validation of TryGetValue() method successful");
             ApplicationLog.WriteLine(
                 "VectorView BVT : Validation of TryGetValue() method successful");
         }
@@ -584,8 +539,6 @@ namespace Bio.TestAutomation.Matrix
             Assert.AreEqual(denseMatObj.RowCount, colView.Keys.Count);
             Assert.AreEqual(denseMatObj.RowCount, colView.Values.Count);
 
-            Console.WriteLine(
-                "VectorView BVT : Validation of all properties successful");
             ApplicationLog.WriteLine(
                 "VectorView BVT : Validation of all properties successful");
         }

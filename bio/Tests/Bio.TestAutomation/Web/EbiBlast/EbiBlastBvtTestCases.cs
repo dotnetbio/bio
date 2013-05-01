@@ -9,13 +9,10 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
-
-using Bio;
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
 using Bio.Web;
 using Bio.Web.Blast;
-
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Globalization;
 
@@ -27,7 +24,6 @@ namespace Bio.TestAutomation.Web.EbiBlast
     [TestClass]
     public class EbiBlastBvtTestCases
     {
-
         #region Global Variables
 
         Utility utilityObj = new Utility(@"TestUtils\TestsConfig.xml");
@@ -235,15 +231,15 @@ namespace Bio.TestAutomation.Web.EbiBlast
             Assert.AreEqual(hit.Id.ToString((IFormatProvider)null), expectedHitId);
             Assert.AreEqual(hit.Hsps.Count.ToString((IFormatProvider)null),
                 expectedResultCount);
-            Console.WriteLine(string.Format((IFormatProvider)null,
+            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                "Ebi Blast BVT: Hits count '{0}'.", eBlastResults.Count));
-            Console.WriteLine(string.Format((IFormatProvider)null,
+            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                 "Ebi Blast BVT: Accession '{0}'.", hit.Accession));
-            Console.WriteLine(string.Format((IFormatProvider)null,
+            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                 "Ebi Blast BVT: Hit Id '{0}'.", hit.Id));
-            Console.WriteLine(string.Format((IFormatProvider)null,
+            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                 "Ebi Blast BVT: Hits Count '{0}'.", hit.Hsps.Count));
-            Console.WriteLine(string.Format((IFormatProvider)null,
+            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                 "Ebi Blast BVT: Hits Length '{0}'.", hit.Length));
         }
 
@@ -307,12 +303,12 @@ namespace Bio.TestAutomation.Web.EbiBlast
                 Assert.IsTrue(ebiParams.Settings.ContainsValue(email));
                 Assert.AreEqual(ebiParams.Settings.Count, 4);
 
-                // Logs to the VSTest GUI (Console.Out) window
-                Console.WriteLine(string.Format((IFormatProvider)null,
+                // Logs to the VSTest GUI (ApplicationLog.Out) window
+                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                  "Ebi Blast BVT: Query Sequence{0} is as expected.", querySequence));
-                Console.WriteLine(string.Format((IFormatProvider)null,
+                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                     "Ebi Blast BVT: DataBase Value{0} is as expected.", queryDatabaseValue));
-                Console.WriteLine(string.Format((IFormatProvider)null,
+                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                     "Ebi Blast BVT: Program Value {0} is as expected.", queryProgramValue));
             }
             catch (Exception ex) { Assert.Fail(ex.Message); }
@@ -389,8 +385,6 @@ namespace Bio.TestAutomation.Web.EbiBlast
                 Assert.AreEqual(Constants.EbiWebServiceName, service.Name);
 
                 ApplicationLog.WriteLine(
-                    "EbiWebService : Successfully validated the Ebi WebService Properties");
-                Console.WriteLine(
                     "EbiWebService : Successfully validated the Ebi WebService Properties");
             }
             catch (Exception ex) { Assert.Fail(ex.Message); }
@@ -653,13 +647,13 @@ namespace Bio.TestAutomation.Web.EbiBlast
             Assert.AreEqual(hit.Id.ToString((IFormatProvider)null), expectedHitId);
             Assert.AreEqual(hit.Hsps.Count.ToString((IFormatProvider)null),
                 expectedResultCount);
-            Console.WriteLine(string.Format((IFormatProvider)null,
+            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                "Ebi Blast BVT: Hits count '{0}'.", eBlastResults.Count));
-            Console.WriteLine(string.Format((IFormatProvider)null,
+            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                 "Ebi Blast BVT: Accession '{0}'.", hit.Accession));
-            Console.WriteLine(string.Format((IFormatProvider)null,
+            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                 "Ebi Blast BVT: Hit Id '{0}'.", hit.Id));
-            Console.WriteLine(string.Format((IFormatProvider)null,
+            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                 "Ebi Blast BVT: Hits Count '{0}'.", hit.Hsps.Count));
 
             // Validate the results Synchronously with the results got earlier.
@@ -680,7 +674,6 @@ namespace Bio.TestAutomation.Web.EbiBlast
                 {
                     ApplicationLog.WriteLine(
                         "No significant hits found with the these parameters.");
-                    Console.WriteLine("No significant hits found with the these parameters.");
                 }
             }
 
@@ -747,12 +740,10 @@ namespace Bio.TestAutomation.Web.EbiBlast
                 string error = ApplicationLog.WriteLine(
                     string.Concat("Unexpected error", reqInfo.Status));
                 Assert.Fail(error);
-                Console.WriteLine(string.Concat(
-                    "Unexpected error ", reqInfo.Status));
             }
             else
             {
-                Console.WriteLine(string.Concat(
+                ApplicationLog.WriteLine(string.Concat(
                     "Request status ", reqInfo.Status));
             }
         }
@@ -811,7 +802,7 @@ namespace Bio.TestAutomation.Web.EbiBlast
                 // validate the cancelled job.
                 Assert.IsTrue(result);
 
-                Console.WriteLine(string.Concat(
+                ApplicationLog.WriteLine(string.Concat(
                     "EBI Blast P1 : Submitted job cancelled was successfully.",
                     queryProgramValue));
             }

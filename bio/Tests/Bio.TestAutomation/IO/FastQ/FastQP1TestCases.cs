@@ -7,65 +7,41 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
-using System.Text;
-using Bio.IO.FastQ;
-using Bio;
 using System.Linq;
+using System.Text;
+using Bio.Extensions;
 using Bio.IO;
-using Bio.Util.Logging;
+using Bio.IO.FastQ;
 using Bio.TestAutomation.Util;
+using Bio.Util.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 #if (SILVERLIGHT == false)
-    namespace Bio.TestAutomation.IO.FastQ
+
+namespace Bio.TestAutomation.IO.FastQ
 #else
     namespace Bio.Silverlight.TestAutomation.IO.FastQ
 #endif
 {
     /// <summary>
-    /// FASTQ P1 parser and formatter Test cases implementation.
+    ///     FASTQ P1 parser and formatter Test cases implementation.
     /// </summary>
     [TestClass]
     public class FastQP1TestCases
     {
-
-        #region Enums
-
-        /// <summary>
-        /// FastQ Parser Property Parameters which are used for different test cases 
-        /// based on which the test cases are executed.
-        /// </summary>
-        enum FastQPropertyParameters
-        {
-            AlphabetProperty,
-            Default
-        };
-
-        /// <summary>
-        /// FastQ Formatter Parameters which are used for different test cases 
-        /// based on which the test cases are executed.
-        /// </summary>
-        enum FastQFileParameters
-        {
-            FileName,
-            FileNameReadOnly,
-            ParseFileName
-        };
-
-        #endregion Enums
-
         #region Global Variables
 
-        Utility utilityObj = new Utility(@"TestUtils\FastQTestsConfig.xml");
+        private readonly Utility utilityObj = new Utility(@"TestUtils\FastQTestsConfig.xml");
 
         #endregion Global Variables
 
         #region Constructor
 
         /// <summary>
-        /// Static constructor to open log and make other settings needed for test
+        ///     Static constructor to open log and make other settings needed for test
         /// </summary>
         static FastQP1TestCases()
         {
@@ -81,363 +57,341 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         #region FastQ P1 Test cases
 
         /// <summary>
-        /// Parse a valid small size FastQ file and convert the same to 
-        /// sequence using Parse(file-name) method and validate with the 
-        /// expected sequence.
-        /// Input : FastQ file with Sanger format.
-        /// Output : Validation of Expected sequence, Sequence Id,Sequence Type.
+        ///     Parse a valid small size FastQ file and convert the same to
+        ///     sequence using Parse(file-name) method and validate with the
+        ///     expected sequence.
+        ///     Input : FastQ file with Sanger format.
+        ///     Output : Validation of Expected sequence, Sequence Id,Sequence Type.
         /// </summary>
         [TestMethod]
         [Priority(1)]
         [TestCategory("Priority1")]
         public void ValidateFastQParserWithSangerUsingFastQExtensionFile()
         {
-            ValidateFastQParser(Constants.SimpleSangerFastQNode,
-              FastQPropertyParameters.Default);
+            ValidateFastQParser(Constants.SimpleSangerFastQNode);
         }
 
         /// <summary>
-        /// Parse a valid small size Rna FastQ file and convert the same to 
-        /// sequence using Parse(file-name) method and validate with the 
-        /// expected sequence.
-        /// Input : Rna FastQ file with Sanger format.
-        /// Output : Validation of Expected sequence, Sequence Id,Sequence Type.
+        ///     Parse a valid small size Rna FastQ file and convert the same to
+        ///     sequence using Parse(file-name) method and validate with the
+        ///     expected sequence.
+        ///     Input : Rna FastQ file with Sanger format.
+        ///     Output : Validation of Expected sequence, Sequence Id,Sequence Type.
         /// </summary>
         [TestMethod]
         [Priority(1)]
         [TestCategory("Priority1")]
         public void ValidateFastQParserWithRnaSanger()
         {
-            ValidateFastQParser(Constants.SimpleRnaSangerFastQNode,
-              FastQPropertyParameters.Default);
+            ValidateFastQParser(Constants.SimpleRnaSangerFastQNode);
         }
 
         /// <summary>
-        /// Parse a valid small size Rna FastQ file and convert the same to 
-        /// sequence using Parse(file-name) method and validate with the 
-        /// expected sequence.
-        /// Input : Rna FastQ file with Illumina format.
-        /// Output : Validation of Expected sequence, Sequence Id,Sequence Type.
+        ///     Parse a valid small size Rna FastQ file and convert the same to
+        ///     sequence using Parse(file-name) method and validate with the
+        ///     expected sequence.
+        ///     Input : Rna FastQ file with Illumina format.
+        ///     Output : Validation of Expected sequence, Sequence Id,Sequence Type.
         /// </summary>
         [TestMethod]
         [Priority(1)]
         [TestCategory("Priority1")]
         public void ValidateFastQParserWithRnaIllumina()
         {
-            ValidateFastQParser(Constants.SimpleRnaIlluminaFastQNode,
-              FastQPropertyParameters.Default);
+            ValidateFastQParser(Constants.SimpleRnaIlluminaFastQNode);
         }
 
         /// <summary>
-        /// Parse a valid small size Rna FastQ file and convert the same to 
-        /// sequence using Parse(file-name) method and validate with the 
-        /// expected sequence.
-        /// Input : Rna FastQ file with Solexa format.
-        /// Output : Validation of Expected sequence, Sequence Id,Sequence Type.
+        ///     Parse a valid small size Rna FastQ file and convert the same to
+        ///     sequence using Parse(file-name) method and validate with the
+        ///     expected sequence.
+        ///     Input : Rna FastQ file with Solexa format.
+        ///     Output : Validation of Expected sequence, Sequence Id,Sequence Type.
         /// </summary>
         [TestMethod]
         [Priority(1)]
         [TestCategory("Priority1")]
         public void ValidateFastQParserWithRnaSolexa()
         {
-            ValidateFastQParser(Constants.SimpleRnaSolexaFastQNode,
-              FastQPropertyParameters.Default);
+            ValidateFastQParser(Constants.SimpleRnaSolexaFastQNode);
         }
 
         /// <summary>
-        /// Parse a valid small size Dna FastQ file and convert the same to 
-        /// sequence using Parse(file-name) method and validate with the 
-        /// expected sequence.
-        /// Input : Dna FastQ file with Sanger format.
-        /// Output : Validation of Expected sequence, Sequence Id,Sequence Type.
+        ///     Parse a valid small size Dna FastQ file and convert the same to
+        ///     sequence using Parse(file-name) method and validate with the
+        ///     expected sequence.
+        ///     Input : Dna FastQ file with Sanger format.
+        ///     Output : Validation of Expected sequence, Sequence Id,Sequence Type.
         /// </summary>
         [TestMethod]
         [Priority(1)]
         [TestCategory("Priority1")]
         public void ValidateFastQParserWithDnaSanger()
         {
-            ValidateFastQParser(Constants.SimpleSangerFastQNode,
-              FastQPropertyParameters.Default);
+            ValidateFastQParser(Constants.SimpleSangerFastQNode);
         }
 
         /// <summary>
-        /// Parse a valid small size Dna FastQ file and convert the same to 
-        /// sequence using Parse(file-name) method and validate with the 
-        /// expected sequence.
-        /// Input : Rna FastQ file with Illumina format.
-        /// Output : Validation of Expected sequence, Sequence Id,Sequence Type.
+        ///     Parse a valid small size Dna FastQ file and convert the same to
+        ///     sequence using Parse(file-name) method and validate with the
+        ///     expected sequence.
+        ///     Input : Rna FastQ file with Illumina format.
+        ///     Output : Validation of Expected sequence, Sequence Id,Sequence Type.
         /// </summary>
         [TestMethod]
         [Priority(1)]
         [TestCategory("Priority1")]
         public void ValidateFastQParserWithDnaIllumina()
         {
-            ValidateFastQParser(Constants.SimpleIlluminaFastQNode,
-              FastQPropertyParameters.Default);
+            ValidateFastQParser(Constants.SimpleIlluminaFastQNode);
         }
 
         /// <summary>
-        /// Parse a valid small size Dna FastQ file and convert the same to 
-        /// sequence using Parse(file-name) method and validate with the 
-        /// expected sequence.
-        /// Input : Rna FastQ file with Solexa format.
-        /// Output : Validation of Expected sequence, Sequence Id,Sequence Type.
+        ///     Parse a valid small size Dna FastQ file and convert the same to
+        ///     sequence using Parse(file-name) method and validate with the
+        ///     expected sequence.
+        ///     Input : Rna FastQ file with Solexa format.
+        ///     Output : Validation of Expected sequence, Sequence Id,Sequence Type.
         /// </summary>
         [TestMethod]
         [Priority(1)]
         [TestCategory("Priority1")]
         public void ValidateFastQParserWithDnaSolexa()
         {
-            ValidateFastQParser(Constants.SimpleSolexaFqFastQNode,
-              FastQPropertyParameters.Default);
+            ValidateFastQParser(Constants.SimpleSolexaFqFastQNode);
         }
 
         /// <summary>
-        /// Parse a valid small size Protein FastQ file and convert the same to 
-        /// sequence using Parse(file-name) method and validate with the 
-        /// expected sequence.
-        /// Input : Protein FastQ file with Sanger format.
-        /// Output : Validation of Expected sequence, Sequence Id,Sequence Type.
+        ///     Parse a valid small size Protein FastQ file and convert the same to
+        ///     sequence using Parse(file-name) method and validate with the
+        ///     expected sequence.
+        ///     Input : Protein FastQ file with Sanger format.
+        ///     Output : Validation of Expected sequence, Sequence Id,Sequence Type.
         /// </summary>
         [TestMethod]
         [Priority(1)]
         [TestCategory("Priority1")]
         public void ValidateFastQParserWithProteinSanger()
         {
-            ValidateFastQParser(Constants.SimpleProteinSangerFastQNode,
-              FastQPropertyParameters.Default);
+            ValidateFastQParser(Constants.SimpleProteinSangerFastQNode);
         }
 
         /// <summary>
-        /// Parse a valid small size Protein FastQ file and convert the same to 
-        /// sequence using Parse(file-name) method and validate with the 
-        /// expected sequence.
-        /// Input : Protein FastQ file with Illumina format.
-        /// Output : Validation of Expected sequence, Sequence Id,Sequence Type.
+        ///     Parse a valid small size Protein FastQ file and convert the same to
+        ///     sequence using Parse(file-name) method and validate with the
+        ///     expected sequence.
+        ///     Input : Protein FastQ file with Illumina format.
+        ///     Output : Validation of Expected sequence, Sequence Id,Sequence Type.
         /// </summary>
         [TestMethod]
         [Priority(1)]
         [TestCategory("Priority1")]
         public void ValidateFastQParserWithProteinIllumina()
         {
-            ValidateFastQParser(Constants.SimpleProteinIlluminaFastQNode,
-              FastQPropertyParameters.Default);
+            ValidateFastQParser(Constants.SimpleProteinIlluminaFastQNode);
         }
 
         /// <summary>
-        /// Parse a valid small size Protein FastQ file and convert the same to 
-        /// sequence using Parse(file-name) method and validate with the 
-        /// expected sequence.
-        /// Input : Protein FastQ file with Solexa format.
-        /// Output : Validation of Expected sequence, Sequence Id,Sequence Type.
+        ///     Parse a valid small size Protein FastQ file and convert the same to
+        ///     sequence using Parse(file-name) method and validate with the
+        ///     expected sequence.
+        ///     Input : Protein FastQ file with Solexa format.
+        ///     Output : Validation of Expected sequence, Sequence Id,Sequence Type.
         /// </summary>
         [TestMethod]
         [Priority(1)]
         [TestCategory("Priority1")]
         public void ValidateFastQParserWithProteinSolexa()
         {
-            ValidateFastQParser(Constants.SimpleProteinSolexaFastQNode,
-              FastQPropertyParameters.Default);
+            ValidateFastQParser(Constants.SimpleProteinSolexaFastQNode);
         }
 
         /// <summary>
-        /// Parse a valid Medium size Sanger FastQ file and convert the same to 
-        /// sequence using Parse(file-name) method and validate with the 
-        /// expected sequence.
-        /// Input : Medium size FastQ file with Sanger format.
-        /// Output : Validation of Expected sequence, Sequence Id,Sequence Type.
+        ///     Parse a valid Medium size Sanger FastQ file and convert the same to
+        ///     sequence using Parse(file-name) method and validate with the
+        ///     expected sequence.
+        ///     Input : Medium size FastQ file with Sanger format.
+        ///     Output : Validation of Expected sequence, Sequence Id,Sequence Type.
         /// </summary>
         [TestMethod]
         [Priority(1)]
         [TestCategory("Priority1")]
         public void FastQParserValidateParseWithMediumSizeSangerDnaSequence()
         {
-            ValidateFastQParser(Constants.MediumSizeDnaSangerFastQNode,
-              FastQPropertyParameters.Default);
+            ValidateFastQParser(Constants.MediumSizeDnaSangerFastQNode);
         }
 
         /// <summary>
-        /// Parse a valid Medium size Illumina FastQ file and convert the same to 
-        /// sequence using Parse(file-name) method and validate with the 
-        /// expected sequence.
-        /// Input : Medium size FastQ file with Illumina format.
-        /// Output : Validation of Expected sequence, Sequence Id,Sequence Type.
+        ///     Parse a valid Medium size Illumina FastQ file and convert the same to
+        ///     sequence using Parse(file-name) method and validate with the
+        ///     expected sequence.
+        ///     Input : Medium size FastQ file with Illumina format.
+        ///     Output : Validation of Expected sequence, Sequence Id,Sequence Type.
         /// </summary>
         [TestMethod]
         [Priority(1)]
         [TestCategory("Priority1")]
         public void FastQParserValidateParseWithMediumSizeIlluminaDnaSequence()
         {
-            ValidateFastQParser(Constants.MediumSizeDnaIlluminaFastQNode,
-              FastQPropertyParameters.Default);
+            ValidateFastQParser(Constants.MediumSizeDnaIlluminaFastQNode);
         }
 
         /// <summary>
-        /// Parse a valid Medium size Solexa FastQ file and convert the same to 
-        /// sequence using Parse(file-name) method and validate with the 
-        /// expected sequence.
-        /// Input : Medium size FastQ file with Solexa format.
-        /// Output : Validation of Expected sequence, Sequence Id,Sequence Type.
+        ///     Parse a valid Medium size Solexa FastQ file and convert the same to
+        ///     sequence using Parse(file-name) method and validate with the
+        ///     expected sequence.
+        ///     Input : Medium size FastQ file with Solexa format.
+        ///     Output : Validation of Expected sequence, Sequence Id,Sequence Type.
         /// </summary>
         [TestMethod]
         [Priority(1)]
         [TestCategory("Priority1")]
         public void FastQParserValidateParseWithMediumSizeSolexaDnaSequence()
         {
-            ValidateFastQParser(Constants.MediumSizeDnaSolexaFastQNode,
-              FastQPropertyParameters.Default);
+            ValidateFastQParser(Constants.MediumSizeDnaSolexaFastQNode);
         }
 
         /// <summary>
-        /// Parse a valid Large size Sanger FastQ file and convert the same to 
-        /// sequence using Parse(file-name) method and validate with the 
-        /// expected sequence.
-        /// Input : Large size FastQ file with Sanger format.
-        /// Output : Validation of Expected sequence, Sequence Id,Sequence Type.
+        ///     Parse a valid Large size Sanger FastQ file and convert the same to
+        ///     sequence using Parse(file-name) method and validate with the
+        ///     expected sequence.
+        ///     Input : Large size FastQ file with Sanger format.
+        ///     Output : Validation of Expected sequence, Sequence Id,Sequence Type.
         /// </summary>
         [TestMethod]
         [Priority(1)]
         [TestCategory("Priority1")]
         public void FastQParserValidateParseWithLargeSizeSangerDnaSequence()
         {
-            ValidateFastQParser(Constants.LargeSizeDnaSangerFastQNode,
-              FastQPropertyParameters.Default);
+            ValidateFastQParser(Constants.LargeSizeDnaSangerFastQNode);
         }
 
         /// <summary>
-        /// Parse a valid Large size Illumina FastQ file and convert the same to 
-        /// sequence using Parse(file-name) method and validate with the 
-        /// expected sequence.
-        /// Input : Large size FastQ file with Illumina format.
-        /// Output : Validation of Expected sequence, Sequence Id,Sequence Type.
+        ///     Parse a valid Large size Illumina FastQ file and convert the same to
+        ///     sequence using Parse(file-name) method and validate with the
+        ///     expected sequence.
+        ///     Input : Large size FastQ file with Illumina format.
+        ///     Output : Validation of Expected sequence, Sequence Id,Sequence Type.
         /// </summary>
         [TestMethod]
         [Priority(1)]
         [TestCategory("Priority1")]
         public void FastQParserValidateParseWithLargeSizeIlluminaDnaSequence()
         {
-            ValidateFastQParser(Constants.LargeSizeDnaIlluminaFastQNode,
-              FastQPropertyParameters.Default);
+            ValidateFastQParser(Constants.LargeSizeDnaIlluminaFastQNode);
         }
 
         /// <summary>
-        /// Parse a valid Large size Solexa FastQ file and convert the same to 
-        /// sequence using Parse(file-name) method and validate with the 
-        /// expected sequence.
-        /// Input : Large size FastQ file with Solexa format.
-        /// Output : Validation of Expected sequence, Sequence Id,Sequence Type.
+        ///     Parse a valid Large size Solexa FastQ file and convert the same to
+        ///     sequence using Parse(file-name) method and validate with the
+        ///     expected sequence.
+        ///     Input : Large size FastQ file with Solexa format.
+        ///     Output : Validation of Expected sequence, Sequence Id,Sequence Type.
         /// </summary>
         [TestMethod]
         [Priority(1)]
         [TestCategory("Priority1")]
         public void FastQParserValidateParseWithLargeSizeSolexaDnaSequence()
         {
-            ValidateFastQParser(Constants.LargeSizeDnaSolexaFastQNode,
-              FastQPropertyParameters.Default);
+            ValidateFastQParser(Constants.LargeSizeDnaSolexaFastQNode);
         }
 
         /// <summary>
-        /// Parse a valid One line sequence Illumina FastQ file and convert the same to 
-        /// sequence using Parse(file-name) method and validate with the 
-        /// expected sequence.
-        /// Input : One line Dna sequence Illumina FastQ file with Solexa format.
-        /// Output : Validation of Expected sequence, Sequence Id,Sequence Type.
+        ///     Parse a valid One line sequence Illumina FastQ file and convert the same to
+        ///     sequence using Parse(file-name) method and validate with the
+        ///     expected sequence.
+        ///     Input : One line Dna sequence Illumina FastQ file with Solexa format.
+        ///     Output : Validation of Expected sequence, Sequence Id,Sequence Type.
         /// </summary>
         [TestMethod]
         [Priority(1)]
         [TestCategory("Priority1")]
         public void FastQParserValidateParseWithOneLineIluminaDnaSequence()
         {
-            ValidateFastQParser(Constants.SingleSequenceIlluminaFastQNode,
-              FastQPropertyParameters.Default);
+            ValidateFastQParser(Constants.SingleSequenceIlluminaFastQNode);
         }
 
         /// <summary>
-        /// Parse a valid One line sequence Sanger FastQ file and convert the same to 
-        /// sequence using Parse(file-name) method and validate with the 
-        /// expected sequence.
-        /// Input : One line Dna sequence Sanger FastQ file with Solexa format.
-        /// Output : Validation of Expected sequence, Sequence Id,Sequence Type.
+        ///     Parse a valid One line sequence Sanger FastQ file and convert the same to
+        ///     sequence using Parse(file-name) method and validate with the
+        ///     expected sequence.
+        ///     Input : One line Dna sequence Sanger FastQ file with Solexa format.
+        ///     Output : Validation of Expected sequence, Sequence Id,Sequence Type.
         /// </summary>
         [TestMethod]
         [Priority(1)]
         [TestCategory("Priority1")]
         public void FastQParserValidateParseWithOneLineSangerDnaSequence()
         {
-            ValidateFastQParser(Constants.SingleSequenceSangerFastQNode,
-              FastQPropertyParameters.Default);
+            ValidateFastQParser(Constants.SingleSequenceSangerFastQNode);
         }
 
         /// <summary>
-        /// Parse a valid One line sequence Solexa FastQ file and convert the same to 
-        /// sequence using Parse(file-name) method and validate with the 
-        /// expected sequence.
-        /// Input : One line Dna sequence Solexa FastQ file with Solexa format.
-        /// Output : Validation of Expected sequence, Sequence Id,Sequence Type.
+        ///     Parse a valid One line sequence Solexa FastQ file and convert the same to
+        ///     sequence using Parse(file-name) method and validate with the
+        ///     expected sequence.
+        ///     Input : One line Dna sequence Solexa FastQ file with Solexa format.
+        ///     Output : Validation of Expected sequence, Sequence Id,Sequence Type.
         /// </summary>
         [TestMethod]
         [Priority(1)]
         [TestCategory("Priority1")]
         public void FastQParserValidateParseWithOneLineSolexaDnaSequence()
         {
-            ValidateFastQParser(Constants.SingleSequenceSolexaFastQNode,
-              FastQPropertyParameters.Default);
+            ValidateFastQParser(Constants.SingleSequenceSolexaFastQNode);
         }
 
         /// <summary>
-        /// Parse a valid Two line Medium size sequence Sanger FastQ file and
-        /// convert the same to sequence using Parse(file-name) method and 
-        /// validate with the expected sequence.
-        /// Input : Two line medium size Dna sequence Sanger FastQ file with Solexa format.
-        /// Output : Validation of Expected sequence, Sequence Id,Sequence Type.
+        ///     Parse a valid Two line Medium size sequence Sanger FastQ file and
+        ///     convert the same to sequence using Parse(file-name) method and
+        ///     validate with the expected sequence.
+        ///     Input : Two line medium size Dna sequence Sanger FastQ file with Solexa format.
+        ///     Output : Validation of Expected sequence, Sequence Id,Sequence Type.
         /// </summary>
         [TestMethod]
         [Priority(1)]
         [TestCategory("Priority1")]
         public void FastQParserValidateParseWithTwoLineMediumSizeSangerDnaSequence()
         {
-            ValidateFastQParser(Constants.TwoLineDnaSangerFastQNode,
-              FastQPropertyParameters.Default);
+            ValidateFastQParser(Constants.TwoLineDnaSangerFastQNode);
         }
 
         /// <summary>
-        /// Parse a valid Two line Medium size sequence Illumina FastQ file and
-        /// convert the same to sequence using Parse(file-name) method and 
-        /// validate with the expected sequence.
-        /// Input : Two line medium size Dna sequence Sanger FastQ file with Illumina format.
-        /// Output : Validation of Expected sequence, Sequence Id,Sequence Type.
+        ///     Parse a valid Two line Medium size sequence Illumina FastQ file and
+        ///     convert the same to sequence using Parse(file-name) method and
+        ///     validate with the expected sequence.
+        ///     Input : Two line medium size Dna sequence Sanger FastQ file with Illumina format.
+        ///     Output : Validation of Expected sequence, Sequence Id,Sequence Type.
         /// </summary>
         [TestMethod]
         [Priority(1)]
         [TestCategory("Priority1")]
         public void FastQParserValidateParseWithTwoLineMediumSizeIlluminaDnaSequence()
         {
-            ValidateFastQParser(Constants.TwoLineDnaIlluminaFastQNode,
-              FastQPropertyParameters.Default);
+            ValidateFastQParser(Constants.TwoLineDnaIlluminaFastQNode);
         }
 
         /// <summary>
-        /// Parse a valid Two line Medium size sequence Solexa FastQ file and
-        /// convert the same to sequence using Parse(file-name) method and 
-        /// validate with the expected sequence.
-        /// Input : Two line medium size Dna sequence Solexa FastQ file with Illumina format.
-        /// Output : Validation of Expected sequence, Sequence Id,Sequence Type.
+        ///     Parse a valid Two line Medium size sequence Solexa FastQ file and
+        ///     convert the same to sequence using Parse(file-name) method and
+        ///     validate with the expected sequence.
+        ///     Input : Two line medium size Dna sequence Solexa FastQ file with Illumina format.
+        ///     Output : Validation of Expected sequence, Sequence Id,Sequence Type.
         /// </summary>
         [TestMethod]
         [Priority(1)]
         [TestCategory("Priority1")]
         public void FastQParserValidateParseWithTwoLineMediumSizeSolexaDnaSequence()
         {
-            ValidateFastQParser(Constants.TwoLineDnaSolexaFastQNode,
-              FastQPropertyParameters.Default);
+            ValidateFastQParser(Constants.TwoLineDnaSolexaFastQNode);
         }
 
         /// <summary>
-        /// Parse a valid Dna Rna multiple sequence FastQ file and 
-        /// convert the same to sequence using Parse(file-name) method 
-        /// and validate with the expected sequence.
-        /// Input : Multiple sequence FastQ file with Solexa format.
-        /// Output : Validation of Expected sequence, Sequence Id,Sequence Type.
+        ///     Parse a valid Dna Rna multiple sequence FastQ file and
+        ///     convert the same to sequence using Parse(file-name) method
+        ///     and validate with the expected sequence.
+        ///     Input : Multiple sequence FastQ file with Solexa format.
+        ///     Output : Validation of Expected sequence, Sequence Id,Sequence Type.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -448,11 +402,11 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         }
 
         /// <summary>
-        /// Parse a valid Rna Protein multiple sequence FastQ file and 
-        /// convert the same to sequence using Parse(file-name) method 
-        /// and validate with the expected sequence.
-        /// Input : Multiple sequence FastQ file with Sanger format.
-        /// Output : Validation of Expected sequence, Sequence Id,Sequence Type.
+        ///     Parse a valid Rna Protein multiple sequence FastQ file and
+        ///     convert the same to sequence using Parse(file-name) method
+        ///     and validate with the expected sequence.
+        ///     Input : Multiple sequence FastQ file with Sanger format.
+        ///     Output : Validation of Expected sequence, Sequence Id,Sequence Type.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -463,11 +417,11 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         }
 
         /// <summary>
-        /// Parse a valid Rna Protein multiple sequence FastQ file and 
-        /// convert the same to sequence using Parse(file-name) method 
-        /// and validate with the expected sequence.
-        /// Input : Multiple sequence FastQ file with Illumina format.
-        /// Output : Validation of Expected sequence, Sequence Id,Sequence Type.
+        ///     Parse a valid Rna Protein multiple sequence FastQ file and
+        ///     convert the same to sequence using Parse(file-name) method
+        ///     and validate with the expected sequence.
+        ///     Input : Multiple sequence FastQ file with Illumina format.
+        ///     Output : Validation of Expected sequence, Sequence Id,Sequence Type.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -478,11 +432,11 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         }
 
         /// <summary>
-        /// Parse a valid Rna Protein multiple sequence FastQ file and 
-        /// convert the same to sequence using Parse(file-name) method 
-        /// and validate with the expected sequence.
-        /// Input : Multiple sequence FastQ file with Solexa format.
-        /// Output : Validation of Expected sequence, Sequence Id,Sequence Type.
+        ///     Parse a valid Rna Protein multiple sequence FastQ file and
+        ///     convert the same to sequence using Parse(file-name) method
+        ///     and validate with the expected sequence.
+        ///     Input : Multiple sequence FastQ file with Solexa format.
+        ///     Output : Validation of Expected sequence, Sequence Id,Sequence Type.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -493,11 +447,11 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         }
 
         /// <summary>
-        /// Parse a valid Dna Protein multiple sequence FastQ file and 
-        /// convert the same to sequence using Parse(file-name) method 
-        /// and validate with the expected sequence.
-        /// Input : Multiple sequence FastQ file with Sanger format.
-        /// Output : Validation of Expected sequence, Sequence Id,Sequence Type.
+        ///     Parse a valid Dna Protein multiple sequence FastQ file and
+        ///     convert the same to sequence using Parse(file-name) method
+        ///     and validate with the expected sequence.
+        ///     Input : Multiple sequence FastQ file with Sanger format.
+        ///     Output : Validation of Expected sequence, Sequence Id,Sequence Type.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -508,11 +462,11 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         }
 
         /// <summary>
-        /// Parse a valid Dna Protein multiple sequence FastQ file and 
-        /// convert the same to sequence using Parse(file-name) method 
-        /// and validate with the expected sequence.
-        /// Input : Multiple sequence FastQ file with Illumina format.
-        /// Output : Validation of Expected sequence, Sequence Id,Sequence Type.
+        ///     Parse a valid Dna Protein multiple sequence FastQ file and
+        ///     convert the same to sequence using Parse(file-name) method
+        ///     and validate with the expected sequence.
+        ///     Input : Multiple sequence FastQ file with Illumina format.
+        ///     Output : Validation of Expected sequence, Sequence Id,Sequence Type.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -523,11 +477,11 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         }
 
         /// <summary>
-        /// Parse a valid Dna Protein multiple sequence FastQ file and 
-        /// convert the same to sequence using Parse(file-name) method 
-        /// and validate with the expected sequence.
-        /// Input : Multiple sequence FastQ file with Solexa format.
-        /// Output : Validation of Expected sequence, Sequence Id,Sequence Type.
+        ///     Parse a valid Dna Protein multiple sequence FastQ file and
+        ///     convert the same to sequence using Parse(file-name) method
+        ///     and validate with the expected sequence.
+        ///     Input : Multiple sequence FastQ file with Solexa format.
+        ///     Output : Validation of Expected sequence, Sequence Id,Sequence Type.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -538,11 +492,11 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         }
 
         /// <summary>
-        /// Parse a valid Dna Rna Protein sequences FastQ file and 
-        /// convert the same to sequence using Parse(file-name) method 
-        /// and validate with the expected sequence.
-        /// Input : Multiple sequence FastQ file with Sanger format.
-        /// Output : Validation of Expected sequence, Sequence Id,Sequence Type.
+        ///     Parse a valid Dna Rna Protein sequences FastQ file and
+        ///     convert the same to sequence using Parse(file-name) method
+        ///     and validate with the expected sequence.
+        ///     Input : Multiple sequence FastQ file with Sanger format.
+        ///     Output : Validation of Expected sequence, Sequence Id,Sequence Type.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -550,15 +504,15 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         public void ValidateDnaRnaProteinMultipleSeqFastQParserWithSanger()
         {
             ValidateMulitpleSequenceFastQParser(Constants.MultiSeqSangerDnaRnaProNode,
-              "MultiSequenceFastQ");
+                                                "MultiSequenceFastQ");
         }
 
         /// <summary>
-        /// Parse a valid Dna Rna Protein sequences FastQ file and 
-        /// convert the same to sequence using Parse(file-name) method 
-        /// and validate with the expected sequence.
-        /// Input : Multiple sequence FastQ file with Illumina format.
-        /// Output : Validation of Expected sequence, Sequence Id,Sequence Type.
+        ///     Parse a valid Dna Rna Protein sequences FastQ file and
+        ///     convert the same to sequence using Parse(file-name) method
+        ///     and validate with the expected sequence.
+        ///     Input : Multiple sequence FastQ file with Illumina format.
+        ///     Output : Validation of Expected sequence, Sequence Id,Sequence Type.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -566,15 +520,15 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         public void ValidateDnaRnaProteinMultipleSeqFastQParserWithIllumina()
         {
             ValidateMulitpleSequenceFastQParser(Constants.MultiSeqIlluminaDnaRnaProNode,
-              "MultiSequenceFastQ");
+                                                "MultiSequenceFastQ");
         }
 
         /// <summary>
-        /// Parse a valid Dna Rna Protein sequences FastQ file and 
-        /// convert the same to sequence using Parse(file-name) method 
-        /// and validate with the expected sequence.
-        /// Input : Multiple sequence FastQ file with Solexa format.
-        /// Output : Validation of Expected sequence, Sequence Id,Sequence Type.
+        ///     Parse a valid Dna Rna Protein sequences FastQ file and
+        ///     convert the same to sequence using Parse(file-name) method
+        ///     and validate with the expected sequence.
+        ///     Input : Multiple sequence FastQ file with Solexa format.
+        ///     Output : Validation of Expected sequence, Sequence Id,Sequence Type.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -582,14 +536,14 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         public void ValidateDnaRnaProteinMultipleSeqFastQParserWithSolexa()
         {
             ValidateMulitpleSequenceFastQParser(Constants.MultiSeqSolexaDnaRnaProNode,
-              "MultiSequenceFastQ");
+                                                "MultiSequenceFastQ");
         }
 
         /// <summary>
-        /// Parse a Sanger FastQ file and Format a valid Sanger Qualitative Sequence 
-        /// to FastQ file using Format(text-writer) and validate Sequence.
-        /// Input : Sanger FastQ file
-        /// Output : Validate format Sanger FastQ file to temp file.
+        ///     Parse a Sanger FastQ file and Format a valid Sanger Qualitative Sequence
+        ///     to FastQ file using Format(text-writer) and validate Sequence.
+        ///     Input : Sanger FastQ file
+        ///     Output : Validate format Sanger FastQ file to temp file.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -600,10 +554,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         }
 
         /// <summary>
-        /// Parse a Sanger FastQ file and Format a valid Sanger Qualitative Sequence 
-        /// to FastQ file using Format(text-writer) and validate Sequence.
-        /// Input :Dna Sanger FastQ file
-        /// Output : Validate format Sanger FastQ file to temp file.
+        ///     Parse a Sanger FastQ file and Format a valid Sanger Qualitative Sequence
+        ///     to FastQ file using Format(text-writer) and validate Sequence.
+        ///     Input :Dna Sanger FastQ file
+        ///     Output : Validate format Sanger FastQ file to temp file.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -614,10 +568,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         }
 
         /// <summary>
-        /// Parse a Sanger FastQ file and Format a valid Sanger Qualitative Sequence 
-        /// to FastQ file using Format(file-name) and validate Sequence.
-        /// Input : Sanger FastQ file
-        /// Output : Validate format Sanger FastQ file to temp file.
+        ///     Parse a Sanger FastQ file and Format a valid Sanger Qualitative Sequence
+        ///     to FastQ file using Format(file-name) and validate Sequence.
+        ///     Input : Sanger FastQ file
+        ///     Output : Validate format Sanger FastQ file to temp file.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -628,10 +582,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         }
 
         /// <summary>
-        /// Parse a Illumina FastQ file and Format a valid Illumina Qualitative Sequence 
-        /// to FastQ file using Format(file-name) and validate Sequence.
-        /// Input :Dna Illumina FastQ file
-        /// Output : Validate format Illumina FastQ file to temp file.
+        ///     Parse a Illumina FastQ file and Format a valid Illumina Qualitative Sequence
+        ///     to FastQ file using Format(file-name) and validate Sequence.
+        ///     Input :Dna Illumina FastQ file
+        ///     Output : Validate format Illumina FastQ file to temp file.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -642,10 +596,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         }
 
         /// <summary>
-        /// Parse a Solexa FastQ file and Format a valid Solexa Qualitative Sequence 
-        /// to FastQ file using Format(file-name) and validate Sequence.
-        /// Input :Dna Solexa FastQ file
-        /// Output : Validate format Solexa FastQ file to temp file.
+        ///     Parse a Solexa FastQ file and Format a valid Solexa Qualitative Sequence
+        ///     to FastQ file using Format(file-name) and validate Sequence.
+        ///     Input :Dna Solexa FastQ file
+        ///     Output : Validate format Solexa FastQ file to temp file.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -656,10 +610,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         }
 
         /// <summary>
-        /// Parse a Sanger FastQ file and Format a valid Sanger Qualitative Sequence 
-        /// to FastQ file using Format(file-name) and validate Sequence.
-        /// Input : Rna Sanger FastQ file
-        /// Output : Validate format Sanger FastQ file to temp file.
+        ///     Parse a Sanger FastQ file and Format a valid Sanger Qualitative Sequence
+        ///     to FastQ file using Format(file-name) and validate Sequence.
+        ///     Input : Rna Sanger FastQ file
+        ///     Output : Validate format Sanger FastQ file to temp file.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -670,10 +624,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         }
 
         /// <summary>
-        /// Parse a Illumina FastQ file and Format a valid Illumina Qualitative Sequence 
-        /// to FastQ file using Format(file-name) and validate Sequence.
-        /// Input : Rna Illumina FastQ file
-        /// Output : Validate format Illumina FastQ file to temp file.
+        ///     Parse a Illumina FastQ file and Format a valid Illumina Qualitative Sequence
+        ///     to FastQ file using Format(file-name) and validate Sequence.
+        ///     Input : Rna Illumina FastQ file
+        ///     Output : Validate format Illumina FastQ file to temp file.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -684,10 +638,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         }
 
         /// <summary>
-        /// Parse a Solexa FastQ file and Format a valid Solexa Qualitative Sequence 
-        /// to FastQ file using Format(file-name) and validate Sequence.
-        /// Input : Rna Solexa FastQ file
-        /// Output : Validate format Solexa FastQ file to temp file.
+        ///     Parse a Solexa FastQ file and Format a valid Solexa Qualitative Sequence
+        ///     to FastQ file using Format(file-name) and validate Sequence.
+        ///     Input : Rna Solexa FastQ file
+        ///     Output : Validate format Solexa FastQ file to temp file.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -698,10 +652,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         }
 
         /// <summary>
-        /// Parse a Sanger FastQ file and Format a valid Sanger Qualitative Sequence 
-        /// to FastQ file using Format(file-name) and validate Sequence.
-        /// Input : Protein Sanger FastQ file
-        /// Output : Validate format Sanger FastQ file to temp file.
+        ///     Parse a Sanger FastQ file and Format a valid Sanger Qualitative Sequence
+        ///     to FastQ file using Format(file-name) and validate Sequence.
+        ///     Input : Protein Sanger FastQ file
+        ///     Output : Validate format Sanger FastQ file to temp file.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -712,10 +666,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         }
 
         /// <summary>
-        /// Parse a Illumina FastQ file and Format a valid Illumina Qualitative Sequence 
-        /// to FastQ file using Format(file-name) and validate Sequence.
-        /// Input : Protein Illumina FastQ file
-        /// Output : Validate format Illumina FastQ file to temp file.
+        ///     Parse a Illumina FastQ file and Format a valid Illumina Qualitative Sequence
+        ///     to FastQ file using Format(file-name) and validate Sequence.
+        ///     Input : Protein Illumina FastQ file
+        ///     Output : Validate format Illumina FastQ file to temp file.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -726,10 +680,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         }
 
         /// <summary>
-        /// Parse a Solexa FastQ file and Format a valid Solexa Qualitative Sequence 
-        /// to FastQ file using Format(file-name) and validate Sequence.
-        /// Input : Protein Solexa FastQ file
-        /// Output : Validate format Solexa FastQ file to temp file.
+        ///     Parse a Solexa FastQ file and Format a valid Solexa Qualitative Sequence
+        ///     to FastQ file using Format(file-name) and validate Sequence.
+        ///     Input : Protein Solexa FastQ file
+        ///     Output : Validate format Solexa FastQ file to temp file.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -740,10 +694,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         }
 
         /// <summary>
-        /// Parse a Dna Sanger FastQ file and Format a valid Sanger Qualitative Sequence 
-        /// to FastQ file using Format(text-writer) and validate Sequence.
-        /// Input :Dna Sanger FastQ file
-        /// Output : Validate format Sanger FastQ file to temp file.
+        ///     Parse a Dna Sanger FastQ file and Format a valid Sanger Qualitative Sequence
+        ///     to FastQ file using Format(text-writer) and validate Sequence.
+        ///     Input :Dna Sanger FastQ file
+        ///     Output : Validate format Sanger FastQ file to temp file.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -754,10 +708,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         }
 
         /// <summary>
-        /// Parse a Dna Illumina FastQ file and Format a valid Sanger Qualitative Sequence 
-        /// to FastQ file using Format(text-writer) and validate Sequence.
-        /// Input :Dna Illumina FastQ file
-        /// Output : Validate format Illumina FastQ file to temp file.
+        ///     Parse a Dna Illumina FastQ file and Format a valid Sanger Qualitative Sequence
+        ///     to FastQ file using Format(text-writer) and validate Sequence.
+        ///     Input :Dna Illumina FastQ file
+        ///     Output : Validate format Illumina FastQ file to temp file.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -768,10 +722,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         }
 
         /// <summary>
-        /// Parse a Dna Solexa FastQ file and Format a valid Solexa Qualitative Sequence 
-        /// to FastQ file using Format(text-writer) and validate Sequence.
-        /// Input :Dna Solexa FastQ file
-        /// Output : Validate format Solexa FastQ file to temp file.
+        ///     Parse a Dna Solexa FastQ file and Format a valid Solexa Qualitative Sequence
+        ///     to FastQ file using Format(text-writer) and validate Sequence.
+        ///     Input :Dna Solexa FastQ file
+        ///     Output : Validate format Solexa FastQ file to temp file.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -782,10 +736,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         }
 
         /// <summary>
-        /// Parse a Rna Sanger FastQ file and Format a valid Sanger Qualitative Sequence 
-        /// to FastQ file using Format(text-writer) and validate Sequence.
-        /// Input :Rna Sanger FastQ file
-        /// Output : Validate format Sanger FastQ file to temp file.
+        ///     Parse a Rna Sanger FastQ file and Format a valid Sanger Qualitative Sequence
+        ///     to FastQ file using Format(text-writer) and validate Sequence.
+        ///     Input :Rna Sanger FastQ file
+        ///     Output : Validate format Sanger FastQ file to temp file.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -796,10 +750,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         }
 
         /// <summary>
-        /// Parse a Rna Illumina FastQ file and Format a valid Sanger Qualitative Sequence 
-        /// to FastQ file using Format(text-writer) and validate Sequence.
-        /// Input :Rna Illumina FastQ file
-        /// Output : Validate format Illumina FastQ file to temp file.
+        ///     Parse a Rna Illumina FastQ file and Format a valid Sanger Qualitative Sequence
+        ///     to FastQ file using Format(text-writer) and validate Sequence.
+        ///     Input :Rna Illumina FastQ file
+        ///     Output : Validate format Illumina FastQ file to temp file.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -810,10 +764,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         }
 
         /// <summary>
-        /// Parse a Rna Solexa FastQ file and Format a valid Solexa Qualitative Sequence 
-        /// to FastQ file using Format(text-writer) and validate Sequence.
-        /// Input :Rna Solexa FastQ file
-        /// Output : Validate format Solexa FastQ file to temp file.
+        ///     Parse a Rna Solexa FastQ file and Format a valid Solexa Qualitative Sequence
+        ///     to FastQ file using Format(text-writer) and validate Sequence.
+        ///     Input :Rna Solexa FastQ file
+        ///     Output : Validate format Solexa FastQ file to temp file.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -824,10 +778,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         }
 
         /// <summary>
-        /// Parse a Protein Sanger FastQ file and Format a valid Sanger Qualitative Sequence 
-        /// to FastQ file using Format(text-writer) and validate Sequence.
-        /// Input :Protein Sanger FastQ file
-        /// Output : Validate format Sanger FastQ file to temp file.
+        ///     Parse a Protein Sanger FastQ file and Format a valid Sanger Qualitative Sequence
+        ///     to FastQ file using Format(text-writer) and validate Sequence.
+        ///     Input :Protein Sanger FastQ file
+        ///     Output : Validate format Sanger FastQ file to temp file.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -838,10 +792,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         }
 
         /// <summary>
-        /// Parse a Protein Illumina FastQ file and Format a valid Sanger Qualitative Sequence 
-        /// to FastQ file using Format(text-writer) and validate Sequence.
-        /// Input :Protein Illumina FastQ file
-        /// Output : Validate format Illumina FastQ file to temp file.
+        ///     Parse a Protein Illumina FastQ file and Format a valid Sanger Qualitative Sequence
+        ///     to FastQ file using Format(text-writer) and validate Sequence.
+        ///     Input :Protein Illumina FastQ file
+        ///     Output : Validate format Illumina FastQ file to temp file.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -852,10 +806,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         }
 
         /// <summary>
-        /// Parse a Protein Solexa FastQ file and Format a valid Solexa Qualitative Sequence 
-        /// to FastQ file using Format(text-writer) and validate Sequence.
-        /// Input :Protein Solexa FastQ file
-        /// Output : Validate format Solexa FastQ file to temp file.
+        ///     Parse a Protein Solexa FastQ file and Format a valid Solexa Qualitative Sequence
+        ///     to FastQ file using Format(text-writer) and validate Sequence.
+        ///     Input :Protein Solexa FastQ file
+        ///     Output : Validate format Solexa FastQ file to temp file.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -866,11 +820,11 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         }
 
         /// <summary>
-        /// Format a medium size Solexa Qualitative sequence to FastQ
-        /// file.using format(Text-Writer) method and validate the same.
-        /// Input Data : Solexa Medium size sequence.
-        /// Output Data : Validation of fromatting medium size Solexa 
-        /// qualitative sequence to valid FastQ file.
+        ///     Format a medium size Solexa Qualitative sequence to FastQ
+        ///     file.using format(Text-Writer) method and validate the same.
+        ///     Input Data : Solexa Medium size sequence.
+        ///     Output Data : Validation of fromatting medium size Solexa
+        ///     qualitative sequence to valid FastQ file.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -881,11 +835,11 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         }
 
         /// <summary>
-        /// Format a medium size Illumina Qualitative sequence to FastQ
-        /// file.using format(Text-Writer) method and validate the same.
-        /// Input Data : Illumina Medium size sequence.
-        /// Output Data : Validation of fromatting medium size Illumina 
-        /// qualitative sequence to valid FastQ file.
+        ///     Format a medium size Illumina Qualitative sequence to FastQ
+        ///     file.using format(Text-Writer) method and validate the same.
+        ///     Input Data : Illumina Medium size sequence.
+        ///     Output Data : Validation of fromatting medium size Illumina
+        ///     qualitative sequence to valid FastQ file.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -896,11 +850,11 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         }
 
         /// <summary>
-        /// Format a medium size Sanger Qualitative sequence to FastQ
-        /// file.using format(Text-Writer) method and validate the same.
-        /// Input Data : Sanger Medium size sequence.
-        /// Output Data : Validation of fromatting medium size sanger 
-        /// qualitative sequence to valid FastQ file.
+        ///     Format a medium size Sanger Qualitative sequence to FastQ
+        ///     file.using format(Text-Writer) method and validate the same.
+        ///     Input Data : Sanger Medium size sequence.
+        ///     Output Data : Validation of fromatting medium size sanger
+        ///     qualitative sequence to valid FastQ file.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -911,11 +865,11 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         }
 
         /// <summary>
-        /// Format a medium size Solexa Qualitative sequence to FastQ
-        /// file.using format(file-name) method and validate the same.
-        /// Input Data : Solexa Medium size sequence.
-        /// Output Data : Validation of fromatting medium size Solexa 
-        /// qualitative sequence to valid FastQ file.
+        ///     Format a medium size Solexa Qualitative sequence to FastQ
+        ///     file.using format(file-name) method and validate the same.
+        ///     Input Data : Solexa Medium size sequence.
+        ///     Output Data : Validation of fromatting medium size Solexa
+        ///     qualitative sequence to valid FastQ file.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -926,11 +880,11 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         }
 
         /// <summary>
-        /// Format a medium size Illumina Qualitative sequence to FastQ
-        /// file.using format(file-name) method and validate the same.
-        /// Input Data : Illumina Medium size sequence.
-        /// Output Data : Validation of fromatting medium size Illumina 
-        /// qualitative sequence to valid FastQ file.
+        ///     Format a medium size Illumina Qualitative sequence to FastQ
+        ///     file.using format(file-name) method and validate the same.
+        ///     Input Data : Illumina Medium size sequence.
+        ///     Output Data : Validation of fromatting medium size Illumina
+        ///     qualitative sequence to valid FastQ file.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -941,11 +895,11 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         }
 
         /// <summary>
-        /// Format a medium size Sanger Qualitative sequence to FastQ
-        /// file.using format(file-name) method and validate the same.
-        /// Input Data : Sanger Medium size sequence.
-        /// Output Data : Validation of fromatting medium size sanger 
-        /// qualitative sequence to valid FastQ file.
+        ///     Format a medium size Sanger Qualitative sequence to FastQ
+        ///     file.using format(file-name) method and validate the same.
+        ///     Input Data : Sanger Medium size sequence.
+        ///     Output Data : Validation of fromatting medium size sanger
+        ///     qualitative sequence to valid FastQ file.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -956,11 +910,11 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         }
 
         /// <summary>
-        /// Format a Large size(>100KB) Sanger Qualitative sequence to FastQ
-        /// file.using Format() method and validate the same.
-        /// Input Data : Sanger Large size sequence.
-        /// Output Data : Validation of fromatting Large size Sanger 
-        /// qualitative sequence to valid FastQ file.
+        ///     Format a Large size(>100KB) Sanger Qualitative sequence to FastQ
+        ///     file.using Format() method and validate the same.
+        ///     Input Data : Sanger Large size sequence.
+        ///     Output Data : Validation of fromatting Large size Sanger
+        ///     qualitative sequence to valid FastQ file.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -968,15 +922,15 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         public void FastQFormatLargeSizeDnaSangerSeq()
         {
             ValidateFastQFormatByFormattingQualSeqeunce(
-              Constants.LargeSizeDnaSangerFastQNode);
+                Constants.LargeSizeDnaSangerFastQNode);
         }
 
         /// <summary>
-        /// Format a Large size(>100KB) Illumina Qualitative sequence to FastQ
-        /// file.using Format() method and validate the same.
-        /// Input Data : Illumina Large size sequence.
-        /// Output Data : Validation of fromatting Large size Illumina 
-        /// qualitative sequence to valid FastQ file.
+        ///     Format a Large size(>100KB) Illumina Qualitative sequence to FastQ
+        ///     file.using Format() method and validate the same.
+        ///     Input Data : Illumina Large size sequence.
+        ///     Output Data : Validation of fromatting Large size Illumina
+        ///     qualitative sequence to valid FastQ file.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -984,15 +938,15 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         public void FastQFormatLargeSizeDnaIlluminaSeq()
         {
             ValidateFastQFormatByFormattingQualSeqeunce(
-              Constants.LargeSizeDnaIlluminaFastQNode);
+                Constants.LargeSizeDnaIlluminaFastQNode);
         }
 
         /// <summary>
-        /// Format a Large size(>100KB) Solexa Qualitative sequence to FastQ
-        /// file.using Format() method and validate the same.
-        /// Input Data : Solexa Large size sequence.
-        /// Output Data : Validation of fromatting Large size Solexa 
-        /// qualitative sequence to valid FastQ file.
+        ///     Format a Large size(>100KB) Solexa Qualitative sequence to FastQ
+        ///     file.using Format() method and validate the same.
+        ///     Input Data : Solexa Large size sequence.
+        ///     Output Data : Validation of fromatting Large size Solexa
+        ///     qualitative sequence to valid FastQ file.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -1000,15 +954,15 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         public void FastQFormatLargeSizeDnaSolexaSeq()
         {
             ValidateFastQFormatByFormattingQualSeqeunce(
-              Constants.LargeSizeDnaSolexaFastQNode);
+                Constants.LargeSizeDnaSolexaFastQNode);
         }
 
         /// <summary>
-        /// Parse and Format a Large size(>100KB) Sanger Qualitative sequence
-        /// to FastQ file.using Format() method and validate the same.
-        /// Input Data : Sanger Large size sequence.
-        /// Output Data : Validation of fromatting Large size Sanger 
-        /// qualitative sequence to valid FastQ file.
+        ///     Parse and Format a Large size(>100KB) Sanger Qualitative sequence
+        ///     to FastQ file.using Format() method and validate the same.
+        ///     Input Data : Sanger Large size sequence.
+        ///     Output Data : Validation of fromatting Large size Sanger
+        ///     qualitative sequence to valid FastQ file.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -1019,11 +973,11 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         }
 
         /// <summary>
-        /// Parse and Format a Large size(>100KB) Illumina Qualitative sequence
-        /// to FastQ file.using Format() method and validate the same.
-        /// Input Data : Illumina Large size sequence.
-        /// Output Data : Validation of fromatting Large size Illumina 
-        /// qualitative sequence to valid FastQ file.
+        ///     Parse and Format a Large size(>100KB) Illumina Qualitative sequence
+        ///     to FastQ file.using Format() method and validate the same.
+        ///     Input Data : Illumina Large size sequence.
+        ///     Output Data : Validation of fromatting Large size Illumina
+        ///     qualitative sequence to valid FastQ file.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -1034,11 +988,11 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         }
 
         /// <summary>
-        /// Parse and Format a Large size(>100KB) Solexa Qualitative sequence
-        /// to FastQ file.using Format() method and validate the same.
-        /// Input Data : Solexa Large size sequence.
-        /// Output Data : Validation of fromatting Large size Solexa 
-        /// qualitative sequence to valid FastQ file.
+        ///     Parse and Format a Large size(>100KB) Solexa Qualitative sequence
+        ///     to FastQ file.using Format() method and validate the same.
+        ///     Input Data : Solexa Large size sequence.
+        ///     Output Data : Validation of fromatting Large size Solexa
+        ///     qualitative sequence to valid FastQ file.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -1049,10 +1003,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         }
 
         /// <summary>
-        /// Parse and Format a Sanger Qualitative Dna Rna sequence
-        /// to FastQ file.using Format() method and validate the same.
-        /// Input Data : Sanger Dna Rna multi sequence file.
-        /// Output Data : Validation of Multi sequence FastQ format.
+        ///     Parse and Format a Sanger Qualitative Dna Rna sequence
+        ///     to FastQ file.using Format() method and validate the same.
+        ///     Input Data : Sanger Dna Rna multi sequence file.
+        ///     Output Data : Validation of Multi sequence FastQ format.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -1063,10 +1017,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         }
 
         /// <summary>
-        /// Parse and Format a Illumina Qualitative Dna Rna sequence
-        /// to FastQ file.using Format() method and validate the same.
-        /// Input Data : Illumina Dna Rna multi sequence file.
-        /// Output Data : Validation of Multi sequence FastQ format.
+        ///     Parse and Format a Illumina Qualitative Dna Rna sequence
+        ///     to FastQ file.using Format() method and validate the same.
+        ///     Input Data : Illumina Dna Rna multi sequence file.
+        ///     Output Data : Validation of Multi sequence FastQ format.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -1077,10 +1031,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         }
 
         /// <summary>
-        /// Parse and Format a Solexa Qualitative Dna Rna sequence
-        /// to FastQ file.using Format() method and validate the same.
-        /// Input Data : Solexa Dna Rna multi sequence file.
-        /// Output Data : Validation of Multi sequence FastQ format.
+        ///     Parse and Format a Solexa Qualitative Dna Rna sequence
+        ///     to FastQ file.using Format() method and validate the same.
+        ///     Input Data : Solexa Dna Rna multi sequence file.
+        ///     Output Data : Validation of Multi sequence FastQ format.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -1091,10 +1045,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         }
 
         /// <summary>
-        /// Parse and Format a Sanger Qualitative Rna Protein sequence
-        /// to FastQ file.using Format() method and validate the same.
-        /// Input Data : Sanger Rna Protein multi sequence file.
-        /// Output Data : Validation of Multi sequence FastQ format.
+        ///     Parse and Format a Sanger Qualitative Rna Protein sequence
+        ///     to FastQ file.using Format() method and validate the same.
+        ///     Input Data : Sanger Rna Protein multi sequence file.
+        ///     Output Data : Validation of Multi sequence FastQ format.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -1105,10 +1059,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         }
 
         /// <summary>
-        /// Parse and Format a Illumina Qualitative Rna Protein sequence
-        /// to FastQ file.using Format() method and validate the same.
-        /// Input Data : Illumina Rna Protein multi sequence file.
-        /// Output Data : Validation of Multi sequence FastQ format.
+        ///     Parse and Format a Illumina Qualitative Rna Protein sequence
+        ///     to FastQ file.using Format() method and validate the same.
+        ///     Input Data : Illumina Rna Protein multi sequence file.
+        ///     Output Data : Validation of Multi sequence FastQ format.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -1119,10 +1073,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         }
 
         /// <summary>
-        /// Parse and Format a Solexa Qualitative Rna Protein sequence
-        /// to FastQ file.using Format() method and validate the same.
-        /// Input Data : Solexa Rna Protein multi sequence file.
-        /// Output Data : Validation of Multi sequence FastQ format.
+        ///     Parse and Format a Solexa Qualitative Rna Protein sequence
+        ///     to FastQ file.using Format() method and validate the same.
+        ///     Input Data : Solexa Rna Protein multi sequence file.
+        ///     Output Data : Validation of Multi sequence FastQ format.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -1133,10 +1087,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         }
 
         /// <summary>
-        /// Parse and Format a Sanger Qualitative Dna Protein sequence
-        /// to FastQ file.using Format() method and validate the same.
-        /// Input Data : Sanger Dna Protein multi sequence file.
-        /// Output Data : Validation of Multi sequence FastQ format.
+        ///     Parse and Format a Sanger Qualitative Dna Protein sequence
+        ///     to FastQ file.using Format() method and validate the same.
+        ///     Input Data : Sanger Dna Protein multi sequence file.
+        ///     Output Data : Validation of Multi sequence FastQ format.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -1147,10 +1101,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         }
 
         /// <summary>
-        /// Parse and Format a Illumina Qualitative Dna Protein sequence
-        /// to FastQ file.using Format() method and validate the same.
-        /// Input Data : Illumina Dna Protein multi sequence file.
-        /// Output Data : Validation of Multi sequence FastQ format.
+        ///     Parse and Format a Illumina Qualitative Dna Protein sequence
+        ///     to FastQ file.using Format() method and validate the same.
+        ///     Input Data : Illumina Dna Protein multi sequence file.
+        ///     Output Data : Validation of Multi sequence FastQ format.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -1161,10 +1115,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         }
 
         /// <summary>
-        /// Parse and Format a Solexa Qualitative Dna Protein sequence
-        /// to FastQ file.using Format() method and validate the same.
-        /// Input Data : Solexa Dna Protein multi sequence file.
-        /// Output Data : Validation of Multi sequence FastQ format.
+        ///     Parse and Format a Solexa Qualitative Dna Protein sequence
+        ///     to FastQ file.using Format() method and validate the same.
+        ///     Input Data : Solexa Dna Protein multi sequence file.
+        ///     Output Data : Validation of Multi sequence FastQ format.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -1175,10 +1129,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         }
 
         /// <summary>
-        /// Parse and Format a Sanger Qualitative Dna Rna Protein sequence
-        /// to FastQ file.using Format() method and validate the same.
-        /// Input Data : Sanger Dna Rna Protein multi sequence file.
-        /// Output Data : Validation of Multi sequence FastQ format.
+        ///     Parse and Format a Sanger Qualitative Dna Rna Protein sequence
+        ///     to FastQ file.using Format() method and validate the same.
+        ///     Input Data : Sanger Dna Rna Protein multi sequence file.
+        ///     Output Data : Validation of Multi sequence FastQ format.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -1189,10 +1143,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         }
 
         /// <summary>
-        /// Parse and Format a Illumina Qualitative Dna Rna Protein sequence
-        /// to FastQ file.using Format() method and validate the same.
-        /// Input Data : Illumina Dna Rna Protein multi sequence file.
-        /// Output Data : Validation of Multi sequence FastQ format.
+        ///     Parse and Format a Illumina Qualitative Dna Rna Protein sequence
+        ///     to FastQ file.using Format() method and validate the same.
+        ///     Input Data : Illumina Dna Rna Protein multi sequence file.
+        ///     Output Data : Validation of Multi sequence FastQ format.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -1203,10 +1157,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         }
 
         /// <summary>
-        /// Parse and Format a Solexa Qualitative Dna Rna Protein sequence
-        /// to FastQ file.using Format() method and validate the same.
-        /// Input Data : Solexa Dna Rna Protein multi sequence file.
-        /// Output Data : Validation of Multi sequence FastQ format.
+        ///     Parse and Format a Solexa Qualitative Dna Rna Protein sequence
+        ///     to FastQ file.using Format() method and validate the same.
+        ///     Input Data : Solexa Dna Rna Protein multi sequence file.
+        ///     Output Data : Validation of Multi sequence FastQ format.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -1217,11 +1171,11 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         }
 
         /// <summary>
-        /// Parse a valid small size Dna FastQ file and convert the same to 
-        /// sequence using parse(file-name) method and validate with the 
-        /// expected sequence.
-        /// Input : Dna FastQ file with Sanger format.
-        /// Output : Validation of Expected sequence.
+        ///     Parse a valid small size Dna FastQ file and convert the same to
+        ///     sequence using parse(file-name) method and validate with the
+        ///     expected sequence.
+        ///     Input : Dna FastQ file with Sanger format.
+        ///     Output : Validation of Expected sequence.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -1229,8 +1183,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         public void ValidateFastQParserBasicSequenceWithDnaSanger()
         {
             ValidateBasicSequenceParser(
-                Constants.SimpleSangerFastQNode,
-                FastQFileParameters.ParseFileName);
+                Constants.SimpleSangerFastQNode);
         }
 
         #endregion FastQ P1 Test cases
@@ -1238,150 +1191,103 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         #region Supporting Methods
 
         /// <summary>
-        /// General method to validate FastQ Parser.
-        /// <param name="nodeName">xml node name.</param>
-        /// <param name="fastQProperty">FastQ Parser properties.</param>
+        ///     General method to validate FastQ Parser.
+        ///     <param name="nodeName">xml node name.</param>
         /// </summary>
-        void ValidateFastQParser(string nodeName,
-          FastQPropertyParameters fastQProperty)
+        private void ValidateFastQParser(string nodeName)
         {
             // Gets the expected sequence from the Xml
-            string filePath = utilityObj.xmlUtil.GetTextValue(
-              nodeName, Constants.FilePathNode);
-            string expectedQualitativeSequence = utilityObj.xmlUtil.GetTextValue(
-              nodeName, Constants.ExpectedSequenceNode);
-            string expectedSequenceId = utilityObj.xmlUtil.GetTextValue(
-              nodeName, Constants.SequenceIdNode);
-            string expectedSeqCount = utilityObj.xmlUtil.GetTextValue(
-              nodeName, Constants.SeqsCount);
-            IAlphabet alphabet = Utility.GetAlphabet(utilityObj.xmlUtil.GetTextValue(
-               nodeName, Constants.AlphabetNameNodeV2));
-            FastQParser fastQParserObj = new FastQParser(filePath);
-
-            try
+            string filePath = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode);
+            string expectedQualitativeSequence = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.ExpectedSequenceNode);
+            string expectedSequenceId = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.SequenceIdNode);
+            string expectedSeqCount = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.SeqsCount);
+            IAlphabet alphabet = Utility.GetAlphabet(utilityObj.xmlUtil.GetTextValue(nodeName, Constants.AlphabetNameNodeV2));
+            
+            using (var fastQParserObj = new FastQParser(filePath))
             {
-                IEnumerable<QualitativeSequence> qualSequenceList = null;
-                qualSequenceList = fastQParserObj.Parse();
-
                 // Validate qualitative Sequence upon parsing FastQ file.
-                Assert.AreEqual(expectedSeqCount, qualSequenceList.Count().ToString((IFormatProvider)null));
-                Assert.AreEqual(expectedQualitativeSequence, new string(qualSequenceList.ElementAt(0).Select(a => (char)a).ToArray()));
-                Assert.AreEqual(expectedSequenceId, qualSequenceList.ElementAt(0).ID.ToString((IFormatProvider)null));
-                Assert.AreEqual(alphabet, qualSequenceList.ElementAt(0).Alphabet);
-
-                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                  "FastQ Parser P1: The FASTQ sequence '{0}' validation after Parse() is found to be as expected.",
-                  qualSequenceList.ElementAt(0)));
-
-                // Logs to the VSTest GUI (Console.Out) window
-                Console.WriteLine(string.Format((IFormatProvider)null,
-                  "FastQ Parser P1: The FASTQ sequence ID '{0}' validation after Parse() is found to be as expected.",
-                  new string(qualSequenceList.ElementAt(0).Select(a => (char)a).ToArray())));
-                Console.WriteLine(string.Format((IFormatProvider)null,
-                  "FastQ Parser P1: The FASTQ sequence ID '{0}' validation after Parse() is found to be as expected.",
-                  qualSequenceList.ElementAt(0).ID.ToString((IFormatProvider)null)));
-            }
-            finally
-            {
-                fastQParserObj.Dispose();
+                IList<QualitativeSequence> qualSequenceList = fastQParserObj.Parse().ToList();
+                Assert.AreEqual(expectedSeqCount, qualSequenceList.Count.ToString((IFormatProvider) null));
+                Assert.AreEqual(expectedQualitativeSequence, qualSequenceList[0].ConvertToString());
+                Assert.AreEqual(expectedSequenceId, qualSequenceList[0].ID.ToString(null));
+                Assert.AreEqual(alphabet, qualSequenceList[0].Alphabet);
             }
         }
 
         /// <summary>
-        /// General method to validate FastQ Parser for Multiple sequence with 
-        /// different alphabets.
-        /// <param name="nodeName">xml node name.</param>
-        /// <param name="triSeq">Tri Sequence</param>
+        ///     General method to validate FastQ Parser for Multiple sequence with
+        ///     different alphabets.
+        ///     <param name="nodeName">xml node name.</param>
+        ///     <param name="triSeq">Tri Sequence</param>
         /// </summary>
-        void ValidateMulitpleSequenceFastQParser(string nodeName, string triSeq)
+        private void ValidateMulitpleSequenceFastQParser(string nodeName, string triSeq)
         {
             // Gets the expected sequence from the Xml
             string filePath = utilityObj.xmlUtil.GetTextValue(
-              nodeName, Constants.FilePathNode);
+                nodeName, Constants.FilePathNode);
             string expectedFirstQualitativeSequence = utilityObj.xmlUtil.GetTextValue(
-              nodeName, Constants.ExpectedSequence1Node);
+                nodeName, Constants.ExpectedSequence1Node);
             string expectedSecondQualitativeSequence = utilityObj.xmlUtil.GetTextValue(
-              nodeName, Constants.ExpectedSequence2Node);
+                nodeName, Constants.ExpectedSequence2Node);
             string expectedthirdQualitativeSequence = utilityObj.xmlUtil.GetTextValue(
-              nodeName, Constants.ExpectedSequence3Node);
+                nodeName, Constants.ExpectedSequence3Node);
             string expectedSequenceId = utilityObj.xmlUtil.GetTextValue(
-              nodeName, Constants.SequenceIdNode);
+                nodeName, Constants.SequenceIdNode);
             string expectedSeqCount = utilityObj.xmlUtil.GetTextValue(
-              nodeName, Constants.SeqsCount);
+                nodeName, Constants.SeqsCount);
 
             // Parse a multiple sequence FastQ file.
-            using (FastQParser fastQParserObj = new FastQParser(filePath))
+            using (var fastQParserObj = new FastQParser(filePath))
             {
                 IEnumerable<QualitativeSequence> qualSequenceList = null;
                 qualSequenceList = fastQParserObj.Parse();
 
                 // Validate first qualitative Sequence upon parsing FastQ file.
-                Assert.AreEqual(qualSequenceList.Count().ToString((IFormatProvider)null), expectedSeqCount);
-                Assert.AreEqual(new string(qualSequenceList.ElementAt(0).Select(a => (char)a).ToArray()),
-                  expectedFirstQualitativeSequence);
-                Assert.AreEqual(qualSequenceList.ElementAt(0).ID.ToString((IFormatProvider)null), expectedSequenceId);
+                Assert.AreEqual(qualSequenceList.Count().ToString((IFormatProvider) null), expectedSeqCount);
+                Assert.AreEqual(new string(qualSequenceList.ElementAt(0).Select(a => (char) a).ToArray()),
+                                expectedFirstQualitativeSequence);
+                Assert.AreEqual(qualSequenceList.ElementAt(0).ID.ToString(null), expectedSequenceId);
 
                 // Validate second qualitative Sequence upon parsing FastQ file.
-                Assert.AreEqual(qualSequenceList.Count().ToString((IFormatProvider)null), expectedSeqCount);
-                Assert.AreEqual(new string(qualSequenceList.ElementAt(1).Select(a => (char)a).ToArray()),
-                  expectedSecondQualitativeSequence);
-                Assert.AreEqual(qualSequenceList.ElementAt(1).ID.ToString((IFormatProvider)null), expectedSequenceId);
+                Assert.AreEqual(qualSequenceList.Count().ToString((IFormatProvider) null), expectedSeqCount);
+                Assert.AreEqual(new string(qualSequenceList.ElementAt(1).Select(a => (char) a).ToArray()),
+                                expectedSecondQualitativeSequence);
+                Assert.AreEqual(qualSequenceList.ElementAt(1).ID.ToString(null), expectedSequenceId);
 
                 // Validate third sequence in FastQ file if it is tri sequence FastQ file.
                 if (0 == string.Compare(triSeq, "MultiSequenceFastQ",
-                    CultureInfo.CurrentCulture, CompareOptions.IgnoreCase))
+                                        CultureInfo.CurrentCulture, CompareOptions.IgnoreCase))
                 {
                     // Validate second qualitative Sequence upon parsing FastQ file.
-                    Assert.AreEqual(qualSequenceList.Count().ToString((IFormatProvider)null), expectedSeqCount);
-                    Assert.AreEqual(new string(qualSequenceList.ElementAt(2).Select(a => (char)a).ToArray()),
-                      expectedthirdQualitativeSequence);
-                    Assert.AreEqual(qualSequenceList.ElementAt(2).ID.ToString((IFormatProvider)null), expectedSequenceId);
-
-                    Console.WriteLine(string.Format((IFormatProvider)null,
-                      "FastQ Parser P1: The FASTQ sequence ID '{0}' validation after Parse() is found to be as expected.",
-                      new string(qualSequenceList.ElementAt(2).Select(a => (char)a).ToArray())));
-                    Console.WriteLine(string.Format((IFormatProvider)null,
-                      "FastQ Parser P1: The FASTQ sequence ID '{0}' validation after Parse() is found to be as expected.",
-                      qualSequenceList.ElementAt(2).ID.ToString((IFormatProvider)null)));
+                    Assert.AreEqual(qualSequenceList.Count().ToString((IFormatProvider) null), expectedSeqCount);
+                    Assert.AreEqual(new string(qualSequenceList.ElementAt(2).Select(a => (char) a).ToArray()),
+                                    expectedthirdQualitativeSequence);
+                    Assert.AreEqual(qualSequenceList.ElementAt(2).ID.ToString(null), expectedSequenceId);
                 }
 
-                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                  "FastQ Parser P1: The FASTQ sequence '{0}' validation after Parse() is found to be as expected.",
-                  qualSequenceList.ElementAt(0)));
-
-                // Logs to the VSTest GUI (Console.Out) window
-                Console.WriteLine(string.Format((IFormatProvider)null,
-                  "FastQ Parser P1: The FASTQ sequence ID '{0}' validation after Parse() is found to be as expected.",
-                  new string(qualSequenceList.ElementAt(0).Select(a => (char)a).ToArray())));
-                Console.WriteLine(string.Format((IFormatProvider)null,
-                  "FastQ Parser P1: The FASTQ sequence ID '{0}' validation after Parse() is found to be as expected.",
-                  qualSequenceList.ElementAt(0).ID.ToString((IFormatProvider)null)));
-                Console.WriteLine(string.Format((IFormatProvider)null,
-                  "FastQ Parser P1: The FASTQ sequence ID '{0}' validation after Parse() is found to be as expected.",
-                  new string(qualSequenceList.ElementAt(1).Select(a => (char)a).ToArray())));
-                Console.WriteLine(string.Format((IFormatProvider)null,
-                  "FastQ Parser P1: The FASTQ sequence ID '{0}' validation after Parse() is found to be as expected.",
-                  qualSequenceList.ElementAt(1).ID.ToString((IFormatProvider)null)));
+                ApplicationLog.WriteLine(string.Format(null,
+                                                       "FastQ Parser P1: The FASTQ sequence '{0}' validation after Parse() is found to be as expected.",
+                                                       qualSequenceList.ElementAt(0)));
             }
         }
 
 
         /// <summary>
-        /// General method to validate FastQ formatting 
-        /// Qualitative Sequence by passing TextWriter as a parameter
-        /// <param name="nodeName">xml node name.</param>
+        ///     General method to validate FastQ formatting
+        ///     Qualitative Sequence by passing TextWriter as a parameter
+        ///     <param name="nodeName">xml node name.</param>
         /// </summary>
-        void ValidateFastQFormatByFormattingQualSeqeunce(string nodeName)
+        private void ValidateFastQFormatByFormattingQualSeqeunce(string nodeName)
         {
             // Gets the actual sequence and the alphabet from the Xml
             IAlphabet alphabet = Utility.GetAlphabet(utilityObj.xmlUtil.GetTextValue(
-              nodeName, Constants.AlphabetNameNodeV2));
+                nodeName, Constants.AlphabetNameNodeV2));
             FastQFormatType expectedFormatType = Utility.GetFastQFormatType(
-              utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FastQFormatType));
+                utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FastQFormatType));
             string qualSequence = utilityObj.xmlUtil.GetTextValue(
-              nodeName, Constants.ExpectedSequenceNode);
+                nodeName, Constants.ExpectedSequenceNode);
             string expectedQualitativeSequence = utilityObj.xmlUtil.GetTextValue(
-              nodeName, Constants.ExpectedSequenceNode);            
+                nodeName, Constants.ExpectedSequenceNode);
             string qualityScores = null;
             int i;
 
@@ -1390,41 +1296,33 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
                 qualityScores = qualityScores + "}";
             }
 
-            byte[] seq = UTF8Encoding.UTF8.GetBytes(qualSequence);
-            byte[] qScore = UTF8Encoding.UTF8.GetBytes(qualityScores);
-            string tempFileName = System.IO.Path.GetTempFileName();
+            byte[] seq = Encoding.UTF8.GetBytes(qualSequence);
+            byte[] qScore = Encoding.UTF8.GetBytes(qualityScores);
+            string tempFileName = Path.GetTempFileName();
             // Create a Qualitative Sequence.
 
-            QualitativeSequence qualSeq = new QualitativeSequence(
-              alphabet, expectedFormatType, seq, qScore);
+            var qualSeq = new QualitativeSequence(
+                alphabet, expectedFormatType, seq, qScore);
 
-            using (FastQFormatter formatter = new FastQFormatter(tempFileName))
+            using (var formatter = new FastQFormatter(tempFileName))
             {
                 formatter.Write(qualSeq);
                 formatter.Close();
 
-                using (FastQParser fastQParserObj = new FastQParser(tempFileName))
+                using (var fastQParserObj = new FastQParser(tempFileName))
                 {
-
                     // Read the new file and validate Sequences.
                     IEnumerable<QualitativeSequence> seqsNew =
-                      fastQParserObj.Parse();
+                        fastQParserObj.Parse();
 
                     // Validate qualitative Sequence upon parsing FastQ file.
-                    Assert.AreEqual(new string(seqsNew.ElementAt(0).Select(a => (char)a).ToArray()), expectedQualitativeSequence);
+                    Assert.AreEqual(new string(seqsNew.ElementAt(0).Select(a => (char) a).ToArray()),
+                                    expectedQualitativeSequence);
                     Assert.IsTrue(string.IsNullOrEmpty(seqsNew.ElementAt(0).ID));
 
-                    ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                      "FastQ Parser P1: The FASTQ sequence '{0}' validation after Parse() is found to be as expected.",
-                      seqsNew.ElementAt(0)));
-
-                    // Logs to the VSTest GUI (Console.Out) window
-                    Console.WriteLine(string.Format((IFormatProvider)null,
-                      "FastQ Parser P1: The FASTQ sequence ID '{0}' validation after Parse() is found to be as expected.",
-                      seqsNew.ElementAt(0).ToString()));
-                    Console.WriteLine(string.Format((IFormatProvider)null,
-                      "FastQ Parser P1: The FASTQ sequence ID '{0}' validation after Parse() is found to be as expected.",
-                      seqsNew.ElementAt(0).ID.ToString((IFormatProvider)null)));
+                    ApplicationLog.WriteLine(string.Format(null,
+                                                           "FastQ Parser P1: The FASTQ sequence '{0}' validation after Parse() is found to be as expected.",
+                                                           seqsNew.ElementAt(0)));
                 }
 
                 File.Delete(tempFileName);
@@ -1432,29 +1330,29 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         }
 
         /// <summary>
-        /// General method to validate FastQ Formatter by Passing Writer as parameter.
-        /// <param name="nodeName">xml node name.</param>
-        /// <param name="isTextWriter">FastQ formatter Format() method parameter</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope")]
-        void ValidateFastQFormatter(string nodeName, bool isTextWriter)
+        ///     General method to validate FastQ Formatter by Passing Writer as parameter.
+        ///     <param name="nodeName">xml node name.</param>
+        ///     <param name="isTextWriter">FastQ formatter Format() method parameter</param>
+        [SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope")]
+        private void ValidateFastQFormatter(string nodeName, bool isTextWriter)
         {
             // Gets the expected sequence from the Xml
             string filePath = utilityObj.xmlUtil.GetTextValue(
-              nodeName, Constants.FilePathNode);
+                nodeName, Constants.FilePathNode);
             string expectedQualitativeSequence = utilityObj.xmlUtil.GetTextValue(
-              nodeName, Constants.ExpectedSequenceNode);
+                nodeName, Constants.ExpectedSequenceNode);
             string expectedSequenceId = utilityObj.xmlUtil.GetTextValue(
-              nodeName, Constants.SequenceIdNode);
-            string tempFileName = System.IO.Path.GetTempFileName();
+                nodeName, Constants.SequenceIdNode);
+            string tempFileName = Path.GetTempFileName();
 
             // Parse a FastQ file.
-            using (FastQParser fastQParserObj = new FastQParser(filePath))
+            using (var fastQParserObj = new FastQParser(filePath))
             {
                 FastQParser fastQParserObjNew = null;
                 IEnumerable<QualitativeSequence> seqsNew = null;
                 IEnumerable<QualitativeSequence> qualSequenceList = null;
                 qualSequenceList = fastQParserObj.Parse();
-                FastQFormatter fastQFormatter = new FastQFormatter(tempFileName);
+                var fastQFormatter = new FastQFormatter(tempFileName);
 
                 // Format a Sequence using Text writer.
                 if (isTextWriter)
@@ -1478,44 +1376,37 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
                 }
 
                 // Validate qualitative Sequence upon parsing FastQ file.
-                Assert.AreEqual(new string(seqsNew.ElementAt(0).Select(a => (char)a).ToArray()), expectedQualitativeSequence);
-                Assert.AreEqual(seqsNew.ElementAt(0).ID.ToString((IFormatProvider)null), expectedSequenceId);
+                Assert.AreEqual(new string(seqsNew.ElementAt(0).Select(a => (char) a).ToArray()),
+                                expectedQualitativeSequence);
+                Assert.AreEqual(seqsNew.ElementAt(0).ID.ToString(null), expectedSequenceId);
 
-                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                  "FastQ Parser P1: The FASTQ sequence '{0}' validation after Parse() is found to be as expected.",
-                  seqsNew.ElementAt(0)));
-
-                // Logs to the VSTest GUI (Console.Out) window
-                Console.WriteLine(string.Format((IFormatProvider)null,
-                  "FastQ Parser P1: The FASTQ sequence ID '{0}' validation after Parse() is found to be as expected.",
-                  new string(seqsNew.ElementAt(0).Select(a => (char)a).ToArray())));
-                Console.WriteLine(string.Format((IFormatProvider)null,
-                  "FastQ Parser P1: The FASTQ sequence ID '{0}' validation after Parse() is found to be as expected.",
-                  seqsNew.ElementAt(0).ID.ToString((IFormatProvider)null)));
+                ApplicationLog.WriteLine(string.Format(null,
+                                                       "FastQ Parser P1: The FASTQ sequence '{0}' validation after Parse() is found to be as expected.",
+                                                       seqsNew.ElementAt(0)));
 
                 File.Delete(tempFileName);
             }
         }
 
         /// <summary>
-        /// General method to validate multi sequence FastQ Format.
-        /// <param name="nodeName">xml node name.</param>
-        void ValidateMultiSeqFastQFormatter(string nodeName)
+        ///     General method to validate multi sequence FastQ Format.
+        ///     <param name="nodeName">xml node name.</param>
+        private void ValidateMultiSeqFastQFormatter(string nodeName)
         {
             // Gets the expected sequence from the Xml
             string filePath = utilityObj.xmlUtil.GetTextValue(
-              nodeName, Constants.FilePathNode);
+                nodeName, Constants.FilePathNode);
             string expectedQualitativeSequence = utilityObj.xmlUtil.GetTextValue(
-              nodeName, Constants.ExpectedSequenceNode);
+                nodeName, Constants.ExpectedSequenceNode);
             string expectedSequenceId = utilityObj.xmlUtil.GetTextValue(
-              nodeName, Constants.SequenceIdNode);
+                nodeName, Constants.SequenceIdNode);
             string expectedSecondQualitativeSequence = utilityObj.xmlUtil.GetTextValue(
-              nodeName, Constants.ExpectedSequence2Node);
+                nodeName, Constants.ExpectedSequence2Node);
             string expectedSecondSeqID = utilityObj.xmlUtil.GetTextValue(
-              nodeName, Constants.ExpectedSequenceId1Node);
+                nodeName, Constants.ExpectedSequenceId1Node);
 
             // Parse a FastQ file.
-            using (FastQParser fastQParserObj = new FastQParser(filePath))
+            using (var fastQParserObj = new FastQParser(filePath))
             {
                 IEnumerable<QualitativeSequence> qualSequenceList = null;
                 IEnumerable<QualitativeSequence> seqsNew = null;
@@ -1523,38 +1414,32 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
                 qualSequenceList = fastQParserObj.Parse();
 
                 // Format a first Qualitative sequence
-                FastQFormatter fastQFormatterFirst = new FastQFormatter(Constants.FastQTempFileName);
+                var fastQFormatterFirst = new FastQFormatter(Constants.FastQTempFileName);
                 fastQFormatterFirst.Write(qualSequenceList.ElementAt(0));
                 fastQFormatterFirst.Close();
-                FastQParser fastQParserObjFirst = new FastQParser(Constants.FastQTempFileName);
+                var fastQParserObjFirst = new FastQParser(Constants.FastQTempFileName);
                 seqsNew = fastQParserObjFirst.Parse();
 
                 // Format a Second Qualitative sequence
-                FastQFormatter fastQFormatterSecond = new FastQFormatter(Constants.StreamWriterFastQTempFileName);
+                var fastQFormatterSecond = new FastQFormatter(Constants.StreamWriterFastQTempFileName);
                 fastQFormatterSecond.Write(qualSequenceList.ElementAt(1));
                 fastQFormatterSecond.Close();
-                FastQParser fastQParserObjSecond = new FastQParser(Constants.StreamWriterFastQTempFileName);
+                var fastQParserObjSecond = new FastQParser(Constants.StreamWriterFastQTempFileName);
                 secondSeqsNew = fastQParserObjSecond.Parse();
 
                 // Validate Second qualitative Sequence upon parsing FastQ file.
-                Assert.AreEqual(new string(secondSeqsNew.ElementAt(0).Select(a => (char)a).ToArray()), expectedSecondQualitativeSequence);
-                Assert.AreEqual(secondSeqsNew.ElementAt(0).ID.ToString((IFormatProvider)null), expectedSecondSeqID);
+                Assert.AreEqual(new string(secondSeqsNew.ElementAt(0).Select(a => (char) a).ToArray()),
+                                expectedSecondQualitativeSequence);
+                Assert.AreEqual(secondSeqsNew.ElementAt(0).ID.ToString(null), expectedSecondSeqID);
 
                 // Validate first qualitative Sequence upon parsing FastQ file.
-                Assert.AreEqual(new string(seqsNew.ElementAt(0).Select(a => (char)a).ToArray()), expectedQualitativeSequence);
-                Assert.AreEqual(seqsNew.ElementAt(0).ID.ToString((IFormatProvider)null), expectedSequenceId);
+                Assert.AreEqual(new string(seqsNew.ElementAt(0).Select(a => (char) a).ToArray()),
+                                expectedQualitativeSequence);
+                Assert.AreEqual(seqsNew.ElementAt(0).ID.ToString(null), expectedSequenceId);
 
-                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                  "FastQ Parser P1: The FASTQ sequence '{0}' validation after Parse() is found to be as expected.",
-                  seqsNew.ElementAt(0)));
-
-                // Logs to the VSTest GUI (Console.Out) window
-                Console.WriteLine(string.Format((IFormatProvider)null,
-                  "FastQ Parser P1: The FASTQ sequence ID '{0}' validation after Parse() is found to be as expected.",
-                  new string(seqsNew.ElementAt(0).Select(a => (char)a).ToArray())));
-                Console.WriteLine(string.Format((IFormatProvider)null,
-                  "FastQ Parser P1: The FASTQ sequence ID '{0}' validation after Parse() is found to be as expected.",
-                  seqsNew.ElementAt(0).ID.ToString((IFormatProvider)null)));
+                ApplicationLog.WriteLine(string.Format(null,
+                                                       "FastQ Parser P1: The FASTQ sequence '{0}' validation after Parse() is found to be as expected.",
+                                                       seqsNew.ElementAt(0)));
 
                 File.Delete(Constants.FastQTempFileName);
                 File.Delete(Constants.StreamWriterFastQTempFileName);
@@ -1562,31 +1447,21 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         }
 
         /// <summary>
-        /// General method to validate BasicSequence Parser.
-        /// <param name="nodeName">xml node name.</param>
-        /// <param name="methodName">Name of Method</param>
+        ///     General method to validate BasicSequence Parser.
+        ///     <param name="nodeName">xml node name.</param>
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope")]
-        void ValidateBasicSequenceParser(
-            string nodeName,
-            FastQFileParameters methodName)
+        [SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope")]
+        private void ValidateBasicSequenceParser(string nodeName)
         {
             // Gets the expected sequence from the Xml
-            string filepathOriginal =
-                utilityObj.xmlUtil.GetTextValue(
-                nodeName, Constants.FilePathNode);
-            string expectedQualitativeSequence =
-                utilityObj.xmlUtil.GetTextValue(
-                nodeName, Constants.ExpectedSequenceNode);
-            string expectedSequenceId =
-                utilityObj.xmlUtil.GetTextValue(
-                nodeName, Constants.SequenceIdNode);
-            IAlphabet alphabet = Utility.GetAlphabet(utilityObj.xmlUtil.GetTextValue(
-               nodeName, Constants.AlphabetNameNode));
+            string filepathOriginal = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode);
+            string expectedQualitativeSequence = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.ExpectedSequenceNode);
+            string expectedSequenceId = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.SequenceIdNode);
+            IAlphabet alphabet = Utility.GetAlphabet(utilityObj.xmlUtil.GetTextValue(nodeName, Constants.AlphabetNameNode));
             Assert.IsTrue(File.Exists(filepathOriginal));
 
             ISequenceParser fastQParserObj = null;
-            FastQFormatter formatter = new FastQFormatter(Path.GetTempFileName());
+            var formatter = new FastQFormatter(Path.GetTempFileName());
             try
             {
                 fastQParserObj = new FastQParser(filepathOriginal);
@@ -1601,7 +1476,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
                 // Use the formatter to write the original sequences to a temp file
                 string filepathTmp = Path.GetTempFileName();
 
-                FastQParser fastQParserObjNew = new FastQParser(filepathTmp);
+                var fastQParserObjNew = new FastQParser(filepathTmp);
 
                 // Read the new file, then compare the sequences
                 IEnumerable<QualitativeSequence> seqsNew = null;
@@ -1610,23 +1485,18 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
                 // Validate qualitative Sequence upon parsing FastQ file.
                 Assert.AreEqual(
-                    new string(seqsOriginal.ElementAt(0).Select(a => (char)a).ToArray()),
+                    new string(seqsOriginal.ElementAt(0).Select(a => (char) a).ToArray()),
                     expectedQualitativeSequence);
                 Assert.AreEqual(
-                    seqsOriginal.ElementAt(0).ID.ToString((IFormatProvider)null),
+                    seqsOriginal.ElementAt(0).ID.ToString(null),
                     expectedSequenceId);
                 Assert.AreEqual(
                     seqsOriginal.ElementAt(0).Alphabet.Name,
-                 alphabet.Name);
+                    alphabet.Name);
 
-                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                    "FastQ Parser P1: The FASTQ sequence '{0}' validation after Parse() is found to be as expected.",
-                    seqsOriginal.ElementAt(0)));
-
-                // Logs to the VSTest GUI (Console.Out) window
-                Console.WriteLine(string.Format((IFormatProvider)null,
-                    "FastQ Parser P1: The FASTQ sequence ID '{0}' validation after Parse() is found to be as expected.",
-                    new string(seqsOriginal.ElementAt(0).Select(a => (char)a).ToArray())));
+                ApplicationLog.WriteLine(string.Format(null,
+                                                       "FastQ Parser P1: The FASTQ sequence '{0}' validation after Parse() is found to be as expected.",
+                                                       seqsOriginal.ElementAt(0)));
 
                 File.Delete(filepathTmp);
             }

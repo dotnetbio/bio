@@ -908,9 +908,6 @@ using Bio;
                 Assert.AreEqual(updatedExpSequence, updatedActualSequence);
                 ApplicationLog.WriteLine(
                     "GenBank Parser : Successfully validated the Sequence");
-                Console.WriteLine(string.Format((IFormatProvider)null,
-                    "GenBank Parser : Successfully validated the Sequence '{0}'",
-                    updatedActualSequence));
             }
         }
 
@@ -972,9 +969,6 @@ using Bio;
             Assert.AreEqual(updatedExpSequence, updatedActualSequence);
             ApplicationLog.WriteLine(
                 "GenBank Parser : Successfully validated the Sequence");
-            Console.WriteLine(string.Format((IFormatProvider)null,
-                "GenBank Parser : Successfully validated the Sequence '{0}'",
-                updatedActualSequence));
         }
 
         /// <summary>
@@ -1054,9 +1048,6 @@ using Bio;
                 Assert.AreEqual(truncatedExpectedSequence, truncatedActualSequence);
                 ApplicationLog.WriteLine(
                     "GenBank Formatter P1: Successfully validated the Sequence");
-                Console.WriteLine(string.Format((IFormatProvider)null,
-                    "GenBank Formatter P1: Successfully validated the Sequence '{0}'",
-                    truncatedExpectedSequence));
                 parserObj.Close();
                 parserObj.Dispose();
                 File.Delete(tempFileName);
@@ -1135,9 +1126,6 @@ using Bio;
                 Assert.AreEqual(truncatedExpectedSequence, truncatedActualSequence);
                 ApplicationLog.WriteLine(
                     "GenBank Formatter P1: Successfully validated the Sequence");
-                Console.WriteLine(string.Format((IFormatProvider)null,
-                    "GenBank Formatter P1: Successfully validated the Sequence '{0}'",
-                    truncatedExpectedSequence));
                 parserObj.Close();
                 parserObj.Dispose();
                 if (File.Exists(tempFileName))
@@ -1360,9 +1348,6 @@ using Bio;
             Assert.AreEqual(updatedExpSequence, updatedActualSequence);
             ApplicationLog.WriteLine(
                 "GenBank Parser : Successfully validated the Sequence");
-            Console.WriteLine(string.Format((IFormatProvider)null,
-                "GenBank Parser : Successfully validated the Sequence '{0}'",
-                updatedActualSequence));
         }
 
         #endregion Supporting Methods

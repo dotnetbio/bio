@@ -5,31 +5,21 @@
  * 
 ******************************************************************************/
 
-
-using System;
-using System.Linq;
-using System.Collections.Generic;
-using System.Reflection;
-using System.IO;
 using Bio.Util.Logging;
 using Bio.TestAutomation.Util;
-using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Bio;
 
 namespace Bio.TestAutomation
 {
     /// <summary>
     /// Test Automation code for Clone Library Information Bvt level validations.
     /// </summary>
-    
     [TestClass]
     public class CloneLibraryInformationBvtTestCases
     {
-             
         #region Global Variables
 
-        Utility utilityObj = new Utility(@"TestUtils\TestsConfig.xml");        
+        readonly Utility utilityObj = new Utility(@"TestUtils\TestsConfig.xml");        
 
         #endregion Global Variables
 
@@ -121,7 +111,7 @@ namespace Bio.TestAutomation
 
         }
 
-        # endregion Clone library information Bvt test cases.
+        #endregion Clone library information Bvt test cases.
     }
 }
 

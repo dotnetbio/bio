@@ -1,175 +1,108 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 
 namespace Bio.Algorithms.Kmer
 {
-
     /// <summary>
     /// Holds the KmerData.
     /// </summary>
-    public struct KmerData32
+    public struct KmerData32 : IComparable<KmerData32>, IEquatable<KmerData32>
     {
-       
-
         /// <summary>
         /// Compressed value of the kmer that will be stored in the De-Bruijn Node.
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1721:PropertyNamesShouldNotMatchGetMethods")]
-        public ulong KmerData
-        { get;  set; }
+        private ulong _kmerData;
 
         /// <summary>
         /// Returns the decompressed value of the kmer from the De-Bruijn node.
         /// Note: use this method to get the original sequence symbols.
         /// </summary>
         /// <param name="kmerLength">Length of the kmer.</param>
+        /// <param name="orientation">Orientation of connecting edge.</param>
         /// <returns>Decompressed value of the kmer.</returns>
-        public byte[] GetOriginalSymbols(int kmerLength)
+        public byte[] GetOriginalSymbols(int kmerLength, bool orientation)
         {
-            return ConvertLongToSequence(this.KmerData, kmerLength);
+            return ConvertLongToSequence(orientation
+                ? _kmerData
+                : GetReverseComplement(_kmerData, kmerLength), kmerLength);
         }
 
         /// <summary>
         /// Note: use this method to get the original sequence symbols.
         /// </summary>
         /// <param name="kmerLength">Length of the kmer.</param>
+        /// <param name="orientation">Orientation of connecting edge.</param>
         /// <returns>Returns the reverse complement of the decompressed kmer.</returns>
-        public byte[] GetReverseComplementOfOriginalSymbols(int kmerLength)
+        public byte[] GetReverseComplementOfOriginalSymbols(int kmerLength, bool orientation)
         {
-            return ConvertLongToSequence(GetReverseComplement(this.KmerData, kmerLength), kmerLength);
+            return ConvertLongToSequence(orientation
+                ? GetReverseComplement(_kmerData, kmerLength) : _kmerData, kmerLength);
         }
 
         /// <summary>
         /// Sets the kmer value from the specific sequence.
         /// </summary>
         /// <param name="sequence">Sequence who value is to be compressed.</param>
-        /// <param name="from">Start postition from where the kmer to be extracted.</param>
+        /// <param name="from">Start position from where the kmer to be extracted.</param>
         /// <param name="kmerLength">Length of the kmer.</param>
         public bool SetKmerData(ISequence sequence, long from, int kmerLength)
         {
             if (sequence == null)
-            {
                 throw new ArgumentNullException("sequence");
-            }
 
             ulong compressedKmer = 0;
-            ulong value;
             for (long index = from; index < from + kmerLength; index++)
             {
+                byte value;
                 switch (sequence[index])
                 {
                     case 65: // 'A'
                     case 97: // 'a'
-                        value = DNA_A_VALUE;
+                        value = 0;
                         break;
                     case 67: // 'C'
                     case 99: // 'c'
-                        value = DNA_C_VALUE;
+                        value = 1;
                         break;
                     case 71: // 'G'
                     case 103: // 'g'
-                        value = DNA_G_VALUE;
+                        value = 2;
                         break;
                     case 84: // 'T'
                     case 116: // 't'
-                        value = DNA_T_VALUE;
+                        value = 3;
                         break;
                     default:
-                        throw new ArgumentException("Character not supproted");
+                        throw new ArgumentException("Character not supported");
                 }
 
                 compressedKmer = (compressedKmer << 2) + value;
             }
 
-            return this.SetKmerData(compressedKmer, kmerLength);
-        }
-        /// <summary>
-        /// Iterates through a sequence producing all possible kmers in it.
-        /// </summary>
-        /// <param name="sequence"></param>
-        /// <param name="kmerLength"></param>
-        /// <returns></returns>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2233:OperationsShouldNotOverflow", MessageId = "kmerLength-1"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2233:OperationsShouldNotOverflow", MessageId = "kmerLength*2")]
-        public static KmerData32[] GetKmers(ISequence sequence, int kmerLength)
-        {
-            if (sequence == null)
-            {
-                throw new ArgumentNullException("sequence");
-            }
-            
-            long count = sequence.Count;
-            long minSize = Math.Min(count/2, MIN_KMER_LENGTH);
-            if (minSize <= 0)
-                minSize = 1;
+            this._kmerData = compressedKmer;
 
-            if (kmerLength < minSize || kmerLength > MAX_KMER_LENGTH)
+            // Get the Reverse Complement value.
+            ulong kmer = this._kmerData;
+            ulong revComplementKey = 0;
+            ulong bits = 0;
+            checked
             {
-                throw new ArgumentException("Invalid kmerLength must be between " + minSize + " and " + MAX_KMER_LENGTH, "kmerLength");
-            }
+                int kmerValueIndex = (kmerLength * 2);
+                for (long index = 0; index < kmerValueIndex; index += 2)
+                {
+                    bits = kmer & 3;
+                    kmer = kmer >> 2;
 
-            KmerData32[] kmers = new KmerData32[count - kmerLength + 1];
-            
-            // First to make a mask to hide higher bits as we move things over
-            ulong mask = ulong.MaxValue;    // should be all bits in ulong
-            mask <<= (kmerLength * 2);      // move mask over filling in regions to keep with zeros
-            mask = ~mask;                   // then flip the bits to get the mask
-            ulong compressedKmer = 0;
-            
-            for (long i = 0; i < count; ++i)
-            {
-                ulong value;
-                switch (sequence[i])
-                {
-                    case 65: // 'A'
-                    case 97: // 'a'
-                        value = DNA_A_VALUE;
-                        break;
-                    case 67: // 'C'
-                    case 99: // 'c'
-                        value = DNA_C_VALUE;
-                        break;
-                    case 71: // 'G'
-                    case 103: // 'g'
-                        value = DNA_G_VALUE;
-                        break;
-                    case 84: // 'T'
-                    case 116: // 't'
-                        value = DNA_T_VALUE;
-                        break;
-                    default:
-                        throw new ArgumentException("Character not supproted");
-                }
-                compressedKmer = (compressedKmer << 2) + value;
-                if (i >= (kmerLength - 1))
-                {
-                    //hide top bits
-                    compressedKmer = compressedKmer & mask;
-                    //get reverse compliment
-                    KmerData32 nk = new KmerData32();
-                    nk.SetKmerData(compressedKmer, kmerLength);
-                    kmers[i - kmerLength + 1] = nk;
+                    // Reversing the bits and adding to new long will generate reverse complement.
+                    revComplementKey = (revComplementKey << 2) + ((~bits) & 3);
                 }
             }
-            return kmers;
-        }
-        /// <summary>
-        /// Sets the kmer value from the specific sequence.
-        /// </summary>
-        /// <param name="encodedKmer">The kmer to encode, will be reverse complimented if need be.</param>
-        /// <param name="kmerLength">Length of the kmer.</param>
-        public bool SetKmerData(ulong encodedKmer, int kmerLength)
-        {
-            this.KmerData = encodedKmer;
-            // Get the Reverse Complement value. This is a duplication of the code in a method of this class
-            // perhaps put here to ensure the method is inlined?
-            ulong revComplementKey = GetReverseComplement(encodedKmer, kmerLength);
-            //equal values should be impossible with odd length k-mer
-            bool forwardOrientation = this.KmerData >= revComplementKey;
+
+            bool forwardOrientation = this._kmerData <= revComplementKey;
             if (!forwardOrientation)
             {
-                this.KmerData = revComplementKey;
+                this._kmerData = revComplementKey;
             }
+
             return forwardOrientation;
         }
 
@@ -183,16 +116,12 @@ namespace Bio.Algorithms.Kmer
         public void SetKmerData(byte[] sequence, int kmerLength)
         {
             if (sequence == null)
-            {
                 throw new ArgumentNullException("sequence");
-            }
 
             if (sequence.Length > kmerLength)
-            {
                 throw new ArgumentException("sub-sequence length cannot be more than the kmer length");
-            }
 
-            this.KmerData = ConvertSequenceToLong(sequence);
+            _kmerData = ConvertSequenceToLong(sequence);
         }
 
         /// <summary>
@@ -201,7 +130,7 @@ namespace Bio.Algorithms.Kmer
         /// <returns>True if the kmer value is palindrome else false.</returns>
         public bool IsPalindrome(int kmerLength)
         {
-            return (this.KmerData.Equals(GetReverseComplement(this.KmerData, kmerLength)));
+            return (_kmerData.Equals(GetReverseComplement(_kmerData, kmerLength)));
         }
 
         /// <summary>
@@ -215,22 +144,83 @@ namespace Bio.Algorithms.Kmer
         /// </returns>
         public int CompareTo(KmerData32 other)
         {
-            return this.KmerData.CompareTo(other.KmerData);
+            ulong compValue = other._kmerData;
+            return _kmerData == compValue ? 0 : (_kmerData < compValue ? -1 : 1);
         }
 
         /// <summary>
         /// Compares this instance to a specified instance of object and returns an indication of their relative values.
         /// </summary>
-        /// <param name="value">Instance of the object to compare.</param>
+        /// <param name="other">Instance of the object to compare.</param>
         /// <returns>
         ///  A signed number indicating the relative values of this instance. Zero This
         ///  instance is equal to value. Greater than zero This instance is greater than
         ///  value.
         /// </returns>
-        public int CompareTo(object value)
+        public int CompareTo(object other)
         {
-            KmerData32 kmer = (KmerData32)value;
-            return this.KmerData.CompareTo(kmer.KmerData);
+            KmerData32 kmer = (KmerData32)other;
+            return _kmerData.CompareTo(kmer._kmerData);
+        }
+
+        /// <summary>
+        /// Returns the hash code for this instance.
+        /// </summary>
+        /// <returns>
+        /// A 32-bit signed integer that is the hash code for this instance.
+        /// </returns>
+        /// <filterpriority>2</filterpriority>
+        public override int GetHashCode()
+        {
+            return _kmerData.GetHashCode();
+        }
+
+        /// <summary>
+        /// Indicates whether the current object is equal to another object of the same type.
+        /// </summary>
+        /// <returns>
+        /// true if the current object is equal to the <paramref name="other"/> parameter; otherwise, false.
+        /// </returns>
+        /// <param name="other">An object to compare with this object.</param>
+        public bool Equals(KmerData32 other)
+        {
+            return other._kmerData == _kmerData;
+        }
+
+        /// <summary>
+        /// Indicates whether this instance and a specified object are equal.
+        /// </summary>
+        /// <returns>
+        /// true if <paramref name="obj"/> and this instance are the same type and represent the same value; otherwise, false.
+        /// </returns>
+        /// <param name="obj">Another object to compare to. </param>
+        public override bool Equals(object obj)
+        {
+            if (obj == null || obj.GetType() != typeof(KmerData32))
+                return false;
+            return Equals((KmerData32)obj);
+        }
+
+        /// <summary>
+        /// Equality operator
+        /// </summary>
+        /// <param name="lhs"></param>
+        /// <param name="rhs"></param>
+        /// <returns></returns>
+        public static bool operator ==(KmerData32 lhs, KmerData32 rhs)
+        {
+            return lhs.Equals(rhs);
+        }
+
+        /// <summary>
+        /// Inequality operator
+        /// </summary>
+        /// <param name="lhs"></param>
+        /// <param name="rhs"></param>
+        /// <returns></returns>
+        public static bool operator !=(KmerData32 lhs, KmerData32 rhs)
+        {
+            return !(lhs == rhs);
         }
 
         /// <summary>
@@ -239,14 +229,9 @@ namespace Bio.Algorithms.Kmer
         /// <returns>Returns the first symbol from the decompressed kmer value.</returns>
         public byte GetFirstSymbol(int kmerLength, bool orientation)
         {
-            if (orientation)
-            {
-                return ConvertLongToSequence(this.KmerData, kmerLength)[0];
-            }
-            else
-            {
-                return ConvertLongToSequence(GetReverseComplement(this.KmerData, kmerLength), kmerLength)[0];
-            }
+            return orientation
+                ? ConvertLongToSequence(_kmerData, kmerLength)[0]
+                : ConvertLongToSequence(GetReverseComplement(_kmerData, kmerLength), kmerLength)[0];
         }
 
         /// <summary>
@@ -255,16 +240,9 @@ namespace Bio.Algorithms.Kmer
         /// <returns>Returns the last symbol from the decompressed kmer value.</returns>
         public byte GetLastSymbol(int kmerLength, bool orientation)
         {
-            byte[] seq;
-
-            if (orientation)
-            {
-                seq = ConvertLongToSequence(this.KmerData, kmerLength);
-            }
-            else
-            {
-                seq = ConvertLongToSequence(GetReverseComplement(this.KmerData, kmerLength), kmerLength);
-            }
+            byte[] seq = ConvertLongToSequence(orientation
+                ? _kmerData
+                : GetReverseComplement(_kmerData, kmerLength), kmerLength);
 
             return seq[seq.Length - 1];
         }
@@ -276,7 +254,7 @@ namespace Bio.Algorithms.Kmer
         /// <returns>Decompressed value of the kmer.</returns>
         public byte[] GetKmerData(int kmerLength)
         {
-            return ConvertLongToSequence(this.KmerData, kmerLength);
+            return ConvertLongToSequence(_kmerData, kmerLength);
         }
 
         /// <summary>
@@ -286,7 +264,7 @@ namespace Bio.Algorithms.Kmer
         /// <returns>Returns the reverse complement of the kmer.</returns>
         public byte[] GetReverseComplementOfKmerData(int kmerLength)
         {
-            return ConvertLongToSequence(GetReverseComplement(this.KmerData, kmerLength), kmerLength);
+            return ConvertLongToSequence(GetReverseComplement(_kmerData, kmerLength), kmerLength);
         }
 
         /// <summary>
@@ -298,54 +276,52 @@ namespace Bio.Algorithms.Kmer
         private static ulong GetReverseComplement(ulong kmer, int kmerLength)
         {
             ulong reverse = 0;
-            checked
+            for (int index = 0; index < kmerLength * 2; index += 2)
             {
-                ulong bits = 0;
-                for (int index = 0; index < kmerLength * 2; index += 2)
-                {
-                    bits = kmer & 3;
-                    kmer = kmer >> 2;
-                    // Reversing the bits and adding to new long will generate reverse complement.
-                    reverse = (reverse << 2) + ((~bits) & 3);
-                }
+                ulong bits = kmer & 3;
+                kmer = kmer >> 2;
+
+                // Reversing the bits and adding to new long will generate reverse complement.
+                reverse = (reverse << 2) + ((~bits) & 3);
             }
+
             return reverse;
         }
 
         /// <summary>
         /// Converts sequence to long.
-        /// If kmer length is less than or equal to 32, we can fit into a usigned 64 bit long.
+        /// If kmer length is less than or equal to 32, we can fit into a unsigned 64 bit long.
         /// </summary>
         /// <param name="sequence">Kmer sequence.</param>
         /// <returns>Compressed kmer.</returns>
         private static ulong ConvertSequenceToLong(byte[] sequence)
         {
             ulong compressedKmer = 0;
-            ulong value;
 
-            // Push each sequence alphabet in its binary represenatation into an long.
+            // Push each sequence alphabet in its binary representation into an long.
             foreach (byte seq in sequence)
             {
+                byte value;
                 switch (seq)
                 {
                     case 65: // 'A'
                     case 97: // 'a'
-                        value = DNA_A_VALUE;
+                        value = 0;
                         break;
                     case 67: // 'C'
                     case 99: // 'c'
-                        value = DNA_C_VALUE;
+                        value = 1;
                         break;
                     case 71: // 'G'
                     case 103: // 'g'
-                        value = DNA_G_VALUE;
+                        value = 2;
                         break;
                     case 84: // 'T'
                     case 116: // 't'
-                        value = DNA_T_VALUE;
+                        value = 3;
                         break;
                     default:
-                        throw new ArgumentException("Character not supproted");
+                        throw new ArgumentException("Character not supported");
                 }
 
                 compressedKmer = (compressedKmer << 2) + value;
@@ -404,32 +380,5 @@ namespace Bio.Algorithms.Kmer
 
             return seq;
         }
-        /// <summary>
-        /// Value to encode an A with as 2 bits
-        /// </summary>
-        public const ulong DNA_A_VALUE = 0;
-        /// <summary>
-        /// Value to encode a C with as 2 bits
-        /// </summary>
-        public const ulong DNA_C_VALUE = 1;
-        /// <summary>
-        /// Value to encode a G with as 2 bits
-        /// </summary>
-        public const ulong DNA_G_VALUE = 2;
-        /// <summary>
-        /// Value to encode a T with as 2 bits
-        /// </summary>
-        public const ulong DNA_T_VALUE = 3;
-
-        /// <summary>
-        /// Maximum allowed value for a kmer
-        /// </summary>
-        public const int MAX_KMER_LENGTH = 31;
-
-        /// <summary>
-        /// Minimum allowed value for a kmer
-        /// </summary>
-        public const int MIN_KMER_LENGTH = 12;
-
     }
 }

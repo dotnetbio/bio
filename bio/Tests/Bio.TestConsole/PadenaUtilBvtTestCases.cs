@@ -1,9 +1,6 @@
-﻿using System;
-using System.IO;
-using System.Text;
+﻿using System.IO;
 using Bio.Util.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SD = System.Diagnostics;
 using Bio.TestConsole.Util;
 
 namespace Bio.TestConsole
@@ -16,7 +13,7 @@ namespace Bio.TestConsole
     {
         #region Global Variables
 
-        Utility utilityObj = new Utility(@"TestUtils\UtilitiesTestsConfig.xml");
+        readonly Utility utilityObj = new Utility(@"TestUtils\UtilitiesTestsConfig.xml");
 
         #endregion Global Variables
 
@@ -79,7 +76,7 @@ namespace Bio.TestConsole
         [TestCategory("Priority0")]
         public void ValidatePadenaUtilAssembleWithScaffoldAndQuiet()
         {
-            //ValidatePadenaUtil(Constants.PadenaUtilAssembleWithScaffoldNode, false);
+            ValidatePadenaUtil(Constants.PadenaUtilAssembleWithScaffoldNode, false);
         }
 
         /// <summary>
@@ -115,7 +112,7 @@ namespace Bio.TestConsole
 
         #endregion Test cases
 
-        # region Helper Methods
+        #region Helper Methods
 
         /// <summary>
         /// General method to Validate PadenaUtil test cases.

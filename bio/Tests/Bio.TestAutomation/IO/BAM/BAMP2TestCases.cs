@@ -7,22 +7,20 @@
 
 using System;
 using System.Collections.Generic;
-
-using Bio.TestAutomation.Util;
-using Bio.Util.Logging;
-
-using Bio;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Bio.IO.SAM;
-using Bio.IO.BAM;
+using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using Bio.Algorithms.Alignment;
 using Bio.IO;
-using System.IO;
+using Bio.IO.BAM;
+using Bio.IO.SAM;
+using Bio.TestAutomation.Util;
+using Bio.Util.Logging;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Bio.TestAutomation.IO.BAM
 {
     /// <summary>
-    /// BAM parser and formatter P2 Test case implementation.
+    ///     BAM parser and formatter P2 Test case implementation.
     /// </summary>
     [TestClass]
     public class BAMP2TestCases
@@ -30,9 +28,9 @@ namespace Bio.TestAutomation.IO.BAM
         #region Enums
 
         /// <summary>
-        /// BAM Parser ctor parameters used for different test cases.
+        ///     BAM Parser ctor parameters used for different test cases.
         /// </summary>
-        enum BAMParserParameters
+        private enum BAMParserParameters
         {
             StreamReader,
             FileName,
@@ -46,14 +44,14 @@ namespace Bio.TestAutomation.IO.BAM
 
         #region Global Variables
 
-        Utility _utilityObj = new Utility(@"TestUtils\SAMBAMTestData\SAMBAMTestsConfig.xml");
+        private readonly Utility _utilityObj = new Utility(@"TestUtils\SAMBAMTestData\SAMBAMTestsConfig.xml");
 
         #endregion Global Variables
 
         #region Constructor
 
         /// <summary>
-        /// Static constructor to open log and make other settings needed for test
+        ///     Static constructor to open log and make other settings needed for test
         /// </summary>
         static BAMP2TestCases()
         {
@@ -69,9 +67,9 @@ namespace Bio.TestAutomation.IO.BAM
         #region BAM Parser P2 Testcases
 
         /// <summary>
-        /// Invalidate BAM Parser Parse(TextReader)
-        /// Input : BAM file.
-        /// Output : NotSupportedException.
+        ///     Invalidate BAM Parser Parse(TextReader)
+        ///     Input : BAM file.
+        ///     Output : NotSupportedException.
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -79,13 +77,13 @@ namespace Bio.TestAutomation.IO.BAM
         public void InValidateSequenceAlignmentParseTextReader()
         {
             InValidateISequenceAlignmentBAMParser(Constants.SmallSizeBAMFileNode,
-                BAMParserParameters.TextReader);
+                                                  BAMParserParameters.TextReader);
         }
 
         /// <summary>
-        /// Invalidate BAM Parser Parse(stream)
-        /// Input : Invlaid Stream.
-        /// Output : Argument NullException.
+        ///     Invalidate BAM Parser Parse(stream)
+        ///     Input : Invlaid Stream.
+        ///     Output : Argument NullException.
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -93,13 +91,13 @@ namespace Bio.TestAutomation.IO.BAM
         public void InvalidateBAMParserForInvalidStreamInput()
         {
             InValidateSeqAlignmentMapBAMParser(Constants.InvalidBAMFileNode,
-                BAMParserParameters.StreamReader);
+                                               BAMParserParameters.StreamReader);
         }
 
         /// <summary>
-        /// Invalidate BAM Parser Parse(filename)
-        /// Input : Invlaid filename.
-        /// Output : Argument NullException.
+        ///     Invalidate BAM Parser Parse(filename)
+        ///     Input : Invlaid filename.
+        ///     Output : Argument NullException.
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -107,14 +105,14 @@ namespace Bio.TestAutomation.IO.BAM
         public void InvalidateBAMParserForInvalidBAMFile()
         {
             InValidateSeqAlignmentMapBAMParser(Constants.SmallSizeBAMFileNode,
-                BAMParserParameters.FileName);
+                                               BAMParserParameters.FileName);
         }
 
         /// <summary>
-        /// Invalidate GetIndexFromBAMFile(fileName) by passing 
-        /// null as BAM file.
-        /// Input : Null BAM file.
-        /// Output : Exception.
+        ///     Invalidate GetIndexFromBAMFile(fileName) by passing
+        ///     null as BAM file.
+        ///     Input : Null BAM file.
+        ///     Output : Exception.
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -122,9 +120,8 @@ namespace Bio.TestAutomation.IO.BAM
         public void InvalidateGetIndexFromBAMFile()
         {
             // Create BAM Parser object
-            using (BAMParser bamParserObj = new BAMParser())
+            using (var bamParserObj = new BAMParser())
             {
-
                 try
                 {
                     bamParserObj.GetIndexFromBAMFile(null as string);
@@ -133,21 +130,18 @@ namespace Bio.TestAutomation.IO.BAM
                 catch (ArgumentNullException ex)
                 {
                     string exceptionMessage = ex.Message;
-                    ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                        "BAM Parser P2 : Validated Exception {0} successfully",
-                        exceptionMessage));
-                    Console.WriteLine(string.Format((IFormatProvider)null,
-                        "BAM Parser P2 : Validated Exception {0} successfully",
-                        exceptionMessage));
+                    ApplicationLog.WriteLine(string.Format(null,
+                                                           "BAM Parser P2 : Validated Exception {0} successfully",
+                                                           exceptionMessage));
                 }
             }
         }
 
         /// <summary>
-        /// Invalidate GetIndexFromBAMFile(stream) by passing 
-        /// null as BAM file.
-        /// Input : Null BAM file.
-        /// Output : Exception.
+        ///     Invalidate GetIndexFromBAMFile(stream) by passing
+        ///     null as BAM file.
+        ///     Input : Null BAM file.
+        ///     Output : Exception.
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -155,9 +149,8 @@ namespace Bio.TestAutomation.IO.BAM
         public void InvalidateGetIndexFromBAMFileUsingStream()
         {
             // Create BAM Parser object
-            using (BAMParser bamParserObj = new BAMParser())
+            using (var bamParserObj = new BAMParser())
             {
-
                 try
                 {
                     bamParserObj.GetIndexFromBAMFile(null as Stream);
@@ -166,20 +159,17 @@ namespace Bio.TestAutomation.IO.BAM
                 catch (ArgumentNullException ex)
                 {
                     string exceptionMessage = ex.Message;
-                    ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                        "BAM Parser P2 : Validated Exception {0} successfully",
-                        exceptionMessage));
-                    Console.WriteLine(string.Format((IFormatProvider)null,
-                        "BAM Parser P2 : Validated Exception {0} successfully",
-                        exceptionMessage));
+                    ApplicationLog.WriteLine(string.Format(null,
+                                                           "BAM Parser P2 : Validated Exception {0} successfully",
+                                                           exceptionMessage));
                 }
             }
         }
 
         /// <summary>
-        /// Invalidate BAM Parser ParseOne(TextReader)
-        /// Input : BAM file.
-        /// Output : NotSupportedException.
+        ///     Invalidate BAM Parser ParseOne(TextReader)
+        ///     Input : BAM file.
+        ///     Output : NotSupportedException.
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -187,13 +177,13 @@ namespace Bio.TestAutomation.IO.BAM
         public void InValidateSequenceAlignmentParseOneTextReader()
         {
             InValidateISequenceAlignmentBAMParser(Constants.SmallSizeBAMFileNode,
-                BAMParserParameters.ParseOneTextReader);
+                                                  BAMParserParameters.ParseOneTextReader);
         }
 
         /// <summary>
-        /// Invalidate BAM Parser ParseRange(filename, RefIndex)
-        /// Input : Invalid BAM file and RefIndex values.
-        /// Output : NotSupportedException.
+        ///     Invalidate BAM Parser ParseRange(filename, RefIndex)
+        ///     Input : Invalid BAM file and RefIndex values.
+        ///     Output : NotSupportedException.
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -201,13 +191,13 @@ namespace Bio.TestAutomation.IO.BAM
         public void InvalidateParseRangeForInvalidInputs()
         {
             InValidateSeqAlignmentMapBAMParser(Constants.SmallSizeBAMFileNode,
-                BAMParserParameters.ParseRangeWithIndex);
+                                               BAMParserParameters.ParseRangeWithIndex);
         }
 
         /// <summary>
-        /// Invalidate BAM Parser ParseRange(filename,range)
-        /// Input : Invalid BAM file and SequenceRange values.
-        /// Output : NotSupportedException.
+        ///     Invalidate BAM Parser ParseRange(filename,range)
+        ///     Input : Invalid BAM file and SequenceRange values.
+        ///     Output : NotSupportedException.
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -215,13 +205,13 @@ namespace Bio.TestAutomation.IO.BAM
         public void InvalidateParseRangeForInvalidSequenceRange()
         {
             InValidateSeqAlignmentMapBAMParser(Constants.SmallSizeBAMFileNode,
-                BAMParserParameters.ParseRangeFileName);
+                                               BAMParserParameters.ParseRangeFileName);
         }
 
         /// <summary>
-        /// Invalidate Set Alphabet.
-        /// Input : Null BAM file.
-        /// Output : Exception.
+        ///     Invalidate Set Alphabet.
+        ///     Input : Null BAM file.
+        ///     Output : Exception.
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -229,7 +219,7 @@ namespace Bio.TestAutomation.IO.BAM
         public void InvalidateSetAlphabet()
         {
             // Create BAM Parser object
-            using (BAMParser bamParserObj = new BAMParser())
+            using (var bamParserObj = new BAMParser())
             {
                 // TO cover code coverage.
                 try
@@ -240,12 +230,9 @@ namespace Bio.TestAutomation.IO.BAM
                 catch (NotSupportedException ex)
                 {
                     string exceptionMessage = ex.Message;
-                    ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                        "BAM Parser P2 : Validated Exception {0} successfully",
-                        exceptionMessage));
-                    Console.WriteLine(string.Format((IFormatProvider)null,
-                        "BAM Parser P2 : Validated Exception {0} successfully",
-                        exceptionMessage));
+                    ApplicationLog.WriteLine(string.Format(null,
+                                                           "BAM Parser P2 : Validated Exception {0} successfully",
+                                                           exceptionMessage));
                 }
             }
         }
@@ -255,9 +242,9 @@ namespace Bio.TestAutomation.IO.BAM
         # region BAM Formatter P2 Testcases
 
         /// <summary>
-        ///  InValidate BAM Formatter Format() methods with invalid inputs.
-        ///  Input : Invalid inputs
-        ///  Output : Exception validation.
+        ///     InValidate BAM Formatter Format() methods with invalid inputs.
+        ///     Input : Invalid inputs
+        ///     Output : Exception validation.
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -268,10 +255,10 @@ namespace Bio.TestAutomation.IO.BAM
         }
 
         /// <summary>
-        ///  InValidate BAM Formatter Format() methods with invalid inputs
-        ///  For ISequenceAlignment.
-        ///  Input : Invalid inputs
-        ///  Output : Exception validation.
+        ///     InValidate BAM Formatter Format() methods with invalid inputs
+        ///     For ISequenceAlignment.
+        ///     Input : Invalid inputs
+        ///     Output : Exception validation.
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -283,7 +270,7 @@ namespace Bio.TestAutomation.IO.BAM
         }
 
         /// <summary>
-        /// Invalidate the WriteHeader method in BAMFormatter
+        ///     Invalidate the WriteHeader method in BAMFormatter
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -293,7 +280,7 @@ namespace Bio.TestAutomation.IO.BAM
             //pass null value for stream
             try
             {
-                BAMFormatter formatter = new BAMFormatter();
+                var formatter = new BAMFormatter();
                 formatter.WriteHeader(new SAMAlignmentHeader(), null);
                 Assert.Fail();
             }
@@ -305,9 +292,9 @@ namespace Bio.TestAutomation.IO.BAM
             //pass null for SAMAlignmentHeader
             try
             {
-                BAMFormatter formatter = new BAMFormatter();
+                var formatter = new BAMFormatter();
                 string tmpFileName = Path.GetTempFileName();
-                using (FileStream stream = new FileStream(tmpFileName, FileMode.Create))
+                using (var stream = new FileStream(tmpFileName, FileMode.Create))
                 {
                     formatter.WriteHeader(null, stream);
                     Assert.Fail();
@@ -321,7 +308,7 @@ namespace Bio.TestAutomation.IO.BAM
         }
 
         /// <summary>
-        /// Invalidate WriteAlignedSequence method
+        ///     Invalidate WriteAlignedSequence method
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -332,8 +319,8 @@ namespace Bio.TestAutomation.IO.BAM
             try
             {
                 string tmpFileName = Path.GetTempFileName();
-                BAMFormatter formatter = new BAMFormatter();
-                using (FileStream stream = new FileStream(tmpFileName, FileMode.Create))
+                var formatter = new BAMFormatter();
+                using (var stream = new FileStream(tmpFileName, FileMode.Create))
                 {
                     formatter.WriteAlignedSequence(null, new SAMAlignedSequence(), stream);
                     Assert.Fail();
@@ -349,8 +336,8 @@ namespace Bio.TestAutomation.IO.BAM
             try
             {
                 string tmpFileName = Path.GetTempFileName();
-                BAMFormatter formatter = new BAMFormatter();
-                using (FileStream stream = new FileStream(tmpFileName, FileMode.Create))
+                var formatter = new BAMFormatter();
+                using (var stream = new FileStream(tmpFileName, FileMode.Create))
                 {
                     formatter.WriteAlignedSequence(new SAMAlignmentHeader(), null, stream);
                     Assert.Fail();
@@ -365,7 +352,7 @@ namespace Bio.TestAutomation.IO.BAM
             //pass null for stream
             try
             {
-                BAMFormatter formatter = new BAMFormatter();
+                var formatter = new BAMFormatter();
                 formatter.WriteAlignedSequence(new SAMAlignmentHeader(), new SAMAlignedSequence(), null);
                 Assert.Fail();
             }
@@ -376,7 +363,7 @@ namespace Bio.TestAutomation.IO.BAM
         }
 
         /// <summary>
-        /// Invalidate compressBAMFile method with null stream
+        ///     Invalidate compressBAMFile method with null stream
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -387,8 +374,8 @@ namespace Bio.TestAutomation.IO.BAM
             try
             {
                 string tmpFileName = Path.GetTempFileName();
-                BAMFormatter formatter = new BAMFormatter();
-                using (FileStream stream = new FileStream(tmpFileName, FileMode.Create))
+                var formatter = new BAMFormatter();
+                using (var stream = new FileStream(tmpFileName, FileMode.Create))
                 {
                     formatter.CompressBAMFile(null, stream);
                     Assert.Fail();
@@ -404,8 +391,8 @@ namespace Bio.TestAutomation.IO.BAM
             try
             {
                 string tmpFileName = Path.GetTempFileName();
-                BAMFormatter formatter = new BAMFormatter();
-                using (FileStream stream = new FileStream(tmpFileName, FileMode.Create))
+                var formatter = new BAMFormatter();
+                using (var stream = new FileStream(tmpFileName, FileMode.Create))
                 {
                     formatter.CompressBAMFile(stream, null);
                     Assert.Fail();
@@ -423,9 +410,10 @@ namespace Bio.TestAutomation.IO.BAM
         #region BAMIndexFile TestCases
 
         /// <summary>
-        /// invalidate BAMIndexFile constructure with null source stream
+        ///     invalidate BAMIndexFile constructure with null source stream
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1806:DoNotIgnoreMethodResults", MessageId = "Bio.IO.BAM.BAMIndexFile"), TestMethod]
+        [SuppressMessage("Microsoft.Usage", "CA1806:DoNotIgnoreMethodResults", MessageId = "Bio.IO.BAM.BAMIndexFile"),
+         TestMethod]
         [Priority(2)]
         [TestCategory("Priority2")]
         public void InvalidateBAMIndexFile()
@@ -433,7 +421,7 @@ namespace Bio.TestAutomation.IO.BAM
             //set source stream as null            
             try
             {
-                BAMIndexFile biFile = new BAMIndexFile(null);
+                var biFile = new BAMIndexFile(null);
                 Assert.Fail();
             }
             catch (ArgumentNullException ex)
@@ -444,7 +432,7 @@ namespace Bio.TestAutomation.IO.BAM
             try
             {
                 string temp = null;
-                using (BAMIndexFile biFile = new BAMIndexFile(temp, FileMode.Create, FileAccess.Write))
+                using (var biFile = new BAMIndexFile(temp, FileMode.Create, FileAccess.Write))
                 {
                     Assert.Fail();
                 }
@@ -460,17 +448,17 @@ namespace Bio.TestAutomation.IO.BAM
         # region Supporting Methods
 
         /// <summary>
-        /// Parse BAM File and Invalidate parsed aligned sequences by creating 
-        /// ISequenceAlignment interface object and its properties.
+        ///     Parse BAM File and Invalidate parsed aligned sequences by creating
+        ///     ISequenceAlignment interface object and its properties.
         /// </summary>
         /// <param name="nodeName">Different xml nodes used for different test cases</param>
         /// <param name="BAMParserPam">BAM Parse method parameters</param>
-        void InValidateISequenceAlignmentBAMParser(string nodeName,
-            BAMParserParameters BAMParserPam)
+        private void InValidateISequenceAlignmentBAMParser(string nodeName,
+                                                           BAMParserParameters BAMParserPam)
         {
             // Get input and output values from xml node.
             string bamFilePath = _utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.FilePathNode);
+                                                                  Constants.FilePathNode);
             string exception = string.Empty;
 
             ISequenceAlignmentParser bamParser = null;
@@ -514,12 +502,9 @@ namespace Bio.TestAutomation.IO.BAM
                 }
 
                 // Log to VSTest GUI.
-                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                    "BAM Parser P2 : Validated Exception {0} successfully",
-                    exception));
-                Console.WriteLine(string.Format((IFormatProvider)null,
-                    "BAM Parser P2 : Validated Exception {0} successfully",
-                    exception));
+                ApplicationLog.WriteLine(string.Format(null,
+                                                       "BAM Parser P2 : Validated Exception {0} successfully",
+                                                       exception));
             }
             finally
             {
@@ -528,20 +513,20 @@ namespace Bio.TestAutomation.IO.BAM
         }
 
         /// <summary>
-        /// Parse BAM and validate parsed aligned sequences by creating 
-        /// ISequenceAlignment interface object and its properties.
+        ///     Parse BAM and validate parsed aligned sequences by creating
+        ///     ISequenceAlignment interface object and its properties.
         /// </summary>
         /// <param name="nodeName">Different xml nodes used for different test cases</param>
         /// <param name="BAMParserPam">BAM Parse method parameters</param>
-        void InValidateSeqAlignmentMapBAMParser(string nodeName,
-            BAMParserParameters BAMParserPam)
+        private void InValidateSeqAlignmentMapBAMParser(string nodeName,
+                                                        BAMParserParameters BAMParserPam)
         {
             // Get input and output values from xml node.
             string bamFilePath = _utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.FilePathNode);
+                                                                  Constants.FilePathNode);
             string exception = string.Empty;
 
-            using (BAMParser bamParser = new BAMParser())
+            using (var bamParser = new BAMParser())
             {
                 // Parse a BAM file with different parameters.
                 switch (BAMParserPam)
@@ -560,7 +545,7 @@ namespace Bio.TestAutomation.IO.BAM
                         try
                         {
                             using (Stream stream = new FileStream(bamFilePath, FileMode.Open,
-                             FileAccess.Read))
+                                                                  FileAccess.Read))
                             {
                                 bamParser.Parse(stream);
                                 Assert.Fail();
@@ -629,256 +614,204 @@ namespace Bio.TestAutomation.IO.BAM
                 }
 
                 // Log to VSTest GUI.
-                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                    "BAM Parser P2 : Validated Exception {0} successfully",
-                    exception));
-                Console.WriteLine(string.Format((IFormatProvider)null,
-                    "BAM Parser P2 : Validated Exception {0} successfully",
-                    exception));
+                ApplicationLog.WriteLine(string.Format(null,
+                                                       "BAM Parser P2 : Validated Exception {0} successfully",
+                                                       exception));
             }
         }
 
         /// <summary>
-        /// Format BAM file and validate.
+        ///     Format BAM file and validate.
         /// </summary>
         /// <param name="nodeName">Different xml nodes used for different test cases</param>
-        void InValidateBAMFormatter(string nodeName)
+        private void InValidateBAMFormatter(string nodeName)
         {
             // Get input and output values from xml node.
             string bamFilePath = _utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.FilePathNode);
+                                                                  Constants.FilePathNode);
 
             Stream stream = null;
             SequenceAlignmentMap seqAlignment = null;
-            using (BAMParser bamParserObj = new BAMParser())
+            using (var bamParserObj = new BAMParser())
             {
                 string exception = string.Empty;
 
-                using (BAMIndexFile bamIndexFileObj = new BAMIndexFile(
-                                Constants.BAMTempIndexFileForIndexData,
-                                FileMode.OpenOrCreate, FileAccess.ReadWrite))
+                using (var bamIndexFileObj = new BAMIndexFile(
+                    Constants.BAMTempIndexFileForIndexData,
+                    FileMode.OpenOrCreate, FileAccess.ReadWrite))
                 {
                     // Parse a BAM file.
                     seqAlignment = bamParserObj.Parse(bamFilePath);
 
                     // Create a BAM formatter object.
-                    BAMFormatter formatterObj = new BAMFormatter();
+                    var formatterObj = new BAMFormatter();
 
                     // Invalidate Format(SequenceAlignmentMap, BAMFile, IndexFile)
                     try
                     {
-
                         formatterObj.Format(seqAlignment, null,
-                            Constants.BAMTempIndexFileForIndexData);
-
+                                            Constants.BAMTempIndexFileForIndexData);
                     }
                     catch (ArgumentNullException ex)
                     {
                         exception = ex.Message;
                         // Log to VSTest GUI.
-                        ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                            "BAM Parser P2 : Validated Exception {0} successfully",
-                            exception));
-                        Console.WriteLine(string.Format((IFormatProvider)null,
-                            "BAM Parser P2 : Validated Exception {0} successfully",
-                            exception));
+                        ApplicationLog.WriteLine(string.Format(null,
+                                                               "BAM Parser P2 : Validated Exception {0} successfully",
+                                                               exception));
                     }
 
                     try
                     {
-
                         formatterObj.Format(seqAlignment, Constants.BAMTempFileName,
-                            Constants.BAMTempFileName);
-
+                                            Constants.BAMTempFileName);
                     }
                     catch (ArgumentException ex)
                     {
                         exception = ex.Message;
                         // Log to VSTest GUI.
-                        ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                            "BAM Parser P2 : Validated Exception {0} successfully",
-                            exception));
-                        Console.WriteLine(string.Format((IFormatProvider)null,
-                            "BAM Parser P2 : Validated Exception {0} successfully",
-                            exception));
+                        ApplicationLog.WriteLine(string.Format(null,
+                                                               "BAM Parser P2 : Validated Exception {0} successfully",
+                                                               exception));
                     }
 
                     try
                     {
-                        formatterObj.Format(null as SequenceAlignmentMap, bamFilePath,
-                            Constants.BAMTempIndexFileForIndexData);
-
+                        formatterObj.Format(null, bamFilePath,
+                                            Constants.BAMTempIndexFileForIndexData);
                     }
                     catch (ArgumentNullException ex)
                     {
                         exception = ex.Message;
                         // Log to VSTest GUI.
-                        ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                            "BAM Parser P2 : Validated Exception {0} successfully",
-                            exception));
-                        Console.WriteLine(string.Format((IFormatProvider)null,
-                            "BAM Parser P2 : Validated Exception {0} successfully",
-                            exception));
+                        ApplicationLog.WriteLine(string.Format(null,
+                                                               "BAM Parser P2 : Validated Exception {0} successfully",
+                                                               exception));
                     }
 
                     try
                     {
-                        formatterObj.Format(seqAlignment, bamFilePath, null as string);
-
+                        formatterObj.Format(seqAlignment, bamFilePath, null);
                     }
                     catch (ArgumentNullException ex)
                     {
                         exception = ex.Message;
                         // Log to VSTest GUI.
-                        ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                            "BAM Parser P2 : Validated Exception {0} successfully",
-                            exception));
-                        Console.WriteLine(string.Format((IFormatProvider)null,
-                            "BAM Parser P2 : Validated Exception {0} successfully",
-                            exception));
+                        ApplicationLog.WriteLine(string.Format(null,
+                                                               "BAM Parser P2 : Validated Exception {0} successfully",
+                                                               exception));
                     }
 
                     // Invalidate BAM Parser Format(SeqAlignmentMap, BamFileName)
                     try
                     {
                         formatterObj.Format(null as SequenceAlignmentMap,
-                            Constants.BAMTempFileName);
-
+                                            Constants.BAMTempFileName);
                     }
                     catch (ArgumentNullException ex)
                     {
                         exception = ex.Message;
                         // Log to VSTest GUI.
-                        ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                            "BAM Parser P2 : Validated Exception {0} successfully",
-                            exception));
-                        Console.WriteLine(string.Format((IFormatProvider)null,
-                            "BAM Parser P2 : Validated Exception {0} successfully",
-                            exception));
+                        ApplicationLog.WriteLine(string.Format(null,
+                                                               "BAM Parser P2 : Validated Exception {0} successfully",
+                                                               exception));
                     }
 
                     try
                     {
                         formatterObj.Format(seqAlignment, null as string);
-
                     }
                     catch (ArgumentNullException ex)
                     {
                         exception = ex.Message;
                         // Log to VSTest GUI.
-                        ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                            "BAM Parser P2 : Validated Exception {0} successfully",
-                            exception));
-                        Console.WriteLine(string.Format((IFormatProvider)null,
-                            "BAM Parser P2 : Validated Exception {0} successfully",
-                            exception));
+                        ApplicationLog.WriteLine(string.Format(null,
+                                                               "BAM Parser P2 : Validated Exception {0} successfully",
+                                                               exception));
                     }
 
                     // Invalidate Format(SequenceAlignmentMap, StreamWriter)
                     try
                     {
                         formatterObj.Format(seqAlignment, null as Stream);
-
                     }
                     catch (ArgumentNullException ex)
                     {
                         exception = ex.Message;
                         // Log to VSTest GUI.
-                        ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                            "BAM Parser P2 : Validated Exception {0} successfully",
-                            exception));
-                        Console.WriteLine(string.Format((IFormatProvider)null,
-                            "BAM Parser P2 : Validated Exception {0} successfully",
-                            exception));
+                        ApplicationLog.WriteLine(string.Format(null,
+                                                               "BAM Parser P2 : Validated Exception {0} successfully",
+                                                               exception));
                     }
 
                     try
                     {
                         using (stream = new
-                                 FileStream(Constants.BAMTempFileName,
-                                 FileMode.OpenOrCreate, FileAccess.ReadWrite))
+                                            FileStream(Constants.BAMTempFileName,
+                                                       FileMode.OpenOrCreate, FileAccess.ReadWrite))
                         {
-                            formatterObj.Format(null as SequenceAlignmentMap, stream);
+                            formatterObj.Format(null, stream);
                         }
-
                     }
                     catch (ArgumentNullException ex)
                     {
                         exception = ex.Message;
                         // Log to VSTest GUI.
-                        ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                            "BAM Parser P2 : Validated Exception {0} successfully",
-                            exception));
-                        Console.WriteLine(string.Format((IFormatProvider)null,
-                            "BAM Parser P2 : Validated Exception {0} successfully",
-                            exception));
+                        ApplicationLog.WriteLine(string.Format(null,
+                                                               "BAM Parser P2 : Validated Exception {0} successfully",
+                                                               exception));
                     }
 
                     // Invalidate Format(SequenceAlignmentMap, StreamWriter, IndexFile)
                     try
                     {
-
                         formatterObj.Format(seqAlignment, null, bamIndexFileObj);
-
                     }
                     catch (ArgumentNullException ex)
                     {
                         exception = ex.Message;
                         // Log to VSTest GUI.
-                        ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                            "BAM Parser P2 : Validated Exception {0} successfully",
-                            exception));
-                        Console.WriteLine(string.Format((IFormatProvider)null,
-                            "BAM Parser P2 : Validated Exception {0} successfully",
-                            exception));
+                        ApplicationLog.WriteLine(string.Format(null,
+                                                               "BAM Parser P2 : Validated Exception {0} successfully",
+                                                               exception));
                     }
 
                     try
                     {
                         using (stream = new
-                                 FileStream(Constants.BAMTempFileName,
-                                 FileMode.OpenOrCreate, FileAccess.ReadWrite))
+                                            FileStream(Constants.BAMTempFileName,
+                                                       FileMode.OpenOrCreate, FileAccess.ReadWrite))
                         {
-                            formatterObj.Format(null as SequenceAlignmentMap, stream,
-                                bamIndexFileObj);
+                            formatterObj.Format(null, stream,
+                                                bamIndexFileObj);
                         }
-
                     }
                     catch (ArgumentNullException ex)
                     {
                         exception = ex.Message;
                         // Log to VSTest GUI.
-                        ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                            "BAM Parser P2 : Validated Exception {0} successfully",
-                            exception));
-                        Console.WriteLine(string.Format((IFormatProvider)null,
-                            "BAM Parser P2 : Validated Exception {0} successfully",
-                            exception));
+                        ApplicationLog.WriteLine(string.Format(null,
+                                                               "BAM Parser P2 : Validated Exception {0} successfully",
+                                                               exception));
                     }
 
                     try
                     {
                         using (stream = new
-                                  FileStream(Constants.BAMTempFileName,
-                                  FileMode.OpenOrCreate, FileAccess.ReadWrite))
+                                            FileStream(Constants.BAMTempFileName,
+                                                       FileMode.OpenOrCreate, FileAccess.ReadWrite))
                         {
                             formatterObj.Format(seqAlignment, stream, null);
-
-
                         }
-
                     }
 
                     catch (ArgumentNullException ex)
                     {
                         exception = ex.Message;
                         // Log to VSTest GUI.
-                        ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                            "BAM Parser P2 : Validated Exception {0} successfully",
-                            exception));
-                        Console.WriteLine(string.Format((IFormatProvider)null,
-                            "BAM Parser P2 : Validated Exception {0} successfully",
-                            exception));
+                        ApplicationLog.WriteLine(string.Format(null,
+                                                               "BAM Parser P2 : Validated Exception {0} successfully",
+                                                               exception));
                     }
 
                     formatterObj = null;
@@ -887,33 +820,33 @@ namespace Bio.TestAutomation.IO.BAM
         }
 
         /// <summary>
-        /// Format BAM file using IsequenceAlignment object.
+        ///     Format BAM file using IsequenceAlignment object.
         /// </summary>
         /// <param name="nodeName">Different xml nodes used for different test cases</param>
-        void InValidateBAMFormatterWithSequenceAlignment(string nodeName)
+        private void InValidateBAMFormatterWithSequenceAlignment(string nodeName)
         {
             // Get input and output values from xml node.
             string bamFilePath = _utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.FilePathNode);
+                                                                  Constants.FilePathNode);
 
             ISequenceAlignmentParser bamParserObj = new BAMParser();
             IList<ISequenceAlignment> seqList = bamParserObj.Parse(bamFilePath);
             try
             {
-                using (BAMIndexFile bamIndexFileObj = new BAMIndexFile(
+                using (var bamIndexFileObj = new BAMIndexFile(
                     Constants.BAMTempIndexFileForInvalidData,
                     FileMode.OpenOrCreate, FileAccess.ReadWrite))
                 {
                     // Create a BAM formatter object.
-                    BAMFormatter formatterObj = new BAMFormatter();
+                    var formatterObj = new BAMFormatter();
 
                     InvalidateBAmFormatter(formatterObj, seqList);
 
                     InvalidateBAmFormatterWithWithInvalidValues(formatterObj,
-                        seqList, bamFilePath, bamIndexFileObj);
+                                                                seqList, bamFilePath, bamIndexFileObj);
 
                     InvalidateBAmFormatterWithWithNullValues(formatterObj,
-                        seqList);
+                                                             seqList);
                 }
             }
             finally
@@ -924,31 +857,27 @@ namespace Bio.TestAutomation.IO.BAM
 
 
         /// <summary>
-        /// Invalidate BAMFormatter.
+        ///     Invalidate BAMFormatter.
         /// </summary>
         /// <param name="formatterObj">Bam formatter obj</param>
         /// <param name="seqList">List of sequences</param>
-        static void InvalidateBAmFormatter(BAMFormatter formatterObj,
-           IList<ISequenceAlignment> seqList)
+        private static void InvalidateBAmFormatter(BAMFormatter formatterObj,
+                                                   IList<ISequenceAlignment> seqList)
         {
             // Invalidate BAM Parser Format(SeqAlignment, BamFileName)
             string exception = null;
             try
             {
                 formatterObj.Format(null as ISequenceAlignment,
-                    Constants.BAMTempFileName);
-
+                                    Constants.BAMTempFileName);
             }
             catch (ArgumentNullException ex)
             {
                 exception = ex.Message;
                 // Log to VSTest GUI.
-                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                    "BAM Parser P2 : Validated Exception {0} successfully",
-                    exception));
-                Console.WriteLine(string.Format((IFormatProvider)null,
-                    "BAM Parser P2 : Validated Exception {0} successfully",
-                    exception));
+                ApplicationLog.WriteLine(string.Format(null,
+                                                       "BAM Parser P2 : Validated Exception {0} successfully",
+                                                       exception));
             }
 
             try
@@ -962,12 +891,9 @@ namespace Bio.TestAutomation.IO.BAM
             {
                 exception = ex.Message;
                 // Log to VSTest GUI.
-                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                    "BAM Parser P2 : Validated Exception {0} successfully",
-                    exception));
-                Console.WriteLine(string.Format((IFormatProvider)null,
-                    "BAM Parser P2 : Validated Exception {0} successfully",
-                    exception));
+                ApplicationLog.WriteLine(string.Format(null,
+                                                       "BAM Parser P2 : Validated Exception {0} successfully",
+                                                       exception));
             }
 
             // Invalidate Format(IseqAlignment, BAMFile, IndexFile)
@@ -976,19 +902,16 @@ namespace Bio.TestAutomation.IO.BAM
                 foreach (ISequenceAlignment seq in seqList)
                 {
                     formatterObj.Format(seq, null,
-                        Constants.BAMTempIndexFileForIndexData);
+                                        Constants.BAMTempIndexFileForIndexData);
                 }
             }
             catch (ArgumentNullException ex)
             {
                 exception = ex.Message;
                 // Log to VSTest GUI.
-                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                    "BAM Parser P2 : Validated Exception {0} successfully",
-                    exception));
-                Console.WriteLine(string.Format((IFormatProvider)null,
-                    "BAM Parser P2 : Validated Exception {0} successfully",
-                    exception));
+                ApplicationLog.WriteLine(string.Format(null,
+                                                       "BAM Parser P2 : Validated Exception {0} successfully",
+                                                       exception));
             }
 
             try
@@ -996,67 +919,57 @@ namespace Bio.TestAutomation.IO.BAM
                 foreach (ISequenceAlignment seq in seqList)
                 {
                     formatterObj.Format(seq, Constants.BAMTempFileName,
-                        Constants.BAMTempFileName);
+                                        Constants.BAMTempFileName);
                 }
             }
             catch (ArgumentException ex)
             {
                 exception = ex.Message;
                 // Log to VSTest GUI.
-                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                    "BAM Parser P2 : Validated Exception {0} successfully",
-                    exception));
-                Console.WriteLine(string.Format((IFormatProvider)null,
-                    "BAM Parser P2 : Validated Exception {0} successfully",
-                    exception));
+                ApplicationLog.WriteLine(string.Format(null,
+                                                       "BAM Parser P2 : Validated Exception {0} successfully",
+                                                       exception));
             }
         }
 
         /// <summary>
-        /// Invalidate BAMFormatter with invlid values.
+        ///     Invalidate BAMFormatter with invlid values.
         /// </summary>
         /// <param name="formatterObj">Bam formatter obj</param>
         /// <param name="seqList">List of sequences</param>
-        static void InvalidateBAmFormatterWithWithInvalidValues(BAMFormatter formatterObj,
-           IList<ISequenceAlignment> seqList, string bamFilePath, BAMIndexFile bamIndexFileObj)
+        private static void InvalidateBAmFormatterWithWithInvalidValues(BAMFormatter formatterObj,
+                                                                        IList<ISequenceAlignment> seqList,
+                                                                        string bamFilePath, BAMIndexFile bamIndexFileObj)
         {
             string exception = string.Empty;
             try
             {
                 formatterObj.Format(null as ISequenceAlignment, bamFilePath,
-                    Constants.BAMTempIndexFileForIndexData);
-
+                                    Constants.BAMTempIndexFileForIndexData);
             }
             catch (ArgumentNullException ex)
             {
                 exception = ex.Message;
                 // Log to VSTest GUI.
-                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                    "BAM Parser P2 : Validated Exception {0} successfully",
-                    exception));
-                Console.WriteLine(string.Format((IFormatProvider)null,
-                    "BAM Parser P2 : Validated Exception {0} successfully",
-                    exception));
+                ApplicationLog.WriteLine(string.Format(null,
+                                                       "BAM Parser P2 : Validated Exception {0} successfully",
+                                                       exception));
             }
 
             try
             {
                 foreach (ISequenceAlignment seq in seqList)
                 {
-                    formatterObj.Format(seq, bamFilePath, null as string);
+                    formatterObj.Format(seq, bamFilePath, null);
                 }
-
             }
             catch (ArgumentNullException ex)
             {
                 exception = ex.Message;
                 // Log to VSTest GUI.
-                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                    "BAM Parser P2 : Validated Exception {0} successfully",
-                    exception));
-                Console.WriteLine(string.Format((IFormatProvider)null,
-                    "BAM Parser P2 : Validated Exception {0} successfully",
-                    exception));
+                ApplicationLog.WriteLine(string.Format(null,
+                                                       "BAM Parser P2 : Validated Exception {0} successfully",
+                                                       exception));
             }
 
             // Invalidate Format(IseqAlignment, StreamWriter, IndexFile)
@@ -1071,72 +984,61 @@ namespace Bio.TestAutomation.IO.BAM
             {
                 exception = ex.Message;
                 // Log to VSTest GUI.
-                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                    "BAM Parser P2 : Validated Exception {0} successfully",
-                    exception));
-                Console.WriteLine(string.Format((IFormatProvider)null,
-                    "BAM Parser P2 : Validated Exception {0} successfully",
-                    exception));
+                ApplicationLog.WriteLine(string.Format(null,
+                                                       "BAM Parser P2 : Validated Exception {0} successfully",
+                                                       exception));
             }
 
             try
             {
                 using (Stream stream = new
                     FileStream(Constants.BAMTempFileName,
-                    FileMode.OpenOrCreate, FileAccess.ReadWrite))
+                               FileMode.OpenOrCreate, FileAccess.ReadWrite))
                 {
                     formatterObj.Format(null as ISequenceAlignment, stream,
-                        bamIndexFileObj);
+                                        bamIndexFileObj);
                 }
-
             }
             catch (ArgumentNullException ex)
             {
                 exception = ex.Message;
                 // Log to VSTest GUI.
-                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                    "BAM Parser P2 : Validated Exception {0} successfully",
-                    exception));
-                Console.WriteLine(string.Format((IFormatProvider)null,
-                    "BAM Parser P2 : Validated Exception {0} successfully",
-                    exception));
+                ApplicationLog.WriteLine(string.Format(null,
+                                                       "BAM Parser P2 : Validated Exception {0} successfully",
+                                                       exception));
             }
         }
 
         /// <summary>
-        /// Invalidate BAMFormatter with null values.
+        ///     Invalidate BAMFormatter with null values.
         /// </summary>
         /// <param name="formatterObj">Bam formatter obj</param>
         /// <param name="seqList">List of sequences</param>
-        static void InvalidateBAmFormatterWithWithNullValues(BAMFormatter formatterObj,
-            IList<ISequenceAlignment> seqList)
+        private static void InvalidateBAmFormatterWithWithNullValues(BAMFormatter formatterObj,
+                                                                     IList<ISequenceAlignment> seqList)
         {
             string exception = string.Empty;
             try
             {
                 using (Stream stream = new
                     FileStream(Constants.BAMTempFileName,
-                    FileMode.OpenOrCreate, FileAccess.ReadWrite))
+                               FileMode.OpenOrCreate, FileAccess.ReadWrite))
                 {
                     foreach (ISequenceAlignment seq in seqList)
                     {
                         formatterObj.Format(seq, stream,
-                            null);
+                                            null);
                     }
                 }
-
             }
 
             catch (ArgumentNullException ex)
             {
                 exception = ex.Message;
                 // Log to VSTest GUI.
-                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                    "BAM Parser P2 : Validated Exception {0} successfully",
-                    exception));
-                Console.WriteLine(string.Format((IFormatProvider)null,
-                    "BAM Parser P2 : Validated Exception {0} successfully",
-                    exception));
+                ApplicationLog.WriteLine(string.Format(null,
+                                                       "BAM Parser P2 : Validated Exception {0} successfully",
+                                                       exception));
             }
 
             // Invalidate Format(IseqAlignment, StreamWriter)
@@ -1151,36 +1053,30 @@ namespace Bio.TestAutomation.IO.BAM
             {
                 exception = ex.Message;
                 // Log to VSTest GUI.
-                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                    "BAM Parser P2 : Validated Exception {0} successfully",
-                    exception));
-                Console.WriteLine(string.Format((IFormatProvider)null,
-                    "BAM Parser P2 : Validated Exception {0} successfully",
-                    exception));
+                ApplicationLog.WriteLine(string.Format(null,
+                                                       "BAM Parser P2 : Validated Exception {0} successfully",
+                                                       exception));
             }
 
             try
             {
                 using (Stream stream = new
                     FileStream(Constants.BAMTempFileName,
-                    FileMode.OpenOrCreate, FileAccess.ReadWrite))
+                               FileMode.OpenOrCreate, FileAccess.ReadWrite))
                 {
                     formatterObj.Format(null as ISequenceAlignment, stream);
                 }
-
             }
             catch (ArgumentNullException ex)
             {
                 exception = ex.Message;
                 // Log to VSTest GUI.
-                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                    "BAM Parser P2 : Validated Exception {0} successfully",
-                    exception));
-                Console.WriteLine(string.Format((IFormatProvider)null,
-                    "BAM Parser P2 : Validated Exception {0} successfully",
-                    exception));
+                ApplicationLog.WriteLine(string.Format(null,
+                                                       "BAM Parser P2 : Validated Exception {0} successfully",
+                                                       exception));
             }
         }
-        # endregion Supporting Methods
+
+        #endregion Supporting Methods
     }
 }

@@ -189,9 +189,11 @@ namespace Bio.TestAutomation.Distributions
         public void ValidateBooleanStatisticsConvertToBooleanStatistics()
         {
             BooleanStatistics boolStat1 = BooleanStatistics.GetInstance(true);
-            SufficientStatistics suffStats = (SufficientStatistics)boolStat1;
-            Dictionary<string, SufficientStatistics> testSuffStats = new Dictionary<string, SufficientStatistics>();
-            testSuffStats.Add("Test", suffStats);
+            SufficientStatistics suffStats = boolStat1;
+            Dictionary<string, SufficientStatistics> testSuffStats = new Dictionary<string, SufficientStatistics>
+                                                                         {
+                                                                             { "Test", suffStats }
+                                                                         };
 
             Dictionary<string, BooleanStatistics> boolStats = BooleanStatistics.ConvertToBooleanStatistics(testSuffStats);
             Assert.AreEqual(boolStat1, boolStats["Test"]);
@@ -200,7 +202,6 @@ namespace Bio.TestAutomation.Distributions
         /// <summary>
         /// Validates the BooleanStatistics(Discrete) method
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "boolStat3"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "discreteStat2"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "boolStat1"), TestMethod]
         [Priority(0)]
         [TestCategory("Priority0")]
         public void ValidateBooleanStatisticsExplicitDiscrete()
@@ -221,14 +222,14 @@ namespace Bio.TestAutomation.Distributions
             }
             catch (ArgumentException)
             {
-                Console.WriteLine("BooleanStatistics : Successfully validated the BooleanStatistics(Discrete)");
+                ApplicationLog.WriteLine("BooleanStatistics : Successfully validated the BooleanStatistics(Discrete)");
             }
         }
 
         /// <summary>
         /// Validates the int(BooleanStatistics) method
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "temp"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "boolStat3"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)"), TestMethod]
+        [TestMethod]
         [Priority(0)]
         [TestCategory("Priority0")]
         public void ValidateBooleanStatisticsExplicitInt()
@@ -247,7 +248,7 @@ namespace Bio.TestAutomation.Distributions
             }
             catch (InvalidCastException)
             {
-                Console.WriteLine("BooleanStatistics : Successfully validated the int(0)");
+                ApplicationLog.WriteLine("BooleanStatistics : Successfully validated the int(0)");
             }
 
             DiscreteStatistics discreteStat3 = null;
@@ -258,7 +259,7 @@ namespace Bio.TestAutomation.Distributions
             }
             catch (ArgumentException)
             {
-                Console.WriteLine("BooleanStatistics : Successfully validated the int(booleanstatistics)");
+                ApplicationLog.WriteLine("BooleanStatistics : Successfully validated the int(booleanstatistics)");
             }
         }
 

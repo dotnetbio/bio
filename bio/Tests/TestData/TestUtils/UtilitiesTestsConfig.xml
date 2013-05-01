@@ -71,17 +71,17 @@
     <ExpectedOutputFile>TestUtils\EColi.500_Padena_Assemble_Output.txt</ExpectedOutputFile>
   </PadenaUtilDefaultParams>
   <PadenaUtilWithScaffold>
-    <Command>PadenaUtil.exe Scaffold -k:10 -v -o:TestUtils\PadenaOutput.txt "TestUtils\EColi.500_Padena_Assemble_Output.txt" "TestUtils\Ecoli.500_WithError_1x_Paired.fasta"</Command>
-    <ConsoleCommand>PadenaUtil.exe Scaffold -k:10 -v "TestUtils\EColi.500_Padena_Assemble_Output.txt" "TestUtils\Ecoli.500_WithError_1x_Paired.fasta"</ConsoleCommand>
+    <Command>PadenaUtil.exe Scaffold -k:10 -fk -v -o:TestUtils\PadenaOutput.txt "TestUtils\EColi.500_Padena_Assemble_Output.txt" "TestUtils\Ecoli.500_WithError_1x_Paired.fasta"</Command>
+    <ConsoleCommand>PadenaUtil.exe Scaffold -k:10 -fk -v "TestUtils\EColi.500_Padena_Assemble_Output.txt" "TestUtils\Ecoli.500_WithError_1x_Paired.fasta"</ConsoleCommand>
     <ActualOutputFile>TestUtils\PadenaOutput.txt</ActualOutputFile>
-    <VerboseResult>Processed contigs file,Read/Processing time,File Size,Processed reads file,Compute time,Write time,Total runtime</VerboseResult>
+    <VerboseResult>Processed contigs file,Read/Processing time,File Size,Processed reads file,Compute time,Write contigs time,Total runtime</VerboseResult>
     <ExpectedOutputFile>TestUtils\EColi.500_Padena_Scaffold_Output.txt</ExpectedOutputFile>
   </PadenaUtilWithScaffold>
   <PadenaUtilAssembleWithScaffold>
     <Command>PadenaUtil.exe assemblewithscaffold -v -o:TestUtils\EColiPadenaScaffoldOutput.txt "TestUtils\Ecoli.500_WithError_1x_Paired.fasta"</Command>
     <ConsoleCommand>PadenaUtil.exe assemblewithscaffold -v "TestUtils\Ecoli.500_WithError_1x_Paired.fasta"</ConsoleCommand>
     <ActualOutputFile>TestUtils\EColiPadenaScaffoldOutput.txt</ActualOutputFile>
-    <VerboseResult>Processed read file,Read/Processing time,File Size,Compute time,Write time,Total runtime</VerboseResult>
+    <VerboseResult>Processed read file,Read/Processing time,File Size,Compute time,Write contigs time,Total runtime</VerboseResult>
     <ExpectedOutputFile>TestUtils\EColi_500_Padena_AssembleWithScaffold_Output.txt</ExpectedOutputFile>
   </PadenaUtilAssembleWithScaffold>
   <PadenaUtilAssembleOnEColi>

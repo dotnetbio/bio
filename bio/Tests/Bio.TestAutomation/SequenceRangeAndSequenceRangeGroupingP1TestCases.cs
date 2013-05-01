@@ -5,55 +5,52 @@
 ******************************************************************************/
 
 using System;
-using System.Linq;
 using System.Collections.Generic;
-
+using System.Linq;
 using Bio.IO.Bed;
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
-
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 #if (SILVERLIGHT == false)
-    namespace Bio.TestAutomation
+
+namespace Bio.TestAutomation
 #else
     namespace Bio.Silverlight.TestAutomation
 #endif
 {
     /// <summary>
-    /// Test Automation code for BIO SequenceRange operations P1 level validations.
+    ///     Test Automation code for BIO SequenceRange operations P1 level validations.
     /// </summary>
     [TestClass]
     public class SequenceRangeAndSequenceRangeGroupingP1TestCases
     {
-
         #region Enums
 
         /// <summary>
-        /// BED Operations parameters.
+        ///     BED Operations parameters.
         /// </summary>
-        enum BedOperationsParameters
+        private enum BedOperationsParameters
         {
             Merge,
             MergeQueryWithReference,
             MergeWithPam,
             Intersect,
             Subtract,
-            Default
         };
 
         #endregion Enums
 
         #region Global Variables
 
-        Utility utilityObj = new Utility(@"TestUtils\BedTestsConfig.xml");
+        private readonly Utility utilityObj = new Utility(@"TestUtils\BedTestsConfig.xml");
 
         #endregion Global Variables
 
         #region Constructor
 
         /// <summary>
-        /// Static constructor to open log and make other settings needed for test
+        ///     Static constructor to open log and make other settings needed for test
         /// </summary>
         static SequenceRangeAndSequenceRangeGroupingP1TestCases()
         {
@@ -69,9 +66,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         #region SequenceRange and SequenceRangeGrouping P1 TestCases
 
         /// <summary>
-        /// Validate Compare two sequences.
-        /// Input Data : Valid Range ID,Start and End.
-        /// Output Data : Validation of cmomparing two sequences.
+        ///     Validate Compare two sequences.
+        ///     Input Data : Valid Range ID,Start and End.
+        ///     Output Data : Validation of comparing two sequences.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -82,9 +79,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         }
 
         /// <summary>
-        /// Validate Compare two sequences with Identical ENDs.
-        /// Input Data : Valid Range ID,Start and End.
-        /// Output Data : Validation of cmomparing two sequences.
+        ///     Validate Compare two sequences with Identical ENDs.
+        ///     Input Data : Valid Range ID,Start and End.
+        ///     Output Data : Validation of comparing two sequences.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -95,9 +92,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         }
 
         /// <summary>
-        /// Validate Merge sequenceRange with identical chromosome entries.
-        /// Input Data : Valid BED file.
-        /// Output Data : Validation of Merge operation.
+        ///     Validate Merge sequenceRange with identical chromosome entries.
+        ///     Input Data : Valid BED file.
+        ///     Output Data : Validation of Merge operation.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -105,13 +102,13 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         public void ValidateMergeWithIdenticalChromoEntries()
         {
             ValidateBedOperations(Constants.MergesmallFilewithIdenticalChromosomesNode,
-                BedOperationsParameters.Merge, false, true);
+                                  BedOperationsParameters.Merge, false, true);
         }
 
         /// <summary>
-        /// Validate Merge sequenceRange with All identical chromosome entries.
-        /// Input Data : Valid BED file.
-        /// Output Data : Validation of Merge operation.
+        ///     Validate Merge sequenceRange with All identical chromosome entries.
+        ///     Input Data : Valid BED file.
+        ///     Output Data : Validation of Merge operation.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -119,13 +116,13 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         public void ValidateMergeWithAllIdenticalChromoEntries()
         {
             ValidateBedOperations(Constants.MergeFilewithAllIdenticalChromosomesNode,
-                BedOperationsParameters.Merge, false, false);
+                                  BedOperationsParameters.Merge, false, false);
         }
 
         /// <summary>
-        /// Validate Merge Two small size Bed files 
-        /// Input Data : Valid BED file.
-        /// Output Data : Validation of Merge operation.
+        ///     Validate Merge Two small size Bed files
+        ///     Input Data : Valid BED file.
+        ///     Output Data : Validation of Merge operation.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -133,13 +130,13 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         public void ValidateMergeTwoBedFiles()
         {
             ValidateBedOperations(Constants.MergeTwosmallFilesNode,
-                BedOperationsParameters.MergeQueryWithReference, false, false);
+                                  BedOperationsParameters.MergeQueryWithReference, false, false);
         }
 
         /// <summary>
-        /// Validate Merge Two small size Bed files with Identical Chromosome entries.
-        /// Input Data : Valid BED file.
-        /// Output Data : Validation of Merge operation.
+        ///     Validate Merge Two small size Bed files with Identical Chromosome entries.
+        ///     Input Data : Valid BED file.
+        ///     Output Data : Validation of Merge operation.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -147,13 +144,13 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         public void ValidateMergeTwoBedFilesWithTwoIdenticalChromo()
         {
             ValidateBedOperations(Constants.MergeTwoFileswithAllIdenticalChromosomesNode,
-                BedOperationsParameters.MergeWithPam, false, true);
+                                  BedOperationsParameters.MergeWithPam, false, true);
         }
 
         /// <summary>
-        /// Validate Intersect Two small size Bed files without pieces of intervals..
-        /// Input Data : Valid BED file.
-        /// Output Data : Validation of Merge operation.
+        ///     Validate Intersect Two small size Bed files without pieces of intervals..
+        ///     Input Data : Valid BED file.
+        ///     Output Data : Validation of Merge operation.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -161,14 +158,14 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         public void ValidateIntersectTwoBedFilesWithoutIntervals()
         {
             ValidateBedOperations(Constants.IntersectWithIdenticalChromoWithoutIntervals,
-                BedOperationsParameters.Intersect, false, true);
+                                  BedOperationsParameters.Intersect, false, true);
         }
 
         /// <summary>
-        /// Validate Intersect Two small size Bed files without pieces of intervals.
-        /// for all identical entries.
-        /// Input Data : Valid BED file.
-        /// Output Data : Validation of Merge operation.
+        ///     Validate Intersect Two small size Bed files without pieces of intervals.
+        ///     for all identical entries.
+        ///     Input Data : Valid BED file.
+        ///     Output Data : Validation of Merge operation.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -176,13 +173,13 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         public void ValidateIntersectTwoBedFilesWithoutIntervalsForIdenticalEntries()
         {
             ValidateBedOperations(Constants.IntersectWithAllIdenticalChromoWithoutIntervals,
-                BedOperationsParameters.Intersect, false, false);
+                                  BedOperationsParameters.Intersect, false, false);
         }
 
         /// <summary>
-        /// Validate Intersect Two small size Bed files with pieces of intervals..
-        /// Input Data : Valid BED file.
-        /// Output Data : Validation of Merge operation.
+        ///     Validate Intersect Two small size Bed files with pieces of intervals..
+        ///     Input Data : Valid BED file.
+        ///     Output Data : Validation of Merge operation.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -190,14 +187,14 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         public void ValidateIntersectTwoBedFilesWithPiecesIntervals()
         {
             ValidateBedOperations(Constants.IntersectWithIdenticalChromoWithoutIntervals,
-                BedOperationsParameters.Intersect, true, false);
+                                  BedOperationsParameters.Intersect, true, false);
         }
 
         /// <summary>
-        /// Validate Intersect Two small size Bed files with pieces of intervals.
-        /// for all identical entries.
-        /// Input Data : Valid BED file.
-        /// Output Data : Validation of Merge operation.
+        ///     Validate Intersect Two small size Bed files with pieces of intervals.
+        ///     for all identical entries.
+        ///     Input Data : Valid BED file.
+        ///     Output Data : Validation of Merge operation.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -205,13 +202,13 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         public void ValidateIntersectTwoBedFilesWithIntervalsForIdenticalEntries()
         {
             ValidateBedOperations(Constants.IntersectWithAllIdenticalChromoWithoutIntervals,
-                BedOperationsParameters.Intersect, true, true);
+                                  BedOperationsParameters.Intersect, true, true);
         }
 
         /// <summary>
-        /// Validate Intersect With more than ten chromosome without pieces of intervals.
-        /// Input Data : Valid BED file.
-        /// Output Data : Validation of Merge operation.
+        ///     Validate Intersect With more than ten chromosome without pieces of intervals.
+        ///     Input Data : Valid BED file.
+        ///     Output Data : Validation of Merge operation.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -219,13 +216,13 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         public void ValidateIntersectTenChromoWithoutPiecesIntervals()
         {
             ValidateBedOperations(Constants.IntersectBedFilesWithTenChromo,
-                BedOperationsParameters.Intersect, false, true);
+                                  BedOperationsParameters.Intersect, false, true);
         }
 
         /// <summary>
-        /// Validate Intersect With more than ten chromosome with pieces of intervals.
-        /// Input Data : Valid BED file.
-        /// Output Data : Validation of Merge operation.
+        ///     Validate Intersect With more than ten chromosome with pieces of intervals.
+        ///     Input Data : Valid BED file.
+        ///     Output Data : Validation of Merge operation.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -233,13 +230,13 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         public void ValidateIntersectTenChromoWithPiecesIntervals()
         {
             ValidateBedOperations(Constants.IntersectBedFilesWithTenChromo,
-                BedOperationsParameters.Intersect, true, false);
+                                  BedOperationsParameters.Intersect, true, false);
         }
 
         /// <summary>
-        /// Validate Intersect With more than ten chromosome with minimal overlap.
-        /// Input Data : Valid BED file and minimal overlap
-        /// Output Data : Validation of Merge operation.
+        ///     Validate Intersect With more than ten chromosome with minimal overlap.
+        ///     Input Data : Valid BED file and minimal overlap
+        ///     Output Data : Validation of Merge operation.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -247,14 +244,14 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         public void ValidateIntersectBedFilesWithMinimalOverlap()
         {
             ValidateBedOperations(Constants.IntersectBedFilesWithTenChromoWithMinimalOverlap,
-                BedOperationsParameters.Intersect, false, true);
+                                  BedOperationsParameters.Intersect, false, true);
         }
 
         /// <summary>
-        /// Validate subtract two small size Bed files with minimal overlap and 
-        /// with non overlapping pieces of intervals
-        /// Input Data : Valid BED file.
-        /// Output Data : Validation of subtract operation.
+        ///     Validate subtract two small size Bed files with minimal overlap and
+        ///     with non overlapping pieces of intervals
+        ///     Input Data : Valid BED file.
+        ///     Output Data : Validation of subtract operation.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -262,14 +259,14 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         public void ValidateSubtractTwoBedFilesWithMinimalandNonOverlap()
         {
             ValidateBedOperations(Constants.SubtractBedFilesWithMinimalOverlapNodeName,
-                BedOperationsParameters.Subtract, false, false);
+                                  BedOperationsParameters.Subtract, false, false);
         }
 
         /// <summary>
-        /// Validate subtract two small size Bed files and 
-        /// with non overlapping pieces of intervals
-        /// Input Data : Valid BED file.
-        /// Output Data : Validation of subtract operation.
+        ///     Validate subtract two small size Bed files and
+        ///     with non overlapping pieces of intervals
+        ///     Input Data : Valid BED file.
+        ///     Output Data : Validation of subtract operation.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -277,14 +274,14 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         public void ValidateSubtractTwoBedFilesWithNonOverlapIntervals()
         {
             ValidateBedOperations(Constants.SubtractBedFilesNodeName,
-                BedOperationsParameters.Subtract, false, false);
+                                  BedOperationsParameters.Subtract, false, false);
         }
 
         /// <summary>
-        /// Validate subtract two Bed files which contains multiple chromosomes and 
-        /// with non overlapping pieces of intervals
-        /// Input Data : Valid BED file.
-        /// Output Data : Validation of subtract operation.
+        ///     Validate subtract two Bed files which contains multiple chromosomes and
+        ///     with non overlapping pieces of intervals
+        ///     Input Data : Valid BED file.
+        ///     Output Data : Validation of subtract operation.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -292,14 +289,14 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         public void ValidateSubtractMultipleChromosomesWithNonOverlapIntervals()
         {
             ValidateBedOperations(Constants.SubtractMultipleChromosomesBedFilesNodeName,
-                BedOperationsParameters.Subtract, false, false);
+                                  BedOperationsParameters.Subtract, false, false);
         }
 
         /// <summary>
-        /// Validate subtract of Bed files contains multiple chromosomes and 
-        /// intervals with no overlap
-        /// Input Data : Valid BED file.
-        /// Output Data : Validation of subtract operation.
+        ///     Validate subtract of Bed files contains multiple chromosomes and
+        ///     intervals with no overlap
+        ///     Input Data : Valid BED file.
+        ///     Output Data : Validation of subtract operation.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -307,14 +304,14 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         public void ValidateSubtractMultipleChromosomesUsingIntervalsWithNoOverlap()
         {
             ValidateBedOperations(Constants.SubtractMultipleChromosomesWithIntervalsNodeName,
-                BedOperationsParameters.Subtract, true, false);
+                                  BedOperationsParameters.Subtract, true, false);
         }
 
         /// <summary>
-        /// Validate subtract two small size Bed files and 
-        /// intervals with no overlap
-        /// Input Data : Valid BED file.
-        /// Output Data : Validation of subtract operation.
+        ///     Validate subtract two small size Bed files and
+        ///     intervals with no overlap
+        ///     Input Data : Valid BED file.
+        ///     Output Data : Validation of subtract operation.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -322,7 +319,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         public void ValidateSubtractTwoBedFilesWithNonOverlappingIntervals()
         {
             ValidateBedOperations(Constants.SubtractBedFilesWithIntervalsNodeName,
-                BedOperationsParameters.Subtract, false, true);
+                                  BedOperationsParameters.Subtract, false, true);
         }
 
         #endregion SequenceRange and SequenceRangeGrouping P1 TestCases
@@ -330,47 +327,38 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         #region Helper Methods
 
         /// <summary>
-        /// Validate BED Operations(Merge,Intersect)..
+        ///     Validate BED Operations(Merge,Intersect)..
         /// </summary>
         /// <param name="nodeName">Xml Node name for different inputs.</param>
         /// <param name="operationPam">Different Bed operations.</param>
         /// <param name="overlappingBasePair">overlapping base pair</param>
-        /// <param name="IsParentSeqRangeRequired">Is Parent Sequence Range required?</param>        
-        void ValidateBedOperations(string nodeName,
-            BedOperationsParameters operationPam,
-            bool overlappingBasePair, bool IsParentSeqRangeRequired)
+        /// <param name="isParentSeqRangeRequired">Is Parent Sequence Range required?</param>
+        private void ValidateBedOperations(string nodeName,
+                                           BedOperationsParameters operationPam,
+                                           bool overlappingBasePair, bool isParentSeqRangeRequired)
         {
             // Get values from xml.
-            string expectedRangeIDs = utilityObj.xmlUtil.GetTextValue(
-                nodeName, Constants.IDNode);
-            string expectedStartIndex = utilityObj.xmlUtil.GetTextValue(
-                nodeName, Constants.StartNode);
-            string expectedEndIndex = utilityObj.xmlUtil.GetTextValue(
-                nodeName, Constants.EndNode);
-            string referenceFilePath = utilityObj.xmlUtil.GetTextValue(
-               nodeName, Constants.FilePathNode);
-            string queryFilePath = utilityObj.xmlUtil.GetTextValue(
-               nodeName, Constants.QueryFilePath);
-            string minimalOverlap = utilityObj.xmlUtil.GetTextValue(
-              nodeName, Constants.OverlapValue);
-            string rangeID = string.Empty;
-            bool result = false;
+            string expectedRangeIDs = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.IDNode);
+            string expectedStartIndex = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.StartNode);
+            string expectedEndIndex = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.EndNode);
+            string referenceFilePath = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode);
+            string queryFilePath = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.QueryFilePath);
+            string minimalOverlap = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.OverlapValue);
 
-            List<ISequenceRange> rangeList = null;
             SequenceRangeGrouping operationResult = null;
 
             // Parse a BED file.
-            BedParser parserObj = new BedParser();
+            var parserObj = new BedParser();
             SequenceRangeGrouping referenceGroup = parserObj.ParseRangeGrouping(referenceFilePath);
             SequenceRangeGrouping queryGroup = parserObj.ParseRangeGrouping(queryFilePath);
 
-            IntersectOutputType intersectOutputType = IntersectOutputType.OverlappingIntervals;
+            var intersectOutputType = IntersectOutputType.OverlappingIntervals;
             if (overlappingBasePair)
             {
                 intersectOutputType = IntersectOutputType.OverlappingPiecesOfIntervals;
             }
 
-            SubtractOutputType subtractOutputType = SubtractOutputType.NonOverlappingPiecesOfIntervals;
+            var subtractOutputType = SubtractOutputType.NonOverlappingPiecesOfIntervals;
             if (overlappingBasePair)
             {
                 subtractOutputType = SubtractOutputType.IntervalsWithNoOverlap;
@@ -383,20 +371,22 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
                     break;
                 case BedOperationsParameters.MergeWithPam:
                     operationResult = referenceGroup.MergeOverlaps(queryGroup,
-                        0, IsParentSeqRangeRequired);
+                                                                   0, isParentSeqRangeRequired);
                     break;
                 case BedOperationsParameters.Intersect:
 
                     operationResult = referenceGroup.Intersect(queryGroup,
-                        long.Parse(minimalOverlap, (IFormatProvider)null), intersectOutputType, IsParentSeqRangeRequired);
+                                                               long.Parse(minimalOverlap, null), intersectOutputType,
+                                                               isParentSeqRangeRequired);
                     break;
                 case BedOperationsParameters.MergeQueryWithReference:
                     operationResult = queryGroup.MergeOverlaps(referenceGroup,
-                        0, IsParentSeqRangeRequired);
+                                                               0, isParentSeqRangeRequired);
                     break;
                 case BedOperationsParameters.Subtract:
                     operationResult = referenceGroup.Subtract(queryGroup,
-                        long.Parse(minimalOverlap, (IFormatProvider)null), subtractOutputType, IsParentSeqRangeRequired);
+                                                              long.Parse(minimalOverlap, null), subtractOutputType,
+                                                              isParentSeqRangeRequired);
                     break;
                 default:
                     break;
@@ -409,86 +399,70 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
             string[] expectedEndIndexArray = expectedEndIndex.Split(',');
             int i = 0;
 
-            foreach (string grpID in groupId)
+            foreach (string grpId in groupId)
             {
-                rangeID = grpID;
+                string rangeId = grpId;
 
-                rangeList = operationResult.GetGroup(rangeID);
+                List<ISequenceRange> rangeList = operationResult.GetGroup(rangeId);
 
                 // Validate result sequence range.
                 foreach (ISequenceRange range in rangeList)
                 {
                     Assert.AreEqual(expectedRangeIdsArray[i], range.ID);
-                    Assert.AreEqual(expectedStartIndexArray[i], range.Start.ToString((IFormatProvider)null));
-                    Assert.AreEqual(expectedEndIndexArray[i], range.End.ToString((IFormatProvider)null));
+                    Assert.AreEqual(expectedStartIndexArray[i], range.Start.ToString((IFormatProvider) null));
+                    Assert.AreEqual(expectedEndIndexArray[i], range.End.ToString((IFormatProvider) null));
                     i++;
                 }
             }
 
             // Validate ParentSeqRange.
-            result = ValidateParentSeqRange(operationResult, referenceGroup,
-                queryGroup, IsParentSeqRangeRequired);
+            bool result = ValidateParentSeqRange(operationResult, referenceGroup, queryGroup, isParentSeqRangeRequired);
             Assert.IsTrue(result);
 
-            ApplicationLog.WriteLine(
-                "Bed Operations BVT: Successfully validated the BED SequenceID, Start and End Ranges");
+            ApplicationLog.WriteLine("Bed Operations BVT: Successfully validated the BED SequenceID, Start and End Ranges");
         }
 
         /// <summary>
-        /// Compare two sequence ranges.
+        ///     Compare two sequence ranges.
         /// </summary>
         /// <param name="nodeName">Xml Node name for different inputs.</param>
-        void ValidateCompareTwoSequenceRanges(string nodeName)
+        private void ValidateCompareTwoSequenceRanges(string nodeName)
         {
             // Get values from xml.
-            string expectedRangeID = utilityObj.xmlUtil.GetTextValue(
-                nodeName, Constants.IDNode);
-            string expectedStartIndex = utilityObj.xmlUtil.GetTextValue(
-                nodeName, Constants.StartNode);
-            string expectedEndIndex = utilityObj.xmlUtil.GetTextValue(
-                nodeName, Constants.EndNode);
-            string expectedRangeID1 = utilityObj.xmlUtil.GetTextValue(
-                nodeName, Constants.IDNode1);
-            string expectedStartIndex1 = utilityObj.xmlUtil.GetTextValue(
-                nodeName, Constants.StartNode1);
-            string expectedEndIndex1 = utilityObj.xmlUtil.GetTextValue(
-                nodeName, Constants.EndNode1);
-            string expectedResults = utilityObj.xmlUtil.GetTextValue(
-                nodeName, Constants.ComparisonResult);
+            string expectedRangeId = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.IDNode);
+            string expectedStartIndex = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.StartNode);
+            string expectedEndIndex = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.EndNode);
+            string expectedRangeId1 = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.IDNode1);
+            string expectedStartIndex1 = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.StartNode1);
+            string expectedEndIndex1 = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.EndNode1);
+            string expectedResults = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.ComparisonResult);
 
             // Create first SequenceRange.
-            SequenceRange seqRange = new SequenceRange(expectedRangeID,
-                long.Parse(expectedStartIndex, (IFormatProvider)null),
-                long.Parse(expectedEndIndex, (IFormatProvider)null));
+            var seqRange = new SequenceRange(expectedRangeId, long.Parse(expectedStartIndex, null), long.Parse(expectedEndIndex, null));
 
             // Create second SequenceRange.
-            SequenceRange secondSeqRange = new SequenceRange(expectedRangeID1,
-                long.Parse(expectedStartIndex1, (IFormatProvider)null),
-                long.Parse(expectedEndIndex1, (IFormatProvider)null));
+            var secondSeqRange = new SequenceRange(expectedRangeId1, long.Parse(expectedStartIndex1, null), long.Parse(expectedEndIndex1, null));
 
             // Compare two SequenceRanges which are identical.
             int result = seqRange.CompareTo(secondSeqRange);
 
             // Validate result of comparison.
-            Assert.AreEqual(Convert.ToInt32(expectedResults,
-                (IFormatProvider)null), result);
-            Console.WriteLine("SequenceRange P1 : Successfully validated the SequenceRange comparison");
+            Assert.AreEqual(Convert.ToInt32(expectedResults, null), result);
+            ApplicationLog.WriteLine("SequenceRange P1 : Successfully validated the SequenceRange comparison");
         }
 
         /// <summary>
-        /// Validate Parent Sequence ranges in result sequence range.
+        ///     Validate Parent Sequence ranges in result sequence range.
         /// </summary>
         /// <param name="resultSeq">Result seq range group.</param>
-        /// <param name="refSeqRange">Reference seq range group.</param>
-        /// <param name="querySeqRange">Query seq range group.</param>
-        /// <param name="minOverlap">Minimum overlap.</param>
-        /// <param name="isParentSeqRangeRequired">Flag to indicate whether 
-        /// result should contain parent seq ranges or not.</param>
+        /// <param name="refSeq">Reference seq range group.</param>
+        /// <param name="querySeq">Query seq range group.</param>
+        /// <param name="isParentSeqRangeRequired">Flag to indicate whether result should contain parent seq ranges or not.</param>
         /// <returns>Returns true if the parent seq ranges are valid; otherwise returns false.</returns>
         private static bool ValidateParentSeqRange(SequenceRangeGrouping resultSeq,
-             SequenceRangeGrouping refSeq,
-             SequenceRangeGrouping querySeq,
-             bool IsParentSeqRangeRequired)
+                                                   SequenceRangeGrouping refSeq,
+                                                   SequenceRangeGrouping querySeq,
+                                                   bool isParentSeqRangeRequired)
         {
             IList<ISequenceRange> refSeqRangeList = new List<ISequenceRange>();
             IList<ISequenceRange> querySeqRangeList = new List<ISequenceRange>();
@@ -509,7 +483,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
                 foreach (ISequenceRange resultRange in resultSeq.GetGroup(groupId))
                 {
-                    if (!IsParentSeqRangeRequired)
+                    if (!isParentSeqRangeRequired)
                     {
                         if (0 != resultRange.ParentSeqRanges.Count)
                         {
@@ -518,9 +492,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
                     }
                     else
                     {
-                        int refSeqRangeCount = refSeqRangeList.Where(S => resultRange.ParentSeqRanges.Contains(S)).Count();
-                        int querySeqRangeCount = querySeqRangeList.Where(S => resultRange.ParentSeqRanges.Contains(S)).Count();
-
+                        int refSeqRangeCount = refSeqRangeList.Count(s => resultRange.ParentSeqRanges.Contains(s));
+                        int querySeqRangeCount = querySeqRangeList.Count(s => resultRange.ParentSeqRanges.Contains(s));
 
                         if (resultRange.ParentSeqRanges.Count != refSeqRangeCount + querySeqRangeCount)
                         {

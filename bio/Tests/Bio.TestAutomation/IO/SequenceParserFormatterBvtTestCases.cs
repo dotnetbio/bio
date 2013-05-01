@@ -5,7 +5,6 @@
  * 
 ***************************************************************************/
 
-using System;
 using Bio.IO;
 using Bio.Util.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -70,7 +69,6 @@ namespace Bio.TestAutomation.IO
             Assert.AreEqual(SequenceType.GFF.ToString(), gffObj.Name);
 
             ApplicationLog.WriteLine("Sequence Formatter BVT : Successfully validated the FindParserByFileName() method");
-            Console.WriteLine("Sequence Formatter BVT : Successfully validated the FindParserByFileName() method");
         }
         
         /// <summary>
@@ -142,7 +140,6 @@ namespace Bio.TestAutomation.IO
             Assert.AreEqual(SequenceType.GFF.ToString(), gffObj.Name);
 
             ApplicationLog.WriteLine("Sequence Formatter BVT : Successfully validated the FindFormatterByFileName() method");
-            Console.WriteLine("Sequence Formatter BVT : Successfully validated the FindFormatterByFileName() method");
         }
 
         
@@ -228,7 +225,6 @@ namespace Bio.TestAutomation.IO
             System.Type formatterTypes = formatter.GetType();
             Assert.AreEqual(formatterTypes.ToString(), expectedFomatter);
             ApplicationLog.WriteLine("Sequence Formatter BVT : Successfully validated the FindFormatterByName() method");
-            Console.WriteLine("Sequence Formatter BVT : Successfully validated the FindFormatterByName() method");
         }
 
         void ValidateFindParserByName(SequenceType type)
@@ -265,9 +261,8 @@ namespace Bio.TestAutomation.IO
             System.Type parserTypes = parser.GetType();
             Assert.AreEqual(parserTypes.ToString(), expectedParser);
             ApplicationLog.WriteLine("Sequence parser BVT : Successfully validated the FindParserByName() method");
-            Console.WriteLine("Sequence parser BVT : Successfully validated the FindParserByName() method");
         }
 
-      # endregion Supporting methods.
+      #endregion Supporting methods.
     }
 }

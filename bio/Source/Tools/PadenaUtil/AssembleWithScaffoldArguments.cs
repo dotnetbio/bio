@@ -73,6 +73,7 @@ namespace PadenaUtil
                 Output.WriteLine(OutputLevel.Verbose, "Processed read file: {0}", Path.GetFullPath(this.Filename));
                 Output.WriteLine(OutputLevel.Verbose, "   Read/Processing time: {0}", runAlgorithm.Elapsed);
                 Output.WriteLine(OutputLevel.Verbose, "   File Size           : {0}", refFileLength);
+                Output.WriteLine(OutputLevel.Verbose, "   k-mer Length        : {0}", this.KmerLength);
             }
 
             runAlgorithm.Restart();
@@ -119,7 +120,7 @@ namespace PadenaUtil
             if (this.Verbose)
             {
                 Output.WriteLine(OutputLevel.Verbose);
-                Output.WriteLine(OutputLevel.Verbose, "Write time: {0}", runAlgorithm.Elapsed);
+                Output.WriteLine(OutputLevel.Verbose, "Write contigs time: {0}", runAlgorithm.Elapsed);
                 Output.WriteLine(OutputLevel.Verbose, "Total runtime: {0}", algorithmSpan);
             }
         }

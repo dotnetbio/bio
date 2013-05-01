@@ -151,8 +151,6 @@ using Bio;
             {
                 ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                        "GenBankFeatures P2 : Validate the exception successfully"));
-                Console.WriteLine(string.Format((IFormatProvider)null,
-                    "GenBankFeatures P2 : Validate the exception successfully"));
             }
 
         }
@@ -198,8 +196,6 @@ using Bio;
             {
                 ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                     "GenBankFeatures P2 : Validate the exception successfully"));
-                Console.WriteLine(string.Format((IFormatProvider)null,
-                    "GenBankFeatures P2 : Validate the exception successfully"));
             }
 
             Dictionary<string, ISequence> refSeq = null;
@@ -213,8 +209,6 @@ using Bio;
             catch (ArgumentNullException)
             {
                 ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                    "GenBankFeatures P2 : Validate the exception successfully"));
-                Console.WriteLine(string.Format((IFormatProvider)null,
                     "GenBankFeatures P2 : Validate the exception successfully"));
             }
 
@@ -247,8 +241,6 @@ using Bio;
             catch (ArgumentNullException)
             {
                 ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                    "GenBankFeatures P2 : Validate the exception successfully"));
-                Console.WriteLine(string.Format((IFormatProvider)null,
                     "GenBankFeatures P2 : Validate the exception successfully"));
             }
 
@@ -418,8 +410,6 @@ using Bio;
             catch (ArgumentNullException)
             {
                 Assert.IsNull(loc);
-                Console.WriteLine(
-                   "GenBankFeatures P2 : Validated the expected exception");
                 ApplicationLog.WriteLine(
                     "GenBankFeatures P2 : Validated the expected exception");
             }
@@ -432,8 +422,6 @@ using Bio;
             catch (ArgumentException)
             {
                 Assert.IsNull(loc);
-                Console.WriteLine(
-                   "GenBankFeatures P2 : Validated the expected exception");
                 ApplicationLog.WriteLine(
                     "GenBankFeatures P2 : Validated the expected exception");
             }
@@ -478,8 +466,6 @@ using Bio;
                 // Log to VSTest GUI.
                 ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                     "GenBankFeatures P2 : Expected exception is verified"));
-                Console.WriteLine(string.Format((IFormatProvider)null,
-                    "GenBankFeatures P2 : Expected exception is verified"));
             }
 
             try
@@ -492,8 +478,6 @@ using Bio;
                 // Log to VSTest GUI.
                 ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                     "GenBankFeatures P2 : Expected exception is verified"));
-                Console.WriteLine(string.Format((IFormatProvider)null,
-                    "GenBankFeatures P2 : Expected exception is verified"));
             }
 
             try
@@ -505,8 +489,6 @@ using Bio;
             {
                 // Log to VSTest GUI.
                 ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                    "GenBankFeatures P2 : Expected exception is verified"));
-                Console.WriteLine(string.Format((IFormatProvider)null,
                     "GenBankFeatures P2 : Expected exception is verified"));
             }
 
@@ -523,8 +505,6 @@ using Bio;
         private static void LogExceptionMessage()
         {
             ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                "GenBankFeatures P2 : Validate the exception successfully"));
-            Console.WriteLine(string.Format((IFormatProvider)null,
                 "GenBankFeatures P2 : Validate the exception successfully"));
         }
 

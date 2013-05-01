@@ -7,15 +7,10 @@
 
 using System.Collections.Generic;
 using System.IO;
-
-using Bio;
 using Bio.Algorithms.Alignment;
-using Bio.IO.FastA;
 using Bio.IO.SAM;
 using Bio.TestAutomation.Util;
-using Bio.Util;
 using Bio.Util.Logging;
-
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Bio.IO;
 using System;
@@ -259,8 +254,6 @@ namespace Bio.TestAutomation.IO.SAM
             {
                 ApplicationLog.WriteLine(
                     "SAM Parser P2 : Successfully validated the exception");
-                Console.WriteLine(
-                    "SAM Parser P2 : Successfully validated the exception");
             }
         }
 
@@ -285,8 +278,6 @@ namespace Bio.TestAutomation.IO.SAM
             catch (NotSupportedException)
             {
                 ApplicationLog.WriteLine(
-                    "SAM Parser P2 : Successfully validated the exception");
-                Console.WriteLine(
                     "SAM Parser P2 : Successfully validated the exception");
             }
         }
@@ -316,8 +307,6 @@ namespace Bio.TestAutomation.IO.SAM
             catch (ArgumentNullException)
             {
                 ApplicationLog.WriteLine(
-                    "SAM Formatter P2 : Successfully validated the exception");
-                Console.WriteLine(
                     "SAM Formatter P2 : Successfully validated the exception");
             }
         }
@@ -461,8 +450,6 @@ namespace Bio.TestAutomation.IO.SAM
             {
                 ApplicationLog.WriteLine(
                     "SAM Parser P2 : Successfully validated the exception");
-                Console.WriteLine(
-                    "SAM Parser P2 : Successfully validated the exception");
             }
         }
 
@@ -509,8 +496,6 @@ namespace Bio.TestAutomation.IO.SAM
             catch (ArgumentNullException)
             {
                 ApplicationLog.WriteLine(
-                    "SAM Parser P2 : Successfully validated the exception");
-                Console.WriteLine(
                     "SAM Parser P2 : Successfully validated the exception");
             }
         }
@@ -568,14 +553,10 @@ namespace Bio.TestAutomation.IO.SAM
             {
                 ApplicationLog.WriteLine(
                     "SAM Parser P2 : Successfully validated the exception");
-                Console.WriteLine(
-                    "SAM Parser P2 : Successfully validated the exception");
             }
             catch (FormatException)
             {
                 ApplicationLog.WriteLine(
-                    "SAM Parser P2 : Successfully validated the exception");
-                Console.WriteLine(
                     "SAM Parser P2 : Successfully validated the exception");
             }
         }
@@ -661,14 +642,10 @@ namespace Bio.TestAutomation.IO.SAM
             {
                 ApplicationLog.WriteLine(
                     "SAM Formatter P2 : Successfully validated the exception");
-                Console.WriteLine(
-                    "SAM Formatter P2 : Successfully validated the exception");
             }
             catch (NotSupportedException)
             {
                 ApplicationLog.WriteLine(
-                    "SAM Formatter P2 : Successfully validated the exception");
-                Console.WriteLine(
                     "SAM Formatter P2 : Successfully validated the exception");
             }
             finally

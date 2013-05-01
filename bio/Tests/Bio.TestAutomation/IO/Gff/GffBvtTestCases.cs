@@ -10,9 +10,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Text;
-
-using Bio;
 using Bio.IO.Gff;
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
@@ -198,10 +195,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
             val = ValidateFeatures(originalSequence,
             Constants.OneLineSeqGffNodeName);
             Assert.IsTrue(val);
-            ApplicationLog.WriteLine(
-            "GFF Parser BVT : All the features validated successfully.");
-            Console.WriteLine(
-            "GFF Parser BVT : All the features validated successfully.");
+            ApplicationLog.WriteLine("GFF Parser BVT : All the features validated successfully.");
         }
 
         /// <summary>
@@ -311,9 +305,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
                 formatString.Replace("\r", "").Replace("\n", "").Replace(" ", "").Replace("\t", "").ToUpper(CultureInfo.CurrentCulture);
 
             Assert.AreEqual(modifedformatString, expectedString);
-            Console.WriteLine(string.Format((IFormatProvider)null,
-                "Gff Formatter BVT: The Gff Format String '{0}' are matching with FormatString() method and is as expected.",
-                formatString));
             ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                 "Gff Formatter BVT: The Gff Format String '{0}' are matching with FormatString() method and is as expected.",
                 formatString));
@@ -402,8 +393,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
             Assert.IsTrue(val);
             ApplicationLog.WriteLine(
                 "GFF Formatter BVT : All the features validated successfully.");
-            Console.WriteLine(
-                "GFF Formatter BVT : All the features validated successfully.");
 
             // Now compare the sequences.
             int countNew = seqsNew.Count();
@@ -415,9 +404,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
             ISequence newSeq = seqsNew.FirstOrDefault();           
             Assert.AreEqual(new string(originalSequence.Select(x => (char)x).ToArray()),
                             new string(newSeq.Select(x => (char)x).ToArray()));
-            Console.WriteLine(string.Format((IFormatProvider)null,
-                "Gff Formatter BVT: The Gff sequences '{0}' are matching with Write() method and is as expected.",
-                seqsNew[0].ToString()));
             ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                 "Gff Formatter BVT: The Gff sequences '{0}' are matching with Write() method.",
                 seqsNew[0].ToString()));
@@ -478,8 +464,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
             Assert.IsTrue(ValidateFeatures(seqs[0], nodeName));
             ApplicationLog.WriteLine(
                 "Gff Parser BVT : Successfully validated all the Features for a give Sequence in GFF File.");
-            Console.WriteLine(
-                "Gff Parser BVT : Successfully validated all the Features for a give Sequence in GFF File.");
 
             string expectedSequence = utilityObj.xmlUtil.GetTextValue(nodeName,
                 Constants.ExpectedSequenceNode);
@@ -496,11 +480,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
             Assert.AreEqual(expectedSequence, sequenceInString);
             ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                "Gff Parser BVT: The Gff sequence '{0}' validation after Parse() is found to be as expected.",
-                seq.ToString()));
-
-            // Logs to the VSTest GUI (Console.Out) window
-            Console.WriteLine(string.Format((IFormatProvider)null,
                 "Gff Parser BVT: The Gff sequence '{0}' validation after Parse() is found to be as expected.",
                 seq.ToString()));
 
@@ -529,11 +508,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
             ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                 "Gff Parser BVT: The Sequence ID is '{0}' and is as expected.",
                 seq.ID));
-            // Logs to the VSTest GUI (Console.Out) window
-            Console.WriteLine(string.Format((IFormatProvider)null,
-                "Gff Parser BVT: The Sequence ID is '{0}' and is as expected.",
-                seq.ID));
-
         }
 
         /// <summary>
@@ -574,8 +548,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
             Assert.IsTrue(ValidateFeatures(originalSeq, nodeName));
             ApplicationLog.WriteLine(
                 "Gff Parser BVT : Successfully validated all the Features for a give Sequence in GFF File.");
-            Console.WriteLine(
-                "Gff Parser BVT : Successfully validated all the Features for a give Sequence in GFF File.");
 
             string expectedSequence = utilityObj.xmlUtil.GetTextValue(nodeName,
                 Constants.ExpectedSequenceNode);
@@ -586,11 +558,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
             Assert.AreEqual(expectedSequence, sequenceInString);
             ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                "Gff Parser BVT: The Gff sequence '{0}' validation after ParseOne() is found to be as expected.",
-                seq.ToString()));
-
-            // Logs to the VSTest GUI (Console.Out) window
-            Console.WriteLine(string.Format((IFormatProvider)null,
                 "Gff Parser BVT: The Gff sequence '{0}' validation after ParseOne() is found to be as expected.",
                 seq.ToString()));
 
@@ -619,10 +586,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
             Assert.AreEqual(expectedSequenceId, seq.ID);
             ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                "Gff Parser BVT: The Sequence ID is '{0}' and is as expected.",
-                seq.ID));
-            // Logs to the VSTest GUI (Console.Out) window
-            Console.WriteLine(string.Format((IFormatProvider)null,
                 "Gff Parser BVT: The Sequence ID is '{0}' and is as expected.",
                 seq.ID));
         }
@@ -687,8 +650,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
             Assert.IsTrue(val);
             ApplicationLog.WriteLine(
                 "GFF Formatter BVT : All the features validated successfully.");
-            Console.WriteLine(
-                "GFF Formatter BVT : All the features validated successfully.");
 
             // Now compare the sequences.
             int countNew = seqsNew.Count();
@@ -703,9 +664,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
             string newSeqString = new string(newSeq.Select(x => (char)x).ToArray());
 
             Assert.AreEqual(orgSeq, newSeqString);
-            Console.WriteLine(string.Format((IFormatProvider)null,
-                "Gff Formatter BVT: The Gff sequences '{0}' are matching with Format() method and is as expected.",
-                seqsNew[0].ToString()));
             ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                 "Gff Formatter BVT: The Gff sequences '{0}' are matching with Format() method.",
                 seqsNew[0].ToString()));
@@ -891,9 +849,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
             Assert.IsTrue(ValidateFeatures(seqs[0], nodeName));
             ApplicationLog.WriteLine(
                 "Gff Parser BVT : Successfully validated all the Features for a give Sequence in GFF File.");
-            Console.WriteLine(
-                "Gff Parser BVT : Successfully validated all the Features for a give Sequence in GFF File.");
-
             string expectedSequence = utilityObj.xmlUtil.GetTextValue(nodeName,
                 Constants.ExpectedSequenceNode);
 
@@ -909,11 +864,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
             Assert.AreEqual(expectedSequence, sequenceInString);
             ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                "Gff Parser BVT: The Gff sequence '{0}' validation after Parse() is found to be as expected.",
-                seq.ToString()));
-
-            // Logs to the VSTest GUI (Console.Out) window
-            Console.WriteLine(string.Format((IFormatProvider)null,
                 "Gff Parser BVT: The Gff sequence '{0}' validation after Parse() is found to be as expected.",
                 seq.ToString()));
 
@@ -942,10 +892,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
                 Constants.SequenceIdNode);
             Assert.AreEqual(expectedSequenceId, seq.ID);
             ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                "Gff Parser BVT: The Sequence ID is '{0}' and is as expected.",
-                seq.ID));
-            // Logs to the VSTest GUI (Console.Out) window
-            Console.WriteLine(string.Format((IFormatProvider)null,
                 "Gff Parser BVT: The Sequence ID is '{0}' and is as expected.",
                 seq.ID));
         }

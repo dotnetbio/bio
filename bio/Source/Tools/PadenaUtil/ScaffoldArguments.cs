@@ -64,6 +64,11 @@ namespace PadenaUtil
         public int Depth = 10;
 
         /// <summary>
+        /// Force specified kmer (no warning prompt)
+        /// </summary>
+        public bool ForceKmer = false;
+
+        /// <summary>
         /// Display verbose logging during processing.
         /// </summary>
         public bool Verbose = false;
@@ -116,6 +121,7 @@ namespace PadenaUtil
                     Output.WriteLine(OutputLevel.Verbose, "Processed contigs file : {0}", Path.GetFullPath(this.FileNames[0]));
                     Output.WriteLine(OutputLevel.Verbose, "   Read/Processing time: {0}", runAlgorithm.Elapsed);
                     Output.WriteLine(OutputLevel.Verbose, "   File Size           : {0}", refFileLength);
+                    Output.WriteLine(OutputLevel.Verbose, "   k-mer Length        : {0}", this.KmerLength);
                 }
 
                 refFileinfo = new FileInfo(this.FileNames[1]);
@@ -161,7 +167,7 @@ namespace PadenaUtil
                 if (this.Verbose)
                 {
                     Output.WriteLine(OutputLevel.Verbose);
-                    Output.WriteLine(OutputLevel.Verbose, "Write time: {0}", runAlgorithm.Elapsed);
+                    Output.WriteLine(OutputLevel.Verbose, "Write contigs time: {0}", runAlgorithm.Elapsed);
                     Output.WriteLine(OutputLevel.Verbose, "Total runtime: {0}", algorithmSpan);
                 }
             }

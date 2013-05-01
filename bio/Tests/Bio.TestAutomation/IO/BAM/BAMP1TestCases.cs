@@ -8,10 +8,8 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
-
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
-
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Bio.IO;
 using Bio.IO.BAM;
@@ -19,7 +17,6 @@ using Bio.IO.SAM;
 using System.IO;
 using Bio.IO.FastA;
 using Bio.Algorithms.Alignment;
-using Bio;
 
 namespace Bio.TestAutomation.IO.BAM
 {
@@ -235,9 +232,6 @@ namespace Bio.TestAutomation.IO.BAM
                 ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                     "BAM Parser P1 : Validated Exception {0} successfully",
                     exceptionMessage));
-                Console.WriteLine(string.Format((IFormatProvider)null,
-                    "BAM Parser P1 : Validated Exception {0} successfully",
-                    exceptionMessage));
             }
 
             try
@@ -251,9 +245,6 @@ namespace Bio.TestAutomation.IO.BAM
                 ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                     "BAM Parser P1 : Validated Exception {0} successfully",
                     exceptionMessage));
-                Console.WriteLine(string.Format((IFormatProvider)null,
-                    "BAM Parser P1 : Validated Exception {0} successfully",
-                    exceptionMessage));
             }
 
             try
@@ -265,9 +256,6 @@ namespace Bio.TestAutomation.IO.BAM
                 string exceptionMessage = ex.Message;
                 // Log to VSTest GUI.
                 ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                    "BAM Parser P1 : Validated Exception {0} successfully",
-                    exceptionMessage));
-                Console.WriteLine(string.Format((IFormatProvider)null,
                     "BAM Parser P1 : Validated Exception {0} successfully",
                     exceptionMessage));
             }
@@ -344,8 +332,6 @@ namespace Bio.TestAutomation.IO.BAM
             // Log to VSTest GUI.
             ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                 "BAM Parser P1 : Validated the Aligned sequence properties successfully"));
-            Console.WriteLine(string.Format((IFormatProvider)null,
-                "BAM Parser P1 : Validated the Aligned sequence properties successfully"));
         }
 
         /// <summary>
@@ -376,8 +362,6 @@ namespace Bio.TestAutomation.IO.BAM
 
             // Log to VSTest GUI.
             ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                "BAM Parser P1 : Validated the BAM indices successfully"));
-            Console.WriteLine(string.Format((IFormatProvider)null,
                 "BAM Parser P1 : Validated the BAM indices successfully"));
         }
 
@@ -665,9 +649,6 @@ namespace Bio.TestAutomation.IO.BAM
                         ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                             "BAM Parser P1 : Validated Aligned sequence :{0} successfully",
                             alignedSeqs[index].Sequences.ToString()));
-                        Console.WriteLine(string.Format((IFormatProvider)null,
-                            "BAM Parser P1 : Validated the aligned sequence :{0} successfully",
-                            alignedSeqs[index].Sequences.ToString()));
                     }
                 }
             }
@@ -786,9 +767,6 @@ namespace Bio.TestAutomation.IO.BAM
                     ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                         "BAM Parser P1 : Validated Aligned sequence :{0} successfully",
                         alignedSeqs[index].QuerySequence.ToString()));
-                    Console.WriteLine(string.Format((IFormatProvider)null,
-                        "BAM Parser P1 : Validated the aligned sequence :{0} successfully",
-                        alignedSeqs[index].QuerySequence.ToString()));
                 }
             }
         }
@@ -852,9 +830,6 @@ namespace Bio.TestAutomation.IO.BAM
                         ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                             "BAM Parser P1 : Validated Quality sequence :{0} successfully",
                             alignedSeqs[index].QuerySequence.ToString()));
-                        Console.WriteLine(string.Format((IFormatProvider)null,
-                            "BAM Parser P1 : Validated the Quality sequence :{0} successfully",
-                            alignedSeqs[index].QuerySequence.ToString()));
                     }
                 }
             }
@@ -903,8 +878,6 @@ namespace Bio.TestAutomation.IO.BAM
 
                     // Log message to VSTest GUI.
                     ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                        "BAM Parser P1 : Validated the BAM->SAM conversion successfully"));
-                    Console.WriteLine(string.Format((IFormatProvider)null,
                         "BAM Parser P1 : Validated the BAM->SAM conversion successfully"));
                 }
             }
@@ -959,8 +932,6 @@ namespace Bio.TestAutomation.IO.BAM
 
                     // Log message to VSTest GUI.
                     ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                        "BAM Parser P1 : Validated the SAM->BAM conversion successfully"));
-                    Console.WriteLine(string.Format((IFormatProvider)null,
                         "BAM Parser P1 : Validated the SAM->BAM conversion successfully"));
                 }
             }
@@ -1040,9 +1011,6 @@ namespace Bio.TestAutomation.IO.BAM
                             // Log to VSTest GUI.
                             ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                                 "BAM Formatter P1 : Validated Aligned sequence :{0} successfully",
-                                alignedSeqs[index].QuerySequence.ToString()));
-                            Console.WriteLine(string.Format((IFormatProvider)null,
-                                "BAM Formatter P1 : Validated the aligned sequence :{0} successfully",
                                 alignedSeqs[index].QuerySequence.ToString()));
                         }
                     }
@@ -1187,9 +1155,6 @@ namespace Bio.TestAutomation.IO.BAM
                                     ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                                         "BAM Formatter P1 : Validated Aligned sequence :{0} successfully",
                                         alignedSeqs[index].QuerySequence.ToString()));
-                                    Console.WriteLine(string.Format((IFormatProvider)null,
-                                        "BAM Formatter P1 : Validated the aligned sequence :{0} successfully",
-                                        alignedSeqs[index].QuerySequence.ToString()));
                                 }
                             }
                         }
@@ -1308,8 +1273,6 @@ namespace Bio.TestAutomation.IO.BAM
                         || (0 != string.Compare(expectedrecordFields[index].Tags[tags].Value.ToString((IFormatProvider)null),
                         arecordFields[index].Tags[tags].Value.ToString((IFormatProvider)null), StringComparison.CurrentCulture)))
                     {
-                        Console.WriteLine(string.Format((IFormatProvider)null,
-                            "BAM Parser P1 : Sequence alignment header does not match"));
                         ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                             "BAM Parser P1 : Sequence alignment header does not match"));
                         return false;
@@ -1339,8 +1302,6 @@ namespace Bio.TestAutomation.IO.BAM
                 if (0 != string.Compare(new string(expectedAlignedSeqs[i].QuerySequence.Select(a => (char)a).ToArray()),
                    new string(actualAlignedSeqs[i].QuerySequence.Select(a => (char)a).ToArray()), StringComparison.CurrentCulture))
                 {
-                    Console.WriteLine(string.Format((IFormatProvider)null,
-                        "BAM Parser P1 : Sequence alignment aligned seq does not match"));
                     ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                         "BAM Parser P1 : Sequence alignment aligned seq does match"));
                     return false;

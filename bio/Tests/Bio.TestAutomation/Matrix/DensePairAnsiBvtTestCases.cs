@@ -17,7 +17,6 @@ namespace Bio.TestAutomation.Matrix
     [TestClass]
     public class DensePairAnsiBvtTestCases
     {
-
         #region Global Variables
 
         Utility utilityObj = new Utility(@"TestUtils\MatrixTestsConfig.xml");
@@ -68,8 +67,6 @@ namespace Bio.TestAutomation.Matrix
             if (File.Exists(Constants.FastQTempTxtFileName))
                 File.Delete(Constants.FastQTempTxtFileName);
 
-            Console.WriteLine(
-                "DensePairAnsi BVT : Validation of ColKeysInFile() method successful");
             ApplicationLog.WriteLine(
                 "DensePairAnsi BVT : Validation of ColKeysInFile() method successful");
         }
@@ -93,8 +90,6 @@ namespace Bio.TestAutomation.Matrix
 
             Assert.IsNotNull(dpaObj);
 
-            Console.WriteLine(
-                "DensePairAnsi BVT : Validation of CreateEmptyInstance() method successful");
             ApplicationLog.WriteLine(
                 "DensePairAnsi BVT : Validation of CreateEmptyInstance() method successful");
         }
@@ -129,8 +124,6 @@ namespace Bio.TestAutomation.Matrix
             if (File.Exists(Constants.FastQTempTxtFileName))
                 File.Delete(Constants.FastQTempTxtFileName);
 
-            Console.WriteLine(
-                "DensePairAnsi BVT : Validation of GetInstance() method successful");
             ApplicationLog.WriteLine(
                 "DensePairAnsi BVT : Validation of GetInstance() method successful");
         }
@@ -154,8 +147,6 @@ namespace Bio.TestAutomation.Matrix
 
             Assert.IsNotNull(dpaObj);
 
-            Console.WriteLine(
-                "DensePairAnsi BVT : Validation of GetInstance(enum, char) method successful");
             ApplicationLog.WriteLine(
                 "DensePairAnsi BVT : Validation of GetInstance(enum, char) method successful");
         }
@@ -188,8 +179,6 @@ namespace Bio.TestAutomation.Matrix
             if (File.Exists(Constants.FastQTempTxtFileName))
                 File.Delete(Constants.FastQTempTxtFileName);
 
-            Console.WriteLine(
-                "DensePairAnsi BVT : Validation of GetInstanceFromSparse() method successful");
             ApplicationLog.WriteLine(
                 "DensePairAnsi BVT : Validation of GetInstanceFromSparse() method successful");
         }
@@ -211,8 +200,6 @@ namespace Bio.TestAutomation.Matrix
 
             Assert.IsNotNull(dpaObj);
 
-            Console.WriteLine(
-                "DensePairAnsi BVT : Validation of GetInstanceFromSparse(Ienum) method successful");
             ApplicationLog.WriteLine(
                 "DensePairAnsi BVT : Validation of GetInstanceFromSparse(Ienum) method successful");
         }
@@ -246,8 +233,6 @@ namespace Bio.TestAutomation.Matrix
             if (File.Exists(Constants.FastQTempTxtFileName))
                 File.Delete(Constants.FastQTempTxtFileName);
 
-            Console.WriteLine(
-                "DensePairAnsi BVT : Validation of RowKeysInFile() method successful");
             ApplicationLog.WriteLine(
                 "DensePairAnsi BVT : Validation of RowKeysInFile() method successful");
         }
@@ -284,8 +269,6 @@ namespace Bio.TestAutomation.Matrix
             Assert.AreEqual("C0", dpaObj.ColKeys[0]);
             Assert.AreEqual(0, dpaObj.IndexOfRowKey["R0"]);
 
-            Console.WriteLine(
-                "DensePairAnsi BVT : Validation of GetInstanceFromSparseInternal() method successful");
             ApplicationLog.WriteLine(
                 "DensePairAnsi BVT : Validation of GetInstanceFromSparseInternal() method successful");
         }
@@ -315,8 +298,6 @@ namespace Bio.TestAutomation.Matrix
 
             Assert.IsNotNull(newDpaObj);
 
-            Console.WriteLine(
-                "DensePairAnsi BVT : Validation of WriteDensePairAnsi() method successful");
             ApplicationLog.WriteLine(
                 "DensePairAnsi BVT : Validation of WriteDensePairAnsi() method successful");
         }

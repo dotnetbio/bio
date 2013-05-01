@@ -1086,8 +1086,6 @@ namespace Bio.TestAutomation.Algorithms.MUMmer
                     || (0 != string.Compare(secondSeqStart[i],
                     match.QuerySequenceOffset.ToString((IFormatProvider)null), true, CultureInfo.CurrentCulture)))
                 {
-                    Console.WriteLine(string.Format((IFormatProvider)null,
-                        "MUMmer P1 : Unique match not matching at index '{0}'", i.ToString((IFormatProvider)null)));
                     ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                         "MUMmer P1 : Unique match not matching at index '{0}'", i.ToString((IFormatProvider)null)));
                     return false;
@@ -1178,7 +1176,6 @@ namespace Bio.TestAutomation.Algorithms.MUMmer
             // Validate MUMs output.
             Assert.IsTrue(ValidateMums(nodeName, actualResult));
 
-            Console.WriteLine("MUMmer P1 : Successfully validated the Mumms");
             ApplicationLog.WriteLine("MUMmer P1 : Successfully validated the Mumms.");
         }
 
@@ -1203,7 +1200,6 @@ namespace Bio.TestAutomation.Algorithms.MUMmer
                    || (0 != string.Compare(length[i], mums.ElementAt(i).Length.ToString((IFormatProvider)null), StringComparison.CurrentCulture))
                    || (0 != string.Compare(secondSeqStart[i], mums.ElementAt(i).QuerySequenceOffset.ToString((IFormatProvider)null), StringComparison.CurrentCulture)))
                 {
-                    Console.WriteLine(string.Format((IFormatProvider)null, "MUMmer P1 : There is no match at '{0}'", i.ToString((IFormatProvider)null)));
                     ApplicationLog.WriteLine(string.Format((IFormatProvider)null, "MUMmer P1 : There is no match at '{0}'", i.ToString((IFormatProvider)null)));
                     return false;
                 }

@@ -7,25 +7,22 @@
 
 using System;
 using System.Collections.Generic;
-using System.Globalization;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
-using System.Text;
-using Bio.IO.FastQ;
-using Bio;
 using System.Linq;
-using Bio.IO;
-using Bio.Util.Logging;
+using Bio.IO.FastQ;
 using Bio.TestAutomation.Util;
+using Bio.Util.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 #if (SILVERLIGHT == false)
-    namespace Bio.TestAutomation.IO.FastQ
+namespace Bio.TestAutomation.IO.FastQ
 #else
-    namespace Bio.Silverlight.TestAutomation.IO.FastQ
+namespace Bio.Silverlight.TestAutomation.IO.FastQ
 #endif
 {
     /// <summary>
-    /// FASTQ parser and formatter P2 Test cases implementation.
+    ///     FASTQ parser and formatter P2 Test cases implementation.
     /// </summary>
     [TestClass]
     public class FastQP2TestCases
@@ -33,13 +30,12 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         #region Enums
 
         /// <summary>
-        /// FastQ Formatter Parameters which are used for different test cases 
-        /// based on which the test cases are executed.
+        ///     FastQ Formatter Parameters which are used for different test cases
+        ///     based on which the test cases are executed.
         /// </summary>
-        enum FastQFormatParameters
+        private enum FastQFormatParameters
         {
             Sequence,
-            QualitativeSequence,
             Default
         };
 
@@ -47,14 +43,14 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
         #region Global Variables
 
-        Utility utilityObj = new Utility(@"TestUtils\FastQTestsConfig.xml");
+        private readonly Utility utilityObj = new Utility(@"TestUtils\FastQTestsConfig.xml");
 
         #endregion Global Variables
 
         #region Constructor
 
         /// <summary>
-        /// Static constructor to open log and make other settings needed for test
+        ///     Static constructor to open log and make other settings needed for test
         /// </summary>
         static FastQP2TestCases()
         {
@@ -70,91 +66,98 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         #region FastQ Parser P2 Test cases
 
         /// <summary>
-        /// Invalidate FastQ Parser with invalid FastQ file.
-        /// Input : Qualitative sequence without @ at first line
-        /// Output : Validate Exception.
+        ///     Invalidate FastQ Parser with invalid FastQ file.
+        ///     Input : Qualitative sequence without @ at first line
+        ///     Output : Validate Exception.
         /// </summary>
         [TestMethod]
         [Priority(2)]
         [TestCategory("Priority2")]
+        [ExpectedException(typeof(FileFormatException))]
         public void InvalidateFastQParserWithInvalidSeqId()
         {
             InValidateFastQParser(Constants.FastQSequenceWithInvalidSeqIdNode);
         }
 
         /// <summary>
-        /// Invalidate FastQ Parser with empty sequence.
-        /// Input : FastQ empty sequence.
-        /// Output : Validate Exception.
+        ///     Invalidate FastQ Parser with empty sequence.
+        ///     Input : FastQ empty sequence.
+        ///     Output : Validate Exception.
         /// </summary>
         [TestMethod]
         [Priority(2)]
         [TestCategory("Priority2")]
+        [ExpectedException(typeof(FileFormatException))]
         public void InvalidateFastQParserWithEmptySequence()
         {
             InValidateFastQParser(Constants.FastQParserEmptySequenceNode);
         }
 
         /// <summary>
-        /// Invalidate FastQ Parser with invalid Qual scores.
-        /// Input : FastQ file with invalid qual score.
-        /// Output : Validate Exception.
+        ///     Invalidate FastQ Parser with invalid Qual scores.
+        ///     Input : FastQ file with invalid qual score.
+        ///     Output : Validate Exception.
         /// </summary>
         [TestMethod]
         [Priority(2)]
         [TestCategory("Priority2")]
+        [ExpectedException(typeof(FileFormatException))]
         public void InvalidateFastQParserWithInvalidQualScore()
         {
             InValidateFastQParser(Constants.FastQParserWithInvalidQualScoreNode);
         }
 
         /// <summary>
-        /// Invalidate FastQ Parser with empty Qual scores.
-        /// Input : FastQ file with empty qual score.
-        /// Output : Validate Exception.
+        ///     Invalidate FastQ Parser with empty Qual scores.
+        ///     Input : FastQ file with empty qual score.
+        ///     Output : Validate Exception.
         /// </summary>
         [TestMethod]
         [Priority(2)]
         [TestCategory("Priority2")]
+        [ExpectedException(typeof(FileFormatException))]
         public void InvalidateFastQParserWithEmptyQualScore()
         {
             InValidateFastQParser(Constants.FastQParserWithEmptyQualScoreNode);
         }
 
         /// <summary>
-        /// Invalidate FastQ Parser with empty Qual scores and Empty Qual Id.
-        /// Input : FastQ file with empty qual score and Id.
-        /// Output : Validate Exception.
+        ///     Invalidate FastQ Parser with empty Qual scores and Empty Qual Id.
+        ///     Input : FastQ file with empty qual score and Id.
+        ///     Output : Validate Exception.
         /// </summary>
         [TestMethod]
         [Priority(2)]
         [TestCategory("Priority2")]
+        [ExpectedException(typeof(FileFormatException))]
         public void InvalidateFastQParserWithEmptyQualScoreAndQualId()
         {
             InValidateFastQParser(Constants.FastQParserWithEmptyQualScoreAndQualID);
         }
 
         /// <summary>
-        /// Invalidate FastQ Parser with invalid alphabet.
-        /// Input : Invalid alphabet.
-        /// Output : Validate Exception.
+        ///     Invalidate FastQ Parser with invalid alphabet.
+        ///     Input : Invalid alphabet.
+        ///     Output : Validate Exception.
         /// </summary>
         [TestMethod]
         [Priority(2)]
         [TestCategory("Priority2")]
+        [ExpectedException(typeof(FileFormatException))]
         public void InvalidateFastQParserWithInvalidAlphabet()
         {
             InValidateFastQParser(Constants.FastQParserWithInvalidAlphabet);
         }
 
         /// <summary>
-        /// Invalidate empty fastq file using Parse().
-        /// Input : Empty fastq file.
-        /// Output : Validate Exception.
+        ///     Invalidate empty fastq file using Parse().
+        ///     Input : Empty fastq file.
+        ///     Output : Validate Exception.
         /// </summary>
         [TestMethod]
         [Priority(2)]
         [TestCategory("Priority2")]
+        [ExpectedException(typeof(FileFormatException))]
         public void InvalidateParseEmptyFastQFile()
         {
             InValidateFastQParser(Constants.EmptyFastQFileNode);
@@ -162,9 +165,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 
         /// <summary>
-        /// Invalidate fastq formatter with Sequence as null value.
-        /// Input : Invalid sequence.
-        /// Output : Validate Exception.
+        ///     Invalidate fastq formatter with Sequence as null value.
+        ///     Input : Invalid sequence.
+        ///     Output : Validate Exception.
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -176,9 +179,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 
         /// <summary>
-        /// Invalidate fastq formatter with Qual Sequence and TextWriter null value.
-        /// Input : Invalid Qualitative sequence.
-        /// Output : Validate Exception.
+        ///     Invalidate fastq formatter with Qual Sequence and TextWriter null value.
+        ///     Input : Invalid Qualitative sequence.
+        ///     Output : Validate Exception.
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -189,29 +192,19 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         }
 
         /// <summary>
-        /// Invalidate Parse(file-name, isReadOnly) with null as file-name
-        /// Input : Invalid file-name.
-        /// Output : Validate Exception.
+        ///     Invalidate Parse(file-name, isReadOnly) with null as file-name
+        ///     Input : Invalid file-name.
+        ///     Output : Validate Exception.
         /// </summary>
         [TestMethod]
         [Priority(2)]
         [TestCategory("Priority2")]
+        [ExpectedException(typeof(ArgumentNullException))]
         public void InvalidateFastQParseNoFileName()
         {
-            try
+            using (var fqParserObj = new FastQParser(null))
             {
-                using (FastQParser fqParserObj = new FastQParser(null))
-                {
-                    fqParserObj.Parse();
-                }
-                Assert.Fail();
-            }
-            catch (ArgumentNullException)
-            {
-                ApplicationLog.WriteLine(
-                    "FastQ Parser P2 : Successfully validated the exception");
-                Console.WriteLine(
-                    "FastQ Parser P2 : Successfully validated the exception");
+                fqParserObj.Parse();
             }
         }
 
@@ -220,50 +213,35 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         #region Helper Methods
 
         /// <summary>
-        /// General method to Invalidate FastQ Parser.
-        /// <param name="nodeName">xml node name.</param>
-        /// <param name="IsParseOne">True for FastQParseOne validations, else false</param>
+        ///     General method to Invalidate FastQ Parser.
+        ///     <param name="nodeName">xml node name.</param>
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "outputId"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope")]
-        void InValidateFastQParser(string nodeName)
+        private void InValidateFastQParser(string nodeName)
         {
             // Gets the expected sequence from the Xml
-            string filePath = utilityObj.xmlUtil.GetTextValue(
-                nodeName, Constants.FilePathNode);
-            string outputId = null;
-            // Create a FastQ Parser object.
-            FastQParser fastQParserObj = new FastQParser(filePath);
+            string filePath = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode);
 
-            IEnumerable<QualitativeSequence> parse = null;
-            try
+            // Create a FastQ Parser object.
+            using (var fastQParserObj = new FastQParser(filePath))
             {
-                parse = fastQParserObj.Parse();
-                outputId = parse.ElementAt(0).ID;
-                Assert.Fail();
-            }
-            catch (FileFormatException)
-            {
-                ApplicationLog.WriteLine(
-                     "FastQ Parser P2 : Successfully validated the exception");
-                Console.WriteLine(
-                    "FastQ Parser P2 : Successfully validated the exception");
+                fastQParserObj.Parse()
+                    .ToList();
             }
         }
 
         /// <summary>
-        /// General method to Invalidate FastQ Parser.
-        /// <param name="nodeName">xml node name.</param>
-        /// <param name="param">FastQ Formatter different parameters</param>
+        ///     General method to Invalidate FastQ Parser.
+        ///     <param name="param">FastQ Formatter different parameters</param>
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope")]
-        void InValidateFastQFormatter(FastQFormatParameters param)
+        [SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope")]
+        private void InValidateFastQFormatter(FastQFormatParameters param)
         {
             // Gets the expected sequence from the Xml
             string filepath = utilityObj.xmlUtil.GetTextValue(
                 Constants.MultiSeqSangerRnaProNode, Constants.FilePathNode);
 
             // Parse a FastQ file.
-            using (FastQParser fastQParser = new FastQParser(filepath))
+            using (var fastQParser = new FastQParser(filepath))
             {
                 IEnumerable<QualitativeSequence> sequence = null;
                 FastQFormatter fastQFormatter = null;
@@ -282,8 +260,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
                             fastQFormatter.Close();
                             ApplicationLog.WriteLine(
                                 "FastQ Parser P2 : Successfully validated the exception");
-                            Console.WriteLine(
-                                "FastQ Parser P2 : Successfully validated the exception");
                         }
                         break;
                     default:
@@ -298,8 +274,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
                         {
                             fastQFormatter.Close();
                             ApplicationLog.WriteLine(
-                                "FastQ Parser P2 : Successfully validated the exception");
-                            Console.WriteLine(
                                 "FastQ Parser P2 : Successfully validated the exception");
                         }
                         break;

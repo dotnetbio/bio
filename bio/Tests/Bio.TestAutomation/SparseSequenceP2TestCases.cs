@@ -7,34 +7,30 @@
 
 using System;
 using System.Collections.Generic;
-using System.Globalization;
-
-using Bio;
+using System.Linq;
+using System.Text.RegularExpressions;
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
-
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Text.RegularExpressions;
 
 namespace Bio.TestAutomation
 {
     /// <summary>
-    /// Test Automation code for Bio Sparse Sequence P2 level validations..
+    ///     Test Automation code for Bio Sparse Sequence P2 level validations..
     /// </summary>
     [TestClass]
     public class SparseSequenceP2TestCases
     {
-
         #region Global Variables
 
-        Utility utilityObj = new Utility(@"TestUtils\TestsConfig.xml");
+        private readonly Utility _utilityObj = new Utility(@"TestUtils\TestsConfig.xml");
 
         #endregion Global Variables
 
         #region Constructor
 
         /// <summary>
-        /// Static constructor to open log and make other settings needed for test
+        ///     Static constructor to open log and make other settings needed for test
         /// </summary>
         static SparseSequenceP2TestCases()
         {
@@ -50,19 +46,17 @@ namespace Bio.TestAutomation
         #region SparseSequence P2 TestCases
 
         /// <summary>
-        /// Validate an exception by passing null value.
-        /// Input Data : Valid Alphabet
-        /// Output Data : Validation of Null Exception 
+        ///     Validate an exception by passing null value.
+        ///     Input Data : Valid Alphabet
+        ///     Output Data : Validation of Null Exception
         /// </summary>
         [TestMethod]
         [Priority(2)]
         [TestCategory("Priority2")]
         public void ValidateSparseSequenceNullException()
         {
-            string expectedErrorMessage = GetErrorMessage(
-                Constants.SparseNullExceptionMessage);
+            string expectedErrorMessage = GetErrorMessage(Constants.SparseNullExceptionMessage);
             string actualError = string.Empty;
-            string updatedActualError = string.Empty;
             SparseSequence sparseSeq = null;
 
             // Try Creating sparse sequence by passing null value.
@@ -76,32 +70,29 @@ namespace Bio.TestAutomation
                 actualError = e.Message;
             }
 
-            updatedActualError = Regex.Replace(actualError, "[\r\n\t]", "");
-            Assert.AreEqual(expectedErrorMessage.ToUpperInvariant(),
-                updatedActualError.ToUpperInvariant()); ;
+            string updatedActualError = Regex.Replace(actualError, "[\r\n\t]", "");
+            Assert.AreEqual(expectedErrorMessage.ToUpperInvariant(), updatedActualError.ToUpperInvariant());
             Assert.IsNull(sparseSeq);
 
             // Log to GUI.
-            Console.WriteLine(string.Format((IFormatProvider)null,
-                "SparseSequence P2: SparseSequence Exception was validated successfully {0}",
-                updatedActualError));
+            ApplicationLog.WriteLine(string.Format(null,
+                                            "SparseSequence P2: SparseSequence Exception was validated successfully {0}",
+                                            updatedActualError));
         }
 
         /// <summary>
-        /// Validate creation of sparse sequence by passing negative index 
-        /// to Sparse Sequence.
-        /// Input Data : Valid Alphabet
-        /// Output Data : Validation of Exception  
+        ///     Validate creation of sparse sequence by passing negative index
+        ///     to Sparse Sequence.
+        ///     Input Data : Valid Alphabet
+        ///     Output Data : Validation of Exception
         /// </summary>
         [TestMethod]
         [Priority(2)]
         [TestCategory("Priority2")]
         public void ValidateSparseSeqNegativeIndexException()
         {
-            string expectedErrorMessage = GetErrorMessage(
-                Constants.NegativeIndexErrorMessage);
+            string expectedErrorMessage = GetErrorMessage(Constants.NegativeIndexErrorMessage);
             string actualError = string.Empty;
-            string updatedActualError = string.Empty;
             SparseSequence sparseSeq = null;
 
             // Try Creating sparse sequence by passing null value.
@@ -114,32 +105,28 @@ namespace Bio.TestAutomation
                 actualError = e.Message;
             }
 
-            updatedActualError = Regex.Replace(actualError, "[\r\n\t]", "");
-            Assert.AreEqual(expectedErrorMessage.ToUpperInvariant(),
-                updatedActualError.ToUpperInvariant());
+            string updatedActualError = Regex.Replace(actualError, "[\r\n\t]", "");
+            Assert.AreEqual(expectedErrorMessage.ToUpperInvariant(), updatedActualError.ToUpperInvariant());
             Assert.IsNull(sparseSeq);
 
             // Log to GUI.
-            Console.WriteLine(string.Format((IFormatProvider)null,
-                "SparseSequence P2: SparseSequence Exception was validated successfully {0}",
-                updatedActualError));
+            ApplicationLog.WriteLine(string.Format(null, "SparseSequence P2: SparseSequence Exception was validated successfully {0}",
+                                            updatedActualError));
         }
 
         /// <summary>
-        ///  Validate creation of sparse sequence by passing null value as alphabet
-        ///  to SparseSequence(alphabet,index,SeqItem).
-        /// Input Data : Valid Alphabet
-        /// Output Data : Validation of Null Exception 
+        ///     Validate creation of sparse sequence by passing null value as alphabet
+        ///     to SparseSequence(alphabet,index,SeqItem).
+        ///     Input Data : Valid Alphabet
+        ///     Output Data : Validation of Null Exception
         /// </summary>
         [TestMethod]
         [Priority(2)]
         [TestCategory("Priority2")]
         public void ValidateSparseSequenceAlphabetNullException()
         {
-            string expectedErrorMessage = GetErrorMessage(
-                Constants.SparseNullExceptionMessage);
+            string expectedErrorMessage = GetErrorMessage(Constants.SparseNullExceptionMessage);
             string actualError = string.Empty;
-            string updatedActualError = string.Empty;
             SparseSequence sparseSeq = null;
 
             // Try Creating sparse sequence by passing null value as alphabet.
@@ -152,22 +139,21 @@ namespace Bio.TestAutomation
                 actualError = e.Message;
             }
 
-            updatedActualError = Regex.Replace(actualError, "[\r\n\t]", "");
+            string updatedActualError = Regex.Replace(actualError, "[\r\n\t]", "");
 
-            Assert.AreEqual(expectedErrorMessage.ToUpperInvariant(),
-                updatedActualError.ToUpperInvariant());
+            Assert.AreEqual(expectedErrorMessage.ToUpperInvariant(), updatedActualError.ToUpperInvariant());
             Assert.IsNull(sparseSeq);
 
             // Log to GUI.
-            Console.WriteLine(string.Format((IFormatProvider)null,
-                "SparseSequence P2: SparseSequence Exception was validated successfully {0}",
-                updatedActualError));
+            ApplicationLog.WriteLine(string.Format(null,
+                                            "SparseSequence P2: SparseSequence Exception was validated successfully {0}",
+                                            updatedActualError));
         }
 
         /// <summary>
-        ///  Validate creation of sparse sequence by passing Invalid Sequence Item.
-        /// Input Data : Valid Alphabet
-        /// Output Data : Validation of Exception error.
+        ///     Validate creation of sparse sequence by passing Invalid Sequence Item.
+        ///     Input Data : Valid Alphabet
+        ///     Output Data : Validation of Exception error.
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -181,29 +167,26 @@ namespace Bio.TestAutomation
             }
             catch (ArgumentException)
             {
-                Console.WriteLine(
-                   "SparseSequence P2: SparseSequence Exception was validated successfully");
+                ApplicationLog.WriteLine("SparseSequence P2: SparseSequence Exception was validated successfully");
             }
         }
 
         /// <summary>
-        /// Validate creation of sparse sequence by passing negative index 
-        /// to Sparse Sequence(alphabet;index;IList<SeqItems>).
-        /// Input Data : Valid Alphabet
-        /// Output Data : Validation of Exception 
+        ///     Validate creation of sparse sequence by passing negative index
+        ///     to Sparse Sequence(alphabet;index;IList(SeqItems)).
+        ///         Input Data : Valid Alphabet
+        ///         Output Data : Validation of Exception
         /// </summary>
         [TestMethod]
         [Priority(2)]
         [TestCategory("Priority2")]
         public void ValidateSparseIListSeqNegativeIndexException()
         {
-            string expectedErrorMessage = GetErrorMessage(
-               Constants.NegativeIndexErrorMessage);
+            string expectedErrorMessage = GetErrorMessage(Constants.NegativeIndexErrorMessage);
 
             string actualError = string.Empty;
-            string updatedActualError = string.Empty;
             SparseSequence sparseSeq = null;
-            IEnumerable<byte> byteArray = new List<byte>() { Alphabets.DNA.A, Alphabets.DNA.C };
+            IEnumerable<byte> byteArray = new List<byte> {Alphabets.DNA.A, Alphabets.DNA.C};
 
             // Try Creating sparse sequence by passing null value.
             try
@@ -215,34 +198,30 @@ namespace Bio.TestAutomation
                 actualError = e.Message;
             }
 
-            updatedActualError = Regex.Replace(actualError, "[\r\n\t]", "");
-            Assert.AreEqual(expectedErrorMessage.ToUpperInvariant(),
-                updatedActualError.ToUpperInvariant());
+            string updatedActualError = Regex.Replace(actualError, "[\r\n\t]", "");
+            Assert.AreEqual(expectedErrorMessage.ToUpperInvariant(), updatedActualError.ToUpperInvariant());
             Assert.IsNull(sparseSeq);
 
             // Log to GUI.
-            Console.WriteLine(string.Format((IFormatProvider)null,
-                "SparseSequence P2: SparseSequence Exception was validated successfully {0}",
-                updatedActualError));
+            ApplicationLog.WriteLine(string.Format(null, "SparseSequence P2: SparseSequence Exception was validated successfully {0}",
+                                            updatedActualError));
         }
 
         /// <summary>
-        ///  Validate creation of sparse sequence by passing null value as alphabet
-        ///  to SparseSequence(alphabet,index,IList<SqItems>).
-        ///  Input Data : Valid Alphabet.
-        ///  Output Data : Validate an exception 
+        ///     Validate creation of sparse sequence by passing null value as alphabet
+        ///     to SparseSequence(alphabet,index,IList(SqItems)).
+        ///         Input Data : Valid Alphabet.
+        ///         Output Data : Validate an exception
         /// </summary>
         [TestMethod]
         [Priority(2)]
         [TestCategory("Priority2")]
         public void ValidateSparseListSeqItemsAlphabetNullException()
         {
-            string expectedErrorMessage = GetErrorMessage(
-               Constants.SparseNullExceptionMessage);
+            string expectedErrorMessage = GetErrorMessage(Constants.SparseNullExceptionMessage);
             string actualError = string.Empty;
-            string updatedActualError = string.Empty;
             SparseSequence sparseSeq = null;
-            IEnumerable<byte> byteArray = new List<byte>() { Alphabets.DNA.A, Alphabets.DNA.C };
+            IEnumerable<byte> byteArray = new List<byte> {Alphabets.DNA.A, Alphabets.DNA.C};
 
             // Try Creating sparse sequence by passing null value as alphabet.
             try
@@ -254,29 +233,28 @@ namespace Bio.TestAutomation
                 actualError = e.Message;
             }
 
-            updatedActualError = Regex.Replace(actualError, "[\r\n\t]", "");
-            Assert.AreEqual(expectedErrorMessage.ToUpperInvariant(),
-                updatedActualError.ToUpperInvariant());
+            string updatedActualError = Regex.Replace(actualError, "[\r\n\t]", "");
+            Assert.AreEqual(expectedErrorMessage.ToUpperInvariant(), updatedActualError.ToUpperInvariant());
             Assert.IsNull(sparseSeq);
 
             // Log to GUI.
-            Console.WriteLine(string.Format((IFormatProvider)null,
-                "SparseSequence P2: SparseSequence Exception was validated successfully {0}",
-                updatedActualError));
+            ApplicationLog.WriteLine(string.Format(null,
+                                            "SparseSequence P2: SparseSequence Exception was validated successfully {0}",
+                                            updatedActualError));
         }
 
         /// <summary>
-        /// Validate creation of sparse sequence by passing null value as
-        /// alphabet parameter to Sparse Sequence(alphabet;index;IList<SeqItems>).
-        ///  Input Data: Valid Alphabet.
-        ///  Output Data : Validate Exception.
+        ///     Validate creation of sparse sequence by passing null value as
+        ///     alphabet parameter to Sparse Sequence(alphabet;index;IList(SeqItems)).
+        ///         Input Data: Valid Alphabet.
+        ///         Output Data : Validate Exception.
         /// </summary>
         [TestMethod]
         [Priority(2)]
         [TestCategory("Priority2")]
         public void ValidateSparseIListSeqAlphabetException()
         {
-            IEnumerable<byte> byteArray = new List<byte>() { Alphabets.RNA.U, Alphabets.RNA.U };
+            IEnumerable<byte> byteArray = new List<byte> {Alphabets.RNA.U, Alphabets.RNA.U};
 
             // Try Creating sparse sequence by passing null value.
             try
@@ -285,16 +263,15 @@ namespace Bio.TestAutomation
             }
             catch (ArgumentException)
             {
-                Console.WriteLine(
-                   "SparseSequence P2: SparseSequence Exception was validated successfully");
+                ApplicationLog.WriteLine("SparseSequence P2: SparseSequence Exception was validated successfully");
             }
         }
 
         /// <summary>
-        ///  Validate Invalid start index for GetSubSequence() method
-        ///  with IsReadOnly property set to False.
-        ///  Input Data : Valid Alphabet.
-        ///  Output Data : Validation of Exception.
+        ///     Validate Invalid start index for GetSubSequence() method
+        ///     with IsReadOnly property set to False.
+        ///     Input Data : Valid Alphabet.
+        ///     Output Data : Validation of Exception.
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -302,7 +279,7 @@ namespace Bio.TestAutomation
         public void ValidateExceptionByPassingInvalidStartIndex()
         {
             //Create a sparse sequence.
-            SparseSequence sparseSeq = new SparseSequence(Alphabets.DNA);
+            var sparseSeq = new SparseSequence(Alphabets.DNA);
 
             // Try to add RNA Sequence Item to DNA sparse sequence.
             try
@@ -312,16 +289,15 @@ namespace Bio.TestAutomation
             }
             catch (ArgumentException)
             {
-                Console.WriteLine(
-                 "SparseSequence P2: SparseSequence Exception was validated successfully");
+                ApplicationLog.WriteLine("SparseSequence P2: SparseSequence Exception was validated successfully");
             }
         }
 
         /// <summary>
-        ///  Validate Invalid length for GetSubSequence() method 
-        ///  with IsReadOnly property set to False.
-        ///  Input Data : Valid Alphabet.
-        ///  Output Data : Validation of Exception.
+        ///     Validate Invalid length for GetSubSequence() method
+        ///     with IsReadOnly property set to False.
+        ///     Input Data : Valid Alphabet.
+        ///     Output Data : Validation of Exception.
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -329,7 +305,7 @@ namespace Bio.TestAutomation
         public void ValidateExceptionByPassingInvalidLength()
         {
             //Create a sparse sequence.
-            SparseSequence sparseSeq = new SparseSequence(Alphabets.DNA, 5);
+            var sparseSeq = new SparseSequence(Alphabets.DNA, 5);
 
             try
             {
@@ -339,26 +315,22 @@ namespace Bio.TestAutomation
             catch (ArgumentException)
             {
                 // Log to GUI.
-                Console.WriteLine("SparseSequence P2: SparseSequence Exception was validated successfully");
+                ApplicationLog.WriteLine("SparseSequence P2: SparseSequence Exception was validated successfully");
             }
         }
 
         /// <summary>
-        /// Validate an expected output by passing invalid sequence item to
-        /// contains method.
-        /// Input Data : Valid Dna Alphabet
-        /// Output Data : Validation of invalid Sequence item in Sparse sequence.
+        ///     Validate an expected output by passing invalid sequence item to
+        ///     contains method.
+        ///     Input Data : Valid Dna Alphabet
+        ///     Output Data : Validation of invalid Sequence item in Sparse sequence.
         /// </summary>
         [TestMethod]
         [Priority(2)]
         [TestCategory("Priority2")]
         public void ValidateSeqItemByPassingInvalidItem()
         {
-            bool result = false;
-            SparseSequence sparseSeq = new SparseSequence(Alphabets.DNA);
-
-            // Set the count to insert sequence items.
-            sparseSeq.Count = 2000;
+            var sparseSeq = new SparseSequence(Alphabets.DNA) {Count = 2000};
 
             // Store all sequence items in sparse sequence object
             int insertIndex = 0;
@@ -376,27 +348,21 @@ namespace Bio.TestAutomation
                 Assert.AreNotEqual(bt, Alphabets.RNA.U);
             }
 
-            Console.WriteLine(string.Format((IFormatProvider)null,
-                "SparseSequence P2: SparseSequence error was validated successfully {0}",
-                result));
+            ApplicationLog.WriteLine("SparseSequence P2: SparseSequence error was validated successfully");
         }
 
         /// <summary>
-        /// Validate an exception by passing Protein sequence item to contains method 
-        /// with Dna sparse sequence.contains method.
-        /// Input Data : Dna Alphabet.
-        /// Output Data : Validation of Protein Sequence Item.
+        ///     Validate an exception by passing Protein sequence item to contains method
+        ///     with Dna sparse sequence.contains method.
+        ///     Input Data : Dna Alphabet.
+        ///     Output Data : Validation of Protein Sequence Item.
         /// </summary>
         [TestMethod]
         [Priority(2)]
         [TestCategory("Priority2")]
         public void ValidateSeqItemsByPassingProteinSeqItemToDnaSequence()
         {
-            bool result = false;
-            SparseSequence sparseSeq = new SparseSequence(Alphabets.DNA);
-
-            // Set the count to insert sequence items.
-            sparseSeq.Count = 2000;
+            var sparseSeq = new SparseSequence(Alphabets.DNA) {Count = 2000};
 
             // Store all sequence items in sparse sequence object
             int insertIndex = 0;
@@ -414,28 +380,21 @@ namespace Bio.TestAutomation
                 Assert.AreNotEqual(bt, Alphabets.Protein.D);
             }
 
-            Assert.IsFalse(result);
-            Console.WriteLine(string.Format((IFormatProvider)null,
-                " SparseSequence P2: SparseSequence error was validated successfully.{0}",
-                result));
+            ApplicationLog.WriteLine("SparseSequence P2: SparseSequence error was validated successfully.");
         }
 
         /// <summary>
-        /// Validate an exception by passing Rna sequence item to contains method 
-        /// with Dna sparse sequence.contains method.
-        /// Input Data : Rna Alphabet.
-        /// Output Data : Validation of Protein Sequence Item.
+        ///     Validate an exception by passing Rna sequence item to contains method
+        ///     with Dna sparse sequence.contains method.
+        ///     Input Data : Rna Alphabet.
+        ///     Output Data : Validation of Protein Sequence Item.
         /// </summary>
         [TestMethod]
         [Priority(2)]
         [TestCategory("Priority2")]
         public void ValidateSeqItemsByPassingProteinSeqItemToRnaSequence()
         {
-            bool result = false;
-            SparseSequence sparseSeq = new SparseSequence(Alphabets.RNA);
-
-            // Set the count to insert sequence items.
-            sparseSeq.Count = 2000;
+            var sparseSeq = new SparseSequence(Alphabets.RNA) {Count = 2000};
 
             // Store all sequence items in sparse sequence object
             int insertIndex = 0;
@@ -453,32 +412,24 @@ namespace Bio.TestAutomation
                 Assert.AreNotEqual(bt, Alphabets.Protein.D);
             }
 
-            Console.WriteLine(string.Format((IFormatProvider)null,
-                " SparseSequence P2: SparseSequence error was validated successfully.{0}",
-                result));
+            ApplicationLog.WriteLine("SparseSequence P2: SparseSequence error was validated successfully.");
         }
 
         /// <summary>
-        /// Validate an exception by setting sparse sequence items 
-        /// position greater then sparse count.
-        /// Input Data : Valid Dna Alphabet
-        /// Output Data : Validation of an exception by setting sparse 
-        /// sequence items greater than sprase count.
+        ///     Validate an exception by setting sparse sequence items
+        ///     position greater then sparse count.
+        ///     Input Data : Valid Dna Alphabet
+        ///     Output Data : Validation of an exception by setting sparse
+        ///     sequence items greater than sprase count.
         /// </summary>
         [TestMethod]
         [Priority(2)]
         [TestCategory("Priority2")]
         public void ValidateExceptionByPassingSeqItemToInvalidSequenceItemPostion()
         {
-            string expectedErrorMessage = GetErrorMessage(
-              Constants.InvalidSequenceCountError);
+            string expectedErrorMessage = GetErrorMessage(Constants.InvalidSequenceCountError);
             string actualError = string.Empty;
-            string updatedActualError = string.Empty;
-
-            SparseSequence sparseSeq = new SparseSequence(Alphabets.DNA);
-
-            // Set the count 1000 to insert sequence items.
-            sparseSeq.Count = 1000;
+            var sparseSeq = new SparseSequence(Alphabets.DNA) {Count = 1000};
 
             // Try to store seq items at 1050 position greater than sparse
             // sequence count.
@@ -491,21 +442,20 @@ namespace Bio.TestAutomation
                 actualError = e.Message;
             }
 
-            updatedActualError = Regex.Replace(actualError, "[\r\n\t]", "");
-            Assert.AreEqual(expectedErrorMessage.ToUpperInvariant(),
-                updatedActualError.ToUpperInvariant());
+            string updatedActualError = Regex.Replace(actualError, "[\r\n\t]", "");
+            Assert.AreEqual(expectedErrorMessage.ToUpperInvariant(), updatedActualError.ToUpperInvariant());
 
             // Log to GUI.
-            Console.WriteLine(string.Format((IFormatProvider)null,
-                "SparseSequence P2: SparseSequence Exception was validated successfully {0}",
-                updatedActualError));
+            ApplicationLog.WriteLine(string.Format(null,
+                                            "SparseSequence P2: SparseSequence Exception was validated successfully {0}",
+                                            updatedActualError));
         }
 
         /// <summary>
-        /// Validate sparse sequence items index value using IndexOf(SeqItem)
-        /// method by passing another sequence item other than sparse sequence item.
-        /// Input Data : Valid Dna Alphabet,sequence count and IseqItem
-        /// Output Data : Valiation of an expected output.
+        ///     Validate sparse sequence items index value using IndexOf(SeqItem)
+        ///     method by passing another sequence item other than sparse sequence item.
+        ///     Input Data : Valid Dna Alphabet,sequence count and IseqItem
+        ///     Output Data : Validation of an expected output.
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -513,10 +463,7 @@ namespace Bio.TestAutomation
         public void ValidateIndexValueOfDifferentSeqItemOtherThanSparseSeqItem()
         {
             // Create a sparse sequence.
-            SparseSequence sparseSeq = new SparseSequence(Alphabets.DNA);
-
-            // Set the count to insert sequence items.
-            sparseSeq.Count = 2000;
+            var sparseSeq = new SparseSequence(Alphabets.DNA) {Count = 2000};
 
             // Store all sequence items in sparse sequence object
             int insertIndex = 0;
@@ -533,13 +480,13 @@ namespace Bio.TestAutomation
             }
 
             // Log to GUI.
-            Console.WriteLine("SparseSequence P2: SparseSequence Exception was validated successfully");
+            ApplicationLog.WriteLine("SparseSequence P2: SparseSequence Exception was validated successfully");
         }
 
         /// <summary>
-        /// Validate an exception by passing invalid size value.
-        /// Input Data : Valid Alphabet
-        /// Output Data : Validation of Out of Range Exception 
+        ///     Validate an exception by passing invalid size value.
+        ///     Input Data : Valid Alphabet
+        ///     Output Data : Validation of Out of Range Exception
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -563,9 +510,9 @@ namespace Bio.TestAutomation
         }
 
         /// <summary>
-        /// Validate an exception by passing invalid size value.
-        /// Input Data : Valid Alphabet
-        /// Output Data : Validation of Out of Range Exception 
+        ///     Validate an exception by passing invalid size value.
+        ///     Input Data : Valid Alphabet
+        ///     Output Data : Validation of Out of Range Exception
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -589,9 +536,9 @@ namespace Bio.TestAutomation
         }
 
         /// <summary>
-        /// Validate an exception by passing invalid sequence item.
-        /// Input Data : Valid Alphabet
-        /// Output Data : Validation of null Exception 
+        ///     Validate an exception by passing invalid sequence item.
+        ///     Input Data : Valid Alphabet
+        ///     Output Data : Validation of null Exception
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -615,9 +562,9 @@ namespace Bio.TestAutomation
         }
 
         /// <summary>
-        /// Validate an exception by passing invalid size value.
-        /// Input Data : Valid Alphabet
-        /// Output Data : Validation of null Exception 
+        ///     Validate an exception by passing invalid size value.
+        ///     Input Data : Valid Alphabet
+        ///     Output Data : Validation of null Exception
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -625,7 +572,7 @@ namespace Bio.TestAutomation
         public void ValidateSparseSequenceInvalidAlphabet()
         {
             SparseSequence sparseSeq = null;
-            Sequence seq = new Sequence(Alphabets.RNA, "U");
+            var seq = new Sequence(Alphabets.RNA, "U");
             byte seqItem = seq[0];
 
             // Try Creating sparse sequence by passing invalid alphabet.
@@ -643,9 +590,9 @@ namespace Bio.TestAutomation
         }
 
         /// <summary>
-        /// Validate an exception by passing invalid size value.
-        /// Input Data : Valid Alphabet
-        /// Output Data : Validation of Out of Range Exception 
+        ///     Validate an exception by passing invalid size value.
+        ///     Input Data : Valid Alphabet
+        ///     Output Data : Validation of Out of Range Exception
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -653,9 +600,8 @@ namespace Bio.TestAutomation
         public void ValidateSparseSequenceListInvalidIndex()
         {
             SparseSequence sparseSeq = null;
-            Sequence seq = new Sequence(Alphabets.DNA, "G");
-            List<byte> seqItemList = new List<byte>();
-            seqItemList.Add(seq[0]);
+            var seq = new Sequence(Alphabets.DNA, "G");
+            var seqItemList = new List<byte> {seq[0]};
 
             // Try Creating sparse sequence by passing invalid index.
             try
@@ -672,9 +618,9 @@ namespace Bio.TestAutomation
         }
 
         /// <summary>
-        /// Validate an exception by passing invalid size value.
-        /// Input Data : Valid Alphabet
-        /// Output Data : Validation of null Exception 
+        ///     Validate an exception by passing invalid size value.
+        ///     Input Data : Valid Alphabet
+        ///     Output Data : Validation of null Exception
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -682,9 +628,8 @@ namespace Bio.TestAutomation
         public void ValidateSparseSequenceListInvalidAlphabet()
         {
             SparseSequence sparseSeq = null;
-            Sequence seq = new Sequence(Alphabets.RNA, "U");
-            List<byte> seqItemList = new List<byte>();
-            seqItemList.Add(seq[0]);
+            var seq = new Sequence(Alphabets.RNA, "U");
+            var seqItemList = new List<byte> {seq[0]};
 
             // Try Creating sparse sequence by passing Invalid alphabet
             try
@@ -701,9 +646,9 @@ namespace Bio.TestAutomation
         }
 
         /// <summary>
-        /// Validate an exception by passing invalid indexer value.
-        /// Input Data : Valid Alphabet
-        /// Output Data : Validation of Out of Range Exception 
+        ///     Validate an exception by passing invalid indexer value.
+        ///     Input Data : Valid Alphabet
+        ///     Output Data : Validation of Out of Range Exception
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -724,9 +669,9 @@ namespace Bio.TestAutomation
         }
 
         /// <summary>
-        /// Validate an exception by passing invalid indexer value.
-        /// Input Data : Valid Alphabet
-        /// Output Data : Validation of Out of Range Exception 
+        ///     Validate an exception by passing invalid indexer value.
+        ///     Input Data : Valid Alphabet
+        ///     Output Data : Validation of Out of Range Exception
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -734,7 +679,7 @@ namespace Bio.TestAutomation
         public void ValidateSparseSequenceSetInvalidIndexer()
         {
             SparseSequence sparseSeq = CreateSparseSequence(Alphabets.DNA, 0);
-            byte seqItem = 67;
+            const byte seqItem = 67;
             try
             {
                 sparseSeq[-1] = seqItem;
@@ -747,9 +692,9 @@ namespace Bio.TestAutomation
         }
 
         /// <summary>
-        /// Validate an exception by passing invalid count value.
-        /// Input Data : Valid Alphabet
-        /// Output Data : Validation of out of range Exception 
+        ///     Validate an exception by passing invalid count value.
+        ///     Input Data : Valid Alphabet
+        ///     Output Data : Validation of out of range Exception
         /// </summary>
         [TestMethod]
         [Priority(2)]
@@ -770,25 +715,27 @@ namespace Bio.TestAutomation
         }
 
         /// <summary>
-        /// Invalidates CopyTo
+        ///     Invalidates CopyTo
         /// </summary>
         [TestMethod]
         [Priority(2)]
         [TestCategory("Priority2")]
         public void InvalidateCopyTo()
         {
-            List<byte> byteList = new List<byte>();
-            byteList.Add(Alphabets.DNA.Gap);
-            byteList.Add(Alphabets.DNA.G);
-            byteList.Add(Alphabets.DNA.A);
-            byteList.Add(Alphabets.DNA.Gap);
-            byteList.Add(Alphabets.DNA.T);
-            byteList.Add(Alphabets.DNA.C);
-            byteList.Add(Alphabets.DNA.Gap);
-            byteList.Add(Alphabets.DNA.Gap);
+            var byteList = new List<byte>
+            {
+                Alphabets.DNA.Gap,
+                Alphabets.DNA.G,
+                Alphabets.DNA.A,
+                Alphabets.DNA.Gap,
+                Alphabets.DNA.T,
+                Alphabets.DNA.C,
+                Alphabets.DNA.Gap,
+                Alphabets.DNA.Gap
+            };
 
             ISequence iSeq = new SparseSequence(Alphabets.DNA, 0, byteList);
-            SparseSequence seqObj = new SparseSequence(iSeq);
+            var seqObj = new SparseSequence(iSeq);
 
             //check with null array
             byte[] array = null;
@@ -838,57 +785,49 @@ namespace Bio.TestAutomation
                 ApplicationLog.WriteLine("Successfully caught ArgumentException : " + aex.Message);
             }
         }
+
         #endregion SparseSequence P2 TestCases
 
         #region Supporting methods
 
         /// <summary>
-        /// Get Error messages from xml node.
+        ///     Get Error messages from xml node.
         /// </summary>
         /// <param name="nodeName">Name of the error message node </param>
-        string GetErrorMessage(string nodeName)
+        private string GetErrorMessage(string nodeName)
         {
-            string expectedErrorMessage = utilityObj.xmlUtil.GetTextValue(
+            string expectedErrorMessage = _utilityObj.xmlUtil.GetTextValue(
                 Constants.DnaVirtualSeqNode, nodeName);
 
             return expectedErrorMessage;
         }
 
         /// <summary>
-        ///  Create sparse sequence and insert all sequence items of alphabet.
+        ///     Create sparse sequence and insert all sequence items of alphabet.
         /// </summary>
         /// <param name="alphabet"></param>
+        /// <param name="insertPosition"></param>
         /// <returns></returns>
         private static SparseSequence CreateSparseSequence(IAlphabet alphabet, int insertPosition)
         {
             // Create sequence item list
-            List<byte> sequenceList = new List<byte>();
-            foreach (byte item in alphabet)
-            {
-                sequenceList.Add(item);
-            }
+            var sequenceList = alphabet.ToList();
 
             // Store sequence item in sparse sequence object using list of sequence items
-            SparseSequence sparseSeq = new SparseSequence(alphabet, insertPosition, sequenceList);
+            var sparseSeq = new SparseSequence(alphabet, insertPosition, sequenceList);
 
             return sparseSeq;
         }
 
         /// <summary>
-        /// Logs the message to Console and Log
+        ///     Logs the message to Console and Log
         /// </summary>
-        /// <param name="ex">Exception to log</param>
+        /// <param name="message"></param>
         private static void LogMessage(string message)
         {
-            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                "SparseSequence P2: SparseSequence Exception was validated successfully {0}",
-                message));
-            // Log to GUI.
-            Console.WriteLine(string.Format((IFormatProvider)null,
-                "SparseSequence P2: SparseSequence Exception was validated successfully {0}",
-                message));
+            ApplicationLog.WriteLine(string.Format(null, "SparseSequence P2: SparseSequence Exception was validated successfully {0}", message));
         }
 
-        #endregion Supproting methods.
+        #endregion Supporting methods.
     }
 }

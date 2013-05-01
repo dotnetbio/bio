@@ -12,17 +12,16 @@ using Bio.IO.Bed;
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Bio;
 
 #if (SILVERLIGHT == false)
-    namespace Bio.TestAutomation.IO.Bed
+namespace Bio.TestAutomation.IO.Bed
 #else
-    namespace Bio.Silverlight.TestAutomation.IO.Bed
+namespace Bio.Silverlight.TestAutomation.IO.Bed
 #endif
 
 {
     /// <summary>
-    /// Bed P1 parser and formatter Test case implementation.
+    ///     Bed P1 parser and formatter Test case implementation.
     /// </summary>
     [TestClass]
     public class BedP1TestCases
@@ -30,9 +29,9 @@ using Bio;
         #region Enums
 
         /// <summary>
-        /// Additional parameters to validate different scenarios.
+        ///     Additional parameters to validate different scenarios.
         /// </summary>
-        enum AdditionalParameters
+        private enum AdditionalParameters
         {
             RangeFileName,
             RangeTextReader,
@@ -50,14 +49,14 @@ using Bio;
 
         #region Global Variables
 
-        Utility utilityObj = new Utility(@"TestUtils\BedTestsConfig.xml");
+        private readonly Utility utilityObj = new Utility(@"TestUtils\BedTestsConfig.xml");
 
         #endregion Global Variables
 
         #region Constructor
 
         /// <summary>
-        /// Static constructor to open log and make other settings needed for test
+        ///     Static constructor to open log and make other settings needed for test
         /// </summary>
         static BedP1TestCases()
         {
@@ -73,11 +72,11 @@ using Bio;
         #region Bed Parser P1 Test cases
 
         /// <summary>
-        /// Parse a valid Bed file (one line) and 
-        /// convert the same Range using ParseRange(text-reader) method and 
-        /// validate the same
-        /// Input : Bed File
-        /// Validation: Range properties like ID, Start and End.
+        ///     Parse a valid Bed file (one line) and
+        ///     convert the same Range using ParseRange(text-reader) method and
+        ///     validate the same
+        ///     Input : Bed File
+        ///     Validation: Range properties like ID, Start and End.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -85,15 +84,15 @@ using Bio;
         public void BedParserValidateOneLineParseRangeTextReader()
         {
             ParserGeneralTestCases(Constants.OneLineBedNodeName,
-                AdditionalParameters.RangeTextReader);
+                                   AdditionalParameters.RangeTextReader);
         }
 
         /// <summary>
-        /// Parse a valid Bed file (one line) and 
-        /// convert the same Range using ParseRangeGrouping(file-name) method and 
-        /// validate the same
-        /// Input : Bed File
-        /// Validation: Range properties like ID, Start and End.
+        ///     Parse a valid Bed file (one line) and
+        ///     convert the same Range using ParseRangeGrouping(file-name) method and
+        ///     validate the same
+        ///     Input : Bed File
+        ///     Validation: Range properties like ID, Start and End.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -101,15 +100,15 @@ using Bio;
         public void BedParserValidateOneLineParseRangeGroupFileName()
         {
             ParserGeneralTestCases(Constants.OneLineBedNodeName,
-                AdditionalParameters.RangeGroupFileName);
+                                   AdditionalParameters.RangeGroupFileName);
         }
 
         /// <summary>
-        /// Parse a valid Bed file (three chromosomes) and 
-        /// convert the same Range using ParseRange(file-name) method and 
-        /// validate the same
-        /// Input : Bed File
-        /// Validation: Range properties like ID, Start and End.
+        ///     Parse a valid Bed file (three chromosomes) and
+        ///     convert the same Range using ParseRange(file-name) method and
+        ///     validate the same
+        ///     Input : Bed File
+        ///     Validation: Range properties like ID, Start and End.
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -117,7 +116,7 @@ using Bio;
         public void BedParserValidateThreeChromosomeParseRangeFileName()
         {
             ParserGeneralTestCases(Constants.ThreeChromoBedNodeName,
-                AdditionalParameters.RangeFileName);
+                                   AdditionalParameters.RangeFileName);
         }
 
         #endregion Bed Parser P1 Test cases
@@ -125,12 +124,12 @@ using Bio;
         #region Bed Formatter P1 Test cases
 
         /// <summary>
-        /// Format a valid Range (small size file) to a 
-        /// Bed file using Format(Range, file-path) method and 
-        /// validate the same.
-        /// Input : Bed Range
-        /// Validation : Read the Bed file to which the range was formatted 
-        /// using File-Info and Validate Properties like ID, Start and End
+        ///     Format a valid Range (small size file) to a
+        ///     Bed file using Format(Range, file-path) method and
+        ///     validate the same.
+        ///     Input : Bed Range
+        ///     Validation : Read the Bed file to which the range was formatted
+        ///     using File-Info and Validate Properties like ID, Start and End
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -138,16 +137,16 @@ using Bio;
         public void BedFormatterValidateParseSmallSizeFormatRangeFileName()
         {
             FormatterGeneralTestCases(Constants.SmallSizeBedNodeName,
-                AdditionalParameters.ParseRange);
+                                      AdditionalParameters.ParseRange);
         }
 
         /// <summary>
-        /// Format a valid Range (small size file) to a 
-        /// Bed file using Format(Range, text-writer) method and 
-        /// validate the same.
-        /// Input : Bed Range
-        /// Validation : Read the Bed file to which the range was formatted 
-        /// using File-Info and Validate Properties like ID, Start and End
+        ///     Format a valid Range (small size file) to a
+        ///     Bed file using Format(Range, text-writer) method and
+        ///     validate the same.
+        ///     Input : Bed Range
+        ///     Validation : Read the Bed file to which the range was formatted
+        ///     using File-Info and Validate Properties like ID, Start and End
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -155,16 +154,16 @@ using Bio;
         public void BedFormatterValidateParseSmallSizeFormatRangeTextWriter()
         {
             FormatterGeneralTestCases(Constants.SmallSizeBedNodeName,
-                AdditionalParameters.ParseRangeTextWriter);
+                                      AdditionalParameters.ParseRangeTextWriter);
         }
 
         /// <summary>
-        /// Format a valid Range (one line file) to a 
-        /// Bed file using Format(Range, file-name) method and 
-        /// validate the same.
-        /// Input : Bed Range
-        /// Validation : Read the Bed file to which the range was formatted 
-        /// using File-Info and Validate Properties like ID, Start and End
+        ///     Format a valid Range (one line file) to a
+        ///     Bed file using Format(Range, file-name) method and
+        ///     validate the same.
+        ///     Input : Bed Range
+        ///     Validation : Read the Bed file to which the range was formatted
+        ///     using File-Info and Validate Properties like ID, Start and End
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -172,16 +171,16 @@ using Bio;
         public void BedFormatterValidateParseOneLineFormatRangeFileName()
         {
             FormatterGeneralTestCases(Constants.OneLineBedNodeName,
-                AdditionalParameters.ParseRange);
+                                      AdditionalParameters.ParseRange);
         }
 
         /// <summary>
-        /// Format a valid RangeGroup (small size file) to a 
-        /// Bed file using Format(RangeGroup, file-path) method and 
-        /// validate the same.
-        /// Input : Bed Range
-        /// Validation : Read the Bed file to which the range was formatted 
-        /// using File-Info and Validate Properties like ID, Start and End
+        ///     Format a valid RangeGroup (small size file) to a
+        ///     Bed file using Format(RangeGroup, file-path) method and
+        ///     validate the same.
+        ///     Input : Bed Range
+        ///     Validation : Read the Bed file to which the range was formatted
+        ///     using File-Info and Validate Properties like ID, Start and End
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -189,16 +188,16 @@ using Bio;
         public void BedFormatterValidateParseSmallSizeFormatRangeGroupFileName()
         {
             FormatterGeneralTestCases(Constants.SmallSizeBedNodeName,
-                AdditionalParameters.ParseRangeGroup);
+                                      AdditionalParameters.ParseRangeGroup);
         }
 
         /// <summary>
-        /// Format a valid RangeGroup (small size file) to a 
-        /// Bed file using Format(RangeGroup, text-writer) method and 
-        /// validate the same.
-        /// Input : Bed Range
-        /// Validation : Read the Bed file to which the range was formatted 
-        /// using File-Info and Validate Properties like ID, Start and End
+        ///     Format a valid RangeGroup (small size file) to a
+        ///     Bed file using Format(RangeGroup, text-writer) method and
+        ///     validate the same.
+        ///     Input : Bed Range
+        ///     Validation : Read the Bed file to which the range was formatted
+        ///     using File-Info and Validate Properties like ID, Start and End
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -206,16 +205,16 @@ using Bio;
         public void BedFormatterValidateParseSmallSizeFormatRangeGroupTextWriter()
         {
             FormatterGeneralTestCases(Constants.SmallSizeBedNodeName,
-                AdditionalParameters.ParseRangeGroupTextWriter);
+                                      AdditionalParameters.ParseRangeGroupTextWriter);
         }
 
         /// <summary>
-        /// Format a valid RangeGroup (one line file) to a 
-        /// Bed file using Format(RangeGroup, file-path) method and 
-        /// validate the same.
-        /// Input : Bed Range
-        /// Validation : Read the Bed file to which the range was formatted 
-        /// using File-Info and Validate Properties like ID, Start and End
+        ///     Format a valid RangeGroup (one line file) to a
+        ///     Bed file using Format(RangeGroup, file-path) method and
+        ///     validate the same.
+        ///     Input : Bed Range
+        ///     Validation : Read the Bed file to which the range was formatted
+        ///     using File-Info and Validate Properties like ID, Start and End
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -223,16 +222,16 @@ using Bio;
         public void BedFormatterValidateParseOneLineFormatRangeGroupFileName()
         {
             FormatterGeneralTestCases(Constants.OneLineBedNodeName,
-                AdditionalParameters.ParseRangeGroup);
+                                      AdditionalParameters.ParseRangeGroup);
         }
 
         /// <summary>
-        /// Format a valid Range (one line file) to a 
-        /// Bed file using Format(Range, Text-Writer) method and 
-        /// validate the same.
-        /// Input : Bed Range
-        /// Validation : Read the Bed file to which the range was formatted 
-        /// using File-Info and Validate Properties like ID, Start and End
+        ///     Format a valid Range (one line file) to a
+        ///     Bed file using Format(Range, Text-Writer) method and
+        ///     validate the same.
+        ///     Input : Bed Range
+        ///     Validation : Read the Bed file to which the range was formatted
+        ///     using File-Info and Validate Properties like ID, Start and End
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -240,16 +239,16 @@ using Bio;
         public void BedFormatterValidateParseOneLineFormatRangeTextWriter()
         {
             FormatterGeneralTestCases(Constants.OneLineBedNodeName,
-                AdditionalParameters.RangeTextWriter);
+                                      AdditionalParameters.RangeTextWriter);
         }
 
         /// <summary>
-        /// Format a valid RangeGroup (one line file) to a 
-        /// Bed file using Format(RangeGroup, Text-Writer) method and 
-        /// validate the same.
-        /// Input : Bed Range
-        /// Validation : Read the Bed file to which the range was formatted 
-        /// using File-Info and Validate Properties like ID, Start and End
+        ///     Format a valid RangeGroup (one line file) to a
+        ///     Bed file using Format(RangeGroup, Text-Writer) method and
+        ///     validate the same.
+        ///     Input : Bed Range
+        ///     Validation : Read the Bed file to which the range was formatted
+        ///     using File-Info and Validate Properties like ID, Start and End
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -257,16 +256,16 @@ using Bio;
         public void BedFormatterValidateParseOneLineFormatRangeGroupTextWriter()
         {
             FormatterGeneralTestCases(Constants.OneLineBedNodeName,
-                AdditionalParameters.RangeGroupTextWriter);
+                                      AdditionalParameters.RangeGroupTextWriter);
         }
 
         /// <summary>
-        /// Format a valid Range (three chromosome file) to a 
-        /// Bed file using Format(Range, file-path) method and 
-        /// validate the same.
-        /// Input : Bed Range
-        /// Validation : Read the Bed file to which the range was formatted 
-        /// using File-Info and Validate Properties like ID, Start and End
+        ///     Format a valid Range (three chromosome file) to a
+        ///     Bed file using Format(Range, file-path) method and
+        ///     validate the same.
+        ///     Input : Bed Range
+        ///     Validation : Read the Bed file to which the range was formatted
+        ///     using File-Info and Validate Properties like ID, Start and End
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -274,16 +273,16 @@ using Bio;
         public void BedFormatterValidateParseThreeChromosomeFormatRangeFileName()
         {
             FormatterGeneralTestCases(Constants.ThreeChromoBedNodeName,
-                AdditionalParameters.ParseRange);
+                                      AdditionalParameters.ParseRange);
         }
 
         /// <summary>
-        /// Format a valid RangeGroup (three chromosome file) to a 
-        /// Bed file using Format(RangeGroup, file-path) method and 
-        /// validate the same.
-        /// Input : Bed Range
-        /// Validation : Read the Bed file to which the range was formatted 
-        /// using File-Info and Validate Properties like ID, Start and End
+        ///     Format a valid RangeGroup (three chromosome file) to a
+        ///     Bed file using Format(RangeGroup, file-path) method and
+        ///     validate the same.
+        ///     Input : Bed Range
+        ///     Validation : Read the Bed file to which the range was formatted
+        ///     using File-Info and Validate Properties like ID, Start and End
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -291,16 +290,16 @@ using Bio;
         public void BedFormatterValidateParseThreeChromosomeFormatRangeGroupFileName()
         {
             FormatterGeneralTestCases(Constants.ThreeChromoBedNodeName,
-                AdditionalParameters.ParseRangeGroup);
+                                      AdditionalParameters.ParseRangeGroup);
         }
 
         /// <summary>
-        /// Format a valid Range (Long Start End file) to a 
-        /// Bed file using Format(Range, file-path) method and 
-        /// validate the same.
-        /// Input : Bed Range
-        /// Validation : Read the Bed file to which the range was formatted 
-        /// using File-Info and Validate Properties like ID, Start and End
+        ///     Format a valid Range (Long Start End file) to a
+        ///     Bed file using Format(Range, file-path) method and
+        ///     validate the same.
+        ///     Input : Bed Range
+        ///     Validation : Read the Bed file to which the range was formatted
+        ///     using File-Info and Validate Properties like ID, Start and End
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -308,16 +307,16 @@ using Bio;
         public void BedFormatterValidateParseLongStartEndFormatRangeFileName()
         {
             FormatterGeneralTestCases(Constants.LongStartEndBedNodeName,
-                AdditionalParameters.ParseRange);
+                                      AdditionalParameters.ParseRange);
         }
 
         /// <summary>
-        /// Format a valid RangeGroup (Long Start End file) to a 
-        /// Bed file using Format(RangeGroup, file-path) method and 
-        /// validate the same.
-        /// Input : Bed Range
-        /// Validation : Read the Bed file to which the range was formatted 
-        /// using File-Info and Validate Properties like ID, Start and End
+        ///     Format a valid RangeGroup (Long Start End file) to a
+        ///     Bed file using Format(RangeGroup, file-path) method and
+        ///     validate the same.
+        ///     Input : Bed Range
+        ///     Validation : Read the Bed file to which the range was formatted
+        ///     using File-Info and Validate Properties like ID, Start and End
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -325,7 +324,7 @@ using Bio;
         public void BedFormatterValidateParseLongStartEndFormatRangeGroupFileName()
         {
             FormatterGeneralTestCases(Constants.LongStartEndBedNodeName,
-                AdditionalParameters.ParseRangeGroup);
+                                      AdditionalParameters.ParseRangeGroup);
         }
 
         #endregion Bed Formatter P1 Test cases
@@ -333,24 +332,24 @@ using Bio;
         #region Supported Methods
 
         /// <summary>
-        /// Parsers the Bed file for different test cases based
-        /// on Additional parameter
+        ///     Parsers the Bed file for different test cases based
+        ///     on Additional parameter
         /// </summary>
         /// <param name="nodeName">Xml Node name</param>
         /// <param name="addParam">Additional parameter</param>
-        void ParserGeneralTestCases(string nodeName,
-            AdditionalParameters addParam)
+        private void ParserGeneralTestCases(string nodeName,
+                                            AdditionalParameters addParam)
         {
             // Gets the Filename
             string filePath = utilityObj.xmlUtil.GetTextValue(
                 nodeName, Constants.FilePathNode);
 
             Assert.IsFalse(string.IsNullOrEmpty(filePath));
-            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                "Bed Parser P1: Reading the File from location '{0}'", filePath));
+            ApplicationLog.WriteLine(string.Format(null,
+                                                   "Bed Parser P1: Reading the File from location '{0}'", filePath));
 
             // Get the rangelist after parsing.
-            BedParser parserObj = new BedParser();
+            var parserObj = new BedParser();
 
             IList<ISequenceRange> rangeList = null;
             SequenceRangeGrouping rangeGroup = null;
@@ -362,7 +361,7 @@ using Bio;
                     rangeList = parserObj.ParseRange(filePath);
                     break;
                 case AdditionalParameters.RangeTextReader:
-                    using (StreamReader strObj = new StreamReader(filePath))
+                    using (var strObj = new StreamReader(filePath))
                     {
                         rangeList = parserObj.ParseRange(strObj);
                     }
@@ -371,7 +370,7 @@ using Bio;
                     rangeGroup = parserObj.ParseRangeGrouping(filePath);
                     break;
                 case AdditionalParameters.RangeGroupTextReader:
-                    using (StreamReader strObj = new StreamReader(filePath))
+                    using (var strObj = new StreamReader(filePath))
                     {
                         rangeGroup = parserObj.ParseRangeGrouping(strObj);
                     }
@@ -398,7 +397,7 @@ using Bio;
             }
 
             string[] expectedIDs = utilityObj.xmlUtil.GetTextValue(
-                 nodeName, Constants.IDNode).Split(',');
+                nodeName, Constants.IDNode).Split(',');
             string[] expectedStarts = utilityObj.xmlUtil.GetTextValue(
                 nodeName, Constants.StartNode).Split(',');
             string[] expectedEnds = utilityObj.xmlUtil.GetTextValue(
@@ -408,28 +407,26 @@ using Bio;
             // Reads all the ranges with comma seperated for validation
             foreach (ISequenceRange range in rangeList)
             {
-                Assert.AreEqual(expectedStarts[i], range.Start.ToString((IFormatProvider)null));
-                Assert.AreEqual(expectedEnds[i], range.End.ToString((IFormatProvider)null));
-                Assert.AreEqual(expectedIDs[i], range.ID.ToString((IFormatProvider)null));
+                Assert.AreEqual(expectedStarts[i], range.Start.ToString((IFormatProvider) null));
+                Assert.AreEqual(expectedEnds[i], range.End.ToString((IFormatProvider) null));
+                Assert.AreEqual(expectedIDs[i], range.ID.ToString(null));
                 i++;
             }
             ApplicationLog.WriteLine(
                 "Bed Parser P1: Successfully validated the ID, Start and End Ranges");
-            Console.WriteLine(
-                "Bed Parser P1: Successfully validated the ID, Start and End Ranges");
         }
 
         /// <summary>
-        /// Formats the Range/RangeGroup for different test cases based
-        /// on Additional parameter
+        ///     Formats the Range/RangeGroup for different test cases based
+        ///     on Additional parameter
         /// </summary>
         /// <param name="nodeName">Xml Node name</param>
         /// <param name="addParam">Additional parameter</param>
-        void FormatterGeneralTestCases(string nodeName,
-            AdditionalParameters addParam)
+        private void FormatterGeneralTestCases(string nodeName,
+                                               AdditionalParameters addParam)
         {
             IList<ISequenceRange> rangeList = new List<ISequenceRange>();
-            SequenceRangeGrouping rangeGroup = new SequenceRangeGrouping();
+            var rangeGroup = new SequenceRangeGrouping();
 
             // Gets the file name.
             string filePath = utilityObj.xmlUtil.GetTextValue(
@@ -440,13 +437,13 @@ using Bio;
             {
                 case AdditionalParameters.ParseRangeGroup:
                 case AdditionalParameters.ParseRangeGroupTextWriter:
-                    BedParser initialParserGroupObj = new BedParser();
+                    var initialParserGroupObj = new BedParser();
                     rangeGroup =
                         initialParserGroupObj.ParseRangeGrouping(filePath);
                     break;
                 case AdditionalParameters.ParseRange:
                 case AdditionalParameters.ParseRangeTextWriter:
-                    BedParser initialParserObj = new BedParser();
+                    var initialParserObj = new BedParser();
                     rangeList = initialParserObj.ParseRange(filePath);
                     break;
                 default:
@@ -469,20 +466,20 @@ using Bio;
                         case AdditionalParameters.RangeGroupFileName:
                             for (int i = 0; i < expectedIDs.Length; i++)
                             {
-                                SequenceRange rangeObj1 =
+                                var rangeObj1 =
                                     new SequenceRange(expectedIDs[i],
-                                        long.Parse(expectedStarts[i], (IFormatProvider)null),
-                                        long.Parse(expectedEnds[i], (IFormatProvider)null));
+                                                      long.Parse(expectedStarts[i], null),
+                                                      long.Parse(expectedEnds[i], null));
                                 rangeGroup.Add(rangeObj1);
                             }
                             break;
                         default:
                             for (int i = 0; i < expectedIDs.Length; i++)
                             {
-                                SequenceRange rangeObj2 =
+                                var rangeObj2 =
                                     new SequenceRange(expectedIDs[i],
-                                        long.Parse(expectedStarts[i], (IFormatProvider)null),
-                                        long.Parse(expectedEnds[i], (IFormatProvider)null));
+                                                      long.Parse(expectedStarts[i], null),
+                                                      long.Parse(expectedEnds[i], null));
                                 rangeList.Add(rangeObj2);
                             }
                             break;
@@ -490,7 +487,7 @@ using Bio;
                     break;
             }
 
-            BedFormatter formatterObj = new BedFormatter();
+            var formatterObj = new BedFormatter();
 
             // Gets the Range list/Range Group based on the parameters.
             switch (addParam)
@@ -524,9 +521,9 @@ using Bio;
             }
 
             // Reparse to validate the results
-            BedParser parserObj = new BedParser();
+            var parserObj = new BedParser();
             IList<ISequenceRange> newRangeList =
-              parserObj.ParseRange(Constants.BedTempFileName);
+                parserObj.ParseRange(Constants.BedTempFileName);
 
             // Validation of all the properties.
             for (int i = 0; i < rangeList.Count; i++)
@@ -537,8 +534,6 @@ using Bio;
             }
 
             ApplicationLog.WriteLine(
-                "Bed Formatter P1: Successfully validated the ID, Start and End Ranges");
-            Console.WriteLine(
                 "Bed Formatter P1: Successfully validated the ID, Start and End Ranges");
 
             // Cleanup the file.

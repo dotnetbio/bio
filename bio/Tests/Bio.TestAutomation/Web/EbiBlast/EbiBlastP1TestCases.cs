@@ -10,14 +10,11 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Threading;
-
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
 using Bio.Web;
 using Bio.Web.Blast;
-
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Bio;
 
 namespace Bio.TestAutomation.Web.EbiBlast
 {
@@ -27,7 +24,6 @@ namespace Bio.TestAutomation.Web.EbiBlast
     [TestClass]
     public class EbiBlastP1TestCases
     {
-
         #region Enums
 
         /// <summary>
@@ -829,7 +825,7 @@ namespace Bio.TestAutomation.Web.EbiBlast
             }
             catch (NotImplementedException)
             {
-                Console.WriteLine(string.Format((IFormatProvider)null,
+                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                     "Ebi Blast P1 : Validated the exception successfully."));
             }
             finally
@@ -864,8 +860,6 @@ namespace Bio.TestAutomation.Web.EbiBlast
                 Assert.IsNotNull(ebiHandler.GetServiceMetadata(Constants.MetadataXmlFormats));
 
                 ApplicationLog.WriteLine(
-                    "EbiWebService P1 : Successfully validated the Ebi WebService MetaData");
-                Console.WriteLine(
                     "EbiWebService P1 : Successfully validated the Ebi WebService MetaData");
             }
             catch (Exception ex) { Assert.Fail(ex.Message); }
@@ -959,12 +953,11 @@ namespace Bio.TestAutomation.Web.EbiBlast
                 Assert.IsTrue(ebiParams.Settings.ContainsValue(email));
                 Assert.AreEqual(ebiParams.Settings.Count, 4);
 
-                // Logs to the VSTest GUI (Console.Out) window
-                Console.WriteLine(string.Format((IFormatProvider)null,
+                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                     "Ebi Blast P1: Query Sequence {0} is as expected.", querySequence));
-                Console.WriteLine(string.Format((IFormatProvider)null,
+                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                     "Ebi Blast P1: DataBase Value {0} is as expected.", queryDatabaseValue));
-                Console.WriteLine(string.Format((IFormatProvider)null,
+                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                     "Ebi Blast P1: Program Value {0} is as expected.", queryProgramValue));
             }
             catch (Exception ex) { Assert.Fail(ex.Message); }
@@ -1067,10 +1060,9 @@ namespace Bio.TestAutomation.Web.EbiBlast
                 // Validate request identifier returned by web service.
                 Assert.IsNotNull(reqId);
 
-                // Logs to the VSTest GUI (Console.Out) window
-                Console.WriteLine(string.Format((IFormatProvider)null,
+                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                     "Ebi Blast P1: Validation of SubmitSearchRequest() method was completed successfully."));
-                Console.WriteLine(string.Format((IFormatProvider)null,
+                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                     "Ebi Blast P1: Request Id {0} is as expected.", reqId));
             }
             catch (Exception ex) { Assert.Fail(ex.Message); }
@@ -1236,15 +1228,15 @@ namespace Bio.TestAutomation.Web.EbiBlast
                 Assert.AreEqual(hit.Accession, expectedAccession);
                 Assert.AreEqual(hit.Length.ToString((IFormatProvider)null), expectedLength);
                 Assert.AreEqual(hit.Id.ToString((IFormatProvider)null), expectedHitId);
-                Console.WriteLine(string.Format((IFormatProvider)null,
+                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                     "Ebi Blast P1: Hits count '{0}'.", eBlastResults.Count));
-                Console.WriteLine(string.Format((IFormatProvider)null,
+                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                     "Ebi Blast P1: Accession '{0}'.", hit.Accession));
-                Console.WriteLine(string.Format((IFormatProvider)null,
+                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                     "Ebi Blast P1: Hit Id '{0}'.", hit.Id));
-                Console.WriteLine(string.Format((IFormatProvider)null,
+                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                     "Ebi Blast P1: Hits Count '{0}'.", hit.Hsps.Count));
-                Console.WriteLine(string.Format((IFormatProvider)null,
+                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                     "Ebi Blast P1: length '{0}'.", hit.Length));
 
                 // Validate the results Synchronously with the results got earlier.
@@ -1264,7 +1256,6 @@ namespace Bio.TestAutomation.Web.EbiBlast
                     else
                     {
                         ApplicationLog.WriteLine("No significant hits found with the these parameters.");
-                        Console.WriteLine("No significant hits found with the these parameters.");
                     }
                 }
             }
@@ -1403,15 +1394,15 @@ namespace Bio.TestAutomation.Web.EbiBlast
             Assert.AreEqual(hit.Accession, expectedAccession);
             Assert.AreEqual(hit.Length.ToString((IFormatProvider)null), expectedLength);
             Assert.AreEqual(hit.Id.ToString((IFormatProvider)null), expectedHitId);
-            Console.WriteLine(string.Format((IFormatProvider)null,
+            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                 "Ebi Blast P1: Hits count '{0}'.", eBlastResults.Count));
-            Console.WriteLine(string.Format((IFormatProvider)null,
+            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                 "Ebi Blast P1: Accession '{0}'.", hit.Accession));
-            Console.WriteLine(string.Format((IFormatProvider)null,
+            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                 "Ebi Blast P1: Hit Id '{0}'.", hit.Id));
-            Console.WriteLine(string.Format((IFormatProvider)null,
+            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                 "Ebi Blast P1: Hits Count '{0}'.", hit.Hsps.Count));
-            Console.WriteLine(string.Format((IFormatProvider)null,
+            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                 "Ebi Blast P1: length '{0}'.", hit.Length));
 
             ((IDisposable)ebiBlastService).Dispose();

@@ -9,12 +9,10 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-
 using Bio.IO.Newick;
 using Bio.Phylogenetics;
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
-
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Bio.TestAutomation.IO.Newick
@@ -25,7 +23,6 @@ namespace Bio.TestAutomation.IO.Newick
     [TestClass]
     public class PhylogeneticTreeP1TestCases
     {
-
         #region Enums
 
         /// <summary>
@@ -143,9 +140,6 @@ namespace Bio.TestAutomation.IO.Newick
 
             ApplicationLog.WriteLine(
                 "Phylogenetic Tree Parser P1: Validated all properties in Parser class.");
-            // Logs to the VSTest GUI (Console.Out) window
-            Console.WriteLine(
-                "Phylogenetic Tree Parser P1: Validated all properties in Parser class.");
         }
 
         /// <summary>
@@ -201,9 +195,6 @@ namespace Bio.TestAutomation.IO.Newick
             Assert.AreEqual(Constants.ParserFileTypes, fileTypes);
             Assert.AreEqual(Constants.FormatDescription, description);
             ApplicationLog.WriteLine(
-                "Phylogenetic Tree Formatter P1: Validated all properties in Formatter class.");
-            // Logs to the VSTest GUI (Console.Out) window
-            Console.WriteLine(
                 "Phylogenetic Tree Formatter P1: Validated all properties in Formatter class.");
         }
 
@@ -426,9 +417,6 @@ namespace Bio.TestAutomation.IO.Newick
 
             ApplicationLog.WriteLine(
                 "Phylogenetic Tree Parser P1: The Node Names and Distance are as expected.");
-            // Logs to the VSTest GUI (Console.Out) window
-            Console.WriteLine(
-                "Phylogenetic Tree Parser P1: The Node Names and Distance are as expected.");
         }
 
         /// <summary>
@@ -523,9 +511,6 @@ namespace Bio.TestAutomation.IO.Newick
                         ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                             "Phylogenetic Tree Formatter P1: Format string '{0}' is as expected.",
                             formatString));
-                        Console.WriteLine(string.Format((IFormatProvider)null,
-                            "Phylogenetic Tree Formatter P1: Format string '{0}' is as expected.",
-                            formatString));
                         break;
                     default:
                         format.Format(rootTree, outputFilepath);
@@ -586,9 +571,6 @@ namespace Bio.TestAutomation.IO.Newick
                         }
 
                         ApplicationLog.WriteLine(
-                            "Phylogenetic Tree Parser P1: The Node Names and Distance are as expected.");
-                        // Logs to the VSTest GUI (Console.Out) window
-                        Console.WriteLine(
                             "Phylogenetic Tree Parser P1: The Node Names and Distance are as expected.");
                     }
 

@@ -14,7 +14,6 @@ namespace Bio.TestAutomation.Matrix
     [TestClass]
     public class RowKeysPaddedDoubleBvtTestCases
     {
-
         #region Global Variables
 
         Utility utilityObj = new Utility(@"TestUtils\MatrixTestsConfig.xml");
@@ -68,9 +67,6 @@ namespace Bio.TestAutomation.Matrix
 
             if (File.Exists(Constants.FastQTempTxtFileName))
                 File.Delete(Constants.FastQTempTxtFileName);
-
-            Console.WriteLine(
-                "RowKeysPaddedDouble BVT : Validation of GetInstanceFromPaddedDouble() method successful");
             ApplicationLog.WriteLine(
                 "RowKeysPaddedDouble BVT : Validation of GetInstanceFromPaddedDouble() method successful");
         }
@@ -106,8 +102,6 @@ namespace Bio.TestAutomation.Matrix
             if (File.Exists(Constants.FastQTempTxtFileName))
                 File.Delete(Constants.FastQTempTxtFileName);
 
-            Console.WriteLine(
-                "RowKeysPaddedDouble BVT : Validation of GetInstanceFromPaddedDouble(file-access) method successful");
             ApplicationLog.WriteLine(
                 "RowKeysPaddedDouble BVT : Validation of GetInstanceFromPaddedDouble(file-access) method successful");
         }
@@ -150,8 +144,6 @@ namespace Bio.TestAutomation.Matrix
             if (File.Exists(Constants.KeysTempFile))
                 File.Delete(Constants.KeysTempFile);
 
-            Console.WriteLine(
-                "RowKeysPaddedDouble BVT : Validation of GetInstanceFromRowKeysPaddedDouble() method successful");
             ApplicationLog.WriteLine(
                 "RowKeysPaddedDouble BVT : Validation of GetInstanceFromRowKeysPaddedDouble() method successful");
         }
@@ -195,8 +187,6 @@ namespace Bio.TestAutomation.Matrix
             if (File.Exists(Constants.KeysTempFile))
                 File.Delete(Constants.KeysTempFile);
 
-            Console.WriteLine(
-                "RowKeysPaddedDouble BVT : Validation of GetInstanceFromRowKeysPaddedDouble(file-access) method successful");
             ApplicationLog.WriteLine(
                 "RowKeysPaddedDouble BVT : Validation of GetInstanceFromRowKeysPaddedDouble(file-access) method successful");
         }

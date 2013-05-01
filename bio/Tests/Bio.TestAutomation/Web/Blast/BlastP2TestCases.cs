@@ -6,16 +6,11 @@
 ******************************************************************************/
 
 using System;
-
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
 using Bio.Web;
 using Bio.Web.Blast;
-
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Net;
-using System.Runtime.Serialization;
-using Bio;
 
 namespace Bio.TestAutomation.Web.Blast
 {
@@ -25,7 +20,6 @@ namespace Bio.TestAutomation.Web.Blast
     [TestClass]
     public class BlastP2TestCases
     {
-
         #region Global Variables
 
         Utility utilityObj = new Utility(@"TestUtils\TestsConfig.xml");
@@ -73,8 +67,6 @@ namespace Bio.TestAutomation.Web.Blast
             {
                 ApplicationLog.WriteLine(
                     "NcbiWebService P2 : Successfully validated the Argument null exception");
-                Console.WriteLine(
-                    "NcbiWebService P2 : Successfully validated the Argument null exception");
             }
             finally
             {
@@ -109,8 +101,6 @@ namespace Bio.TestAutomation.Web.Blast
             {
                 ApplicationLog.WriteLine(
                     "NcbiWebService P2 : Successfully validated the Argument null exception");
-                Console.WriteLine(
-                    "NcbiWebService P2 : Successfully validated the Argument null exception");
             }
 
             // Validate NcbiWebService ctor by passing null config.
@@ -122,8 +112,6 @@ namespace Bio.TestAutomation.Web.Blast
             catch (ArgumentNullException)
             {
                 ApplicationLog.WriteLine(
-                    "NcbiWebService P2 : Successfully validated the Argument null exception");
-                Console.WriteLine(
                     "NcbiWebService P2 : Successfully validated the Argument null exception");
             }
             finally
@@ -155,8 +143,6 @@ namespace Bio.TestAutomation.Web.Blast
             catch (Exception)
             {
                 ApplicationLog.WriteLine(
-                    "NcbiWebService P2 : Successfully validated the exception");
-                Console.WriteLine(
                     "NcbiWebService P2 : Successfully validated the exception");
             }
             finally
@@ -205,8 +191,6 @@ namespace Bio.TestAutomation.Web.Blast
             catch (Exception)
             {
                 ApplicationLog.WriteLine(
-                    "NcbiWebService P2 : Successfully validated the exception");
-                Console.WriteLine(
                     "NcbiWebService P2 : Successfully validated the exception");
             }
         }

@@ -204,8 +204,8 @@ Command:   Import  SAM &lt;=&gt; BAM conversion
            View    View output on console</value>
   </data>
   <data name="SamUtilSplashScreen" xml:space="preserve">
-    <value>Sam Utility v1.01
-Copyright (c) 2011, The Outercurve Foundation.
+    <value>Sam Utility v1.1
+Copyright (c) 2011-2013, The Outercurve Foundation.
 </value>
   </data>
   <data name="SortHelp" xml:space="preserve">

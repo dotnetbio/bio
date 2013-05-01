@@ -6,9 +6,6 @@
 ***************************************************************************/
 
 using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
 using Bio.IO;
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
@@ -71,12 +68,14 @@ namespace Bio.TestAutomation.IO
             catch (NullReferenceException exception)
             {
                 // Log to VSTest GUI.
-                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                    "Sequence Parser P2 : Validated Exception {0} successfully",
-                    exception.Message));
-                Console.WriteLine(string.Format((IFormatProvider)null,
-                    "Sequence Parser P2 : Validated Exception {0} successfully",
-                    exception.Message));
+                ApplicationLog.WriteLine(string.Format((IFormatProvider) null,
+                                                       "Sequence Parser P2 : Validated Exception {0} successfully",
+                                                       exception.Message));
+            }
+            finally
+            {
+                if (parser != null)
+                    parser.Dispose();
             }
         }
 
@@ -90,12 +89,14 @@ namespace Bio.TestAutomation.IO
             catch (NullReferenceException exception)
             {
                 // Log to VSTest GUI.
-                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                    "Sequence Formatter P2 : Validated Exception {0} successfully",
-                    exception.Message));
-                Console.WriteLine(string.Format((IFormatProvider)null,
-                    "Sequence Formatter P2 : Validated Exception {0} successfully",
-                    exception.Message));
+                ApplicationLog.WriteLine(string.Format((IFormatProvider) null,
+                                                       "Sequence Formatter P2 : Validated Exception {0} successfully",
+                                                       exception.Message));
+            }
+            finally
+            {
+                if (formatter != null)
+                    formatter.Dispose();
             }
         }
 

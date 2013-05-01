@@ -215,6 +215,11 @@
     <Compile Include="Web\EbiBlast\EbiBlastP2TestCases.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\TestData\**\*.*">
+      <Link>%(RecursiveDir)%(FileName)</Link>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\..\Source\Framework\Add-ins\Bio.Comparative\Bio.Comparative.csproj">
       <Project>{C14520D3-7E9B-49BB-AFA5-F51E48E06852}</Project>
       <Name>Bio.Comparative</Name>

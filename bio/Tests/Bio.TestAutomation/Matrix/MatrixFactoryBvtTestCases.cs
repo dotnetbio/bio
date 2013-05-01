@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-
 using Bio.Matrix;
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
-
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Bio.TestAutomation.Matrix
@@ -16,7 +14,6 @@ namespace Bio.TestAutomation.Matrix
     [TestClass]
     public class MatrixFactoryBvtTestCases
     {
-
         #region Global Variables
 
         DenseMatrix<string, string, double> denseMatObj;
@@ -96,8 +93,6 @@ namespace Bio.TestAutomation.Matrix
             Assert.AreEqual(denseMatObj.ColKeys.Count, newMatObj.ColKeys.Count);
             Assert.AreEqual(denseMatObj.Values.Count(), newMatObj.Values.Count());
 
-            Console.WriteLine(
-                "MatrixFactory BVT : Successfully validated Parse() method");
             ApplicationLog.WriteLine(
                 "MatrixFactory BVT : Successfully validated Parse() method");
         }
@@ -136,8 +131,6 @@ namespace Bio.TestAutomation.Matrix
             Assert.AreEqual(denseMatObj.ColKeys.Count, newMatObj.ColKeys.Count);
             Assert.AreEqual(denseMatObj.Values.Count(), newMatObj.Values.Count());
 
-            Console.WriteLine(
-                "MatrixFactory BVT : Successfully validated TryParse() method");
             ApplicationLog.WriteLine(
                 "MatrixFactory BVT : Successfully validated TryParse() method");
         }
@@ -160,8 +153,6 @@ namespace Bio.TestAutomation.Matrix
 
             Assert.IsTrue(string.IsNullOrEmpty(mfObj.ErrorMessages));
 
-            Console.WriteLine(
-                "MatrixFactory BVT : Successfully validated All methods");
             ApplicationLog.WriteLine(
                 "MatrixFactory BVT : Successfully validated All methods");
         }

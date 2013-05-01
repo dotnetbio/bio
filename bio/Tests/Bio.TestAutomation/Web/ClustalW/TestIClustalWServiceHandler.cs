@@ -240,15 +240,11 @@ namespace Bio.TestAutomation.Web.ClustalW
 
             if (null == serviceParameters)
             {
-                throw new ArgumentNullException("Parameters");
+                throw new ArgumentNullException("serviceParameters");
             }
 
             string errorresult = _baseClient.CancelJob(serviceParameters.JobId, serviceParameters.Parameters[CONTROLID].ToString());
-            Console.WriteLine(errorresult);
-            if (errorresult.ToUpper(CultureInfo.CurrentCulture).Contains(STOPPED.ToUpper(CultureInfo.CurrentCulture)))
-                return true;
-            else
-                return false;
+            return errorresult.ToUpper(CultureInfo.CurrentCulture).Contains(STOPPED.ToUpper(CultureInfo.CurrentCulture));
         }
 
         #endregion

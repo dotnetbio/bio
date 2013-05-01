@@ -6,7 +6,6 @@
 ******************************************************************************/
 
 using System;
-using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -71,7 +70,7 @@ namespace Bio.TestAutomation.Util.Logging
             }
             catch (ArgumentNullException exception)
             {
-                Console.WriteLine(string.Format((IFormatProvider)null,
+                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                 "Trace P2: Trace Report Null exception was validated successfully {0}",
                 exception.Message));
             }
@@ -100,7 +99,7 @@ namespace Bio.TestAutomation.Util.Logging
             }
             catch (ArgumentNullException exception)
             {
-                Console.WriteLine(string.Format((IFormatProvider)null,
+                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                 "Trace P2: Trace Report Null exception was validated successfully {0}",
                 exception.Message));
             }
@@ -129,11 +128,8 @@ namespace Bio.TestAutomation.Util.Logging
             }
             catch (ArgumentNullException exception)
             {
-                // Todo: Check this Exception for Empty string. What type of exception is throwing. Please use the 
-                // Specific Exception. 
-                Console.WriteLine(string.Format((IFormatProvider)null,
-                "Trace P2: Trace Report Null exception was validated successfully {0}",
-                exception.Message));
+                ApplicationLog.WriteLine(string.Format((IFormatProvider)null, "Trace P2: Trace Report Null exception was validated successfully {0}", 
+                    exception.Message));
             }
         }
 
@@ -160,7 +156,7 @@ namespace Bio.TestAutomation.Util.Logging
             }
             catch (ArgumentNullException exception)
             {
-                Console.WriteLine(string.Format((IFormatProvider)null,
+                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                 "Trace P2: Trace Report Null exception was validated successfully {0}",
                 exception.Message));
             }

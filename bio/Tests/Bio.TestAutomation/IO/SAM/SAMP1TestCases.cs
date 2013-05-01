@@ -118,7 +118,6 @@ namespace Bio.TestAutomation.IO.SAM
                 sdObj.GetObjectData(info, context);
             }
 
-            Console.WriteLine("SAMAlignedSequence P1 : Successfully validated GetObjectData() method");
             ApplicationLog.WriteLine("SAMAlignedSequence P1 : Successfully validated GetObjectData() method");
         }
 
@@ -148,7 +147,6 @@ namespace Bio.TestAutomation.IO.SAM
                 samObj.GetObjectData(info, context);
             }
 
-            Console.WriteLine("SequenceAlignmentMap P1 : Successfully validated GetObjectData() method");
             ApplicationLog.WriteLine("SequenceAlignmentMap P1 : Successfully validated GetObjectData() method");
         }
 

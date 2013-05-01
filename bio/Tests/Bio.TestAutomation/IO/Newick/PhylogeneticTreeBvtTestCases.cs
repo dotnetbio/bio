@@ -9,12 +9,10 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-
 using Bio.IO.Newick;
 using Bio.Phylogenetics;
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
-
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Bio.TestAutomation.IO.Newick
@@ -25,7 +23,6 @@ namespace Bio.TestAutomation.IO.Newick
     [TestClass]
     public class PhylogeneticTreeBvtTestCases
     {
-
         #region Enums
 
         /// <summary>
@@ -242,6 +239,22 @@ namespace Bio.TestAutomation.IO.Newick
                 FormatterParameters.FormatString);
         }
 
+        /// <summary>
+        /// Check for internal nodes with names. This is new for 1.1
+        /// </summary>
+        [TestMethod]
+        [Priority(0)]
+        [TestCategory("Priority0")]
+        public void TestNamesOnInternalNodes()
+        {
+            const string filename = @"TestUtils\\positives.newick";
+            using (var parser = new NewickParser())
+            {
+                var tree = parser.Parse(filename);
+                Assert.AreEqual(3, tree.Root.Children.Count);
+            }
+        }
+
         #endregion Phylogenetic Formatter Bvt Test cases
 
         #region Supported Methods
@@ -251,18 +264,13 @@ namespace Bio.TestAutomation.IO.Newick
         /// </summary>
         /// <param name="nodeName">Xml node Name.</param>
         /// <param name="addParam">Additional parameter</param>
-        void PhylogeneticTreeParserGeneralTests(string nodeName,
-            AdditionalParameters addParam)
+        void PhylogeneticTreeParserGeneralTests(string nodeName, AdditionalParameters addParam)
         {
             // Gets the expected sequence from the Xml
             string filePath = _utilityObj.xmlUtil.GetTextValue(nodeName,
                 Constants.FilePathNode);
 
             Assert.IsTrue(File.Exists(filePath));
-
-            // Logs information to the log file
-            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                "Phylogenetic Tree Parser BVT: File Exists in the Path '{0}'.", filePath));
 
             using (NewickParser parser = new NewickParser())
             {
@@ -327,9 +335,6 @@ namespace Bio.TestAutomation.IO.Newick
             }
             ApplicationLog.WriteLine(
                 "Phylogenetic Tree Parser BVT: The Node Names and Distance are as expected.");
-            // Logs to the VSTest GUI (Console.Out) window
-            Console.WriteLine(
-                "Phylogenetic Tree Parser BVT: The Node Names and Distance are as expected.");
         }
 
         /// <summary>
@@ -389,9 +394,6 @@ namespace Bio.TestAutomation.IO.Newick
                         Assert.AreEqual(expectedFormatString, formatString);
 
                         ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                            "Phylogenetic Tree Parser BVT: Format string '{0}' is as expected.",
-                            formatString));
-                        Console.WriteLine(string.Format((IFormatProvider)null,
                             "Phylogenetic Tree Parser BVT: Format string '{0}' is as expected.",
                             formatString));
                         break;
@@ -455,9 +457,6 @@ namespace Bio.TestAutomation.IO.Newick
                     }
 
                     ApplicationLog.WriteLine(
-                        "Phylogenetic Tree Parser BVT: The Node Names and Distance are as expected.");
-                    // Logs to the VSTest GUI (Console.Out) window
-                    Console.WriteLine(
                         "Phylogenetic Tree Parser BVT: The Node Names and Distance are as expected.");
                 }
 

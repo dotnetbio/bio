@@ -7,13 +7,11 @@
 
 using System;
 using System.IO;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Bio.Util.ArgumentParser;
 using System.Threading;
 using System.Collections;
+using Bio.Util.Logging;
 
 namespace Bio.TestAutomation.Util.ArgumentParser
 {
@@ -74,7 +72,7 @@ namespace Bio.TestAutomation.Util.ArgumentParser
             while (parser.MoveNext())
             {
                 current = parser.Current.ToString();
-                Console.WriteLine(current);
+                ApplicationLog.WriteLine(current);
                 count++;
             }
             Assert.AreEqual(2, count);

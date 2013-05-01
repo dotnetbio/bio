@@ -196,8 +196,6 @@ namespace Bio.TestAutomation.IO.Nexus
             Assert.IsFalse(string.IsNullOrEmpty(filePath));
             ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                 "Nexus Parser BVT: Reading the File from location '{0}'", filePath));
-            Console.WriteLine(string.Format((IFormatProvider)null,
-                "Nexus Parser BVT: Reading the File from location '{0}'", filePath));
 
             // Get the rangelist after parsing.
             NexusParser parserObj = new NexusParser();
@@ -263,8 +261,6 @@ namespace Bio.TestAutomation.IO.Nexus
 
             Assert.IsTrue(CompareOutput(sequenceAlignmentList, expectedAlignmentList));
             ApplicationLog.WriteLine(
-                "Nexus Parser BVT: Successfully validated all the Alignment Sequences");
-            Console.WriteLine(
                 "Nexus Parser BVT: Successfully validated all the Alignment Sequences");
         }
 

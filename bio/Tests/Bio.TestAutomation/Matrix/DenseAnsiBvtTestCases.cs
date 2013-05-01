@@ -1,10 +1,7 @@
 ﻿using System;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-
-using Bio.Util;
 using Bio.Util.Logging;
 using Bio.Matrix;
 using Bio.TestAutomation.Util;
@@ -19,7 +16,6 @@ namespace Bio.TestAutomation.Matrix
     [TestClass]
     public class DenseAnsiBvtTestCases
     {
-
         #region Global Variables
 
         Utility utilityObj = new Utility(@"TestUtils\MatrixTestsConfig.xml");
@@ -70,8 +66,6 @@ namespace Bio.TestAutomation.Matrix
             if (File.Exists(Constants.FastQTempTxtFileName))
                 File.Delete(Constants.FastQTempTxtFileName);
 
-            Console.WriteLine(
-                "DenseAnsi BVT : Validation of ColKeysInFile() method successful");
             ApplicationLog.WriteLine(
                 "DenseAnsi BVT : Validation of ColKeysInFile() method successful");
         }
@@ -94,8 +88,6 @@ namespace Bio.TestAutomation.Matrix
 
             Assert.IsNotNull(dpaObj);
 
-            Console.WriteLine(
-                "DenseAnsi BVT : Validation of CreateEmptyInstance() method successful");
             ApplicationLog.WriteLine(
                 "DenseAnsi BVT : Validation of CreateEmptyInstance() method successful");
         }
@@ -127,8 +119,6 @@ namespace Bio.TestAutomation.Matrix
             if (File.Exists(Constants.FastQTempTxtFileName))
                 File.Delete(Constants.FastQTempTxtFileName);
 
-            Console.WriteLine(
-                "DenseAnsi BVT : Validation of GetInstance() method successful");
             ApplicationLog.WriteLine(
                 "DenseAnsi BVT : Validation of GetInstance() method successful");
         }
@@ -159,8 +149,6 @@ namespace Bio.TestAutomation.Matrix
             if (File.Exists(Constants.FastQTempTxtFileName))
                 File.Delete(Constants.FastQTempTxtFileName);
 
-            Console.WriteLine(
-                "DenseAnsi BVT : Validation of GetInstanceFromSparse() method successful");
             ApplicationLog.WriteLine(
                 "DenseAnsi BVT : Validation of GetInstanceFromSparse() method successful");
         }
@@ -194,8 +182,6 @@ namespace Bio.TestAutomation.Matrix
             if (File.Exists(Constants.FastQTempTxtFileName))
                 File.Delete(Constants.FastQTempTxtFileName);
 
-            Console.WriteLine(
-                "DenseAnsi BVT : Validation of RowKeysInFile() method successful");
             ApplicationLog.WriteLine(
                 "DenseAnsi BVT : Validation of RowKeysInFile() method successful");
         }
@@ -229,8 +215,6 @@ namespace Bio.TestAutomation.Matrix
             if (File.Exists(Constants.FastQTempTxtFileName))
                 File.Delete(Constants.FastQTempTxtFileName);
 
-            Console.WriteLine(
-                "DenseAnsi BVT : Validation of TryGetInstance() method successful");
             ApplicationLog.WriteLine(
                 "DenseAnsi BVT : Validation of TryGetInstance() method successful");
         }
@@ -260,8 +244,6 @@ namespace Bio.TestAutomation.Matrix
             if (File.Exists(Constants.FastQTempTxtFileName))
                 File.Delete(Constants.FastQTempTxtFileName);
 
-            Console.WriteLine(
-                "DenseAnsi BVT : Validation of TryGetInstanceFromSparse(Matrix) method successful");
             ApplicationLog.WriteLine(
                 "DenseAnsi BVT : Validation of TryGetInstanceFromSparse(Matrix) method successful");
         }
@@ -292,8 +274,6 @@ namespace Bio.TestAutomation.Matrix
             if (File.Exists(Constants.FastQTempTxtFileName))
                 File.Delete(Constants.FastQTempTxtFileName);
 
-            Console.WriteLine(
-                "DenseAnsi BVT : Validation of TryGetInstanceFromSparse(denseAnsi) method successful");
             ApplicationLog.WriteLine(
                 "DenseAnsi BVT : Validation of TryGetInstanceFromSparse(denseAnsi) method successful");
         }
@@ -325,8 +305,6 @@ namespace Bio.TestAutomation.Matrix
             if (File.Exists(Constants.FastQTempTxtFileName))
                 File.Delete(Constants.FastQTempTxtFileName);
 
-            Console.WriteLine(
-                "DenseAnsi BVT : Validation of TryParseDenseAnsiFormatAsDoubleMatrix() method successful");
             ApplicationLog.WriteLine(
                 "DenseAnsi BVT : Validation of TryParseDenseAnsiFormatAsDoubleMatrix() method successful");
         }
@@ -358,8 +336,6 @@ namespace Bio.TestAutomation.Matrix
             if (File.Exists(Constants.FastQTempTxtFileName))
                 File.Delete(Constants.FastQTempTxtFileName);
 
-            Console.WriteLine(
-                "DenseAnsi BVT : Validation of TryParseDenseAnsiFormatAsGenericMatrix() method successful");
             ApplicationLog.WriteLine(
                 "DenseAnsi BVT : Validation of TryParseDenseAnsiFormatAsGenericMatrix() method successful");
         }

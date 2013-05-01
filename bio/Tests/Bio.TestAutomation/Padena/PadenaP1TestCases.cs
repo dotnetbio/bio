@@ -1404,10 +1404,9 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
     /// </summary>
     internal class PadenaP1Test : ParallelDeNovoAssembler
     {
-
         #region Global Variables
 
-        Utility utilityObj = new Utility(@"TestUtils\PadenaTestData\PadenaTestsConfig.xml");
+        readonly Utility utilityObj = new Utility(@"TestUtils\PadenaTestData\PadenaTestsConfig.xml");
 
         #endregion Global Variables
 

@@ -5,17 +5,13 @@
  * 
 ******************************************************************************/
 
-using System;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Collections.Generic;
-
-using Bio;
-using Bio.IO;
+using Bio.Extensions;
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
-
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Bio.IO.FastA;
 
@@ -47,7 +43,7 @@ using Bio.IO.FastA;
 
         #region Global Variables
 
-        Utility utilityObj = new Utility(@"TestUtils\TestsConfig.xml");
+        readonly Utility utilityObj = new Utility(@"TestUtils\TestsConfig.xml");
 
         #endregion Global Variables
 
@@ -74,12 +70,10 @@ using Bio.IO.FastA;
         /// Input Data : Valid DNA Sequence with single character - "A".
         /// Output Data : Validation of created DNA Sequence.
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)"), TestMethod]
         [Priority(0)]
         [TestCategory("Priority0")]
         public void ValidateSingleCharDnaSequence()
         {
-
             // Gets the actual sequence and the alphabet from the Xml
             string alphabetName = utilityObj.xmlUtil.GetTextValue(
                 Constants.SimpleDnaAlphabetNode, Constants.AlphabetNameNode);
@@ -102,15 +96,10 @@ using Bio.IO.FastA;
             ApplicationLog.WriteLine(string.Concat(
                 "Sequence BVT: Sequence is as expected."));
 
-            // Logs to the VSTest GUI (Console.Out) window
-            Console.WriteLine(string.Concat(
-                "Sequence BVT: Sequence is as expected."));
-
             Assert.AreEqual(Utility.GetAlphabet(alphabetName), createSequence.Alphabet);
             ApplicationLog.WriteLine(string.Concat(
                 "Sequence BVT: Sequence Alphabet is as expected."));
 
-            // Logs to the VSTest GUI (Console.Out) window
             ApplicationLog.WriteLine(
                 "Sequence BVT: The DNA with single character Sequence is completed successfully.");
         }
@@ -120,7 +109,6 @@ using Bio.IO.FastA;
         /// Input Data: Valid DNA sequence "ACGA".
         /// Output Data : Validation of created DNA Sequence.
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)"), TestMethod]
         [Priority(0)]
         [TestCategory("Priority0")]
         public void ValidateDnaSequence()
@@ -136,28 +124,19 @@ using Bio.IO.FastA;
             ApplicationLog.WriteLine(string.Concat(
                 "Sequence BVT: Sequence ", actualSequence, " and Alphabet ", alphabetName));
 
-            Sequence createSequence =new Sequence(Utility.
-                            GetAlphabet(alphabetName),actualSequence);
+            ISequence createSequence = new Sequence(Utility.GetAlphabet(alphabetName),actualSequence);
             Assert.IsNotNull(createSequence);
 
-            string seqNew = new string(createSequence.Select(a => (char)a).ToArray());
+            string seqNew = createSequence.ConvertToString();
 
             // Validate the createdSequence
             Assert.AreEqual(seqNew, actualSequence);
-            ApplicationLog.WriteLine(string.Concat(
-                "Sequence BVT: Sequence is as expected."));
-
-            // Logs to the VSTest GUI (Console.Out) window
-            Console.WriteLine(string.Concat(
-                "Sequence BVT: Sequence is as expected."));
+            ApplicationLog.WriteLine("Sequence BVT: Sequence is as expected.");
 
             Assert.AreEqual(Utility.GetAlphabet(alphabetName), createSequence.Alphabet);
-            ApplicationLog.WriteLine(string.Concat(
-                "Sequence BVT: Sequence Alphabet is as expected."));
+            ApplicationLog.WriteLine("Sequence BVT: Sequence Alphabet is as expected.");
 
-            // Logs to the VSTest GUI (Console.Out) window
-            ApplicationLog.WriteLine(
-                "Sequence BVT: The DNA Sequence with string is created successfully.");
+            ApplicationLog.WriteLine("Sequence BVT: The DNA Sequence with string is created successfully.");
         }
 
         /// <summary>
@@ -165,7 +144,6 @@ using Bio.IO.FastA;
         /// Input Data : Valid RNA Sequence "GAUUCAAGGGCU".
         /// Output Data : Validation of created RNA sequence.
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)"), TestMethod]
         [Priority(0)]
         [TestCategory("Priority0")]
         public void ValidateRnaSequence()
@@ -190,15 +168,9 @@ using Bio.IO.FastA;
             ApplicationLog.WriteLine(string.Concat(
                 "Sequence BVT: Sequence is as expected."));
 
-            // Logs to the VSTest GUI (Console.Out) window
-            Console.WriteLine(string.Concat(
-                "Sequence BVT: Sequence is as expected."));
-
             Assert.AreEqual(Utility.GetAlphabet(alphabetName), createSequence.Alphabet);
             ApplicationLog.WriteLine(string.Concat(
                 "Sequence BVT: Sequence Alphabet is as expected."));
-
-            // Logs to the VSTest GUI (Console.Out) window
             ApplicationLog.WriteLine(
                 "Sequence BVT: The RNA Sequence is created successfully.");
         }
@@ -233,7 +205,6 @@ using Bio.IO.FastA;
 
             Assert.AreEqual(Utility.GetAlphabet(alphabetName), createSequence.Alphabet);
 
-            // Logs to the VSTest GUI (Console.Out) window
             ApplicationLog.WriteLine("Sequence BVT: The Protein Sequence is created successfully.");
         }
 
@@ -242,7 +213,6 @@ using Bio.IO.FastA;
         /// Input Data : Valid FastaA file sequence.
         /// Output Data : Validation of FastaA file sequence.
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)"), TestMethod]
         [Priority(0)]
         [TestCategory("Priority0")]
         public void ValidateFastaAFileSequence()
@@ -295,10 +265,6 @@ using Bio.IO.FastA;
                     utilityObj.xmlUtil.GetTextValue(Constants.SimpleFastaNodeName, Constants.AlphabetNameNode));
                 ApplicationLog.WriteLine(string.Concat(
                     "Sequence BVT: Sequence Alphabet is as expected."));
-
-                // Logs to VSTest GUI.
-                Console.WriteLine(
-                    "Sequence BVT: Validation of FastaA file Sequence is completed successfully.");
             }
         }
 
@@ -319,6 +285,7 @@ using Bio.IO.FastA;
         /// Validates GetReverseComplementedSequence method for a given Dna Sequence.
         /// Input Data: AGTACAGCTCCAGACGT
         /// Output Data : Reverse complement of Input Sequence. 
+        /// </summary>
         [TestMethod]
         [Priority(0)]
         [TestCategory("Priority0")]
@@ -331,6 +298,7 @@ using Bio.IO.FastA;
         /// Validates GetComplementedSequence method for a given Dna Sequence.
         /// Input Data: AGTACAGCTCCAGACGT
         /// Output Data : Complement of Input Dna sequence.
+        /// </summary>
         [TestMethod]
         [Priority(0)]
         [TestCategory("Priority0")]
@@ -343,6 +311,7 @@ using Bio.IO.FastA;
         /// Validates Sequence Constructor for a given Dna Sequence.
         /// Input Data: AGTACAGCTCCAGACGT
         /// Output Data : Validation of created Sequence.
+        /// </summary>
         [TestMethod]
         [Priority(0)]
         [TestCategory("Priority0")]
@@ -357,7 +326,7 @@ using Bio.IO.FastA;
 
             List<byte[]> byteArray = new List<byte[]>
             {
-                 UTF8Encoding.UTF8.GetBytes(expectedSequence),                 
+                 Encoding.UTF8.GetBytes(expectedSequence),                 
             };
 
             // Validating Constructor.
@@ -384,7 +353,7 @@ using Bio.IO.FastA;
                             Constants.DnaDerivedSequenceNode, Constants.ExpectedDerivedSequence));
             Sequence sequence = new Sequence(alphabet, expectedSequence);
             //Validate Count
-            Assert.AreEqual(UTF8Encoding.UTF8.GetByteCount(expectedSequence), sequence.Count);
+            Assert.AreEqual(Encoding.UTF8.GetByteCount(expectedSequence), sequence.Count);
             ApplicationLog.WriteLine(string.Concat(
                 "Sequence BVT: Validation of Count operation completed successfully."));
 
@@ -476,15 +445,15 @@ using Bio.IO.FastA;
         /// Supporting method for validating Sequence operations.
         /// Input Data: Parent node,child node and Enum. 
         /// Output Data : Validation of public methods in Sequence class.
+        /// </summary>
         void ValidateSequences(string parentNode, SequenceMethods option)
         {
-
             string alphabetName = utilityObj.xmlUtil.GetTextValue(
                                  parentNode, Constants.AlphabetNameNode);
             IAlphabet alphabet = Utility.GetAlphabet(alphabetName);
             ISequence seq = null;
             string expectedValue = "";
-            Sequence sequence = new Sequence(alphabet, UTF8Encoding.UTF8.GetBytes(
+            ISequence sequence = new Sequence(alphabet, Encoding.UTF8.GetBytes(
                                 utilityObj.xmlUtil.GetTextValue(parentNode, 
                                 Constants.ExpectedDerivedSequence)));
             switch (option)
@@ -506,7 +475,7 @@ using Bio.IO.FastA;
                     break;
             }
 
-            Assert.AreEqual(expectedValue, new string(seq.Select(a => (char)a).ToArray()));
+            Assert.AreEqual(expectedValue, seq.ConvertToString());
             ApplicationLog.WriteLine(string.Concat(
                     "Sequence BVT: Validation of Sequence operation ", option, " completed successfully."));
 

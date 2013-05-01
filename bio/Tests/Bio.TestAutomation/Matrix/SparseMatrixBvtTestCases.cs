@@ -19,7 +19,6 @@ namespace Bio.TestAutomation.Matrix
     [TestClass]
     public class SparseMatrixBvtTestCases
     {
-
         #region Global Variables
 
         Utility utilityObj = new Utility(@"TestUtils\MatrixTestsConfig.xml");
@@ -60,8 +59,6 @@ namespace Bio.TestAutomation.Matrix
 
             Assert.IsNotNull(sparseMatrixObj);
 
-            Console.WriteLine(
-                "SparseMatrix BVT : Validation of CreateEmptyInstance() method successful");
             ApplicationLog.WriteLine(
                 "SparseMatrix BVT : Validation of CreateEmptyInstance() method successful");
         }
@@ -96,8 +93,6 @@ namespace Bio.TestAutomation.Matrix
                 Constants.DenseAnsiStringNode),
                 denseAnsiObj.ToString2D().Replace("\r", "").Replace("\n", "").Replace("\t", ""));
 
-            Console.WriteLine(
-                "SparseMatrix BVT : Validation of AsDenseAnsi() method successful");
             ApplicationLog.WriteLine(
                 "SparseMatrix BVT : Validation of AsDenseAnsi() method successful");
         }
@@ -130,8 +125,6 @@ namespace Bio.TestAutomation.Matrix
                 Constants.DenseMatrixStringNode),
                 denseMatrixObj.ToString2D().Replace("\r", "").Replace("\n", "").Replace("\t", ""));
 
-            Console.WriteLine(
-                "SparseMatrix BVT : Validation of AsDenseMatrix() method successful");
             ApplicationLog.WriteLine(
                 "SparseMatrix BVT : Validation of AsDenseMatrix() method successful");
         }
@@ -165,8 +158,6 @@ namespace Bio.TestAutomation.Matrix
                 Constants.DenseMatrixStringNode),
                 padDoub.ToString2D().Replace("\r", "").Replace("\n", "").Replace("\t", ""));
 
-            Console.WriteLine(
-                "SparseMatrix BVT : Validation of PaddedDouble() method successful");
             ApplicationLog.WriteLine(
                 "SparseMatrix BVT : Validation of PaddedDouble() method successful");
         }
@@ -199,8 +190,6 @@ namespace Bio.TestAutomation.Matrix
                 Constants.DenseMatrixStringNode),
                 newSparseMatrixObj.ToString2D().Replace("\r", "").Replace("\n", "").Replace("\t", ""));
 
-            Console.WriteLine(
-                "SparseMatrix BVT : Validation of AsSparseMatrix() method successful");
             ApplicationLog.WriteLine(
                 "SparseMatrix BVT : Validation of AsSparseMatrix() method successful");
         }
@@ -227,8 +216,6 @@ namespace Bio.TestAutomation.Matrix
                     sparseMatrixObj[i, 0]);
             }
 
-            Console.WriteLine(
-                "SparseMatrix BVT : Validation of ColView(index) method successful");
             ApplicationLog.WriteLine(
                 "SparseMatrix BVT : Validation of ColView(index) method successful");
         }
@@ -255,8 +242,6 @@ namespace Bio.TestAutomation.Matrix
                     sparseMatrixObj[i, 0]);
             }
 
-            Console.WriteLine(
-                "SparseMatrix BVT : Validation of ColView(key) method successful");
             ApplicationLog.WriteLine(
                 "SparseMatrix BVT : Validation of ColView(key) method successful");
         }
@@ -283,8 +268,6 @@ namespace Bio.TestAutomation.Matrix
                     sparseMatrixObj[0, i]);
             }
 
-            Console.WriteLine(
-                "SparseMatrix BVT : Validation of RowView(index) method successful");
             ApplicationLog.WriteLine(
                 "SparseMatrix BVT : Validation of RowView(index) method successful");
         }
@@ -311,8 +294,6 @@ namespace Bio.TestAutomation.Matrix
                     sparseMatrixObj[0, i]);
             }
 
-            Console.WriteLine(
-                "SparseMatrix BVT : Validation of RowView(key) method successful");
             ApplicationLog.WriteLine(
                 "SparseMatrix BVT : Validation of RowView(key) method successful");
         }
@@ -332,8 +313,6 @@ namespace Bio.TestAutomation.Matrix
                 GetSparseMatrix();
             Assert.IsTrue(sparseMatrixObj.ContainsColKey("C0"));
 
-            Console.WriteLine(
-                "SparseMatrix BVT : Validation of ContainsColKey() method successful");
             ApplicationLog.WriteLine(
                 "SparseMatrix BVT : Validation of ContainsColKey() method successful");
         }
@@ -353,8 +332,6 @@ namespace Bio.TestAutomation.Matrix
                 GetSparseMatrix();
             Assert.IsTrue(sparseMatrixObj.ContainsRowAndColKeys("R0", "C0"));
 
-            Console.WriteLine(
-                "SparseMatrix BVT : Validation of ContainsRowAndColKeys() method successful");
             ApplicationLog.WriteLine(
                 "SparseMatrix BVT : Validation of ContainsRowAndColKeys() method successful");
         }
@@ -374,8 +351,6 @@ namespace Bio.TestAutomation.Matrix
                 GetSparseMatrix();
             Assert.IsTrue(sparseMatrixObj.ContainsRowKey("R0"));
 
-            Console.WriteLine(
-                "SparseMatrix BVT : Validation of ContainsRowKey() method successful");
             ApplicationLog.WriteLine(
                 "SparseMatrix BVT : Validation of ContainsRowKey() method successful");
         }
@@ -412,8 +387,6 @@ namespace Bio.TestAutomation.Matrix
                 Constants.DenseConvertValueStringNode),
                 matObj.ToString2D().Replace("\r", "").Replace("\n", "").Replace("\t", ""));
 
-            Console.WriteLine(
-                "SparseMatrix BVT : Validation of ConvertValueView() method successful");
             ApplicationLog.WriteLine(
                 "SparseMatrix BVT : Validation of ConvertValueView() method successful");
         }
@@ -438,8 +411,6 @@ namespace Bio.TestAutomation.Matrix
             Assert.AreEqual(sparseMatrixObj[0, 0].ToString((IFormatProvider)null),
                 enumObj.Current.Value.ToString((IFormatProvider)null));
 
-            Console.WriteLine(
-                "SparseMatrix BVT : Validation of GetEnumerator() method successful");
             ApplicationLog.WriteLine(
                 "SparseMatrix BVT : Validation of GetEnumerator() method successful");
         }
@@ -461,8 +432,6 @@ namespace Bio.TestAutomation.Matrix
             Assert.AreEqual(sparseMatrixObj[0, 1].ToString((IFormatProvider)null),
                 sparseMatrixObj.GetValueOrMissing(0, 1).ToString((IFormatProvider)null));
 
-            Console.WriteLine(
-                "SparseMatrix BVT : Validation of GetValueOrMissing() method successful");
             ApplicationLog.WriteLine(
                 "SparseMatrix BVT : Validation of GetValueOrMissing() method successful");
         }
@@ -484,8 +453,6 @@ namespace Bio.TestAutomation.Matrix
             Assert.AreEqual(sparseMatrixObj["R0", "C0"].ToString((IFormatProvider)null),
                 sparseMatrixObj.GetValueOrMissing("R0", "C0").ToString((IFormatProvider)null));
 
-            Console.WriteLine(
-                "SparseMatrix BVT : Validation of GetValueOrMissing(key) method successful");
             ApplicationLog.WriteLine(
                 "SparseMatrix BVT : Validation of GetValueOrMissing(key) method successful");
         }
@@ -526,8 +493,6 @@ namespace Bio.TestAutomation.Matrix
                 Constants.DenseMatrixStringNode),
                 parentMatrixObj.ToString2D().Replace("\r", "").Replace("\n", "").Replace("\t", ""));
 
-            Console.WriteLine(
-                "SparseMatrix BVT : Validation of HashableView() method successful");
             ApplicationLog.WriteLine(
                 "SparseMatrix BVT : Validation of HashableView() method successful");
         }
@@ -549,8 +514,6 @@ namespace Bio.TestAutomation.Matrix
             Assert.IsTrue(sparseMatrixObj.IsMissing(double.NaN));
             Assert.IsFalse(sparseMatrixObj.IsMissing(1.0));
 
-            Console.WriteLine(
-                "SparseMatrix BVT : Validation of IsMissing() method successful");
             ApplicationLog.WriteLine(
                 "SparseMatrix BVT : Validation of IsMissing() method successful");
         }
@@ -588,8 +551,6 @@ namespace Bio.TestAutomation.Matrix
                 }
             }
 
-            Console.WriteLine(
-                "SparseMatrix BVT : Validation of IsMissing(index) method successful");
             ApplicationLog.WriteLine(
                 "SparseMatrix BVT : Validation of IsMissing(index) method successful");
         }
@@ -626,8 +587,6 @@ namespace Bio.TestAutomation.Matrix
                 }
             }
 
-            Console.WriteLine(
-                "SparseMatrix BVT : Validation of IsMissing(key) method successful");
             ApplicationLog.WriteLine(
                 "SparseMatrix BVT : Validation of IsMissing(key) method successful");
         }
@@ -648,8 +607,6 @@ namespace Bio.TestAutomation.Matrix
 
             Assert.IsFalse(sparseMatrixObj.IsMissingAll());
 
-            Console.WriteLine(
-                "SparseMatrix BVT : Validation of IsMissingAll() method successful");
             ApplicationLog.WriteLine(
                 "SparseMatrix BVT : Validation of IsMissingAll() method successful");
         }
@@ -680,8 +637,6 @@ namespace Bio.TestAutomation.Matrix
 
             Assert.IsTrue(tempDenseMatObj.IsMissingAllInCol(0));
 
-            Console.WriteLine(
-                "SparseMatrix BVT : Validation of IsMissingAllInCol(index) method successful");
             ApplicationLog.WriteLine(
                 "SparseMatrix BVT : Validation of IsMissingAllInCol(index) method successful");
         }
@@ -712,8 +667,6 @@ namespace Bio.TestAutomation.Matrix
 
             Assert.IsTrue(tempDenseMatObj.IsMissingAllInCol("C0"));
 
-            Console.WriteLine(
-                "SparseMatrix BVT : Validation of IsMissingAllInCol(key) method successful");
             ApplicationLog.WriteLine(
                 "SparseMatrix BVT : Validation of IsMissingAllInCol(key) method successful");
         }
@@ -744,8 +697,6 @@ namespace Bio.TestAutomation.Matrix
 
             Assert.IsTrue(tempDenseMatObj.IsMissingAllInRow(0));
 
-            Console.WriteLine(
-                "SparseMatrix BVT : Validation of IsMissingAllInRow(index) method successful");
             ApplicationLog.WriteLine(
                 "SparseMatrix BVT : Validation of IsMissingAllInRow(index) method successful");
         }
@@ -776,8 +727,6 @@ namespace Bio.TestAutomation.Matrix
 
             Assert.IsTrue(tempDenseMatObj.IsMissingAllInRow("R0"));
 
-            Console.WriteLine(
-                "SparseMatrix BVT : Validation of IsMissingAllInRow(key) method successful");
             ApplicationLog.WriteLine(
                 "SparseMatrix BVT : Validation of IsMissingAllInRow(key) method successful");
         }
@@ -807,8 +756,6 @@ namespace Bio.TestAutomation.Matrix
 
             Assert.IsTrue(tempDenseMatObj.IsMissingAllInSomeCol());
 
-            Console.WriteLine(
-                "SparseMatrix BVT : Validation of IsMissingAllInSomeCol() method successful");
             ApplicationLog.WriteLine(
                 "SparseMatrix BVT : Validation of IsMissingAllInSomeCol() method successful");
         }
@@ -838,8 +785,6 @@ namespace Bio.TestAutomation.Matrix
 
             Assert.IsTrue(tempDenseMatObj.IsMissingAllInSomeRow());
 
-            Console.WriteLine(
-                "SparseMatrix BVT : Validation of IsMissingAllInSomeRow() method successful");
             ApplicationLog.WriteLine(
                 "SparseMatrix BVT : Validation of IsMissingAllInSomeRow() method successful");
         }
@@ -869,8 +814,6 @@ namespace Bio.TestAutomation.Matrix
 
             Assert.IsFalse(tempDenseMatObj.IsMissingSome());
 
-            Console.WriteLine(
-                "SparseMatrix BVT : Validation of IsMissingSome() method successful");
             ApplicationLog.WriteLine(
                 "SparseMatrix BVT : Validation of IsMissingSome() method successful");
         }
@@ -900,8 +843,6 @@ namespace Bio.TestAutomation.Matrix
 
             Assert.IsFalse(tempDenseMatObj.MatrixEquals(sparseMatrixObj));
 
-            Console.WriteLine(
-                "SparseMatrix BVT : Validation of MatrixEquals() method successful");
             ApplicationLog.WriteLine(
                 "SparseMatrix BVT : Validation of MatrixEquals() method successful");
         }
@@ -955,8 +896,6 @@ namespace Bio.TestAutomation.Matrix
 
             Assert.AreEqual(sparseMatrixObj.RowCount, mergeMatrix.RowCount);
 
-            Console.WriteLine(
-                "SparseMatrix BVT : Validation of MergeColsView() method successful");
             ApplicationLog.WriteLine(
                 "SparseMatrix BVT : Validation of MergeColsView() method successful");
         }
@@ -1010,8 +949,6 @@ namespace Bio.TestAutomation.Matrix
 
             Assert.AreEqual(sparseMatrixObj.ColCount, mergeMatrix.ColCount);
 
-            Console.WriteLine(
-                "SparseMatrix BVT : Validation of MergeRowsView() method successful");
             ApplicationLog.WriteLine(
                 "SparseMatrix BVT : Validation of MergeRowsView() method successful");
         }
@@ -1038,8 +975,6 @@ namespace Bio.TestAutomation.Matrix
             Assert.AreEqual(sparseMatObj.RowKeys, matObj.RowKeys);
             Assert.AreEqual(sparseMatObj.MissingValue, matObj.MissingValue);
 
-            Console.WriteLine(
-                "SparseMatrix BVT : Validation of PermuteColValuesForEachRowView(random) method successful");
             ApplicationLog.WriteLine(
                 "SparseMatrix BVT : Validation of PermuteColValuesForEachRowView(random) method successful");
         }
@@ -1068,8 +1003,6 @@ namespace Bio.TestAutomation.Matrix
             Assert.AreEqual(sparseMatObj.RowKeys, matObj.RowKeys);
             Assert.AreEqual(sparseMatObj.MissingValue, matObj.MissingValue);
 
-            Console.WriteLine(
-                "SparseMatrix BVT : Validation of PermuteColValuesForEachRowView(Int) method successful");
             ApplicationLog.WriteLine(
                 "SparseMatrix BVT : Validation of PermuteColValuesForEachRowView(Int) method successful");
         }
@@ -1098,8 +1031,6 @@ namespace Bio.TestAutomation.Matrix
             Assert.AreEqual(sparseMatObj.RowKeys, matObj.RowKeys);
             Assert.AreEqual(sparseMatObj.MissingValue, matObj.MissingValue);
 
-            Console.WriteLine(
-                "SparseMatrix BVT : Validation of PermuteColValuesForEachRowView(key) method successful");
             ApplicationLog.WriteLine(
                 "SparseMatrix BVT : Validation of PermuteColValuesForEachRowView(key) method successful");
         }
@@ -1126,8 +1057,6 @@ namespace Bio.TestAutomation.Matrix
             Assert.AreEqual(sparseMatObj.RowKeys, matObj.RowKeys);
             Assert.AreEqual(sparseMatObj.MissingValue, matObj.MissingValue);
 
-            Console.WriteLine(
-                "SparseMatrix BVT : Validation of PermuteRowValuesForEachColView(random) method successful");
             ApplicationLog.WriteLine(
                 "SparseMatrix BVT : Validation of PermuteRowValuesForEachColView(random) method successful");
         }
@@ -1156,8 +1085,6 @@ namespace Bio.TestAutomation.Matrix
             Assert.AreEqual(sparseMatObj.RowKeys, matObj.RowKeys);
             Assert.AreEqual(sparseMatObj.MissingValue, matObj.MissingValue);
 
-            Console.WriteLine(
-                "SparseMatrix BVT : Validation of PermuteRowValuesForEachColView(Int) method successful");
             ApplicationLog.WriteLine(
                 "SparseMatrix BVT : Validation of PermuteRowValuesForEachColView(Int) method successful");
         }
@@ -1188,8 +1115,6 @@ namespace Bio.TestAutomation.Matrix
             }
             catch (KeyNotFoundException)
             {
-                Console.WriteLine(
-                    "SparseMatrix BVT : Validation of Remove() method successful");
                 ApplicationLog.WriteLine(
                     "SparseMatrix BVT : Validation of Remove() method successful");
             }
@@ -1221,8 +1146,6 @@ namespace Bio.TestAutomation.Matrix
             }
             catch (KeyNotFoundException)
             {
-                Console.WriteLine(
-                    "SparseMatrix BVT : Validation of Remove(key) method successful");
                 ApplicationLog.WriteLine(
                     "SparseMatrix BVT : Validation of Remove(key) method successful");
             }
@@ -1250,8 +1173,6 @@ namespace Bio.TestAutomation.Matrix
             Assert.AreEqual("3", newMatObj["R1", "G1"].ToString((IFormatProvider)null));
             Assert.AreEqual("3", newMatObj["R2", "G0"].ToString((IFormatProvider)null));
 
-            Console.WriteLine(
-                "SparseMatrix BVT : Validation of RenameColsView() method successful");
             ApplicationLog.WriteLine(
                 "SparseMatrix BVT : Validation of RenameColsView() method successful");
         }
@@ -1279,8 +1200,6 @@ namespace Bio.TestAutomation.Matrix
             Assert.AreEqual("3", newMatObj["G1", "C1"].ToString((IFormatProvider)null));
             Assert.AreEqual("3", newMatObj["G2", "C0"].ToString((IFormatProvider)null));
 
-            Console.WriteLine(
-                "SparseMatrix BVT : Validation of RenameRowsView() method successful");
             ApplicationLog.WriteLine(
                 "SparseMatrix BVT : Validation of RenameRowsView() method successful");
         }
@@ -1323,8 +1242,6 @@ namespace Bio.TestAutomation.Matrix
                 Assert.AreEqual(sparseMatrixObj[0, 0], viewObj[0, 0]);
             }
 
-            Console.WriteLine(
-                "SparseMatrix BVT : Validation of SelectColsView() method successful");
             ApplicationLog.WriteLine(
                 "SparseMatrix BVT : Validation of SelectColsView() method successful");
         }
@@ -1367,8 +1284,6 @@ namespace Bio.TestAutomation.Matrix
                 Assert.AreEqual(sparseMatrixObj[0, 0], viewObj[0, 0]);
             }
 
-            Console.WriteLine(
-                "SparseMatrix BVT : Validation of SelectColsView(key) method successful");
             ApplicationLog.WriteLine(
                 "SparseMatrix BVT : Validation of SelectColsView(key) method successful");
         }
@@ -1413,8 +1328,6 @@ namespace Bio.TestAutomation.Matrix
                 Assert.AreEqual(sparseMatrixObj[0, 0], viewObj[0, 0]);
             }
 
-            Console.WriteLine(
-                "SparseMatrix BVT : Validation of SelectColsView(ColIndexSeq) method successful");
             ApplicationLog.WriteLine(
                 "SparseMatrix BVT : Validation of SelectColsView(ColIndexSeq) method successful");
         }
@@ -1459,8 +1372,6 @@ namespace Bio.TestAutomation.Matrix
                 Assert.AreEqual(sparseMatrixObj[0, 0], viewObj[0, 0]);
             }
 
-            Console.WriteLine(
-                "SparseMatrix BVT : Validation of SelectColsView(keyseq) method successful");
             ApplicationLog.WriteLine(
                 "SparseMatrix BVT : Validation of SelectColsView(keyseq) method successful");
         }
@@ -1503,8 +1414,6 @@ namespace Bio.TestAutomation.Matrix
                 Assert.AreEqual(sparseMatrixObj[0, 0], viewObj[0, 0]);
             }
 
-            Console.WriteLine(
-                "SparseMatrix BVT : Validation of SelectRowsView() method successful");
             ApplicationLog.WriteLine(
                 "SparseMatrix BVT : Validation of SelectRowsView() method successful");
         }
@@ -1547,8 +1456,6 @@ namespace Bio.TestAutomation.Matrix
                 Assert.AreEqual(sparseMatrixObj[0, 0], viewObj[0, 0]);
             }
 
-            Console.WriteLine(
-                "SparseMatrix BVT : Validation of SelectRowsView(key) method successful");
             ApplicationLog.WriteLine(
                 "SparseMatrix BVT : Validation of SelectRowsView(key) method successful");
         }
@@ -1593,8 +1500,6 @@ namespace Bio.TestAutomation.Matrix
                 Assert.AreEqual(sparseMatrixObj[0, 0], viewObj[0, 0]);
             }
 
-            Console.WriteLine(
-                "SparseMatrix BVT : Validation of SelectRowsView(indexseq) method successful");
             ApplicationLog.WriteLine(
                 "SparseMatrix BVT : Validation of SelectRowsView(indexseq) method successful");
         }
@@ -1639,8 +1544,6 @@ namespace Bio.TestAutomation.Matrix
                 Assert.AreEqual(sparseMatrixObj[0, 0], viewObj[0, 0]);
             }
 
-            Console.WriteLine(
-                "SparseMatrix BVT : Validation of SelectRowsView(keyseq) method successful");
             ApplicationLog.WriteLine(
                 "SparseMatrix BVT : Validation of SelectRowsView(keyseq) method successful");
         }
@@ -1688,8 +1591,6 @@ namespace Bio.TestAutomation.Matrix
                 Assert.AreEqual(sparseMatrixObj[0, 0], viewObj[0, 0]);
             }
 
-            Console.WriteLine(
-                "SparseMatrix BVT : Validation of SelectRowsAndColsView(indexseq) method successful");
             ApplicationLog.WriteLine(
                 "SparseMatrix BVT : Validation of SelectRowsAndColsView(indexseq) method successful");
         }
@@ -1738,8 +1639,6 @@ namespace Bio.TestAutomation.Matrix
                 Assert.AreEqual(sparseMatrixObj[0, 0], viewObj[0, 0]);
             }
 
-            Console.WriteLine(
-                "SparseMatrix BVT : Validation of SelectRowsAndColsView(keyseq) method successful");
             ApplicationLog.WriteLine(
                 "SparseMatrix BVT : Validation of SelectRowsAndColsView(keyseq) method successful");
         }
@@ -1766,8 +1665,6 @@ namespace Bio.TestAutomation.Matrix
             Assert.AreEqual("10", sparseMatrixObj[sparseMatrixObj.RowCount - 1,
                 sparseMatrixObj.ColCount - 1].ToString((IFormatProvider)null));
 
-            Console.WriteLine(
-                "SparseMatrix BVT : Validation of SetValueOrMissing(index) method successful");
             ApplicationLog.WriteLine(
                 "SparseMatrix BVT : Validation of SetValueOrMissing(index) method successful");
         }
@@ -1796,8 +1693,6 @@ namespace Bio.TestAutomation.Matrix
                 sparseMatrixObj.RowCount - 1,
                 sparseMatrixObj.ColCount - 1].ToString((IFormatProvider)null));
 
-            Console.WriteLine(
-                "SparseMatrix BVT : Validation of SetValueOrMissing(key) method successful");
             ApplicationLog.WriteLine(
                 "SparseMatrix BVT : Validation of SetValueOrMissing(key) method successful");
         }
@@ -1824,8 +1719,6 @@ namespace Bio.TestAutomation.Matrix
             Assert.AreNotEqual("R0", rkValsObj[0].RowKey);
             Assert.AreNotEqual("C0", rkValsObj[0].ColKey);
 
-            Console.WriteLine(
-                "SparseMatrix BVT : Validation of Shuffle() method successful");
             ApplicationLog.WriteLine(
                 "SparseMatrix BVT : Validation of Shuffle() method successful");
         }
@@ -1853,8 +1746,6 @@ namespace Bio.TestAutomation.Matrix
             // Validate if the shuffle doesnt return R0 or C0 at the first Row/col key
             Assert.AreEqual(expStrJoin, strJoin);
 
-            Console.WriteLine(
-                "SparseMatrix BVT : Validation of StringJoin() method successful");
             ApplicationLog.WriteLine(
                 "SparseMatrix BVT : Validation of StringJoin() method successful");
         }
@@ -1882,8 +1773,6 @@ namespace Bio.TestAutomation.Matrix
             // Validate if the shuffle doesnt return R0 or C0 at the first Row/col key
             Assert.AreEqual(expStrJoin, strJoin);
 
-            Console.WriteLine(
-                "SparseMatrix BVT : Validation of StringJoin(separator) method successful");
             ApplicationLog.WriteLine(
                 "SparseMatrix BVT : Validation of StringJoin(separator) method successful");
         }
@@ -1911,8 +1800,6 @@ namespace Bio.TestAutomation.Matrix
             // Validate if the shuffle doesnt return R0 or C0 at the first Row/col key
             Assert.AreEqual(expStrJoin, strJoin);
 
-            Console.WriteLine(
-                "SparseMatrix BVT : Validation of StringJoin(separator, max, etc) method successful");
             ApplicationLog.WriteLine(
                 "SparseMatrix BVT : Validation of StringJoin(separator, max, etc) method successful");
         }
@@ -1945,8 +1832,6 @@ namespace Bio.TestAutomation.Matrix
             Assert.AreEqual(sparseMatrixObj[0, 0], rowKeyColKeyList[0].Value);
             Assert.AreEqual(sparseMatrixObj[0, 1], rowKeyColKeyList[1].Value);
 
-            Console.WriteLine(
-                "SparseMatrix BVT : Validation of SubSequence() method successful");
             ApplicationLog.WriteLine(
                 "SparseMatrix BVT : Validation of SubSequence() method successful");
         }
@@ -1981,8 +1866,6 @@ namespace Bio.TestAutomation.Matrix
                 Constants.DenseAnsiStringNode),
                 denseAnsiObj.ToString2D().Replace("\r", "").Replace("\n", "").Replace("\t", ""));
 
-            Console.WriteLine(
-                "SparseMatrix BVT : Validation of ToDenseAnsi() method successful");
             ApplicationLog.WriteLine(
                 "SparseMatrix BVT : Validation of ToDenseAnsi() method successful");
         }
@@ -2014,8 +1897,6 @@ namespace Bio.TestAutomation.Matrix
             Assert.AreEqual(sparseMatrixObj.RowKeys.Count, newDenseObj.RowKeys.Count);
             Assert.AreEqual(sparseMatrixObj.Values.Count(), newDenseObj.Values.Count());
 
-            Console.WriteLine(
-                "SparseMatrix BVT : Validation of ToDenseMatrix() method successful");
             ApplicationLog.WriteLine(
                 "SparseMatrix BVT : Validation of ToDenseMatrix() method successful");
         }
@@ -2043,8 +1924,6 @@ namespace Bio.TestAutomation.Matrix
                     keyVal.Value);
             }
 
-            Console.WriteLine(
-                "SparseMatrix BVT : Validation of ToHashSet() method successful");
             ApplicationLog.WriteLine(
                 "SparseMatrix BVT : Validation of ToHashSet() method successful");
         }
@@ -2075,8 +1954,6 @@ namespace Bio.TestAutomation.Matrix
                     keyVal.Value);
             }
 
-            Console.WriteLine(
-                "SparseMatrix BVT : Validation of ToHashSet(comparer) method successful");
             ApplicationLog.WriteLine(
                 "SparseMatrix BVT : Validation of ToHashSet(comparer) method successful");
         }
@@ -2110,8 +1987,6 @@ namespace Bio.TestAutomation.Matrix
                 Constants.DenseMatrixStringNode),
                 padDoub.ToString2D().Replace("\r", "").Replace("\n", "").Replace("\t", ""));
 
-            Console.WriteLine(
-                "SparseMatrix BVT : Validation of ToPaddedDouble() method successful");
             ApplicationLog.WriteLine(
                 "SparseMatrix BVT : Validation of ToPaddedDouble() method successful");
         }
@@ -2145,8 +2020,6 @@ namespace Bio.TestAutomation.Matrix
                 Constants.DenseMatrixStringNode),
                 newSparseMatrixObj.ToString2D().Replace("\r", "").Replace("\n", "").Replace("\t", ""));
 
-            Console.WriteLine(
-                "SparseMatrix BVT : Validation of ToSparseMatrix() method successful");
             ApplicationLog.WriteLine(
                 "SparseMatrix BVT : Validation of ToSparseMatrix() method successful");
         }
@@ -2169,8 +2042,6 @@ namespace Bio.TestAutomation.Matrix
                 Constants.DenseMatrixStringNode),
                 sparseMatrixObj.ToString2D().Replace("\r", "").Replace("\n", "").Replace("\t", ""));
 
-            Console.WriteLine(
-                "SparseMatrix BVT : Validation of ToString2D() method successful");
             ApplicationLog.WriteLine(
                 "SparseMatrix BVT : Validation of ToString2D() method successful");
         }
@@ -2204,8 +2075,6 @@ namespace Bio.TestAutomation.Matrix
             Assert.AreEqual("R0", rowKeyColKeyList[0].RowKey);
             Assert.AreEqual("C0", rowKeyColKeyList[0].ColKey);
 
-            Console.WriteLine(
-                "SparseMatrix BVT : Validation of ToQueue() method successful");
             ApplicationLog.WriteLine(
                 "SparseMatrix BVT : Validation of ToQueue() method successful");
         }
@@ -2240,8 +2109,6 @@ namespace Bio.TestAutomation.Matrix
                 Constants.DenseTransposeStringNode),
                 transViewObj.ToString2D().Replace("\r", "").Replace("\n", "").Replace("\t", ""));
 
-            Console.WriteLine(
-                "SparseMatrix BVT : Validation of TransposeView() method successful");
             ApplicationLog.WriteLine(
                 "SparseMatrix BVT : Validation of TransposeView() method successful");
         }
@@ -2264,8 +2131,6 @@ namespace Bio.TestAutomation.Matrix
             Assert.IsTrue(sparseMatrixObj.TryGetValue(0, 0, out tempVal));
             Assert.AreEqual(tempVal, sparseMatrixObj[0, 0]);
 
-            Console.WriteLine(
-                "SparseMatrix BVT : Validation of TryGetValue(index) method successful");
             ApplicationLog.WriteLine(
                 "SparseMatrix BVT : Validation of TryGetValue(index) method successful");
         }
@@ -2288,8 +2153,6 @@ namespace Bio.TestAutomation.Matrix
             Assert.IsTrue(sparseMatrixObj.TryGetValue("R0", "C0", out tempVal));
             Assert.AreEqual(tempVal, sparseMatrixObj["R0", "C0"]);
 
-            Console.WriteLine(
-                "SparseMatrix BVT : Validation of TryGetValue(key) method successful");
             ApplicationLog.WriteLine(
                 "SparseMatrix BVT : Validation of TryGetValue(key) method successful");
         }
@@ -2319,8 +2182,6 @@ namespace Bio.TestAutomation.Matrix
                 Constants.ValueStringNode);
             Assert.AreEqual(expectedValue, strBuilder.ToString());
 
-            Console.WriteLine(
-                "SparseMatrix BVT : Validation of Values() method successful");
             ApplicationLog.WriteLine(
                 "SparseMatrix BVT : Validation of Values() method successful");
         }
@@ -2347,8 +2208,6 @@ namespace Bio.TestAutomation.Matrix
 
             ValidateWriteMethod(expectedFileValue);
 
-            Console.WriteLine(
-                "SparseMatrix BVT : Validation of WriteDense() method successful");
             ApplicationLog.WriteLine(
                 "SparseMatrix BVT : Validation of WriteDense() method successful");
         }
@@ -2379,8 +2238,6 @@ namespace Bio.TestAutomation.Matrix
 
             ValidateWriteMethod(expectedFileValue);
 
-            Console.WriteLine(
-                "SparseMatrix BVT : Validation of WriteDense(Writer) method successful");
             ApplicationLog.WriteLine(
                 "SparseMatrix BVT : Validation of WriteDense(Writer) method successful");
         }
@@ -2408,8 +2265,6 @@ namespace Bio.TestAutomation.Matrix
 
             ValidateWriteMethod(expectedFileValue);
 
-            Console.WriteLine(
-                "SparseMatrix BVT : Validation of WriteDense<T>() method successful");
             ApplicationLog.WriteLine(
                 "SparseMatrix BVT : Validation of WriteDense<T>() method successful");
         }
@@ -2438,8 +2293,6 @@ namespace Bio.TestAutomation.Matrix
 
             ValidateWriteMethod(expectedFileValue);
 
-            Console.WriteLine(
-                "SparseMatrix BVT : Validation of WriteDenseAnsi() method successful");
             ApplicationLog.WriteLine(
                 "SparseMatrix BVT : Validation of WriteDenseAnsi() method successful");
         }
@@ -2470,8 +2323,6 @@ namespace Bio.TestAutomation.Matrix
 
             ValidateWriteMethod(expectedFileValue);
 
-            Console.WriteLine(
-                "SparseMatrix BVT : Validation of WriteDenseAnsi(writer) method successful");
             ApplicationLog.WriteLine(
                 "SparseMatrix BVT : Validation of WriteDenseAnsi(writer) method successful");
         }
@@ -2500,8 +2351,6 @@ namespace Bio.TestAutomation.Matrix
 
             ValidateWriteMethod(expectedFileValue);
 
-            Console.WriteLine(
-                "SparseMatrix BVT : Validation of WritePaddedDouble() method successful");
             ApplicationLog.WriteLine(
                 "SparseMatrix BVT : Validation of WritePaddedDouble() method successful");
         }
@@ -2533,8 +2382,6 @@ namespace Bio.TestAutomation.Matrix
 
             ValidateWriteMethod(expectedFileValue);
 
-            Console.WriteLine(
-                "SparseMatrix BVT : Validation of WritePaddedDouble(writer) method successful");
             ApplicationLog.WriteLine(
                 "SparseMatrix BVT : Validation of WritePaddedDouble(writer) method successful");
         }
@@ -2561,8 +2408,6 @@ namespace Bio.TestAutomation.Matrix
 
             ValidateWriteMethod(expectedFileValue);
 
-            Console.WriteLine(
-                "SparseMatrix BVT : Validation of WriteDenseAnsi() method successful");
             ApplicationLog.WriteLine(
                 "SparseMatrix BVT : Validation of WriteDenseAnsi() method successful");
         }
@@ -2592,8 +2437,6 @@ namespace Bio.TestAutomation.Matrix
 
             ValidateWriteMethod(expectedFileValue);
 
-            Console.WriteLine(
-                "SparseMatrix BVT : Validation of WriteDense(writer) method successful");
             ApplicationLog.WriteLine(
                 "SparseMatrix BVT : Validation of WriteDense(writer) method successful");
         }
@@ -2620,8 +2463,6 @@ namespace Bio.TestAutomation.Matrix
 
             ValidateWriteMethod(expectedFileValue);
 
-            Console.WriteLine(
-                "SparseMatrix BVT : Validation of WriteSparse<T>() method successful");
             ApplicationLog.WriteLine(
                 "SparseMatrix BVT : Validation of WriteSparse<T>() method successful");
         }
@@ -2651,8 +2492,6 @@ namespace Bio.TestAutomation.Matrix
 
             ValidateWriteMethod(expectedFileValue);
 
-            Console.WriteLine(
-                "SparseMatrix BVT : Validation of WriteSparse<T>(writer) method successful");
             ApplicationLog.WriteLine(
                 "SparseMatrix BVT : Validation of WriteSparse<T>(writer) method successful");
         }
@@ -2684,8 +2523,6 @@ namespace Bio.TestAutomation.Matrix
             Assert.AreEqual("3", sparseMatrixObj.RowCount.ToString((IFormatProvider)null));
             Assert.AreEqual("R0", rowKeys[0].ToString((IFormatProvider)null));
 
-            Console.WriteLine(
-                "SparseMatrix BVT : Validation of all properties successful");
             ApplicationLog.WriteLine(
                 "SparseMatrix BVT : Validation of all properties successful");
         }
