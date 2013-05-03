@@ -639,7 +639,7 @@
   <String Id="ExcelAddinFolder">.NET Bio Extension for Excel</String>
   <String Id="ExcelAddinFeatureTitle">Excel Addin</String>
 
-  <String Id="ProductName">.NET Bio Extension for Excel 1.01</String>
+  <String Id="ProductName">.NET Bio Extension for Excel 1.1</String>
   <String Id="ApplicationDocumentsFolderName">Documents</String>
   
   <String Id="ApplicationShortcutName" Overridable="yes">.NET Bio Extension for Excel</String>

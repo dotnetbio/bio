@@ -640,7 +640,7 @@
   <String Id="FeatureDisabled" Overridable="yes">This feature is already installed on your machine.</String>
   <String Id="AlreadyInstalled" Overridable="yes">(already installed)</String>
 
-  <String Id="ProductName">.NET Bio 1.01</String>
+  <String Id="ProductName">.NET Bio 1.1</String>
   <String Id="ApplicationDocumentsFolderName">Documents</String>
   <String Id="ReadSimulator">Sequence Read Simulator</String>
   <String Id="ReadSimulatorDescription">Launch Read Simulator</String>
@@ -678,7 +678,7 @@
 	<String Id="TestingGuideDescription">.NET Bio Framework Code Testing Guide</String>
 	<String Id="ComparativeAssemblyGuideDescription">.NET Bio Comparative Assembly Design Document</String>
 	
-	<String Id="DevPreviewInstalledAlert">Setup has detected that version 2.1 of this product is already installed on this machine. It is recommended to uninstall the existing version through the Control Panel before continuing with this installation.</String>
+	<String Id="DevPreviewInstalledAlert">Setup has detected that the preview version of this product is already installed on this machine. It is recommended that you uninstall the preview version through the Control Panel before continuing with this installation.</String>
   <String Id="NewerVersionInstalledAlert">A newer version of this product is already installed. Installation of this version cannot continue. To configure or remove the existing version of this product, use Add/Remove Programs on the Control Panel.</String>
   <String Id="OlderVersionInstalledAlert">Setup has detected that an older version of this product is already installed on this machine. It is recommended to uninstall the existing version through the Control Panel before continuing with this installation.</String>
 </WixLocalization>

@@ -56,9 +56,9 @@
               Name='InstallationPath' Type='directory' />
   </Property>
 
-  <!--Get Visual Studio 2010 User Project Templates directory path-->
+  <!--Get Visual Studio 2012 User Project Templates directory path-->
   <Property Id='VSTEMPLATEDIR'>
-    <RegistrySearch Id='VSTemplateLocation' Root='HKCU' Key='Software\Microsoft\VisualStudio\10.0'
+    <RegistrySearch Id='VSTemplateLocation' Root='HKCU' Key='Software\Microsoft\VisualStudio\11.0'
               Name='UserProjectTemplatesLocation' Type='directory' />
   </Property>
 

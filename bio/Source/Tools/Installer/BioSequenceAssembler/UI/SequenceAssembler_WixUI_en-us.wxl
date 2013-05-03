@@ -653,7 +653,7 @@
   <String Id="SequenceAssemblerFolder">.NET Bio Sequence Assembler</String>
   <String Id="SequenceAssemblerFeatureTitle">.NET Bio Sequence Assembler</String>
 
-  <String Id="ProductName">.NET Bio Sequence Assembler 1.01</String>
+  <String Id="ProductName">.NET Bio Sequence Assembler 1.1</String>
   <String Id="ApplicationDocumentsFolderName">Documents</String>
   
   <String Id="Select">Select:</String>

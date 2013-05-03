@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-    <Product Id="84389389-F9B5-4990-9834-8AAF0601B5D5" Name="!(loc.ProductName)" Language="1033" Version="$(env.ProductVersion)" Manufacturer=" " UpgradeCode="D3AF0002-2D7E-45EB-86CF-06FCFDF075A0">
+    <Product Id="99397667-0E4C-4ED0-9233-7C41978061F7" Name="!(loc.ProductName)" Language="1033" Version="$(env.ProductVersion)" Manufacturer=" " UpgradeCode="D3AF0002-2D7E-45EB-86CF-06FCFDF075A0">
         <!--installer package information-->
         <Package Id="*" Description="!(loc.ProductName) installation database." Comments="This installer database contains the logic and data required to install !(loc.ProductName)." Manufacturer=".NET Bio" InstallerVersion="200" Compressed="yes" />
         <Media Id="1" Cabinet="BioFramework.cab" EmbedCab="yes" />
@@ -13,26 +13,16 @@
     -->
         <!--Detect older version of the product for Upgrade support-->
         <Upgrade Id="D3AF0002-2D7E-45EB-86CF-06FCFDF075A0">
-            <!-- Check for version 1.0 and lower -->
-            <UpgradeVersion Maximum="1.0.0" Minimum="0.2.0" IncludeMaximum="yes" IncludeMinimum="yes" MigrateFeatures="yes" Property="BELOWVERSIONTWO" />
-            <!-- Check for version 2.1 (developer preview version) - special case -->
-            <UpgradeVersion Maximum="2.1.0" Minimum="2.1.0" IncludeMaximum="yes" IncludeMinimum="yes" MigrateFeatures="yes" Property="DEVPREVIEWFOUND" />
-            <!-- Check for lower minor version -->
-            <UpgradeVersion Maximum="$(env.ProductMajorVersion).$(env.ProductMinorVersion).$(env.ProductBuildVersion)" Minimum="$(env.ProductMajorVersion).0.0" IncludeMaximum="yes" IncludeMinimum="yes" MigrateFeatures="yes" Property="LOWERMINORFOUND" />
-            <!-- Check for lower version (major or minor) -->
-            <UpgradeVersion Maximum="$(env.ProductMajorVersion).$(env.ProductMinorVersion).$(env.ProductBuildVersion)" Minimum="0.0.0" IncludeMaximum="no" IncludeMinimum="yes" MigrateFeatures="yes" Property="LOWERVERSIONFOUND" />
-            <!-- Check for higher version (major or minor) -->
-            <UpgradeVersion Maximum="127.254.32767" Minimum="$(env.ProductMajorVersion).$(env.ProductMinorVersion).$(env.ProductBuildVersion)" IncludeMaximum="yes" IncludeMinimum="no" MigrateFeatures="yes" Property="NEWERVERSIONFOUND" />
+	    <UpgradeVersion Minimum="$(env.ProductVersion)" IncludeMinimum="no" OnlyDetect="yes" Property="NEWERVERSIONFOUND" /> 
+            <UpgradeVersion Minimum="1.0.0" IncludeMinimum="yes" Maximum="$(env.ProductVersion)" IncludeMaximum="no" Property="LOWERVERSIONFOUND" /> 
         </Upgrade>
         <!-- Prevent installation if newer version found -->
         <Condition Message="!(loc.NewerVersionInstalledAlert)">
-      (NOT NEWERVERSIONFOUND) OR DEVPREVIEWFOUND
-    </Condition>
-        <!-- Silently upgrade older product version with lower minor version -->
+      		NOT NEWERVERSIONFOUND
+    	</Condition>
+        <!-- Silently upgrade existing older products -->
         <InstallExecuteSequence>
-            <RemoveExistingProducts After="InstallInitialize">
-        LOWERMINORFOUND AND (NOT DEVPREVIEWFOUND)
-      </RemoveExistingProducts>
+            <RemoveExistingProducts After="InstallInitialize" />
         </InstallExecuteSequence>
         <!-- Upgrade support region end -->
         <!--Directory: Target-->
@@ -86,7 +76,7 @@
         <!-- Application shortcuts region -->
         <DirectoryRef Id="ApplicationProgramsFolder">
             <Component Id="DefInstallation" Guid="0B28C866-023E-49CF-99BE-593459FB2E01">
-                <Shortcut Id="ShortcutCommandLine" Name="!(loc.BioCommandPrompt)" Description="!(loc.BioCommandPrompt)" Target="[%ComSpec]" WorkingDirectory="FRAMEWORKINSTALLFOLDER" />
+                <Shortcut Id="ShortcutCommandLine" Name="!(loc.BioCommandPrompt)" Description="!(loc.BioCommandPrompt)" Target="[%ComSpec]" Arguments="/F:ON" WorkingDirectory="FRAMEWORKINSTALLFOLDER" />
                 <Shortcut Id="ShortcutReadme" Name="ReadMe" Description=".NET Bio Readme" Target="[ProductTools]ReadMe.txt" WorkingDirectory="ToolsFolder" />
                 <RemoveFolder Id="RemoveShortcutReadme" On="uninstall" />
                 <RegistryValue Root="HKCU" Key="Software\.NET Bio\$(env.ProductVersion)\Framework" Name="Framework Read Me" Type="integer" Value="1" KeyPath="yes" />

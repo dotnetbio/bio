@@ -76,8 +76,10 @@
   <!--Supported Excel versions-->
   <Property Id="EXCEL2007">Excel.Application.12</Property>
   <Property Id="EXCEL2010">Excel.Application.14</Property>
+  <Property Id="EXCEL2013">Excel.Application.15</Property>
+  
   <SetProperty Id="EXCEL" After="AppSearch" Value="1">
-    (EXCELVERSION = EXCEL2007) OR (EXCELVERSION = EXCEL2010)
+    (EXCELVERSION = EXCEL2007) OR (EXCELVERSION = EXCEL2010) OR (EXCELVERSION = EXCEL2013)
   </SetProperty>
   <!--Get Excel app path-->
   <Property Id="EXCELPATH" Secure="yes">
