@@ -9,6 +9,7 @@
 using System;
 using System.Linq;
 using Bio.Algorithms.Translation;
+using Bio.Extensions;
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -216,20 +217,16 @@ namespace Bio.TestAutomation.Algorithms.Translation
         public void ValidateSingleDnaSymbolComplementation()
         {
             // Get Node values from XML.
-            string alphabetName = utilityObj.xmlUtil.GetTextValue(
-                Constants.SimpleDnaAlphabetNode, Constants.AlphabetNameNode);
-            string expectedSeq = utilityObj.xmlUtil.GetTextValue(
-                Constants.ComplementNode, Constants.DnaSymbol);
-            string expectedComplement = utilityObj.xmlUtil.GetTextValue(
-                Constants.ComplementNode, Constants.DnaSymbolComplement);
-            ISequence complement = null;
+            string alphabetName = utilityObj.xmlUtil.GetTextValue(Constants.SimpleDnaAlphabetNode, Constants.AlphabetNameNode);
+            string expectedSeq = utilityObj.xmlUtil.GetTextValue(Constants.ComplementNode, Constants.DnaSymbol);
+            string expectedComplement = utilityObj.xmlUtil.GetTextValue(Constants.ComplementNode, Constants.DnaSymbolComplement);
 
-            var seq = new Sequence(Utility.GetAlphabet(alphabetName), expectedSeq);
             // Complement DNA Sequence.
-            complement = seq.GetComplementedSequence();
+            ISequence seq = new Sequence(Utility.GetAlphabet(alphabetName), expectedSeq);
+            ISequence complement = seq.GetComplementedSequence();
 
             // Validate Single DNA Symbol Complement.
-            Assert.AreEqual(new string(complement.Select(a => (char) a).ToArray()), expectedComplement);
+            Assert.AreEqual(expectedComplement, complement.ConvertToString());
 
             ApplicationLog.WriteLine(string.Format(null,
                                                    "Translation P1: Complement {0} is expected.", complement));

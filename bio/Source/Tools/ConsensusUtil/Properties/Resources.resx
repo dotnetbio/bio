@@ -142,8 +142,8 @@ Options:
     <value>{0} is already open. To open a new file please close the current file and try again.</value>
   </data>
   <data name="ConsensusSplashScreen" xml:space="preserve">
-    <value>Consensus Generation Utility v1.01
-Copyright (c) 2011, The Outercurve Foundation.
+    <value>Consensus Generation Utility v1.1
+Copyright (c) 2011-2013, The Outercurve Foundation.
 </value>
   </data>
   <data name="INVALID_QUERY_FILE" xml:space="preserve">

@@ -1,4 +1,5 @@
 ﻿using Bio.Algorithms.Alignment.Legacy;
+using Bio.Extensions;
 using BiodexExcel.Visualizations.Common.DialogBox;
 
 namespace BiodexExcel

@@ -29,7 +29,7 @@
     <Command>MumUtil.exe /v /mum /o:TestUtils\MumOutput.txt /n "TestUtils\Ecoli.500.fasta" "TestUtils\Ecoli.500_WithError_1x_Paired.fasta"</Command>
     <ConsoleCommand>MumUtil.exe /v /mum /n "TestUtils\Ecoli.500.fasta" "TestUtils\Ecoli.500_WithError_1x_Paired.fasta"</ConsoleCommand>
     <ActualOutputFile>TestUtils\MumOutput.txt</ActualOutputFile>
-    <VerboseResult>MumUtilv1.01-MaximalUniqueMatchUtilityCopyright(c)2011Microsoft.Allrightsreserved.NucmerUtilandMummerUtilare.NETre-implementationsofMUMmer3.0,whichwassupportedinpartbytheNationalScienceFoundationundergrantsIIS-9902923andIIS-9820497,andbytheNationalInstitutesofHealthundergrantsR01-LM06845andN01-AI-15447.ThedevelopmentoftheoriginalreferencewasajointeffortbyStefanKurtzoftheUniversityofHamburgandAdamPhillippy,ArtDelcherandStevenSalzbergatTIGR.ProcessedReferenceFastAfile,fastaLengthoffirstSequence,Read/Processingtime,Filesize,Suffixtreeconstructiontime,MemoryconsumedbySuffixtree,Totaledgescreated,Memoryperedge</VerboseResult>
+    <VerboseResult>MumUtilv1.1-MaximalUniqueMatchUtilityCopyright(c)2011-2013Microsoft.Allrightsreserved.NucmerUtilandMummerUtilare.NETre-implementationsofMUMmer3.0,whichwassupportedinpartbytheNationalScienceFoundationundergrantsIIS-9902923andIIS-9820497,andbytheNationalInstitutesofHealthundergrantsR01-LM06845andN01-AI-15447.ThedevelopmentoftheoriginalreferencewasajointeffortbyStefanKurtzoftheUniversityofHamburgandAdamPhillippy,ArtDelcherandStevenSalzbergatTIGR.ProcessedReferenceFastAfile,fastaLengthoffirstSequence,Read/Processingtime,Filesize,Suffixtreeconstructiontime,MemoryconsumedbySuffixtree,Totaledgescreated,Memoryperedge</VerboseResult>
     <ExpectedOutputFile>TestUtils\MumUtil_NoAmbiguity_EColi500Output.txt</ExpectedOutputFile>
   </MummerWithMumSwitch>
   <MummerWithLengthAndBothSwitch>
@@ -42,7 +42,7 @@
     <Command>NucmerUtil.exe /v /o:TestUtils\NucmerOutput.txt "TestUtils\Small_Size.fasta" "TestUtils\Search_Small_Size.fasta"</Command>
     <ConsoleCommand>NucmerUtil.exe /v "TestUtils\Small_Size.fasta" "TestUtils\Search_Small_Size.fasta"</ConsoleCommand>
     <ActualOutputFile>TestUtils\NucmerOutput.txt</ActualOutputFile>
-    <VerboseResult>Processed Reference FastA file,Read/Processing time,File Size,Processed Query FastA file,Read/Processing time,Compute time,Write() time</VerboseResult>
+    <VerboseResult>Processed Reference FastA file,Read/Processing time,File Size,Processed Query FastA file,Read/Processing time,Compute time,Write time</VerboseResult>
     <ExpectedOutputFile>TestUtils\Small_Size_NucmerUtil_Output.txt</ExpectedOutputFile>
   </NucmerUtilDefaultParams>
   <NucmerUtilWithEColiData>

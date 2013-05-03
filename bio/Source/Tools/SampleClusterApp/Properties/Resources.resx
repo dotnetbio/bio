@@ -118,9 +118,8 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="SampleClusterApp_Splash" xml:space="preserve">
-    <value>SampleClusterApp v1.01 - Sample distributable application to calculate GC
-content of given Sequence
-Copyright (c) 2011, The Outercurve Foundation.
+    <value>SampleClusterApp v1.1 - Sample distributable application to calculate GC content of given Sequence
+Copyright (c) 2011-2013, The Outercurve Foundation.
 </value>
   </data>
   <data name="SampleClusterApp_Help" xml:space="preserve">

@@ -61,8 +61,8 @@ namespace FileFormatConverter.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to File Format Converter Utility V1.01
-        ///Copyright (c) 2011, The Outercurve Foundation.
+        ///   Looks up a localized string similar to File Format Converter Utility V1.1
+        ///Copyright (c) 2011-2013, The Outercurve Foundation.
         ///.
         /// </summary>
         internal static string SplashScreen {

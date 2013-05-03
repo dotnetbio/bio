@@ -7,6 +7,7 @@ using System.Text;
 using Bio;
 using Bio.Algorithms.MUMmer;
 using Bio.Algorithms.SuffixTree;
+using Bio.Extensions;
 using Bio.IO.FastA;
 using Bio.Util.ArgumentParser;
 using MumUtil.Properties;
@@ -171,21 +172,12 @@ namespace MumUtil
 
                 swInterval.Restart();
                 ISequence seqReverseComplement = seq.GetReverseComplementedSequence();
+                if (seqReverseComplement != null)
+                    seqReverseComplement.MarkAsReverseComplement();
                 swInterval.Stop();
 
                 // Add the reverse complement time.
                 timeTakenToGetReverseComplement = timeTakenToGetReverseComplement.Add(swInterval.Elapsed);
-
-                //
-                // DISCUSSION:
-                //   Should there be an easily accessed indicator that this is a reversed sequence?
-                //   And should we be able to get the 'base' version even if it is a sub-sequence?
-
-                if (seqReverseComplement != null)
-                {
-                    seqReverseComplement.ID = seqReverseComplement.ID + " Reverse";
-                    //                    seqReverseComplement.DisplayID = seqReverseComplement.DisplayID + " Reverse";
-                }
 
                 yield return seqReverseComplement;
 
@@ -214,22 +206,13 @@ namespace MumUtil
 
                 swInterval.Restart();
                 ISequence seqReverseComplement = seq.GetReverseComplementedSequence();
+                if (seqReverseComplement != null)
+                    seqReverseComplement.MarkAsReverseComplement();
                 swInterval.Stop();
 
                 // Add the reverse complement time.
                 timeTakenToGetReverseComplement = timeTakenToGetReverseComplement.Add(swInterval.Elapsed);
 
-                //
-                // DISCUSSION:
-                //   Should there be an easily accessed indicator that this is a reversed sequence?
-                //
-                if (seqReverseComplement != null)
-                {
-                    seqReverseComplement.ID = seqReverseComplement.ID + " Reverse";
-                    //                    seqReverseComplement.DisplayID = seqReverseComplement.DisplayID + " Reverse";
-                }
-
-                // seqReverseComplement.ID = seqReverseComplement.ID + " Reverse";
                 yield return seq;
                 yield return seqReverseComplement;
 
@@ -256,7 +239,7 @@ namespace MumUtil
             //   If a ReverseComplement sequence, MUMmer has the option to print the index start point relative 
             //   to the original sequence we tagged the reversed DisplayID with " Reverse" so _if_ we find a 
             //   " Reverse" on the end of the ID, assume it is a ReverseComplement and reverse the index
-            bool isReverseComplement = myArgs.c && DisplayID.EndsWith(" Reverse");
+            bool isReverseComplement = myArgs.c && querySequence.IsMarkedAsReverseComplement();
 
             // Start is 1 based in literature but in programming (e.g. MaxUniqueMatch) they are 0 based.  
             // Add 1

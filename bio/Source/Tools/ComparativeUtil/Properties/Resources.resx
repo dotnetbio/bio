@@ -147,8 +147,8 @@ Options:
 -verbose           	             Display verbose logging during processing. (short form /v)</value>
   </data>
   <data name="ComparativeSplashScreen" xml:space="preserve">
-    <value>Comparative Utility v1.01
-Copyright (c) 2011, The Outercurve Foundation.
+    <value>Comparative Utility v1.1
+Copyright (c) 2011-2013, The Outercurve Foundation.
 </value>
   </data>
   <data name="OutPutWrittenToFileSpecified" xml:space="preserve">

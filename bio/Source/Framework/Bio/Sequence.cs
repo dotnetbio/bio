@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using Bio.Extensions;
 using Bio.Util;
 
 namespace Bio
@@ -28,18 +29,25 @@ namespace Bio
 
         /// <summary>
         /// Holds the sequence data.
-        /// Used when the data size is small.
         /// </summary>
-        private byte[] sequenceData = null;
+        private byte[] _sequenceData;
 
         /// <summary>
         /// Metadata is features or references or related things of a sequence.
         /// </summary>
-        private Dictionary<string, object> metadata;
+        private Dictionary<string, object> _metadata;
 
         #endregion Member variables
 
         #region Constructors
+        /// <summary>
+        /// Constructor used when copying an existing sequence internally for reverse/complement usage
+        /// to avoid double-copying the buffer.
+        /// </summary>
+        private Sequence()
+        {
+        }
+
         /// <summary>
         /// Initializes a new instance of the Sequence class with specified alphabet and string sequence.
         /// Symbols in the sequence are validated with the specified alphabet.
@@ -73,7 +81,7 @@ namespace Bio
 
             this.Alphabet = alphabet;
             this.ID = string.Empty;
-            byte[] values = UTF8Encoding.UTF8.GetBytes(sequence);
+            byte[] values = Encoding.UTF8.GetBytes(sequence);
 
             if (validate)
             {
@@ -84,8 +92,8 @@ namespace Bio
                 }
             }
 
-            this.sequenceData = values;
-            this.Count = this.sequenceData.LongLength();
+            this._sequenceData = values;
+            this.Count = this._sequenceData.LongLength();
         }
 
         /// <summary>
@@ -128,17 +136,17 @@ namespace Bio
                 }
             }
 
-            this.sequenceData = new byte[values.LongLength()];
+            this._sequenceData = new byte[values.LongLength()];
             this.ID = string.Empty;
 
 #if (SILVERLIGHT == false)
-            Array.Copy(values, this.sequenceData, values.LongLength);
+            Array.Copy(values, this._sequenceData, values.LongLength);
 #else
-                Array.Copy(values, this.sequenceData, values.Length);  
+            Array.Copy(values, this.sequenceData, values.Length);  
 #endif
 
             this.Alphabet = alphabet;
-            this.Count = this.sequenceData.LongLength();
+            this.Count = this._sequenceData.LongLength();
         }
 
         /// <summary>
@@ -152,13 +160,21 @@ namespace Bio
                 throw new ArgumentNullException("newSequence");
             }
 
-            this.sequenceData = new byte[newSequence.Count];
             this.ID = newSequence.ID;
             this.Alphabet = newSequence.Alphabet;
-            this.Count = this.sequenceData.LongLength();
-            // Do not shallow copy dictionary
-            //this.metadata = newSequence.Metadata;
-            (newSequence as Sequence).CopyTo(sequenceData, 0, newSequence.Count);
+            this.Count = newSequence.Count;
+            this._metadata = new Dictionary<string, object>(newSequence.Metadata);
+
+            Sequence realSequence = newSequence as Sequence;
+            if (realSequence != null)
+            {
+                this._sequenceData = new byte[newSequence.Count];
+                Array.Copy(realSequence._sequenceData, this._sequenceData, realSequence._sequenceData.LongLength);
+            }
+            else
+            {
+                this._sequenceData = newSequence.ToArray();
+            }
         }
         #endregion Constructors
 
@@ -210,20 +226,8 @@ namespace Bio
         /// </summary>
         public Dictionary<string, object> Metadata
         {
-            get
-            {
-                if (this.metadata == null)
-                {
-                    this.metadata = new Dictionary<string, object>();
-                }
-
-                return this.metadata;
-            }
-
-            set
-            {
-                this.metadata = value;
-            }
+            get { return this._metadata ?? (this._metadata = new Dictionary<string, object>()); }
+            set { this._metadata = value; }
         }
         #endregion Properties
 
@@ -238,7 +242,7 @@ namespace Bio
         {
             get
             {
-                return this.sequenceData[index];
+                return this._sequenceData[index];
             }
         }
 
@@ -250,15 +254,15 @@ namespace Bio
             byte[] values = new byte[this.Count];
 
 #if (SILVERLIGHT == false)
-            Array.Copy(this.sequenceData, values, this.sequenceData.LongLength);
+            Array.Copy(this._sequenceData, values, this._sequenceData.LongLength);
 #else
-                Array.Copy(this.sequenceData, values, this.sequenceData.Length);  
+            Array.Copy(this.sequenceData, values, this.sequenceData.Length);  
 #endif
 
             Array.Reverse(values);
-            Sequence seq = new Sequence(this.Alphabet, values, false);
-            seq.ID = this.ID;
-            seq.metadata = this.metadata;
+            Sequence seq = new Sequence { _sequenceData = values, Alphabet = this.Alphabet, ID = this.ID, Count = this.Count };
+            if (this._metadata != null)
+                seq._metadata = new Dictionary<string, object>(this._metadata);
 
             return seq;
         }
@@ -274,10 +278,11 @@ namespace Bio
             }
 
             byte[] complemented = new byte[this.Count];
-            this.Alphabet.TryGetComplementSymbol(this.sequenceData, out complemented);
-            Sequence seq = new Sequence(this.Alphabet, complemented, false);
-            seq.ID = this.ID;
-            seq.metadata = this.metadata;
+            this.Alphabet.TryGetComplementSymbol(this._sequenceData, out complemented);
+
+            Sequence seq = new Sequence { _sequenceData = complemented, Alphabet = this.Alphabet, ID = this.ID, Count = this.Count };
+            if (this._metadata != null)
+                seq._metadata = new Dictionary<string, object>(this._metadata);
 
             return seq;
         }
@@ -293,11 +298,11 @@ namespace Bio
             }
 
             byte[] reverseComplemented = new byte[this.Count];
-            this.Alphabet.TryGetComplementSymbol(this.sequenceData, out reverseComplemented);
+            this.Alphabet.TryGetComplementSymbol(this._sequenceData, out reverseComplemented);
             Array.Reverse(reverseComplemented);
-            Sequence seq = new Sequence(this.Alphabet, reverseComplemented, false);
-            seq.ID = this.ID;
-            seq.metadata = this.metadata;
+            Sequence seq = new Sequence { _sequenceData = reverseComplemented, Alphabet = this.Alphabet, ID = this.ID, Count = this.Count };
+            if (this._metadata != null)
+                seq._metadata = new Dictionary<string, object>(this._metadata);
 
             return seq;
         }
@@ -323,13 +328,12 @@ namespace Bio
             byte[] subSequence = new byte[length];
             for (long index = 0; index < length; index++)
             {
-                subSequence[index] = this.sequenceData[start + index];
+                subSequence[index] = this._sequenceData[start + index];
             }
 
-            Sequence seq = new Sequence(this.Alphabet, subSequence, false);
-            seq.ID = this.ID;
-            seq.metadata = this.metadata;
-
+            Sequence seq = new Sequence { _sequenceData = subSequence, Alphabet = this.Alphabet, ID = this.ID, Count = subSequence.Length };
+            if (this._metadata != null)
+                seq._metadata = new Dictionary<string, object>(this._metadata);
             return seq;
         }
 
@@ -350,7 +354,7 @@ namespace Bio
         /// <returns>If found returns a zero based index of the first non-gap symbol, otherwise returns -1.</returns>
         public long IndexOfNonGap(long startPos)
         {
-            if (startPos >= this.sequenceData.LongLength())
+            if (startPos >= this._sequenceData.LongLength())
             {
                 throw new ArgumentOutOfRangeException("startPos");
             }
@@ -365,7 +369,7 @@ namespace Bio
 
             for (long index = startPos; index < this.Count; index++)
             {
-                byte symbol = aliasSymbolsMap[this.sequenceData[index]];
+                byte symbol = aliasSymbolsMap[this._sequenceData[index]];
                 if (!gapSymbols.Contains(symbol))
                 {
                     return index;
@@ -401,7 +405,7 @@ namespace Bio
             byte[] aliasSymbolsMap = this.Alphabet.GetSymbolValueMap();
             for (long index = endPos; index >= 0; index--)
             {
-                byte symbol = aliasSymbolsMap[this.sequenceData[index]];
+                byte symbol = aliasSymbolsMap[this._sequenceData[index]];
                 if (!gapSymbols.Contains(symbol))
                 {
                     return index;
@@ -419,7 +423,7 @@ namespace Bio
         {
             for (long index = 0; index < this.Count; index++)
             {
-                yield return this.sequenceData[index];
+                yield return this._sequenceData[index];
             }
         }
 
@@ -435,12 +439,12 @@ namespace Bio
             if (this.Count > Helper.AlphabetsToShowInToString)
             {
                 return string.Format(CultureInfo.CurrentCulture, Properties.Resource.ToStringFormat,
-                                     new string(this.sequenceData.Take(Helper.AlphabetsToShowInToString).Select((a => (char)a)).ToArray()),
+                                     new string(this._sequenceData.Take(Helper.AlphabetsToShowInToString).Select((a => (char)a)).ToArray()),
                                      (this.Count - Helper.AlphabetsToShowInToString));
             }
             else
             {
-                return new string(this.sequenceData.Take(this.sequenceData.Length).Select((a => (char)a)).ToArray());
+                return new string(this._sequenceData.Take(this._sequenceData.Length).Select((a => (char)a)).ToArray());
             }
         }
 
@@ -467,7 +471,7 @@ namespace Bio
             {
                 for (long index = startIndex; index < startIndex + length; index++)
                 {
-                    sb.Append((char)this.sequenceData[index]);
+                    sb.Append((char)this._sequenceData[index]);
                 }
             }
             catch (IndexOutOfRangeException rangeEx)
@@ -476,7 +480,6 @@ namespace Bio
             }
 
             return sb.ToString();
-
         }
 
 #if !SILVERLIGHT
@@ -488,7 +491,7 @@ namespace Bio
         /// <returns></returns>
         internal byte[] GetInternalArray()
         {
-            return this.sequenceData;
+            return this._sequenceData;
         }
 #endif
 
@@ -521,7 +524,7 @@ namespace Bio
             }
 
 #if !SILVERLIGHT
-            Array.Copy(this.sequenceData, start, byteArray, 0, count);
+            Array.Copy(this._sequenceData, start, byteArray, 0, count);
 #else
             Array.Copy(this.sequenceData, (int)start, byteArray, 0, (int)count);
 #endif
@@ -533,7 +536,7 @@ namespace Bio
         /// <returns>An IEnumerator of bytes.</returns>
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return this.sequenceData.GetEnumerator();
+            return this._sequenceData.GetEnumerator();
         }
         #endregion
     }

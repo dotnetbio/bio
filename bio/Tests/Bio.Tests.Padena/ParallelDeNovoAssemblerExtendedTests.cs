@@ -47,14 +47,14 @@ namespace Bio.Tests
 
                 HashSet<string> expectedContigs = new HashSet<string>
                 {
-                    "GCGCGC", "CGCGCG", "TTAGCGCG", "GCTAAGATAGGAGGCAT", "TTTTAAA", "TTTTAGC", "TTTTTA", "TTTTTT", "GCGCGGCGCG"
+                    "TTTTTT","CGCGCG","TTAGCGCG","CGCGCCGCGC","GCGCGC","TTTTTA","TTTTAA","TTTAAA","TTTTAGC","ATGCCTCCTATCTTAGC"
                 };
 
                 AlignmentHelpers.CompareSequenceLists(expectedContigs, result.ContigSequences);
 
                 HashSet<string> expectedScaffolds = new HashSet<string>
                 {
-                    "GCGCGCTAAGATAGGAGGCAT", "TTTTAGC", "GCGCGGCGCG", "TTTTTA", "TTTTTT", "CGCGCG", "TTTTAAA", 
+                    "ATGCCTCCTATCTTAGCGCGC","TTTAAA","TTTTTT","TTTTAGC","TTTTAA","CGCGCCGCGC","TTTTTA","CGCGCG"
                 };
 
                 AlignmentHelpers.CompareSequenceLists(expectedScaffolds, result.Scaffolds);

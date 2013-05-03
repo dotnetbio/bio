@@ -331,6 +331,7 @@ namespace Bio.Tests.Algorithms.Alignment
             nucmer.MinimumScore = 2;
             nucmer.SeparationFactor = -1;
             nucmer.LengthOfMUM = 3;
+            nucmer.ForwardOnly = true;
             IList<IPairwiseSequenceAlignment> result = nucmer.Align(referenceSeqs, searchSeqs).Select(a => a as IPairwiseSequenceAlignment).ToList();
 
             // Check if output is not null
@@ -392,6 +393,7 @@ namespace Bio.Tests.Algorithms.Alignment
             nucmer.MinimumScore = 2;
             nucmer.SeparationFactor = -1;
             nucmer.LengthOfMUM = 3;
+            nucmer.ForwardOnly = true;
             IList<IPairwiseSequenceAlignment> result = nucmer.Align(referenceSeqs, searchSeqs).Select(a => a as IPairwiseSequenceAlignment).ToList();
 
             // Check if output is not null
@@ -448,6 +450,7 @@ namespace Bio.Tests.Algorithms.Alignment
             nucmer.MinimumScore = 2;
             nucmer.SeparationFactor = -1;
             nucmer.LengthOfMUM = 3;
+            nucmer.ForwardOnly = true;
             IList<IPairwiseSequenceAlignment> result = nucmer.Align(referenceSeqs, searchSeqs).Select(a => a as IPairwiseSequenceAlignment).ToList();
 
             // Check if output is not null
@@ -516,6 +519,7 @@ namespace Bio.Tests.Algorithms.Alignment
             nucmer.MinimumScore = 2;
             nucmer.SeparationFactor = -1;
             nucmer.LengthOfMUM = 3;
+            nucmer.ForwardOnly = true;
             IList<IPairwiseSequenceAlignment> result = nucmer.Align(referenceSeqs, searchSeqs).Select(a => a as IPairwiseSequenceAlignment).ToList();
 
             // Check if output is not null
@@ -599,6 +603,7 @@ namespace Bio.Tests.Algorithms.Alignment
             nucmer.SeparationFactor = 0.12F;
             nucmer.LengthOfMUM = 5;
             nucmer.BreakLength = 2;
+            nucmer.ForwardOnly = true;
             IList<IPairwiseSequenceAlignment> result = nucmer.Align(referenceSeqs, searchSeqs).Select(a => a as IPairwiseSequenceAlignment).ToList();
 
             // Check if output is not null

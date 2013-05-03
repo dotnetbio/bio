@@ -1,5 +1,5 @@
-Consensus Generation Utility v1.01
-Copyright (c) 2011, The Outercurve Foundation.
+Consensus Generation Utility v1.1
+Copyright (c) 2011-2013, The Outercurve Foundation.
 
 Usage:	   ConsensusUtil.exe [options] <input delta alignment file> <Input query file>
 

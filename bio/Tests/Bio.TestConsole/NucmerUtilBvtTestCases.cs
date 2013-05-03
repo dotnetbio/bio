@@ -88,14 +88,14 @@ namespace Bio.TestConsole
         [TestCategory("Priority0")]
         public void ValidateNucmerUtilHelp()
         {
-            string utilCommand = utilityObj.xmlUtil.GetTextValue(
-                Constants.HelpValidationNodeName, Constants.NucmerUtilHelpCommandNodeName);
+            string utilCommand = utilityObj.xmlUtil.GetTextValue(Constants.HelpValidationNodeName, Constants.NucmerUtilHelpCommandNodeName);
             Utility.RunProcess(@".\TestUtils\RunUtil.cmd", utilCommand);
-            string output = Utility.standardOut;
-            string expectedHelpFile = utilityObj.xmlUtil.GetTextValue(
-                Constants.HelpValidationNodeName, Constants.NucmerUtilExpectedHelpNodeName);
-            string expectedOutput = File.ReadAllText(expectedHelpFile);
-            Assert.IsTrue(output.Contains(expectedOutput.Trim()));
+
+            string output = Utility.TrimWhitespace(Utility.standardOut);
+            string expectedHelpFile = utilityObj.xmlUtil.GetTextValue(Constants.HelpValidationNodeName, Constants.NucmerUtilExpectedHelpNodeName);
+            string expectedOutput = Utility.TrimWhitespace(File.ReadAllText(expectedHelpFile));
+
+            Assert.IsTrue(output.Contains(expectedOutput));
         }
 
         #endregion Test cases
@@ -107,39 +107,27 @@ namespace Bio.TestConsole
         /// </summary>        
         public void ValidateNucmerUtil(string nodeName, bool verbose)
         {
-            ApplicationLog.WriteLine("************************************** NucmerUtil with Basic command - Start **************************************");
-            string utilCommand = utilityObj.xmlUtil.GetTextValue(
-                     nodeName, Constants.CommandNode);
-
-            // Run the NucmerUtil with the commands updated in the xml.
+            string utilCommand = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.CommandNode);
             Utility.RunProcess(@".\TestUtils\RunUtil.cmd", utilCommand);
-            ApplicationLog.WriteLine("************************************** NucmerUtil with Basic command - End **************************************");
 
             // Gets the output file for validation
-            string actualOutputFile = utilityObj.xmlUtil.GetTextValue(
-                     nodeName, Constants.ActualOutputFileNode);
-            string expectedOutputFile = utilityObj.xmlUtil.GetTextValue(
-                     nodeName, Constants.ExpectedOutputFileNode);
+            string actualOutputFile = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.ActualOutputFileNode);
+            string expectedOutputFile = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.ExpectedOutputFileNode);
 
             // Compares the results file
             Assert.IsTrue(Utility.CompareFiles(expectedOutputFile, actualOutputFile));
 
             if (verbose)
             {
-                string expectedVerbose = utilityObj.xmlUtil.GetTextValue(
-                        nodeName, Constants.VerboseResultNode);
-                string expectedVerboseResult = expectedVerbose.Replace(" ", "");
-                string[] verboseExpected = expectedVerboseResult.Split(',');
-                string actualVerboseString = Utility.standardErr.Replace("\t", "").Replace("\r", "").Replace("\n", "").Replace(" ", "").Trim();
+                string expectedVerbose = Utility.TrimWhitespace(utilityObj.xmlUtil.GetTextValue(nodeName, Constants.VerboseResultNode));
+                string[] verboseExpected = expectedVerbose.Split(',');
+                string actualVerboseString = Utility.TrimWhitespace(Utility.standardErr);
 
-                for (int i = 0; i < verboseExpected.Length; i++)
+                foreach (string value in verboseExpected)
                 {
-                    Assert.IsTrue(actualVerboseString.Contains(verboseExpected[i]));
+                    Assert.IsTrue(actualVerboseString.Contains(value));
                 }
             }
-
-            ApplicationLog.WriteLine("NucmerUtil Console BVT : Successfully validated the results of the command");
-            Console.WriteLine("NucmerUtil Console BVT : Successfully validated the results of the command");
         }
 
         # endregion Helper Methods       

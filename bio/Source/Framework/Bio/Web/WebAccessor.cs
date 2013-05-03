@@ -15,8 +15,8 @@ namespace Bio.Web
     {
         #region Member variables
 
-        private HttpWebResponse webResponse;
-        private WebProxy proxy = new WebProxy();
+        private HttpWebResponse _webResponse;
+
         private const string PostMethod = "POST";
         private const string GetMethod = "GET";
         private const string ContentType = "application/x-www-form-urlencoded";
@@ -28,16 +28,18 @@ namespace Bio.Web
         /// <summary>
         /// Gets or sets WebProxy object that will be used for HTTP requests.
         /// </summary>
-        public WebProxy Proxy
+        public IWebProxy Proxy { get; set; }
+
+        #endregion
+
+        #region Constructors
+        
+        /// <summary>
+        /// Default constructor
+        /// </summary>
+        public WebAccessor()
         {
-            get
-            {
-                return proxy;
-            }
-            set
-            {
-                proxy = value;
-            }
+            Proxy = null;
         }
 
         #endregion
@@ -49,13 +51,7 @@ namespace Bio.Web
         /// </summary>
         public void GetBrowserProxy()
         {
-            WebRequest temp = WebRequest.Create(new Uri("http://www.microsoft.com"));
-
-            proxy = new WebProxy();
-            // bug in msdn example:
-            // this throws an exception: _proxy = (WebProxy)temp.Proxy;
-            Uri prox = temp.Proxy.GetProxy(new Uri("http://www.microsoft.com"));
-            proxy.Address = prox;
+            Proxy = WebRequest.DefaultWebProxy;
         }
 
         /// <summary>
@@ -63,7 +59,7 @@ namespace Bio.Web
         /// </summary>
         public void GetDefaultProxy()
         {
-            proxy = new WebProxy();
+            Proxy = new WebProxy();
         }
 
         /// <summary>
@@ -105,11 +101,11 @@ namespace Bio.Web
                 }
 
                 Close();    // get rid of any old response
-                webResponse = (HttpWebResponse)request.GetResponse();
-                webAccessorResponse.StatusDescription = webResponse.StatusDescription;
+                _webResponse = (HttpWebResponse)request.GetResponse();
+                webAccessorResponse.StatusDescription = _webResponse.StatusDescription;
                 if (webAccessorResponse.StatusDescription == "OK")
                 {
-                    Stream s = webResponse.GetResponseStream();
+                    Stream s = _webResponse.GetResponseStream();
 
                     using (StreamReader reader = new StreamReader(s))
                     {
@@ -171,10 +167,10 @@ namespace Bio.Web
         /// </summary>
         public void Close()
         {
-            if (webResponse != null)
+            if (_webResponse != null)
             {
-                webResponse.Close();
-                webResponse = null;
+                _webResponse.Close();
+                _webResponse = null;
             }
         }
 
@@ -406,11 +402,12 @@ namespace Bio.Web
         private WebRequest CreatePostRequest(Uri url, ICredentials credentials, int postDataLength)
         {
             WebRequest request = WebRequest.Create(url);
-            request.Proxy = proxy;
+            request.Proxy = Proxy;
             request.Credentials = credentials;
             request.Method = PostMethod;
             request.ContentType = ContentType;
             request.ContentLength = postDataLength;
+            request.Timeout = 30*1000; // 30 second timeout
             return request;
         }
 
@@ -429,9 +426,10 @@ namespace Bio.Web
                     queryString));
 
             WebRequest request = WebRequest.Create(url);
-            request.Proxy = proxy;
+            request.Proxy = Proxy;
             request.Credentials = credentials;
             request.Method = GetMethod;
+            request.Timeout = 30 * 1000; // 30 second timeout
             return request;
         }
         #endregion

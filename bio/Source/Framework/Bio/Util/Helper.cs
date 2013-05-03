@@ -1397,8 +1397,10 @@ namespace Bio.Util
                 "{0,10} {1,10} {2,10} {3,10} {4} {5} {6}",
                 deltaAlignment.FirstSequenceStart,
                 deltaAlignment.FirstSequenceEnd,
-                deltaAlignment.SecondSequenceStart,
-                deltaAlignment.SecondSequenceEnd,
+                ((deltaAlignment.IsReverseQueryDirection) 
+                ? deltaAlignment.SecondSequenceEnd : deltaAlignment.SecondSequenceStart),
+                ((deltaAlignment.IsReverseQueryDirection)
+                ? deltaAlignment.SecondSequenceStart : deltaAlignment.SecondSequenceEnd),
                 deltaAlignment.Errors,
                 deltaAlignment.SimilarityErrors,
                 deltaAlignment.NonAlphas));

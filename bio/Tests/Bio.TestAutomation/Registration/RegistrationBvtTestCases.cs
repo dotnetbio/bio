@@ -268,10 +268,7 @@ namespace Bio.TestAutomation.Registration
             finalValue.Add(new TestAutomationPairwiseSequenceAligner());
 
             // Gets the registered Instances for the path passed
-            string assemblyPath = string.Concat(RegisteredAddIn.AddinFolderPath,
-                                                BioTestAutomationDll);
-            IList<ISequenceAligner> registeredAligners =
-                RegisteredAddIn.GetInstancesFromAssembly<ISequenceAligner>(assemblyPath);
+            IList<ISequenceAligner> registeredAligners = RegisteredAddIn.GetInstancesFromAssembly<ISequenceAligner>(BioTestAutomationDll);
 
             RegisterAlignGeneralTestCases(registeredAligners, finalValue);
             DeleteAddinsFolder();
@@ -831,14 +828,6 @@ namespace Bio.TestAutomation.Registration
             if (!Directory.Exists(addInsFolderPath))
                 // Creates the Add-ins folder
                 Directory.CreateDirectory(addInsFolderPath);
-
-            // If TestAutomation file already exists, don't replace
-            if (!File.Exists(string.Concat(addInsFolderPath, BioTestAutomationDll)))
-            {
-                // Copies the Bio.TestAutomation.dll to Add-ins folder
-                File.Copy(Uri.UnescapeDataString(uri.AbsolutePath),
-                          string.Concat(addInsFolderPath, BioTestAutomationDll), true);
-            }
         }
 
         /// <summary>

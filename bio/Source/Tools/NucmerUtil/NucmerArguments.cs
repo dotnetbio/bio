@@ -6,10 +6,8 @@ using System.Linq;
 using Bio;
 using Bio.Algorithms.Alignment;
 using Bio.Algorithms.SuffixTree;
+using Bio.Extensions;
 using Bio.IO.FastA;
-using System.Threading.Tasks;
-using System.Text;
-using System.Globalization;
 using Bio.Util;
 
 namespace NucmerUtil
@@ -59,7 +57,7 @@ namespace NucmerUtil
         /// <summary>
         /// Align only the forward strands of each sequence.
         /// </summary>
-        public bool ForwardAndReverse = false;
+        public bool Forward = false;
 
         /// <summary>
         /// Maximum gap between two adjacent matches in a cluster (default 90).
@@ -107,24 +105,14 @@ namespace NucmerUtil
         #region Private Fields
 
         /// <summary>
-        /// Time taken to get reverse compliment.
-        /// </summary>
-        private static TimeSpan timeTakenToGetReverseComplement = new TimeSpan();
-
-        /// <summary>
-        /// Time taken to parse query sequences.
-        /// </summary>
-        private static TimeSpan timeTakenToParseQuerySequences = new TimeSpan();
-
-        /// <summary>
         /// Get the total number of delta for validation purpose
         /// </summary>
-        private long toltalDeltas;
+        private long _toltalDeltas;
 
         /// <summary>
         /// Count the number of processed queries.
         /// </summary>
-        long queryCount = 0;
+        long _queryCount;
 
         #endregion
 
@@ -139,7 +127,6 @@ namespace NucmerUtil
             Stopwatch runNucmer = new Stopwatch();
             FileInfo refFileinfo = new FileInfo(this.FilePath[0]);
             long refFileLength = refFileinfo.Length;
-            refFileinfo = null;
 
             runNucmer.Restart();
             IEnumerable<ISequence> referenceSequence = Parse(this.FilePath[0]);
@@ -151,6 +138,7 @@ namespace NucmerUtil
                 Console.Error.WriteLine("  Processed Reference FastA file: {0}", Path.GetFullPath(this.FilePath[0]));
                 Console.Error.WriteLine("            Read/Processing time: {0}", runNucmer.Elapsed);
                 Console.Error.WriteLine("            File Size           : {0}", refFileLength);
+                Console.Error.WriteLine();
             }
 
             refFileinfo = new FileInfo(this.FilePath[1]);
@@ -162,33 +150,33 @@ namespace NucmerUtil
 
             if (this.Verbose)
             {
-                Console.Error.WriteLine();
                 Console.Error.WriteLine("  Processed Query FastA file: {0}", Path.GetFullPath(this.FilePath[1]));
                 Console.Error.WriteLine("            Read/Processing time: {0}", runNucmer.Elapsed);
                 Console.Error.WriteLine("            File Size           : {0}", refFileLength);
-            }
-
-            if (!this.NotExtend)
-            {
-                runNucmer.Restart();
-                IEnumerable<IEnumerable<DeltaAlignment>> delta = this.GetDelta(referenceSequence, querySequence);
-                runNucmer.Stop();
-                nucmerSpan = nucmerSpan.Add(runNucmer.Elapsed);
-
                 if (!string.IsNullOrEmpty(this.OutputFile))
                 {
-                    FileInfo file = new FileInfo(this.OutputFile);
-                    if (file.Exists)
-                    {
-                        file.Delete();
-                    }
+                    Console.Error.WriteLine();
+                    Console.Error.WriteLine("  Writing output to             : {0}", Path.GetFullPath(this.OutputFile));
                 }
+                Console.Error.WriteLine();
 
-                runNucmer.Restart();
-                this.WriteDelta(delta);
-                runNucmer.Stop();
+                if (Forward)
+                    Console.Error.WriteLine("  Including forward strand of query sequence only.");
+                else if (Reverse)
+                    Console.Error.WriteLine("  Including reverse strand of query sequence only.");
+                else
+                    Console.Error.WriteLine("  Including both forward and reverse strands of query sequence.");
             }
-            else
+
+            // Remove any existing output file - we will overwrite it.
+            if (!string.IsNullOrEmpty(this.OutputFile))
+            {
+                if (File.Exists(this.OutputFile))
+                    File.Delete(this.OutputFile);
+            }
+
+            // Align the DNA between clustered matches and create a delta.
+            if (this.NotExtend)
             {
                 runNucmer.Restart();
                 IList<List<IList<Cluster>>> clusters = this.GetCluster(referenceSequence, querySequence);
@@ -199,17 +187,24 @@ namespace NucmerUtil
                 this.WriteCluster(clusters, referenceSequence, querySequence);
                 runNucmer.Stop();
             }
+            // Normal operation.
+            else
+            {
+                runNucmer.Restart();
+                IEnumerable<IEnumerable<DeltaAlignment>> delta = this.GetDelta(referenceSequence, querySequence);
+                runNucmer.Stop();
+                nucmerSpan = nucmerSpan.Add(runNucmer.Elapsed);
+
+                runNucmer.Restart();
+                this.WriteDelta(delta);
+                runNucmer.Stop();
+            }
 
             if (this.Verbose)
             {
-                if (this.Reverse || this.ForwardAndReverse)
-                {
-                    Console.Error.WriteLine("            Read/Processing time: {0}", timeTakenToParseQuerySequences);
-                    Console.Error.WriteLine("         Reverse Complement time: {0}", timeTakenToGetReverseComplement);
-                }
-
-                Console.Error.WriteLine("  Compute time: {0}", nucmerSpan);
-                Console.Error.WriteLine("  Write() time: {0}", runNucmer.Elapsed);
+                Console.Error.WriteLine();
+                Console.Error.WriteLine("                Compute time: {0}", nucmerSpan);
+                Console.Error.WriteLine("                  Write time: {0}", runNucmer.Elapsed);
             }
         }
 
@@ -225,196 +220,108 @@ namespace NucmerUtil
         /// <returns>Returns the list of sequence.</returns>
         private static IEnumerable<ISequence> ReverseComplementSequenceList(IEnumerable<ISequence> sequenceList)
         {
-            Stopwatch stopWatchInterval = new Stopwatch();
-            stopWatchInterval.Restart();
-            foreach (ISequence seq in sequenceList)
+            foreach (ISequence rcSequence in sequenceList.Select(seq => seq.GetReverseComplementedSequence()))
             {
-                stopWatchInterval.Stop();
-
-                // Add the query sequence parse time.
-                timeTakenToParseQuerySequences = timeTakenToParseQuerySequences.Add(stopWatchInterval.Elapsed);
-
-                stopWatchInterval.Restart();
-                ISequence seqReverseComplement = seq.GetReverseComplementedSequence();
-                stopWatchInterval.Stop();
-
-                // Add the reverse complement time.
-                timeTakenToGetReverseComplement = timeTakenToGetReverseComplement.Add(stopWatchInterval.Elapsed);
-
-                if (seqReverseComplement != null)
+                if (rcSequence != null)
                 {
-                    seqReverseComplement.ID = seqReverseComplement.ID + " Reverse";
+                    rcSequence.MarkAsReverseComplement();
+                    yield return rcSequence;
                 }
-
-                yield return seqReverseComplement;
             }
-
-            // Stop watch if there are not query sequences left.
-            stopWatchInterval.Stop();
         }
 
         /// <summary>
-        /// Given a list of sequences, create a new list with the orginal sequence followed
+        /// Given a list of sequences, create a new list with the original sequence followed
         /// by the Reverse Complement of that sequence.
         /// </summary>
         /// <param name="sequenceList">List of sequence.</param>
         /// <returns>Returns the List of sequence.</returns>
         private static IEnumerable<ISequence> AddReverseComplementsToSequenceList(IEnumerable<ISequence> sequenceList)
         {
-            Stopwatch stopWatchInterval = new Stopwatch();
-            stopWatchInterval.Restart();
             foreach (ISequence seq in sequenceList)
             {
-                stopWatchInterval.Stop();
-
-                // Add the query sequence parse time.
-                timeTakenToParseQuerySequences = timeTakenToParseQuerySequences.Add(stopWatchInterval.Elapsed);
-
-                stopWatchInterval.Restart();
-                ISequence seqReverseComplement = seq.GetReverseComplementedSequence();
-
-                stopWatchInterval.Stop();
-
-                // Add the reverse complement time.
-                timeTakenToGetReverseComplement = timeTakenToGetReverseComplement.Add(stopWatchInterval.Elapsed);
-                if (seqReverseComplement != null)
-                {
-                    seqReverseComplement.ID = seqReverseComplement.ID + " Reverse";
-                }
-
                 yield return seq;
-                yield return seqReverseComplement;
-            }
 
-            // Stop watch if there are not query sequences left.
-            stopWatchInterval.Stop();
+                ISequence rcSequence = seq.GetReverseComplementedSequence();
+                if (rcSequence != null)
+                {
+                    rcSequence.MarkAsReverseComplement();
+                    yield return rcSequence;
+                }
+            }
         }
 
         /// <summary>
         /// Returns the cluster.
         /// </summary>
-        /// <param name="referenceSequence">The Reference sequence.</param>
-        /// <param name="querySequence">The Query sequence.</param>
+        /// <param name="referenceSequence">The Reference sequences.</param>
+        /// <param name="originalQuerySequences">The Query sequences.</param>
         /// <returns>Returns list of clusters.</returns>
-        private IList<List<IList<Cluster>>> GetCluster(IEnumerable<ISequence> referenceSequence, IEnumerable<ISequence> querySequence)
+        private IList<List<IList<Cluster>>> GetCluster(IEnumerable<ISequence> referenceSequence, IEnumerable<ISequence> originalQuerySequences)
         {
-            IList<List<IList<Cluster>>> clusters = new List<List<IList<Cluster>>>();
-            List<IList<Cluster>> clusters1 = new List<IList<Cluster>>();
+            var clusters = new List<List<IList<Cluster>>>();
+            var clusters1 = new List<IList<Cluster>>();
 
-            if (this.MaxMatch)
+            IEnumerable<ISequence> querySequences = 
+                Forward ? originalQuerySequences
+                        : (Reverse
+                            ? ReverseComplementSequenceList(originalQuerySequences)
+                            : AddReverseComplementsToSequenceList(originalQuerySequences));
+
+            _queryCount += querySequences.Count();
+
+            foreach (var sequence in referenceSequence)
             {
-                Parallel.ForEach(referenceSequence, sequence =>
+                NUCmer nucmer = new NUCmer(sequence)
                 {
-                    NUCmer nucmer = new NUCmer((Sequence)sequence);
-                    nucmer.FixedSeparation = FixedSeparation;
-                    nucmer.BreakLength = BreakLength;
-                    nucmer.LengthOfMUM = MinMatch;
-                    nucmer.MaximumSeparation = MaxGap;
-                    nucmer.MinimumScore = MinCluster;
-                    nucmer.SeparationFactor = (float)DiagFactor;
+                    FixedSeparation = FixedSeparation,
+                    BreakLength = BreakLength,
+                    LengthOfMUM = MinMatch,
+                    MaximumSeparation = MaxGap,
+                    MinimumScore = MinCluster,
+                    SeparationFactor = (float) DiagFactor
+                };
 
-                    foreach (ISequence qrySequence in querySequence)
-                    {
-                        clusters1.Add(nucmer.GetClusters(qrySequence, false));
-                    }
-                });
-
-                clusters.Add(clusters1);
+                clusters1.AddRange(querySequences.Select(qs => nucmer.GetClusters(qs, !MaxMatch, qs.IsMarkedAsReverseComplement())));
             }
-            else
-            {
-                Parallel.ForEach(referenceSequence, sequence =>
-                {
-                    NUCmer nucmer = new NUCmer((Sequence)sequence);
-                    nucmer.FixedSeparation = FixedSeparation;
-                    nucmer.BreakLength = BreakLength;
-                    nucmer.LengthOfMUM = MinMatch;
-                    nucmer.MaximumSeparation = MaxGap;
-                    nucmer.MinimumScore = MinCluster;
-                    nucmer.SeparationFactor = (float)DiagFactor;
 
-                    foreach (ISequence qrySequence in querySequence)
-                    {
-                        clusters1.Add(nucmer.GetClusters(qrySequence));
-                    }
-                });
-
-                clusters.Add(clusters1);
-            }
+            clusters.Add(clusters1);
 
             return clusters;
-        }
-
-        /// <summary>
-        /// Gets the modified sequence.
-        /// </summary>
-        /// <param name="querySequence">The query sequence.</param>
-        /// <returns>Returns a list of sequence.</returns>
-        private IEnumerable<ISequence> GetSequence(IEnumerable<ISequence> querySequence)
-        {
-            if (this.Reverse)
-            {
-                return ReverseComplementSequenceList(querySequence);
-            }
-            else if (this.ForwardAndReverse)
-            {
-                return AddReverseComplementsToSequenceList(querySequence);
-            }
-            else
-            {
-                return querySequence;
-            }
         }
 
         /// <summary>
         /// Gets the Delta for list of query sequences.
         /// </summary>
         /// <param name="referenceSequence">The reference sequence.</param>
-        /// <param name="querySequence">The query sequence.</param>
+        /// <param name="originalQuerySequences">The query sequence.</param>
         /// <returns>Returns list of IEnumerable Delta Alignment.</returns>
-        private IEnumerable<IEnumerable<DeltaAlignment>> GetDelta(IEnumerable<ISequence> referenceSequence, IEnumerable<ISequence> querySequence)
+        private IEnumerable<IEnumerable<DeltaAlignment>> GetDelta(IEnumerable<ISequence> referenceSequence, IEnumerable<ISequence> originalQuerySequences)
         {
-            if (this.MaxMatch)
+            IEnumerable<ISequence> querySequences =
+                Forward ? originalQuerySequences
+                : (Reverse
+                    ? ReverseComplementSequenceList(originalQuerySequences)
+                    : AddReverseComplementsToSequenceList(originalQuerySequences));
+
+            foreach (ISequence refSeq in referenceSequence)
             {
-                foreach (ISequence refSeq in referenceSequence)
+                NUCmer nucmer = new NUCmer(refSeq) 
                 {
-                    NUCmer nucmer = new NUCmer((Sequence)refSeq);
-                    nucmer.FixedSeparation = FixedSeparation;
-                    nucmer.BreakLength = BreakLength;
-                    nucmer.LengthOfMUM = MinMatch;
-                    nucmer.MaximumSeparation = MaxGap;
-                    nucmer.MinimumScore = MinCluster;
-                    nucmer.SeparationFactor = (float)DiagFactor;
+                    FixedSeparation = FixedSeparation,
+                    BreakLength = BreakLength,
+                    LengthOfMUM = MinMatch,
+                    MaximumSeparation = MaxGap,
+                    MinimumScore = MinCluster,
+                    SeparationFactor = (float) DiagFactor
+                };
 
-                    foreach (ISequence qrySequence in querySequence)
-                    {
-                        queryCount++;
-                        yield return nucmer.GetDeltaAlignments(qrySequence, false);
-                    }
-                }
-
-            }
-            else
-            {
-                foreach (ISequence refSeq in referenceSequence)
+                foreach (ISequence qs in querySequences)
                 {
-                    NUCmer nucmer = new NUCmer((Sequence)refSeq);
-                    nucmer.FixedSeparation = FixedSeparation;
-                    nucmer.BreakLength = BreakLength;
-                    nucmer.LengthOfMUM = MinMatch;
-                    nucmer.MaximumSeparation = MaxGap;
-                    nucmer.MinimumScore = MinCluster;
-                    nucmer.SeparationFactor = (float)DiagFactor;
-
-                    foreach (ISequence qrySequence in querySequence)
-                    {
-                        queryCount++;
-                        yield return nucmer.GetDeltaAlignments(qrySequence);
-                    }
+                    _queryCount++;
+                    yield return nucmer.GetDeltaAlignments(qs, !MaxMatch, qs.IsMarkedAsReverseComplement());
                 }
-
             }
-
         }
 
         /// <summary>
@@ -445,18 +352,14 @@ namespace NucmerUtil
         /// <param name="clusters">The Clusters.</param>
         /// <param name="referenceSequence">The reference sequence.</param>
         /// <param name="querySequence">The query sequence.</param>
-        private void WriteCluster(
-            IList<List<IList<Cluster>>> clusters,
-            IEnumerable<ISequence> referenceSequence,
-            IEnumerable<ISequence> querySequence)
+        private void WriteCluster(IList<List<IList<Cluster>>> clusters, 
+            IEnumerable<ISequence> referenceSequence, IEnumerable<ISequence> querySequence)
         {
             TextWriter textWriterConsoleOutSave = Console.Out;
             if (!string.IsNullOrEmpty(this.OutputFile))
             {
                 FileStream fileStreamConsoleOut = new FileStream(this.OutputFile, FileMode.Create);
-                StreamWriter streamWriterConsoleOut = new StreamWriter(fileStreamConsoleOut);
-                Console.SetOut(streamWriterConsoleOut);
-                streamWriterConsoleOut.AutoFlush = true;
+                Console.SetOut(new StreamWriter(fileStreamConsoleOut) { AutoFlush = true });
             }
 
             int refIndex = 0;
@@ -491,43 +394,40 @@ namespace NucmerUtil
         private void WriteDelta(IEnumerable<IEnumerable<DeltaAlignment>> delta)
         {
             TextWriter textWriterConsoleOutSave = Console.Out;
-            StreamWriter streamWriterConsoleOut = null;
-            if (!string.IsNullOrEmpty(this.OutputFile))
+             if (!string.IsNullOrEmpty(this.OutputFile))
             {
-                streamWriterConsoleOut = new StreamWriter(this.OutputFile);
-                Console.SetOut(streamWriterConsoleOut);
+                Console.SetOut(new StreamWriter(this.OutputFile));
             }
 
             long sequenceCount = 0;
             long deltaPositionInFile = 0;
 
-
             foreach (IEnumerable<DeltaAlignment> align in delta)
             {
                 sequenceCount++;
-                //Note: Repeate Resolution step of comparative assembly needs all delta 
-                //      alignemnts belogs to a query sequence should be consecutively placed.
+                // Note: Repeat Resolution step of comparative assembly needs all delta 
+                //       alignments to belong to a query sequence should be consecutively placed.
                 foreach (DeltaAlignment deltaAlignment in align)
                 {
                     deltaAlignment.Id = deltaPositionInFile;
                     string deltaString =  Helper.GetString(deltaAlignment);
                     deltaPositionInFile += deltaString.Length;
                     Console.Write(deltaString);
-                    toltalDeltas++;
+                    _toltalDeltas++;
                 }
 
                 Console.Out.Flush();
 
                 if (sequenceCount % 1000 == 0)
                 {
-                    Console.Error.WriteLine("Processed {0} sequences - {1}", sequenceCount, DateTime.Now);
+                    Console.Error.WriteLine("  Processed {0} sequences - {1}", sequenceCount, DateTime.Now);
                 }
             }
 
-            Console.Error.WriteLine("Processed {0} sequences - {1}", sequenceCount, DateTime.Now);
+            Console.Error.WriteLine("  Processed {0} sequences - {1}", sequenceCount, DateTime.Now);
+            Console.Error.WriteLine("  Total Number of Delta(s) = {0} by processing {1} query sequence(s)", _toltalDeltas, _queryCount);
 
             Console.SetOut(textWriterConsoleOutSave);
-            Console.WriteLine(string.Format("\tTotal Number of Delta(s) = {0} by processing {1} query sequence(s)", toltalDeltas, queryCount));
         }
         #endregion
     }

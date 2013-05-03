@@ -16,7 +16,7 @@ namespace Bio.Tests.Web
     [TestClass]
     public class BlastWebTests
     {
-        private static TestCaseSimulator _TestCaseSimulator;
+        private static readonly TestCaseSimulator TestCaseSimulator;
 
         /// <summary>
         /// Static constructor to open log and make other settings needed for test
@@ -28,7 +28,7 @@ namespace Bio.Tests.Web
                 ApplicationLog.Open("Bio.Tests.log");
             }
 
-            _TestCaseSimulator = new TestCaseSimulator();
+            TestCaseSimulator = new TestCaseSimulator();
         }
 
         /// <summary>
@@ -230,7 +230,7 @@ namespace Bio.Tests.Web
                     null,
                     Callback_FetchResultsAsync,
                     testCaseParameters);
-                TestCaseOutput output = _TestCaseSimulator.Simulate(parameters);
+                TestCaseOutput output = TestCaseSimulator.Simulate(parameters);
                 object resultsObject = output.Result;
                 Assert.IsNotNull(resultsObject);
 
@@ -267,7 +267,7 @@ namespace Bio.Tests.Web
                         null,
                         Callback_FetchResultsSync,
                         testCaseParameters);
-                    IList<BlastResult> results2 = (IList<BlastResult>)_TestCaseSimulator.Simulate(parameters).Result;
+                    IList<BlastResult> results2 = (IList<BlastResult>)TestCaseSimulator.Simulate(parameters).Result;
                     Assert.IsNotNull(results2);
 
                     if (null != results[0].Records[0].Hits
@@ -346,7 +346,7 @@ FLFLIKHNPTNTIVYFGRYWSP";
                     null,
                     Callback_FetchResultsAsync,
                     testCaseParameters);
-                TestCaseOutput output = _TestCaseSimulator.Simulate(parameters);
+                TestCaseOutput output = TestCaseSimulator.Simulate(parameters);
                 object resultsObject = output.Result;
                 Assert.IsNotNull(resultsObject);
 
@@ -383,7 +383,7 @@ FLFLIKHNPTNTIVYFGRYWSP";
                         null,
                         Callback_FetchResultsSync,
                         testCaseParameters);
-                    IList<BlastResult> results2 = (IList<BlastResult>)_TestCaseSimulator.Simulate(parameters).Result;
+                    IList<BlastResult> results2 = (IList<BlastResult>)TestCaseSimulator.Simulate(parameters).Result;
                     Assert.IsNotNull(results2);
 
                     if (null != results[0].Records[0].Hits
@@ -454,7 +454,7 @@ FLFLIKHNPTNTIVYFGRYWSP";
                     null,
                     Callback_FetchResultsAsync,
                     testCaseParameters);
-                TestCaseOutput output = _TestCaseSimulator.Simulate(parameters);
+                TestCaseOutput output = TestCaseSimulator.Simulate(parameters);
                 object resultsObject = output.Result;
                 Assert.IsNotNull(resultsObject);
 
@@ -493,7 +493,7 @@ FLFLIKHNPTNTIVYFGRYWSP";
                         null,
                         Callback_FetchResultsSync,
                         testCaseParameters);
-                    IList<BlastResult> results2 = (IList<BlastResult>)_TestCaseSimulator.Simulate(parameters).Result;
+                    IList<BlastResult> results2 = (IList<BlastResult>)TestCaseSimulator.Simulate(parameters).Result;
                     Assert.IsNotNull(results2);
 
                     if (null != results[0].Records[0].Hits
@@ -567,7 +567,7 @@ FLFLIKHNPTNTIVYFGRYWSP";
                     null,
                     Callback_FetchResultsAsync,
                     testCaseParameters);
-                TestCaseOutput output = _TestCaseSimulator.Simulate(parameters);
+                TestCaseOutput output = TestCaseSimulator.Simulate(parameters);
                 object resultsObject = output.Result;
                 Assert.IsNotNull(resultsObject);
 
@@ -605,7 +605,7 @@ FLFLIKHNPTNTIVYFGRYWSP";
                         null,
                         Callback_FetchResultsSync,
                         testCaseParameters);
-                    IList<BlastResult> results2 = (IList<BlastResult>)_TestCaseSimulator.Simulate(parameters).Result;
+                    IList<BlastResult> results2 = (IList<BlastResult>)TestCaseSimulator.Simulate(parameters).Result;
                     Assert.IsNotNull(results2);
 
                     if (null != results[0].Records[0].Hits
@@ -641,14 +641,17 @@ FLFLIKHNPTNTIVYFGRYWSP";
         [TestMethod]
         [Priority(0)]
         [TestCategory("Priority0")]
+        [Ignore]
         public void TestNcbiQBlast_BadDatabase()
         {
+            /* This test no longer works - the service simply returns "Ready" with no status, no error is returned now */
+
             IBlastServiceHandler service = null;
             try
             {
                 string badDbName = "ThisDatabaseDoesNotExist";
                 // Initialize Test case parameters
-                Dictionary<string, object> testCaseParameters = new Dictionary<string, object>();
+                var testCaseParameters = new Dictionary<string, object>();
 
                 // Initialize Blast Parameters
                 BlastParameters searchParams = new BlastParameters();
@@ -659,24 +662,18 @@ FLFLIKHNPTNTIVYFGRYWSP";
                 // Add to test case parameters
                 testCaseParameters.Add(BLASTPARAMETERS, searchParams);
 
-                string query = @"GACGCCGCCGCCACCACCGCCACCGCCGCAGCAGAAGCAGCGCACCGCAGGAGGGAAG" +
-                    "ATGCCGGCGGGGCACGGGCTGCGGGCGCGGACGGCGACCTCTTCGCGCGGCCGTTCCGCAAGAAGGGTTA" +
-                    "CATCCCGCTCACCACCTACCTGAGGACGTACAAGATCGGCGATTACGTNGACGTCAAGGTGAACGGTG";
-                Sequence sequence = new Sequence(Alphabets.Protein, query);
+                const string query = @"GACGCCGCCGCCACCACCGCCACCGCCGCAGCAGAAGCAGCGCACCGCAGGAGGGAAG" +
+                                     "ATGCCGGCGGGGCACGGGCTGCGGGCGCGGACGGCGACCTCTTCGCGCGGCCGTTCCGCAAGAAGGGTTA" +
+                                     "CATCCCGCTCACCACCTACCTGAGGACGTACAAGATCGGCGATTACGTNGACGTCAAGGTGAACGGTG";
                 // Add to test case parameters
-                testCaseParameters.Add(TESTSEQUENCE, sequence);
+                testCaseParameters.Add(TESTSEQUENCE, new Sequence(Alphabets.Protein, query));
 
-                service = new NCBIBlastHandler();
-                ConfigParameters configParams = new ConfigParameters();
-                configParams.UseBrowserProxy = true;
-                service.Configuration = configParams;
+                ConfigParameters configParams = new ConfigParameters { UseBrowserProxy = true };
+                service = new NCBIBlastHandler {Configuration = configParams};
+                
                 // Add to test case parameters
                 testCaseParameters.Add(BLASTHANDLER, service);
-
-                TestCaseParameters parameters = new TestCaseParameters(TESTCASE_TESTNCBIQBLASTBADDATABASE,
-                    null,
-                    Callback_FetchResultsAsync,
-                    testCaseParameters);
+                TestCaseParameters parameters = new TestCaseParameters(TESTCASE_TESTNCBIQBLASTBADDATABASE, null, Callback_FetchResultsAsync, testCaseParameters);
 
                 ServiceRequestInformation info = ServiceRequestInfoForDatabase(parameters.CallbackParameters);
 
@@ -748,7 +745,7 @@ FLFLIKHNPTNTIVYFGRYWSP";
                     null,
                     Callback_FetchResultsAsync,
                     testCaseParameters);
-                TestCaseOutput output = _TestCaseSimulator.Simulate(parameters);
+                TestCaseOutput output = TestCaseSimulator.Simulate(parameters);
                 object resultsObject = output.Result;
                 List<BlastResult> results = resultsObject as List<BlastResult>;
                 Assert.IsNotNull(results);
@@ -785,7 +782,7 @@ FLFLIKHNPTNTIVYFGRYWSP";
                         null,
                         Callback_FetchResultsSync,
                         testCaseParameters);
-                    IList<BlastResult> results2 = (IList<BlastResult>)_TestCaseSimulator.Simulate(parameters).Result;
+                    IList<BlastResult> results2 = (IList<BlastResult>)TestCaseSimulator.Simulate(parameters).Result;
                     Assert.IsNotNull(results2);
 
                     if (null != results[0].Records[0].Hits
@@ -860,7 +857,7 @@ FLFLIKHNPTNTIVYFGRYWSP";
                     null,
                     Callback_FetchResultsAsync,
                     testCaseParameters);
-                TestCaseOutput output = _TestCaseSimulator.Simulate(parameters);
+                TestCaseOutput output = TestCaseSimulator.Simulate(parameters);
                 object resultsObject = output.Result;
                 Assert.IsNotNull(resultsObject);
 
@@ -899,7 +896,7 @@ FLFLIKHNPTNTIVYFGRYWSP";
                         null,
                         Callback_FetchResultsSync,
                         testCaseParameters);
-                    IList<BlastResult> results2 = (IList<BlastResult>)_TestCaseSimulator.Simulate(parameters).Result;
+                    IList<BlastResult> results2 = (IList<BlastResult>)TestCaseSimulator.Simulate(parameters).Result;
                     Assert.IsNotNull(results2);
 
                     if (null != results[0].Records[0].Hits
@@ -975,7 +972,7 @@ FLFLIKHNPTNTIVYFGRYWSP";
                     null,
                     Callback_FetchResultsAsync,
                     testCaseParameters);
-                TestCaseOutput output = _TestCaseSimulator.Simulate(parameters);
+                TestCaseOutput output = TestCaseSimulator.Simulate(parameters);
                 object resultsObject = output.Result;
                 Assert.IsNotNull(resultsObject);
 
@@ -1014,7 +1011,7 @@ FLFLIKHNPTNTIVYFGRYWSP";
                         null,
                         Callback_FetchResultsSync,
                         testCaseParameters);
-                    IList<BlastResult> results2 = (IList<BlastResult>)_TestCaseSimulator.Simulate(parameters).Result;
+                    IList<BlastResult> results2 = (IList<BlastResult>)TestCaseSimulator.Simulate(parameters).Result;
                     Assert.IsNotNull(results2);
 
                     if (null != results[0].Records[0].Hits
@@ -1076,7 +1073,7 @@ FLFLIKHNPTNTIVYFGRYWSP";
                     Callback_EBIWuBlast_GetServiceMetadata,
                     testCaseParameters);
 
-                TestCaseOutput output = _TestCaseSimulator.Simulate(parameters);
+                TestCaseOutput output = TestCaseSimulator.Simulate(parameters);
                 IList<string> resultsObject = output.Result as IList<string>;
 
                 ApplicationLog.WriteLine("{0}:", kind);
@@ -1134,7 +1131,7 @@ FLFLIKHNPTNTIVYFGRYWSP";
                     null,
                     Callback_FetchResultsAsync,
                     testCaseParameters);
-                TestCaseOutput output = _TestCaseSimulator.Simulate(parameters);
+                TestCaseOutput output = TestCaseSimulator.Simulate(parameters);
 
                 object resultsObject = output.Result;
                 Assert.IsNotNull(resultsObject);
@@ -1174,7 +1171,7 @@ FLFLIKHNPTNTIVYFGRYWSP";
                         null,
                         Callback_FetchResultsSync,
                         testCaseParameters);
-                    IList<BlastResult> results2 = (IList<BlastResult>)_TestCaseSimulator.Simulate(parameters).Result;
+                    IList<BlastResult> results2 = (IList<BlastResult>)TestCaseSimulator.Simulate(parameters).Result;
                     Assert.IsNotNull(results2);
 
                     if (null != results[0].Records[0].Hits
@@ -1264,7 +1261,7 @@ FLFLIKHNPTNTIVYFGRYWSP";
                     null,
                     Callback_FetchResultsAsync,
                     testCaseParameters);
-                TestCaseOutput output = _TestCaseSimulator.Simulate(parameters);
+                TestCaseOutput output = TestCaseSimulator.Simulate(parameters);
                 object resultsObject = output.Result;
                 Assert.IsNotNull(resultsObject);
 
@@ -1303,7 +1300,7 @@ FLFLIKHNPTNTIVYFGRYWSP";
                         null,
                         Callback_FetchResultsSync,
                         testCaseParameters);
-                    IList<BlastResult> results2 = (IList<BlastResult>)_TestCaseSimulator.Simulate(parameters).Result;
+                    IList<BlastResult> results2 = (IList<BlastResult>)TestCaseSimulator.Simulate(parameters).Result;
                     Assert.IsNotNull(results2);
 
                     if (null != results[0].Records[0].Hits
@@ -1373,7 +1370,7 @@ FLFLIKHNPTNTIVYFGRYWSP";
                     Callback_BioHPCBlast_GetServiceMetadata,
                     testCaseParameters);
 
-                TestCaseOutput output = _TestCaseSimulator.Simulate(parameters);
+                TestCaseOutput output = TestCaseSimulator.Simulate(parameters);
                 IList<string> resultsObject = output.Result as IList<string>;
 
                 ApplicationLog.WriteLine("{0}:", kind);
@@ -1676,16 +1673,17 @@ FLFLIKHNPTNTIVYFGRYWSP";
         {
             IBlastServiceHandler service = testCaseParameters[BLASTHANDLER] as IBlastServiceHandler;
             BlastParameters searchParams = testCaseParameters[BLASTPARAMETERS] as BlastParameters;
-            Sequence sequence = testCaseParameters[TESTSEQUENCE] as Sequence;
+            ISequence sequence = testCaseParameters[TESTSEQUENCE] as ISequence;
 
             // create the request
-            string jobID = service.SubmitRequest(sequence, searchParams);
-            Assert.IsFalse(string.IsNullOrEmpty(jobID));
+            string jobId = service.SubmitRequest(sequence, searchParams);
+            Assert.IsFalse(string.IsNullOrEmpty(jobId));
+            
             // Add to test case parameters
-            testCaseParameters.Add(JOBIDENTIFIER, jobID);
+            testCaseParameters.Add(JOBIDENTIFIER, jobId);
 
             // query the status
-            ServiceRequestInformation info = service.GetRequestStatus(jobID);
+            ServiceRequestInformation info = service.GetRequestStatus(jobId);
             return info;
         }
         /// <summary>
@@ -1695,62 +1693,50 @@ FLFLIKHNPTNTIVYFGRYWSP";
         /// <returns>Test case output</returns>
         private static TestCaseOutput Callback_FetchResultsAsync(Dictionary<string, object> testCaseParameters)
         {
-            IBlastParser blastXmlParser = null;
-            TestCaseOutput output = null;
+            IBlastServiceHandler service = testCaseParameters[BLASTHANDLER] as IBlastServiceHandler;
+            BlastParameters searchParams = testCaseParameters[BLASTPARAMETERS] as BlastParameters;
+            Sequence sequence = testCaseParameters[TESTSEQUENCE] as Sequence;
 
-            try
+            // create the request
+            string jobId = service.SubmitRequest(sequence, searchParams);
+            Assert.IsFalse(string.IsNullOrEmpty(jobId));
+            
+            // Add to test case parameters
+            testCaseParameters.Add(JOBIDENTIFIER, jobId);
+
+            // query the status
+            ServiceRequestInformation info = service.GetRequestStatus(jobId);
+            if (info.Status != ServiceRequestStatus.Waiting && info.Status != ServiceRequestStatus.Ready)
             {
-                IBlastServiceHandler service = testCaseParameters[BLASTHANDLER] as IBlastServiceHandler;
-                BlastParameters searchParams = testCaseParameters[BLASTPARAMETERS] as BlastParameters;
-                Sequence sequence = testCaseParameters[TESTSEQUENCE] as Sequence;
-
-                // create the request
-                string jobID = service.SubmitRequest(sequence, searchParams);
-                Assert.IsFalse(string.IsNullOrEmpty(jobID));
-                // Add to test case parameters
-                testCaseParameters.Add(JOBIDENTIFIER, jobID);
-
-                // query the status
-                ServiceRequestInformation info = service.GetRequestStatus(jobID);
-                if (info.Status != ServiceRequestStatus.Waiting && info.Status != ServiceRequestStatus.Ready)
-                {
-                    string err = ApplicationLog.WriteLine("Unexpected status: '{0}'", info.Status);
-                    Assert.Fail(err);
-                }
-
-                // get async results, poll until ready
-                int maxAttempts = 10;
-                int attempt = 1;
-                object resultsObject = null;
-                while (attempt <= maxAttempts
-                        && info.Status != ServiceRequestStatus.Error
-                        && info.Status != ServiceRequestStatus.Ready)
-                {
-                    ++attempt;
-                    info = service.GetRequestStatus(jobID);
-                    Thread.Sleep(
-                        info.Status == ServiceRequestStatus.Waiting
-                        || info.Status == ServiceRequestStatus.Queued
-                        ? 20000 * attempt
-                        : 0);
-                }
-
-                blastXmlParser = new BlastXmlParser();
-
-                using (StringReader reader = new StringReader(service.GetResult(jobID, searchParams)))
-                {
-                    resultsObject = blastXmlParser.Parse(reader);
-                }
-
-                output = new TestCaseOutput(resultsObject, false);
-            }
-            finally
-            {
-                //if (blastXmlParser != null)
-                //    ((IDisposable)blastXmlParser).Dispose();
+                string err = ApplicationLog.WriteLine("Unexpected status: '{0}'", info.Status);
+                Assert.Fail(err);
             }
 
-            return output;
+            // get async results, poll until ready
+            int maxAttempts = 10;
+            int attempt = 1;
+            object resultsObject = null;
+            while (attempt <= maxAttempts
+                    && info.Status != ServiceRequestStatus.Error
+                    && info.Status != ServiceRequestStatus.Ready)
+            {
+                ++attempt;
+                info = service.GetRequestStatus(jobId);
+                Thread.Sleep(
+                    info.Status == ServiceRequestStatus.Waiting
+                    || info.Status == ServiceRequestStatus.Queued
+                    ? 20000 * attempt
+                    : 0);
+            }
+
+            IBlastParser blastXmlParser = new BlastXmlParser();
+
+            using (StringReader reader = new StringReader(service.GetResult(jobId, searchParams)))
+            {
+                resultsObject = blastXmlParser.Parse(reader);
+            }
+
+            return new TestCaseOutput(resultsObject, false);
         }
 
         /// <summary>

@@ -183,7 +183,7 @@
 	<system:String x:Uid="ColorSchemeDialog:ChangeColor" x:Key="ColorSchemeDialog_ChangeColor">Change Colors</system:String>
 
 	<!--About dialog -->
-    <system:String x:Uid="AboutDialog:MicrosoftCopyright" x:Key="AboutDialog_MicrosoftCopyright">Copyright © 2011, The Outercurve Foundation.</system:String>
+    <system:String x:Uid="AboutDialog:MicrosoftCopyright" x:Key="AboutDialog_MicrosoftCopyright">Copyright © 2011-2013, The Outercurve Foundation.</system:String>
 	<system:String x:Uid="AboutDialog:QUTCopyright" x:Key="AboutDialog_QUTCopyright">Portions © 2010 Queensland University of Technology.</system:String>
 	<system:String x:Uid="AboutDialog:RightsReserved" x:Key="AboutDialog_RightsReserved">All rights reserved.</system:String>
 

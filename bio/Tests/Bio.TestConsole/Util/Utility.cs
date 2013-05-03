@@ -33,6 +33,13 @@ namespace Bio.TestConsole.Util
             xmlUtil = new XmlUtility(filePath);
         }
 
+        internal static string TrimWhitespace(string input)
+        {
+            input = input.Replace("\r\n", "");
+            input = input.Replace(" ", "");
+            return input.Replace("\t", "");
+        }
+
         /// <summary>
         /// Gets the IAlphabet for the alphabet string passed.
         /// </summary>

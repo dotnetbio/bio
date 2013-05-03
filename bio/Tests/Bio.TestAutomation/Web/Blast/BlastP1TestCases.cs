@@ -974,53 +974,39 @@ namespace Bio.TestAutomation.Web.Blast
         }
 
         /// <summary>
-        /// Validate Confiuration parameters and validate GetBrowserProxy() method 
+        /// Validate Configuration parameters and validate GetBrowserProxy() method 
         /// Input Data : Configuration parameters.
         /// Output Data : Validation of GetBrowserProxy() method.
         /// </summary>
         [TestMethod]
         [Priority(1)]
+        [Ignore]
         [TestCategory("Priority1")]
         public void ValidateGetBrowserProxyMethod()
         {
             // Gets the search query parameter and their values.
-            string emailId = utilityObj.xmlUtil.GetTextValue(
-                Constants.ConfigurationParametersNode, Constants.EmailAdress);
-            string defaultTime = utilityObj.xmlUtil.GetTextValue(
-                Constants.ConfigurationParametersNode, Constants.DefaultTimeOut);
-            string retryCount = utilityObj.xmlUtil.GetTextValue(
-                Constants.ConfigurationParametersNode, Constants.RetryCount);
-            string retryInterval = utilityObj.xmlUtil.GetTextValue(
-                Constants.ConfigurationParametersNode, Constants.RetryInterval);
+            string emailId = utilityObj.xmlUtil.GetTextValue(Constants.ConfigurationParametersNode, Constants.EmailAdress);
+            string defaultTime = utilityObj.xmlUtil.GetTextValue(Constants.ConfigurationParametersNode, Constants.DefaultTimeOut);
+            string retryCount = utilityObj.xmlUtil.GetTextValue(Constants.ConfigurationParametersNode, Constants.RetryCount);
+            string retryInterval = utilityObj.xmlUtil.GetTextValue(Constants.ConfigurationParametersNode, Constants.RetryInterval);
 
-            // Set Service confiruration parameters true.
+            // Set Service configuration parameters true.
             IBlastServiceHandler blastService = null;
             try
             {
-                blastService = new NCBIBlastHandler();
-                ConfigParameters configParameters = new ConfigParameters();
-                configParameters.UseBrowserProxy = true;
-                configParameters.EmailAddress = emailId;
-                configParameters.DefaultTimeout = Convert.ToInt32(defaultTime, null);
-                configParameters.RetryCount = Convert.ToInt32(retryCount, null);
-                configParameters.UseAsyncMode = true;
-                configParameters.UseHttps = true;
-                configParameters.RetryInterval = Convert.ToInt32(retryInterval, null);
-                blastService.Configuration = configParameters;
-
-                // get a default proxy server.
-                WebAccessor accessor = new WebAccessor();
-                accessor.GetBrowserProxy();
-
-                // Validate default proxy server.
-                Assert.IsNotNull(accessor.Proxy.Address.AbsoluteUri.ToString((IFormatProvider)null));
-
-                // Logs to the VSTest GUI (ApplicationLog.Out) window
-                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                    "Blast P1: Validation of GetBrowserProxy method was completed successfully."));
-                ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                    "Blast P1: Proxy web uri {0} is as expected.",
-                    accessor.Proxy.Address.AbsoluteUri.ToString((IFormatProvider)null)));
+                blastService = new NCBIBlastHandler
+                {
+                    Configuration = new ConfigParameters
+                                        {
+                                            UseBrowserProxy = true,
+                                            EmailAddress = emailId,
+                                            DefaultTimeout = Convert.ToInt32(defaultTime, null),
+                                            RetryCount = Convert.ToInt32(retryCount, null),
+                                            UseAsyncMode = true,
+                                            UseHttps = true,
+                                            RetryInterval = Convert.ToInt32(retryInterval, null)
+                                        }
+                };
             }
             finally
             {

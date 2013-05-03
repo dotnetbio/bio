@@ -3677,21 +3677,15 @@ namespace Bio.TestAutomation.Pamsam
             IDistanceMatrix matrix = GetKmerDistanceMatrix(kmerLength);
 
             IHierarchicalClustering hierarcicalClustering = GetHierarchicalClustering(matrix);
-
             BinaryGuideTree binaryTree = GetBinaryTree(hierarcicalClustering);
 
             BinaryGuideTree[] subtrees = binaryTree.CutTree(edgeIndex);
-            IList<BinaryGuideTreeNode> nodes = binaryTree.ExtractSubTreeNodes(
-                subtrees[0].Nodes[subtrees[0].Root.ID - 1]);
+            IList<BinaryGuideTreeNode> nodes = binaryTree.ExtractSubTreeNodes(subtrees[0].Nodes[subtrees[0].Root.ID - 1]);
 
             // Validate the Binary Tree
-            string expectedNodesLeftChild = utilityObj.xmlUtil.GetTextValue(nodeName,
-                                                                            Constants.NodesLeftChild);
-            string expectedNodesRightChild = utilityObj.xmlUtil.GetTextValue(nodeName,
-                                                                             Constants.NodesRightChild);
+            string expectedNodesLeftChild = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.NodesLeftChild);
+            string expectedNodesRightChild = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.NodesRightChild);
             string expectednode = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.Nodes);
-
-            int index = 0;
 
             foreach (BinaryGuideTreeNode node in nodes)
             {
@@ -3702,17 +3696,13 @@ namespace Bio.TestAutomation.Pamsam
                 }
                 if (null != node.RightChildren)
                 {
-                    Assert.IsTrue(
-                        expectedNodesRightChild.Contains(node.RightChildren.ID.ToString((IFormatProvider) null)));
+                    Assert.IsTrue(expectedNodesRightChild.Contains(node.RightChildren.ID.ToString((IFormatProvider) null)));
                 }
-                index++;
             }
 
-            ApplicationLog.WriteLine(String.Format(null,
-                                                   @"PamsamP1Test:: Validate Binary tree by cutting tree at an edge index {0}.
-                   Validation of subtree nodes and edges completed successfully for {1} moleculetype",
-                                                   edgeIndex,
-                                                   moleculeType.ToString()));
+            ApplicationLog.WriteLine("PamsamP1Test: Validate Binary tree by cutting tree at an edge index {0}. " +
+                                     "Validation of subtree nodes and edges completed successfully for {1} moleculetype",
+                                        edgeIndex, moleculeType);
         }
 
         /// <summary>

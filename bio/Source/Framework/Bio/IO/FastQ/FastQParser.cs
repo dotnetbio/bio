@@ -180,20 +180,6 @@ namespace Bio.IO.FastQ
         /// <returns>Returns a QualitativeSequence.</returns>
         private QualitativeSequence ParseOne(StreamReader streamReader, FastQFormatType formatType)
         {
-            IAlphabet alphabet = this.Alphabet;
-
-            bool skipBlankLine = true;
-
-            bool tryAutoDetectAlphabet;
-            if (alphabet == null)
-            {
-                tryAutoDetectAlphabet = true;
-            }
-            else
-            {
-                tryAutoDetectAlphabet = false;
-            }
-
             if (streamReader.EndOfStream)
             {
                 string exMessage = string.Format(
@@ -204,39 +190,35 @@ namespace Bio.IO.FastQ
                 throw new FileFormatException(exMessage);
             }
 
-            string message = string.Empty;
-
-            string line = ReadNextLine(streamReader, skipBlankLine);
-
+            string line = ReadNextLine(streamReader, true);
             if (line == null || !line.StartsWith("@", StringComparison.Ordinal))
             {
-                message = string.Format(CultureInfo.CurrentCulture, Properties.Resource.INVALID_INPUT_FILE, this.Name);
+                string message = string.Format(CultureInfo.CurrentCulture, Properties.Resource.INVALID_INPUT_FILE, this.Name);
                 throw new FileFormatException(message);
             }
 
             // Process header line.
             string id = line.Substring(1).Trim();
 
-            line = ReadNextLine(streamReader, skipBlankLine);
-
+            line = ReadNextLine(streamReader, true);
             if (string.IsNullOrEmpty(line))
             {
-                string message1 = string.Format(CultureInfo.CurrentCulture, Properties.Resource.FastQ_InvalidSequenceLine, id);
-                message = string.Format(CultureInfo.CurrentCulture, Properties.Resource.IOFormatErrorMessage, this.Name, message1);
+                string details = string.Format(CultureInfo.CurrentCulture, Properties.Resource.FastQ_InvalidSequenceLine, id);
+                string message = string.Format(CultureInfo.CurrentCulture, Properties.Resource.IOFormatErrorMessage, this.Name, details);
                 throw new FileFormatException(message);
             }
 
             // Get sequence from second line.
-            byte[] sequenceData = UTF8Encoding.UTF8.GetBytes(line);
+            byte[] sequenceData = Encoding.UTF8.GetBytes(line);
 
             // Goto third line.
-            line = ReadNextLine(streamReader, skipBlankLine);
+            line = ReadNextLine(streamReader, true);
 
             // Check for '+' symbol in the third line.
             if (line == null || !line.StartsWith("+", StringComparison.Ordinal))
             {
-                string message1 = string.Format(CultureInfo.CurrentCulture, Properties.Resource.FastQ_InvalidQualityScoreHeaderLine, id);
-                message = string.Format(CultureInfo.CurrentCulture, Properties.Resource.IOFormatErrorMessage, this.Name, message1);
+                string details = string.Format(CultureInfo.CurrentCulture, Properties.Resource.FastQ_InvalidQualityScoreHeaderLine, id);
+                string message = string.Format(CultureInfo.CurrentCulture, Properties.Resource.IOFormatErrorMessage, this.Name, details);
                 throw new FileFormatException(message);
             }
 
@@ -244,52 +226,47 @@ namespace Bio.IO.FastQ
 
             if (!string.IsNullOrEmpty(qualScoreId) && !id.Equals(qualScoreId))
             {
-                string message1 = string.Format(CultureInfo.CurrentCulture, Properties.Resource.FastQ_InvalidQualityScoreHeaderData, id);
-                message = string.Format(CultureInfo.CurrentCulture, Properties.Resource.IOFormatErrorMessage, this.Name, message1);
+                string details = string.Format(CultureInfo.CurrentCulture, Properties.Resource.FastQ_InvalidQualityScoreHeaderData, id);
+                string message = string.Format(CultureInfo.CurrentCulture, Properties.Resource.IOFormatErrorMessage, this.Name, details);
                 throw new FileFormatException(message);
             }
 
             // Goto fourth line.
-            line = ReadNextLine(streamReader, skipBlankLine);
+            line = ReadNextLine(streamReader, true);
 
             if (string.IsNullOrEmpty(line))
             {
-                string message1 = string.Format(CultureInfo.CurrentCulture, Properties.Resource.FastQ_EmptyQualityScoreLine, id);
-                message = string.Format(CultureInfo.CurrentCulture, Properties.Resource.IOFormatErrorMessage, this.Name, message1);
+                string details = string.Format(CultureInfo.CurrentCulture, Properties.Resource.FastQ_EmptyQualityScoreLine, id);
+                string message = string.Format(CultureInfo.CurrentCulture, Properties.Resource.IOFormatErrorMessage, this.Name, details);
                 throw new FileFormatException(message);
             }
 
             // Get the quality scores from the fourth line.
-            byte[] qualScores = UTF8Encoding.UTF8.GetBytes(line);
+            byte[] qualScores = Encoding.UTF8.GetBytes(line);
 
             // Check for sequence length and quality score length.
             if (sequenceData.LongLength() != qualScores.LongLength())
             {
-                string message1 = string.Format(CultureInfo.CurrentCulture, Properties.Resource.FastQ_InvalidQualityScoresLength, id);
-                message = string.Format(CultureInfo.CurrentCulture, Properties.Resource.IOFormatErrorMessage, this.Name, message1);
+                string details = string.Format(CultureInfo.CurrentCulture, Properties.Resource.FastQ_InvalidQualityScoresLength, id);
+                string message = string.Format(CultureInfo.CurrentCulture, Properties.Resource.IOFormatErrorMessage, this.Name, details);
                 throw new FileFormatException(message);
             }
 
             // Auto detect alphabet if alphabet is set to null, else validate with already set alphabet
-            if (tryAutoDetectAlphabet)
+            IAlphabet alphabet = this.Alphabet;
+            if (alphabet == null)
             {
                 alphabet = Alphabets.AutoDetectAlphabet(sequenceData, 0, sequenceData.LongLength(), alphabet);
                 if (alphabet == null)
-                {
                     throw new FileFormatException(Properties.Resource.CouldNotIdentifyAlphabetType);
-                }
             }
-            else if (alphabet != null)
+            else
             {
                 if (!alphabet.ValidateSequence(sequenceData, 0, sequenceData.LongLength()))
-                {
                     throw new FileFormatException(Properties.Resource.InvalidAlphabetType);
-                }
             }
 
-            QualitativeSequence qualitativeSequence = new QualitativeSequence(alphabet, formatType, sequenceData, qualScores, false);
-            qualitativeSequence.ID = id;
-            return qualitativeSequence;
+            return new QualitativeSequence(alphabet, formatType, sequenceData, qualScores, false) { ID = id };
         }
 
         /// <summary>

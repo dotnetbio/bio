@@ -61,8 +61,8 @@ namespace ConsensusUtil.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Consensus Generation Utility v1.01
-        ///Copyright (c) 2011, The Outercurve Foundation.
+        ///   Looks up a localized string similar to Consensus Generation Utility v1.1
+        ///Copyright (c) 2011-2013, The Outercurve Foundation.
         ///.
         /// </summary>
         internal static string ConsensusSplashScreen {

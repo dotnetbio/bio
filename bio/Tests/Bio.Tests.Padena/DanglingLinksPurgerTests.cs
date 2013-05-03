@@ -52,12 +52,7 @@ namespace Bio.Tests
             Assert.AreEqual(4, graphEdges - dangleRemovedGraphEdge);
             graphNodes.ExceptWith(dangleRemovedGraphNodes);
 
-            HashSet<string> expected = new HashSet<string>
-                                           {
-                                               "TCGAACGATGA",
-                                               "CATCGTTCGAT"
-                                           };
-
+            HashSet<string> expected = new HashSet<string> { "ATCGAACGATG","TCGAACGATGA" };
             AlignmentHelpers.CompareSequenceLists(expected, graphNodes);
         }
     }

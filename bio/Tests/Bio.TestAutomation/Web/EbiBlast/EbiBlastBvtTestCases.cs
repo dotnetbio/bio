@@ -197,8 +197,7 @@ namespace Bio.TestAutomation.Web.EbiBlast
                     && info.Status != ServiceRequestStatus.Error
                     && info.Status != ServiceRequestStatus.Ready)
             {
-                Thread.Sleep(
-                    info.Status == ServiceRequestStatus.Waiting ? 20000 : 0);
+                Thread.Sleep(info.Status == ServiceRequestStatus.Waiting ? 1000 : 1);
                 info = service.GetRequestStatus(reqId);
                 ++attempt;
             }

@@ -11,6 +11,7 @@ using Bio.Algorithms.Alignment;
 using Bio.Util.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SM = Bio.SimilarityMatrices.SimilarityMatrix;
+using Bio.Tests.Framework;
 
 namespace Bio.TestAutomation.Algorithms.Alignment
 {
@@ -46,143 +47,130 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         [TestCategory("Priority1")]
         public void ValidatePairwiseAlignedSequenceCustomBreakLength()
         {
-            Sequence referenceSeq = null;
-            Sequence searchSeq = null;
-            List<ISequence> referenceSeqs = null;
-            List<ISequence> searchSeqs = null;
+            var referenceSeqs = new List<ISequence>()
+            {
+                new Sequence(Alphabets.DNA, "CAAAAGGGATTGCAAATGTTGGAGTGAATGCCATTACCTACCGGCTAGGAGGAGT") {ID = "R1"},
+                new Sequence(Alphabets.DNA, "CCCCCCCCC") {ID = "R2"},
+                new Sequence(Alphabets.DNA, "TTTTT") {ID = "R3"}
+            };
 
-            referenceSeqs = new List<ISequence>();
+            var searchSeqs = new List<ISequence>()
+            {
+                new Sequence(Alphabets.DNA, "CATTAATGATAAAGGGAAAGAAGTCCTCGTGCTATGGGGCATTCACCATCCATCTACTAGTGCTGACCAA") { ID = "Q1" },
+                new Sequence(Alphabets.DNA, "CAAAGTCTCTATCAGAATGCAGATGCAGATGTTTTTGTGGGGTCATCAAGATATAGCAAGAAGTTCAAGC") { ID = "Q2" },
+                new Sequence(Alphabets.DNA, "AAGCAAAATTAAACAGAGAAGAAATAGATGGGGTAAAGCTGGAATCAACAAGGATTTACCAGATTTTGGC") { ID = "Q3" },
+            };
 
-            string reference = "CAAAAGGGATTGCAAATGTTGGAGTGAATGCCATTACCTACCGGCTAGGAGGAGT";
-            referenceSeq = new Sequence(Alphabets.DNA, reference);
-            referenceSeq.ID = "R1";
-            referenceSeqs.Add(referenceSeq);
+            var nucmer = new NucmerPairwiseAligner
+            {
+                MaximumSeparation = 0,
+                MinimumScore = 2,
+                SeparationFactor = 0.12F,
+                LengthOfMUM = 5,
+                BreakLength = 2,
+                ForwardOnly = true,
+            };
 
-            reference = "CCCCCCCCC";
-            referenceSeq = new Sequence(Alphabets.DNA, reference);
-            referenceSeq.ID = "R2";
-            referenceSeqs.Add(referenceSeq);
-
-            reference = "TTTTT";
-            referenceSeq = new Sequence(Alphabets.DNA, reference);
-            referenceSeq.ID = "R3";
-            referenceSeqs.Add(referenceSeq);
-
-            searchSeqs = new List<ISequence>();
-
-            string search = "CATTAATGATAAAGGGAAAGAAGTCCTCGTGCTATGGGGCATTCACCATCCATCTACTAGTGCTGACCAA";
-            searchSeq = new Sequence(Alphabets.DNA, search);
-            searchSeq.ID = "Q1";
-            searchSeqs.Add(searchSeq);
-
-            search = "CAAAGTCTCTATCAGAATGCAGATGCAGATGTTTTTGTGGGGTCATCAAGATATAGCAAGAAGTTCAAGC";
-            searchSeq = new Sequence(Alphabets.DNA, search);
-            searchSeq.ID = "Q2";
-            searchSeqs.Add(searchSeq);
-
-            search = "AAGCAAAATTAAACAGAGAAGAAATAGATGGGGTAAAGCTGGAATCAACAAGGATTTACCAGATTTTGGC";
-            searchSeq = new Sequence(Alphabets.DNA, search);
-            searchSeq.ID = "Q3";
-            searchSeqs.Add(searchSeq);
-
-            var nucmer = new NucmerPairwiseAligner();
-            nucmer.MaximumSeparation = 0;
-            nucmer.MinimumScore = 2;
-            nucmer.SeparationFactor = 0.12F;
-            nucmer.LengthOfMUM = 5;
-            nucmer.BreakLength = 2;
-            IList<IPairwiseSequenceAlignment> result =
-                nucmer.Align(referenceSeqs, searchSeqs).Select(a => a as IPairwiseSequenceAlignment).ToList();
+            var result = nucmer.Align(referenceSeqs, searchSeqs).Select(a => a as IPairwiseSequenceAlignment).ToList();
 
             // Check if output is not null
             Assert.AreNotEqual(null, result);
 
             var expectedOutput = new List<IPairwiseSequenceAlignment>();
+
             IPairwiseSequenceAlignment align = new PairwiseSequenceAlignment();
-            var alignedSeq = new PairwiseAlignedSequence();
-
-            alignedSeq.FirstSequence = new Sequence(Alphabets.DNA, "AAAGGGA");
-            alignedSeq.SecondSequence = new Sequence(Alphabets.DNA, "AAAGGGA");
-            alignedSeq.Consensus = new Sequence(Alphabets.DNA, "AAAGGGA");
-            alignedSeq.Score = 21;
-            alignedSeq.FirstOffset = 8;
-            alignedSeq.SecondOffset = 0;
-            align.PairwiseAlignedSequences.Add(alignedSeq);
-            alignedSeq = new PairwiseAlignedSequence();
-            alignedSeq.FirstSequence = new Sequence(Alphabets.DNA, "CATTA");
-            alignedSeq.SecondSequence = new Sequence(Alphabets.DNA, "CATTA");
-            alignedSeq.Consensus = new Sequence(Alphabets.DNA, "CATTA");
-            alignedSeq.Score = 15;
-            alignedSeq.FirstOffset = 0;
-            alignedSeq.SecondOffset = 31;
-            align.PairwiseAlignedSequences.Add(alignedSeq);
+            align.PairwiseAlignedSequences.Add(new PairwiseAlignedSequence
+                {
+                    FirstSequence = new Sequence(Alphabets.DNA, "AAAGGGA"),
+                    SecondSequence = new Sequence(Alphabets.DNA, "AAAGGGA"),
+                    Consensus = new Sequence(Alphabets.DNA, "AAAGGGA"),
+                    Score = 21,
+                    FirstOffset = 8,
+                    SecondOffset = 0
+                });
+            align.PairwiseAlignedSequences.Add(new PairwiseAlignedSequence
+            {
+                FirstSequence = new Sequence(Alphabets.DNA, "CATTA"),
+                SecondSequence = new Sequence(Alphabets.DNA, "CATTA"),
+                Consensus = new Sequence(Alphabets.DNA, "CATTA"),
+                Score = 15,
+                FirstOffset = 0,
+                SecondOffset = 31
+            });
             expectedOutput.Add(align);
 
             align = new PairwiseSequenceAlignment();
-            alignedSeq = new PairwiseAlignedSequence();
-            alignedSeq.FirstSequence = new Sequence(Alphabets.DNA, "ATGTT");
-            alignedSeq.SecondSequence = new Sequence(Alphabets.DNA, "ATGTT");
-            alignedSeq.Consensus = new Sequence(Alphabets.DNA, "ATGTT");
-            alignedSeq.Score = 15;
-            alignedSeq.FirstOffset = 13;
-            alignedSeq.SecondOffset = 0;
-            align.PairwiseAlignedSequences.Add(alignedSeq);
-            alignedSeq = new PairwiseAlignedSequence();
-            alignedSeq.FirstSequence = new Sequence(Alphabets.DNA, "GAATGC");
-            alignedSeq.SecondSequence = new Sequence(Alphabets.DNA, "GAATGC");
-            alignedSeq.Consensus = new Sequence(Alphabets.DNA, "GAATGC");
-            alignedSeq.Score = 18;
-            alignedSeq.FirstOffset = 0;
-            alignedSeq.SecondOffset = 11;
-            align.PairwiseAlignedSequences.Add(alignedSeq);
-            alignedSeq = new PairwiseAlignedSequence();
-            alignedSeq.FirstSequence = new Sequence(Alphabets.DNA, "TTTTT");
-            alignedSeq.SecondSequence = new Sequence(Alphabets.DNA, "TTTTT");
-            alignedSeq.Consensus = new Sequence(Alphabets.DNA, "TTTTT");
-            alignedSeq.Score = 15;
-            alignedSeq.FirstOffset = 31;
-            alignedSeq.SecondOffset = 0;
-            align.PairwiseAlignedSequences.Add(alignedSeq);
+            align.PairwiseAlignedSequences.Add(new PairwiseAlignedSequence
+            {
+                FirstSequence = new Sequence(Alphabets.DNA, "ATGTT"),
+                SecondSequence = new Sequence(Alphabets.DNA, "ATGTT"),
+                Consensus = new Sequence(Alphabets.DNA, "ATGTT"),
+                Score = 15,
+                FirstOffset = 13,
+                SecondOffset = 0
+            });
+            align.PairwiseAlignedSequences.Add(new PairwiseAlignedSequence
+            {
+                FirstSequence = new Sequence(Alphabets.DNA, "GAATGC"),
+                SecondSequence = new Sequence(Alphabets.DNA, "GAATGC"),
+                Consensus = new Sequence(Alphabets.DNA, "GAATGC"),
+                Score = 18,
+                FirstOffset = 0,
+                SecondOffset = 11
+            });
+            align.PairwiseAlignedSequences.Add(new PairwiseAlignedSequence
+            {
+                FirstSequence = new Sequence(Alphabets.DNA, "TTTTT"),
+                SecondSequence = new Sequence(Alphabets.DNA, "TTTTT"),
+                Consensus = new Sequence(Alphabets.DNA, "TTTTT"),
+                Score = 15,
+                FirstOffset = 31,
+                SecondOffset = 0
+            });
             expectedOutput.Add(align);
 
             align = new PairwiseSequenceAlignment();
-            alignedSeq = new PairwiseAlignedSequence();
-            alignedSeq.FirstSequence = new Sequence(Alphabets.DNA, "CAAAA");
-            alignedSeq.SecondSequence = new Sequence(Alphabets.DNA, "CAAAA");
-            alignedSeq.Consensus = new Sequence(Alphabets.DNA, "CAAAA");
-            alignedSeq.Score = 15;
-            alignedSeq.FirstOffset = 3;
-            alignedSeq.SecondOffset = 0;
-            align.PairwiseAlignedSequences.Add(alignedSeq);
-            alignedSeq = new PairwiseAlignedSequence();
-            alignedSeq.FirstSequence = new Sequence(Alphabets.DNA, "GGATT");
-            alignedSeq.SecondSequence = new Sequence(Alphabets.DNA, "GGATT");
-            alignedSeq.Consensus = new Sequence(Alphabets.DNA, "GGATT");
-            alignedSeq.Score = 15;
-            alignedSeq.FirstOffset = 45;
-            alignedSeq.SecondOffset = 0;
-            align.PairwiseAlignedSequences.Add(alignedSeq);
-            alignedSeq = new PairwiseAlignedSequence();
-            alignedSeq.FirstSequence = new Sequence(Alphabets.DNA, "GCAAA");
-            alignedSeq.SecondSequence = new Sequence(Alphabets.DNA, "GCAAA");
-            alignedSeq.Consensus = new Sequence(Alphabets.DNA, "GCAAA");
-            alignedSeq.Score = 15;
-            alignedSeq.FirstOffset = 0;
-            alignedSeq.SecondOffset = 9;
-            align.PairwiseAlignedSequences.Add(alignedSeq);
-            alignedSeq = new PairwiseAlignedSequence();
-            alignedSeq.FirstSequence = new Sequence(Alphabets.DNA, "TTACC");
-            alignedSeq.SecondSequence = new Sequence(Alphabets.DNA, "TTACC");
-            alignedSeq.Consensus = new Sequence(Alphabets.DNA, "TTACC");
-            alignedSeq.Score = 15;
-            alignedSeq.FirstOffset = 22;
-            alignedSeq.SecondOffset = 0;
-            align.PairwiseAlignedSequences.Add(alignedSeq);
+            align.PairwiseAlignedSequences.Add(new PairwiseAlignedSequence
+            {
+                FirstSequence = new Sequence(Alphabets.DNA, "CAAAA"),
+                SecondSequence = new Sequence(Alphabets.DNA, "CAAAA"),
+                Consensus = new Sequence(Alphabets.DNA, "CAAAA"),
+                Score = 15,
+                FirstOffset = 3,
+                SecondOffset = 0
+            });
+            align.PairwiseAlignedSequences.Add(new PairwiseAlignedSequence
+            {
+                FirstSequence = new Sequence(Alphabets.DNA, "GGATT"),
+                SecondSequence = new Sequence(Alphabets.DNA, "GGATT"),
+                Consensus = new Sequence(Alphabets.DNA, "GGATT"),
+                Score = 15,
+                FirstOffset = 45,
+                SecondOffset = 0
+            });
+            align.PairwiseAlignedSequences.Add(new PairwiseAlignedSequence
+            {
+                FirstSequence = new Sequence(Alphabets.DNA, "GCAAA"),
+                SecondSequence = new Sequence(Alphabets.DNA, "GCAAA"),
+                Consensus = new Sequence(Alphabets.DNA, "GCAAA"),
+                Score = 15,
+                FirstOffset = 0,
+                SecondOffset = 9
+            });
+            align.PairwiseAlignedSequences.Add(new PairwiseAlignedSequence
+            {
+                FirstSequence = new Sequence(Alphabets.DNA, "TTACC"),
+                SecondSequence = new Sequence(Alphabets.DNA, "TTACC"),
+                Consensus = new Sequence(Alphabets.DNA, "TTACC"),
+                Score = 15,
+                FirstOffset = 22,
+                SecondOffset = 0
+            });
             expectedOutput.Add(align);
-            Assert.IsTrue(CompareAlignment(result, expectedOutput));
+            
+            Assert.IsTrue(AlignmentHelpers.CompareAlignment(result, expectedOutput));
 
-            ApplicationLog.WriteLine(
-                "PairwiseAlignedSequence P1: Successfully validated Sequence with Custom Break Length.");
+            ApplicationLog.WriteLine("PairwiseAlignedSequence P1: Successfully validated Sequence with Custom Break Length.");
         }
 
         /// <summary>
@@ -193,62 +181,58 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         [TestCategory("Priority1")]
         public void ValidatePairwiseAlignedSequenceMultipleRef()
         {
-            Sequence referenceSeq = null;
-            Sequence searchSeq = null;
-            List<ISequence> referenceSeqs = null;
-            List<ISequence> searchSeqs = null;
+            var referenceSeqs = new List<ISequence>()
+            {
+                new Sequence(Alphabets.DNA, "ATGCGCATCCCC") {ID = "R1"},
+                new Sequence(Alphabets.DNA, "TAGCT") {ID = "R11"},
+            };
 
-            referenceSeqs = new List<ISequence>();
+            var searchSeqs = new List<ISequence>()
+            {
+                new Sequence(Alphabets.DNA, "CCGCGCCCCCTCAGCT") {ID = "Q1"}
+            };
 
-            string reference = "ATGCGCATCCCC";
-            referenceSeq = new Sequence(Alphabets.DNA, reference);
-            referenceSeq.ID = "R1";
-            referenceSeqs.Add(referenceSeq);
+            var nucmer = new NucmerPairwiseAligner
+            {
+                FixedSeparation = 0,
+                MinimumScore = 2,
+                SeparationFactor = -1,
+                LengthOfMUM = 3,
+                ForwardOnly = true,
+            };
 
-            reference = "TAGCT";
-            referenceSeq = new Sequence(Alphabets.DNA, reference);
-            referenceSeq.ID = "R11";
-            referenceSeqs.Add(referenceSeq);
-
-            searchSeqs = new List<ISequence>();
-
-            string search = "CCGCGCCCCCTCAGCT";
-            searchSeq = new Sequence(Alphabets.DNA, search);
-            searchSeq.ID = "Q1";
-            searchSeqs.Add(searchSeq);
-
-            var nucmer = new NucmerPairwiseAligner();
-            nucmer.FixedSeparation = 0;
-            nucmer.MinimumScore = 2;
-            nucmer.SeparationFactor = -1;
-            nucmer.LengthOfMUM = 3;
-            IList<IPairwiseSequenceAlignment> result =
-                nucmer.Align(referenceSeqs, searchSeqs).Select(a => a as IPairwiseSequenceAlignment).ToList();
+            IList<IPairwiseSequenceAlignment> result = nucmer.Align(referenceSeqs, searchSeqs).Select(a => a as IPairwiseSequenceAlignment).ToList();
 
             // Check if output is not null
             Assert.AreNotEqual(null, result);
+
             IList<IPairwiseSequenceAlignment> expectedOutput = new List<IPairwiseSequenceAlignment>();
+            
             IPairwiseSequenceAlignment align = new PairwiseSequenceAlignment();
-            var alignedSeq = new PairwiseAlignedSequence();
-            alignedSeq.FirstSequence = new Sequence(Alphabets.DNA, "GCGCATCCCC");
-            alignedSeq.SecondSequence = new Sequence(Alphabets.DNA, "GCGC--CCCC");
-            alignedSeq.Consensus = new Sequence(Alphabets.DNA, "GCGCATCCCC");
-            alignedSeq.Score = -5;
-            alignedSeq.FirstOffset = 0;
-            alignedSeq.SecondOffset = 0;
+            var alignedSeq = new PairwiseAlignedSequence
+            {
+                FirstSequence = new Sequence(Alphabets.DNA, "GCGCATCCCC"),
+                SecondSequence = new Sequence(Alphabets.DNA, "GCGC--CCCC"),
+                Consensus = new Sequence(Alphabets.DNA, "GCGCATCCCC"),
+                Score = -5,
+                FirstOffset = 0,
+                SecondOffset = 0
+            };
             align.PairwiseAlignedSequences.Add(alignedSeq);
-            alignedSeq = new PairwiseAlignedSequence();
-            alignedSeq.FirstSequence = new Sequence(Alphabets.DNA, "AGCT");
-            alignedSeq.SecondSequence = new Sequence(Alphabets.DNA, "AGCT");
-            alignedSeq.Consensus = new Sequence(Alphabets.DNA, "AGCT");
-            alignedSeq.Score = 12;
-            alignedSeq.FirstOffset = 11;
-            alignedSeq.SecondOffset = 0;
+            alignedSeq = new PairwiseAlignedSequence
+            {
+                FirstSequence = new Sequence(Alphabets.DNA, "AGCT"),
+                SecondSequence = new Sequence(Alphabets.DNA, "AGCT"),
+                Consensus = new Sequence(Alphabets.DNA, "AGCT"),
+                Score = 12,
+                FirstOffset = 11,
+                SecondOffset = 0
+            };
             align.PairwiseAlignedSequences.Add(alignedSeq);
+
             expectedOutput.Add(align);
-            Assert.IsTrue(CompareAlignment(result, expectedOutput));
-            ApplicationLog.WriteLine(
-                "PairwiseAlignedSequence P1: Successfully validated Sequence with Multiple Reference.");
+            Assert.IsTrue(AlignmentHelpers.CompareAlignment(result, expectedOutput));
+            ApplicationLog.WriteLine("PairwiseAlignedSequence P1: Successfully validated Sequence with Multiple Reference.");
         }
 
         /// <summary>
@@ -259,132 +243,63 @@ namespace Bio.TestAutomation.Algorithms.Alignment
         [TestCategory("Priority1")]
         public void ValidatePairwiseAlignedSequenceMultipleRefQuery()
         {
-            Sequence referenceSeq = null;
-            Sequence searchSeq = null;
-            List<ISequence> referenceSeqs = null;
-            List<ISequence> searchSeqs = null;
+            var referenceSeqs = new List<ISequence>()
+            {
+                new Sequence(Alphabets.DNA, "ATGCGCATCCCC") {ID = "R1"},
+                new Sequence(Alphabets.DNA, "TAGCT") {ID = "R2"}
+            };
 
-            referenceSeqs = new List<ISequence>();
+            var searchSeqs = new List<ISequence>()
+            {
+                new Sequence(Alphabets.DNA, "CCGCGCCCCCTC") {ID = "Q1"},
+                new Sequence(Alphabets.DNA, "AGCT") {ID = "Q2"}
+            };
 
-            string reference = "ATGCGCATCCCC";
-            referenceSeq = new Sequence(Alphabets.DNA, reference);
-            referenceSeq.ID = "R1";
-            referenceSeqs.Add(referenceSeq);
+            var nucmer = new NucmerPairwiseAligner
+            {
+                FixedSeparation = 0,
+                MinimumScore = 2,
+                SeparationFactor = -1,
+                LengthOfMUM = 3,
+                ForwardOnly = true,
+            };
 
-            reference = "TAGCT";
-            referenceSeq = new Sequence(Alphabets.DNA, reference);
-            referenceSeq.ID = "R11";
-            referenceSeqs.Add(referenceSeq);
-
-            searchSeqs = new List<ISequence>();
-
-            string search = "CCGCGCCCCCTC";
-            searchSeq = new Sequence(Alphabets.DNA, search);
-            searchSeq.ID = "Q1";
-            searchSeqs.Add(searchSeq);
-
-            search = "AGCT";
-            searchSeq = new Sequence(Alphabets.DNA, search);
-            searchSeq.ID = "Q11";
-            searchSeqs.Add(searchSeq);
-
-            var nucmer = new NucmerPairwiseAligner();
-            nucmer.FixedSeparation = 0;
-            nucmer.MinimumScore = 2;
-            nucmer.SeparationFactor = -1;
-            nucmer.LengthOfMUM = 3;
-            IList<IPairwiseSequenceAlignment> result =
-                nucmer.Align(referenceSeqs, searchSeqs).Select(a => a as IPairwiseSequenceAlignment).ToList();
+            IList<IPairwiseSequenceAlignment> result = nucmer.Align(referenceSeqs, searchSeqs).Select(a => a as IPairwiseSequenceAlignment).ToList();
 
             // Check if output is not null
             Assert.AreNotEqual(null, result);
 
             IList<IPairwiseSequenceAlignment> expectedOutput = new List<IPairwiseSequenceAlignment>();
             IPairwiseSequenceAlignment align = new PairwiseSequenceAlignment();
-            var alignedSeq = new PairwiseAlignedSequence();
+            var alignedSeq = new PairwiseAlignedSequence
+            {
+                FirstSequence = new Sequence(Alphabets.DNA, "GCGCATCCCC"),
+                SecondSequence = new Sequence(Alphabets.DNA, "GCGC--CCCC"),
+                Consensus = new Sequence(Alphabets.DNA, "GCGCATCCCC"),
+                Score = -5,
+                FirstOffset = 0,
+                SecondOffset = 0
+            };
+            align.PairwiseAlignedSequences.Add(alignedSeq);
+            expectedOutput.Add(align);
 
-            alignedSeq.FirstSequence = new Sequence(Alphabets.DNA, "GCGCATCCCC");
-            alignedSeq.SecondSequence = new Sequence(Alphabets.DNA, "GCGC--CCCC");
-            alignedSeq.Consensus = new Sequence(Alphabets.DNA, "GCGCATCCCC");
-            alignedSeq.Score = -5;
-            alignedSeq.FirstOffset = 0;
-            alignedSeq.SecondOffset = 0;
-            align.PairwiseAlignedSequences.Add(alignedSeq);
-            expectedOutput.Add(align);
             align = new PairwiseSequenceAlignment();
-            alignedSeq = new PairwiseAlignedSequence();
-            alignedSeq.FirstSequence = new Sequence(Alphabets.DNA, "AGCT");
-            alignedSeq.SecondSequence = new Sequence(Alphabets.DNA, "AGCT");
-            alignedSeq.Consensus = new Sequence(Alphabets.DNA, "AGCT");
-            alignedSeq.Score = 12;
-            alignedSeq.FirstOffset = 0;
-            alignedSeq.SecondOffset = 1;
+            alignedSeq = new PairwiseAlignedSequence
+            {
+                FirstSequence = new Sequence(Alphabets.DNA, "AGCT"),
+                SecondSequence = new Sequence(Alphabets.DNA, "AGCT"),
+                Consensus = new Sequence(Alphabets.DNA, "AGCT"),
+                Score = 12,
+                FirstOffset = 0,
+                SecondOffset = 1
+            };
             align.PairwiseAlignedSequences.Add(alignedSeq);
             expectedOutput.Add(align);
-            Assert.IsTrue(CompareAlignment(result, expectedOutput));
-            ApplicationLog.WriteLine(
-                "PairwiseAlignedSequence P1: Successfully validated Sequence with Multiple Reference.");
+
+            Assert.IsTrue(AlignmentHelpers.CompareAlignment(result, expectedOutput));
+            ApplicationLog.WriteLine("PairwiseAlignedSequence P1: Successfully validated Sequence with Multiple Reference.");
         }
 
         #endregion PairwiseAlignedSequence P1 TestCases
-
-        #region Supporting Methods
-
-        /// <summary>
-        ///     Compare the alignment of mummer and defined alignment
-        /// </summary>
-        /// <param name="result">output of Aligners</param>
-        /// <param name="expectedAlignment">expected output</param>
-        /// <returns>Compare result of alignments</returns>
-        private static bool CompareAlignment(
-            IList<IPairwiseSequenceAlignment> result,
-            IList<IPairwiseSequenceAlignment> expectedAlignment)
-        {
-            bool output = true;
-            if (result.Count == expectedAlignment.Count)
-            {
-                for (int count = 0; count < result.Count; count++)
-                {
-                    if (result[count].PairwiseAlignedSequences.Count ==
-                        expectedAlignment[count].PairwiseAlignedSequences.Count)
-                    {
-                        for (int count1 = 0; count1 < result[count].PairwiseAlignedSequences.Count; count1++)
-                        {
-                            if (result[count].PairwiseAlignedSequences[count1].FirstSequence.ToString().Equals(
-                                expectedAlignment[count].PairwiseAlignedSequences[count1].FirstSequence.ToString())
-                                && result[count].PairwiseAlignedSequences[count1].SecondSequence.ToString().Equals(
-                                    expectedAlignment[count].PairwiseAlignedSequences[count1].SecondSequence.ToString())
-                                && result[count].PairwiseAlignedSequences[count1].Consensus.ToString().Equals(
-                                    expectedAlignment[count].PairwiseAlignedSequences[count1].Consensus.ToString())
-                                && result[count].PairwiseAlignedSequences[count1].FirstOffset ==
-                                   expectedAlignment[count].PairwiseAlignedSequences[count1].FirstOffset
-                                && result[count].PairwiseAlignedSequences[count1].SecondOffset ==
-                                   expectedAlignment[count].PairwiseAlignedSequences[count1].SecondOffset
-                                && result[count].PairwiseAlignedSequences[count1].Score ==
-                                expectedAlignment[count].PairwiseAlignedSequences[count1].Score)
-                            {
-                                output = true;
-                            }
-                            else
-                            {
-                                return false;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                }
-            }
-            else
-            {
-                return false;
-            }
-
-            return output;
-        }
-
-        #endregion Supporting Methods
     }
 }

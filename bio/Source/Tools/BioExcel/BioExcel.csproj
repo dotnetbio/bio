@@ -276,7 +276,6 @@
     </Compile>
     <Compile Include="InputSelection.cs" />
     <Compile Include="SequenceCache.cs" />
-    <Compile Include="SequenceExtensions.cs" />
     <Compile Include="ThisAddIn.cs">
       <SubType>Code</SubType>
     </Compile>

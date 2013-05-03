@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using Bio.Algorithms.MUMmer;
+using Bio.Extensions;
 using Bio.SimilarityMatrices;
-using Bio.Util.Logging;
 
 namespace Bio.Algorithms.Alignment
 {
@@ -69,6 +68,21 @@ namespace Bio.Algorithms.Alignment
         {
             get { return Properties.Resource.NUCMERDESC; }
         }
+
+        /// <summary>
+        /// Align only the forward strands of each sequence.
+        /// </summary>
+        public bool ForwardOnly { get; set; }
+
+        /// <summary>
+        /// Align only the reverse strands of each sequence.
+        /// </summary>
+        public bool ReverseOnly { get; set; }
+
+        /// <summary>
+        /// Use all anchor matches regardless of their uniqueness.
+        /// </summary>
+        public bool MaxMatch { get; set; }
 
         /// <summary>
         /// Gets or sets maximum fixed diagonal difference.
@@ -367,21 +381,25 @@ namespace Bio.Algorithms.Alignment
         /// method.
         /// </summary>
         /// <param name="referenceSequenceList">Reference sequence.</param>
-        /// <param name="querySequenceList">List of input sequences.</param>
+        /// <param name="originalQuerySequences">List of input sequences.</param>
         /// <returns>A list of sequence alignment.</returns>
-        private IEnumerable<IPairwiseSequenceAlignment> Alignment(IEnumerable<ISequence> referenceSequenceList, IEnumerable<ISequence> querySequenceList)
+        private IEnumerable<IPairwiseSequenceAlignment> Alignment(IEnumerable<ISequence> referenceSequenceList, IEnumerable<ISequence> originalQuerySequences)
         {
             ConsensusResolver = new SimpleConsensusResolver(referenceSequenceList.ElementAt(0).Alphabet);
 
-            IList<IPairwiseSequenceAlignment> results = new List<IPairwiseSequenceAlignment>();
-            IPairwiseSequenceAlignment sequenceAlignment;
-            IList<PairwiseAlignedSequence> alignments;
+            IEnumerable<ISequence> querySequenceList = 
+                ForwardOnly ? originalQuerySequences
+                    : (ReverseOnly
+                        ? ReverseComplementSequenceList(originalQuerySequences)
+                        : AddReverseComplementsToSequenceList(originalQuerySequences));
 
-            List<DeltaAlignment> deltas = new List<DeltaAlignment>();
+            IList<IPairwiseSequenceAlignment> results = new List<IPairwiseSequenceAlignment>();
+
+            var deltas = new List<DeltaAlignment>();
 
             foreach (ISequence refSequence in referenceSequenceList)
             {
-                this.nucmerAlgo = new NUCmer((Sequence)refSequence);
+                this.nucmerAlgo = new NUCmer(refSequence);
 
                 if (GapOpenCost != DefaultGapOpenCost) this.nucmerAlgo.GapOpenCost = GapOpenCost;
                 if (GapExtensionCost != DefaultGapExtensionCost) this.nucmerAlgo.GapExtensionCost = GapExtensionCost;
@@ -399,7 +417,7 @@ namespace Bio.Algorithms.Alignment
 
                 foreach (ISequence querySequence in querySequenceList)
                 {
-                    IEnumerable<DeltaAlignment> deltaAlignment = this.nucmerAlgo.GetDeltaAlignments(querySequence);
+                    IEnumerable<DeltaAlignment> deltaAlignment = this.nucmerAlgo.GetDeltaAlignments(querySequence, !MaxMatch, querySequence.IsMarkedAsReverseComplement());
                     deltas.AddRange(deltaAlignment);
                 }
             }
@@ -416,10 +434,10 @@ namespace Bio.Algorithms.Alignment
                 foreach (ISequence querySequence in querySequenceList)
                 {
                     List<DeltaAlignment> qDelta = deltas.Where(d => d.QuerySequence.Equals(querySequence)).ToList();
-                    sequenceAlignment = new PairwiseSequenceAlignment(concatReference, querySequence);
+                    IPairwiseSequenceAlignment sequenceAlignment = new PairwiseSequenceAlignment(concatReference, querySequence);
 
                     // Convert delta alignments to sequence alignments
-                    alignments = ConvertDeltaToAlignment(qDelta);
+                    IList<PairwiseAlignedSequence> alignments = ConvertDeltaToAlignment(qDelta);
 
                     if (alignments.Count > 0)
                     {
@@ -447,6 +465,45 @@ namespace Bio.Algorithms.Alignment
         }
 
         /// <summary>
+        /// Given a list of sequences, create a new list with only the Reverse Complements
+        /// of the original sequences.
+        /// </summary>
+        /// <param name="sequenceList">List of sequence.</param>
+        /// <returns>Returns the list of sequence.</returns>
+        private static IEnumerable<ISequence> ReverseComplementSequenceList(IEnumerable<ISequence> sequenceList)
+        {
+            foreach (ISequence rcSequence in sequenceList.Select(seq => seq.GetReverseComplementedSequence()))
+            {
+                if (rcSequence != null)
+                {
+                    rcSequence.MarkAsReverseComplement();
+                    yield return rcSequence;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Given a list of sequences, create a new list with the original sequence followed
+        /// by the Reverse Complement of that sequence.
+        /// </summary>
+        /// <param name="sequenceList">List of sequence.</param>
+        /// <returns>Returns the List of sequence.</returns>
+        private static IEnumerable<ISequence> AddReverseComplementsToSequenceList(IEnumerable<ISequence> sequenceList)
+        {
+            foreach (ISequence seq in sequenceList)
+            {
+                yield return seq;
+
+                ISequence rcSequence = seq.GetReverseComplementedSequence();
+                if (rcSequence != null)
+                {
+                    rcSequence.MarkAsReverseComplement();
+                    yield return rcSequence;
+                }
+            }
+        }
+
+        /// <summary>
         /// Convert to delta alignments to sequence alignments.
         /// </summary>
         /// <param name="alignments">List of delta alignments.</param>
@@ -459,12 +516,10 @@ namespace Bio.Algorithms.Alignment
                 throw new ArgumentNullException("alignments");
             }
 
-            PairwiseAlignedSequence alignedSequence;
-
             IList<PairwiseAlignedSequence> alignedSequences = new List<PairwiseAlignedSequence>();
             foreach (DeltaAlignment deltaAlignment in alignments)
             {
-                alignedSequence = deltaAlignment.ConvertDeltaToSequences();
+                PairwiseAlignedSequence alignedSequence = deltaAlignment.ConvertDeltaToSequences();
 
                 // Find the offsets
                 long referenceStart = deltaAlignment.FirstSequenceStart;

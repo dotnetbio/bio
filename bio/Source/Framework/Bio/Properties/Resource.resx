@@ -1324,7 +1324,7 @@ file specification, and converts the data to in-memory PhylogeneticTree object.<
     <value>RefStart={0} QueryStart={1} Length={2} Score={3} WrapScore={4} IsGood={5}</value>
   </data>
   <data name="DeltaAlignmentToStringFormat" xml:space="preserve">
-    <value>Ref ID={0} Query Id={1} Ref start={2} Ref End={3} Query start={4} Query End={5}</value>
+    <value>Ref ID={0} Query Id={1} Ref start={2} Ref End={3} Query start={4} Query End={5}, Direction={6}</value>
   </data>
   <data name="MatchExtensionToStringFormat" xml:space="preserve">
     <value>RefStart={0} QueryStart={1} Length={2} Score={3} WrapScore={4} IsGood={5}</value>
@@ -1466,5 +1466,8 @@ Delta alignment file is corrupted. </value>
   </data>
   <data name="KmerLengthShouldBePositive" xml:space="preserve">
     <value>Kmer length must be a positive number.</value>
+  </data>
+  <data name="InvalidQueryDirection" xml:space="preserve">
+    <value>Query direction must be Forward or Reverse</value>
   </data>
 </root>

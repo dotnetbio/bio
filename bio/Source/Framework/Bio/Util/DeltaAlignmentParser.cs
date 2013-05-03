@@ -170,6 +170,16 @@ namespace Bio.Util
                 deltaAlignment.FirstSequenceEnd = long.TryParse(deltaAlignmentProperties[1], out temp) ? temp : 0;
                 deltaAlignment.SecondSequenceStart = long.TryParse(deltaAlignmentProperties[2], out temp) ? temp : 0;
                 deltaAlignment.SecondSequenceEnd = long.TryParse(deltaAlignmentProperties[3], out temp) ? temp : 0;
+
+                // Look for a reversed sequence
+                if (deltaAlignment.SecondSequenceEnd < deltaAlignment.SecondSequenceStart)
+                {
+                    temp = deltaAlignment.SecondSequenceEnd;
+                    deltaAlignment.SecondSequenceEnd = deltaAlignment.SecondSequenceStart;
+                    deltaAlignment.SecondSequenceStart = temp;
+                    deltaAlignment.QueryDirection = Cluster.ReverseDirection;
+                }
+
                 int error;
                 deltaAlignment.Errors = int.TryParse(deltaAlignmentProperties[4], out error) ? error : 0;
                 deltaAlignment.SimilarityErrors = int.TryParse(deltaAlignmentProperties[5], out error) ? error : 0;

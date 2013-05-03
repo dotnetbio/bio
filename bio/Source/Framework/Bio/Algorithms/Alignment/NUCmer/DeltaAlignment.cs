@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using Bio.Algorithms.SuffixTree;
+using Bio.Properties;
 
 namespace Bio.Algorithms.Alignment
 {
@@ -21,8 +21,12 @@ namespace Bio.Algorithms.Alignment
         /// <summary>
         /// List of integers that pointing the insertion and deletion indices
         /// </summary>
-        private IList<long> internalDeltas;
+        private readonly IList<long> _internalDeltas;
 
+        /// <summary>
+        /// The query direction
+        /// </summary>
+        private string _queryDirection;
 
         ///<summary>
         /// Initializes a new instance of the DeltaAlignment class
@@ -31,25 +35,43 @@ namespace Bio.Algorithms.Alignment
         /// <param name="querySequence">Query Sequence</param>
         public DeltaAlignment(ISequence referenceSequence, ISequence querySequence)
         {
-            internalDeltas = new List<long>();
+            _internalDeltas = new List<long>();
             ReferenceSequence = referenceSequence;
             QuerySequence = querySequence;
+            QueryDirection = Cluster.ForwardDirection;
         }
 
         /// <summary>
         /// Id for this Delta alignment.
         /// Note: As file position is used as ID in case of comparative assembly steps, this value may vary from step to step.
-        ///       For example: if 0 is the id for a delta alignemnt in 2nd step then the same delta alignment
+        ///       For example: if 0 is the id for a delta alignment in 2nd step then the same delta alignment
         ///                    can have 500 as id in 3rd step.
-        ///       This change in id may happen due to the sorting of detla or ignoring some other detla alignments etc.
+        ///       This change in id may happen due to the sorting of delta or ignoring some other delta alignments etc.
         /// </summary>
         public long Id { get; set; }
 
-         /// <summary>
-        /// Gets or sets the query sequence direction
-        ///     FORWARD_CHAR or REVERSE_CHAR
+        /// <summary>
+        /// Gets or sets the query sequence direction FORWARD or REVERSE
+        /// When this is reverse, the second offsets will be reversed in output
         /// </summary>
-        public string QueryDirection { get; set; }
+        public string QueryDirection
+        {
+            get { return _queryDirection; }
+            set
+            {
+                if (value != Cluster.ForwardDirection && value != Cluster.ReverseDirection)
+                    throw new ArgumentOutOfRangeException("value", Resource.InvalidQueryDirection);
+                _queryDirection = value;
+            }
+        }
+
+        /// <summary>
+        /// Returns TRUE if this is a REVERSE query sequence direction
+        /// </summary>
+        public bool IsReverseQueryDirection
+        {
+            get { return QueryDirection == Cluster.ReverseDirection; }
+        }
 
         /// <summary>
         /// Gets or sets the start index of first sequence
@@ -97,7 +119,7 @@ namespace Bio.Algorithms.Alignment
         /// </summary>
         public IList<long> Deltas
         {
-            get { return internalDeltas; }
+            get { return _internalDeltas; }
         }
 
         /// <summary>
@@ -125,17 +147,13 @@ namespace Bio.Algorithms.Alignment
                 MatchExtension match)
         {
             DeltaAlignment deltaAlignment = new DeltaAlignment(referenceSequence, querySequence)
-                                                {
-                                                    FirstSequenceStart = match.ReferenceSequenceOffset,
-                                                    SecondSequenceStart = match.QuerySequenceOffset,
-                                                    FirstSequenceEnd = match.ReferenceSequenceOffset
-                                                                       + match.Length
-                                                                       - 1,
-                                                    SecondSequenceEnd = match.QuerySequenceOffset
-                                                                        + match.Length
-                                                                        - 1,
-                                                    QueryDirection = cluster.QueryDirection
-                                                };
+            {
+                FirstSequenceStart = match.ReferenceSequenceOffset,
+                SecondSequenceStart = match.QuerySequenceOffset,
+                FirstSequenceEnd = match.ReferenceSequenceOffset + match.Length - 1,
+                SecondSequenceEnd = match.QuerySequenceOffset + match.Length - 1,
+                QueryDirection = cluster.QueryDirection
+            };
 
             return deltaAlignment;
         }
@@ -196,8 +214,7 @@ namespace Bio.Algorithms.Alignment
             alignedSequence.FirstSequence = new Sequence(alphabet, refSeq, false)
             {
                 ID = ReferenceSequence.ID,
-                // Do not shallow copy dictionary
-                //Metadata = ReferenceSequence.Metadata
+                Metadata = new Dictionary<string, object>(ReferenceSequence.Metadata)
             };
 
             byte[] querySeq = querySequence.ToArray();
@@ -205,8 +222,7 @@ namespace Bio.Algorithms.Alignment
             alignedSequence.SecondSequence = new Sequence(alphabet, querySeq, false)
             {
                 ID = QuerySequence.ID,
-                // Do not shallow copy dictionary
-                //Metadata = QuerySequence.Metadata
+                Metadata = new Dictionary<string, object>(QuerySequence.Metadata)
             };
 
             alignedSequence.Metadata["StartOffsets"] = startOffsets;
@@ -224,7 +240,7 @@ namespace Bio.Algorithms.Alignment
         {
             return string.Format(CultureInfo.CurrentCulture, Properties.Resource.DeltaAlignmentToStringFormat,
                           this.ReferenceSequence.ID, this.QuerySequence.ID, this.FirstSequenceStart, this.FirstSequenceEnd,
-                          this.SecondSequenceStart, this.SecondSequenceEnd);
+                          this.SecondSequenceStart, this.SecondSequenceEnd, this.QueryDirection);
         }
     }
 }

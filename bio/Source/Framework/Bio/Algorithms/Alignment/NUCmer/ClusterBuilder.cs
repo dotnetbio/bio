@@ -35,12 +35,12 @@ namespace Bio.Algorithms.Alignment
         internal const float DefaultSeparationFactor = 0.05f;
 
         /// <summary>
-        /// Property refering to Second sequence start in MUM
+        /// Property referring to Second sequence start in MUM
         /// </summary>
         private const string SecondSequenceStart = "SecondSequenceStart";
 
         /// <summary>
-        /// Property refering to ID of Cluster
+        /// Property referring to ID of Cluster
         /// </summary>
         private const string ClusterID = "ClusterID";
 

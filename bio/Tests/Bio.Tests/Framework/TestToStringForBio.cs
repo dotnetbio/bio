@@ -261,7 +261,7 @@ namespace Bio.Tests
             delta.FirstSequenceEnd = 21;
             delta.SecondSequenceEnd = 20;
             string actualString = delta.ToString();
-            string expectedString = "Ref ID= Query Id= Ref start=0 Ref End=21 Query start=0 Query End=20";
+            string expectedString = "Ref ID= Query Id= Ref start=0 Ref End=21 Query start=0 Query End=20, Direction=FORWARD";
             Assert.AreEqual(actualString, expectedString);
         }
 

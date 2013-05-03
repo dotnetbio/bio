@@ -61,10 +61,10 @@ namespace NucmerUtil.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to NUCmer Utility v1.01
-        ///Copyright (c) 2011, The Outercurve Foundation.
+        ///   Looks up a localized string similar to NUCmer Utility v1.1
+        ///Copyright (c) 2011-2013, The Outercurve Foundation.
         ///
-        ///NucmerUtil and MummerUtil are .NET re-implementations of MUMmer3.0, which was supported in part by the National Science Foundation under grants IIS-9902923 and IIS-9820497, and by the National Institutes of Health under grants R01-LM06845 and N01-AI-15447.  The development of the original reference was a joint effort by Stefan Kurtz of the University of Hamburg and Adam Phillippy, Art Delcher and Steven Salzberg at TIGR.
+        ///NucmerUtil and MummerUtil are .NET re-implementations of MUMmer 3.0, which was supported in part by the National Science Foundation under grants IIS-9902923 and IIS-9820497, and by the National Institutes of Health under grants R01-LM06845 and N01-AI-15447.  The development of the original reference was a joint effort by Stefan Kurtz of the University of Hamburg and Adam Phillippy, Art Delcher and Steven Salzberg at TIGR.
         ///
         ///.
         /// </summary>

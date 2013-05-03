@@ -347,38 +347,28 @@ namespace Bio.TestAutomation
         {
             ISequence refSeq = new Sequence(Alphabets.DNA, "ATCGGGGGGGGAAAAAAATTTTCCCCGGGGG");
             ISequence qrySeq = new Sequence(Alphabets.DNA, "GGGGG");
-            var delta = new DeltaAlignment(refSeq, qrySeq);
-            delta.FirstSequenceEnd = 21;
-            delta.SecondSequenceEnd = 20;
+            var delta = new DeltaAlignment(refSeq, qrySeq) {FirstSequenceEnd = 21, SecondSequenceEnd = 20};
+            
             string actualString = delta.ToString();
-            string expectedString = utilityObj.xmlUtil.GetTextValue(Constants.ToStringNodeName,
-                                                                    Constants.DeltaAlignmentExpectedNode);
-            Assert.AreEqual(actualString, expectedString);
+            string expectedString = utilityObj.xmlUtil.GetTextValue(Constants.ToStringNodeName, Constants.DeltaAlignmentExpectedNode);
+            Assert.AreEqual(expectedString, actualString);
 
             // Gets the expected sequence from the Xml
             List<ISequence> seqsList;
-            IEnumerable<ISequence> sequences = null;
-            string filePath = utilityObj.xmlUtil.GetTextValue(Constants.SimpleFastaNodeName,
-                                                              Constants.FilePathNode);
+            string filePath = utilityObj.xmlUtil.GetTextValue(Constants.SimpleFastaNodeName, Constants.FilePathNode);
             using (var reader = new StreamReader(filePath))
             {
                 using (var parser = new FastAParser())
                 {
                     parser.Alphabet = Alphabets.Protein;
-                    sequences = parser.Parse(reader);
-
-                    //Create a list of sequences.
-                    seqsList = sequences.ToList();
+                    seqsList = parser.Parse(reader).ToList();
                 }
             }
 
-            var delta1 = new DeltaAlignment(seqsList[0], qrySeq);
-            delta1.FirstSequenceEnd = 21;
-            delta1.SecondSequenceEnd = 20;
-            string actualString1 = delta1.ToString();
-            string expectedString1 = utilityObj.xmlUtil.GetTextValue(Constants.ToStringNodeName,
-                                                                     Constants.DeltaAlignmentExpected2Node);
-            Assert.AreEqual(expectedString1, actualString1);
+            delta = new DeltaAlignment(seqsList[0], qrySeq) {FirstSequenceEnd = 21, SecondSequenceStart = 20, QueryDirection = Cluster.ReverseDirection};
+            actualString = delta.ToString();
+            expectedString = utilityObj.xmlUtil.GetTextValue(Constants.ToStringNodeName, Constants.DeltaAlignmentExpected2Node);
+            Assert.AreEqual(expectedString, actualString);
         }
 
         /// <summary>

@@ -8,6 +8,7 @@ using Bio;
 using Bio.Algorithms.Assembly.Comparative;
 using Bio.Algorithms.Alignment;
 using Bio.Algorithms.Assembly.Padena.Scaffold;
+using Bio.Extensions;
 using Bio.IO.FastA;
 using Bio.TestAutomation.Util;
 using Bio.Util;
@@ -212,12 +213,9 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Comparative
                                         Constants.ExpectedSequenceNode);
                 }
 
-                StringBuilder longOutput = new StringBuilder();
-                IEnumerable<string> outputStrings = outputAssemble.Select(a => new string(a.Select(b => (char)b).ToArray())).OrderBy(c => c);
-                foreach (string x in outputStrings)
-                    longOutput.Append(x);
-
-                Assert.AreEqual(expectedSequence.ToString().ToUpperInvariant(), longOutput.ToString().ToUpperInvariant());
+                var outputStrings = outputAssemble.Select(seq => seq.ConvertToString()).ToList();
+                outputStrings.Sort();
+                Assert.AreEqual(expectedSequence.ToUpperInvariant(), String.Join("", outputStrings).ToUpperInvariant());
             }
         }
 
@@ -225,7 +223,6 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Comparative
         /// Method to get the reads from file/xml.
         /// </summary>
         /// <param name="nodeName">Parent node in Xml</param>
-        /// <param name="isFilePath">Represents sequence is in a file or not</param>
         /// <returns></returns>
         public List<ISequence> GetReads(string nodeName)
         {

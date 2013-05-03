@@ -187,31 +187,25 @@ namespace Bio.TestAutomation.Web.ClustalW
         void ValidateFetchResultAsync(string nodeName)
         {
             // Read input from config file
-            string filepath = utilityObj.xmlUtil.GetTextValue(
-              nodeName, Constants.FilePathNode);
-            string emailId = utilityObj.xmlUtil.GetTextValue(
-              nodeName, Constants.EmailIDNode);
-            string clusterOption = utilityObj.xmlUtil.GetTextValue(
-              nodeName, Constants.ClusterOptionNode);
-            string actionAlign = utilityObj.xmlUtil.GetTextValue(
-              nodeName, Constants.ActionAlignNode);
+            string filepath = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode);
+            string emailId = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.EmailIDNode);
+            string clusterOption = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.ClusterOptionNode);
+            string actionAlign = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.ActionAlignNode);
 
             ConfigParameters configparams = new ConfigParameters();
             ClustalWParser clustalparser = new ClustalWParser();
             configparams.UseBrowserProxy = true;
-            TestIClustalWServiceHandler handler =
-              new TestIClustalWServiceHandler(clustalparser, configparams);
+            TestIClustalWServiceHandler handler = new TestIClustalWServiceHandler(clustalparser, configparams);
 
             ClustalWParameters parameters = new ClustalWParameters();
             parameters.Values[ClustalWParameters.Email] = emailId;
             parameters.Values[ClustalWParameters.ClusterOption] = clusterOption;
             parameters.Values[ClustalWParameters.ActionAlign] = actionAlign;
 
-            IEnumerable<ISequence> sequence = null;
             // Get input sequences
             using (FastAParser parser = new FastAParser(filepath))
             {
-                sequence = parser.Parse();
+                IEnumerable<ISequence> sequence = parser.Parse();
 
                 // Submit job and validate it returned valid job id and control id 
                 ServiceParameters svcparameters = handler.SubmitRequest(sequence.ToList(), parameters);
@@ -222,7 +216,6 @@ namespace Bio.TestAutomation.Web.ClustalW
                 }
 
                 // Get the results and validate it is not null.
-                ClustalWResult result = null;
                 int retrycount = 0;
                 ServiceRequestInformation info;
                 do
@@ -242,11 +235,13 @@ namespace Bio.TestAutomation.Web.ClustalW
                 }
                 while (retrycount < 10);
 
+                ClustalWResult result = null;
                 if (info.Status == ServiceRequestStatus.Ready)
                 {
                     result = handler.FetchResultsAsync(svcparameters);
                 }
-                Assert.IsNotNull(result);
+
+                Assert.IsNotNull(result, "Failed to retrieve results from submitted task, Server may be offline or slow.");
                 Assert.IsNotNull(result.SequenceAlignment);
                 foreach (IAlignedSequence alignSeq in result.SequenceAlignment.AlignedSequences)
                 {

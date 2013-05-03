@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using Bio;
+using Bio.Extensions;
 using Bio.IO.FastA;
 using Bio.Algorithms.MUMmer;
 using Bio.Algorithms.MUMmer.LIS;
@@ -113,8 +114,8 @@ namespace LisUtil
 
         private static string SplashString()
         {
-            const string SplashString = "\nLisUtil v1.01 - Longest Increasing Subsequence Utility"
-                                      + "\n  Copyright (c) 2011, The Outercurve Foundation.";
+            const string SplashString = "\nLisUtil v1.1 - Longest Increasing Subsequence Utility"
+                                      + "\n  Copyright (c) 2011-2013, The Outercurve Foundation.";
             return (SplashString);
         }
 
@@ -125,15 +126,11 @@ namespace LisUtil
             foreach (ISequence seq in sequenceList)
             {
                 ISequence seqReverseComplement = seq.GetReverseComplementedSequence();
-
                 if (seqReverseComplement != null)
                 {
-                    seqReverseComplement.ID = seqReverseComplement.ID + " Reverse";
-
-                    // seqReverseComplement.DisplayID = seqReverseComplement.DisplayID + " Reverse";
+                    seqReverseComplement.MarkAsReverseComplement();
+                    yield return seqReverseComplement;
                 }
-
-                yield return seqReverseComplement;
             }
         }
 
@@ -143,15 +140,14 @@ namespace LisUtil
         {
             foreach (ISequence seq in sequenceList)
             {
-                ISequence seqReverseComplement = seq.GetReverseComplementedSequence();
+                yield return seq;
 
+                ISequence seqReverseComplement = seq.GetReverseComplementedSequence();
                 if (seqReverseComplement != null)
                 {
-                    seqReverseComplement.ID = seqReverseComplement.ID + " Reverse";
+                    seqReverseComplement.MarkAsReverseComplement();
+                    yield return seqReverseComplement;
                 }
-
-                yield return seq;
-                yield return seqReverseComplement;
             }
         }
 
@@ -167,7 +163,7 @@ namespace LisUtil
 
             Console.WriteLine();
 
-            bool isReverseComplement = myArgs.C && displayID.EndsWith(" Reverse");
+            bool isReverseComplement = myArgs.C && querySequence.IsMarkedAsReverseComplement();
 
             // foreach (MaxUniqueMatch m in sortedMums)
             // {

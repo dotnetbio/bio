@@ -117,8 +117,8 @@ namespace FilterReadsUtil
         /// <returns>String to display in slpash screen.</returns>
         private static string SplashString()
         {
-            const string splashString = "\nFilterReadsUtil v1.01 - Utility to filter reads"
-                                      + "\n  Copyright (c) 2011, The Outercurve Foundation.";
+            const string splashString = "\nFilterReadsUtil v1.1 - Utility to filter reads"
+                                      + "\n  Copyright (c) 2011-2013, The Outercurve Foundation.";
             return (splashString);
         }
 

@@ -11,7 +11,7 @@
     <system:String x:Uid="Visualizations:BioExcel_WindowTitle" x:Key="BioExcel_WindowTitle">.NET Bio Extension for Excel</system:String>
 
     <system:String x:Uid="AboutDialog:Header" x:Key="AboutDialog_Header">.NET Bio Extension for Excel</system:String>
-    <system:String x:Uid="AboutDialog:Copyright" x:Key="AboutDialog_Copyright">Copyright © 2011, The Outercurve Foundation.</system:String>
+    <system:String x:Uid="AboutDialog:Copyright" x:Key="AboutDialog_Copyright">Copyright © 2011-2013, The Outercurve Foundation.</system:String>
     <system:String x:Uid="AboutDialog:Version" x:Key="AboutDialog_Version">Version:</system:String>
     <system:String x:Uid="AboutDialog:Reserved" x:Key="AboutDialog_Reserved">All Rights Reserved.</system:String>
     <system:String x:Uid="AboutDialog:Codeplex" x:Key="AboutDialog_Codeplex">Codeplex URL :</system:String>

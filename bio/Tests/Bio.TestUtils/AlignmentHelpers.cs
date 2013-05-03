@@ -25,7 +25,7 @@ namespace Bio.Tests.Framework
                 Console.Write(value + ",");
 
             HashSet<string> actual = new HashSet<string>();
-            Assert.AreEqual(expected.Count, result.Count());
+            Assert.AreEqual(expected.Count, result.Count(), "Different sequence counts.");
 
             foreach (ISequence sequence in result)
             {

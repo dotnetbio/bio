@@ -57,7 +57,7 @@ namespace Bio.Tests
                 IEnumerable<ISequence> scaffoldSeq = scaffold.BuildScaffold(sequences, contigs, this.KmerLength, 3, 0);
                 HashSet<string> expected = new HashSet<string>
                 {
-                    "GCGCGCTAAGATAGGAGGCAT", "CGCGCG", "TTTTAAA", "TTTTAGC", "TTTTTA", "TTTTTT", "GCGCGGCGCG" 
+                    "ATGCCTCCTATCTTAGCGCGC","CGCGCCGCGC","TTTTTT","CGCGCG","TTTTAGC","TTTTTA","TTTAAA","TTTTAA",
                 };
                 AlignmentHelpers.CompareSequenceLists(expected, scaffoldSeq);
             }

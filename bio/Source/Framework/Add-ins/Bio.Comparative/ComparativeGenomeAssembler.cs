@@ -396,7 +396,7 @@ namespace Bio.Algorithms.Assembly.Comparative
         private IEnumerable<DeltaAlignment> ReadAlignment(IEnumerable<ISequence> referenceSequence, IEnumerable<ISequence> reads)
         {
             return from sequence in referenceSequence 
-                   select new NUCmer((Sequence)sequence)
+                   select new NUCmer(sequence)
                    {
                         FixedSeparation = this.FixedSeparation,
                         MinimumScore = this.MinimumScore,

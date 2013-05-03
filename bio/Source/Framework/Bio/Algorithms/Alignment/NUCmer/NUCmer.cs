@@ -50,17 +50,17 @@ namespace Bio.Algorithms.Alignment
         /// <summary>
         /// Alignment engine
         /// </summary>
-        private ModifiedSmithWaterman nucmerAligner;
+        private ModifiedSmithWaterman _nucmerAligner;
 
         /// <summary>
         /// Holds the reference sequence.
         /// </summary>
-        private ISequence internalReferenceSequence;
+        private readonly ISequence _internalReferenceSequence;
 
         /// <summary>
         /// Holds the suffix tree.
         /// </summary>
-        private MUMmer.MUMmer internalMummer;
+        private readonly MUMmer.MUMmer _internalMummer;
 
 
         #endregion -- Member Variables --
@@ -78,8 +78,8 @@ namespace Bio.Algorithms.Alignment
             }
 
             // Mummer with the reference sequence.
-            internalMummer = new MUMmer.MUMmer(suffixTree);
-            internalReferenceSequence = internalMummer.ReferenceSequence;
+            _internalMummer = new MUMmer.MUMmer(suffixTree);
+            _internalReferenceSequence = _internalMummer.ReferenceSequence;
 
             SetDefaults();
         }
@@ -87,7 +87,7 @@ namespace Bio.Algorithms.Alignment
         /// <summary>
         /// Initializes a new instance of the NUCmer class.
         /// </summary>
-        public NUCmer(Sequence referenceSequence)
+        public NUCmer(ISequence referenceSequence)
         {
             if (referenceSequence == null)
             {
@@ -95,8 +95,8 @@ namespace Bio.Algorithms.Alignment
             }
 
             // Mummer with the reference sequence.
-            internalMummer = new MUMmer.MUMmer(referenceSequence);
-            internalReferenceSequence = referenceSequence;
+            _internalMummer = new MUMmer.MUMmer(referenceSequence);
+            _internalReferenceSequence = referenceSequence;
 
             SetDefaults();
         }
@@ -106,7 +106,7 @@ namespace Bio.Algorithms.Alignment
         /// </summary>
         private void SetDefaults()
         {
-            nucmerAligner = new ModifiedSmithWaterman();
+            _nucmerAligner = new ModifiedSmithWaterman();
 
             // Set the default Similarity Matrix
             SimilarityMatrix = new SimilarityMatrix(
@@ -205,143 +205,37 @@ namespace Bio.Algorithms.Alignment
         /// </summary>
         /// <param name="querySequence">Query sequence.</param>
         /// <param name="isUniqueInReference">flag to indicate that the matches should be unique in reference.</param>
+        /// <param name="isReversed">True if the query sequence is a reverse-complement</param>
         /// <returns>Returns clusters.</returns>
-        public IList<Cluster> GetClusters(
-            ISequence querySequence,
-            bool isUniqueInReference = true)
+        public IList<Cluster> GetClusters(ISequence querySequence, bool isUniqueInReference = true, bool isReversed = false)
         {
-            if (this.internalMummer == null)
+            var internalMumList = GetMumList(querySequence, isUniqueInReference);
+            var clusterList = internalMumList.Count > 0 ? GetClusters(internalMumList, false) : new List<Cluster>();
+            if (isReversed)
             {
-                throw new ArgumentNullException("internalMummer");
-            }
-
-            IList<Cluster> result = new List<Cluster>();
-
-            if (1 > LengthOfMUM)
-            {
-                string message = Properties.Resource.MUMLengthTooSmall;
-                Trace.Report(message);
-                throw new ArgumentException(message);
-            }
-
-            Sequence seq = internalReferenceSequence as Sequence;
-            if (seq == null)
-            {
-                throw new ArgumentException(Properties.Resource.OnlySequenceClassSupported);
-            }
-
-            internalMummer.LengthOfMUM = LengthOfMUM;
-            internalMummer.NoAmbiguity = true;
-
-            // streaming process is performed with the query sequence
-            IEnumerable<Match> matches;
-            if (isUniqueInReference)
-            {
-                matches = internalMummer.GetMatchesUniqueInReference(querySequence);
-            }
-            else
-            {
-                matches = internalMummer.GetMatches(querySequence);
-            }
-
-            // Convert matches to match extensions
-            List<MatchExtension> internalMumList = new List<MatchExtension>();
-            long mumOrder = 1;
-            foreach (Match currentMatch in matches)
-            {
-                internalMumList.Add(new MatchExtension(currentMatch)
+                // Mark them as reversed
+                foreach (var cluster in clusterList)
                 {
-                    ReferenceSequenceMumOrder = mumOrder,
-                    QuerySequenceMumOrder = mumOrder,
-                    Query = querySequence
-                });
+                    cluster.QueryDirection = Cluster.ReverseDirection;
+                }
             }
 
-            if (internalMumList.Count > 0)
-            {
-                // Get the list of Clusters
-                return GetClusters(internalMumList,false);
-            }
-
-            return result;
+            return clusterList;
         }
 
         /// <summary>
         /// Generates Delta Alignments.
         /// </summary>
-        /// <param name="querySequence">Enumerable of Query Sequences.</param>
+        /// <param name="querySequence">Query Sequence</param>
         /// <param name="isUniqueInReference">Whether MUMs are unique in query or not.</param>
+        /// <param name="isReversed">True if the query sequence is a reverse-complement</param>
         /// <returns>List of enumerable of delta alignments.</returns>
-        public IEnumerable<DeltaAlignment> GetDeltaAlignments(
-            ISequence querySequence,
-            bool isUniqueInReference = true)
+        public IEnumerable<DeltaAlignment> GetDeltaAlignments(ISequence querySequence, bool isUniqueInReference = true, bool isReversed = false)
         {
-            if (this.internalMummer == null)
-            {
-                throw new ArgumentNullException("internalMummer");
-            }
-
-            if (1 > LengthOfMUM)
-            {
-                string message = Properties.Resource.MUMLengthTooSmall;
-                Trace.Report(message);
-                throw new ArgumentException(message);
-            }
-
-            Sequence seq = internalReferenceSequence as Sequence;
-            if (seq == null)
-            {
-                throw new ArgumentException(Properties.Resource.OnlySequenceClassSupported);
-            }
-
-            internalMummer.LengthOfMUM = LengthOfMUM;
-            internalMummer.NoAmbiguity = true;
-
-            // streaming process is performed with the query sequence
-            IEnumerable<Match> matches;
-            if (isUniqueInReference)
-            {
-                matches = internalMummer.GetMatchesUniqueInReference(querySequence);
-            }
-            else
-            {
-                matches = internalMummer.GetMatches(querySequence);
-            }
-
-            // Convert matches to match extensions
-            List<MatchExtension> internalMumList = new List<MatchExtension>();
-            long mumOrder = 1;
-            foreach (Match currentMatch in matches)
-            {
-                internalMumList.Add(new MatchExtension(currentMatch)
-                {
-                    ReferenceSequenceMumOrder = mumOrder,
-                    QuerySequenceMumOrder = mumOrder,
-                    Query = querySequence
-                });
-            }
-
-            if (internalMumList.Count <= 0)
-            {
-                yield break;
-            }
-
-            // Get the list of Clusters
-            List<Cluster> internalClusterList = GetClusters(internalMumList, false);
-
-            if (internalClusterList.Count <= 0)
-            {
-                yield break;
-            }
-
-            // Process Clusters and get delta
-            IEnumerable<DeltaAlignment> deltas = ProcessCluster(internalClusterList);
-
-            foreach (DeltaAlignment delta in deltas)
-            {
-                yield return delta;
-            }
-
+            IList<Cluster> internalClusterList = GetClusters(querySequence, isUniqueInReference, isReversed);
+            return internalClusterList.Count > 0
+                ? ProcessCluster(internalClusterList)
+                : Enumerable.Empty<DeltaAlignment>();
         }
 
         #endregion -- Main Execute Method --
@@ -352,8 +246,7 @@ namespace Bio.Algorithms.Alignment
         /// <param name="matchExtensionList">List of Matches of a read.</param>
         /// <param name="sortedMatches">Flag to indicate that the matches are sorted or not.</param>
         /// <returns>List of clusters</returns>
-        public List<Cluster> GetClusters(
-                List<MatchExtension> matchExtensionList, bool sortedMatches)
+        public IList<Cluster> GetClusters(List<MatchExtension> matchExtensionList, bool sortedMatches)
         {
             ClusterBuilder clusterBuilder = new ClusterBuilder();
 
@@ -390,24 +283,29 @@ namespace Bio.Algorithms.Alignment
         /// </summary>
         /// <param name="clusters">List of clusters of a read.</param>
         /// <returns>List of delta alignments</returns>
-        public IEnumerable<DeltaAlignment> ProcessCluster(List<Cluster> clusters)
+        public IEnumerable<DeltaAlignment> ProcessCluster(IList<Cluster> clusters)
         {
             if (clusters == null)
             {
                 throw new ArgumentNullException("clusters");
             }
 
+            if (clusters.Count == 0)
+            {
+                return Enumerable.Empty<DeltaAlignment>();
+            }
+
+            bool isReverse = clusters.Any(c => c.IsReverseQueryDirection);
             ISequence currentReference = null;
-            ISequence currentQuery;
             List<Synteny> syntenies = new List<Synteny>();
             Synteny currentSynteny = null;
             ISequence querySequence = null;
             ISequence referenceSequence = null;
 
-            nucmerAligner.SimilarityMatrix = SimilarityMatrix;
-            nucmerAligner.BreakLength = BreakLength;
+            _nucmerAligner.SimilarityMatrix = SimilarityMatrix;
+            _nucmerAligner.BreakLength = BreakLength;
 
-            long referenceSequenceLength = internalReferenceSequence.Count;
+            long referenceSequenceLength = _internalReferenceSequence.Count;
 
             foreach (Cluster clusterIterator in clusters)
             {
@@ -423,16 +321,16 @@ namespace Bio.Algorithms.Alignment
                     }
 
                     clusterMatches = new List<MatchExtension>();
-                    currentSynteny.Clusters.Add(new Cluster(clusterMatches));
+                    currentSynteny.Clusters.Add(new Cluster(clusterMatches, isReverse));
                 }
 
                 foreach (MatchExtension matchIterator in clusterIterator.Matches)
                 {
-                    currentQuery = matchIterator.Query;
+                    ISequence currentQuery = matchIterator.Query;
 
                     if (matchIterator.ReferenceSequenceOffset < referenceSequenceLength)
                     {
-                        currentReference = internalReferenceSequence;
+                        currentReference = _internalReferenceSequence;
                     }
                     else
                     {
@@ -497,7 +395,7 @@ namespace Bio.Algorithms.Alignment
                         }
 
                         clusterMatches = new List<MatchExtension>();
-                        currentSynteny.Clusters.Add(new Cluster(clusterMatches));
+                        currentSynteny.Clusters.Add(new Cluster(clusterMatches, isReverse));
                     }
 
                     if (1 < matchIterator.Length)
@@ -511,6 +409,42 @@ namespace Bio.Algorithms.Alignment
         }
 
         #region -- Private Methods --
+
+        /// <summary>
+        /// Returns the matches for a query sequence against our reference sequence.
+        /// </summary>
+        /// <param name="querySequence">Query sequence.</param>
+        /// <param name="isUniqueInReference">flag to indicate that the matches should be unique in reference.</param>
+        /// <returns>Matches</returns>
+        private List<MatchExtension> GetMumList(ISequence querySequence, bool isUniqueInReference)
+        {
+            if (1 > LengthOfMUM)
+            {
+                string message = Properties.Resource.MUMLengthTooSmall;
+                Trace.Report(message);
+                throw new ArgumentException(message);
+            }
+
+            _internalMummer.LengthOfMUM = LengthOfMUM;
+            _internalMummer.NoAmbiguity = true;
+
+            // streaming process is performed with the query sequence
+            IEnumerable<Match> matches = isUniqueInReference
+                ? _internalMummer.GetMatchesUniqueInReference(querySequence)
+                : _internalMummer.GetMatches(querySequence);
+
+            // Convert matches to match extensions
+            const long mumOrder = 1;
+            return matches.Select(currentMatch =>
+                    new MatchExtension(currentMatch)
+                    {
+                        ReferenceSequenceMumOrder = mumOrder,
+                        QuerySequenceMumOrder = mumOrder,
+                        Query = querySequence
+                    })
+                .ToList();
+        }
+
         /// <summary>
         /// Sort the clusters by given field
         /// </summary>
@@ -801,7 +735,7 @@ namespace Bio.Algorithms.Alignment
             }
 
             // Extend the sequence to previous sequence (aligned/extended sequence)
-            bool isClusterExtended = nucmerAligner.ExtendSequence(
+            bool isClusterExtended = _nucmerAligner.ExtendSequence(
                 referenceSequence,
                 currentAlignment.FirstSequenceStart,
                 ref targetReference,
@@ -835,7 +769,7 @@ namespace Bio.Algorithms.Alignment
             {
                 long startReference = currentAlignment.FirstSequenceStart;
                 long startQuery = currentAlignment.SecondSequenceStart;
-                nucmerAligner.ExtendSequence(
+                _nucmerAligner.ExtendSequence(
                     referenceSequence,
                     targetReference,
                     ref startReference,
@@ -919,7 +853,7 @@ namespace Bio.Algorithms.Alignment
             }
 
             // Extend the sequence to next sequence (aligned/extended sequence)
-            bool isClusterExtended = nucmerAligner.ExtendSequence(
+            bool isClusterExtended = _nucmerAligner.ExtendSequence(
                 referenceSequence,
                 currentAlignment.FirstSequenceEnd,
                 ref targetReference,
@@ -1002,9 +936,9 @@ namespace Bio.Algorithms.Alignment
                         }
 
                         if (gapHigh < BreakLength
-                                || ((gapLow * nucmerAligner.ValidScore)
+                                || ((gapLow * _nucmerAligner.ValidScore)
                                     + ((gapHigh - gapLow)
-                                    * nucmerAligner.GapExtensionScore)) >= 0)
+                                    * _nucmerAligner.GapExtensionScore)) >= 0)
                         {
                             deltaAlignment = alignment;
                             break;
@@ -1090,9 +1024,9 @@ namespace Bio.Algorithms.Alignment
                         }
 
                         if (gapHigh < BreakLength
-                                || ((gapLow * nucmerAligner.ValidScore) +
+                                || ((gapLow * _nucmerAligner.ValidScore) +
                                     ((gapHigh - gapLow)
-                                    * nucmerAligner.GapExtensionScore)) >= 0)
+                                    * _nucmerAligner.GapExtensionScore)) >= 0)
                         {
                             cluster = clusterIterator;
                             targetReference = firstSequenceEnd;
