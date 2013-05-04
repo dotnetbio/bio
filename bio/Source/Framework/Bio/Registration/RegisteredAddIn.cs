@@ -100,8 +100,7 @@ namespace Bio.Registration
                     IList<T> instancesT = Register<T>(registeredInstances);
                     foreach (T obj in instancesT.Where(
                         obj => obj != null
-                            && !instances.Any(at =>
-                                string.Compare(at.GetType().FullName, obj.GetType().FullName, StringComparison.OrdinalIgnoreCase) == 0)))
+                            && instances.All(at => string.Compare(at.GetType().FullName, obj.GetType().FullName, StringComparison.OrdinalIgnoreCase) != 0)))
                     {
                         instances.Add(obj);
                     }

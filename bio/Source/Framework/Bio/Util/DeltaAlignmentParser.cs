@@ -153,10 +153,16 @@ namespace Bio.Util
 
             if (!string.IsNullOrEmpty(queryId))
             {
-                long sequencePosition = long.Parse(queryId.Substring(queryId.LastIndexOf("@", StringComparison.Ordinal) + 1), CultureInfo.InvariantCulture);
+                // Get the id and remove any alphas - this can happen because the delta might
+                // have "Reverse" appended to it when it's a reversed sequence.
+                string id = queryId.Substring(queryId.LastIndexOf('@') + 1);
+                int idx = Array.FindIndex(id.ToCharArray(), c => !Char.IsDigit(c));
+                if (idx > 0)
+                    id = id.Substring(0, idx);
+
+                long sequencePosition = long.Parse(id, CultureInfo.InvariantCulture);
                 querySequence = this.QueryParser.GetSequenceAt(sequencePosition);
-                refEmpty = new Sequence(querySequence.Alphabet, "A", false);
-                refEmpty.ID = referenceId;
+                refEmpty = new Sequence(querySequence.Alphabet, "A", false) {ID = referenceId};
             }
 
             DeltaAlignment deltaAlignment = new DeltaAlignment(refEmpty, querySequence);
@@ -433,14 +439,19 @@ namespace Bio.Util
                 {
                     if (queryId != lastReadQuerySequenceId)
                     {
-                        long seqPosition = long.Parse(queryId.Substring(queryId.LastIndexOf('@') + 1));
+                        // Get the id and remove any alphas - this can happen because the delta might
+                        // have "Reverse" appended to it when it's a reversed sequence.
+                        string id = queryId.Substring(queryId.LastIndexOf('@') + 1);
+                        int idx = Array.FindIndex(id.ToCharArray(), c => !Char.IsDigit(c));
+                        if (idx > 0)
+                            id = id.Substring(0, idx);
+                        
+                        long seqPosition = long.Parse(id, CultureInfo.InvariantCulture);
                         sequence = this.QueryParser.GetSequenceAt(seqPosition);
                         lastReadQuerySequenceId = queryId;
                     }
 
-                    Sequence refEmpty = new Sequence(sequence.Alphabet, "A", false);
-                    refEmpty.ID = referenceId;
-
+                    Sequence refEmpty = new Sequence(sequence.Alphabet, "A", false) {ID = referenceId};
                     deltaAlignment = new DeltaAlignment(refEmpty, sequence);
                 }
 
@@ -457,6 +468,16 @@ namespace Bio.Util
                     deltaAlignment.FirstSequenceEnd = long.TryParse(deltaAlignmentProperties[1], out temp) ? temp : 0;
                     deltaAlignment.SecondSequenceStart = long.TryParse(deltaAlignmentProperties[2], out temp) ? temp : 0;
                     deltaAlignment.SecondSequenceEnd = long.TryParse(deltaAlignmentProperties[3], out temp) ? temp : 0;
+
+                    // Look for a reversed sequence
+                    if (deltaAlignment.SecondSequenceEnd < deltaAlignment.SecondSequenceStart)
+                    {
+                        temp = deltaAlignment.SecondSequenceEnd;
+                        deltaAlignment.SecondSequenceEnd = deltaAlignment.SecondSequenceStart;
+                        deltaAlignment.SecondSequenceStart = temp;
+                        deltaAlignment.QueryDirection = Cluster.ReverseDirection;
+                    }
+
                     int error;
                     deltaAlignment.Errors = int.TryParse(deltaAlignmentProperties[4], out error) ? error : 0;
                     deltaAlignment.SimilarityErrors = int.TryParse(deltaAlignmentProperties[5], out error) ? error : 0;

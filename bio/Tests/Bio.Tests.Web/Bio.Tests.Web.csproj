@@ -42,6 +42,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.XML" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -56,9 +59,21 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="AzureBlast\AzureBlastBvtTestCases.cs" />
+    <Compile Include="AzureBlast\AzureBlastP1TestCases.cs" />
+    <Compile Include="AzureBlast\AzureBlastP2TestCases.cs" />
     <Compile Include="BioHPC\BioHPCBlastBvtTestCases.cs" />
     <Compile Include="BioHPC\BioHPCBlastP2TestCases.cs" />
     <Compile Include="BlastWebTests.cs" />
+    <Compile Include="Blast\BlastBvtTestCases.cs" />
+    <Compile Include="Blast\BlastP1TestCases.cs" />
+    <Compile Include="Blast\BlastP2TestCases.cs" />
+    <Compile Include="ClustalW\BioHpcProxyClass.cs" />
+    <Compile Include="ClustalW\ClustalWServiceHandlerBvtTestCases.cs" />
+    <Compile Include="ClustalW\TestIClustalWServiceHandler.cs" />
+    <Compile Include="EbiBlast\EbiBlastBvtTestCases.cs" />
+    <Compile Include="EbiBlast\EbiBlastP1TestCases.cs" />
+    <Compile Include="EbiBlast\EbiBlastP2TestCases.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WebAccessorTest.cs" />
   </ItemGroup>

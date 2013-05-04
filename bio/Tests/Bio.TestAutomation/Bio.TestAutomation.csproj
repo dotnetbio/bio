@@ -201,18 +201,6 @@
     <Compile Include="BioUtil\SpecialFunctionsBvtTestCases.cs" />
     <Compile Include="BioUtil\StringExtensionsBvtTestCases.cs" />
     <Compile Include="BioUtil\ValueConverterBvtTestCases.cs" />
-    <Compile Include="Web\AzureBlast\AzureBlastBvtTestCases.cs" />
-    <Compile Include="Web\AzureBlast\AzureBlastP1TestCases.cs" />
-    <Compile Include="Web\AzureBlast\AzureBlastP2TestCases.cs" />
-    <Compile Include="Web\Blast\BlastBvtTestCases.cs" />
-    <Compile Include="Web\Blast\BlastP1TestCases.cs" />
-    <Compile Include="Web\Blast\BlastP2TestCases.cs" />
-    <Compile Include="Web\ClustalW\BioHpcProxyClass.cs" />
-    <Compile Include="Web\ClustalW\ClustalWServiceHandlerBvtTestCases.cs" />
-    <Compile Include="Web\ClustalW\TestIClustalWServiceHandler.cs" />
-    <Compile Include="Web\EbiBlast\EbiBlastBvtTestCases.cs" />
-    <Compile Include="Web\EbiBlast\EbiBlastP1TestCases.cs" />
-    <Compile Include="Web\EbiBlast\EbiBlastP2TestCases.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="..\TestData\**\*.*">

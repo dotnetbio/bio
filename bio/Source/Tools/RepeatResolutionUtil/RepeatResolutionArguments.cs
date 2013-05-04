@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using Bio.Algorithms.Alignment;
 using Bio.Algorithms.Assembly.Comparative;
-using Bio.IO.FastA;
 using Bio.Util;
 
 namespace RepeatResolutionUtil
@@ -56,7 +54,6 @@ namespace RepeatResolutionUtil
             runRepeatResolution.Restart();
             FileInfo inputFileinfo = new FileInfo(this.FilePath[1]);
             long inputFileLength = inputFileinfo.Length;
-            inputFileinfo = null;
             runRepeatResolution.Stop();
 
             if (this.Verbose)
@@ -69,7 +66,6 @@ namespace RepeatResolutionUtil
 
             inputFileinfo = new FileInfo(this.FilePath[0]);
             inputFileLength = inputFileinfo.Length;
-            inputFileinfo = null;
 
             runRepeatResolution.Restart();
             DeltaAlignmentSorter sorter = null;
@@ -111,9 +107,8 @@ namespace RepeatResolutionUtil
         /// <summary>
         /// Writes delta for query sequences.
         /// </summary>
-        /// <param name="delta">The Deltas.</param>
-        private void WriteDelta(
-            DeltaAlignmentSorter sorter)
+        /// <param name="sorter">The Deltas.</param>
+        private void WriteDelta(DeltaAlignmentSorter sorter)
         {
             FastASequencePositionParser sequenceParser = null;
             DeltaAlignmentParser unsortedDeltaParser = null;
@@ -150,19 +145,16 @@ namespace RepeatResolutionUtil
                 if (streamWriterConsoleOut != null)
                 {
                     streamWriterConsoleOut.Dispose();
-                    streamWriterConsoleOut = null;
                 }
 
                 if (sequenceParser != null)
                 {
                     sequenceParser.Dispose();
-                    sequenceParser = null;
                 }
 
                 if (unsortedDeltaParser != null)
                 {
                     unsortedDeltaParser.Dispose();
-                    unsortedDeltaParser = null;
                 }
 
                 Console.SetOut(textWriterConsoleOutSave);

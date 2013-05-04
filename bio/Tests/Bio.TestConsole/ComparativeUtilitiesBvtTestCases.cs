@@ -163,7 +163,6 @@ namespace Bio.TestConsole
         /// General method to validate all the Utilities in Comparative.
         /// </summary>
         /// <param name="nodeName">Parent node name in Xml.</param>
-        /// <param name="utilityType">Utility type.</param>
         public void ValidateComparativeUtilities(string nodeName)
         {
             ApplicationLog.WriteLine("************************************** {0} with Basic command - Start **************************************",nodeName);
@@ -176,24 +175,20 @@ namespace Bio.TestConsole
             expectedOutputString = Constants.ExpectedOutputFileNode;
             utilCommandString = Constants.CommandNode;
 
-            string utilCommand = utilityObj.xmlUtil.GetTextValue(
-                     nodeName, utilCommandString);
+            string utilCommand = utilityObj.xmlUtil.GetTextValue(nodeName, utilCommandString);
 
             // Run the Utilities with the commands updated in the xml.
             Utility.RunProcess(@".\TestUtils\RunUtil.cmd", utilCommand);
             ApplicationLog.WriteLine("************************************** {0} with Basic command - End **************************************", nodeName);
 
             // Gets the output file for validation
-            string actualOutputFile = utilityObj.xmlUtil.GetTextValue(
-                     nodeName, actualOutputString);
-            string expectedOutputFile = utilityObj.xmlUtil.GetTextValue(
-                     nodeName, expectedOutputString);
+            string actualOutputFile = utilityObj.xmlUtil.GetTextValue(nodeName, actualOutputString);
+            string expectedOutputFile = utilityObj.xmlUtil.GetTextValue(nodeName, expectedOutputString);
 
             // Compares the expected file with actual.            
             Assert.IsTrue(Utility.CompareFiles(expectedOutputFile, actualOutputFile));
 
             ApplicationLog.WriteLine("{0} Console BVT : Successfully validated the results of the command", nodeName);
-            Console.WriteLine("{0} Console BVT : Successfully validated the results of the command", nodeName);
         }
 
         # endregion Helper Methods

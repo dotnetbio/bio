@@ -53,6 +53,8 @@ namespace Bio.Tests.Framework
             foreach (var value in result)
                 Console.Write(value + ",");
 
+            Assert.AreEqual(expected.Count, result.Count(), "Different sequence counts.");
+
             foreach (var s in result)
             {
                 Assert.IsTrue(expected.Contains(s), "Could not locate " + s);

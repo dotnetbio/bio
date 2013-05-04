@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Text;
 
 namespace Bio.IO.FastA
@@ -181,29 +182,16 @@ namespace Bio.IO.FastA
                 throw new ArgumentNullException("reader");
             }
 
-            IAlphabet alphabet = this.Alphabet;
-            IAlphabet baseAlphabet = null;
             int currentBufferSize = BufferSize;
 
-            bool skipBlankLine = true;
-            string message = string.Empty;
-
-            bool tryAutoDetectAlphabet;
-            if (alphabet == null)
-            {
-                tryAutoDetectAlphabet = true;
-            }
-            else
-            {
-                tryAutoDetectAlphabet = false;
-            }
+            string message;
 
             if (reader.EndOfStream)
             {
                 message = string.Format(
                             CultureInfo.InvariantCulture,
-                            Bio.Properties.Resource.INVALID_INPUT_FILE,
-                            Bio.Properties.Resource.FASTA_NAME);
+                            Properties.Resource.INVALID_INPUT_FILE,
+                            Properties.Resource.FASTA_NAME);
 
                 throw new FileFormatException(message);
             }
@@ -211,7 +199,7 @@ namespace Bio.IO.FastA
             string line = reader.ReadLine();
 
             // Continue reading if blank line found.
-            while (skipBlankLine && line != null && string.IsNullOrEmpty(line))
+            while (line != null && string.IsNullOrEmpty(line))
             {
                 line = reader.ReadLine();
             }
@@ -220,8 +208,8 @@ namespace Bio.IO.FastA
             {
                 message = string.Format(
                         CultureInfo.InvariantCulture,
-                        Bio.Properties.Resource.INVALID_INPUT_FILE,
-                        Bio.Properties.Resource.FASTA_NAME);
+                        Properties.Resource.INVALID_INPUT_FILE,
+                        Properties.Resource.FASTA_NAME);
 
                 throw new FileFormatException(message);
             }
@@ -229,16 +217,11 @@ namespace Bio.IO.FastA
             string name = line.Substring(1);
             int bufferPosition = 0;
 
-            if (tryAutoDetectAlphabet)
-            {
-                alphabet = baseAlphabet;
-            }
-
             // Read next line.
             line = reader.ReadLine();
 
             // Continue reading if blank line found.
-            while (skipBlankLine && line != null && string.IsNullOrEmpty(line))
+            while (line != null && string.IsNullOrEmpty(line))
             {
                 line = reader.ReadLine();
             }
@@ -252,9 +235,13 @@ namespace Bio.IO.FastA
                 throw new FileFormatException(message);
             }
 
+            IAlphabet alphabet = Alphabet;
+            IAlphabet baseAlphabet = null;
+            bool tryAutoDetectAlphabet = alphabet == null;
+
             do
             {
-                // For large files copy the data in memory mapped file.
+                // Files > 2G are not supported in this release.
                 if ((((long)bufferPosition + line.Length) >= MaximumSequenceLength))
                 {
                     throw new ArgumentOutOfRangeException(
@@ -267,7 +254,7 @@ namespace Bio.IO.FastA
                     currentBufferSize += BufferSize;
                 }
 
-                byte[] symbols = UTF8Encoding.UTF8.GetBytes(line);
+                byte[] symbols = Encoding.UTF8.GetBytes(line);
 
                 // Array.Copy -- for performance improvement.
                 Array.Copy(symbols, 0, buffer, bufferPosition, symbols.Length);
@@ -275,15 +262,41 @@ namespace Bio.IO.FastA
                 // Auto detect alphabet if alphabet is set to null, else validate with already set alphabet
                 if (tryAutoDetectAlphabet)
                 {
+                    // Attempt to identify alphabet
                     alphabet = Alphabets.AutoDetectAlphabet(buffer, bufferPosition, bufferPosition + line.Length, alphabet);
                     if (alphabet == null)
                     {
-                        throw new FileFormatException(string.Format(CultureInfo.InvariantCulture, Properties.Resource.InvalidSymbolInString, line));
+                        throw new FileFormatException(string.Format(CultureInfo.InvariantCulture,
+                                                                    Properties.Resource.InvalidSymbolInString, line));
+                    }
+
+                    // Determine the base alphabet used.
+                    if (baseAlphabet == null)
+                    {
+                        baseAlphabet = alphabet;
+                    }
+                    else
+                    {
+                        // If they are not the same, then this might be an error.
+                        if (baseAlphabet != alphabet)
+                        {
+                            // If the new alphabet includes all the base alphabet then use it instead.
+                            // This happens when we hit an ambiguous form of the alphabet later in the file.
+                            if (!baseAlphabet.HasAmbiguity && Alphabets.GetAmbiguousAlphabet(baseAlphabet) == alphabet)
+                            {
+                                baseAlphabet = alphabet;
+                            }
+                            else if (alphabet.HasAmbiguity || Alphabets.GetAmbiguousAlphabet(alphabet) != baseAlphabet)
+                            {
+                                throw new FileFormatException(Properties.Resource.FastAContainsMorethanOnebaseAlphabet);
+                            }
+                        }
                     }
                 }
-                else if (this.Alphabet != null)
+                else
                 {
-                    if (!this.Alphabet.ValidateSequence(buffer, bufferPosition, bufferPosition + line.Length))
+                    // Validate against supplied alphabet.
+                    if (!alphabet.ValidateSequence(buffer, bufferPosition, bufferPosition + line.Length))
                     {
                         throw new FileFormatException(string.Format(CultureInfo.InvariantCulture, Properties.Resource.InvalidSymbolInString, line));
                     }
@@ -300,7 +313,7 @@ namespace Bio.IO.FastA
                 line = reader.ReadLine();
 
                 // Continue reading if blank line found.
-                while (skipBlankLine && line != null && string.IsNullOrEmpty(line) && reader.Peek() != (byte)'>')
+                while (line != null && string.IsNullOrEmpty(line) && reader.Peek() != (byte)'>')
                 {
                     line = reader.ReadLine();
                 }
@@ -311,37 +324,13 @@ namespace Bio.IO.FastA
             byte[] tmpBuffer = new byte[bufferPosition];
             Array.Copy(buffer, tmpBuffer, bufferPosition);
 
-            Sequence sequence = null;
-
             if (tryAutoDetectAlphabet)
             {
-                IAlphabet tmpalphabet = alphabet;
-                IAlphabet tmpbaseAlphabet = null;
-                while (Alphabets.AlphabetToBaseAlphabetMap.TryGetValue(tmpalphabet, out tmpbaseAlphabet))
-                {
-                    tmpalphabet = tmpbaseAlphabet;
-                }
-
-                if (tmpbaseAlphabet == null)
-                {
-                    tmpbaseAlphabet = tmpalphabet;
-                }
-
-                if (baseAlphabet == null)
-                {
-                    baseAlphabet = tmpbaseAlphabet;
-                }
-
-                if (tmpbaseAlphabet != baseAlphabet)
-                {
-                    throw new FileFormatException(Properties.Resource.FastAContainsMorethanOnebaseAlphabet);
-                }
+                alphabet = baseAlphabet;
             }
 
             // In memory sequence
-            sequence = new Sequence(alphabet, tmpBuffer, false);
-            sequence.ID = name;
-            return sequence;
+            return new Sequence(alphabet, tmpBuffer, false) {ID = name};
         }
 
         /// <summary>

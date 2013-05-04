@@ -1,12 +1,11 @@
-﻿namespace Bio.Registration
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Globalization;
-    using System.IO;
-    using System.Reflection;
-    using Microsoft.Win32;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
+using Microsoft.Win32;
 
+namespace Bio.Registration
+{
     /// <summary>
     /// Internal class gets the instance of defined (RegistrableAttribute) 
     /// attribute in Bio namespace.
@@ -62,14 +61,17 @@
         /// <summary>
         /// Resolves the specified assembly with the registered attribute.
         /// </summary>
-        /// <param name="assemblyName">Assembly name.</param>
+        /// <param name="assemblyName">Full Assembly name.</param>
         /// <returns>List of objects.</returns>
         public static IList<object> Resolve(string assemblyName)
         {
-            string excutingAssemblyPath = Path.GetFileName(Assembly.GetExecutingAssembly().GetName().CodeBase);
-            Assembly assembly = assemblyName.IndexOf(excutingAssemblyPath, StringComparison.OrdinalIgnoreCase) > 0 
-                ? Assembly.GetExecutingAssembly() 
-                : Assembly.LoadFrom(assemblyName);
+            Assembly assembly;
+            if (assemblyName.Contains(Path.DirectorySeparatorChar.ToString())
+                || assemblyName.Contains(Path.AltDirectorySeparatorChar.ToString())
+                || assemblyName.EndsWith(".dll", StringComparison.OrdinalIgnoreCase))
+                assembly = Assembly.LoadFrom(assemblyName);
+            else
+                assembly = Assembly.Load(assemblyName);
 
             return Resolve(assembly);
         }
@@ -91,24 +93,14 @@
             {
                 RegistrableAttribute registrableAttribute = (RegistrableAttribute)Attribute.GetCustomAttribute(
                     availableType, typeof(RegistrableAttribute));
-                if (registrableAttribute != null)
+                if (registrableAttribute != null && registrableAttribute.IsRegistrable)
                 {
-                    if (registrableAttribute.IsRegistrable)
+                    try
                     {
-                        try
-                        {
-                            // most of the time, MissingMethodException
-                            object obj = assembly.CreateInstance(availableType.FullName);
-                            resolvedTypes.Add(obj);
-                        }
-                        catch (ArgumentException)
-                        {
-                            throw new ArgumentException(string.Format(
-                                 CultureInfo.InvariantCulture,
-                                Properties.Resource.RegistrationLoadingError,
-                                 assembly.GetName().CodeBase,
-                                 availableType.FullName));
-                        }
+                        resolvedTypes.Add(Activator.CreateInstance(availableType));
+                    }
+                    catch
+                    {
                     }
                 }
             }

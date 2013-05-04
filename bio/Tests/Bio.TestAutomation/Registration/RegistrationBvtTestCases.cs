@@ -10,9 +10,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.IO;
 using System.Linq;
-using System.Reflection;
 using Bio.Algorithms.Alignment;
 using Bio.Algorithms.Assembly;
 using Bio.IO;
@@ -20,6 +18,7 @@ using Bio.Registration;
 using Bio.SimilarityMatrices;
 using Bio.Util.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Reflection;
 
 namespace Bio.TestAutomation.Registration
 {
@@ -29,13 +28,6 @@ namespace Bio.TestAutomation.Registration
     [TestClass]
     public class RegistrationBvtTestCases
     {
-        #region Constants
-
-        private const string AddInsFolder = "\\Add-ins";
-        private const string BioTestAutomationDll = "\\Bio.TestAutomation.dll";
-
-        #endregion Constants
-
         #region Constructor
 
         /// <summary>
@@ -55,73 +47,6 @@ namespace Bio.TestAutomation.Registration
         #region Register Addins BVT Test cases
 
         /// <summary>
-        ///     Validates Registered Aligners.
-        ///     Input : Register Two Aligners.
-        ///     Validation : Validate the Aligners Registered.
-        /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
-        public void RegisterAddinsRegisterAligner()
-        {
-            CreateAddinsFolder();
-            IList<ISequenceAligner> finalValue = new List<ISequenceAligner>();
-            finalValue.Add(new TestAutomationSequenceAligner());
-            finalValue.Add(new TestAutomationPairwiseSequenceAligner());
-
-            // Gets the registered Aligners
-            IList<ISequenceAligner> registeredAligners = GetClasses<ISequenceAligner>(true);
-            RegisterAlignGeneralTestCases(registeredAligners, finalValue);
-            DeleteAddinsFolder();
-        }
-
-        /// <summary>
-        ///     Validates Registered Assemblies.
-        ///     Input : Register One Assembly.
-        ///     Validation : Validate the Assembly Registered.
-        /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
-        public void RegisterAddinsRegisterAssembly()
-        {
-            CreateAddinsFolder();
-            IList<IDeNovoAssembler> finalValue = new List<IDeNovoAssembler>();
-            finalValue.Add(new TestAutomationSequenceAssembler());
-
-            // Gets the registered Assemblers
-            IList<IDeNovoAssembler> registeredAssemblers = GetClasses<IDeNovoAssembler>(true);
-            if (null != registeredAssemblers && registeredAssemblers.Count > 0)
-            {
-                foreach (IDeNovoAssembler assembler in finalValue)
-                {
-                    string name = string.Empty;
-                    string description = string.Empty;
-
-                    registeredAssemblers.FirstOrDefault(IA => string.Compare(name = IA.Name,
-                                                                             assembler.Name,
-                                                                             StringComparison.OrdinalIgnoreCase) == 0);
-                    registeredAssemblers.FirstOrDefault(IA => string.Compare(description = IA.Description,
-                                                                             assembler.Description,
-                                                                             StringComparison.OrdinalIgnoreCase) == 0);
-
-                    // Validates the Name and Description
-                    Assert.AreEqual(assembler.Name, name);
-                    Assert.AreEqual(assembler.Description, description);
-                    ApplicationLog.WriteLine(
-                        string.Format(null, @"Successfully validated the Registered components for Assembly '{0}'.",
-                                      name));
-                }
-            }
-            else
-            {
-                ApplicationLog.WriteLine("No Components to Register.");
-                Assert.Fail();
-            }
-            DeleteAddinsFolder();
-        }
-
-        /// <summary>
         /// Validates Registered Alphabets.
         /// Input : Register One Alphabet.
         /// Validation : Validate the Alphabet Registered.
@@ -129,36 +54,24 @@ namespace Bio.TestAutomation.Registration
         [TestMethod]
         [Priority(0)]
         [TestCategory("Priority0")]
-        [Ignore]
-        public void RegisterAddinsRegisterAlphabet()
+        public void TestAddinsRegisterAlphabet()
         {
-            CreateAddinsFolder();
-            IList<IAlphabet> finalValue = new List<IAlphabet>();
-            finalValue.Add(new TestAutomationAlphabet());
+            Assert.IsNotNull(Alphabets.All.FirstOrDefault(a => a is TestAutomationAlphabet));
+        }
 
-            // Gets the registered Alphabets
-            IList<IAlphabet> registeredAlphabets = Alphabets.All.ToList();
-            if (registeredAlphabets.Count > 0)
-            {
-                foreach (IAlphabet alphabet in finalValue)
-                {
-                    string name = string.Empty;
+        /// <summary>
+        ///     Validates Registered Assemblers.
+        /// </summary>
+        [TestMethod]
+        [Priority(0)]
+        [TestCategory("Priority0")]
+        public void TestAddinsRegisterAssembler()
+        {
+            var assemblers = RegisteredAddIn.GetInstancesFromAssembly<IDeNovoAssembler>(
+                Assembly.GetExecutingAssembly().CodeBase.Substring(8));
 
-                    registeredAlphabets.FirstOrDefault(ia => string.Compare(name = ia.Name, alphabet.Name, StringComparison.OrdinalIgnoreCase) == 0);
-
-                    // Validates the Name
-                    Assert.AreEqual(alphabet.Name, name);
-                    ApplicationLog.WriteLine(
-                        string.Format((IFormatProvider)null, @"Successfully validated the Registered components for Alphabet '{0}'.",
-                        name));
-                }
-            }
-            else
-            {
-                ApplicationLog.WriteLine("No Components to Register.");
-                Assert.Fail();
-            }
-            DeleteAddinsFolder();
+            Assert.AreEqual(1, assemblers.Count);
+            Assert.AreEqual(typeof(TestAutomationSequenceAssembler), assemblers[0].GetType());
         }
 
         /// <summary>
@@ -169,42 +82,9 @@ namespace Bio.TestAutomation.Registration
         [TestMethod]
         [Priority(0)]
         [TestCategory("Priority0")]
-        public void RegisterAddinsRegisterFormatter()
+        public void TestAddinsRegisterFormatter()
         {
-            CreateAddinsFolder();
-            IList<IFormatter> finalValue = new List<IFormatter>();
-            finalValue.Add(new TestAutomationSequenceFormatter());
-
-            // Gets the registered formatters
-            IList<IFormatter> registeredFormatters = GetClasses<IFormatter>(true);
-            if (null != registeredFormatters && registeredFormatters.Count > 0)
-            {
-                foreach (IFormatter formatter in finalValue)
-                {
-                    string name = string.Empty;
-                    string description = string.Empty;
-
-                    registeredFormatters.FirstOrDefault(IA => string.Compare(name = IA.Name,
-                                                                             formatter.Name,
-                                                                             StringComparison.OrdinalIgnoreCase) == 0);
-                    registeredFormatters.FirstOrDefault(IA => string.Compare(description = IA.Description,
-                                                                             formatter.Description,
-                                                                             StringComparison.OrdinalIgnoreCase) == 0);
-
-                    // Validates the Name and Description
-                    Assert.AreEqual(formatter.Name, name);
-                    Assert.AreEqual(formatter.Description, description);
-                    ApplicationLog.WriteLine(
-                        string.Format(null, @"Successfully validated the Registered components for Formatter '{0}'.",
-                                      name));
-                }
-            }
-            else
-            {
-                ApplicationLog.WriteLine("No Components to Register.");
-                Assert.Fail();
-            }
-            DeleteAddinsFolder();
+            Assert.IsNotNull(SequenceFormatters.All.FirstOrDefault(sf => sf is TestAutomationSequenceFormatter));
         }
 
         /// <summary>
@@ -215,41 +95,9 @@ namespace Bio.TestAutomation.Registration
         [TestMethod]
         [Priority(0)]
         [TestCategory("Priority0")]
-        public void RegisterAddinsRegisterParser()
+        public void TestAddinsRegisterParser()
         {
-            CreateAddinsFolder();
-            IList<IParser> finalValue = new List<IParser>();
-            finalValue.Add(new TestAutomationSequenceParser());
-
-            IList<IParser> registeredParsers = GetClasses<IParser>(true);
-            if (null != registeredParsers && registeredParsers.Count > 0)
-            {
-                foreach (IParser parser in finalValue)
-                {
-                    string name = string.Empty;
-                    string description = string.Empty;
-
-                    registeredParsers.FirstOrDefault(IA => string.Compare(name = IA.Name,
-                                                                          parser.Name,
-                                                                          StringComparison.OrdinalIgnoreCase) == 0);
-                    registeredParsers.FirstOrDefault(IA => string.Compare(description = IA.Description,
-                                                                          parser.Description,
-                                                                          StringComparison.OrdinalIgnoreCase) == 0);
-
-                    // Validates the Name and Description
-                    Assert.AreEqual(parser.Name, name);
-                    Assert.AreEqual(parser.Description, description);
-                    ApplicationLog.WriteLine(
-                        string.Format(null, @"Successfully validated the Registered components for Parser '{0}'.",
-                                      name));
-                }
-            }
-            else
-            {
-                ApplicationLog.WriteLine("No Components to Register.");
-                Assert.Fail();
-            }
-            DeleteAddinsFolder();
+            Assert.IsNotNull(SequenceParsers.All.FirstOrDefault(sp => sp is TestAutomationSequenceParser));
         }
 
         /// <summary>
@@ -260,87 +108,18 @@ namespace Bio.TestAutomation.Registration
         [TestMethod]
         [Priority(0)]
         [TestCategory("Priority0")]
-        public void RegisterAddinsGetInstances()
+        public void TestAddinsSequenceAligners()
         {
-            CreateAddinsFolder();
-            IList<ISequenceAligner> finalValue = new List<ISequenceAligner>();
-            finalValue.Add(new TestAutomationSequenceAligner());
-            finalValue.Add(new TestAutomationPairwiseSequenceAligner());
+            List<ISequenceAligner> expectedAligners = new List<ISequenceAligner>
+            {
+                new TestAutomationSequenceAligner(),
+                new TestAutomationPairwiseSequenceAligner()
+            };
 
             // Gets the registered Instances for the path passed
-            IList<ISequenceAligner> registeredAligners = RegisteredAddIn.GetInstancesFromAssembly<ISequenceAligner>(BioTestAutomationDll);
-
-            RegisterAlignGeneralTestCases(registeredAligners, finalValue);
-            DeleteAddinsFolder();
-        }
-
-        /// <summary>
-        ///     Validates Registered Instances.
-        ///     Input : Register Two Aligners.
-        ///     Validation : Validate the Instances Registered.
-        /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
-        public void RegisterAddinsGetInstancesFilter()
-        {
-            CreateAddinsFolder();
-            IList<ISequenceAligner> finalValue = new List<ISequenceAligner>();
-            finalValue.Add(new TestAutomationSequenceAligner());
-            finalValue.Add(new TestAutomationPairwiseSequenceAligner());
-
-            // Gets the registered Instances for the path passed and the filter
-            IList<ISequenceAligner> registeredAligners =
-                RegisteredAddIn.GetInstancesFromAssemblyPath<ISequenceAligner>(
-                    RegisteredAddIn.AddinFolderPath, "*.dll");
-
-            RegisterAlignGeneralTestCases(registeredAligners, finalValue);
-            DeleteAddinsFolder();
-        }
-
-        /// <summary>
-        ///     Validates Registered Instances.
-        ///     Input : Register Two Aligners.
-        ///     Validation : Validate the Instances Registered.
-        /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
-        public void RegisterAddinsGetInstancesExecutingAssembly()
-        {
-            CreateAddinsFolder();
-            IList<ISequenceAligner> finalValue = new List<ISequenceAligner>();
-            finalValue.Add(new TestAutomationSequenceAligner());
-            finalValue.Add(new TestAutomationPairwiseSequenceAligner());
-
-            // Gets the registered Instances for the path passed
-            IList<ISequenceAligner> registeredAligners =
-                RegisteredAddIn.GetInstancesFromExecutingAssembly<ISequenceAligner>();
-
-            if (0 == registeredAligners.Count)
-            {
-                ApplicationLog.WriteLine("Referring from the Bio.dll, hence validation is not required.");
-            }
-            DeleteAddinsFolder();
-        }
-
-        /// <summary>
-        ///     Validates the properties
-        /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
-        public void RegisterAddinsAllProperties()
-        {
-            CreateAddinsFolder();
-            // Validate the property values if exists
-            Assert.IsTrue(!string.IsNullOrEmpty(RegisteredAddIn.AddinFolderPath));
-            Assert.IsTrue(string.IsNullOrEmpty(RegisteredAddIn.CoreFolderPath));
-            ApplicationLog.WriteLine(
-                string.Format(null, "Successfully validate the property AddInFolderPath with value '{0}'",
-                              RegisteredAddIn.AddinFolderPath));
-            ApplicationLog.WriteLine("Successfully validate the property CoreFolderPath");
-            DeleteAddinsFolder();
+            IList<ISequenceAligner> actualAligners = RegisteredAddIn.GetInstancesFromAssembly<ISequenceAligner>(
+                typeof(TestAutomationSequenceAligner).Assembly.FullName);
+            CompareAlignerElements(expectedAligners, actualAligners);
         }
 
         #endregion Register Addins BVT Test cases
@@ -717,7 +496,7 @@ namespace Bio.TestAutomation.Registration
         ///     Also registered for auto-plugin by the registration attribute as true
         /// </summary>
         [Registrable(true)]
-        public sealed class TestAutomationSequenceFormatter : IFormatter
+        public sealed class TestAutomationSequenceFormatter : ISequenceFormatter
         {
             #region ISequenceFormatter Members
 
@@ -744,6 +523,31 @@ namespace Bio.TestAutomation.Registration
             }
 
             #endregion
+
+            public void Open(string filename)
+            {
+                throw new NotImplementedException();
+            }
+
+            public void Open(System.IO.StreamWriter outStream)
+            {
+                throw new NotImplementedException();
+            }
+
+            public void Write(ISequence sequence)
+            {
+                throw new NotImplementedException();
+            }
+
+            public void Close()
+            {
+                throw new NotImplementedException();
+            }
+
+            public void Dispose()
+            {
+                throw new NotImplementedException();
+            }
         }
 
         /// <summary>
@@ -751,7 +555,7 @@ namespace Bio.TestAutomation.Registration
         ///     Also registered for auto-plugin by the registration attribute as true
         /// </summary>
         [Registrable(true)]
-        public sealed class TestAutomationSequenceParser : IParser
+        public sealed class TestAutomationSequenceParser : ISequenceParser
         {
             #region ISequenceParser Members
 
@@ -767,10 +571,47 @@ namespace Bio.TestAutomation.Registration
 
             string IParser.SupportedFileTypes
             {
-                get { throw new NotImplementedException(); }
+                get { return ".unknown"; }
             }
 
             #endregion
+
+            public void Open(string dataSource)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IEnumerable<ISequence> Parse()
+            {
+                throw new NotImplementedException();
+            }
+
+            public IEnumerable<ISequence> Parse(System.IO.StreamReader reader)
+            {
+                throw new NotImplementedException();
+            }
+
+            public void Close()
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAlphabet Alphabet
+            {
+                get
+                {
+                    throw new NotImplementedException();
+                }
+                set
+                {
+                    throw new NotImplementedException();
+                }
+            }
+
+            public void Dispose()
+            {
+                throw new NotImplementedException();
+            }
         }
 
         #endregion Registration Components
@@ -780,110 +621,18 @@ namespace Bio.TestAutomation.Registration
         /// <summary>
         ///     General Register Aligner test case validation goes here.
         /// </summary>
-        /// <param name="registeredAligners">Registered Aligners</param>
-        /// <param name="finalValue">Expected Registered Aligners</param>
-        private static void RegisterAlignGeneralTestCases(IList<ISequenceAligner> registeredAligners,
-                                                          IList<ISequenceAligner> finalValue)
+        /// <param name="expectedAligners"></param>
+        /// <param name="actualAligners"></param>
+        private static void CompareAlignerElements(IList<ISequenceAligner> expectedAligners, IList<ISequenceAligner> actualAligners)
         {
-            if (null != registeredAligners && registeredAligners.Count > 0)
-            {
-                foreach (ISequenceAligner aligner in finalValue)
-                {
-                    string name = string.Empty;
-                    string description = string.Empty;
+            string[] expected = expectedAligners.Select(a => a.Name + ":" + a.Description).ToArray();
+            string[] actual = actualAligners.Select(a => a.Name + ":" + a.Description).ToArray();
 
-                    registeredAligners.FirstOrDefault(IA => string.Compare(name = IA.Name,
-                                                                           aligner.Name,
-                                                                           StringComparison.OrdinalIgnoreCase) == 0);
-                    registeredAligners.FirstOrDefault(IA => string.Compare(
-                        description = IA.Description, aligner.Description,
-                        StringComparison.OrdinalIgnoreCase) == 0);
+            Console.WriteLine("Expected: {0}", string.Join(",", expectedAligners.Select(a => a.Name)));
+            Console.WriteLine("Actual: {0}", string.Join(",", actualAligners.Select(a => a.Name)));
 
-                    // Validates the Name and Description
-                    Assert.AreEqual(aligner.Name, name);
-                    Assert.AreEqual(aligner.Description, description);
-                    ApplicationLog.WriteLine(
-                        string.Format(null, @"Successfully validated the Registered Instances for '{0}'.",
-                                      name));
-                }
-            }
-            else
-            {
-                ApplicationLog.WriteLine("No Components to Register.");
-                Assert.Fail();
-            }
-        }
-
-        /// <summary>
-        ///     Creates the Add-ins folder
-        /// </summary>
-        private static void CreateAddinsFolder()
-        {
-            // Gets the Add-ins folder name
-            var uri = new Uri(Assembly.GetCallingAssembly().CodeBase);
-            string addInsFolderPath = Uri.UnescapeDataString(string.Concat(
-                Path.GetDirectoryName(uri.AbsolutePath),
-                AddInsFolder));
-
-            if (!Directory.Exists(addInsFolderPath))
-                // Creates the Add-ins folder
-                Directory.CreateDirectory(addInsFolderPath);
-        }
-
-        /// <summary>
-        ///     Deletes the Add-ins folder if exists
-        /// </summary>
-        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
-        private static void DeleteAddinsFolder()
-        {
-            var uri = new Uri(Assembly.GetCallingAssembly().CodeBase);
-            string addInsFolderPath = Uri.UnescapeDataString(string.Concat(
-                Path.GetDirectoryName(uri.AbsolutePath),
-                AddInsFolder));
-
-            try
-            {
-                // If the Add-ins folder exists delete the same
-                if (Directory.Exists(addInsFolderPath))
-                    Directory.Delete(addInsFolderPath, true);
-            }
-            catch
-            {
-            }
-        }
-
-        /// <summary>
-        ///     Gets all registered specified classes in core folder and addins (optional) folders
-        /// </summary>
-        /// <param name="includeAddinFolder">include add-ins folder or not</param>
-        /// <returns>List of registered classes</returns>
-        private static IList<T> GetClasses<T>(bool includeAddinFolder)
-            where T : class
-        {
-            IList<T> registeredAligners = new List<T>();
-
-            if (includeAddinFolder)
-            {
-                IList<T> addInAligners;
-                if (null != RegisteredAddIn.AddinFolderPath)
-                {
-                    addInAligners =
-                        RegisteredAddIn.GetInstancesFromAssemblyPath<T>(RegisteredAddIn.AddinFolderPath,
-                                                                        RegisteredAddIn.DLLFilter);
-                    if (null != addInAligners && addInAligners.Count > 0)
-                    {
-                        foreach (T aligner in addInAligners)
-                        {
-                            if (aligner != null)
-                            {
-                                registeredAligners.Add(aligner);
-                            }
-                        }
-                    }
-                }
-            }
-
-            return registeredAligners;
+            Assert.AreEqual(expected.Length, actual.Length, "Different number of aligners found.");
+            CollectionAssert.AreEquivalent(expected, actual, "Aligners did not match");
         }
 
         #endregion Supported Methods
