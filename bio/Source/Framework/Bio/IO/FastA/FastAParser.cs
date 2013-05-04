@@ -148,7 +148,9 @@ namespace Bio.IO.FastA
             {
                 do
                 {
-                    yield return this.ParseOne(reader, buffer);
+                    var seq = this.ParseOne(reader, buffer);
+                    if (seq != null)
+                        yield return seq;
                 }
                 while (!reader.EndOfStream);
             }
@@ -164,7 +166,9 @@ namespace Bio.IO.FastA
             byte[] buffer = new byte[BufferSize];
             do
             {
-                yield return this.ParseOne(reader, buffer);
+                var seq = this.ParseOne(reader, buffer);
+                if (seq != null)
+                    yield return seq;
             }
             while (!reader.EndOfStream);
         }
@@ -178,24 +182,14 @@ namespace Bio.IO.FastA
         public ISequence ParseOne(StreamReader reader, byte[] buffer)
         {
             if (reader == null)
-            {
                 throw new ArgumentNullException("reader");
-            }
+
+            if (reader.EndOfStream)
+                return null;
 
             int currentBufferSize = BufferSize;
 
             string message;
-
-            if (reader.EndOfStream)
-            {
-                message = string.Format(
-                            CultureInfo.InvariantCulture,
-                            Properties.Resource.INVALID_INPUT_FILE,
-                            Properties.Resource.FASTA_NAME);
-
-                throw new FileFormatException(message);
-            }
-
             string line = reader.ReadLine();
 
             // Continue reading if blank line found.

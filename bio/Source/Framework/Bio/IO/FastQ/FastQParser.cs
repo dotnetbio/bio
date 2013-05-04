@@ -119,11 +119,7 @@ namespace Bio.IO.FastQ
         /// <returns>Returns the QualitativeSequences as IEnumerable of ISequence.</returns>
         IEnumerable<ISequence> ISequenceParser.Parse()
         {
-            IEnumerable<QualitativeSequence> qualSequences = this.Parse();
-            foreach (QualitativeSequence qualSequence in qualSequences)
-            {
-                yield return qualSequence;
-            }
+            return this.Parse();
         }
 
         /// <summary>
@@ -133,11 +129,7 @@ namespace Bio.IO.FastQ
         /// <returns>Returns the QualitativeSequences as IEnumerable of ISequence.</returns>
         IEnumerable<ISequence> ISequenceParser.Parse(StreamReader reader)
         {
-            IEnumerable<QualitativeSequence> qualSequences = this.Parse(reader);
-            foreach (QualitativeSequence qualSequence in qualSequences)
-            {
-                yield return qualSequence;
-            }
+            return this.Parse(reader);
         }
 
         /// <summary>
@@ -151,7 +143,9 @@ namespace Bio.IO.FastQ
                 FastQFormatType formatType = this.FormatType;
                 do
                 {
-                    yield return ParseOne(streamReader, formatType);
+                    var seq = ParseOne(streamReader, formatType);
+                    if (seq != null)
+                        yield return seq;
                 }
                 while (!streamReader.EndOfStream);
             }
@@ -167,7 +161,9 @@ namespace Bio.IO.FastQ
             FastQFormatType formatType = this.FormatType;
             do
             {
-                yield return ParseOne(reader, formatType);
+                var seq = ParseOne(reader, formatType);
+                if (seq != null)
+                    yield return seq;
             }
             while (!reader.EndOfStream);
         }
@@ -180,15 +176,11 @@ namespace Bio.IO.FastQ
         /// <returns>Returns a QualitativeSequence.</returns>
         private QualitativeSequence ParseOne(StreamReader streamReader, FastQFormatType formatType)
         {
-            if (streamReader.EndOfStream)
-            {
-                string exMessage = string.Format(
-                            CultureInfo.InvariantCulture,
-                            Properties.Resource.INVALID_INPUT_FILE,
-                            Properties.Resource.FastQName);
+            if (streamReader == null)
+                throw new ArgumentNullException("streamReader");
 
-                throw new FileFormatException(exMessage);
-            }
+            if (streamReader.EndOfStream)
+                return null;
 
             string line = ReadNextLine(streamReader, true);
             if (line == null || !line.StartsWith("@", StringComparison.Ordinal))
