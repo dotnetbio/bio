@@ -617,7 +617,7 @@
   <String Id="PrerequisiteDeterminationDlgItemNotInstalled">{\WixUI_Font_ItemIsNotInstalled}Not installed</String>
 
   <String Id="NetFramework40Label">.NET Framework 4.0</String>
-  <String Id="ExcelLabel">Excel 2007 / 2010</String>
+  <String Id="ExcelLabel">Excel 2007 / 2010 / 2013</String>
   <String Id="VstoRuntimeLabel">VSTO Runtime 4.0</String>
   <String Id="ExcelSDKLabel">MS Office Excel SDK Runtime</String>
   <String Id="RCAndAboveLabel">{\BodySubText}(Release version or later)</String>
