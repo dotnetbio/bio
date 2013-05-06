@@ -1470,4 +1470,7 @@ Delta alignment file is corrupted. </value>
   <data name="InvalidQueryDirection" xml:space="preserve">
     <value>Query direction must be Forward or Reverse</value>
   </data>
+  <data name="OnlyAmbiguousRnaCanContainAmbiguousSymbolsOnTranslation" xml:space="preserve">
+    <value>Only ambiguous RNA can contain ambiguous symbols on translation.</value>
+  </data>
 </root>

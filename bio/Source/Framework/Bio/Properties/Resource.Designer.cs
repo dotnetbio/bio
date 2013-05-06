@@ -2762,6 +2762,15 @@ namespace Bio.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Only ambiguous RNA can contain ambiguous symbols on translation..
+        /// </summary>
+        internal static string OnlyAmbiguousRnaCanContainAmbiguousSymbolsOnTranslation {
+            get {
+                return ResourceManager.GetString("OnlyAmbiguousRnaCanContainAmbiguousSymbolsOnTranslation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Only DNA &amp; RNA sequences can be passed as input to {0}..
         /// </summary>
         internal static string OnlyDNAOrRNAInput {

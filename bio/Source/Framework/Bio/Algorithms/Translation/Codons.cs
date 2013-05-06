@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Globalization;
 
 namespace Bio.Algorithms.Translation
@@ -19,7 +18,7 @@ namespace Bio.Algorithms.Translation
         /// <summary>
         /// The mapping dictionary.
         /// </summary>
-        private static readonly Dictionary<string, byte> codonMap = new Dictionary<string, byte>();
+        private static readonly Dictionary<string, byte> CodonMap = new Dictionary<string, byte>();
 
         /// <summary>
         /// Lookup an amino acid based on a triplet of nucleotides. U U U for instance
@@ -41,20 +40,21 @@ namespace Bio.Algorithms.Translation
 
         /// <summary>
         /// Lookup an amino acid based on a triplet of nucleotides. U U U for instance
-        /// will result in Phenylalanine.
+        /// will result in Phenylalanine.  If the values cannot be
+        /// found in the lookup table, <c>false</c> will be returned.
         /// </summary>
         /// <param name="n1">The first character.</param>
         /// <param name="n2">The second character.</param>
         /// <param name="n3">The third character.</param>
-        /// <param name="value">Mapped RNA value</param>
+        /// <param name="aminoAcid">Mapped RNA value</param>
         /// <returns>True/False if the value exists</returns>
-        public static bool TryLookup(byte n1, byte n2, byte n3, out byte value)
+        public static bool TryLookup(byte n1, byte n2, byte n3, out byte aminoAcid)
         {
-            StringBuilder source = new StringBuilder();
-            source.Append(char.ToUpper((char)n1, CultureInfo.InvariantCulture));
-            source.Append(char.ToUpper((char)n2, CultureInfo.InvariantCulture));
-            source.Append(char.ToUpper((char)n3, CultureInfo.InvariantCulture));
-            return codonMap.TryGetValue(source.ToString(), out value);
+            var codon = new char[3];
+            codon[0] = char.ToUpper((char)n1, CultureInfo.InvariantCulture);
+            codon[1] = char.ToUpper((char)n2, CultureInfo.InvariantCulture);
+            codon[2] = char.ToUpper((char)n3, CultureInfo.InvariantCulture);
+            return CodonMap.TryGetValue(new string(codon), out aminoAcid);
         }
 
         /// <summary>
@@ -80,7 +80,7 @@ namespace Bio.Algorithms.Translation
         }
 
         /// <summary>
-        /// Lookup an amino acid within a sequence starting a certian offset.
+        /// Tries to lookup an amino acid within a sequence starting a certain offset.
         /// </summary>
         /// <param name="sequence">The source sequence to lookup from.</param>
         /// <param name="offset">
@@ -90,16 +90,17 @@ namespace Bio.Algorithms.Translation
         /// would lookup the amino acid for codon "AUG" while using a offset of 1
         /// would lookup the amino acid for codon "UGG".
         /// </param>
-        /// <param name="value">An amino acid from the protein alphabet</param>
-        /// <returns>True/False if the value exists</returns>
-        public static bool TryLookup(ISequence sequence, int offset, out byte value)
+        /// <param name="aminoAcid">An amino acid from the protein alphabet</param>
+        /// <returns><c>true</c>, if the triplet of nucleotides could
+        /// be mapped, <c>false</c> otherwise</returns>
+        public static bool TryLookup(ISequence sequence, int offset, out byte aminoAcid)
         {
             if (sequence == null)
                 throw new ArgumentNullException("sequence");
             if (offset >= sequence.Count - 2)
                 throw new ArgumentException(Properties.Resource.OffsetOverflow, "offset");
 
-            return TryLookup(sequence[offset], sequence[offset + 1], sequence[offset + 2], out value);
+            return TryLookup(sequence[offset], sequence[offset + 1], sequence[offset + 2], out aminoAcid);
         }
 
         /// <summary>
@@ -108,86 +109,86 @@ namespace Bio.Algorithms.Translation
         static Codons()
         {
             // Initialize the basic codon map from mRNA codes to Amino Acids
-            codonMap.Add("UUU", Alphabets.Protein.F);
-            codonMap.Add("UUC", Alphabets.Protein.F);
-            codonMap.Add("UUA", Alphabets.Protein.L);
-            codonMap.Add("UUG", Alphabets.Protein.L);
+            CodonMap.Add("UUU", Alphabets.Protein.F);
+            CodonMap.Add("UUC", Alphabets.Protein.F);
+            CodonMap.Add("UUA", Alphabets.Protein.L);
+            CodonMap.Add("UUG", Alphabets.Protein.L);
 
-            codonMap.Add("UCU", Alphabets.Protein.S);
-            codonMap.Add("UCC", Alphabets.Protein.S);
-            codonMap.Add("UCA", Alphabets.Protein.S);
-            codonMap.Add("UCG", Alphabets.Protein.S);
+            CodonMap.Add("UCU", Alphabets.Protein.S);
+            CodonMap.Add("UCC", Alphabets.Protein.S);
+            CodonMap.Add("UCA", Alphabets.Protein.S);
+            CodonMap.Add("UCG", Alphabets.Protein.S);
 
-            codonMap.Add("UAU", Alphabets.Protein.Y);
-            codonMap.Add("UAC", Alphabets.Protein.Y);
-            codonMap.Add("UAA", Alphabets.Protein.Ter);
-            codonMap.Add("UAG", Alphabets.Protein.Ter);
+            CodonMap.Add("UAU", Alphabets.Protein.Y);
+            CodonMap.Add("UAC", Alphabets.Protein.Y);
+            CodonMap.Add("UAA", Alphabets.Protein.Ter);
+            CodonMap.Add("UAG", Alphabets.Protein.Ter);
 
-            codonMap.Add("UGU", Alphabets.Protein.C);
-            codonMap.Add("UGC", Alphabets.Protein.C);
-            codonMap.Add("UGA", Alphabets.Protein.Ter);
-            codonMap.Add("UGG", Alphabets.Protein.W);
+            CodonMap.Add("UGU", Alphabets.Protein.C);
+            CodonMap.Add("UGC", Alphabets.Protein.C);
+            CodonMap.Add("UGA", Alphabets.Protein.Ter);
+            CodonMap.Add("UGG", Alphabets.Protein.W);
 
-            codonMap.Add("CUU", Alphabets.Protein.L);
-            codonMap.Add("CUC", Alphabets.Protein.L);
-            codonMap.Add("CUA", Alphabets.Protein.L);
-            codonMap.Add("CUG", Alphabets.Protein.L);
+            CodonMap.Add("CUU", Alphabets.Protein.L);
+            CodonMap.Add("CUC", Alphabets.Protein.L);
+            CodonMap.Add("CUA", Alphabets.Protein.L);
+            CodonMap.Add("CUG", Alphabets.Protein.L);
 
-            codonMap.Add("CCU", Alphabets.Protein.P);
-            codonMap.Add("CCC", Alphabets.Protein.P);
-            codonMap.Add("CCA", Alphabets.Protein.P);
-            codonMap.Add("CCG", Alphabets.Protein.P);
+            CodonMap.Add("CCU", Alphabets.Protein.P);
+            CodonMap.Add("CCC", Alphabets.Protein.P);
+            CodonMap.Add("CCA", Alphabets.Protein.P);
+            CodonMap.Add("CCG", Alphabets.Protein.P);
 
-            codonMap.Add("CAU", Alphabets.Protein.H);
-            codonMap.Add("CAC", Alphabets.Protein.H);
-            codonMap.Add("CAA", Alphabets.Protein.Q);
-            codonMap.Add("CAG", Alphabets.Protein.Q);
+            CodonMap.Add("CAU", Alphabets.Protein.H);
+            CodonMap.Add("CAC", Alphabets.Protein.H);
+            CodonMap.Add("CAA", Alphabets.Protein.Q);
+            CodonMap.Add("CAG", Alphabets.Protein.Q);
 
-            codonMap.Add("CGU", Alphabets.Protein.R);
-            codonMap.Add("CGC", Alphabets.Protein.R);
-            codonMap.Add("CGA", Alphabets.Protein.R);
-            codonMap.Add("CGG", Alphabets.Protein.R);
+            CodonMap.Add("CGU", Alphabets.Protein.R);
+            CodonMap.Add("CGC", Alphabets.Protein.R);
+            CodonMap.Add("CGA", Alphabets.Protein.R);
+            CodonMap.Add("CGG", Alphabets.Protein.R);
 
-            codonMap.Add("AUU", Alphabets.Protein.I);
-            codonMap.Add("AUC", Alphabets.Protein.I);
-            codonMap.Add("AUA", Alphabets.Protein.I);
-            codonMap.Add("AUG", Alphabets.Protein.M);
+            CodonMap.Add("AUU", Alphabets.Protein.I);
+            CodonMap.Add("AUC", Alphabets.Protein.I);
+            CodonMap.Add("AUA", Alphabets.Protein.I);
+            CodonMap.Add("AUG", Alphabets.Protein.M);
 
-            codonMap.Add("ACU", Alphabets.Protein.T);
-            codonMap.Add("ACC", Alphabets.Protein.T);
-            codonMap.Add("ACA", Alphabets.Protein.T);
-            codonMap.Add("ACG", Alphabets.Protein.T);
+            CodonMap.Add("ACU", Alphabets.Protein.T);
+            CodonMap.Add("ACC", Alphabets.Protein.T);
+            CodonMap.Add("ACA", Alphabets.Protein.T);
+            CodonMap.Add("ACG", Alphabets.Protein.T);
 
-            codonMap.Add("AAU", Alphabets.Protein.N);
-            codonMap.Add("AAC", Alphabets.Protein.N);
-            codonMap.Add("AAA", Alphabets.Protein.K);
-            codonMap.Add("AAG", Alphabets.Protein.K);
+            CodonMap.Add("AAU", Alphabets.Protein.N);
+            CodonMap.Add("AAC", Alphabets.Protein.N);
+            CodonMap.Add("AAA", Alphabets.Protein.K);
+            CodonMap.Add("AAG", Alphabets.Protein.K);
 
-            codonMap.Add("AGU", Alphabets.Protein.S);
-            codonMap.Add("AGC", Alphabets.Protein.S);
-            codonMap.Add("AGA", Alphabets.Protein.R);
-            codonMap.Add("AGG", Alphabets.Protein.R);
+            CodonMap.Add("AGU", Alphabets.Protein.S);
+            CodonMap.Add("AGC", Alphabets.Protein.S);
+            CodonMap.Add("AGA", Alphabets.Protein.R);
+            CodonMap.Add("AGG", Alphabets.Protein.R);
 
-            codonMap.Add("GUU", Alphabets.Protein.V);
-            codonMap.Add("GUC", Alphabets.Protein.V);
-            codonMap.Add("GUA", Alphabets.Protein.V);
-            codonMap.Add("GUG", Alphabets.Protein.V);
+            CodonMap.Add("GUU", Alphabets.Protein.V);
+            CodonMap.Add("GUC", Alphabets.Protein.V);
+            CodonMap.Add("GUA", Alphabets.Protein.V);
+            CodonMap.Add("GUG", Alphabets.Protein.V);
 
-            codonMap.Add("GCU", Alphabets.Protein.A);
-            codonMap.Add("GCC", Alphabets.Protein.A);
-            codonMap.Add("GCA", Alphabets.Protein.A);
-            codonMap.Add("GCG", Alphabets.Protein.A);
+            CodonMap.Add("GCU", Alphabets.Protein.A);
+            CodonMap.Add("GCC", Alphabets.Protein.A);
+            CodonMap.Add("GCA", Alphabets.Protein.A);
+            CodonMap.Add("GCG", Alphabets.Protein.A);
 
-            codonMap.Add("GAU", Alphabets.Protein.D);
-            codonMap.Add("GAC", Alphabets.Protein.D);
-            codonMap.Add("GAA", Alphabets.Protein.E);
-            codonMap.Add("GAG", Alphabets.Protein.E);
+            CodonMap.Add("GAU", Alphabets.Protein.D);
+            CodonMap.Add("GAC", Alphabets.Protein.D);
+            CodonMap.Add("GAA", Alphabets.Protein.E);
+            CodonMap.Add("GAG", Alphabets.Protein.E);
 
-            codonMap.Add("GGU", Alphabets.Protein.G);
-            codonMap.Add("GGC", Alphabets.Protein.G);
-            codonMap.Add("GGA", Alphabets.Protein.G);
-            codonMap.Add("GGG", Alphabets.Protein.G);
-            codonMap.Add("---", Alphabets.Protein.Gap);
+            CodonMap.Add("GGU", Alphabets.Protein.G);
+            CodonMap.Add("GGC", Alphabets.Protein.G);
+            CodonMap.Add("GGA", Alphabets.Protein.G);
+            CodonMap.Add("GGG", Alphabets.Protein.G);
+            CodonMap.Add("---", Alphabets.Protein.Gap);
         }
     }
 }

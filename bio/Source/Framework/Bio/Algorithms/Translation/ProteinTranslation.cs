@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace Bio.Algorithms.Translation
 {
@@ -43,43 +42,40 @@ namespace Bio.Algorithms.Translation
         public static ISequence Translate(ISequence source, int nucleotideOffset)
         {
             if (source == null)
-            {
                 throw new ArgumentNullException("source");
-            }
 
             if (nucleotideOffset > source.Count || nucleotideOffset < 0)
-            {
                 throw new ArgumentOutOfRangeException(Properties.Resource.OffsetInvalid, "nucleotideOffset");
-            }
 
-            if ((source.Alphabet != Alphabets.RNA) && (source.Alphabet != Alphabets.AmbiguousRNA))
-            {
+            var sourceAlphabet = source.Alphabet;
+            if (sourceAlphabet != Alphabets.RNA && sourceAlphabet != Alphabets.AmbiguousRNA)
                 throw new InvalidOperationException(Properties.Resource.InvalidRNASequenceInput);
-            }
 
-            long size = (source.Count - nucleotideOffset) / 3;
+            long size = (source.Count - nucleotideOffset)/3;
             byte[] translatedResult = new byte[size];
             long counter = 0;
 
             for (int i = nucleotideOffset; i < source.Count - 2; i += 3)
             {
-                try
+                byte aminoAcid;
+                if (!Codons.TryLookup(source, i, out aminoAcid))
                 {
-                    translatedResult[counter] = Codons.Lookup(source, i);
-                }
-                catch (InvalidOperationException)
-                {
-                    if (source.Alphabet == Alphabets.RNA)
+                    if (source.Alphabet != Alphabets.RNA)
                     {
-                        throw;
+                        aminoAcid = AmbiguousProteinAlphabet.Instance.X;
                     }
-                    
-                    translatedResult[counter] = AmbiguousProteinAlphabet.Instance.X;
+                    else
+                    {
+                        throw new InvalidOperationException(
+                            Properties.Resource.OnlyAmbiguousRnaCanContainAmbiguousSymbolsOnTranslation);
+                    }
                 }
+
+                translatedResult[counter] = aminoAcid;
                 ++counter;
             }
 
-            var alphabet = source.Alphabet == Alphabets.RNA ? Alphabets.Protein : Alphabets.AmbiguousProtein;
+            var alphabet = sourceAlphabet == Alphabets.RNA ? Alphabets.Protein : Alphabets.AmbiguousProtein;
             return new Sequence(alphabet, translatedResult) {ID = "AA: " + source.ID};
         }
     }
