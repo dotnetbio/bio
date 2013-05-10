@@ -479,6 +479,27 @@ namespace Bio.IO.BAM
 
         #region ParseRange Methods (Uses Index file)
 
+        /// <summary>
+        /// Attempts to find the name of an index file for the given BAM file name, throws an error if none is found.
+        /// </summary>
+        /// <param name="BamFileToFindIndexOf">The name of the BAM file.</param>
+        /// <returns>The name of the index file for the given BAM file.</returns>
+        private string getBAMIndexFileName(string BamFileToFindIndexOf)
+        {
+            //Try Name+".bai"
+            string possibleName = BamFileToFindIndexOf + Properties.Resource.BAM_INDEXFILEEXTENSION;
+            if (File.Exists(possibleName))
+            {
+                return possibleName;
+            }
+            //Try to remove .bam and replace it with .bai
+            possibleName = BamFileToFindIndexOf.Replace(Properties.Resource.BAM_FILEEXTENSION, Properties.Resource.BAM_INDEXFILEEXTENSION);
+            if (File.Exists(possibleName))
+            {
+                return possibleName;
+            }
+            throw new FileNotFoundException("Could not find BAM Index file for: " + bamFilename + " you may need to create an index file before parsing it.");
+        }
         #region ParseRange with Chromosome name
 
         /// <summary>
@@ -500,7 +521,8 @@ namespace Bio.IO.BAM
 
             using (FileStream bamStream = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
             {
-                using (BAMIndexFile bamIndexFile = new BAMIndexFile(fileName + Properties.Resource.BAM_INDEXFILEEXTENSION, FileMode.Open, FileAccess.Read))
+                string bamIndexFileName = getBAMIndexFileName(fileName);
+                using (BAMIndexFile bamIndexFile = new BAMIndexFile(bamIndexFileName, FileMode.Open, FileAccess.Read))
                 {
                     return GetAlignment(bamStream, bamIndexFile, refSeqName);
                 }
@@ -528,7 +550,8 @@ namespace Bio.IO.BAM
 
             using (FileStream bamStream = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
             {
-                using (BAMIndexFile bamIndexFile = new BAMIndexFile(fileName + Properties.Resource.BAM_INDEXFILEEXTENSION, FileMode.Open, FileAccess.Read))
+                string bamIndexFileName = getBAMIndexFileName(fileName);
+                using (BAMIndexFile bamIndexFile = new BAMIndexFile(bamIndexFileName, FileMode.Open, FileAccess.Read))
                 {
                     return GetAlignment(bamStream, bamIndexFile, refSeqName, start, end);
                 }
@@ -552,7 +575,8 @@ namespace Bio.IO.BAM
         {
             using (FileStream bamStream = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
             {
-                using (BAMIndexFile bamIndexFile = new BAMIndexFile(fileName + Properties.Resource.BAM_INDEXFILEEXTENSION, FileMode.Open, FileAccess.Read))
+                string bamIndexFileName = getBAMIndexFileName(fileName);
+                using (BAMIndexFile bamIndexFile = new BAMIndexFile(bamIndexFileName, FileMode.Open, FileAccess.Read))
                 {
                     return GetAlignment(bamStream, bamIndexFile, refSeqIndex);
                 }
@@ -575,7 +599,8 @@ namespace Bio.IO.BAM
         {
             using (FileStream bamStream = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
             {
-                using (BAMIndexFile bamIndexFile = new BAMIndexFile(fileName + Properties.Resource.BAM_INDEXFILEEXTENSION, FileMode.Open, FileAccess.Read))
+                string bamIndexFileName = getBAMIndexFileName(fileName);
+                using (BAMIndexFile bamIndexFile = new BAMIndexFile(bamIndexFileName, FileMode.Open, FileAccess.Read))
                 {
                     return GetAlignment(bamStream, bamIndexFile, refSeqIndex, start, end);
                 }
@@ -615,7 +640,8 @@ namespace Bio.IO.BAM
             {
                 using (FileStream bamStream = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
                 {
-                    using (BAMIndexFile bamIndexFile = new BAMIndexFile(fileName + Properties.Resource.BAM_INDEXFILEEXTENSION, FileMode.Open, FileAccess.Read))
+                    string bamIndexFileName = getBAMIndexFileName(fileName);
+                    using (BAMIndexFile bamIndexFile = new BAMIndexFile(bamIndexFileName, FileMode.Open, FileAccess.Read))
                     {
                         return GetAlignment(bamStream, bamIndexFile, range.ID);
                     }
@@ -625,7 +651,8 @@ namespace Bio.IO.BAM
             {
                 using (FileStream bamStream = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
                 {
-                    using (BAMIndexFile bamIndexFile = new BAMIndexFile(fileName + Properties.Resource.BAM_INDEXFILEEXTENSION, FileMode.Open, FileAccess.Read))
+                    string bamIndexFileName = getBAMIndexFileName(fileName);
+                    using (BAMIndexFile bamIndexFile = new BAMIndexFile(bamIndexFileName, FileMode.Open, FileAccess.Read))
                     {
                         return GetAlignment(bamStream, bamIndexFile, range.ID, start, end);
                     }
