@@ -1426,20 +1426,23 @@ namespace Bio.IO.BAM
         // Validates whether all ref seq names in aligned sequences are present in the SAMAlignmentHeader or not.
         private void ValidateSQHeader(string refSeqName)
         {
-            string message;
-            List<SequenceRange> rages = _refSequences.Where(SR => string.Compare(SR.ID, refSeqName, StringComparison.OrdinalIgnoreCase) == 0).ToList();
-
-            if (rages.Count == 0)
+            if (refSeqName != Properties.Resource.SAM_NO_REFERENCE_DEFINED_INDICATOR)// the '*' to indicate the read is unmapped
             {
-                message = string.Format(CultureInfo.InvariantCulture, Properties.Resource.SQHeaderMissing, refSeqName, CultureInfo.CurrentCulture);
-                throw new ArgumentException(message);
-            }
+                string message;
+                List<SequenceRange> rages = _refSequences.Where(SR => string.Compare(SR.ID, refSeqName, StringComparison.OrdinalIgnoreCase) == 0).ToList();
 
-            if (rages.Count > 1)
-            {
-                message = string.Format(CultureInfo.InvariantCulture, Properties.Resource.DuplicateSQHeader, refSeqName, CultureInfo.CurrentCulture);
+                if (rages.Count == 0)
+                {
+                    message = string.Format(CultureInfo.InvariantCulture, Properties.Resource.SQHeaderMissing, refSeqName, CultureInfo.CurrentCulture);
+                    throw new ArgumentException(message);
+                }
 
-                throw new ArgumentException(message);
+                if (rages.Count > 1)
+                {
+                    message = string.Format(CultureInfo.InvariantCulture, Properties.Resource.DuplicateSQHeader, refSeqName, CultureInfo.CurrentCulture);
+
+                    throw new ArgumentException(message);
+                }
             }
         }
 

@@ -18,7 +18,7 @@ namespace Bio.IO.BAM
     /// Documentation for the latest BAM file format can be found at
     /// http://samtools.sourceforge.net/SAM1.pdf
     /// </summary>
-    public class BAMParser : IDisposable, ISequenceAlignmentParser
+public class BAMParser : IDisposable, ISequenceAlignmentParser
     {
         #region Private Fields
         /// <summary>
@@ -547,7 +547,6 @@ namespace Bio.IO.BAM
             {
                 throw new ArgumentNullException("refSeqName");
             }
-
             using (FileStream bamStream = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
             {
                 string bamIndexFileName = getBAMIndexFileName(fileName);
@@ -1190,7 +1189,7 @@ namespace Bio.IO.BAM
             // if there is no overlap no need to parse further.
             // ZeroBasedRefEnd < start
             // => (alignedSeq.RefEndPos -1) < start
-            if (alignedSeq.RefEndPos - 1 < start)
+            if (alignedSeq.RefEndPos - 1 < start && alignedSeq.RName!=Properties.Resource.SAM_NO_REFERENCE_DEFINED_INDICATOR)
             {
                 return null;
             }

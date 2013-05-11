@@ -1473,4 +1473,8 @@ Delta alignment file is corrupted. </value>
   <data name="OnlyAmbiguousRnaCanContainAmbiguousSymbolsOnTranslation" xml:space="preserve">
     <value>Only ambiguous RNA can contain ambiguous symbols on translation.</value>
   </data>
+  <data name="SAM_NO_REFERENCE_DEFINED_INDICATOR" xml:space="preserve">
+    <value>*</value>
+  </data>
+  
 </root>
