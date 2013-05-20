@@ -1,0 +1,56 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bio.Hpc", "Source\Framework\Bio.Hpc\Bio.Hpc.csproj", "{1FF9E7F1-4571-495B-AF7A-CE1151C4EDC1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bio.Hpc.DistributeApp", "Source\Framework\Bio.Hpc.DistributeApp\Bio.Hpc.DistributeApp.csproj", "{8ACAC84A-CB0C-40C4-B595-CA37E221B180}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bio.Tests.Hpc", "Tests\Bio.Tests.Hpc\Bio.Tests.Hpc.csproj", "{543DEEC2-5142-4642-B9C8-82D2C6423D53}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bio", "Source\Framework\Bio\Bio.csproj", "{B53E11DF-F9A9-4939-893E-78E59872089A}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 5
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs09
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = Source\\Framework\\Bio.Hpc\\Bio.Hpc.csproj
+		SccProjectName1 = Source/Framework/Bio.Hpc
+		SccLocalPath1 = Source\\Framework\\Bio.Hpc
+		SccProjectUniqueName2 = Source\\Framework\\Bio.Hpc.DistributeApp\\Bio.Hpc.DistributeApp.csproj
+		SccProjectName2 = Source/Framework/Bio.Hpc.DistributeApp
+		SccLocalPath2 = Source\\Framework\\Bio.Hpc.DistributeApp
+		SccProjectUniqueName3 = Tests\\Bio.Tests.Hpc\\Bio.Tests.Hpc.csproj
+		SccProjectName3 = Tests/Bio.Tests.Hpc
+		SccLocalPath3 = Tests\\Bio.Tests.Hpc
+		SccProjectUniqueName4 = Source\\Framework\\Bio\\Bio.csproj
+		SccProjectName4 = Source/Framework/Bio
+		SccLocalPath4 = Source\\Framework\\Bio
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1FF9E7F1-4571-495B-AF7A-CE1151C4EDC1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FF9E7F1-4571-495B-AF7A-CE1151C4EDC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FF9E7F1-4571-495B-AF7A-CE1151C4EDC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FF9E7F1-4571-495B-AF7A-CE1151C4EDC1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8ACAC84A-CB0C-40C4-B595-CA37E221B180}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8ACAC84A-CB0C-40C4-B595-CA37E221B180}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8ACAC84A-CB0C-40C4-B595-CA37E221B180}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8ACAC84A-CB0C-40C4-B595-CA37E221B180}.Release|Any CPU.Build.0 = Release|Any CPU
+		{543DEEC2-5142-4642-B9C8-82D2C6423D53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{543DEEC2-5142-4642-B9C8-82D2C6423D53}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{543DEEC2-5142-4642-B9C8-82D2C6423D53}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{543DEEC2-5142-4642-B9C8-82D2C6423D53}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B53E11DF-F9A9-4939-893E-78E59872089A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B53E11DF-F9A9-4939-893E-78E59872089A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B53E11DF-F9A9-4939-893E-78E59872089A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B53E11DF-F9A9-4939-893E-78E59872089A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

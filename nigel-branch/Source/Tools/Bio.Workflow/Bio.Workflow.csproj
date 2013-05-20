@@ -1,0 +1,170 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{6B85CB8B-C8EA-4805-8D54-BE033F993A61}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Bio.Workflow</RootNamespace>
+    <AssemblyName>Bio.Workflow</AssemblyName>
+    <ProjectTypeGuids>{14822709-B5A1-4724-98CA-57A101D1B079};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\..\Build\Binaries\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <CodeAnalysisRuleSet>..\..\BioFramework_Code_Rules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisIgnoreGeneratedCode>true</CodeAnalysisIgnoreGeneratedCode>
+    <DocumentationFile>..\..\..\Build\Binaries\Debug\Bio.Workflow.XML</DocumentationFile>
+    <CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>true</DebugSymbols>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\..\Build\Binaries\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <CodeAnalysisIgnoreGeneratedCode>true</CodeAnalysisIgnoreGeneratedCode>
+    <CodeAnalysisRuleSet>..\..\BioFramework_Code_Rules.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ScientificWorkflow.TridentWorkflowCommon">
+      <HintPath>lib\ScientificWorkflow.TridentWorkflowCommon.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Workflow.Activities, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\public\ext\urt\v3.0\System.Workflow.Activities.dll</HintPath>
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Workflow.ComponentModel, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\public\ext\urt\v3.0\System.Workflow.ComponentModel.dll</HintPath>
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.XML" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BlastResultCollator.cs" />
+    <Compile Include="BlastXmlSerializer.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="SequenceListIndexerActivity.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="FormatSequenceDataActivity.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="IBlastSerializer.cs" />
+    <Compile Include="LookupSimilarityMatrixActivity.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CreateSequenceActivity.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DnaTranscriptionActivity.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="FastaFormatterActivity.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="FastaParserActivity.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GenBankParserActivity.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="IterativeAssemblerActivity.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="NCBIBlastActivity.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="NeedlemanWunschAlignerActivity.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="NucleotideComplementationActivity.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="ProteinTranslationActivity.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="RnaReverseTranscriptionActivty.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SequenceComparisonActivity.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SequenceDataStringActivity.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SingleSequenceParserActivity.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GenBankFormatterActivity.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="SequenceParserActivity.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SmithWatermanAlignerActivty.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Framework\Bio.WebServiceHandlers\Bio.WebServiceHandlers.csproj">
+      <Project>{C5A9B65E-98FB-4879-8699-69E8AB6A4BAA}</Project>
+      <Name>Bio.WebServiceHandlers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Framework\Bio\Bio.csproj">
+      <Project>{B53E11DF-F9A9-4939-893E-78E59872089A}</Project>
+      <Name>Bio</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Choose>
+    <When Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\Windows Workflow Foundation\v3.5\Workflow.Targets')">
+      <PropertyGroup>
+        <Loc>$(MSBuildExtensionsPath)\Microsoft\Windows Workflow Foundation\v3.5\Workflow.Targets</Loc>
+      </PropertyGroup>
+    </When>
+    <Otherwise>
+      <PropertyGroup>
+        <Loc>..\..\..\public\ext\urt\v3.5\Workflow.Targets</Loc>
+      </PropertyGroup>
+    </Otherwise>
+  </Choose>
+  <Import Project="$(Loc)" />
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.Targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

@@ -1,0 +1,271 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AmbiguousCharacter" xml:space="preserve">
+    <value>At least one sequence should not contain Gap/Ambiguous character</value>
+  </data>
+  <data name="BuildContigsEnded" xml:space="preserve">
+    <value>Step 5: BuildContigs - End time: {0:yyyy-MM-dd-HH:mm:ss.fff}</value>
+    <comment>Status Message</comment>
+  </data>
+  <data name="BuildContigsStarted" xml:space="preserve">
+    <value>Step 5: BuildContigs - Start time: {0:yyyy-MM-dd-HH:mm:ss.fff}</value>
+    <comment>Status Message</comment>
+  </data>
+  <data name="BuildScaffoldEnded" xml:space="preserve">
+    <value>Step 6: BuildScaffolds - End time: {0:yyyy-MM-dd-HH:mm:ss.fff}</value>
+    <comment>Status Message</comment>
+  </data>
+  <data name="BuildScaffoldStarted" xml:space="preserve">
+    <value>Step 6: BuildScaffolds - Start time: {0:yyyy-MM-dd-HH:mm:ss.fff}</value>
+    <comment>Status Message</comment>
+  </data>
+  <data name="CannotAssembleSequenceType" xml:space="preserve">
+    <value>Cannot Assemble RNA or Protein Sequences</value>
+  </data>
+  <data name="CreateGraphEnded" xml:space="preserve">
+    <value>Step 1 &amp; 2: Create Kmer and Graph - End time: {0:yyyy-MM-dd-HH:mm:ss.fff}</value>
+    <comment>Status Message</comment>
+  </data>
+  <data name="CreateGraphStarted" xml:space="preserve">
+    <value>Step 1 &amp; 2: Create Kmer and Graph - Start time: {0:yyyy-MM-dd-HH:mm:ss.fff}</value>
+    <comment>Status Message</comment>
+  </data>
+  <data name="CreateGraphSubStatus" xml:space="preserve">
+    <value>{0} sequence(s) skipped outof {1} processed sequences.</value>
+    <comment>Status Message</comment>
+  </data>
+  <data name="CreateGraphSubStatusWithoutSkipped" xml:space="preserve">
+    <value>{0} sequence(s) processed.</value>
+    <comment>Status Message</comment>
+  </data>
+  <data name="DanglingLinksPurger" xml:space="preserve">
+    <value>DanglingLinksPurger</value>
+  </data>
+  <data name="DanglingLinksPurgerDescription" xml:space="preserve">
+    <value>Error correction module by removal of dangling links in graph</value>
+  </data>
+  <data name="DefaultSubStatus" xml:space="preserve">
+    <value>.</value>
+    <comment>Status Message</comment>
+  </data>
+  <data name="Depth" xml:space="preserve">
+    <value>Depth cannot be less than or equal to 0</value>
+  </data>
+  <data name="DuplicatingReadIds" xml:space="preserve">
+    <value>Duplicate read found. Id:{0}</value>
+  </data>
+  <data name="EstimateDefaultValuesEnded" xml:space="preserve">
+    <value>   Estimating default values - End time: {0:yyyy-MM-dd-HH:mm:ss.fff}</value>
+    <comment>Status Message</comment>
+  </data>
+  <data name="EstimateDefaultValuesStarted" xml:space="preserve">
+    <value>   Estimating default values - Start time: {0:yyyy-MM-dd-HH:mm:ss.fff}</value>
+    <comment>Status Message</comment>
+  </data>
+  <data name="GraphBuilt" xml:space="preserve">
+    <value>   Graph built successfully - Processed {0} sequences.</value>
+    <comment>Status Message</comment>
+  </data>
+  <data name="GenerateLinkStarted" xml:space="preserve">
+    <value>   Generate Links Started.</value>
+    <comment>Status Message</comment>
+  </data>
+  <data name="GenerateLinkEnded" xml:space="preserve">
+    <value>   Generate Links Ended.</value>
+    <comment>Status Message</comment>
+  </data>
+  <data name="InappropriateKmerLength" xml:space="preserve">
+    <value>Kmer length must be less than the length of the shortest sequence, and should be greater than half the length of the longest sequence.</value>
+  </data>
+  <data name="InitializingEnded" xml:space="preserve">
+    <value>Initializing - End time: {0:yyyy-MM-dd-HH:mm:ss.fff}</value>
+    <comment>Status Message</comment>
+  </data>
+  <data name="InitializingStarted" xml:space="preserve">
+    <value>Initializing - Start time: {0:yyyy-MM-dd-HH:mm:ss.fff}</value>
+    <comment>Status Message</comment>
+  </data>
+  <data name="InputSequenceCannotBeNull" xml:space="preserve">
+    <value>One of the sequences in list is null. All sequences in input list must be valid sequences.</value>
+    <comment>ErrorMessage</comment>
+  </data>
+  <data name="KmerLength" xml:space="preserve">
+    <value>Kmer length cannot be less than or equal to 0</value>
+  </data>
+  <data name="NegativeRedundancy" xml:space="preserve">
+    <value>Redundancy value cannot be negative</value>
+  </data>
+  <data name="NullContigBuilder" xml:space="preserve">
+    <value>Contig Builder cannot be null</value>
+    <comment>Error Message</comment>
+  </data>
+  <data name="Padena" xml:space="preserve">
+    <value>Padena</value>
+  </data>
+  <data name="PadenaDescription" xml:space="preserve">
+    <value>Implements parallel de-novo assembly using De-bruijn graph</value>
+  </data>
+  <data name="PairedReadException" xml:space="preserve">
+    <value>No Paired Read Data</value>
+    <comment>Error Message</comment>
+  </data>
+  <data name="RedundantPathsPurger" xml:space="preserve">
+    <value>RedundantPathsPurger</value>
+  </data>
+  <data name="RedundantPathsPurgerDescription" xml:space="preserve">
+    <value>Graph error correction by removal of redundant paths</value>
+  </data>
+  <data name="RemoveReducndancyEnded" xml:space="preserve">
+    <value>Step 4: RemoveRedundancy - End time: {0:yyyy-MM-dd-HH:mm:ss.fff}</value>
+    <comment>Status Message</comment>
+  </data>
+  <data name="RemoveReducndancyStarted" xml:space="preserve">
+    <value>Step 4: RemoveRedundancy - Start time: {0:yyyy-MM-dd-HH:mm:ss.fff}</value>
+    <comment>Status Message</comment>
+  </data>
+  <data name="SimplePathContigBuilder" xml:space="preserve">
+    <value>Simple path based contig builder</value>
+  </data>
+  <data name="SimplePathContigBuilderDescription" xml:space="preserve">
+    <value>Builds contigs from simple paths in the de bruijn graph</value>
+  </data>
+  <data name="UndangleGraphEnded" xml:space="preserve">
+    <value>Step 3: UndangleGraph - End time: {0:yyyy-MM-dd-HH:mm:ss.fff}</value>
+    <comment>Status Message</comment>
+  </data>
+  <data name="UndangleGraphStarted" xml:space="preserve">
+    <value>Step 3: UndangleGraph - Start time: {0:yyyy-MM-dd-HH:mm:ss.fff}</value>
+    <comment>Status Message</comment>
+  </data>
+  <data name="SecondaryUndangleGraphEnded" xml:space="preserve">
+    <value>  Secondary UndangleGraph - End time: {0:yyyy-MM-dd-HH:mm:ss.fff}</value>
+    <comment>Status Message</comment>
+  </data>
+  <data name="SecondaryUndangleGraphStarted" xml:space="preserve">
+    <value>  Secondary UndangleGraph - Start time: {0:yyyy-MM-dd-HH:mm:ss.fff}</value>
+    <comment>Status Message</comment>
+  </data>
+  <data name="GraphNodeCountDisplay" xml:space="preserve">
+    <value>Nodes in graph: {0}</value>
+  </data>
+  <data name="TimeSpanReport" xml:space="preserve">
+    <value>Total Time for Task: {0:c}</value>
+  </data>
+</root>

@@ -1,0 +1,122 @@
+LOCUS       MUSBC05                  105 bp    DNA     linear   ROD 12-APR-2002
+DEFINITION  Mus spretus gene for beta-casein, 3'UTR.
+ACCESSION   D12555
+VERSION     D12555.1  GI:303649
+KEYWORDS    .
+SOURCE      Mus spretus (western wild mouse)
+  ORGANISM  Mus spretus
+            Eukaryota; Metazoa; Chordata; Craniata; Vertebrata; Euteleostomi;
+            Mammalia; Eutheria; Rodentia; Sciurognathi; Muridae; Murinae; Mus.
+REFERENCE   1  (bases 1 to 105)
+  AUTHORS   Takahashi,N. and Ko,M.S.
+  TITLE     The short 3'-end region of complementary DNAs as PCR-based
+            polymorphic markers for an expression map of the mouse genome
+  JOURNAL   Genomics 16 (1), 161-168 (1993)
+  MEDLINE   93252372
+   PUBMED   8486351
+COMMENT     Submitted (06-JUL-1993) to DDBJ by:
+            Minoru S.H. Ko
+            ERATO Research Development Corporation of Japan
+            (JRDC)
+            5-9-6 Tohkohdai, Tsukuba
+            Ibaraki 300-26
+            Japan
+            Phone:  0298-47-5531
+            Fax:    0298-47-5421.
+FEATURES             Location/Qualifiers
+     source          1..105
+                     /organism="Mus spretus"
+                     /mol_type="genomic DNA"
+                     /db_xref="taxon:10096"
+     3'UTR           <1..>105
+                     /note="beta-casein
+                     genomic DNA sequence corresponding to a part of the 3'UTR
+                     of beta-caseine gene, MMBCASE (bases 7015 - 7121)"
+     variation       69^70
+                     /note="A in MMBCASE"
+                     /replace="a"
+     variation       103^102
+                     /note="T in MMBCASE
+                     deleted in CAST/Ei (M. m. castaneus)"
+                     /replace="t"
+     misc_difference 623
+                     /gene="PX19"
+                     /note="'G' in cDNA is 'A' in the human genome; no amino
+                     acid change.  The chimpanzee genome agrees with the cDNA
+                     sequence, suggesting that this difference is unlikely to
+                     be due to an artifact."
+     misc_difference 878
+                     /gene="PX19"
+                     /note="'C' in cDNA is 'T' in the human genome.  The
+                     chimpanzee genome agrees with the cDNA sequence,
+                     suggesting that this difference is unlikely to be due to
+                     an artifact."
+     misc_difference 925..981
+                     /gene="PX19"
+                     /note="polyA tail: 57 bases do not align to the human
+                     genome."
+BASE COUNT       37 a      7 c     17 g     44 t
+ORIGIN      
+        1 agttatatta caggaatttt ataagtgttc aatatggagt tgaaaatgca agtcaataat
+       61 gtatacaaat agtttgtgaa aaattggatt ttctattttt ttctt
+//
+LOCUS       CAA89576                 109 aa            linear   PLN 11-AUG-1997
+DEFINITION  CYC1 [Saccharomyces cerevisiae].
+ACCESSION   CAA89576
+VERSION     CAA89576.1  GI:1015707
+DBSOURCE    embl locus SCYJR048W, accession Z49548.1
+KEYWORDS    .
+SOURCE      Saccharomyces cerevisiae (baker's yeast)
+  ORGANISM  Saccharomyces cerevisiae
+            Eukaryota; Fungi; Ascomycota; Saccharomycotina; Saccharomycetes;
+            Saccharomycetales; Saccharomycetaceae; Saccharomyces.
+REFERENCE   1  (residues 1 to 109)
+  AUTHORS   Huang,M.E., Chuat,J.C. and Galibert,F.
+  JOURNAL   Unpublished
+REFERENCE   2  (residues 1 to 109)
+  AUTHORS   MIPS.
+  TITLE     Direct Submission
+  JOURNAL   Submitted (25-SEP-1995) Data collected by MIPS on behalf of the
+            European yeast chromosome X sequencing project. MIPS at the
+            Max-Planck-Institut fuer Biochemie, Am Klopferspitz 18a D-82152
+            Martinsried, FRG; E-mail: Mewes@mips.embnet.org
+FEATURES             Location/Qualifiers
+     source          1..109
+                     /organism="Saccharomyces cerevisiae"
+                     /db_xref="taxon:4932"
+                     /chromosome="X"
+     Protein         1..109
+                     /name="CYC1"
+     CDS             1..109
+                     /gene="CYC1"
+                     /coded_by="Z49548.1:954..1283"
+                     /note="ORF YJR048w"
+                     /db_xref="GOA:P00044"
+                     /db_xref="SGD:S0003809"
+                     /db_xref="UniProtKB/Swiss-Prot:P00044"
+     misc_difference 623
+                     /gene="PX19"
+                     /note="'G' in cDNA is 'A' in the human genome; no amino
+                     acid change.  The chimpanzee genome agrees with the cDNA
+                     sequence, suggesting that this difference is unlikely to
+                     be due to an artifact."
+     misc_difference 878
+                     /gene="PX19"
+                     /note="'C' in cDNA is 'T' in the human genome.  The
+                     chimpanzee genome agrees with the cDNA sequence,
+                     suggesting that this difference is unlikely to be due to
+                     an artifact."
+     misc_difference 925..981
+                     /gene="PX19"
+                     /note="polyA tail: 57 bases do not align to the human
+                     genome."
+     protein_bind    complement(60..68)
+                     /note="putative DnaA-box"
+                     /bound_moiety="DnaA"
+     protein_bind    70..78
+                     /note="putative DnaA-box"
+                     /bound_moiety="DnaA"
+ORIGIN      
+        1 agttatatta caggaatttt ataagtgttc aatatggagt tgaaaatgca agtcaataat
+       61 gtatacaaat agtttgtgaa aaattggatt ttctattttt ttcttagtgt ataagtgttc
+//

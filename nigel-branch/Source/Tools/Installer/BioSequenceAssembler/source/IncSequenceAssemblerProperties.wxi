@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Include>
+  <Property Id='INSTALLLEVEL' Value='1'/>
+
+  <Icon Id="SequenceAssembler.ico" SourceFile="Bitmaps\SequenceAssembler.ico"/>
+  <Property Id="ARPPRODUCTICON" Value="SequenceAssembler.ico" />
+
+  <!--Support Link-->
+  <Property Id="ARPURLINFOABOUT" Value="http://bio.codeplex.com/" />
+  <!--Update Info-->
+  <Property Id="ARPURLUPDATEINFO" Value="http://bio.codeplex.com/" />
+
+  <!--Launch Conditions-->
+  <!--Check for OS compatibility-->
+  <Condition Message='!(loc.LaunchFailOS)'>
+    VersionNT >= 600 OR VersionNT = 502 OR (VersionNT = 501 AND ServicePackLevel > 1)
+  </Condition>
+
+  <!--Check if user is Admin-->
+  <Condition Message='!(loc.LaunchFailAdminPrivilege)'>
+    Privileged
+  </Condition>
+  <!--Launch Conditions end-->
+
+  <!--Property refered by Wix UI Lib-->
+  <Property Id='WIXUI_INSTALLDIR'>INSTALLDIR</Property>
+  <Property Id="WixUI_InstallMode">InstallDefault</Property>
+  <Property Id="WIXUI_EXITDIALOGOPTIONALCHECKBOXTEXT" Value="!(loc.ExitDialogOptionalCheckboxText)" />
+  <Property Id="WIXUI_LAUNCHAPPCHECKBOX" Value="1" />
+  <Property Id="WIXUI_EXITDIALOGOPTIONALCHECKBOX" Value="1" />
+  <Property Id="DISABLENEXTBUTTON" Value="0"/>
+
+  <!--ROOTDRIVE explicitly set to prevent it from defaulting to drive with most space-->
+  <Property Id="ROOTDRIVE" Value="$(env.SystemDrive)" />
+
+  <UIRef Id="WixUI_CustomInstallDir" />
+  <UIRef Id="WixUI_CustomErrorProgressText" />
+
+  <!--Prerequisite checks-->
+  <!--Check for .NET 4.0 Full profile-->
+  <Property Id="NETFRAMEWORK40VERSION" Secure="yes">
+    <RegistrySearch Id="NetFramework40VersionCheck" Root="HKLM" Key="SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full" Name="Version" Type="raw" />
+  </Property>
+  <!-- Minimum required version of .NET 4.0 -->
+  <SetProperty Id="NETFRAMEWORK40" After="AppSearch" Value="1">
+    NETFRAMEWORK40VERSION >= "4.0.30319"
+  </SetProperty>
+
+  <!--Check if .NET Bio Framework installed-->
+  <Property Id='MBFFRAMEWORKINSTALLED'>
+    <RegistrySearch Id='MBFFrameworkCheck' Root='HKLM' Key='Software\Microsoft\.NET Bio\$(env.ProductVersion)\Framework'
+                Type='raw' Name='Installed'/>
+  </Property>
+  <!--Get .NET Bio Framework installation path-->
+  <Property Id='MBFFRAMEWORKDIR'>
+    <RegistrySearch Id='MBFFrameworkDir' Root='HKLM' Key='Software\Microsoft\.NET Bio\$(env.ProductVersion)\Framework'
+              Name='InstallationPath' Type='directory' />
+  </Property>
+
+  <!-- FILE ASSOCIATIONS -->
+  <!--
+  Properties to be set:  
+  FASTA_FA
+  FASTA_MPFA
+  FASTA_FNA
+  FASTA_FAA
+  FASTA_FSA
+  FASTA_FAS
+  FASTA_FASTA
+  
+  FASTQ_FQ
+  FASTQ_FASTQ
+  
+  GFF_GFF
+  
+  GENBANK_GB
+  GENBANK_GBK
+  GENBANK_GENBANK
+  -->
+
+  <!-- Check if .fa file association exists -->
+  <SetProperty Id="FASTA_FA" After="AppSearch" Sequence="ui" Value="1">
+    (NOT FASTA_FAFOUND) AND (NOT Installed)
+  </SetProperty>
+  <Property Id='FASTA_FAFOUND'>
+    <RegistrySearch Id='Fasta_FaFileAssociationCheck' Root='HKCR' Key='.fa' Type='raw'/>
+  </Property>
+  
+  <!-- Check if .mpfa file association exists -->
+  <SetProperty Id="FASTA_MPFA" After="AppSearch" Sequence="ui" Value="1">
+    NOT FASTA_MPFAFOUND
+  </SetProperty>
+  <Property Id='FASTA_MPFAFOUND'>
+    <RegistrySearch Id='Fasta_MpfaFileAssociationCheck' Root='HKCR' Key='.mpfa' Type='raw' />
+  </Property>
+  
+  <!-- Check if .fna file association exists -->
+  <SetProperty Id="FASTA_FNA" After="AppSearch" Sequence="ui" Value="1">
+    NOT FASTA_FNAFOUND
+  </SetProperty>
+  <Property Id='FASTA_FNAFOUND'>
+    <RegistrySearch Id='Fasta_FnaFileAssociationCheck' Root='HKCR' Key='.fna' Type='raw' />
+  </Property>
+
+  <!-- Check if .faa file association exists -->
+  <SetProperty Id="FASTA_FAA" After="AppSearch" Sequence="ui" Value="1">
+    NOT FASTA_FAAFOUND
+  </SetProperty>
+  <Property Id='FASTA_FAAFOUND'>
+    <RegistrySearch Id='Fasta_FaaFileAssociationCheck' Root='HKCR' Key='.faa' Type='raw' />
+  </Property>
+
+  <!-- Check if .fsa file association exists -->
+  <SetProperty Id="FASTA_FSA" After="AppSearch" Sequence="ui" Value="1">
+    NOT FASTA_FSAFOUND
+  </SetProperty>
+  <Property Id='FASTA_FSAFOUND'>
+    <RegistrySearch Id='Fasta_FsaFileAssociationCheck' Root='HKCR' Key='.fsa' Type='raw' />
+  </Property>
+
+  <!-- Check if .fas file association exists -->
+  <SetProperty Id="FASTA_FAS" After="AppSearch" Sequence="ui" Value="1">
+    NOT FASTA_FASFOUND
+  </SetProperty>
+  <Property Id='FASTA_FASFOUND'>
+    <RegistrySearch Id='Fasta_FasFileAssociationCheck' Root='HKCR' Key='.fas' Type='raw' />
+  </Property>
+
+  <!-- Check if .fasta file association exists -->
+  <SetProperty Id="FASTA_FASTA" After="AppSearch" Sequence="ui" Value="1">
+    NOT FASTA_FASTAFOUND
+  </SetProperty>
+  <Property Id='FASTA_FASTAFOUND'>
+    <RegistrySearch Id='Fasta_FastaFileAssociationCheck' Root='HKCR' Key='.fasta' Type='raw' />
+  </Property>
+
+  <!-- Check if .fq file association exists -->
+  <SetProperty Id="FASTQ_FQ" After="AppSearch" Sequence="ui" Value="1">
+    NOT FASTQ_FQFOUND
+  </SetProperty>
+  <Property Id='FASTQ_FQFOUND'>
+    <RegistrySearch Id='Fastq_FqFileAssociationCheck' Root='HKCR' Key='.fq' Type='raw' />
+  </Property>
+  <!-- Check if .fastq file association exists -->
+  <SetProperty Id="FASTQ_FASTQ" After="AppSearch" Sequence="ui" Value="1">
+    NOT FASTQ_FASTQFOUND
+  </SetProperty>
+  <Property Id='FASTQ_FASTQFOUND'>
+    <RegistrySearch Id='Fastq_FastqFileAssociationCheck' Root='HKCR' Key='.fastq' Type='raw' />
+  </Property>
+
+  <!-- Check if .gff file association exists -->
+  <SetProperty Id="GFF_GFF" After="AppSearch" Sequence="ui" Value="1">
+    NOT GFF_GFFFOUND
+  </SetProperty>
+  <Property Id='GFF_GFFFOUND'>
+    <RegistrySearch Id='GffFileAssociationCheck' Root='HKCR' Key='.gff' Type='raw' />
+  </Property>
+
+  <!-- Check if .gb file association exists -->
+  <SetProperty Id="GENBANK_GB" After="AppSearch" Sequence="ui" Value="1">
+    NOT GENBANK_GBFOUND
+  </SetProperty>
+  <Property Id='GENBANK_GBFOUND'>
+    <RegistrySearch Id='Genbank_GbFileAssociationCheck' Root='HKCR' Key='.gb' Type='raw' />
+  </Property>
+  <!-- Check if .gbk file association exists -->
+  <SetProperty Id="GENBANK_GBK" After="AppSearch" Sequence="ui" Value="1">
+    NOT GENBANK_GBKFOUND
+  </SetProperty>
+  <Property Id='GENBANK_GBKFOUND'>
+    <RegistrySearch Id='Genbank_GbkFileAssociationCheck' Root='HKCR' Key='.gbk' Type='raw' />
+  </Property>
+  <!-- Check if .genbank file association exists -->
+  <SetProperty Id="GENBANK_GENBANK" After="AppSearch" Sequence="ui" Value="1">
+    NOT GENBANK_GENBANKFOUND
+  </SetProperty>
+  <Property Id='GENBANK_GENBANKFOUND'>
+    <RegistrySearch Id='Genbank_GenbankFileAssociationCheck' Root='HKCR' Key='.genbank' Type='raw' />
+  </Property>
+  <!-- FILE ASSOCIATIONS END-->
+
+</Include>

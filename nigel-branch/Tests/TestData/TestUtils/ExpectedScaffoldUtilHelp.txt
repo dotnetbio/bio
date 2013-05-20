@@ -1,0 +1,23 @@
+Scaffold Generation Utility v1.1
+Copyright (c) 2011-2013, The Outercurve Foundation.
+
+Usage:	   ScaffoldUtil.exe [options] <input contig sequence file> <input read sequence file>
+
+ScaffoldGeneration: Generates scaffold sequences.
+Optional Parameters:
+-k:<int>           Length of k-mer.
+
+-d:<int>           Threshold for removing 
+                   dangling ends in graph.
+
+-r:<int>    	   Length Threshold for 
+                   removing redundant paths in graph.
+
+-o:<file>          Output file
+
+-n:<string>           Clone Library Name 
+
+-i:<double>         Mean Length of clone library. 
+                                     
+
+-sd:<double>  Standard Deviation of Clone Library. 

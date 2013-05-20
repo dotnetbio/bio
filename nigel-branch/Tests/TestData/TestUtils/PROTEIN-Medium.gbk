@@ -1,0 +1,3183 @@
+LOCUS       XP_002597967           23830 aa            linear   INV 08-OCT-2009
+DEFINITION  hypothetical protein BRAFLDRAFT_79792 [Branchiostoma floridae].
+ACCESSION   XP_002597967
+VERSION     XP_002597967.1  GI:260806189
+DBSOURCE    REFSEQ: accession XM_002597921.1
+KEYWORDS    .
+SOURCE      Branchiostoma floridae (Florida lancelet)
+  ORGANISM  Branchiostoma floridae
+            Eukaryota; Metazoa; Chordata; Cephalochordata; Branchiostomidae;
+            Branchiostoma.
+REFERENCE   1  (residues 1 to 23830)
+  AUTHORS   Putnam,N.H., Butts,T., Ferrier,D.E., Furlong,R.F., Hellsten,U.,
+            Kawashima,T., Robinson-Rechavi,M., Shoguchi,E., Terry,A., Yu,J.K.,
+            Benito-Gutierrez,E.L., Dubchak,I., Garcia-Fernandez,J.,
+            Gibson-Brown,J.J., Grigoriev,I.V., Horton,A.C., de Jong,P.J.,
+            Jurka,J., Kapitonov,V.V., Kohara,Y., Kuroki,Y., Lindquist,E.,
+            Lucas,S., Osoegawa,K., Pennacchio,L.A., Salamov,A.A., Satou,Y.,
+            Sauka-Spengler,T., Schmutz,J., Shin-I,T., Toyoda,A.,
+            Bronner-Fraser,M., Fujiyama,A., Holland,L.Z., Holland,P.W.,
+            Satoh,N. and Rokhsar,D.S.
+  TITLE     The amphioxus genome and the evolution of the chordate karyotype
+  JOURNAL   Nature 453 (7198), 1064-1071 (2008)
+   PUBMED   18563158
+REFERENCE   2  (residues 1 to 23830)
+  AUTHORS   Terry,A., Salamov,A., Zhou,K., Grigoriev,I., Pitluck,S., Lucas,S.,
+            Detter,J.C., Glavina del Rio,T., Shapiro,H., Lindquist,E.,
+            Putnam,N. and Rokhsar,D.
+  CONSRTM   US DOE Joint Genome Institute (JGI-PGF)
+  TITLE     Direct Submission
+  JOURNAL   Submitted (19-APR-2008) US DOE Joint Genome Institute, 2800
+            Mitchell Drive B100, Walnut Creek, CA 94598-1698, USA
+COMMENT     PROVISIONAL REFSEQ: This record has not yet been subject to final
+            NCBI review. The reference sequence is identical to EEN53979.
+            Method: conceptual translation.
+FEATURES             Location/Qualifiers
+     source          1..23830
+                     /organism="Branchiostoma floridae"
+                     /strain="S238N-H82"
+                     /db_xref="taxon:7739"
+                     /sex="male"
+                     /tissue_type="testes"
+                     /country="USA: Old Tampa Bay, Florida"
+     Protein         1..23830
+                     /product="hypothetical protein"
+                     /calculated_mol_wt=2639168
+     Region          86..170
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(143,158)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(159..160,162..163)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          196..267
+                     /region_name="Ig"
+                     /note="Immunoglobulin domain; cl11960"
+                     /db_xref="CDD:176433"
+     Region          271..363
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(271,336,351)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(352..353,355..356)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          370..464
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(370,437,452)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(453..454,456..457)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          486..559
+                     /region_name="Ig"
+                     /note="Immunoglobulin domain; cl11960"
+                     /db_xref="CDD:176433"
+     Region          563..650
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(563,628,643)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(644..645,647..648)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          662..755
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(662,728,743)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(744..745,747..748)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          762..840
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(762,830)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Region          884..955
+                     /region_name="Ig"
+                     /note="Immunoglobulin domain; cl11960"
+                     /db_xref="CDD:176433"
+     Region          959..1049
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(959,1023,1038)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(1039..1040,1042..1043)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          1057..1149
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(1057,1122,1137)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(1138..1139,1141..1142)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          1171..1245
+                     /region_name="Ig"
+                     /note="Immunoglobulin domain; cl11960"
+                     /db_xref="CDD:176433"
+     Region          1249..1340
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(1249,1316,1331)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(1332..1333,1335..1336)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          1358..1443
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(1416,1431)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(1432..1433,1435..1436)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          1451..1543
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(1451,1517,1532)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(1533..1534,1536..1537)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          1571..1642
+                     /region_name="Ig"
+                     /note="Immunoglobulin domain; cl11960"
+                     /db_xref="CDD:176433"
+     Region          1654..1740
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(1713,1728)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(1729..1730,1732..1733)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          1748..1843
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(1748,1816,1831)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(1832..1833,1835..1836)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          1869..1966
+                     /region_name="Ig"
+                     /note="Immunoglobulin domain; cl11960"
+                     /db_xref="CDD:176433"
+     Region          1970..2064
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(1970,2037,2052)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(2053..2054,2056..2057)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          2071..2162
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(2071,2136,2151)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(2152..2153,2155..2156)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          2178..2257
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(2238,2253)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(2254..2255,2257)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          2292..2356
+                     /region_name="Ig"
+                     /note="Immunoglobulin domain; cl11960"
+                     /db_xref="CDD:176433"
+     Region          2358..2441
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(2417,2432)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(2433..2434,2436..2437)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          2472..2544
+                     /region_name="Ig"
+                     /note="Immunoglobulin domain; cl11960"
+                     /db_xref="CDD:176433"
+     Region          2548..2640
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(2548,2614,2629)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(2630..2631,2633..2634)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          2648..2737
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(2648,2714,2729)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(2730..2731,2733..2734)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          2756..2843
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(2816,2831)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(2832..2833,2835..2836)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          2870..2940
+                     /region_name="Ig"
+                     /note="Immunoglobulin domain; cl11960"
+                     /db_xref="CDD:176433"
+     Region          2944..3035
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(2944,3009,3024)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(3025..3026,3028..3029)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          3044..3136
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(3044,3110,3125)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(3126..3127,3129..3130)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          3164..3237
+                     /region_name="Ig"
+                     /note="Immunoglobulin domain; cl11960"
+                     /db_xref="CDD:176433"
+     Region          3241..3326
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(3241,3307,3322)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(3323..3324,3326)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          3341..3436
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(3341,3407,3422)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(3426..3427,3429..3430)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          3442..3526
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(3442,3507,3522)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(3523..3524,3526)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          3561..3632
+                     /region_name="Ig_Titin_like"
+                     /note="Immunoglobulin (Ig)-like domain of titin and
+                     similar proteins; cd05748"
+                     /db_xref="CDD:143225"
+     Region          3636..3728
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(3636,3701,3716)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(3717..3718,3720..3721)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          3735..3822
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(3735,3799,3814)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(3815..3816,3818..3819)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          3852..3925
+                     /region_name="Ig"
+                     /note="Immunoglobulin domain; cl11960"
+                     /db_xref="CDD:176433"
+     Region          3929..4021
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(3929,3994,4009)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(4010..4011,4013..4014)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          4028..4118
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(4028,4094,4109)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(4110..4111,4113..4114)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          4127..4220
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(4192,4207)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(4209..4210,4212..4213)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          4246..4319
+                     /region_name="Ig_Titin_like"
+                     /note="Immunoglobulin (Ig)-like domain of titin and
+                     similar proteins; cd05748"
+                     /db_xref="CDD:143225"
+     Region          4323..4409
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(4323,4390,4405)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(4406..4407,4409)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          4424..4517
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(4424,4493,4508)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(4509..4510,4512..4513)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          4528..4621
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(4528,4595,4610)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(4611..4612,4614..4615)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          4650..4720
+                     /region_name="Ig_Titin_like"
+                     /note="Immunoglobulin (Ig)-like domain of titin and
+                     similar proteins; cd05748"
+                     /db_xref="CDD:143225"
+     Region          4730..4815
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(4789,4804)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(4805..4806,4808..4809)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          4824..4915
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(4824,4888,4903)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(4904..4905,4907..4908)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          4942..5015
+                     /region_name="Ig"
+                     /note="Immunoglobulin domain; cl11960"
+                     /db_xref="CDD:176433"
+     Region          5019..5111
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(5019,5085,5100)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(5101..5102,5104..5105)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          5119..5211
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(5119,5185,5200)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(5201..5202,5204..5205)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          5219..5305
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(5283,5298)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(5299,5301,5303..5304)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          5348..5410
+                     /region_name="Ig"
+                     /note="Immunoglobulin domain; cl11960"
+                     /db_xref="CDD:176433"
+     Region          5416..5506
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(5416,5481,5496)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(5497..5498,5500..5501)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          5515..5608
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(5515,5581,5596)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(5597..5598,5600..5601)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          5630..5700
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(5683,5698)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            5699..5700
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          5737..5808
+                     /region_name="Ig_Titin_like"
+                     /note="Immunoglobulin (Ig)-like domain of titin and
+                     similar proteins; cd05748"
+                     /db_xref="CDD:143225"
+     Region          5812..5903
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(5812,5877,5892)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(5893..5894,5896..5897)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          5912..6004
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(5912,5983,5998)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(5999..6000,6002..6003)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          6037..6110
+                     /region_name="Ig"
+                     /note="Immunoglobulin domain; cl11960"
+                     /db_xref="CDD:176433"
+     Region          6114..6207
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(6114,6180,6195)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(6196..6197,6199..6200)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          6221..6306
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(6280,6295)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(6296..6297,6299..6300)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          6315..6402
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(6378,6393)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(6394,6396,6398..6399)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          6434..6506
+                     /region_name="Ig_Titin_like"
+                     /note="Immunoglobulin (Ig)-like domain of titin and
+                     similar proteins; cd05748"
+                     /db_xref="CDD:143225"
+     Region          6510..6604
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(6510,6577,6592)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(6593..6594,6596..6597)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          6611..6704
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(6611,6677,6692)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(6693..6694,6696..6697)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          6712..6805
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(6712,6779,6794)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(6795..6796,6798..6799)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          6832..6903
+                     /region_name="Ig_Titin_like"
+                     /note="Immunoglobulin (Ig)-like domain of titin and
+                     similar proteins; cd05748"
+                     /db_xref="CDD:143225"
+     Region          6907..6999
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(6907,6972,6987)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(6988..6989,6991..6992)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          7007..7093
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(7007,7074,7089)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(7090..7091,7093)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          7128..7201
+                     /region_name="Ig"
+                     /note="Immunoglobulin domain; cl11960"
+                     /db_xref="CDD:176433"
+     Region          7205..7298
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(7205,7271,7286)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(7287..7288,7290..7291)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          7305..7395
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(7305,7371,7386)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(7387..7388,7390..7391)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          7404..7495
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(7471,7486)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(7488..7489,7491..7492)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          7527..7599
+                     /region_name="Ig"
+                     /note="Immunoglobulin domain; cl11960"
+                     /db_xref="CDD:176433"
+     Region          7605..7698
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(7605,7671,7686)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(7687..7688,7690..7691)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          7705..7792
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(7705,7771,7786)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(7787..7788,7790..7791)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          7806..7894
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(7806,7873,7888)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(7889..7890,7892..7893)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          7927..7998
+                     /region_name="Ig"
+                     /note="Immunoglobulin domain; cl11960"
+                     /db_xref="CDD:176433"
+     Region          8002..8094
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(8002,8067,8082)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(8083..8084,8086..8087)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          8102..8193
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(8102,8166,8181)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(8182..8183,8185..8186)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          8222..8292
+                     /region_name="Ig"
+                     /note="Immunoglobulin domain; cl11960"
+                     /db_xref="CDD:176433"
+     Region          8296..8389
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(8296,8362,8377)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(8378..8379,8381..8382)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          8396..8488
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(8396,8462,8477)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(8478..8479,8481..8482)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          8496..8586
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(8562,8577)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(8579..8580,8582..8583)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          8623..8690
+                     /region_name="Ig"
+                     /note="Immunoglobulin domain; cl11960"
+                     /db_xref="CDD:176433"
+     Region          8694..8772
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(8694,8760)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Region          8794..8888
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(8794,8862,8877)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(8878..8879,8881..8882)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          8897..8983
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(8897,8964,8979)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(8980..8981,8983)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          9018..9089
+                     /region_name="Ig"
+                     /note="Immunoglobulin domain; cl11960"
+                     /db_xref="CDD:176433"
+     Region          9093..9184
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(9093,9158,9173)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(9174..9175,9177..9178)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          9193..9284
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(9193,9257,9272)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(9273..9274,9276..9277)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          9310..9383
+                     /region_name="Ig_Titin_like"
+                     /note="Immunoglobulin (Ig)-like domain of titin and
+                     similar proteins; cd05748"
+                     /db_xref="CDD:143225"
+     Region          9387..9480
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(9387,9453,9468)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(9469..9470,9472..9473)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          <9562..9631
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(9603,9618)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(9620..9621,9623..9624)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          9665..9731
+                     /region_name="Ig"
+                     /note="Immunoglobulin domain; cl11960"
+                     /db_xref="CDD:176433"
+     Region          9735..9827
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(9735,9802,9817)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(9818..9819,9821..9822)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          9836..9925
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(9836,9902,9917)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(9918..9919,9921..9922)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          9940..10031
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(10004,10019)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(10020..10021,10023..10024)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          10058..10128
+                     /region_name="Ig"
+                     /note="Immunoglobulin domain; cl11960"
+                     /db_xref="CDD:176433"
+     Region          10132..10224
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(10132,10197,10212)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(10213..10214,10216..10217)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          10240..10324
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(10298,10313)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(10314..10315,10317..10318)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          10351..10424
+                     /region_name="Ig"
+                     /note="Immunoglobulin domain; cl11960"
+                     /db_xref="CDD:176433"
+     Region          10428..10521
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(10428,10494,10509)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(10510..10511,10513..10514)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          10528..10621
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(10528,10594,10609)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(10610..10611,10613..10614)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          10627..10717
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(10692,10707)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(10708,10710,10712..10713)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          10753..10819
+                     /region_name="Ig"
+                     /note="Immunoglobulin domain; cl11960"
+                     /db_xref="CDD:176433"
+     Region          10823..10916
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(10823,10889,10904)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(10905..10906,10908..10909)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          10923..11011
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(10923,10989,11004)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(11005..11006,11008..11009)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          11024..11102
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(11024,11090)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Region          11144..11215
+                     /region_name="Ig_Titin_like"
+                     /note="Immunoglobulin (Ig)-like domain of titin and
+                     similar proteins; cd05748"
+                     /db_xref="CDD:143225"
+     Region          11219..11308
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(11219,11284,11299)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(11300..11301,11303..11304)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          11319..11412
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(11319,11385,11400)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(11401..11402,11404..11405)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          11438..11512
+                     /region_name="Ig"
+                     /note="Immunoglobulin domain; cl11960"
+                     /db_xref="CDD:176433"
+     Region          11515..11608
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(11515,11581,11596)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(11597..11598,11600..11601)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          11615..11704
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(11615,11681,11696)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(11697..11698,11700..11701)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          11714..11806
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(11779,11794)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(11796..11797,11799..11800)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          11834..11906
+                     /region_name="Ig"
+                     /note="Immunoglobulin domain; cl11960"
+                     /db_xref="CDD:176433"
+     Region          11913..12001
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(11976,11991)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(11992..11993,11995..11996)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          12017..12102
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(12076,12091)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(12092..12093,12095..12096)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          12111..12197
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(12111,12181,12196)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Region          12236..12312
+                     /region_name="Ig"
+                     /note="Immunoglobulin domain; cl11960"
+                     /db_xref="CDD:176433"
+     Region          12316..12407
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(12316,12381,12396)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(12397..12398,12400..12401)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          12416..12508
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(12416,12482,12497)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(12498..12499,12501..12502)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          12535..12608
+                     /region_name="Ig"
+                     /note="Immunoglobulin domain; cl11960"
+                     /db_xref="CDD:176433"
+     Region          12612..12705
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(12612,12678,12693)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(12694..12695,12697..12698)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          12712..12801
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(12712,12778,12793)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(12794..12795,12797..12798)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          12811..12893
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(12878,12893)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Region          12933..13006
+                     /region_name="Ig"
+                     /note="Immunoglobulin domain; cl11960"
+                     /db_xref="CDD:176433"
+     Region          13010..13094
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cl00065"
+                     /db_xref="CDD:153489"
+     Region          13111..13199
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(13111,13177,13192)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(13193..13194,13196..13197)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          13212..13305
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(13212,13279,13294)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(13295..13296,13298..13299)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          13333..13404
+                     /region_name="Ig_Titin_like"
+                     /note="Immunoglobulin (Ig)-like domain of titin and
+                     similar proteins; cd05748"
+                     /db_xref="CDD:143225"
+     Region          13408..13495
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(13408,13473,13488)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(13489..13490,13492..13493)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          13508..13599
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(13508,13572,13587)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(13588..13589,13591..13592)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          13611..13698
+                     /region_name="Ig"
+                     /note="Immunoglobulin domain; cl11960"
+                     /db_xref="CDD:176433"
+     Region          13709..13793
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(13768,13783)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(13784..13785,13787..13788)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          13802..13894
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(13802,13868,13883)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(13884..13885,13887..13888)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          13902..13982
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(13967,13982)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Region          14025..14095
+                     /region_name="Ig"
+                     /note="Immunoglobulin domain; cl11960"
+                     /db_xref="CDD:176433"
+     Region          14099..14187
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(14099,14165,14180)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(14181..14182,14184..14185)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          14199..14294
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(14199,14267,14282)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(14283..14284,14286..14287)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          14302..14390
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(14302,14369,14384)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(14385..14386,14388..14389)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          14423..14494
+                     /region_name="Ig_Titin_like"
+                     /note="Immunoglobulin (Ig)-like domain of titin and
+                     similar proteins; cd05748"
+                     /db_xref="CDD:143225"
+     Region          14498..14589
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(14498,14563,14578)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(14579..14580,14582..14583)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          14598..14691
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(14598,14664,14679)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(14680..14681,14683..14684)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          14717..14790
+                     /region_name="Ig"
+                     /note="Immunoglobulin domain; cl11960"
+                     /db_xref="CDD:176433"
+     Region          14810..14887
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(14860,14875)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(14876..14877,14879..14880)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          14894..14984
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(14894,14960,14975)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(14976..14977,14979..14980)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          14993..15088
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(15060,15075)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(15076,15078,15080..15081)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          15113..15186
+                     /region_name="Ig"
+                     /note="Immunoglobulin domain; cl11960"
+                     /db_xref="CDD:176433"
+     Region          15200..15284
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(15257,15272)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(15273..15274,15276..15277)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          15291..15380
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(15291,15357,15372)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(15373..15374,15376..15377)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          15392..15486
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(15392,15459,15474)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(15475..15476,15478..15479)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          15513..15584
+                     /region_name="Ig_Titin_like"
+                     /note="Immunoglobulin (Ig)-like domain of titin and
+                     similar proteins; cd05748"
+                     /db_xref="CDD:143225"
+     Region          15588..15679
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(15588,15653,15668)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(15669..15670,15672..15673)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          15688..15779
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(15688,15752,15767)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(15768..15769,15771..15772)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          15805..15878
+                     /region_name="Ig"
+                     /note="Immunoglobulin domain; cl11960"
+                     /db_xref="CDD:176433"
+     Region          15882..15965
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(15882,15947,15962)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            15963..15964
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          15981..16072
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(15981,16047,16062)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(16063..16064,16066..16067)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          16080..16176
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(16149,16164)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(16166..16167,16169..16170)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          16204..16277
+                     /region_name="Ig"
+                     /note="Immunoglobulin domain; cl11960"
+                     /db_xref="CDD:176433"
+     Region          16281..16374
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(16281,16347,16362)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(16363..16364,16366..16367)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          16381..16467
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(16381,16447,16462)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(16463..16464,16466..16467)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          16482..16576
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(16482,16549,16564)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(16565..16566,16568..16569)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          16603..16674
+                     /region_name="Ig_Titin_like"
+                     /note="Immunoglobulin (Ig)-like domain of titin and
+                     similar proteins; cd05748"
+                     /db_xref="CDD:143225"
+     Region          16678..16770
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(16678,16743,16758)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(16759..16760,16762..16763)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          16779..16864
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(16842,16857)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(16858..16859,16861..16862)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          16894..16967
+                     /region_name="Ig"
+                     /note="Immunoglobulin domain; cl11960"
+                     /db_xref="CDD:176433"
+     Region          16971..17062
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(16971,17037,17052)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(17053..17054,17056..17057)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          17071..17161
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(17071,17137,17152)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(17153..17154,17156..17157)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          17170..17259
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Region          17222..17553
+                     /region_name="COG3401"
+                     /note="Fibronectin type 3 domain-containing protein
+                     [General function prediction only]; COG3401"
+                     /db_xref="CDD:33208"
+     Site            order(17235,17251)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(17252..17253,17255..17256)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          17297..17363
+                     /region_name="Ig"
+                     /note="Immunoglobulin domain; cl11960"
+                     /db_xref="CDD:176433"
+     Region          17367..17459
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(17367,17432,17447)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(17448..17449,17451..17452)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          17466..17556
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(17466,17532,17547)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(17548..17549,17551..17552)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          17567..17655
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(17567,17634,17649)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(17650..17651,17653..17654)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          17688..17759
+                     /region_name="Ig_Titin_like"
+                     /note="Immunoglobulin (Ig)-like domain of titin and
+                     similar proteins; cd05748"
+                     /db_xref="CDD:143225"
+     Region          17763..17855
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(17763,17828,17843)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(17844..17845,17847..17848)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          17864..17953
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(17927,17942)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(17943..17944,17946..17947)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          17982..18053
+                     /region_name="Ig"
+                     /note="Immunoglobulin domain; cl11960"
+                     /db_xref="CDD:176433"
+     Region          18059..18149
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(18123,18138)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(18139..18140,18142..18143)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          18174..18249
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(18222,18237)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(18238..18239,18241..18242)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          18257..18349
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(18322,18337)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(18338..18339,18341..18342)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          18372..18445
+                     /region_name="Ig_Titin_like"
+                     /note="Immunoglobulin (Ig)-like domain of titin and
+                     similar proteins; cd05748"
+                     /db_xref="CDD:143225"
+     Region          18449..18543
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(18449,18516,18532)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(18533..18534,18536..18537)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          18551..18644
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(18551,18617,18632)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(18633..18634,18636..18637)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          18670..18746
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(18719,18734)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(18735..18736,18738..18739)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          18773..18845
+                     /region_name="Ig_Titin_like"
+                     /note="Immunoglobulin (Ig)-like domain of titin and
+                     similar proteins; cd05748"
+                     /db_xref="CDD:143225"
+     Region          18849..18941
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(18849,18914,18929)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(18930..18931,18933..18934)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          18949..19039
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(18949,19014,19029)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(19030..19031,19033..19034)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          19064..19137
+                     /region_name="Ig"
+                     /note="Immunoglobulin domain; cl11960"
+                     /db_xref="CDD:176433"
+     Region          19141..19223
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(19141,19206,19221)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            19222..19223
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          19240..19332
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(19240,19306,19321)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(19322..19323,19325..19326)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          19348..19433
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(19407,19422)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(19423..19424,19426..19427)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          19462..19535
+                     /region_name="Ig_Titin_like"
+                     /note="Immunoglobulin (Ig)-like domain of titin and
+                     similar proteins; cd05748"
+                     /db_xref="CDD:143225"
+     Region          19539..19629
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(19539,19605,19620)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(19621..19622,19624..19625)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          19648..19733
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(19707,19722)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(19723..19724,19726..19727)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          19751..19830
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(19810,19825)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(19826..19827,19829..19830)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          19847..19933
+                     /region_name="Ig"
+                     /note="Immunoglobulin domain; cl11960"
+                     /db_xref="CDD:176433"
+     Region          19958..20020
+                     /region_name="Ig"
+                     /note="Immunoglobulin domain; cl11960"
+                     /db_xref="CDD:176433"
+     Region          20034..20127
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(20034,20100,20115)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(20116..20117,20119..20120)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          20140..20229
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(20202,20217)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(20218..20219,20221..20222)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          20239..20313
+                     /region_name="Ig"
+                     /note="Immunoglobulin domain; cl11960"
+                     /db_xref="CDD:176433"
+     Region          20352..20424
+                     /region_name="Ig"
+                     /note="Immunoglobulin domain; cl11960"
+                     /db_xref="CDD:176433"
+     Region          20443..20521
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(20495,20510)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(20511..20512,20514..20515)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          20563..20810
+                     /region_name="PKc"
+                     /note="Catalytic domain of Protein Kinases; cd00180"
+                     /db_xref="CDD:173623"
+     Site            order(20563..20567,20571,20584,20586,20615,20631..20634,
+                     20638,20640,20678,20680,20682..20683,20685,20698,20701,
+                     20717..20719)
+                     /site_type="active"
+                     /db_xref="CDD:173623"
+     Site            order(20563..20567,20571,20584,20586,20615,20631..20634,
+                     20638,20678,20680,20682..20683,20685,20698)
+                     /site_type="other"
+                     /note="ATP binding site"
+                     /db_xref="CDD:173623"
+     Region          20567..20812
+                     /region_name="S_TKc"
+                     /note="Serine/Threonine protein kinases, catalytic domain;
+                     smart00220"
+                     /db_xref="CDD:128516"
+     Site            order(20567,20638,20640,20678,20680,20682,20701,
+                     20717..20719)
+                     /site_type="other"
+                     /note="substrate binding site"
+                     /db_xref="CDD:173623"
+     Site            order(20697..20703,20717..20719)
+                     /site_type="other"
+                     /note="activation loop (A-loop)"
+                     /db_xref="CDD:173623"
+     Region          20877..20980
+                     /region_name="Ig"
+                     /note="Immunoglobulin domain; cl11960"
+                     /db_xref="CDD:176433"
+     Region          21011..21100
+                     /region_name="Ig"
+                     /note="Immunoglobulin domain; cl11960"
+                     /db_xref="CDD:176433"
+     Region          21135..21199
+                     /region_name="Ig"
+                     /note="Immunoglobulin domain; cd00096"
+                     /db_xref="CDD:143165"
+     Region          21341..21411
+                     /region_name="Ig"
+                     /note="Immunoglobulin domain; cl11960"
+                     /db_xref="CDD:176433"
+     Region          21563..21650
+                     /region_name="Ig"
+                     /note="Immunoglobulin domain; cl11960"
+                     /db_xref="CDD:176433"
+     Region          21822..21911
+                     /region_name="Ig"
+                     /note="Immunoglobulin domain; cl11960"
+                     /db_xref="CDD:176433"
+     Region          21995..22067
+                     /region_name="Ig"
+                     /note="Immunoglobulin domain; cl11960"
+                     /db_xref="CDD:176433"
+     Region          22116..22189
+                     /region_name="Ig"
+                     /note="Immunoglobulin domain; cl11960"
+                     /db_xref="CDD:176433"
+     Region          22198..22286
+                     /region_name="Ig"
+                     /note="Immunoglobulin domain; cl11960"
+                     /db_xref="CDD:176433"
+     Region          22330..22424
+                     /region_name="Ig"
+                     /note="Immunoglobulin domain; cl11960"
+                     /db_xref="CDD:176433"
+     Region          22430..22513
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(22495,22510)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            22511..22512
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          22600..22670
+                     /region_name="Ig"
+                     /note="Immunoglobulin domain; cd00096"
+                     /db_xref="CDD:143165"
+     Region          22748..22837
+                     /region_name="Ig"
+                     /note="Immunoglobulin domain; cl11960"
+                     /db_xref="CDD:176433"
+     Region          22882..22968
+                     /region_name="Ig"
+                     /note="Immunoglobulin domain; cl11960"
+                     /db_xref="CDD:176433"
+     Region          22997..23068
+                     /region_name="Ig"
+                     /note="Immunoglobulin domain; cd00096"
+                     /db_xref="CDD:143165"
+     Region          23100..23173
+                     /region_name="Ig"
+                     /note="Immunoglobulin domain; cl11960"
+                     /db_xref="CDD:176433"
+     Region          23201..23279
+                     /region_name="Ig"
+                     /note="Immunoglobulin domain; cl11960"
+                     /db_xref="CDD:176433"
+     Region          23329..23405
+                     /region_name="Ig"
+                     /note="Immunoglobulin domain; cl11960"
+                     /db_xref="CDD:176433"
+     Region          23448..23512
+                     /region_name="Ig"
+                     /note="Immunoglobulin domain; cl11960"
+                     /db_xref="CDD:176433"
+     Region          23518..23610
+                     /region_name="FN3"
+                     /note="Fibronectin type 3 domain; One of three types of
+                     internal repeats found in the plasma protein fibronectin.
+                     Its tenth fibronectin type III repeat contains an RGD cell
+                     recognition sequence in a flexible loop between 2 strands.
+                     Approximately 2% of all...; cd00063"
+                     /db_xref="CDD:28945"
+     Site            order(23518,23584,23599)
+                     /site_type="other"
+                     /note="Interdomain contacts"
+                     /db_xref="CDD:28945"
+     Site            order(23600..23601,23603..23604)
+                     /site_type="other"
+                     /note="Cytokine receptor motif"
+                     /db_xref="CDD:28945"
+     Region          23655..>23803
+                     /region_name="PKc"
+                     /note="Catalytic domain of Protein Kinases; cd00180"
+                     /db_xref="CDD:173623"
+     Site            order(23655..23659,23663,23676,23678,23707,23723..23726,
+                     23730,23732,23770,23772,23774..23775,23777,23790,23793)
+                     /site_type="active"
+                     /db_xref="CDD:173623"
+     Site            order(23655..23659,23663,23676,23678,23707,23723..23726,
+                     23730,23770,23772,23774..23775,23777,23790)
+                     /site_type="other"
+                     /note="ATP binding site"
+                     /db_xref="CDD:173623"
+     Site            order(23659,23730,23732,23770,23772,23774,23793)
+                     /site_type="other"
+                     /note="substrate binding site"
+                     /db_xref="CDD:173623"
+     Site            23789..23795
+                     /site_type="other"
+                     /note="activation loop (A-loop)"
+                     /db_xref="CDD:173623"
+     CDS             1..23830
+                     /locus_tag="BRAFLDRAFT_79792"
+                     /coded_by="XM_002597921.1:1..71493"
+                     /db_xref="InterPro:IPR000719"
+                     /db_xref="InterPro:IPR002860"
+                     /db_xref="InterPro:IPR003961"
+                     /db_xref="InterPro:IPR007110"
+                     /db_xref="GeneID:7218144"
+ORIGIN      
+        1 msicnkwrni savtvfynsw mfkvnrkame ghslyvdgli egaeyefriy aenmaglgpp
+       61 sqptqptlal ppmdppgppq klhtydytks waairweepl dngggeitgy clemtakdkd
+      121 dwlkvhdkpt imleeftvad lvegkeyefr ckarnakgfg pyavmepfka kdrvyepiie
+      181 leaglrsglt vkaghpihla ayirgkpdpe vwwesdpefd ktrsvigpte dgsdfvlkns
+      241 vrtdsglyki tasndageks atcrvtvldv pgpprftrvk dviktgctlq fktpednggs
+      301 eitnyvierr eatrriwtqi satlqkliyy asnlqegtdy vfrvaaenli gvgdftefpp
+      361 fkamdpvgpp gppqnleiyd smdtevslsw dipkydggsp ikgyviecrk ygdrdwkkgh
+      421 ttatepelkf tltdlphmee yefavkavne vgpgkqavtd pyvvrekqvp pslrlppqlt
+      481 fkagtnlvld aaldgrpapk vewykgddtl kpdqrtditq slidtiltvq hctrndagty
+      541 fvtaannsgk ksaecevtvy gppgppqdln idgmtantcs lswrhpkddg gspvtcylvq
+      601 rkempdgkwv lvkgdvpvcs fivprliegk syafrviaen kfgtgpgtet rpkmikslik
+      661 lpgppenpli tdvsrnmmiv cwepplddgg spitgywlek rdsnnqrwfk vskapivgtr
+      721 ervtglyanv eydfrtsain aagvgppskp tkptvakdqa ippgpprpvv vdttrssvtl
+      781 eweppardgg spiigyyvem kkfrgeadwe rchdtelvhl relvvpdlne geeywfrvfa
+      841 vnevgegppg dvpgrvivke rieevemdld adikegvtvr agnpvrlmay fkgkpepkcs
+      901 wkrvgteamm rgypentsis taliiktsar tdtgkyaltv enkagaktmq tsvtvldvpg
+      961 pvlklhpsnv tkrtvtlkwe ppeddggsrv tkyriekrdv srkawqrvsd trdvtitimd
+     1021 lveeceyifq vcaenkygvg apsetqpikm tepldppgpp enltvtdvtk rsvgitwepp
+     1081 khdggskvth yvmemkapgs ssfekvdskv tqlfynflel segeaytfra cavnavgpgp
+     1141 yaqtppvetr eklippgirl qeemtvrage tinivagitg kpvpaiswer ggkplmavdr
+     1201 vsvvndasss nldikkcmrk idqgvyqita ankagsaskt vkvtildvpg epndvkisrv
+     1261 fanemtvtws kpyqdggspi tnyvvdrrdv hmvtwtqvsa sidpkkmviv ahkllegvey
+     1321 vfrvraenni gvgppaeskp tlarspygpp gppeapeitk sgrnwlnivw qkpkddggap
+     1381 vsgywlerke ptgarwmqin rlaiedmhhk vtglvegtqy efrvaaenra gvgppsfpsv
+     1441 prapatpirl pgpptpkvvd vtrrsvslrw lppeddggsr iigyvverrq fdsdiwdvch
+     1501 tterivgqel tmgdltentk yvfrvsavnl agqgesaetp gitqvrdpte mpdyeldasv
+     1561 kelmivkvgt plripvfikg kprpsmewsf ngqvlvndrm ktenteisht lvispcekkd
+     1621 agrytlhlen plgdvsvnir vkvvgppgpp ttpfkvgrvl enavplswgm pddnggseis
+     1681 nyivekrivg qkgwykvssn varqnivvsr lekdyqylfr vaaenqygig pfietdgpvt
+     1741 asdpivppdm pehlditrvt rktvelvwkr pkydggspit gyivesrnlk ddiddwnlcn
+     1801 dyqlkdlgfi vtgliendky efkvaaqnkv gtgkynntra vqvkdeieqp dcnidlrlgd
+     1861 nitvkegtti digarikgkp dlevtwtade naltdsgstp rssrastpav gmsarvleas
+     1921 drvimsvdap rarlevmnar rsdrgkyait vsnkagkkss sinvnvlakp gpptklnide
+     1981 itnsyailnw eppeddggsp vlnyvvlkkd tarnvwapva eaypvakqti hipnllegse
+     2041 yvfrvqaenq igiglpndsm pivarwryrv pdapdapsis dirrnamtat wrepfnggsk
+     2101 vtgyylekke kdasrwlpvn qepipskthr itgllegmdy vfrvkaenra gvgppgppsr
+     2161 pqkaedpidp pgpvvdpecy evtrssasih wkkpetdggs rilgyivekr kadsdlwtsc
+     2221 hdtemhrsld lvvpslltgq kyvfrvcavn ragrgpweav pgtilikere eplvlnldat
+     2281 fkelyvlrag tvlripvhig grpepkiewl kegqkthgrt lientaistt lliknvyksd
+     2341 ageymcrisn asgkkecrvq dttkdsilld wdppredggs kvlgyfvemk gpedtdwrkv
+     2401 nmesftssrw lvknlkddvd ydfqvkatna igvgppsepi tgarcfelps apaidlaism
+     2461 rdlvvvkagt hiklharieg ypyptaqwlf kgepleagdr ysmkttknsa ellvkpslrs
+     2521 dtgryhlvvk nlagtrkapi nvkvldrpgp pkapvqfedi hqdqvtlrwn vpaddggtev
+     2581 tnyiverrea aktfwttvns nlsrtrimvp kliegtpyvf rikaenkmgi sdpldsepvt
+     2641 pkspydlpgp pqelriinvq sdsmsltwle pdydggspvq gyflekrdki skrwlkiekd
+     2701 mlttttykvg gliegfsyef rvsaknvvgt gppseptfpa varppldppd pplephvvdq
+     2761 trstvdlewd epvydgslpi egylvehrlk gvetwtkshd tsmvanmyyt vagleegrey
+     2821 qfrvfainga gkskpaevpg ftvvrditiy peieldasck dtvyaranqn vrmpvyikgr
+     2881 pdpkimwske gkdlpghiti eklaigevlk mkvtrpdsgr ytvqisnvcg evskninlvv
+     2941 ldrpgpprni tvkyvkkdsc vlnwdipedd ggsqitnyiv errlpnenlw rnvtsnirsr
+     3001 vskvmglneg ysyffrvkae nkygiglpve tteptlaadp idrpteprdl evtavtnnsv
+     3061 slkwlqptyd ggsplttyiv ercrlgesdh trintddlle caytatglnp gakyefrvka
+     3121 rniryigpps tptpfieard dtkppkield lrlldvlvvr agtkvhlegr iagvplpavk
+     3181 wsrggkeiat sdhyevttvg ketcltlrsa rrrdtgsyev nvtnsagamn atakvivqdv
+     3241 pgppvgplki remtsesmti ewkmphddgg aevtsylvek mdtkighwfp vdtsvtkfsl
+     3301 kvtqlmeghe yqfrirgrnk iglgepfvsk priakrpydl pgppsapivh tvfpdnatli
+     3361 wqppesdggs eisryilekk dinsikwvra vetissdtry nvpnlvegme yqfraaaena
+     3421 aglgkwgpps tpiiarepid lpdppvnpkc idttrssati awkkpildgg sdivgylvey
+     3481 raadsenwei gtpkihtlqf vvtdltegae yyfrvsaine agvgppgdcp gkvlikdila
+     3541 spdfeldasm kktltvragq pirmyvsisg rpepeirwek egqpldyrae venteyssql
+     3601 aiyntnryda grydlilkna vgektasvnv kvfdtpgppg pitikevskd hmvitwtppt
+     3661 vdggsavsny ivekrdesrr twstvttnnp klscripnlv etvtyffqvf aenkygigep
+     3721 vesmpakaqd avgppgpvvk lhvaditrit avlewtkptf dggskvtgyv vetqeagsve
+     3781 wekaglatec hyqvlgltpg hgfrfrvkaq naagqgdpsd temykaqdek iapkinldvt
+     3841 mretvvvkag htltiyagis gkpvphtrwa kdgammkpdr rlmfkkshte trfslkevtr
+     3901 adggtyalra yndagektan vfvkvldkpg ppaslqidev tansvsiswr pptdnggvev
+     3961 nnylvercdv qrgvwltvna nvtrfmfkfp dltkgreyaf rvmaenrigv gepaatekvv
+     4021 ardaveppgp psapeiteic kdaigcawep pqydggsait gyiierrekq srrwiklnre
+     4081 avkkreyrse gllegfeydf rvravnqagp gdpsepsvpv raeeqisppr nlrvidysrs
+     4141 fitiaweppe fdagskilgy fiwrrnieyk gwapcnekiw tdrrfhikal tehkkylfmv
+     4201 kaknsagmis lpatigpvet kdefeppkil lsetfkdvit vkagetvnvn inftgrprpr
+     4261 atwekddstl tlrdrirvet tpenslltle ktersdtgky tlnvrneagq rnaivrlivq
+     4321 dkpsppqapv etskvsgetc mvkwkppkdd ggspihsyii ekrdttrqvw traatvdagk
+     4381 lsaqvtkltr gqqyvmrvsa qnaigtsdpq igepflardf fdvpgppgqp qiikvckkyv
+     4441 hltwtppind ggskvtgyli ersdlcpsit tfwircvddv ikdteyvihn lfegcdyefr
+     4501 vtacnaagwg ipsegseevk vrdpvappva pgkpelmelt kssiklnwsr pyydggspii
+     4561 gyilearkeg qeewarvhrp eyiierewtl kdltegtkyd frvfafndag qseasensgi
+     4621 ievkeiiipa dvepdaslwr tqivrsgtal rlfvpikgkp tpeitwtkge enleeranit
+     4681 ntdtasifvl pnmqrldagk ycitaenkag kkssfinvkv lgppgppgpi kvkditkdsc
+     4741 iiqwsapddd ggsdvfnyiv ekkeagrvgw atvtfkqqkn tyritnlvet ctyyfrvige
+     4801 nkygigepve teepicaldp veppekpknl tveevtpatv slawkrpdwd ggsrisgylv
+     4861 eylapgeeew tkaatarnvs ytvfgldrdq tyrfrvttlt elsqsvpael pepitckeeq
+     4921 laptldlssi kgdtlivkgg tdltltipvr gapdptvawm hglqqiqekg ryftkktref
+     4981 trlqikktkk edggkftita qnvvgstsav fnlkvldkpg ppsgpitfdd vtdesvmlgw
+     5041 eapkddggse vthyvveksd vrtaqwqyvs sevrrthlkv tglnkgaqyq frvsaenrfg
+     5101 vgtplkssnc yirapfdvpe ppqnlkvvgv tksqikiayd ppendggaav tgymverkek
+     5161 nsprwikatk mpisdtefss lglmeglqym hrvravnqag tgpacdptpl viamdpiapp
+     5221 rnleilevss kfvhvqwkkp iydggaritg yvieardvra ekwvkchlge vlklehvitd
+     5281 ikalqkyqfr vkakneagni sepsnlagpv ltkddlqppt itldakikdn kvqvhagdkl
+     5341 visgfaggkp vptmiftkgr lvlrsqgrvs idqkgkafal cvsdasrada geytitaenn
+     5401 sgsvtvnvkv lvmgkpgppm glqvlettpe tctvswqppe ddggagvtny viekmdlktk
+     5461 nwkkvsgavr kttfkipkli pfneyqfrvs aqnmfgvgdp attgnvlarh pfdtpgppvh
+     5521 vkvseitres lkllwsppen dggseilgff iekkekvsvr werlnkepvi etrfrvedle
+     5581 egleyefris avnaagvgkp saptlpitaq dpvdkpgppg ppevedttrt sisltwtkpt
+     5641 sdgrskiigy vlevqpvgte ewtkvhttst iklqsyvvde ltenkeyvfr vsavnavgvs
+     5701 epsastapta arerqeppev evdasmkrsl tvragnpirf yvgvkgrpap tctwhkedvd
+     5761 lktrsniett eysttmtiat anrddagkye ltvenphgsk tvgtyvkvyd tpgppeevvv
+     5821 kgatsktavi dwdppskdgg kpvvgyilek kevsrrtwdt idsdivktcy rvtdlvegnq
+     5881 yffrvlavnd fgigdpgete aptlaidpad qpepprnfhv teitpnsvsl awkkpdydgg
+     5941 apitsyvvem qqvvseeege vegewrkctq inalrytvad llkgekyrfr vsaqnygavs
+     6001 kpaellqpvv akeqifppam dlqgitsdti mvkegtdfvl kipysgqpip tvtwkrglgv
+     6061 mqqtarifak ttremtqlfi kralkgdsgk fsvdlsntag sqqadfqinv lgrpgppegp
+     6121 vdfedvsaes vtmnwkppmd dggsevtnyv ieksdnrgva wvyvssgvkr ttmrvtkltk
+     6181 gkvyafrisa enrfgvgkpi espyitakdp ydipgppgip ethdvtreqm cltwpepadn
+     6241 ggspvtgyvi erkemfsnrw iklnrapvrk neftstqlte gkeyefrvca vnaagvgpps
+     6301 epsrprkavd pvgiprnvei leitrssvtl swarpthdgg sklvsyiier rlvkeekwtq
+     6361 hiqsdlgnlt ytmkglkqge kyvfrvkakn aagtvsdpsh avgpiickdd lappkilldt
+     6421 rlkekvtvaa gsaitlaamv sgkpqpeisw skgtrtlvgt nrmkidstar stqlaikdcc
+     6481 rtdsgkytlt aingsgsavi siqvtvldrp gppsgpiqvg evtpetavis wappaddgga
+     6541 eitnyvvqrs dvkqpdvwik vsaavrktth kitklnlgtt ycfrvraqnm ngigdalase
+     6601 hvqarypfdt psapgqpqvk dltaencrit wtqpetdggs eitgyivekk eknsirweri
+     6661 nrdlvqemey mvldleegle ysfrvcavnk agrgkaspqt kptvaqdplg kpgspvnaev
+     6721 vdttrtsadl kweppikdgg skilgyivea rkegseewlk ahatslhrtt efvvpdltpg
+     6781 gfykfrisav nqvgvgepae ipgvteakdi letaeldpsv akhrvtvrag tplriyvpik
+     6841 gkptptctwv heesdlenra qietsevatq llimpadlrd aglfhltven ssgkaeadin
+     6901 vrvlsqpgpp enveiksfsr esavidwdpp skdggkpvtn yilekkeisr ktwtvvdani
+     6961 vktcytalnl vegnqyffrv faendfgige pgetdtpmta mdpidqpdpp krvkltevts
+     7021 hsvslvwdkp dydggsrvts yivemlpadr eeeegwikcs qlntlrytvt elernavyrf
+     7081 rvsaqnagav seprelpdpv ickepeipps mdltalqsqd fvlkessdfa lkipyaglpk
+     7141 pkvtwlrglg plkdsgrift ktlqdnttlf ikrvtkadtg tftlnlenla gsqsaefkmv
+     7201 vvgkptapqm piefddvqpd svtlswkhpd sdggsevtny iieksdnrga twvyvssgvk
+     7261 rttckvgklv rgkeysfris aenrfgvgpp iystsvvake aydppdapta letydvnkeq
+     7321 iclrwqapan dggsmilgyl versergsqr wtklnrapvr ktdfrsshlm adheyefrvc
+     7381 avnaagpgpf seespyaktv dpvgppqnvq vvditrssvt lewrrpafdg gyriigyqvl
+     7441 rrevgpqepk wvechhgllq kleetvkglk nggkyefqii aknaagiksa psdktlpvvc
+     7501 kdnlvppaiv vdyrikenkm aisqgdtlhv pvaitgrpep evswtrngkp llksqrvdia
+     7561 ydgkkdahvh vkesgrvdag eyivtaknss gvadatinvn ifatpgkplg plvvsdvtpe
+     7621 scllrweppe ddggatitnf ivermdvkqq lwikvssacr rtslkvskls pgqtyqfrvf
+     7681 avnvhgvgep lvseaviaky qfdvpaqpgq pqvsdvtrek lnlswtapls dggsdiigyv
+     7741 vdmkertsvr wqritrrsiq elklqvdgle egldyefrvv aentagfgkp splsapvivq
+     7801 dpvglpdppt dvevfettkt tnavrwqppq rdggsriqgy vlemlimgqe ewkkchtksv
+     7861 lricefvvdg lttgpgyryr vsavndigmg kpaelpgwcq ardmeippli kvdpsaaksm
+     7921 kvhagnplri qvplfgkpqp tatwikedsd lenrsqvett ethttimlps cdrrdagvwe
+     7981 mfaenafgta swsinvkvmd tpgapeniec kgvtsksciv dwdppskdgg kpvnnyvlek
+     8041 kivgrhtwst vddnivktay tvynliegnq ylfriiaend fghgepgeld apitaadpvd
+     8101 qpdppkkfev tetspthisl rwtkpdydgg sritsyivem rftdseewvk ctqinalryt
+     8161 itevipnqdy mlrifaqntg aqsipkeigp vtakepimpa tldlsaipgd evivkqgsdw
+     8221 tisipyhgyp aptaqwfrgm gnlretnrvs tktgggvtml nirqvvkadg gkysvqvsnp
+     8281 agsqtadinv rvigrpgppn gpvviedvap escvlnwkpp tddggsdvtn yvieksdnrg
+     8341 atwvyvssgv krtqlkvtkl tenkeylfki saenrfgvgs plksesmvak lpydppsepr
+     8401 npkvsevnkd smtitweesa sdggsditgy iverkernsn rwvkinrvpm khltvrsmsl
+     8461 legceyehrv iaynaagpsk hseatpltla kdpvtaprrv evvdisrssv slewlapese
+     8521 ggariigywv drfnpeeakw itcnqimips serhftvkgl rqgskyqfrv raknaagiis
+     8581 apsdetipvi ckddlqppnv slaymtkdtm tfkagedmdl smsvkgkpvp divwmkgirp
+     8641 lvksdrltfk msgkistmsv rkvvradsge ytlqakslcg eakqtikvsv mdvpgvpidl
+     8701 atgevtpefa titwqppedd ggiavtsftv ercdakapda wmkvssavrk tsykitrlta
+     8761 gasylfrvra qnfngigpaa tigpiiakwa fdvptapvnl kvsnvtkdsi titwqepdsd
+     8821 ggspitgyhi erkertsvrw qrqtrlalgp seltyladdl iedldyefrv iamnaaglsp
+     8881 atkatpptmc ttppgkpgkp inpeckdttr stvslkwspp ekdggsriig yviearkids
+     8941 edwfkvhqks tirdtqyvae nlkendallf rvsavnmilm gdpepvpgfv qvrdltqppe
+     9001 vfldsslkrm vkfnagaplr lvasirgrpm pecrwekeds dlpnrsktet vdnitqlvip
+     9061 scdrrdagrf dltvenahgs vtvaimvkvm dtpgapenie vkgvtrssci vdwdppskdg
+     9121 gkpvnnyile krqvgrttwt tvdanivkta ytisnlvegn kynfriiavn dfgpgapgdt
+     9181 eeptlaqdpv dqpslpknvr iteitpthis lrwnkpdydg gsritsyivt krftdseewe
+     9241 kctqinalry tvadlipnqe yvfrvfaqnm gavsppaevg pviareqlap gsidmealps
+     9301 deivlkegad lvvdvpfgga prpkvtwkkg mgelretdrv stkasngtaq lifkkcmkad
+     9361 agrynitven elgsqeadin irvigrpgap sgpvefedvt pesltmnwka ptddggsdvs
+     9421 nyvveksdnr gatwtyvsmg vkrtslritk lkeyteylfr isaenkfgvg pplrsnsvia
+     9481 kypydvpspp gephvsvlnt tkesmvvewt astddggsei tgyiverrer tsqrwmkvsc
+     9541 vlrmldpttl evigvnycpt cpnggariig yiverkgvne kswtqvhvgv isereyqvkg
+     9601 lktneryqfr vvaknaagir slpsepttpv vckdeiappt vkldyklkdv ltihrgqplh
+     9661 vlfhvkgkpv peiswtknkk llmpsshvrm etkgentevi ikesartdsg qyvvsaknna
+     9721 gaaeakctvt vlsvpsapvg pvkvwditke tcriswdtps ddggspitny fiekcdtrqp
+     9781 newvkvsaai rktemkvtkl qnrctyifri racnyygpgd pllsaqvlak hpfdppsaps
+     9841 kptlsgvtre qmlvswgvpe sdggaeinny ilekkellst rwsrvtkiti tdnkylvtdl
+     9901 degteyefrv aaenaggrgk ysvpslptaa vdppgppgpv qnpcclettq tsvtlawdpp
+     9961 rekggsrivg ylvemlppgg daykkchigd avkvteftvp ellegkpyrf rvtainevgp
+    10021 gaitevngii tpvemleapv ilmpqeykrs qtikagepir lhipfkarpe peitwvkeds
+    10081 dlehraqven trwsttltlv anrndlgkfe ltlknkagea tcgilvkvla tpgapeniev
+    10141 rgvtkntciv dwdtpskdgg kpvknfvlqk keisrktwdt vddnivktay ritnlvegnq
+    10201 ysfrviaend fgfgdpgecp hpitamdpvd qpdppkkvdi teitpitvsl awvkpdydgg
+    10261 sritsyvvek lrtsaedaqw erctvlsltr ctvtdlvphe eyrfrvsaqn ygaisepret
+    10321 tavvckeqiv pasidltavt sdvlilkegq dfilklpyhg mptpavtwyk glgvfretir
+    10381 vvtktiggvt qlifrkcekv dggtytvvva npagkqtaei qfkvlgkpga pvgpitfedm
+    10441 tpetatlnwq vplddgggdi tnyvveksdn rgaawvyvss nvkrcclrvt klvhrkeymf
+    10501 rvsaenrfgv grplmsesvv akypydeptp pydlkvtdvt kdgmlvswha sesdggaeit
+    10561 gytcerrern snrwvkvtkg mirkcevhsy gllenceyeh rvyahnaagn sknsestgli
+    10621 tavdpvgvpp glkvthisrs svslawrepd sdggarligy iverneiaag kwvsvhsgvv
+    10681 sertytikgl kmngkyefrv taknaagrks qpspptppvi ckddlapptv sfekgkanih
+    10741 vkegqtavft aavsgkpype vawnrgarmv aktarhkfek tnrtavltil ectrsdagey
+    10801 nirvkndsgl aeakcklqvf skpepptnfe viekspdhav igwqepgddg gspitsyive
+    10861 rcdlrspdnw trvsaavrkt sykvtrlapg styifrisaq teigvghplv spqvvarhpf
+    10921 dvpsqpgkpe vsdvtkdamk ltwalpdtdg gseilgyivg rkehtavrwa rlnksllkec
+    10981 ryldetvdeg leyeyritae neagrskpsa pcmpivaqdp lgkpgapvaf vddttrssvs
+    11041 ltwnppvrdg gsrvtgyive mrqqdgeewt kahatsavrl teltidklte gqgykfrvsa
+    11101 ineigvgepg evegvvfard mleapeveld vslkramkvn agapiriyvp ikgkpqptct
+    11161 wekddsdlen ratiqtseia tqmvinaadr rdagrfkltv enssgkkevg vnvkvydtpg
+    11221 ppehvrvrdv tkasaivswa ppikdggrav ghyilekreq srrtystvda nvfktsyrit
+    11281 nlvegniyff rvlavndfgv gepgesvegc latdpvgepd ppkklcitei tpmtvslewq
+    11341 kpdfdggsri tsyviekmnt teeeprwekc stlsltritv adlipndeyk frvsaqnaga
+    11401 isvpeevgpv takeqveaph fdltdlsgdt ftlkegadvn mvlpftglpa psvewfrglg
+    11461 plretdslvt kstrnstsli vrkirkadgg kyrvviknkl geesteltfn iigkpgvpsg
+    11521 pvefeevgpe sitlnwqppt ddggsyitny vversenrgv swvyvssnvk ranlrvtklv
+    11581 enkeyifris aenkfgvgpp lnstgvvakl pfdppgaptn vqafdtskaq msvsweepan
+    11641 dggseitgyi cerkergsrr wvkvtkypik klvcqstgfn egseyefrvy ainaagagky
+    11701 setsypaiar dpvgeprdvk vvditrasvt lswhypsydg garvigyive rmnqkegtwv
+    11761 qvhggivkaq hfkvkglvmn ekycfrvlak naagirskps pptplvickd eiiapkisld
+    11821 ysvkdktevf vnkpfdigaa vsgkpepeii wtrndrvivs temrkikygr ktvltvkhas
+    11881 redagvykit vknpagqaev rtevavlakp dipagpvrvt dmhpegcvia weppedtgga
+    11941 pitnfiverc eaksqewmll skavrstrqk itrltpgmvy qfrifaqtmh gisvplvsep
+    12001 vearypfdpp apppkptlkd ksrnhlaikw dvpetdggsp itgyiverke rtavrwekah
+    12061 rgvieelqlr msdvwdkeey qcrviaenia gkskpspase piivrdpstk psapempevt
+    12121 dktktsisir wgpperdggs rivgyvvemm egvsledavw lkchqtsmir amelditdlk
+    12181 eeqpyrirvs aineggtqgv pgelpgivap rdmveppqlh mdammkravt fkggdqlrlw
+    12241 cnfrarpmpn ivwekedsdl enrakietie vtnqlwctql viegcdrrda gkfemsmens
+    12301 egaghasfiv kvldtpgapl pikvmeitat salvtwtvpd kdggrnisgy tleireqsrr
+    12361 twktvaeniy ktnyrvpklv egnfyyfrvm avndygaglp aettepilam dpvdapespr
+    12421 nlrltevtpm tvslawqkpe fdggsrvtsy lievlqtsqe dmgwvrlttl sltrytatgl
+    12481 tefeeykfrv salnvgaqsv paevgpvvck eliipagfdl telksdtftv kegkdltval
+    12541 plvgvprpkv twlrglgvlr esdsvvvktn hvhttlhvrk irkansgkyt vkaenhages
+    12601 taeinikvlg rpappvgpvv fdeicpdais iswqppsedg gasinnyvve ksdnrgvswv
+    12661 yvsssvkrta lrvpklvegt eylfrisaen kfgvgdalks gsvvakhpfd ppspplniqv
+    12721 sdvckesmri twdkpaedgg seisgymvek kertsnrwmr vtrypvkkce vqaaglnvgs
+    12781 eydyrvyaln aagtskasep sglvlavdpv sppqnvrvla vtrasvtlaw hapltdggar
+    12841 ivgyiverfq rdkenaqwvy chpgivntre yvvkglikea kyefrvrakn aagilghysd
+    12901 stipvickdd isppkaqldv nlknqmtyqa grnieltmhf agkpepstew rlgrkplmrs
+    12961 drttivkkek trtllikncv radtgrytft vkndhgeasv svevnvqavp gvpmgplrvs
+    13021 dvtpetcvlt wdtpadnggl pisnyiidkc dvklpgawmk vsaavrktth kvtklkhket
+    13081 yifrvravny ngageplvse pivakhsfdv ptqpakpvir dvtsetcvit wqapesdggs
+    13141 eilgyvverk ehsamrwqri nralvrdtel shedltegle ydfrvaaenm agrgkfspsc
+    13201 mpvlardpvg kpqapqnaev lettresvsl lwqppmsdgg skiygyivek kddkteewkk
+    13261 ahslstikqc elvvpdleeg kglnfrvsav neygvgepap iegivfprdm aappecklda
+    13321 slkrtvtvka gvplrfyvpv rgkpfpkvtw vkddsdlenr anieiskvat qlvivntnrr
+    13381 dagrfeltle npsgtktvgi nvkvidtpga pehvrvrdvt rnaaviawap plkdgsksit
+    13441 hyilekkeps rrtwttqdan ivktsyritn lvegnnylfr vlavndigig epgetpapil
+    13501 amdqvappep prkvqiveit pinvtltwtr pdfdggsrit sylvekmett kaewerctai
+    13561 natrycvtdl apgdeytfrv saqnvgatsd pvevgpvvak eqiyeptldl sqipsdvmtv
+    13621 kegidlnlpv lfrawpkpri swlrglgelr etdsmttknt ktsttlivrk irkadagtya
+    13681 vvienklgsa raeftlkvlg kpspcngpve fedvtpesit lnwkapdddg gapisnyvve
+    13741 ksenrgitwv yvssnvkrct lrvtkltenk eyifriaaen kfgtgktits psvlaklpfd
+    13801 ppsaprdvti sdatkdamhv rwtapasdgg seilgyvver kerggsrwmk asrypvkkte
+    13861 fhstglttgk eyeyrvaamn aagtgplsel sdfvyaydpv tppqrvrlia vtrssvtlrw
+    13921 epplsdggsk vigyiverhm tkegekwvav hagvindfmy tikglmmgar yefrvsakna
+    13981 agivgqksek tppvvckddl appkvamdvk nkdtveimkg qmmslvacis gkpppdvvws
+    14041 kgnrpliesp rikfkvtdrv aivtihdvdr pddgvytctv knnsgvddaq vkvhvlsrpg
+    14101 qptelaigev tpdsvklnwg ppdddggmpi tnyivercdp ktpddwvkvs sairktdyki
+    14161 tklthgssyl friraanyng pgeplmtpai vakyqfdtps apgkpvaknv tkdrltlmfd
+    14221 epasdggshi igywverker tsvrwerlnr eilgpderki vvddleegld yefrasaenr
+    14281 agrgknspas ipytaadpag mpglvetpev idctpttvlm qwgppstdgg arvtgyiven
+    14341 lilgeeewhk chlkekirqt ellvtdlvel qaykfrvsav ndlgvgkpne vpgwtaprel
+    14401 kvppdlvmda lykrmvtvra geqikfyipi kgkpvptatw ekedsdlehr aeidttdkdt
+    14461 qlviqsadrr dagrfeltle ndsgtksvgi nvkvidtpga ptnlkvrdvt knaaivswgp
+    14521 pnkdggkais gytlqkkeas mrmwstveen lykttfrvkt lvegnhylfr vmaindigvg
+    14581 epadtvepil amdpveppsp pknlkiteit pysisltwgk pdfdggsavt syiveklhms
+    14641 aeqpewekct amsatrytvt dviahdeykf rvmaqnvgav sepaetepvv akeqlfapel
+    14701 dlsslhgdsi tvkegtniai kigmsgtplp kvvwsrglgv lresdhcltk tnhesttlfi
+    14761 rkvqkrdqgs ysvsaenkvg kesatfnvnv lgkpgppvgp ieieevspeh vtiswqppld
+    14821 dggsgisnyv veksdnrgas wvyvsagvkr tnlkitklte nasyifrvga enkygvgkgi
+    14881 tsgvvvakhp ydppspprnl kvtevnresa flkwtspedd ggselagygv ekrergsqkw
+    14941 mravryvlkk cefqvtglte naeyefrvya vnaagngkpc datppvrivd pvsppqdvrv
+    15001 tkvtrasvsl hwykprtdgg sriigymver mnvkeekpkw vlvhtgvind ieytvkglis
+    15061 gdryqfrvtg knaagviges septpavvck ddiappkldl kvkdklqvda getikltvgv
+    15121 hgkpdpdltw trgrttlmka drirfekaek nfsvviknav radsgtyvls aknnsgvadv
+    15181 kinvnvigkp gkpvgpvkvs dktpnscvlt werpeddggl pisnfliekc dmkspgqwak
+    15241 vsaavrktsy kvtklthnct ymfrisavny sgageplmse nvvatwpfgv ptapgkpqts
+    15301 dvtkdsvtak wnlpeddggs eilgyilerk ermalrwerv srtliketsy tmndleegle
+    15361 yefrvcannm agngkyspas lpvvvrdplg kpqppvnpvv aettrssvsl ewqkpefdgg
+    15421 srvigyvveq rrsdsdewsr shtksmvrhe dlivtdveeg kgyyfrvsaa necgvsapaa
+    15481 vegivtakdm meaptleldi slrraivvrg gapiriyipi rgkpfpkitw ekedsnlehr
+    15541 aaietseiat qlmipsadrr dagyfnlsle nssgtataqi lvkvldtpgp ptnvrvrdvt
+    15601 kgtaiiqwga pekdggkavt nyllqkreis rktwdtvetr iyktsyrvtn lvegnqyyfq
+    15661 ilaenvygig vpqasdeail amdpvdcpdp prkleiteit kttvslawqr pendggsrit
+    15721 syiiemlpag qeewircsvl nslrytvtel ttgqeyqfrv saqnvgaisa prelppvvaa
+    15781 eqinppeldl salprdevvv kegadmtlrv pfsgtprpti twlhglgpmv esdskvtktn
+    15841 htstsliirk tmkrdagkyt ikavnnlgsq tadinikvlg kpgqvtniqa sditpehcvl
+    15901 twdvptddgg spiqsysver sdnrgmtwtf vnmsakrpyc rvtklvegkt yifriaaenk
+    15961 fgvgptymsg avdaklpfdp papptdlqvs drrkdsmtvs wsapaddggs eitgymlerr
+    16021 ernsnrwikv tkgvihkrev rstglienle yehhafalna agaskpsdts gffravdpvg
+    16081 vpddlriidv trasvtlswk splqdggari vgyvlerrqv kkegppqkwv qvhtgvikek
+    16141 tlkckglikg ekyefrvqak naagitsefs qptvpiickd dlrppkltld fklkekntia
+    16201 igesfklavm vagkpapeiv wskdgkrlak tdrlrfehtd kytavlikna srkeaglysv
+    16261 ratndsgedr vqvtlavedk pgapqgpvhv vdicpeyavi swdvpaddgg taitnyiver
+    16321 cdvkaqnwvk vssavrqtri kitklvagsa yqfrvfaqnv ngvgqplvsd viiakwpfdp
+    16381 pmapdapkpi svtkdyvqls wappaedggs evlgyhvdrk dvthtnwtrv nrrllreley
+    16441 eiggldeghe yefrvlaenv ageskpsaac ppvivrdpvg pplapawldv idtttstvtl
+    16501 kwpvpqsdgg lrlegyllem rkvgtdtwer ahtpatirhn eftverlteg sayyfrvsal
+    16561 nesgasepre aedttvvkql eeppefdidv tykktitira gvplrfyipi sgkptpactw
+    16621 ekedsdlenr aqietsevat sltihntdrr dagkffltve nssgkkqvai nvkvldtpgk
+    16681 prslrvkdvt snsaffswdf pekdggksit ryivekrees rrtwstvatn vikssykiyk
+    16741 lvegniyyfr vmgvndigig epadttepit aadpvetcsa vkkldvveit dttvalqwqr
+    16801 pmfdggnrit sylvelqekg seewqrvksi nllrytvtll dkgseykfrv samndgglge
+    16861 pcetpfvvck eqlappvldl tdikdtvvvr qggdfnvtip fhaapkpkve wkrgyqvltp
+    16921 ieryfvknta dfasltikkv ekkdamkftl tvendlgsqs feitlkvlgk pgkpegpisf
+    16981 edvtpeslel lwkpprdngg sdvtnyvver sdnagvtwty vssdvkrtsv kvpkltpgaq
+    17041 yimrvsaenr ygvgepllst avhakypfde pkppkapttq diakdsvtvs wkpptddggs
+    17101 diigylldkk evgtsrwmri sksimkkrdh rvtnlregte yefrviains agesapsvps
+    17161 tpvrivdpvs pptelavsfv trasvglvwk kpgltggrki ityiierrnl kqekwvvcnt
+    17221 envaateyti kglvngekye frvsarnsaa vvsppagpti pvlckdelvp asikldynmk
+    17281 etmnfpadst falstlitgm papevtwtkn nrpmvrsdrv nrettkktsv ttiraasrad
+    17341 sgtyvvtakn dtgvssvtmn vtvigppskv gpielvttsv dsitlrwaep kddggtpirs
+    17401 yaverteaaq dnwmtfssnv rkntckvtrl rtnvtyifri tavsdigase pvlskpitak
+    17461 spfnvpgppa cpevfmeaad tafltwsspe ddggveitgy fvekkertsi rwsrvnnlpv
+    17521 sewkyrittl vegleyefrv lavneagvgk pspssesvqa ldpvdkpsgp tnirlvdsar
+    17581 ttatlswskp kfdggaditg yivehremss eewikchkth iikettlfvt glkkgkqyyf
+    17641 risavnrggt gepaelghpv laadleqapd lelditmkka vtfragvpir lyipisgkpa
+    17701 peviwekedg elpnratvet sevataliiq esnwsdagry nltlkndsgv kcasivvrvl
+    17761 dvpgpaasit vkdvtktsct llweppildg gsaprsyvve kreshrrtwt tldarcnkms
+    17821 ykvmklmegv tyyfrvmaen aygigearet iepitaqdav dvaeapsriq avdvdrnavv
+    17881 lkwdkpdftg gteimnyvve yveegqttwe kyatvrdtmc evlnlnegns yrfrvsaqni
+    17941 vgfsevreie tailckekai ppradmsaip rggivakagh hitvdvpieg cpkptiawsk
+    18001 ddrplnpfrv gvnntetstq ltfkvsdryd tgqyqlvlkn ehgtdtsslt vvilgppaep
+    18061 lgplrildvg gdfatigwkp pvdnggatve gyiiekmdme grawtpvstm ckrcnitcse
+    18121 lttgrkyhfr vsaenrfgig rpletrelvi ikypfdppaa pappvaavvl kemmvlrwda
+    18181 pddggskitg yylerktpgf qwnritqiat qkkefkakgl iegvsyqfrl faqntagise
+    18241 pgepcepiva kdpvpdplnl rmidiskstc tlaweepeve lgrkvagyiv ekresdveea
+    18301 kwikanyesl iereftvkgl lygrryvfrv rtivgeytsp gattdpiiar edvrppavvp
+    18361 ekmkieevag ktivlnvayg gkptpslswt kddkivrltd rcsidttath tkvtikncer
+    18421 adsgkymitm kndggekavp imvnvldkpg kvlnmrvsav thetatlewd mptddggkpl
+    18481 mrycvekrdc srrlweqvta tlhirmttit irkltkmhey vfrvaainqn aetgafvetk
+    18541 pvkivspysa psgmmppeil disadaiyvs wqppkntggt didgyileyk dknsyrwiaa
+    18601 tkeptldkrm wvsglregid yefhvialnv agsskpspps alvtarepas kpappvrptv
+    18661 tdttrctvtl swgpprydgg apiigyvmes rksdsnvwvr ahveevihit ewtavdlkag
+    18721 aeyyfqvsav niaglsepae vtglvtakdm qisptieldv slrrvvivra gnplrlyvpi
+    18781 hgkptpdviw tkegeeeltn raiinnspya sefliddtnr tdvgkytitl knetgvaqat
+    18841 isvrildtpg kpkhlrakdv ssksciltwe mpeldggsev tnyiverrem srqtwstisv
+    18901 knpkpiciir nmvesnkyyf rvlpeneygi gepcemeapi taedpirlpd ppssvkilev
+    18961 tgrtvslkwt tpvndygnki qsylievydt nvndwrrvcm vrgleytvte gimegheyrf
+    19021 ritarnnvga sepietdtvl ckdelsipvi kmtdsfyqvr aganvlvdvp vtgkprptvm
+    19081 wmkgsyemrr tkrtefeqtd rrvalfikra ertdtgdysv ilknsvggak etfkinvmdk
+    19141 pgaprgpiri kdlspnsvtl awelpsddgg spisnyliek aeagstsfqy vttclrttcr
+    19201 itglvhnrey rfkimaenkf gtgrayttdk iiprkpfeep tapqnakvtd vhattmvinw
+    19261 tepefdggsp iigylierre ksgkrwvkct keyiqtlyyr seqlieglwy shrvsavnka
+    19321 gagtpceata fvqakkpidp pgppaapeiv kmakysvqlk wndpanigga pitgyylevr
+    19381 aaeveqwmkt sskplekrls ivrdlqtckp ycfrtravnk ggvsppsevt ivtlpdemag
+    19441 vppvaelden lkrpvrvkvg svlrlyvpvs grpapsarwr hnggnlvpth rvmfsdteis
+    19501 tqliikqver ydsgrydlrl ineegsctat ihvvvmdkps vpagtlkvsd vtakeatlsw
+    19561 etpedegnsp vthyvvemre atqrvwrmvt thvttttytv sgldegveyf frvtaenkvg
+    19621 ssdalttaea vvpmspvrpp sappsapevt nvtretislf weqpreenga pvtgyhidrr
+    19681 ektvgrwvrv nktsiqvqty tvtalvanne yefrvlaens aglsepspms eavltrdmkg
+    19741 rpprpegepe vvdvtattat infqapdgdg gtpitgyiiq crkvgtrrwv vctssytist
+    19801 ttfvitglie gdayefrvla qnligysias rrsmsvvcra kvegeppqvl vapedcicap
+    19861 genarfftrf sgypactakw ffdgvelfes mrysmsgdst nfwldafntt anmegeyvik
+    19921 vdngvgqata sariihefap rltrtlpdsv qgrsgglirv tipfkakpep tvtwtkdgee
+    19981 icrthrvfie stetytnmii kdakwedrge ytanienaqg iltlkvvvdv vdrpsvpqgp
+    20041 vrvqevtsns mlllwetpes dgssritnyi vekrepsagv wrlvtayate trcrvtrlmn
+    20101 kssylfrita qnsvglsdpl dttepttaed lystpdriet ppevvnvdkd svelkweepl
+    20161 snggtillgy iverrektga ywqrvnstli tttsytvtgl ieyssyqfrv rsenamgvsy
+    20221 ssdaceyvti kddreiilpr fvrnpqdcev regetaefsa hmictsdyil kfynmygkel
+    20281 ktddkykvvk epgyikvqil dvhepdcgey tcraassaga vtasaqlsil gdpkidlpee
+    20341 lkkkiniqrg esvclkvpvy gdpapmvtwe kegrtivddg mhfqimsgkk fttltilevd
+    20401 ahdsgaytln vmnsigedta tinievaavp dppeeppvvs evtgdsvkls wsepavdggs
+    20461 pvtgyvverr avtsnrwiri mtvrtttctv yglrssnqyv fcvsamnafg cgrtclettv
+    20521 vqtrstfrqn yddevnteap cvprtsfvst ggpedvfdfk eelgrgafga vyrvverstr
+    20581 rtfaatvvtc ktserkqlcr reiellhkln harvlrlyda yeahdqltmi refisgrell
+    20641 emvtdhrvhy teadcihytr qicegleflh sknilhlhlr pesimccthv gyyikitdfg
+    20701 rscqakpgqk vnmsyisaef mapevlnses vgtstdmwsl gcivylllgg tspfegesea
+    20761 dteqnvrelr wafdaeafdn lsdecldfvd gllwkdknsr ytaqeclehp wlrrgmetvc
+    20821 stditktrhr qfffrrrayd tytashaigr laargvarse evevrvtlav erddlgpkkv
+    20881 srvrhvtave gcaaridlki htsaettfsw qkicehhgfh smerkdvtle dgskyqmkyd
+    20941 rasgrislii nnitadddgr ytctvenrfg rvrswteltv ilidgtvtrr rkelynyter
+    21001 eeeqvavtcp prllmplydr hvyqgtlcrl acvvnrcttp qvtwykdgna letngkyrmv
+    21061 eelglynlei sdvtledags yaatfvnehg evssscslhv tarkvaeaef vkpifrvrle
+    21121 etyaaegeta rmsarvlgip dpvvswfkdg kplydqapye fvyeddesct llihnclpdd
+    21181 sglytvraen scgstesdam lkvrrdyvkp eqykspyqhl meiedsvpsf vplpyaeyea
+    21241 sihtkhstca rmeyesmeyy qarrraeiaq aeeymavpps svspagsvss kesdrtrqsr
+    21301 ssaassqrrr kdkkmslgae sapvftrrlr ehtviegfds qftcsaegnp kpkvewakdg
+    21361 ktirednkfr fkhvygvltl ciydvslqda gdysctvsnr lgsaitrgrl svakehdqvg
+    21421 yvwhmpteap tvaapappry eeivrpriea appaaepaea apapvekpap vapvaeptpt
+    21481 pvtppvtppv tpttptppsp vkptppveep kparkfkepk pepaaappaa repspppaap
+    21541 aprapsppkp epkkevpppr tgpvftskvt dfsvpdgeda rlevsldaea tvvwkrngiv
+    21601 ikdsdvyhlv rerntyvlvi rdviredtgq yiveatdstg tttvsvtlnv dahleaveas
+    21661 rqkrlqlfai spsetpipgl drdqapqqeg vepfleslad akqkrlktlq gedtigytys
+    21721 cwaveqfklt alglhcnafa tighsfaaet atvqdeakir rlasfvtege vyvstleesk
+    21781 ekrqegllek gvdpflaglq tsrekrfktf dsegamekap aaptfsarpq tkdspeggsa
+    21841 kfeckmdgsp rpsvtwfreg kviraegryt ivsrgyshsl evtkitktds ghyacvanna
+    21901 qgevraeftl tvagkihvek reevkvtekk kevkpvkkee pkaekpkape kkpeppkpka
+    21961 pekpkepekp vkpkavapkf ttelkpqevk aesiaklsca asgkpapdiv wkkgsetlkq
+    22021 gdryeiysen gmfhleiydt svadtavysa tvtneggsvt tscqltvkea errssatlvq
+    22081 eqvvremtmt eevrveehvt eevvsttttq mqvisgqeit lkasipgdpk ikwlhngqvl
+    22141 rntadfrqqs rgdlhtltia eilqedagty tcqaatrggv ikcdfqitvq tekeivppdf
+    22201 vsrpapqfkn vgetvtlaaq vkgddvkvew lkdrkkvtet srlsvrkvgd latleirdaq
+    22261 trdsgeyncv ltnsrgqfsc svpvqvheaa hgmtqqtvtr tyeeggkvfe vmetvtttee
+    22321 tvvmrddasa rveeypssvt iserenvhlt vriagtpapk vtwtrkrftn gkhfvpivqg
+    22381 skfqvkttpd nttlsifapi kddagtykvk venengydec aitlhvigkp vsnirpaasd
+    22441 isphtltltw dtpeddggsl itsyvvemfd vsdgkwqtlt ttcrrppypv kglnpsatyr
+    22501 friraenayg lsdagplsdp iltkepeqgr ndrssdgkkt dssssdsvaw rstsmdsssd
+    22561 adrvdrkiqa lmqtgrqetn kppvfvrnlr dvecvegsaa rldcsvtgip epevtwykdd
+    22621 salhdgrkya yefgedghvs lvirdvtaed dgmytceaqn eagktsasae llvegvrpkq
+    22681 trqtsventa eedgasavle deddddvrdl pdagkqpppf akmpsfltqg qdnlppkkdd
+    22741 rdarpkqfpp kflikprsss akvgdivkfg ckadgrpppe vtwhrgderi rdegrielyt
+    22801 eygtqyfeig eveagdagey tcvisnnvgk dvcmfnlkve gvpdpdpnir tratdsgskg
+    22861 qhemkqgtst esskpspsta prflakptsq tvqeggdaif vcrvsgepap evlwerdgvp
+    22921 vrnagrfeif eeddgfhlei fdvvredagt ygctlrngag etncsfslgv hvkavksvkp
+    22981 sfllkfsdte vlegdpirle critgeptpq vtwyrdgkev gdrqgvdprt tysnkvarly
+    23041 ierahledea dytckaanca gearctaevl vnerlqlaps gelpvftlql qdisaqdgdn
+    23101 vtfcckvsgt papkvswlye gkpikasedf qvtsrgedqs lhipeifped agmygcvaqn
+    23161 sagtvttsak lkvkepavkp kipklkegpp iflkdplpqn ieegnplslt cevsglpppt
+    23221 vewqkdgktv hkdrrvkmkk egnvfrldit aalstdsgcy talasnargs vsrdvsisvk
+    23281 plaeettdyk tllrrrpels klgrqasegd asdearsrsn tmeallqapv fsqviadatv
+    23341 tegqpvtfry anekeikpsk ffqmtqegda cklviveafp edagkytcwa qneegqaecs
+    23401 crlvvkkeks qenvqgdtha aeekakiekg penivvvrqt satlscnftg tpqpkvtwwk
+    23461 rqdqlkdgdr itlttnqrls vltidsvdra dagrytvkvd nglgkdeata vvsivdrpep
+    23521 pmgkptvkdi tassltvswr kpmsdggski lgytlemydv gadtwsevts gckdtthmad
+    23581 gllpghkyqf rvsaqnkytg sepgkvsdvv itreepkeng vlnghmttkq sanqsrvkvh
+    23641 tekkledlyd vkeklgegrf gkvykavqks sgsefaakql cvsdpcqmeq vlqeveimrl
+    23701 ldhpkliqla dvfrqrnqlt lvlelvsgge lfervidddf vltekdcvif trqicqgvgf
+    23761 mhdqgvlhld lkpenvlcvn rtgneiklid fglarrynpq eelkaareep lqpsrrdtsr
+    23821 drqetnagrg
+//

@@ -1,0 +1,56 @@
+LOCUS       AAA40590                 109 aa            linear   ROD 27-APR-1993
+DEFINITION  insulin.
+ACCESSION   AAA40590
+VERSION     AAA40590.1  GI:202472
+DBSOURCE    locus OCOINS accession M57671.1
+KEYWORDS    .
+SOURCE      Octodon degus (degu)
+  ORGANISM  Octodon degus
+            Eukaryota; Metazoa; Chordata; Craniata; Vertebrata; Euteleostomi;
+            Mammalia; Eutheria; Euarchontoglires; Glires; Rodentia;
+            Hystricognathi; Octodontidae; Octodon.
+REFERENCE   1  (residues 1 to 109)
+  AUTHORS   Nishi,M. and Steiner,D.F.
+  TITLE     Cloning of complementary DNAs encoding islet amyloid polypeptide,
+            insulin, and glucagon precursors from a New World rodent, the degu,
+            Octodon degus
+  JOURNAL   Mol. Endocrinol. 4 (8), 1192-1198 (1990)
+   PUBMED   2293024
+COMMENT     Method: conceptual translation.
+FEATURES             Location/Qualifiers
+     source          1..109
+                     /organism="Octodon degus"
+                     /db_xref="taxon:10160"
+                     /tissue_type="pancreas"
+     Protein         1..109
+                     /product="insulin"
+     sig_peptide     1..24
+                     /gene="insulin"
+     mat_peptide     25..53
+                     /gene="insulin"
+                     /product="insulin B-chain"
+     Region          27..107
+                     /region_name="IlGF_insulin_like"
+                     /note="IlGF_like family, insulin_like subgroup, specific
+                     to vertebrates. Members include a number of peptides
+                     including insulin and insulin-like growth factors I and
+                     II, which play a variety of roles in controlling processes
+                     such as metabolism, growth and...; cd04367"
+                     /db_xref="CDD:58536"
+     Site            order(32,35,37,105)
+                     /site_type="other"
+                     /note="putative receptor binding surface"
+                     /db_xref="CDD:58536"
+     mat_peptide     56..84
+                     /gene="insulin"
+                     /product="insulin C-peptide"
+     mat_peptide     87..109
+                     /gene="insulin"
+                     /product="insulin A-chain"
+     CDS             1..109
+                     /gene="insulin"
+                     /coded_by="M57671.1:42..371"
+ORIGIN      
+        1 mapwmhlltv lallalwgpn svqayssqhl cgsnlvealy mtcgrsgfyr phdrreledl
+       61 qveqaelgle agglqpsale milqkrgivd qccnnictfn qlqnycnvp
+//      

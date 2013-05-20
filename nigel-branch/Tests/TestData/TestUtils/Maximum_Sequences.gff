@@ -1,0 +1,26 @@
+##gff-version   2
+#The remaining ## comments in this file were added for test purposes.  They are not real data.
+##source-version MBF 0.0
+##date 1999-12-31
+##Dna chrI
+##acggctcggattggcgctggatgatagatcagacgac
+##end-Dna
+##RNA chrX
+##guuaacu
+##end-RNA
+##Dna chrXI
+##acggctcggatt
+##end-Dna
+##Protein chrXV
+##pawheae
+##end-Protein
+#sequence-region chrI 1000 1000000
+chrI	15743812	Region	189737	190193	0.000244503	.	.	ID=Cat8p-binding-region;Name=Cat8p-binding-region;Note=iYARWdelta7
+chrI	15743812	Region	45028	45875	4.01E-05	.	.	ID=Cat8p-binding-region;Name=Cat8p-binding-region;Note=iYAL054C
+chrX	15743812	Region	109883	110281	0.001607178	.	.	ID=Cat8p-binding-region;Name=Cat8p-binding-region;Note=iYOL110W
+chrX	15743812	Region	83054	83833	1.43E-05	.	.	ID=Cat8p-binding-region;Name=Cat8p-binding-region;Note=iYOL126C
+chrXI	15743812	Region	988784	989777	0.003838948	.	.	ID=Cat8p-binding-region;Name=Cat8p-binding-region;Note=iYOR348C
+chrXI	15743812	Region	1039380	1039823	9.39073E-05	.	.	ID=Adr1p-binding-region;Name=Adr1p-binding-region;Note=iYOR373W
+chrXV	15743812	Region	83054	83833	0.000124801	.	.	ID=Adr1p-binding-region;Name=Adr1p-binding-region;Note=iYOL126C
+chrXV	15743812	Region	671038	671857	0.000258663	.	.	ID=Adr1p-binding-region;Name=Adr1p-binding-region;Note=iYOR178C-1
+chrXV	15743812	Region	480427	480578	0.000613095	.	.	ID=Adr1p-binding-region;Name=Adr1p-binding-region;Note=iYOR083W

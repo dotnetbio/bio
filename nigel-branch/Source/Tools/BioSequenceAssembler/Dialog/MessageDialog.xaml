@@ -1,0 +1,28 @@
+﻿<!--
+<summary>
+// MessageDialog class will be used in the application to show custom messages
+// to the user.
+</summary> 
+-->
+    <Window x:Class="SequenceAssembler.MessageDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="{DynamicResource SequenceAssembly_SequenceAssembler}" SizeToContent="Height" ShowInTaskbar="False" Background="Transparent" WindowStyle="SingleBorderWindow" Height="Auto" Width="300" MinWidth="300" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Icon="/BioSequenceAssembler;component/Resources/SequenceAssembler.ico">
+
+    <Border Padding="10,5,5,5" Style="{DynamicResource BorderStyle}">
+        <Grid Height="auto" Width="auto">
+                <StackPanel Height="auto" Width="auto" >
+                    <TextBlock x:Name="txtCaption" FontWeight="Bold" TextWrapping="Wrap" Margin="0,5,0,5" Height="Auto" FontSize="18"/>               
+                <DockPanel>                    
+                    <TextBlock x:Name="txtSequence" TextWrapping="Wrap" Margin="0,0,0,5" Height="Auto"/>
+                </DockPanel>
+                <Path Stretch="Fill" Stroke="#FF809EB7" Height="1" Data="M12,189 L248.10379,189" Margin="0,5,0,0"/>                
+                <StackPanel Orientation="Horizontal" Margin="0,5,0,0" Visibility="Visible">
+                    <Button x:Name="btnYes" Content="{DynamicResource MessageDialog_Yes}"  Visibility="Collapsed" Style="{DynamicResource WebServiceButton}" IsDefault="True"/>
+                    <Button x:Name="btnNo" Content="{DynamicResource MessageDialog_No}" Margin="3,0,0,0" Visibility="Collapsed" Style="{DynamicResource WebServiceButton}" IsCancel="True"/>
+                    <Button x:Name="btnOk" Content="{DynamicResource MessageDialog_Ok}" Margin="3,0,0,0" Visibility="Collapsed" Style="{DynamicResource WebServiceButton}" IsDefault="True"/>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+    </Border>
+</Window>

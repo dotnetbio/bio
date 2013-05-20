@@ -1,0 +1,17 @@
+Padena Utility v1.1
+Copyright (c) 2011-2013, The Outercurve Foundation.
+
+Usage:     PadenaUtil.exe command [options]
+Description: Assembles reads into Contigs or scaffold
+using mate pair information.
+
+Command:
+
+Assemble:              Assemble reads into contigs
+                       (No matepair information required.)
+
+Scaffold:              Scaffold uses mate pair information
+                       to merge contigs into scaffolds.
+
+AssembleWithScaffold:  Assemble reads into scaffolds using
+                       matepair information.

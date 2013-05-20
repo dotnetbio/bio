@@ -1,0 +1,10 @@
+Consensus Generation Utility v1.1
+Copyright (c) 2011-2013, The Outercurve Foundation.
+
+Usage:	   ConsensusUtil.exe [options] <input delta alignment file> <Input query file>
+
+ConsensusGeneration: Generates consensus of alignment (contigs) from alignment layout. 
+
+Options:
+
+-o:<file> Output file.

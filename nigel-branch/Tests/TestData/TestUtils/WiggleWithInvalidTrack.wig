@@ -1,0 +1,12 @@
+track  description="20 degrees, 2 hr"
+fixedStep chrom=chr19 start=59307401 step=300 span=200
+1000
+900
+800
+700
+600
+500
+400
+300
+200
+100

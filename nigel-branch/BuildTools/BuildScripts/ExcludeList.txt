@@ -1,0 +1,13 @@
+\obj\
+\bin\
+\doc\
+\Installer\
+.csproj
+.log
+.sln
+.sln.cache
+.vsprops
+.vspscc
+.vssscc
+debug.txt
+Release.txt

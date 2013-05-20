@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?> 
+  <Include>
+    <DirectoryRef Id="INSTALLDIR">   
+          <Component Id="ExcelVstoRegistryEntries" Guid="DFA9DF32-DAB8-47C3-82BF-2FCE55450CF5">
+            <RegistryKey Root="HKCU" 
+                  Key="Software\Microsoft\Office\Excel\Addins\BioExcel" 
+                  Action="createAndRemoveOnUninstall"> 
+                <RegistryValue Type="string" Name="FriendlyName" Value=".NET Bio Excel"/> 
+                <RegistryValue Type="string" Name="Description" Value=".NET Bio Extension for Excel" /> 
+                <RegistryValue Type="string" Name="Manifest" Value="[EXCELADDINFOLDER]BioExcel.vsto|vstolocal" KeyPath="yes"/> 
+                <RegistryValue Type="integer" Name="LoadBehavior" Value="3"/> 
+              </RegistryKey>
+          </Component>
+      </DirectoryRef>
+  </Include>

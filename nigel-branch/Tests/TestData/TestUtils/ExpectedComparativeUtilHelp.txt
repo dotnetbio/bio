@@ -1,0 +1,27 @@
+Comparative Utility v1.1
+Copyright (c) 2011-2013, The Outercurve Foundation.
+
+Usage:     ComparativeUtil.exe [options] <ReferenceGenome> <Reads>
+Description: Assembles the given reads using comparative assembly.
+
+Options:
+
+-scaffold                            Run scaffolding. (short form /s)
+
+-kmerlength:<int>                    Sets kmer length. (short form /k)
+
+-MumLength:<int>                     Minimum length of MUM(short form /m)
+
+-help                                Print the help information. (short form /h)
+
+-outputFile:<string>                 Output file. (short form /o)
+
+-clonelibraryname:<string>           Clone Library Name (short form /n)
+
+-meanlengthofinsert:<double>         Mean Length of clone library.
+                                     (short form /i)
+
+-standarddeviationofinsert:<double>  Standard Deviation of Clone Library.
+                                     (short form /sd)
+
+-verbose                             Display verbose logging during processing. (short form /v)

@@ -1,0 +1,110 @@
+﻿<!-- 
+<summary>
+    // It would contain the Consensus custom view.
+    // It contains the top view with Graphical representation.
+    // It contains the bottom view with Textual Sequence representation.
+</summary> 
+-->
+    <UserControl x:Class="SequenceAssembler.ConsensusCustomView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:SequenceAssembler="clr-namespace:SequenceAssembler" x:Name="consensusCustomView" FontFamily="Lucida Console">
+    <Grid>
+        <Grid x:Name="ghostText" Visibility="Visible">            
+            <TextBlock Text="{Binding IdleText, ElementName=consensusCustomView}" Margin="10" TextWrapping="Wrap" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15" FontWeight="Normal" Foreground="#FFAFAFAF" FontFamily="Segoe UI"></TextBlock>
+        </Grid>
+        <Grid x:Name="customView" Margin="10,10,10,10">
+            <Grid.RowDefinitions>
+                <RowDefinition x:Name="legendRow" Height="Auto"/>
+                <RowDefinition x:Name="topViewRow" Height="0.45*"/>
+                <RowDefinition Height="0.55*"/>
+            </Grid.RowDefinitions>
+            <GridSplitter x:Name="consensusSequenceSplitter" Margin="0,0,0,0" Grid.Row="2" VerticalAlignment="Top" ResizeDirection="Rows" Height="2" HorizontalAlignment="Stretch" Background="Gainsboro" />
+            
+            <Border CornerRadius="10,10,10,10" Height="30">
+                <Border.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FFFCEECD" Offset="0"/>
+                        <GradientStop Color="#FFF4D394" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.Background>                   
+                    
+                <!-- Legend-->
+                <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,5,0">
+                    <Rectangle Fill="#FF004EFF" Stroke="Black" Width="13" Height="13" Margin="3,0,3,0"/>
+                    <TextBlock Text="{DynamicResource Legend_Consensus}" Margin="1,0,3,0" FontSize="10" FontFamily="Segoe UI" />
+                    <Rectangle Fill="LimeGreen" Stroke="Black" Width="13" Height="13" Margin="10,0,3,0"/>
+                    <TextBlock Text="{DynamicResource Legend_Sequences}" Margin="1,0,3,0" FontSize="10" FontFamily="Segoe UI" />
+                    <Rectangle Fill="Crimson" Stroke="Black" Width="13" Height="13" Margin="10,0,3,0"/>
+                    <TextBlock Text="{DynamicResource Legend_RevComplimented}" Margin="1,0,3,0" FontSize="10" FontFamily="Segoe UI" />
+                    <Rectangle Fill="LightSeaGreen" Stroke="Black" Width="13" Height="13" Margin="10,0,3,0"/>
+                    <TextBlock Text="{DynamicResource Legend_Complemented}" Margin="1,0,3,0" FontSize="10" FontFamily="Segoe UI" />
+                    <Rectangle Fill="BurlyWood" Stroke="Black" Width="13" Height="13" Margin="10,0,3,0"/>
+                    <TextBlock Text="{DynamicResource Legend_Reversed}" Margin="1,0,3,0" FontSize="10" FontFamily="Segoe UI" />
+                </StackPanel>
+            </Border>
+            <Border CornerRadius="10,10,0,0" Grid.Row="1" Margin="0,2,0,0" BorderThickness="1,1,1,1" BorderBrush="#FFE9E9E9">
+                <Border.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FFFFFFFF" Offset="0"/>
+                        <GradientStop Color="#FFF3F3F3" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+                <Grid x:Name="consensusGrid">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="15"/>
+                        <RowDefinition Height="0.763*"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- The consensus sequence representation-->
+                    <Border x:Name="consensusSequence" Visibility="Collapsed" Grid.RowSpan="2" BorderThickness="0" Height="3" VerticalAlignment="Center" Margin="8,51.08,21,0" UseLayoutRounding="True">
+                        <Line x:Name="consensusLine" X1="0" X2="1000" Y1="0" Y2="0" StrokeThickness="3" Stroke="DarkBlue" UseLayoutRounding="True" />
+                    </Border>
+                    <Border Margin="6,8,0,8" Grid.Row="2" BorderThickness="1,1,1,1" BorderBrush="#FFE9E9E9" ClipToBounds="True">
+                        <Border.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FFFFFFFF" Offset="0"/>
+                                <GradientStop Color="#FFFBFBFB" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="18" />
+                            </Grid.ColumnDefinitions>
+                            <SequenceAssembler:SequenceLinesPanel x:Name="topViewLines" SourceStartIndex="{Binding ElementName=sequencePanelVerticalScrollBar, Path=Value}" LayoutUpdated="OnTopViewLayoutUpdated" />
+                            <ScrollBar Grid.Column="1" x:Name="topViewVerticalScrollBar" Style="{DynamicResource GenericVerticalScrollBar}" Value="{Binding ElementName=sequencePanelVerticalScrollBar, Path=Value}" Width="18" Orientation="Vertical" SmallChange="1" LargeChange="100" />
+                        </Grid>
+                    </Border>
+                    
+                    <!-- Slider of the top view-->
+                    <SequenceAssembler:RangeSlider Grid.RowSpan="3" x:Name="rangeSlider" Margin="3,13,15,9" VerticalAlignment="Top"/>
+                </Grid>
+            </Border>
+            <Border CornerRadius="0,0,10,10" Margin="0,2,0,0" BorderBrush="#FFE9E9E9" BorderThickness="1,1,1,1" Grid.Row="2">
+                <Border.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FFFFFFFF" Offset="0"/>
+                        <GradientStop Color="#FFF3F3F3" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+                <!-- Sequences in the bottom view-->
+                <Border BorderBrush="#FFE9E9E9" BorderThickness="1,0,1,1" CornerRadius="0,0,10,10" Margin="0,0,0,0" Background="#00000000">
+                    <DockPanel>
+                        <ScrollBar x:Name="sequencePanelHorizontalScrollBar" Style="{DynamicResource GenericHorizontalScrollBar}" Height="18" Margin="0,0,18,0" Orientation="Horizontal" HorizontalAlignment="Stretch" SmallChange="1" LargeChange="30" DockPanel.Dock="Bottom" ValueChanged="OnSequencePanelHorizontalScrollBarValueChanged" />
+                        <ScrollBar x:Name="sequencePanelVerticalScrollBar" Style="{DynamicResource GenericVerticalScrollBar}" Width="18" Orientation="Vertical" SmallChange="1" LargeChange="100" DockPanel.Dock="Right" />
+
+                        <Border BorderBrush="#FFE9E9E9" BorderThickness="1,0,1,1" CornerRadius="0,0,10,10" ClipToBounds="True">
+                            <SequenceAssembler:SequencesPanel x:Name="sequencesBottomView" FontSize="12" ClipToBounds="True" SourceStartIndex="{Binding ElementName=sequencePanelVerticalScrollBar, Path=Value}" LayoutUpdated="OnSequencesBottomViewLayoutUpdated" VerticalAlignment="Top" HorizontalAlignment="Left" />
+                        </Border>
+                    </DockPanel>
+                </Border>
+            </Border>
+
+            <!-- Inverted Funnel Line -->
+            <Line x:Name="funnelLeftLine" Stroke="Gray" StrokeThickness=".5" X1="0" Y1="0" X2="0" Y2="0" Grid.RowSpan="3" />
+            <Line x:Name="funnelRightLine" Stroke="Gray" StrokeThickness=".5" X1="0" Y1="0" X2="0" Y2="0" Grid.RowSpan="3" />
+        </Grid>
+    </Grid>
+</UserControl>

@@ -1,0 +1,6 @@
+
+Usage:	SAMUtils.exe index [options] in.bam
+Description: Generates Index file for given BAM file.
+
+Options:
+-o:OutFile Output file name, by default .bai is concatenated to input filename

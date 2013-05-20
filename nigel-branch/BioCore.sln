@@ -1,0 +1,61 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bio", "Source\Framework\Bio\Bio.csproj", "{B53E11DF-F9A9-4939-893E-78E59872089A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bio.IO", "Source\Framework\Bio.IO\Bio.IO.csproj", "{A35052D0-B35E-4FD7-B44F-D98AF21FE05A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bio.Tests.Core", "Tests\Bio.Tests\Bio.Tests.Core.csproj", "{B58E121A-3D49-472F-A20A-72EC35575E53}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bio.TestUtils", "Tests\Bio.TestUtils\Bio.TestUtils.csproj", "{FC09FA89-39A2-4DB7-BB26-4DF616918506}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E0E12228-8E5A-442C-88BE-5672E9AE6DAF}"
+	ProjectSection(SolutionItems) = preProject
+		local.runsettings = local.runsettings
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 5
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs09
+		SccProjectUniqueName0 = Source\\Framework\\Bio\\Bio.csproj
+		SccProjectName0 = Source/Framework/Bio
+		SccLocalPath0 = Source\\Framework\\Bio
+		SccProjectUniqueName1 = Source\\Framework\\Bio.IO\\Bio.IO.csproj
+		SccProjectName1 = Source/Framework/Bio.IO
+		SccLocalPath1 = Source\\Framework\\Bio.IO
+		SccProjectUniqueName2 = Tests\\Bio.TestUtils\\Bio.TestUtils.csproj
+		SccProjectName2 = Tests/Bio.TestUtils
+		SccLocalPath2 = Tests\\Bio.TestUtils
+		SccProjectUniqueName3 = Tests\\Bio.Tests\\Bio.Tests.Core.csproj
+		SccProjectName3 = Tests/Bio.Tests
+		SccLocalPath3 = Tests\\Bio.Tests
+		SccLocalPath4 = .
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B53E11DF-F9A9-4939-893E-78E59872089A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B53E11DF-F9A9-4939-893E-78E59872089A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B53E11DF-F9A9-4939-893E-78E59872089A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B53E11DF-F9A9-4939-893E-78E59872089A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A35052D0-B35E-4FD7-B44F-D98AF21FE05A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A35052D0-B35E-4FD7-B44F-D98AF21FE05A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A35052D0-B35E-4FD7-B44F-D98AF21FE05A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A35052D0-B35E-4FD7-B44F-D98AF21FE05A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B58E121A-3D49-472F-A20A-72EC35575E53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B58E121A-3D49-472F-A20A-72EC35575E53}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B58E121A-3D49-472F-A20A-72EC35575E53}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B58E121A-3D49-472F-A20A-72EC35575E53}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC09FA89-39A2-4DB7-BB26-4DF616918506}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC09FA89-39A2-4DB7-BB26-4DF616918506}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC09FA89-39A2-4DB7-BB26-4DF616918506}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC09FA89-39A2-4DB7-BB26-4DF616918506}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

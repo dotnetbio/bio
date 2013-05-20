@@ -1,0 +1,10 @@
+﻿##gff-version 1
+##type DNA Hsap_BTK
+##DNA Hsap_BTK
+##acggctcggattggcgctggatgatagatcagacgac
+##end-DNA
+##DNA Hsap_BTK
+##acggctcggattggcgctggatgatagatcagacgac
+##end-DNA
+
+Hsap_BTK	annotation	First	75039	75170	.	-	0	TIMM8A

@@ -1,0 +1,139 @@
+LOCUS       ATF14F8     96892 bp    DNA             PLN       07-AUG-2000
+DEFINITION  Arabidopsis thaliana DNA chromosome 5, BAC clone F14F8 (ESSA
+            project).
+ACCESSION   AL391144
+VERSION     AL391144.1  GI:9755607
+KEYWORDS    .
+SOURCE      thale cress.
+  ORGANISM  Arabidopsis thaliana
+            Eukaryota; Viridiplantae; Embryophyta; Tracheophyta; Spermatophyta;
+            Magnoliophyta; eudicotyledons; core eudicots; Rosidae; eurosids II;
+            Brassicales; Brassicaceae; Arabidopsis.
+REFERENCE   1  (bases 1 to 96892)
+  AUTHORS   Sato,S., Nakamura,Y., Kaneko,T., Kato,T., Asamizu,E., Kotani,H.,
+            Tabata,S., Mewes,H.W., Rudd,S., Lemcke,K. and Mayer,K.F.X.
+  JOURNAL   Unpublished
+REFERENCE   2  (bases 1 to 96892)
+  AUTHORS   EU Arabidopsis sequencing,project.
+  TITLE     Direct Submission
+  JOURNAL   Submitted (07-AUG-2000) MIPS, at the Max-Planck-Institut fuer
+            Biochemie, Am Klopferspitz 18a, D-82152 Martinsried, FRG, E-mail:
+            lemcke@mips.biochem.mpg.de,mayer@mips.biochem.mpg.de
+COMMENT     Information on performance of analysis and a more detailed
+            annotation of this entry and other sequences of chromosomes 3, 4
+            and 5 can be viewed at: http://www.mips.biochem.mpg.de/proj/thal/.
+FEATURES             Location/Qualifiers
+     source          1..96892
+                     /organism="Arabidopsis thaliana"
+                     /variety="Columbia"
+                     /db_xref="taxon:3702"
+                     /chromosome="5"
+     exon            626..652
+                     /gene="F14F8_10"
+                     /number=1
+     gene            626..2147
+                     /gene="F14F8_10"
+     CDS             join(626..652,743..1199,1277..1424,1504..1781,1870..2147)
+                     /gene="F14F8_10"
+                     /note="strong similarity to putative phytochelatin
+                     synthetase - Arabidopsis thaliana, EMBL:AJ006787"
+                     /codon_start=1
+                     /product="putative phytochelatin synthetase"
+                     /protein_id="CAC01762.1"
+                     /db_xref="GI:9755608"
+                     /translation="MSWTADGYVATVTMNNFQIYRHIQNPGWTLGWTWAKKEVIWSMV
+                     GAQTTEQGDCSKFKGNVPHCCKKTPTVVDLLPGVPYNQQFSNCCKGGVIGAWGQDPSA
+                     AVSQFQVSAGLAGTTNKTVKLPKNFTLLGPGPGYTCGPAKIVPSTVFLTTDKRRKTQA
+                     LMTWNVTCTYSQFLARKHPSCCVSFSSFYNDTITPCPSCACGCENKKSCVKADSKILT
+                     KKGLNTPKKDNTPLLQCTHHMCPVRVHWHVKTNYKDYWRVKIAITNFNYRMNHTLWTL
+                     AIQHPNLNNVTQVFSFDYKPVSPYGSINDTGMFYGTKFYNDLLMEAGPSGNVQSEVLL
+                     QKDQKTFTFKQGWAFPRKVYFNGDECMLPPPDSYPFLPNSAQGNFASFSLTILLLLFI
+                     SIW"
+     intron          653..742
+                     /gene="F14F8_10"
+                     /number=1
+     exon            743..1199
+                     /gene="F14F8_10"
+                     /number=2
+     intron          1200..1276
+                     /gene="F14F8_10"
+                     /number=2
+     exon            1277..1424
+                     /gene="F14F8_10"
+                     /number=3
+     intron          1425..1503
+                     /gene="F14F8_10"
+                     /number=3
+     exon            1504..1781
+                     /gene="F14F8_10"
+                     /number=4
+     intron          1782..1869
+                     /gene="F14F8_10"
+                     /number=4
+     exon            1870..2147
+                     /gene="F14F8_10"
+                     /number=5
+     gene            3192..5279
+                     /gene="F14F8_20"
+     CDS             join(3192..3253,3824..4205,4309..4524,4578..4796,
+                     4969..5125,5254..5279)
+                     /gene="F14F8_20"
+                     /note="similarity to Mitochondrial carrier protein - Ribes
+                     nigrum, EMBL:AJ007580
+                     Contains Mitochondrial energy transfer proteins signature
+                     AA284-293"
+                     /codon_start=1
+                     /product="putative mitochondrial carrier protein"
+                     /protein_id="CAC01763.1"
+                     /db_xref="GI:9755609"
+                     /translation="MDTPPTSRIASFGQTEINWDKLDKRRFYINGAGLFTGVTVALYP
+                     VSVVKTRLQVASKEIAERSAFSVVKGILKNDGVPGLYRGFGTVITGAVPARIIFLTAL
+                     ETTKISAFKLVAPLELSEPTQAAIANGIAGMTASLFSQAVFVPIDVVSQKLMVQGYSG
+                     HATYTGGIDVATKIIKSYGVRGLYRGFGLSVMTYSPSSAAWWASYGSSQRVIWRLAMN
+                     VLSFLEFGFATKATIPLIQYLLLLGRFLGYGGDSDATAAPSKSKIVMVQAAGGIIAGA
+                     TASSITTPLDTIKTRLQVMGHQENRPSAKQVVKKLLAEDGWKGFYRGLGPRFFSMSAW
+                     GTSMILTYEYLKRLCAIED"
+     exon            46886..47205
+                     /gene="F14F8_110"
+                     /number=1
+     intron          47206..47284
+                     /gene="F14F8_110"
+                     /number=1
+     exon            47285..47438
+                     /gene="F14F8_110"
+                     /number=2
+     intron          47439..47516
+                     /gene="F14F8_110"
+                     /number=2
+     exon            47517..47646
+                     /gene="F14F8_110"
+                     /number=3
+     intron          47647..47726
+                     /gene="F14F8_110"
+                     /number=3
+     exon            47727..47884
+                     /gene="F14F8_110"
+                     /number=4
+     intron          47885..47973
+                     /gene="F14F8_110"
+                     /number=4
+     exon            47974..48177
+                     /gene="F14F8_110"
+                     /number=5
+     intron          48178..48303
+                     /gene="F14F8_110"
+                     /number=5
+     exon            48304..48648
+                     /gene="F14F8_110"
+                     /number=6
+BASE COUNT    30580 a  17554 c  17879 g  30879 t
+ORIGIN      
+        1 cggtccccgc gggccttctc ctgattggct gtccccgcgg gccttgtcct tattggctgt
+       61 gcccgactcc gtataacata aatagaggcg tcgagttgcg cgggcattac tgcagcggac
+      121 cgcacttggg tcgagatggc tcgcttcgtg gtggtagccc tgctcgcgct actctctctg
+      181 tctggcctgg aggctatcca gcgtaagtct ctcctcccgt ccggcgctgg tcctttccct
+      241 cccgccccaa ctctctgtag ccctctctgt gctctctcgt tccgttacct g
+//
+
+
+

@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<AutomationTest>
+  <DefaultOption>
+    <EmailID>mark@julmar.com</EmailID>
+    <ClusterOption>Auto</ClusterOption>
+    <ActionAlign>align</ActionAlign>
+    <FilePath>TestUtils\DNA\4_raw.afa</FilePath>
+  </DefaultOption>
+</AutomationTest>

@@ -1,0 +1,61 @@
+﻿<!--
+    <summary>
+    // Input selection dialog which will provide the UI for making excel range selections by typing in or interactively by dragging on the excel sheet.
+    // Also contains certain configuration options about how to parse the selections.
+</summary> 
+    -->
+<Window x:Class="BiodexExcel.Visualizations.Common.ExportSelectionDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        Width="550"
+	    mc:Ignorable="d"
+        Title="{DynamicResource BioExcel_WindowTitle}"
+        SizeToContent="Height" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" 
+        MaxHeight="600"
+        ShowInTaskbar="False" WindowStyle="SingleBorderWindow" Icon="/BioExcel.Visualizations.Common;component/Resources/about.ico" xmlns:my="clr-namespace:BiodexExcel.Visualizations.Common">
+    
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Resources/Styles.xaml" />
+                <ResourceDictionary Source="../Resources/ResourceDictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Border Padding="10,5,5,5" Style="{DynamicResource BorderStyle}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <TextBlock x:Name="windowHeader" TextWrapping="Wrap" FontSize="18" Text="{DynamicResource ExportSelectionDialog_Header}" Grid.Row="0"/>
+
+            <StackPanel x:Name="sequenceConfigurationControls" Orientation="Horizontal" Height="auto" VerticalAlignment="Center" Grid.Row="3">
+                <TextBlock Height="auto" Text="{DynamicResource ExportSelectionDialog_MoleculeType}" Margin="5,0,0,0" VerticalAlignment="Center" />
+                <ComboBox Width="100" x:Name="moleculeTypeCombo" Margin="5,0,0,0" MaxDropDownHeight="150" VerticalAlignment="Center" />
+                <RadioButton Content="{DynamicResource ExportSelectionDialog_IgnoreBlankCells}" Height="auto" Margin="15,0,0,0" x:Name="blankCellsIgnore" VerticalAlignment="Center" IsChecked="True"/>
+                <RadioButton Content="{DynamicResource ExportSelectionDialog_TreatBlankCellsAsGaps}" Height="auto" Margin="10,0,0,0" x:Name="blankCellsAsGaps" VerticalAlignment="Center" />
+            </StackPanel>
+
+            <ScrollViewer Margin="0,10,0,0" Grid.Row="4" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Height="auto" MaxHeight="300">
+                <Border BorderThickness="1,1,1,1" BorderBrush="Gray">
+                    <StackPanel Orientation="Vertical" x:Name="sequenceList">
+                        <my:InputSequenceItem IsRemoveItemVisible="True" />
+                    </StackPanel>
+                </Border>
+            </ScrollViewer>
+
+            <DockPanel Margin="0,10,0,0" Grid.Row="5" LastChildFill="False" >
+                <Button x:Name="btnAddSequence" Style="{StaticResource WebServiceButton}" Content="{DynamicResource InputSelectionDialog_AddSequence}" FontSize="12" FontWeight="Normal" Click="OnAddSequenceClick" />
+                <Button x:Name="btnCancel" Style="{StaticResource WebServiceButton}" Content="{DynamicResource InputSelectionDialog_Cancel}" FontSize="12" FontWeight="Normal" Margin="3,0,0,0" IsCancel="True" DockPanel.Dock="Right" Click="OnCancelClick"/>
+                <Button x:Name="btnOk" Style="{StaticResource WebServiceButton}" Content="{DynamicResource InputSelectionDialog_OK}" FontSize="12" FontWeight="Normal" IsDefault="True" DockPanel.Dock="Right" Click="OnOkClick" />
+            </DockPanel>
+        </Grid>
+    </Border>
+</Window>

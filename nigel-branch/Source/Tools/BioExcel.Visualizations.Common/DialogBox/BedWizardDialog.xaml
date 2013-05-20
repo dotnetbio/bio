@@ -1,0 +1,70 @@
+﻿<!--
+<summary>
+// BedWizardDialog helps in auto-parsing the sheets which have query region data.
+// The bed wizard is prompted when the header cannot be properly identified.
+// It presents the user a dialog where he can map the header in the sheet to actual
+// query region headers.
+</summary>
+-->
+
+<Window x:Class="BiodexExcel.Visualizations.Common.BedWizardDialog"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             Title="{DynamicResource BioExcel_WindowTitle}"
+             Width="556" Height="425" WindowStyle="SingleBorderWindow" SizeToContent="Height" Background="Transparent" ShowInTaskbar="False" WindowStartupLocation="CenterScreen" Icon="/BioExcel.Visualizations.Common;component/Resources/about.ico" ResizeMode="NoResize">
+    
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Resources/Styles.xaml" />
+                <ResourceDictionary Source="../Resources/ResourceDictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Border Style="{DynamicResource BorderStyle}" BorderThickness="3" Padding="10,5,5,5">
+        <StackPanel x:Name="LayoutRoot">
+            <TextBlock TextWrapping="Wrap" FontSize="18" Text="{DynamicResource BedWizardDialog_Header}" />
+            <TextBlock x:Name="txtSubText" FontSize="12" TextWrapping="Wrap"/>
+            <Grid Margin="0,10,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0">
+                    <StackPanel Orientation="Horizontal" Background="#FFD6DCDC" Height="20">
+                        <TextBlock Text="{DynamicResource BedWizardDialog_Mandatory_Attributes}" FontSize="15" TextWrapping="Wrap" d:LayoutOverrides="Width" Margin="2,0,0,0" VerticalAlignment="Center"/>
+                        <TextBlock Text="{DynamicResource BedWizardDialog_Columns}" Margin="40,0,0,0" FontSize="15"  TextWrapping="Wrap" VerticalAlignment="Center"/>
+                    </StackPanel>
+                    <StackPanel x:Name="stkfirstPanel" />
+                </StackPanel>
+                <StackPanel Margin="10,0,0,0" Grid.Column="1">
+                    <StackPanel Orientation="Horizontal" Background="#FFD6DCDC" Height="20">
+                        <TextBlock Text="{DynamicResource BedWizardDialog_Optional_Attributes}" FontSize="15" TextWrapping="Wrap" d:LayoutOverrides="Width" Margin="2,0,0,0" VerticalAlignment="Center"/>
+                        <TextBlock Text="{DynamicResource BedWizardDialog_Columns}" Margin="45,0,0,0" FontSize="15"  TextWrapping="Wrap" VerticalAlignment="Center"/>
+                    </StackPanel>
+                    <StackPanel x:Name="stkSecondPanel" />
+                </StackPanel>
+            </Grid>
+
+            <Path Stretch="Fill" Stroke="#FF809EB7" Height="1" Data="M12,189 L248.10379,189" Margin="0,20,0,0"/>
+
+            <CheckBox Margin="0,10,0,0" x:Name="chkFirstLine" IsThreeState="False" IsChecked="False">
+                <CheckBox.Content>
+                    <TextBlock Text="{DynamicResource BedWizardDialog_First_Line}"/>
+                </CheckBox.Content>
+            </CheckBox>
+
+            <Path Stretch="Fill" Stroke="#FF809EB7" Height="1" Data="M12,189 L248.10379,189" Margin="0,10,0,0"/>
+
+            <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                <Button Style="{DynamicResource WebServiceButton}" Name="btnOK" Content="OK" FontSize="12" FontWeight="Normal"/>
+                <Button Style="{DynamicResource WebServiceButton}" Name="btnCancel" Content="Cancel" FontSize="12" FontWeight="Normal" Margin="3,0,0,0"/>
+            </StackPanel>
+        </StackPanel>
+    </Border>
+
+</Window>

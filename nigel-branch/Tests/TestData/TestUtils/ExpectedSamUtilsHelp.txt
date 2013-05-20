@@ -1,0 +1,14 @@
+Sam Utility v1.1
+Copyright (c) 2011-2013, The Outercurve Foundation.
+
+SAMUtils are a re-implemenation of SAM Tools as referenced here: 
+
+Li H.*, Handsaker B.*, Wysoker A., Fennell T., Ruan J., Homer N., Marth G., Abecasis G., Durbin R. and 1000 Genome Project Data Processing Subgroup (2009) The Sequence alignment/map (SAM) format and SAMtools. Bioinformatics, 25, 2078-9. [PMID: 19505943]
+Usage:	   SAMUtils.exe command [options]
+Description: Utility to convert SAM to BAM and vice versa.
+
+Command:   Import  SAM <=> BAM conversion
+           Sort    Sort alignment file
+           Index   Index alignment
+           Merge   Merge sorted alignments
+           View    View output on console

@@ -1,0 +1,2 @@
+Downloaded the DotNetZip Library Ionic.Zip.dll version 1.9 from the link http://dotnetzip.codeplex.com/
+This is shared under "Microsoft Public License (Ms-PL)". The source for the same is available in the same location.

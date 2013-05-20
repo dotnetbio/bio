@@ -1,0 +1,50 @@
+﻿<!--
+<summary>
+// AboutDialog class will display copyright information 
+// about Excel Workbench
+</summary>
+-->
+<Window
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	x:Class="BiodexExcel.Visualizations.Common.AboutDialog"
+	x:Name="Window"
+	Width="400" Height="auto" WindowStyle="SingleBorderWindow" Title="{DynamicResource BioExcel_WindowTitle}" SizeToContent="Height" Background="Transparent" ShowInTaskbar="False" WindowStartupLocation="CenterScreen"  ResizeMode="NoResize" Icon="/BioExcel.Visualizations.Common;component/Resources/about.ico">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Resources/Styles.xaml" />
+                <ResourceDictionary Source="../Resources/ResourceDictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Border Style="{DynamicResource BorderStyle}" Padding="10,10,5,10">
+
+        <StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Image x:Name="imgAbout" Stretch="Fill" Width="32" Height="32" Source="/BioExcel.Visualizations.Common;component/Resources/about.png" />
+                <StackPanel VerticalAlignment="Center">
+                    <TextBlock Text="{DynamicResource AboutDialog_Header}" TextWrapping="Wrap" FontSize="14" FontWeight="Bold" FontStyle="Normal" FontStretch="Normal" FontFamily="Segoe UI" IsManipulationEnabled="False" />
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Margin="32,10,0,0">
+                <TextBlock TextWrapping="Wrap" Text="{DynamicResource AboutDialog_Copyright}"/>
+                <TextBlock TextWrapping="Wrap" Text="{DynamicResource AboutDialog_Version}">
+                    <Run x:Name="txtVersionNumber"/>
+                </TextBlock>
+                <TextBlock TextWrapping="Wrap" FontSize="10" Text="{DynamicResource AboutDialog_Reserved}"/>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock FontSize="13" Margin="0,5,0,0" Text="{DynamicResource AboutDialog_Codeplex}" />
+                    <TextBlock FontSize="13" Margin="0,5,0,0">
+                    <Hyperlink Click="OnRequestNavigateToMBFSite">http://bio.codeplex.com</Hyperlink>
+                    </TextBlock>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="32,15,32,0">
+                <Button x:Name="btnOk" Style="{DynamicResource WebServiceButton}" Content="OK" IsCancel="True" IsDefault="True" FontSize="12" FontWeight="Normal" Width="60"/>
+            </StackPanel>
+        </StackPanel>
+    </Border>
+</Window>
