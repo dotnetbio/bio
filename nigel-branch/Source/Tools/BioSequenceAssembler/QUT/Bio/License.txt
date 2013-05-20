@@ -1,9 +1,0 @@
-QUT.Bio Version 1.1
-
-Copyright (c) 2009 Queensland University of Technology. All rights reserved.
-
-The QUT Bioinformatics Collection (QUT.Bio) is open source software subject to the terms of the 
-Microsoft Public License (Ms-PL): http://www.microsoft.com/opensource/licenses.mspx.
-
-The latest version of the source code can be obtained at the project distribution point:
-	http://qutbio.codeplex.com

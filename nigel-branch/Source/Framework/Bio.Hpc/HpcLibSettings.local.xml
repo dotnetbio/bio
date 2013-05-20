@@ -1,7 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<ArrayOfLocalSettings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <LocalSettings Username="username">
-    <LogFile>LocalPath+\ClusterSubmitLog.xml</LogFile>
-    <DefaultResultsCopyPattern>raw\%name%*raw*,raw\%name%*tab*</DefaultResultsCopyPattern>
-  </LocalSettings>
-</ArrayOfLocalSettings>

@@ -1,1 +1,0 @@
-NewYork.xml is the saved version of the NCBI Blast query result on SwineFlu_NewYork data
