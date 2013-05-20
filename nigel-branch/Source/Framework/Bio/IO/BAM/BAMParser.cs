@@ -18,7 +18,7 @@ namespace Bio.IO.BAM
     /// Documentation for the latest BAM file format can be found at
     /// http://samtools.sourceforge.net/SAM1.pdf
     /// </summary>
-public class BAMParser : IDisposable, ISequenceAlignmentParser
+    public class BAMParser : IDisposable, ISequenceAlignmentParser
     {
         #region Private Fields
         /// <summary>
@@ -529,6 +529,38 @@ public class BAMParser : IDisposable, ISequenceAlignmentParser
             }
         }
 
+
+
+
+        /// <summary>
+        /// Parses specified BAM file using index file.
+        /// Index file is assumed to be in the same location as that of the specified bam file with the name "filename".bai
+        /// For example, if the specified bam file name is D:\BAMdata\sample.bam then index file name will be taken as D:\BAMdata\sample.bam.bai
+        /// If index file is not available then this method throw an exception.
+        /// </summary>
+        /// <param name="fileName">BAM file name.</param>
+        /// <param name="refSeqName">Name of reference sequence.</param>
+        /// <param name="start">Start index.</param>
+        /// <param name="end">End index.</param>
+        /// <returns>SequenceAlignmentMap object which contains alignments overlaps with the specified start 
+        /// and end co-ordinate of the specified reference sequence.</returns>
+        public IEnumerable<ISequence> ParseRangeAsEnumerableSequences(string fileName, string refSeqName, int start, int end)
+        {
+            if (refSeqName == null)
+            {
+                throw new ArgumentNullException("refSeqName");
+            }
+            using (FileStream bamStream = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
+            {
+                string bamIndexFileName = getBAMIndexFileName(fileName);
+                using (BAMIndexFile bamIndexFile = new BAMIndexFile(bamIndexFileName, FileMode.Open, FileAccess.Read))
+                {
+                    foreach (var s in this.EnumerateAlignedSequences(bamStream, bamIndexFile, refSeqName, start, end))
+                        yield return s;
+                }
+            }
+        }
+
         /// <summary>
         /// Parses specified BAM file using index file.
         /// Index file is assumed to be in the same location as that of the specified bam file with the name "filename".bai
@@ -556,6 +588,7 @@ public class BAMParser : IDisposable, ISequenceAlignmentParser
                 }
             }
         }
+
 
         #endregion ParseRange with Chromosome name
 
@@ -605,6 +638,8 @@ public class BAMParser : IDisposable, ISequenceAlignmentParser
                 }
             }
         }
+
+
         #endregion ParseRange With Referece Index
 
         #region ParseRange with SequenceRange
@@ -914,7 +949,6 @@ public class BAMParser : IDisposable, ISequenceAlignmentParser
             {
                 throw new FileFormatException(Properties.Resource.BAM_InvalidBAMFile);
             }
-
             readStream = reader;
             ValidateReader();
             SAMAlignmentHeader header = GetHeader();
@@ -1189,7 +1223,7 @@ public class BAMParser : IDisposable, ISequenceAlignmentParser
             // if there is no overlap no need to parse further.
             // ZeroBasedRefEnd < start
             // => (alignedSeq.RefEndPos -1) < start
-            if (alignedSeq.RefEndPos - 1 < start && alignedSeq.RName!=Properties.Resource.SAM_NO_REFERENCE_DEFINED_INDICATOR)
+            if (alignedSeq.RefEndPos - 1 < start && alignedSeq.RName != Properties.Resource.SAM_NO_REFERENCE_DEFINED_INDICATOR)
             {
                 return null;
             }
@@ -1479,6 +1513,37 @@ public class BAMParser : IDisposable, ISequenceAlignmentParser
 
         // Returns SequenceAlignmentMap by prasing specified BAM stream and BAMIndexFile for the specified reference sequence index.
         // this method uses linear index information also.
+        private IEnumerable<ISequence> EnumerateAlignedSequences(Stream bamStream, BAMIndexFile bamIndexFile, string refSeqName, int start, int end)
+        {
+            readStream = bamStream;
+            if (readStream == null || readStream.Length == 0)
+            {
+                throw new FileFormatException(Properties.Resource.BAM_InvalidBAMFile);
+            }
+
+            ValidateReader();
+            SAMAlignmentHeader header = GetHeader();
+
+            // verify whether there is any reads related to chromosome.
+            int refSeqIndex = refSeqNames.IndexOf(refSeqName);
+            if (refSeqIndex < 0)
+            {
+                string message = string.Format(CultureInfo.InvariantCulture, Properties.Resource.BAM_RefSeqNotFound, refSeqName);
+                throw new ArgumentException(message, "refSeqName");
+            }
+            BAMIndex bamIndexInfo = bamIndexFile.Read();
+            BAMReferenceIndexes refIndex = bamIndexInfo.RefIndexes[refSeqIndex];
+            IList<Chunk> chunks = GetChunks(refIndex, start, end);
+
+            var alignedSeqs = EnumerateAlignedSequences(chunks, start, end);
+            foreach (SAMAlignedSequence alignedSeq in alignedSeqs)
+            {
+                yield return alignedSeq.QuerySequence;
+            }
+            readStream = null;
+        }
+
+
         private SequenceAlignmentMap GetAlignment(Stream bamStream, BAMIndexFile bamIndexFile, string refSeqName, int start, int end)
         {
             readStream = bamStream;
@@ -1509,10 +1574,10 @@ public class BAMParser : IDisposable, ISequenceAlignmentParser
             {
                 seqMap.QuerySequences.Add(alignedSeq);
             }
-
             readStream = null;
             return seqMap;
         }
+
 
         // Returns SequenceAlignmentMap by prasing specified BAM stream and BAMIndexFile for the specified reference sequence index.
         // this method uses linear index information also.
@@ -1580,6 +1645,28 @@ public class BAMParser : IDisposable, ISequenceAlignmentParser
             }
 
             return alignedSeqs;
+        }
+        private IEnumerable<SAMAlignedSequence> EnumerateAlignedSequences(IList<Chunk> chunks, int start, int end)
+        {
+            foreach (Chunk chunk in chunks)
+            {
+                readStream.Seek((long)chunk.ChunkStart.CompressedBlockOffset, SeekOrigin.Begin);
+                GetNextBlock();
+                if (deCompressedStream != null)
+                {
+                    deCompressedStream.Seek(chunk.ChunkStart.UncompressedBlockOffset, SeekOrigin.Begin);
+
+                    // read until eof or end of the chunck is reached.
+                    while (!IsEOF() && (currentCompressedBlockStartPos < (long)chunk.ChunkEnd.CompressedBlockOffset || deCompressedStream.Position < chunk.ChunkEnd.UncompressedBlockOffset))
+                    {
+                        SAMAlignedSequence alignedSeq = GetAlignedSequence(start, end);
+                        if (alignedSeq != null)
+                        {
+                            yield return alignedSeq;
+                        }
+                    }
+                }
+            }
         }
 
         #endregion
