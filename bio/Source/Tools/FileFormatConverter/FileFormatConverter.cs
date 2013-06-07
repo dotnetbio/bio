@@ -45,7 +45,8 @@ namespace FileFormatConverter
 
             //Finds a formatter and opens the file
             var outputFormatter = SequenceFormatters.FindFormatterByFileName(OutputFile);
-            if (inputParser == null)
+
+            if (outputFormatter == null)
             {
                 throw new Exception("Output file not a valid file format for conversion.");
             }
