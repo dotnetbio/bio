@@ -15,7 +15,8 @@ namespace Bio.IO.FastA
     /// Documentation for the latest FastA file format can be found at
     /// http://www.ncbi.nlm.nih.gov/blast/fasta.shtml .
     /// </summary>
-    public sealed class FastAParser : ISequenceParser
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly")]
+    public class FastAParser : ISequenceParser
     {
         #region Member variables
         /// <summary>
@@ -38,7 +39,7 @@ namespace Bio.IO.FastA
         /// is increased by this amount each time we encounter a sequence
         /// larger than what we have allocated.
         /// </summary>
-        private const int BufferSize = 64 * MBytes;
+        protected const int BufferSize = 64 * MBytes;
 
         /// <summary>
         /// Maximum sequence length.
@@ -141,7 +142,7 @@ namespace Bio.IO.FastA
         /// Returns an IEnumerable of sequences in the file being parsed.
         /// </summary>
         /// <returns>Returns ISequence arrays.</returns>
-        public IEnumerable<ISequence> Parse()
+        public virtual IEnumerable<ISequence> Parse()
         {
             byte[] buffer = new byte[BufferSize];
             using (StreamReader reader = new StreamReader(this.Filename))
@@ -333,11 +334,13 @@ namespace Bio.IO.FastA
         public void Close()
         {
             this.Filename = null;
+           
         }
 
         /// <summary>
         /// Disposes the underlying stream.
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly")]
         public void Dispose()
         {
             this.Close();

@@ -11,7 +11,8 @@ namespace Bio.IO.FastQ
     /// A FastQParser reads from a source of text that is formatted according to the FASTQ 
     /// file specification and converts the data to in-memory QualitativeSequence objects.
     /// </summary>
-    public sealed class FastQParser : ISequenceParser
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly")]
+    public class FastQParser : ISequenceParser
     {
         #region Constructor
         /// <summary>
@@ -38,7 +39,7 @@ namespace Bio.IO.FastQ
         /// <summary>
         /// Gets the filename.
         /// </summary>
-        public string Filename { get; private set; }
+        public string Filename { get; protected set; }
 
         /// <summary>
         /// Gets the type of parser.
@@ -136,7 +137,7 @@ namespace Bio.IO.FastQ
         /// Gets the IEnumerable of QualitativeSequences from the file being parsed.
         /// </summary>
         /// <returns>Returns the QualitativeSequences.</returns>
-        public IEnumerable<QualitativeSequence> Parse()
+        public virtual IEnumerable<QualitativeSequence> Parse()
         {
             using (StreamReader streamReader = new StreamReader(this.Filename))
             {
@@ -174,7 +175,7 @@ namespace Bio.IO.FastQ
         /// <param name="streamReader">Stream to be parsed.</param>
         /// <param name="formatType">Fastq format type.</param>
         /// <returns>Returns a QualitativeSequence.</returns>
-        private QualitativeSequence ParseOne(StreamReader streamReader, FastQFormatType formatType)
+        protected QualitativeSequence ParseOne(StreamReader streamReader, FastQFormatType formatType)
         {
             if (streamReader == null)
                 throw new ArgumentNullException("streamReader");
@@ -272,7 +273,8 @@ namespace Bio.IO.FastQ
         /// <summary>
         /// Disposes the underlying stream.
         /// </summary>
-        public void Dispose()
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly")]
+        public  void Dispose()
         {
             this.Close();
             GC.SuppressFinalize(this);

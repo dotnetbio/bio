@@ -237,8 +237,10 @@
     <Compile Include="IO\ClustalW\ClustalWParser.cs" />
     <Compile Include="IO\FastA\FastAFormatter.cs" />
     <Compile Include="IO\FastA\FastAParser.cs" />
+    <Compile Include="IO\FastA\FastAZippedParser.cs" />
     <Compile Include="IO\FastQ\FastQFormatter.cs" />
     <Compile Include="IO\FastQ\FastQParser.cs" />
+    <Compile Include="IO\FastQ\FastQZippedParser.cs" />
     <Compile Include="IO\GenBank\Attenuator.cs" />
     <Compile Include="IO\GenBank\CaatSignal.cs" />
     <Compile Include="IO\GenBank\CitationReference.cs" />

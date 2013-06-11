@@ -270,6 +270,7 @@ namespace Bio.Util
         /// </returns>
         public static bool IsFasta(string fileName)
         {
+
             bool isfasta = false;
             int extensionDelimiter = fileName.LastIndexOf('.');
             if (-1 < extensionDelimiter)
@@ -289,6 +290,55 @@ namespace Bio.Util
 
             return isfasta;
         }
+
+		/// <summary>
+		/// Identifies if a file extension is a
+		/// valid extension for FASTA formats that is gzipped.
+		/// </summary>
+		/// <returns>
+		/// True  : if it is a valid gzipped fasta file extension.
+		/// False : if it is a in-valid gzipped fasta file extension.
+		/// </returns>
+		public static bool IsZippedFasta(string fileName)
+		{
+			if(FileEndsWithZippedExtension(fileName))
+			{
+				fileName = fileName.Replace (ZippedFileExtension, "");
+				return IsFasta (fileName);
+			}
+			return false;
+		}
+        /// <summary>
+        /// Identifies if a file extension is a
+        /// valid extension for a gzipped FastQ formats. 
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <returns></returns>
+		public static bool IsZippedFastQ(string fileName)
+		{
+			if(FileEndsWithZippedExtension(fileName))
+			{
+				fileName = fileName.Replace (ZippedFileExtension, "");
+				return IsFastQ(fileName);
+			}
+			return false;
+		}
+
+
+		/// <summary>
+		/// The .gz extension to indicate gzipped files
+		/// </summary>
+		public const string ZippedFileExtension = ".gz";
+		/// <summary>
+		/// Determine if file ends with extension ".gz"
+		/// </summary>
+		/// <returns><c>true</c>, if file name ends with zipped extension <c>false</c> otherwise.</returns>
+		/// <param name="fileName">File name.</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1307:SpecifyStringComparison", MessageId = "System.String.EndsWith(System.String)"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0")]
+        public static bool FileEndsWithZippedExtension(string fileName)
+		{
+			return fileName.EndsWith (ZippedFileExtension);
+		}
 
         /// <summary>
         /// Identifies if a file extension is a
