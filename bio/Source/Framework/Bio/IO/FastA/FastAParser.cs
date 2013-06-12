@@ -242,11 +242,14 @@ namespace Bio.IO.FastA
                     throw new ArgumentOutOfRangeException(
                         string.Format(CultureInfo.CurrentUICulture, Properties.Resource.SequenceDataGreaterthan2GB, name));
                 }
-
-                if (((bufferPosition + line.Length) >= currentBufferSize))
+                int neededSize = bufferPosition + line.Length;
+                if (neededSize >= currentBufferSize)
                 {
-                    Array.Resize(ref buffer, buffer.Length + BufferSize);
-                    currentBufferSize += BufferSize;
+                    //Grow file dynamically, by buffer size, or if too small to fit the new sequence by the size of the sequence
+                    int suggestedSize = buffer.Length + BufferSize;
+                    int newSize = neededSize < suggestedSize ? suggestedSize : neededSize;
+                    Array.Resize(ref buffer, newSize);
+                    currentBufferSize =newSize;
                 }
 
                 byte[] symbols = Encoding.UTF8.GetBytes(line);
