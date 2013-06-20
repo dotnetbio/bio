@@ -303,8 +303,8 @@ namespace Bio.Util
 		{
 			if(FileEndsWithZippedExtension(fileName))
 			{
-				fileName = fileName.Replace (ZippedFileExtension, "");
-				return IsFasta (fileName);
+				fileName = fileName.Substring(0,fileName.Length-ZippedFileExtension.Length);
+                return IsFasta (fileName);
 			}
 			return false;
 		}
@@ -318,7 +318,7 @@ namespace Bio.Util
 		{
 			if(FileEndsWithZippedExtension(fileName))
 			{
-				fileName = fileName.Replace (ZippedFileExtension, "");
+                fileName = fileName.Substring(0, fileName.Length - ZippedFileExtension.Length);
 				return IsFastQ(fileName);
 			}
 			return false;
