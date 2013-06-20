@@ -55,5 +55,40 @@ namespace Bio.Tests
                 }
             }
         }
+        /// <summary>
+        /// Tests a quasi-palindromic sequence, where an 19 bp kmer overlaps at 18 bp with the 
+        /// reverse complement of itself, forming a chain, but not a loop. A bad algorithm may not be able 
+        /// to reconstruct this.
+        /// 
+        /// </summary>
+        [TestMethod]
+        [Priority(0)]
+        [TestCategory("Priority0")]
+        public void PalindromicAssembleTest()
+        {
+            const int KmerLength = 19;
+            string testSeq = @"GGTTTTTTCAATTGAAAAAAATCTGTATT";
+            var testSequence = new Sequence(DnaAlphabet.Instance, testSeq);
+            List<ISequence> seqs = new List<ISequence>();
+            seqs.Add(testSequence);
+            using (ParallelDeNovoAssembler assembler = new ParallelDeNovoAssembler())
+            {
+                assembler.KmerLength = KmerLength;
+                assembler.AllowErosion = false;
+                assembler.AllowLowCoverageContigRemoval = false;
+                assembler.ContigCoverageThreshold = 0;
+                assembler.DanglingLinksThreshold = 0;
+                
+                IDeNovoAssembly result = assembler.Assemble(seqs);
+
+                // Compare the two graphs
+                Assert.IsTrue(result.AssembledSequences.Count == 1);
+                Assert.AreEqual(1, result.AssembledSequences.Count());
+                bool correctContig = result.AssembledSequences[0].SequenceEqual(testSequence);
+                if (!correctContig)
+                    correctContig = result.AssembledSequences[0].GetReverseComplementedSequence().Equals(testSequence);
+                Assert.IsTrue(correctContig);
+            }
+        }
     }
 }
