@@ -76,7 +76,7 @@ namespace Bio.IO.FastA
         /// Gets the type of parser.
         /// This is intended to give developers name of the parser.
         /// </summary>
-        public string Name
+        public virtual  string Name
         {
             get
             {
@@ -90,7 +90,7 @@ namespace Bio.IO.FastA
         /// of the parser class. This property returns a simple description of what this
         ///  class achieves.
         /// </summary>
-        public string Description
+        public virtual string Description
         {
             get
             {
@@ -102,7 +102,7 @@ namespace Bio.IO.FastA
         /// Gets a comma separated values of the possible FastA
         /// file extensions.
         /// </summary>
-        public string SupportedFileTypes
+        public virtual string SupportedFileTypes
         {
             get
             {

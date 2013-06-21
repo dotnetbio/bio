@@ -1,6 +1,8 @@
 ﻿using System;
 using System.IO;
 using System.IO.Compression;
+using System.Linq;
+
 namespace Bio.IO.FastQ
 {
 	/// <summary>
@@ -42,6 +44,36 @@ namespace Bio.IO.FastQ
 				}
 			}
 		}
+        public override string SupportedFileTypes
+        {
+            get
+            {
+                var unzipped = base.SupportedFileTypes.Split(',').Select(x => x + Bio.Util.Helper.ZippedFileExtension);
+                return String.Join(",", unzipped);
+            }
+        }
+        public override string Description
+        {
+            get
+            {
+                return Properties.Resource.ZippedFASTQDescription;
+            }
+        }
+        public override string Name
+        {
+            get
+            {
+                return Properties.Resource.ZippedFASTQName;
+            }
+        }
+        public override string SupportedFileTypes
+        {
+            get
+            {
+                var unzipped = base.SupportedFileTypes.Split(',').Select(x => x + Bio.Util.Helper.ZippedFileExtension);
+                return String.Join(",", unzipped);
+            }
+        }
 	}
 }
 

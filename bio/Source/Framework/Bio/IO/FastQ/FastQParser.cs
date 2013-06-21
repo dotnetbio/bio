@@ -71,7 +71,7 @@ namespace Bio.IO.FastQ
         /// Gets a comma separated values of the possible FastQ
         /// file extensions.
         /// </summary>
-        public string SupportedFileTypes
+        public virtual string SupportedFileTypes
         {
             get
             {

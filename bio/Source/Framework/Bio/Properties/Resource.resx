@@ -1476,5 +1476,19 @@ Delta alignment file is corrupted. </value>
   <data name="SAM_NO_REFERENCE_DEFINED_INDICATOR" xml:space="preserve">
     <value>*</value>
   </data>
-  
+  <data name="ZippedFASTAName" xml:space="preserve">
+    <value>Zipped Fasta</value>
+  </data>
+  <data name="ZippedFASTAParserDescription" xml:space="preserve">
+    <value>A FastaParser reads from a source of text that is formatted according to the FASTA flat
+file specification, and converts the data to in-memory ISequence objects.  For advanced
+users, the ability to select an encoding for the internal memory representation is
+provided. There is also a default encoding for each alphabet that may be encountered.</value>
+  </data>
+  <data name="ZippedFASTQDescription" xml:space="preserve">
+    <value>Writes an QualitativeSequence to a particular location, usually a file. The output is formatted according to the FASTQ file format.</value>
+  </data>
+  <data name="ZippedFASTQName" xml:space="preserve">
+    <value>Zipped Fastq</value>
+  </data>
 </root>

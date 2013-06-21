@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.IO.Compression;
+using System.Linq;
 
 namespace Bio.IO.FastA
 {
@@ -40,6 +41,30 @@ namespace Bio.IO.FastA
 				}
 			}
 		}
+        public override string Description
+        {
+            get
+            {
+                return Properties.Resource.ZippedFASTAParserDescription;
+            }
+        }
+        public override string Name
+        {
+            get
+            {
+                return Properties.Resource.ZippedFASTAName;
+            }
+        }
+        public override string SupportedFileTypes
+        {
+            get
+            {
+                var unzipped= base.SupportedFileTypes.Split(',').Select(x=>x+Bio.Util.Helper.ZippedFileExtension);
+                return String.Join(",", unzipped);
+            }
+        }
+
+        
 	}
 }
 
