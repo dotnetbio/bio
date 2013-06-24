@@ -42,12 +42,12 @@ The directories and their functions are:
 In addition to the code in this tree, there are the following
 External Dependencies that must be installed and met:
 
-  Visual Studio 2010 - 
-      any version (Express through Ultimate) is required to develop 
-      .Net Bio applications.  You can see a comparison of all varities at this site
+  Visual Studio 2012 - 
+      any version (Express for Desktop through Ultimate) is required to develop 
+      .Net Bio applications.  You can see a comparison of all varieties at this site
 	  http://www.microsoft.com/visualstudio/en-us/products
 	  
-	  The VisualStudio 2010 Express edition can 
+	  The Visual Studio Express 2012 for Windows Desktop edition can 
       be downloaded from http://www.microsoft.com/express/downloads/
                              
   .NET Runtime v4.0 - 

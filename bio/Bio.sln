@@ -73,6 +73,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bio.Tests.Web", "Tests\Bio.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F775077D-8180-41D5-B276-24F0D45EA524}"
 	ProjectSection(SolutionItems) = preProject
+		_ReadMe.txt = _ReadMe.txt
 		CREDITS.txt = CREDITS.txt
 		LICENSE.txt = LICENSE.txt
 		local.runsettings = local.runsettings
