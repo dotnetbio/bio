@@ -1291,11 +1291,11 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
                 KmerData32 kmerData = new KmerData32();
                 kmerData.SetKmerData(seq, lstKmers[0].Kmers.First().Positions[0], this.KmerLength);
 
-                DeBruijnNode node = new DeBruijnNode(kmerData, true, 1);
+                DeBruijnNode node = new DeBruijnNode(kmerData, 1);
                 kmerData = new KmerData32();
                 kmerData.SetKmerData(seq, lstKmers[1].Kmers.First().Positions[0], this.KmerLength);
 
-                DeBruijnNode leftnode = new DeBruijnNode(kmerData, true, 1);
+                DeBruijnNode leftnode = new DeBruijnNode(kmerData, 1);
                 node.SetExtensionNode(false, true, leftnode);
 
                 Assert.AreEqual(lstKmers[1].Kmers.First().Count, node.LeftExtensionNodesCount);
@@ -1332,11 +1332,11 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
                 KmerData32 kmerData = new KmerData32();
                 kmerData.SetKmerData(seq, lstKmers[0].Kmers.First().Positions[0], this.KmerLength);
 
-                DeBruijnNode node = new DeBruijnNode(kmerData, true, 1);
+                DeBruijnNode node = new DeBruijnNode(kmerData, 1);
                 kmerData = new KmerData32();
                 kmerData.SetKmerData(seq, lstKmers[1].Kmers.First().Positions[0], this.KmerLength);
 
-                DeBruijnNode leftnode = new DeBruijnNode(kmerData, true, 1);
+                DeBruijnNode leftnode = new DeBruijnNode(kmerData, 1);
                 node.SetExtensionNode(false, true, leftnode);
                 Assert.AreEqual(lstKmers[1].Kmers.First().Count, node.LeftExtensionNodesCount);
             }
@@ -1371,11 +1371,11 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
                 KmerData32 kmerData = new KmerData32();
                 kmerData.SetKmerData(seq, lstKmers[0].Kmers.First().Positions[0], this.KmerLength);
 
-                DeBruijnNode node = new DeBruijnNode(kmerData, true, 1);
+                DeBruijnNode node = new DeBruijnNode(kmerData, 1);
                 kmerData = new KmerData32();
                 kmerData.SetKmerData(seq, lstKmers[1].Kmers.First().Positions[0], this.KmerLength);
 
-                DeBruijnNode rightNode = new DeBruijnNode(kmerData, true, 1);
+                DeBruijnNode rightNode = new DeBruijnNode(kmerData, 1);
                 node.SetExtensionNode(true, true, rightNode);
                 Assert.AreEqual(lstKmers[1].Kmers.First().Count, node.RightExtensionNodesCount);
             }

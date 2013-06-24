@@ -13,7 +13,7 @@ using Bio.Algorithms.Kmer;
 namespace Bio.Algorithms.Assembly.Padena
 {
     /// <summary>
-    /// Implements a de bruijn based approach for
+    /// Implements a De-Bruijn based approach for
     /// assembly of DNA sequences.
     /// </summary>
     [RegistrableAttribute(true)]
@@ -53,12 +53,12 @@ namespace Bio.Algorithms.Assembly.Padena
         private int _currentStep;
 
         /// <summary>
-        /// Flag to indicate whether graph building completed progress message is written to Console or not.
+        /// Flag to indicate whether graph building completed progress message has been reported.
         /// </summary>
         private bool _graphBuildCompleted;
 
         /// <summary>
-        /// Flag to indicate whether generate link completed progress message is written to Console or not.
+        /// Flag to indicate whether generate link completed progress message has been reported.
         /// </summary>
         private bool _linkGenerationCompleted;
 
@@ -74,20 +74,21 @@ namespace Bio.Algorithms.Assembly.Padena
             ContigCoverageThreshold = -1;
             ErosionThreshold = -1;
             AllowErosion = false;
+            
             // Initialize to default here.
             // Values set to -1 here will be reset based on input sequences.
-            this._kmerLength = -1;
-            this.DanglingLinksThreshold = -1;
-            this.RedundantPathLengthThreshold = -1;
-            this._sequenceReads = new List<ISequence>();
+            _kmerLength = -1;
+            DanglingLinksThreshold = -1;
+            RedundantPathLengthThreshold = -1;
+            _sequenceReads = new List<ISequence>();
 
             // Contig and scaffold Builder are required modules. Set this to default.
-            this.ContigBuilder = new SimplePathContigBuilder();
+            ContigBuilder = new SimplePathContigBuilder();
 
             // Default values for parameters used in building scaffolds.
-            this.ScaffoldRedundancy = 2;
-            this.Depth = 10;
-            this.AllowKmerLengthEstimation = true;
+            ScaffoldRedundancy = 2;
+            Depth = 10;
+            AllowKmerLengthEstimation = true;
         }
 
         #region Properties
@@ -123,13 +124,13 @@ namespace Bio.Algorithms.Assembly.Padena
         {
             get
             {
-                return this._kmerLength;
+                return _kmerLength;
             }
 
             set
             {
-                this._kmerLength = value;
-                this.AllowKmerLengthEstimation = false;
+                _kmerLength = value;
+                AllowKmerLengthEstimation = false;
             }
         }
 
@@ -141,7 +142,7 @@ namespace Bio.Algorithms.Assembly.Padena
         /// <summary>
         /// Gets the assembler de-bruijn graph.
         /// </summary>
-        public DeBruijnGraph Graph { get; private set; }
+        public DeBruijnGraph Graph { get; protected set; }
 
         /// <summary>
         /// Gets or sets the instance that implements
@@ -225,8 +226,8 @@ namespace Bio.Algorithms.Assembly.Padena
         /// </summary>
         protected IList<ISequence> SequenceReads
         {
-            get { return this._sequenceReads.ToList(); }
-            set { this._sequenceReads = value; }
+            get { return _sequenceReads.ToList(); }
+            set { _sequenceReads = value; }
         }
 
         #endregion
@@ -265,11 +266,11 @@ namespace Bio.Algorithms.Assembly.Padena
             float maxLengthOfKmer = minSeqLength;
 
             int kmerLength = minLengthOfKmer < maxLengthOfKmer
-                                 ? (int) Math.Ceiling((minLengthOfKmer + maxLengthOfKmer)/2)
-                                 : (int) Math.Floor(maxLengthOfKmer);
+                                 ? (int)Math.Ceiling((minLengthOfKmer + maxLengthOfKmer) / 2)
+                                 : (int)Math.Floor(maxLengthOfKmer);
 
             // Make the kmer odd to avoid palindromes.
-            if (kmerLength%2 == 0)
+            if (kmerLength % 2 == 0)
             {
                 kmerLength++;
                 if (kmerLength > maxLengthOfKmer)
@@ -285,7 +286,7 @@ namespace Bio.Algorithms.Assembly.Padena
                 throw new InvalidOperationException(Properties.Resource.KmerLength);
 
             // Bound to our max size based on data handling.
-            return kmerLength > DeBruijnGraph.MaxKmerLength ? DeBruijnGraph.MaxKmerLength : kmerLength;
+            return kmerLength > KmerData32.MAX_KMER_LENGTH ? KmerData32.MAX_KMER_LENGTH : kmerLength;
         }
 
         /// <summary>
@@ -300,68 +301,68 @@ namespace Bio.Algorithms.Assembly.Padena
                 throw new ArgumentNullException("inputSequences");
             }
 
-            this._sequenceReads = inputSequences;
+            _sequenceReads = inputSequences;
 
             // Remove ambiguous reads and set up fields for assembler process
-            this.Initialize();
+            Initialize();
 
             // Step 1, 2: Create k-mers from reads and build de bruijn graph
             Stopwatch sw = Stopwatch.StartNew();
-            this.CreateGraphStarted();
-            this.CreateGraph();
+            CreateGraphStarted();
+            CreateGraph();
             sw.Stop();
 
-            this.CreateGraphEnded();
-            this.TaskTimeSpanReport(sw.Elapsed);
-            this.NodeCountReport();
+            CreateGraphEnded();
+            TaskTimeSpanReport(sw.Elapsed);
+            NodeCountReport();
            
             // Estimate and set default value for erosion and coverage thresholds
             sw = Stopwatch.StartNew();
-            this.EstimateDefaultValuesStarted();
-            this.EstimateDefaultThresholds();
+            EstimateDefaultValuesStarted();
+            EstimateDefaultThresholds();
             sw.Stop();
 
-            this.EstimateDefaultValuesEnded();
-            this.TaskTimeSpanReport(sw.Elapsed);
+            EstimateDefaultValuesEnded();
+            TaskTimeSpanReport(sw.Elapsed);
             
             // Step 3: Remove dangling links from graph
             sw = Stopwatch.StartNew();
-            this.UndangleGraphStarted();
-            this.UnDangleGraph();
+            UndangleGraphStarted();
+            UnDangleGraph();
             sw.Stop();
 
-            this.UndangleGraphEnded();
-            this.TaskTimeSpanReport(sw.Elapsed);
-            this.NodeCountReport();
+            UndangleGraphEnded();
+            TaskTimeSpanReport(sw.Elapsed);
+            NodeCountReport();
             
             // Step 4: Remove redundant paths from graph
             sw = Stopwatch.StartNew();
-            this.RemoveRedundancyStarted();
-            this.RemoveRedundancy();
-            this.NodeCountReport();
+            RemoveRedundancyStarted();
+            RemoveRedundancy();
+            NodeCountReport();
             
             // Perform dangling link purger step once more.
             // This is done to remove any links created by redundant paths purger.
-            this._statusMessage = string.Format(CultureInfo.CurrentCulture, Properties.Resource.SecondaryUndangleGraphStarted, DateTime.Now);
-            this.RaiseStatusEvent();
-            this.UnDangleGraph();
-            this._statusMessage = string.Format(CultureInfo.CurrentCulture, Properties.Resource.SecondaryUndangleGraphEnded, DateTime.Now);
-            this.RaiseStatusEvent();
+            _statusMessage = string.Format(CultureInfo.CurrentCulture, Properties.Resource.SecondaryUndangleGraphStarted, DateTime.Now);
+            RaiseStatusEvent();
+            UnDangleGraph();
+            _statusMessage = string.Format(CultureInfo.CurrentCulture, Properties.Resource.SecondaryUndangleGraphEnded, DateTime.Now);
+            RaiseStatusEvent();
             
             // Report end after undangle
             sw.Stop();
-            this.RemoveRedundancyEnded();
-            this.TaskTimeSpanReport(sw.Elapsed);
-            this.NodeCountReport();
+            RemoveRedundancyEnded();
+            TaskTimeSpanReport(sw.Elapsed);
+            NodeCountReport();
 
             // Step 5: Build Contigs
             sw = Stopwatch.StartNew();
-            this.BuildContigsStarted();
-            IEnumerable<ISequence> contigSequences = this.BuildContigs();
+            BuildContigsStarted();
+            IEnumerable<ISequence> contigSequences = BuildContigs();
             sw.Stop();
 
-            this.BuildContigsEnded();
-            this.TaskTimeSpanReport(sw.Elapsed);
+            BuildContigsEnded();
+            TaskTimeSpanReport(sw.Elapsed);
             
             PadenaAssembly result = new PadenaAssembly();
             result.AddContigs(contigSequences);
@@ -378,14 +379,14 @@ namespace Bio.Algorithms.Assembly.Padena
         /// <returns>Assembled output.</returns>
         public IDeNovoAssembly Assemble(IEnumerable<ISequence> inputSequences, bool includeScaffolds)
         {
-            PadenaAssembly assemblyResult = (PadenaAssembly)this.Assemble(inputSequences);
+            PadenaAssembly assemblyResult = (PadenaAssembly)Assemble(inputSequences);
 
             if (includeScaffolds)
             {
                 // Step 6: Build _scaffolds
-                this.BuildScaffoldsStarted();
-                IList<ISequence> scaffolds = this.BuildScaffolds(assemblyResult.ContigSequences);
-                this.BuildScaffoldsEnded();
+                BuildScaffoldsStarted();
+                IList<ISequence> scaffolds = BuildScaffolds(assemblyResult.ContigSequences);
+                BuildScaffoldsEnded();
 
                 if (scaffolds != null)
                 {
@@ -403,7 +404,7 @@ namespace Bio.Algorithms.Assembly.Padena
         /// </summary>
         public void Dispose()
         {
-            this.Dispose(true);
+            Dispose(true);
             GC.SuppressFinalize(this);
         }
 
@@ -415,12 +416,12 @@ namespace Bio.Algorithms.Assembly.Padena
         /// </summary>
         protected void EstimateDefaultThresholds()
         {
-            if (this.AllowErosion || this.AllowLowCoverageContigRemoval)
+            if (AllowErosion || AllowLowCoverageContigRemoval)
             {
                 // In case of low coverage data, set default as 2.
                 // Reference: ABySS Release Notes 1.0.15
                 // Before calculating median, discard thresholds less than 2.
-                List<long> kmerCoverage = this.Graph.GetNodes().AsParallel().Aggregate(
+                List<long> kmerCoverage = Graph.GetNodes().AsParallel().Aggregate(
                     new List<long>(),
                     (kmerList, n) =>
                     {
@@ -449,15 +450,15 @@ namespace Bio.Algorithms.Assembly.Padena
                 }
 
                 // Set coverage threshold
-                if (this.AllowLowCoverageContigRemoval && this.ContigCoverageThreshold == -1)
+                if (AllowLowCoverageContigRemoval && ContigCoverageThreshold < 0)
                 {
-                    this.ContigCoverageThreshold = threshold;
+                    ContigCoverageThreshold = threshold;
                 }
 
-                if (this.AllowErosion && this.ErosionThreshold == -1)
+                if (AllowErosion && ErosionThreshold == -1)
                 {
                     // Erosion threshold is an int, so round it off
-                    this.ErosionThreshold = (int)Math.Round(threshold);
+                    ErosionThreshold = (int) Math.Round(threshold);
                 }
             }
         }
@@ -469,11 +470,8 @@ namespace Bio.Algorithms.Assembly.Padena
         /// </summary>
         protected virtual void CreateGraph()
         {
-            this.Graph = new DeBruijnGraph(this._kmerLength);
-            this.Graph.Build(this._sequenceReads);
-
-            // Recapture the kmer length to keep them in sync.
-            this._kmerLength = this.Graph.KmerLength;
+            Graph = new DeBruijnGraph(_kmerLength);
+            Graph.Build(_sequenceReads);
         }
 
         /// <summary>
@@ -481,60 +479,59 @@ namespace Bio.Algorithms.Assembly.Padena
         /// </summary>
         protected void UnDangleGraph()
         {
-            if (this.DanglingLinksPurger != null && this.DanglingLinksThreshold > 0)
+            if (DanglingLinksPurger != null && DanglingLinksThreshold > 0)
             {
-                DeBruijnPathList danglingNodes = null;
+                DeBruijnPathList danglingNodes;
 
                 // Observe lengths of dangling links in the graph
                 // This is an optimization - instead of incrementing threshold by 1 and 
                 // running the purger iteratively, we first determine the lengths of the 
                 // danglings links found in the graph and run purger only for those lengths.
-                this.DanglingLinksPurger.LengthThreshold = this.DanglingLinksThreshold - 1;
+                DanglingLinksPurger.LengthThreshold = DanglingLinksThreshold - 1;
 
                 IEnumerable<int> danglingLengths;
-                IGraphEndsEroder graphEndsEroder = this.DanglingLinksPurger as IGraphEndsEroder;
-                if (graphEndsEroder != null && this.AllowErosion)
+                IGraphEndsEroder graphEndsEroder = DanglingLinksPurger as IGraphEndsEroder;
+                if (graphEndsEroder != null && AllowErosion)
                 {
                     // If eroder is implemented, while getting lengths of dangling links, 
                     // it also erodes the low coverage ends, this marks any node for deletion below a threshold.
 
-                    //TODO: Verify that this does enumerate all dangling ends, the concern is that if a dangling end of length 7 and 2
-                    //arrive at a node which itself would be of dangling node of length 2 without these "dangling ends" then a dangling end of 9
+                    // TODO: Verify that this does enumerate all dangling ends, the concern is that if a dangling end of length 7 and 2
+                    // arrive at a node which itself would be of dangling node of length 2 without these "dangling ends" then a dangling end of 9
                     // (which it would be without either the 7 or 2 end) might not be reported.
-                    danglingLengths = graphEndsEroder.ErodeGraphEnds(this.Graph, this.ErosionThreshold);
+                    danglingLengths = graphEndsEroder.ErodeGraphEnds(Graph, ErosionThreshold);
                 }
                 else
                 {
                     // Perform dangling purger at all incremental values till dangleThreshold.
-                    danglingLengths = Enumerable.Range(1, this.DanglingLinksThreshold - 1);
+                    danglingLengths = Enumerable.Range(1, DanglingLinksThreshold - 1);
                 }
 
                 // Erosion is to be only once. Reset erode threshold to -1.
-                this.ErosionThreshold = -1;
-              
+                ErosionThreshold = -1;
             
                 // Start removing dangling links
                 foreach (int threshold in danglingLengths)
                 {
-                    if (this.Graph.NodeCount >= threshold)
+                    if (Graph.NodeCount >= threshold)
                     {
-                        this.DanglingLinksPurger.LengthThreshold = threshold;
-                        danglingNodes = this.DanglingLinksPurger.DetectErroneousNodes(this.Graph);
-                        this.DanglingLinksPurger.RemoveErroneousNodes(this.Graph, danglingNodes);
+                        DanglingLinksPurger.LengthThreshold = threshold;
+                        danglingNodes = DanglingLinksPurger.DetectErroneousNodes(Graph);
+                        DanglingLinksPurger.RemoveErroneousNodes(Graph, danglingNodes);
                     }
                 }
-
+          
                 // Removing dangling links can in turn create more dangling links
                 // In order to remove all links within threshold, we therefore run
                 // purger at threshold length until there is no more change in graph.
                 do
                 {
                     danglingNodes = null;
-                    if (this.Graph.NodeCount >= this.DanglingLinksThreshold)
+                    if (Graph.NodeCount >= DanglingLinksThreshold)
                     {
-                        this.DanglingLinksPurger.LengthThreshold = this.DanglingLinksThreshold;
-                        danglingNodes = this.DanglingLinksPurger.DetectErroneousNodes(this.Graph);
-                        this.DanglingLinksPurger.RemoveErroneousNodes(this.Graph, danglingNodes);
+                        DanglingLinksPurger.LengthThreshold = DanglingLinksThreshold;
+                        danglingNodes = DanglingLinksPurger.DetectErroneousNodes(Graph);
+                        DanglingLinksPurger.RemoveErroneousNodes(Graph, danglingNodes);
                     }
                 }
                 while (danglingNodes != null && danglingNodes.Paths.Count > 0);
@@ -546,13 +543,13 @@ namespace Bio.Algorithms.Assembly.Padena
         /// </summary>
         protected void RemoveRedundancy()
         {
-            if (this.RedundantPathsPurger != null)
+            if (RedundantPathsPurger != null)
             {
                 DeBruijnPathList redundantNodes;
                 do
                 {
-                    redundantNodes = this.RedundantPathsPurger.DetectErroneousNodes(this.Graph);
-                    this.RedundantPathsPurger.RemoveErroneousNodes(this.Graph, redundantNodes);
+                    redundantNodes = RedundantPathsPurger.DetectErroneousNodes(Graph);
+                    RedundantPathsPurger.RemoveErroneousNodes(Graph, redundantNodes);
                 }
                 while (redundantNodes.Paths.Count > 0);
             }
@@ -565,19 +562,19 @@ namespace Bio.Algorithms.Assembly.Padena
         /// <returns>List of contig sequences.</returns>
         protected IEnumerable<ISequence> BuildContigs()
         {
-            if (this.ContigBuilder == null)
+            if (ContigBuilder == null)
             {
                 throw new InvalidOperationException(Properties.Resource.NullContigBuilder);
             }
 
             // Step 5.1: Remove low coverage contigs
-            if (this.AllowLowCoverageContigRemoval && this.ContigCoverageThreshold > 0)
+            if (AllowLowCoverageContigRemoval && ContigCoverageThreshold > 0)
             {
-                this.LowCoverageContigPurger.RemoveLowCoverageContigs(this.Graph, this.ContigCoverageThreshold);
+                LowCoverageContigPurger.RemoveLowCoverageContigs(Graph, ContigCoverageThreshold);
             }
 
             // Step 5.2: Build Contigs
-            return this.ContigBuilder.Build(this.Graph);
+            return ContigBuilder.Build(Graph);
         }
 
         /// <summary>
@@ -587,13 +584,13 @@ namespace Bio.Algorithms.Assembly.Padena
         /// <returns>List of scaffold sequences.</returns>
         protected IList<ISequence> BuildScaffolds(IList<ISequence> contigs)
         {
-            if (this.ScaffoldBuilder == null)
+            if (ScaffoldBuilder == null)
             {
                 // Scaffold Builder is a required module for this method. Set this to default.
-                this.ScaffoldBuilder = new GraphScaffoldBuilder();
+                ScaffoldBuilder = new GraphScaffoldBuilder();
             }
 
-            return this.ScaffoldBuilder.BuildScaffold(this.SequenceReads, contigs, this.KmerLength, depth: this.Depth, redundancy: this.ScaffoldRedundancy);
+            return ScaffoldBuilder.BuildScaffold(SequenceReads, contigs, KmerLength, Depth, ScaffoldRedundancy);
         }
 
         /// <summary>
@@ -604,22 +601,22 @@ namespace Bio.Algorithms.Assembly.Padena
         {
             if (disposeManaged)
             {
-                if (this.ScaffoldBuilder != null)
+                if (ScaffoldBuilder != null)
                 {
-                    this.ScaffoldBuilder.Dispose();
+                    ScaffoldBuilder.Dispose();
                 }
 
-                this.Graph = null;
-                this._sequenceReads = null;
-                this.DanglingLinksPurger = null;
-                this.RedundantPathsPurger = null;
-                this.ContigBuilder = null;
-                this.ScaffoldBuilder = null;
+                Graph = null;
+                _sequenceReads = null;
+                DanglingLinksPurger = null;
+                RedundantPathsPurger = null;
+                ContigBuilder = null;
+                ScaffoldBuilder = null;
 
-                if (this._progressTimer != null)
+                if (_progressTimer != null)
                 {
-                    this._progressTimer.Dispose();
-                    this._progressTimer = null;
+                    _progressTimer.Dispose();
+                    _progressTimer = null;
                 }
             }
         }
@@ -630,7 +627,7 @@ namespace Bio.Algorithms.Assembly.Padena
         /// <param name="sequences">Sequences to set.</param>
         protected void SetSequenceReads(IList<ISequence> sequences)
         {
-            this.SequenceReads = sequences;
+            SequenceReads = sequences;
         }
 
         /// <summary>
@@ -638,64 +635,56 @@ namespace Bio.Algorithms.Assembly.Padena
         /// </summary>
         protected void Initialize()
         {
-            this._currentStep = 0;
-            this._progressTimer = new Timer(ProgressTimerInterval);
-            this._progressTimer.Elapsed += this.ProgressTimerElapsed;
+            _currentStep = 0;
+            _progressTimer = new Timer(ProgressTimerInterval);
+            _progressTimer.Elapsed += ProgressTimerElapsed;
 
-            this._statusMessage = string.Format(CultureInfo.CurrentCulture, Properties.Resource.InitializingStarted, DateTime.Now);
-            this.RaiseStatusEvent();
+            _statusMessage = string.Format(CultureInfo.CurrentCulture, Properties.Resource.InitializingStarted, DateTime.Now);
+            RaiseStatusEvent();
 
             // Reset parameters not set by user, based on sequenceReads
-            if (this.AllowKmerLengthEstimation)
+            if (AllowKmerLengthEstimation)
             {
-                this._kmerLength = EstimateKmerLength(this._sequenceReads);
+                _kmerLength = EstimateKmerLength(_sequenceReads);
             }
             else
             {
-                if (this._kmerLength <= 0)
+                if (_kmerLength <= 0)
                 {
                     throw new InvalidOperationException(Properties.Resource.KmerLength);
                 }
 
                 try
                 {
-                    if (!Alphabets.CheckIsFromSameBase(this._sequenceReads.First().Alphabet, Alphabets.DNA))
+                    if (!Alphabets.CheckIsFromSameBase(_sequenceReads.First().Alphabet, Alphabets.DNA))
+                    {
                         throw new InvalidOperationException(Properties.Resource.CannotAssembleSequenceType);
+                    }
                 }
                 catch (Exception e)
                 {
                     if (e.InnerException != null && !string.IsNullOrEmpty(e.InnerException.Message))
                         throw e.InnerException;
-
                     throw;
                 }
             }
 
-            // TODO: Force an odd kmer length to avoid palindromes
-            // Need to evaluate this more - for now rely on the user to
-            // not pass in bad data.
-            //if (_kmerLength % 2 == 0)
-            //    _kmerLength++;
-
-            // Enforce our boundaries (same as DeBruijnGraph code)
-            _kmerLength = Math.Max(1, Math.Min(DeBruijnGraph.MaxKmerLength, _kmerLength));
-
-            if (this.DanglingLinksThreshold == -1)
+            if (DanglingLinksThreshold == -1)
             {
-                this.DanglingLinksThreshold = this._kmerLength + 1;
+                DanglingLinksThreshold = _kmerLength + 1;
             }
 
-            if (this.RedundantPathLengthThreshold == -1)
+            if (RedundantPathLengthThreshold == -1)
             {
                 // Reference for default threshold for redundant path purger:
                 // ABySS Release Notes 1.1.2 - "Pop bubbles shorter than N bp. The default is b=3*(k + 1)."
-                this.RedundantPathLengthThreshold = 3 * (this._kmerLength + 1);
+                RedundantPathLengthThreshold = 3 * (_kmerLength + 1);
             }
 
-            this.InitializeDefaultGraphModifiers();
+            InitializeDefaultGraphModifiers();
 
-            this._statusMessage = string.Format(CultureInfo.CurrentCulture, Properties.Resource.InitializingEnded, DateTime.Now);
-            this.RaiseStatusEvent();
+            _statusMessage = string.Format(CultureInfo.CurrentCulture, Properties.Resource.InitializingEnded, DateTime.Now);
+            RaiseStatusEvent();
         }
 
         /// <summary>
@@ -706,19 +695,19 @@ namespace Bio.Algorithms.Assembly.Padena
         protected void InitializeDefaultGraphModifiers()
         {
             // Assign uninitialized fields to default values
-            if (this.DanglingLinksPurger == null)
+            if (DanglingLinksPurger == null)
             {
-                this.DanglingLinksPurger = new DanglingLinksPurger();
+                DanglingLinksPurger = new DanglingLinksPurger();
             }
 
-            if (this.RedundantPathsPurger == null)
+            if (RedundantPathsPurger == null)
             {
-                this.RedundantPathsPurger = new RedundantPathsPurger(this.RedundantPathLengthThreshold);
+                RedundantPathsPurger = new RedundantPathsPurger(RedundantPathLengthThreshold);
             }
 
-            if (this.LowCoverageContigPurger == null)
+            if (LowCoverageContigPurger == null)
             {
-                this.LowCoverageContigPurger = new SimplePathContigBuilder();
+                LowCoverageContigPurger = new SimplePathContigBuilder();
             }
         }
 
@@ -728,9 +717,9 @@ namespace Bio.Algorithms.Assembly.Padena
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1030:UseEventsWhereAppropriate")]
         protected void RaiseStatusEvent()
         {
-            if (this.StatusChanged != null)
+            if (StatusChanged != null)
             {
-                this.StatusChanged.Invoke(this, new StatusChangedEventArgs(this._statusMessage));
+                StatusChanged.Invoke(this, new StatusChangedEventArgs(_statusMessage));
             }
         }
 
@@ -741,50 +730,45 @@ namespace Bio.Algorithms.Assembly.Padena
         /// <param name="e">Event arguments.</param>
         protected void ProgressTimerElapsed(object sender, ElapsedEventArgs e)
         {
-            switch (this._currentStep)
+            switch (_currentStep)
             {
                 case 2:
-                    if (!this.Graph.GraphBuildCompleted)
+                    if (!Graph.GraphBuildCompleted)
                     {
-                        if (this.Graph.SkippedSequencesCount > 0)
-                        {
-                            this._statusMessage = string.Format(CultureInfo.CurrentCulture, Properties.Resource.CreateGraphSubStatus, this.Graph.SkippedSequencesCount, this.Graph.ProcessedSequencesCount);
-                        }
-                        else
-                        {
-                            this._statusMessage = string.Format(CultureInfo.CurrentCulture, Properties.Resource.CreateGraphSubStatusWithoutSkipped, this.Graph.ProcessedSequencesCount);
-                        }
+                        _statusMessage = Graph.SkippedSequencesCount > 0 
+                            ? string.Format(CultureInfo.CurrentCulture, Properties.Resource.CreateGraphSubStatus, Graph.SkippedSequencesCount, Graph.ProcessedSequencesCount) 
+                            : string.Format(CultureInfo.CurrentCulture, Properties.Resource.CreateGraphSubStatusWithoutSkipped, Graph.ProcessedSequencesCount);
                     }
                     else
                     {
-                        if (!this._graphBuildCompleted)
+                        if (!_graphBuildCompleted)
                         {
-                            this._graphBuildCompleted = this.Graph.GraphBuildCompleted;
-                            this._statusMessage = string.Format(CultureInfo.CurrentCulture, Properties.Resource.GraphBuilt, this.Graph.ProcessedSequencesCount);
-                            this.RaiseStatusEvent();
+                            _graphBuildCompleted = Graph.GraphBuildCompleted;
+                            _statusMessage = string.Format(CultureInfo.CurrentCulture, Properties.Resource.GraphBuilt, Graph.ProcessedSequencesCount);
+                            RaiseStatusEvent();
 
-                            this._statusMessage = string.Format(CultureInfo.CurrentCulture, Properties.Resource.GenerateLinkStarted);
+                            _statusMessage = string.Format(CultureInfo.CurrentCulture, Properties.Resource.GenerateLinkStarted);
                         }
                         else
                         {
-                            if (!this._linkGenerationCompleted && this.Graph.LinkGenerationCompleted)
+                            if (!_linkGenerationCompleted && Graph.LinkGenerationCompleted)
                             {
-                                this._linkGenerationCompleted = this.Graph.LinkGenerationCompleted;
-                                this._statusMessage = string.Format(CultureInfo.CurrentCulture,
+                                _linkGenerationCompleted = Graph.LinkGenerationCompleted;
+                                _statusMessage = string.Format(CultureInfo.CurrentCulture,
                                                                    Properties.Resource.GenerateLinkEnded);
                             }
                             else
                             {
-                                this._statusMessage = Properties.Resource.DefaultSubStatus;
+                                _statusMessage = Properties.Resource.DefaultSubStatus;
                             }
                         }
                     }
 
-                    this.RaiseStatusEvent();
+                    RaiseStatusEvent();
                     break;
                 default:
-                    this._statusMessage = Properties.Resource.DefaultSubStatus;
-                    this.RaiseStatusEvent();
+                    _statusMessage = Properties.Resource.DefaultSubStatus;
+                    RaiseStatusEvent();
                     break;
             }
         }
@@ -794,10 +778,10 @@ namespace Bio.Algorithms.Assembly.Padena
         /// </summary>
         protected void CreateGraphStarted()
         {
-            this._statusMessage = string.Format(CultureInfo.CurrentCulture, Properties.Resource.CreateGraphStarted, DateTime.Now);
-            this.RaiseStatusEvent();
-            this._currentStep = 2;
-            this._progressTimer.Start();
+            _statusMessage = string.Format(CultureInfo.CurrentCulture, Properties.Resource.CreateGraphStarted, DateTime.Now);
+            RaiseStatusEvent();
+            _currentStep = 2;
+            _progressTimer.Start();
         }
 
         /// <summary>
@@ -805,28 +789,28 @@ namespace Bio.Algorithms.Assembly.Padena
         /// </summary>
         protected void CreateGraphEnded()
         {
-            this._progressTimer.Stop();
+            _progressTimer.Stop();
 
-            if (!this._graphBuildCompleted)
+            if (!_graphBuildCompleted)
             {
-                this._graphBuildCompleted = this.Graph.GraphBuildCompleted;
-                this._statusMessage = string.Format(CultureInfo.CurrentCulture, Properties.Resource.GraphBuilt, this.Graph.ProcessedSequencesCount);
-                this.RaiseStatusEvent();
+                _graphBuildCompleted = Graph.GraphBuildCompleted;
+                _statusMessage = string.Format(CultureInfo.CurrentCulture, Properties.Resource.GraphBuilt, Graph.ProcessedSequencesCount);
+                RaiseStatusEvent();
 
-                this._graphBuildCompleted = this.Graph.GraphBuildCompleted;
-                this._statusMessage = string.Format(CultureInfo.CurrentCulture, Properties.Resource.GenerateLinkStarted);
-                this.RaiseStatusEvent();
+                _graphBuildCompleted = Graph.GraphBuildCompleted;
+                _statusMessage = string.Format(CultureInfo.CurrentCulture, Properties.Resource.GenerateLinkStarted);
+                RaiseStatusEvent();
             }
 
-            if (!this._linkGenerationCompleted && this.Graph.LinkGenerationCompleted)
+            if (!_linkGenerationCompleted && Graph.LinkGenerationCompleted)
             {
-                this._linkGenerationCompleted = this.Graph.LinkGenerationCompleted;
-                this._statusMessage = string.Format(CultureInfo.CurrentCulture, Properties.Resource.GenerateLinkEnded);
-                this.RaiseStatusEvent();
+                _linkGenerationCompleted = Graph.LinkGenerationCompleted;
+                _statusMessage = string.Format(CultureInfo.CurrentCulture, Properties.Resource.GenerateLinkEnded);
+                RaiseStatusEvent();
             }
 
-            this._statusMessage = string.Format(CultureInfo.CurrentCulture, Properties.Resource.CreateGraphEnded, DateTime.Now);
-            this.RaiseStatusEvent();
+            _statusMessage = string.Format(CultureInfo.CurrentCulture, Properties.Resource.CreateGraphEnded, DateTime.Now);
+            RaiseStatusEvent();
         }
 
         /// <summary>
@@ -835,8 +819,8 @@ namespace Bio.Algorithms.Assembly.Padena
         /// <param name="ts"></param>
         protected void TaskTimeSpanReport(TimeSpan ts)
         {
-            this._statusMessage = string.Format(CultureInfo.CurrentCulture, Properties.Resource.TimeSpanReport, ts);
-            this.RaiseStatusEvent();
+            _statusMessage = string.Format(CultureInfo.CurrentCulture, Properties.Resource.TimeSpanReport, ts);
+            RaiseStatusEvent();
             
         }
         /// <summary>
@@ -844,8 +828,8 @@ namespace Bio.Algorithms.Assembly.Padena
         /// </summary>
         protected void NodeCountReport()
         {
-            this._statusMessage = string.Format(CultureInfo.CurrentCulture, Properties.Resource.GraphNodeCountDisplay, this.Graph.NodeCount);
-            this.RaiseStatusEvent();
+            _statusMessage = string.Format(CultureInfo.CurrentCulture, Properties.Resource.GraphNodeCountDisplay, Graph.NodeCount);
+            RaiseStatusEvent();
         }
 
         /// <summary>
@@ -853,8 +837,8 @@ namespace Bio.Algorithms.Assembly.Padena
         /// </summary>
         protected void EstimateDefaultValuesStarted()
         {
-            this._statusMessage = string.Format(CultureInfo.CurrentCulture, Properties.Resource.EstimateDefaultValuesStarted, DateTime.Now);
-            this.RaiseStatusEvent();
+            _statusMessage = string.Format(CultureInfo.CurrentCulture, Properties.Resource.EstimateDefaultValuesStarted, DateTime.Now);
+            RaiseStatusEvent();
         }
 
         /// <summary>
@@ -862,8 +846,8 @@ namespace Bio.Algorithms.Assembly.Padena
         /// </summary>
         protected void EstimateDefaultValuesEnded()
         {
-            this._statusMessage = string.Format(CultureInfo.CurrentCulture, Properties.Resource.EstimateDefaultValuesEnded, DateTime.Now);
-            this.RaiseStatusEvent();
+            _statusMessage = string.Format(CultureInfo.CurrentCulture, Properties.Resource.EstimateDefaultValuesEnded, DateTime.Now);
+            RaiseStatusEvent();
         }
 
         /// <summary>
@@ -871,10 +855,10 @@ namespace Bio.Algorithms.Assembly.Padena
         /// </summary>
         protected void UndangleGraphStarted()
         {
-            this._statusMessage = string.Format(CultureInfo.CurrentCulture, Properties.Resource.UndangleGraphStarted, DateTime.Now);
-            this.RaiseStatusEvent();
-            this._currentStep = 3;
-            this._progressTimer.Start();
+            _statusMessage = string.Format(CultureInfo.CurrentCulture, Properties.Resource.UndangleGraphStarted, DateTime.Now);
+            RaiseStatusEvent();
+            _currentStep = 3;
+            _progressTimer.Start();
         }
 
         /// <summary>
@@ -882,9 +866,9 @@ namespace Bio.Algorithms.Assembly.Padena
         /// </summary>
         protected void UndangleGraphEnded()
         {
-            this._progressTimer.Stop();
-            this._statusMessage = string.Format(CultureInfo.CurrentCulture, Properties.Resource.UndangleGraphEnded, DateTime.Now);
-            this.RaiseStatusEvent();
+            _progressTimer.Stop();
+            _statusMessage = string.Format(CultureInfo.CurrentCulture, Properties.Resource.UndangleGraphEnded, DateTime.Now);
+            RaiseStatusEvent();
         }
 
         /// <summary>
@@ -892,10 +876,10 @@ namespace Bio.Algorithms.Assembly.Padena
         /// </summary>
         protected void RemoveRedundancyStarted()
         {
-            this._statusMessage = string.Format(CultureInfo.CurrentCulture, Properties.Resource.RemoveReducndancyStarted, DateTime.Now);
-            this.RaiseStatusEvent();
-            this._currentStep = 4;
-            this._progressTimer.Start();
+            _statusMessage = string.Format(CultureInfo.CurrentCulture, Properties.Resource.RemoveReducndancyStarted, DateTime.Now);
+            RaiseStatusEvent();
+            _currentStep = 4;
+            _progressTimer.Start();
         }
 
         /// <summary>
@@ -903,9 +887,9 @@ namespace Bio.Algorithms.Assembly.Padena
         /// </summary>
         protected void RemoveRedundancyEnded()
         {
-            this._progressTimer.Stop();
-            this._statusMessage = string.Format(CultureInfo.CurrentCulture, Properties.Resource.RemoveReducndancyEnded, DateTime.Now);
-            this.RaiseStatusEvent();
+            _progressTimer.Stop();
+            _statusMessage = string.Format(CultureInfo.CurrentCulture, Properties.Resource.RemoveReducndancyEnded, DateTime.Now);
+            RaiseStatusEvent();
         }
 
         /// <summary>
@@ -913,10 +897,10 @@ namespace Bio.Algorithms.Assembly.Padena
         /// </summary>
         protected void BuildContigsStarted()
         {
-            this._statusMessage = string.Format(CultureInfo.CurrentCulture, Properties.Resource.BuildContigsStarted, DateTime.Now);
-            this.RaiseStatusEvent();
-            this._currentStep = 5;
-            this._progressTimer.Start();
+            _statusMessage = string.Format(CultureInfo.CurrentCulture, Properties.Resource.BuildContigsStarted, DateTime.Now);
+            RaiseStatusEvent();
+            _currentStep = 5;
+            _progressTimer.Start();
         }
 
         /// <summary>
@@ -924,10 +908,10 @@ namespace Bio.Algorithms.Assembly.Padena
         /// </summary>
         protected void BuildContigsEnded()
         {
-            this._progressTimer.Stop();
-            this._statusMessage = string.Format(CultureInfo.CurrentCulture, Properties.Resource.BuildContigsEnded, DateTime.Now);
-            this.RaiseStatusEvent();
-            this._currentStep = 0;
+            _progressTimer.Stop();
+            _statusMessage = string.Format(CultureInfo.CurrentCulture, Properties.Resource.BuildContigsEnded, DateTime.Now);
+            RaiseStatusEvent();
+            _currentStep = 0;
         }
 
         /// <summary>
@@ -935,10 +919,10 @@ namespace Bio.Algorithms.Assembly.Padena
         /// </summary>
         protected void BuildScaffoldsStarted()
         {
-            this._statusMessage = string.Format(CultureInfo.CurrentCulture, Properties.Resource.BuildScaffoldStarted, DateTime.Now);
-            this.RaiseStatusEvent();
-            this._currentStep = 6;
-            this._progressTimer.Start();
+            _statusMessage = string.Format(CultureInfo.CurrentCulture, Properties.Resource.BuildScaffoldStarted, DateTime.Now);
+            RaiseStatusEvent();
+            _currentStep = 6;
+            _progressTimer.Start();
         }
 
         /// <summary>
@@ -946,10 +930,10 @@ namespace Bio.Algorithms.Assembly.Padena
         /// </summary>
         protected void BuildScaffoldsEnded()
         {
-            this._progressTimer.Stop();
-            this._currentStep = 0;
-            this._statusMessage = string.Format(CultureInfo.CurrentCulture, Properties.Resource.BuildScaffoldEnded, DateTime.Now);
-            this.RaiseStatusEvent();
+            _progressTimer.Stop();
+            _currentStep = 0;
+            _statusMessage = string.Format(CultureInfo.CurrentCulture, Properties.Resource.BuildScaffoldEnded, DateTime.Now);
+            RaiseStatusEvent();
         }
     }
 }

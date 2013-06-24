@@ -886,8 +886,7 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         {
             using (PadenaP1Test testObj = new PadenaP1Test())
             {
-                testObj.ValidateMapReadsToContig(Constants.MapPairedReadsToContigForClustalWContigsNode,
-                    true);
+                testObj.ValidateMapReadsToContig(Constants.MapPairedReadsToContigForClustalWContigsNode, true);
             }
         }
 
@@ -2478,23 +2477,20 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
             string[] expectedContigStartPos = contigStartPosString.Split(',');
 
             // Get the input reads and build kmers
-            IEnumerable<ISequence> sequenceReads = null;
             using (FastAParser parser = new FastAParser(filePath))
             {
-                sequenceReads = parser.Parse();
+                IEnumerable<ISequence> sequenceReads = parser.Parse();
 
                 // Build kmers from step1,graph in step2 
                 // Remove the dangling links from graph in step3
                 // Remove bubbles form the graph in step4 
                 // Pass the graph and build contigs
                 // Validate contig reads
-                this.KmerLength = Int32.Parse(kmerLength, (IFormatProvider)null);
-                this.DanglingLinksThreshold = Int32.Parse(daglingThreshold, (IFormatProvider)null);
-                this.DanglingLinksPurger =
-                  new DanglingLinksPurger(Int32.Parse(daglingThreshold, (IFormatProvider)null));
-                this.RedundantPathsPurger =
-                  new RedundantPathsPurger(Int32.Parse(redundantThreshold, (IFormatProvider)null));
-                this.RedundantPathLengthThreshold = Int32.Parse(redundantThreshold, (IFormatProvider)null);
+                this.KmerLength = Int32.Parse(kmerLength, null);
+                this.DanglingLinksThreshold = Int32.Parse(daglingThreshold, null);
+                this.DanglingLinksPurger = new DanglingLinksPurger(Int32.Parse(daglingThreshold, null));
+                this.RedundantPathsPurger = new RedundantPathsPurger(Int32.Parse(redundantThreshold, null));
+                this.RedundantPathLengthThreshold = Int32.Parse(redundantThreshold, null);
 
                 this.SetSequenceReads(sequenceReads.ToList());
                 this.CreateGraph();
@@ -2847,7 +2843,7 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// <summary>
         /// Sort Contig List based on the contig sequence
         /// </summary>
-        /// <param name="nodeName">xml node name used for different testcases</param>
+        /// <param name="contigsList">xml node name used for different testcases</param>
         private static IList<ISequence> SortContigsData(IList<ISequence> contigsList)
         {
             return (from ContigData in contigsList

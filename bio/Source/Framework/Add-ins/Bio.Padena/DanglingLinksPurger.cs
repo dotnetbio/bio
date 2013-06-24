@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Bio.Util;
 using Bio.Algorithms.Assembly.Graph;
 
 namespace Bio.Algorithms.Assembly.Padena
@@ -21,20 +22,20 @@ namespace Bio.Algorithms.Assembly.Padena
         /// User Input Parameter
         /// Threshold for eroding low coverage ends.
         /// </summary>
-        private int erodeThreshold;
+        private int _erodeThreshold;
 
         /// <summary>
         /// Field used to keep track of the minimum length of 
         /// dangling link that crosses the length threshold.
         /// This is used to update the threshold for next round.
         /// </summary>
-        private SortedSet<int> danglingLinkLengths;
+        private SortedSet<int> _danglingLinkLengths;
 
         /// <summary>
         /// Tasks queued to extend dangling links following
         /// graph clean-up after erosion.
         /// </summary>
-        private List<Task<int>> danglingLinkExtensionTasks;
+        private List<Task<int>> _danglingLinkExtensionTasks;
 
         /// <summary>
         /// Initializes a new instance of the DanglingLinksPurger class.
@@ -43,8 +44,8 @@ namespace Bio.Algorithms.Assembly.Padena
         /// <param name="erodeThreshold">Threshold for eroding endpoints.</param>
         public DanglingLinksPurger(int threshold = 0, int erodeThreshold = -1)
         {
-            this.LengthThreshold = threshold;
-            this.erodeThreshold = erodeThreshold;
+            LengthThreshold = threshold;
+            _erodeThreshold = erodeThreshold;
         }
 
         /// <summary>
@@ -74,7 +75,7 @@ namespace Bio.Algorithms.Assembly.Padena
         /// As optimization, we also check for dangling links and keeps track of the
         /// lengths of the links found. No removal is done at this step.
         /// This is done to get an idea of the different lengths at 
-        /// which to run the dangling links purge step.
+        /// which to run the dangling links purger step.
         /// This method returns the lengths of dangling links found.
         /// Locks: Method only does reads. No locking necessary here. 
         /// </summary>
@@ -88,15 +89,16 @@ namespace Bio.Algorithms.Assembly.Padena
                 throw new ArgumentNullException("graph");
             }
 
-            this.erodeThreshold = erosionThreshold;
-            this.danglingLinkLengths = new SortedSet<int>();
-            this.danglingLinkExtensionTasks = new List<Task<int>>();
+            _erodeThreshold = erosionThreshold;
+            _danglingLinkLengths = new SortedSet<int>();
+            _danglingLinkExtensionTasks = new List<Task<int>>();
 
             IEnumerable<DeBruijnNode> graphNodes = graph.GetNodes();
-            BlockingCollection<int> linkLengths = new BlockingCollection<int>();
 
+            BlockingCollection<int> linkLengths = new BlockingCollection<int>();
+            
             // Start consumer task
-            // TODO: This length list should contain elements from ~1-19, decide if  
+            // TODO: This length list should contain elements from ~1-19, decide if 
             // having a separate thread keep those numbers sorted is worthwhile
             Task collectionTask = Task.Factory.StartNew(() =>
             {
@@ -105,25 +107,24 @@ namespace Bio.Algorithms.Assembly.Padena
                     int length;
                     if (linkLengths.TryTake(out length))
                     {
-                        this.danglingLinkLengths.Add(length);
+                        _danglingLinkLengths.Add(length);
                     }
                 }
             });
            
-            // .. and now the producer
+            //and now the producer
             bool continueSearching = true;
             while (continueSearching)
             {
                 continueSearching = false;
 
-                Parallel.ForEach(
-                    graphNodes,
-                    (node) =>
+                int threshold = erosionThreshold;
+                Parallel.ForEach(graphNodes, node =>
                     {
                         continueSearching = true;
                         if (node.ExtensionsCount == 0)
                         {
-                            if (erosionThreshold != -1 && node.KmerCount < erosionThreshold)
+                            if (threshold != -1 && node.KmerCount < threshold)
                             {
                                 // Mark node for erosion
                                 node.MarkNodeForDelete();
@@ -171,9 +172,8 @@ namespace Bio.Algorithms.Assembly.Padena
 
             Task.WaitAll(collectionTask);
 
-            erosionThreshold = -1;
-            this.ExtendDanglingLinks();
-            return this.danglingLinkLengths;
+            ExtendDanglingLinks();
+            return _danglingLinkLengths;
         }
 
         /// <summary>
@@ -185,13 +185,10 @@ namespace Bio.Algorithms.Assembly.Padena
         public DeBruijnPathList DetectErroneousNodes(DeBruijnGraph deBruijnGraph)
         {
             if (deBruijnGraph == null)
-            {
                 throw new ArgumentNullException("deBruijnGraph");
-            }
 
             ConcurrentBag<DeBruijnPath> debruijnPaths = new ConcurrentBag<DeBruijnPath>();
-           
-            DeBruijnPathList danglingNodesList = null;
+
             Parallel.ForEach(deBruijnGraph.GetNodes(), node =>
             {
                     if (node.ExtensionsCount == 0)
@@ -221,9 +218,8 @@ namespace Bio.Algorithms.Assembly.Padena
                     }
                 }
             );
-            danglingNodesList = new DeBruijnPathList(debruijnPaths);
-           
-            return danglingNodesList;
+
+            return new DeBruijnPathList(debruijnPaths);
         }
 
         /// <summary>
@@ -235,25 +231,20 @@ namespace Bio.Algorithms.Assembly.Padena
         {
             // Argument Validation
             if (deBruijnGraph == null)
-            {
                 throw new ArgumentNullException("deBruijnGraph");
-            }
 
             if (nodesList == null)
-            {
                 throw new ArgumentNullException("nodesList");
-            }
             
-                HashSet<DeBruijnNode> lastNodes = new HashSet<DeBruijnNode>(nodesList.Paths.Select(nl => nl.PathNodes.Last()));
+            HashSet<DeBruijnNode> lastNodes = new HashSet<DeBruijnNode>(nodesList.Paths.Select(nl => nl.PathNodes.Last()));
 
-                // Update extensions and Delete nodes from graph.
-                deBruijnGraph.RemoveNodes(
-                    nodesList.Paths.AsParallel().SelectMany(nodes =>
-                    {
-                        RemoveLinkNodes(nodes, lastNodes);
-                        return nodes.PathNodes;
-                    }));
-            
+            // Update extensions and Delete nodes from graph.
+            deBruijnGraph.RemoveNodes(
+                nodesList.Paths.AsParallel().SelectMany(nodes =>
+                {
+                    RemoveLinkNodes(nodes, lastNodes);
+                    return nodes.PathNodes;
+                }));
         }
 
         /// <summary>
@@ -269,8 +260,7 @@ namespace Bio.Algorithms.Assembly.Padena
         {
             bool eroded = graph.RemoveMarkedNodes()>0;
 
-            IList<DeBruijnNode> graphNodes = null;
-
+            IList<DeBruijnNode> graphNodes;
             if (eroded)
             {
                 graphNodes = graph.GetNodes().AsParallel().Where(n =>
@@ -314,25 +304,6 @@ namespace Bio.Algorithms.Assembly.Padena
             }
         }
 
-#if FALSE
-        /// <summary>
-        /// Gets the DebruijnPath from the specified blocking collection.
-        /// </summary>
-        /// <param name="debruijnPaths">Blocking collection.</param>
-        /// <returns>IEnumerable of Debruijn Path.</returns>
-        private IEnumerable<DeBruijnPath> GetPaths(BlockingCollection<DeBruijnPath> debruijnPaths)
-        {
-            while (!debruijnPaths.IsCompleted)
-            {
-                DeBruijnPath path = null;
-                if (debruijnPaths.TryTake(out path))
-                {
-                    yield return path;
-                }
-            }
-        }
-#endif
-
         /// <summary>
         /// Starting from potential end of dangling link, trace back along 
         /// extension edges in graph to find if it is a valid dangling link.
@@ -346,13 +317,12 @@ namespace Bio.Algorithms.Assembly.Padena
         /// <returns>List of nodes in dangling link.</returns>
         private DeBruijnPath TraceDanglingExtensionLink(bool isForwardDirection, DeBruijnPath link, DeBruijnNode node, bool sameOrientation)
         {
-            bool reachedEndPoint = false;
-            while (!reachedEndPoint)
+            for (; ;)
             {
                 // Get extensions going in same and opposite directions.
                 Dictionary<DeBruijnNode, bool> sameDirectionExtensions;
-                int sameDirectionExtensionsCount;
-                int oppDirectionExtensionsCount;
+                int sameDirectionExtensionsCount, oppDirectionExtensionsCount;
+                
                 if (isForwardDirection ^ sameOrientation)
                 {
                     sameDirectionExtensionsCount = node.LeftExtensionNodesCount;
@@ -366,63 +336,59 @@ namespace Bio.Algorithms.Assembly.Padena
                     sameDirectionExtensions = node.GetRightExtensionNodesWithOrientation();
                 }
 
+                bool reachedEndPoint;
                 if (sameDirectionExtensionsCount == 0)
                 {
                     // Found other end of dangling link
-                    // Add this and return.
-                    return this.CheckAndAddDanglingNode(link, node, out reachedEndPoint);
+                    return CheckAndAddDanglingNode(link, node, out reachedEndPoint);
                 }
-                
+
                 if (oppDirectionExtensionsCount > 1)
                 {
                     // Have reached a point of ambiguity. Return list without updating it.
-                    if (this.erodeThreshold != -1 && !node.IsMarkedForDelete)
+                    if (_erodeThreshold != -1 && !node.IsMarkedForDelete)
                     {
-                        lock (this.danglingLinkExtensionTasks)
+                        lock (_danglingLinkExtensionTasks)
                         {
-                            //THis task essentially just returns back to this method after other ones are removed
-                            this.danglingLinkExtensionTasks.Add(new Task<int>((o) => this.ExtendDanglingLink(isForwardDirection, link, node, sameOrientation, false), TaskCreationOptions.None));
+                            // This task essentially just returns back to this method after other ones are removed
+                            _danglingLinkExtensionTasks.Add(new Task<int>(_ => 
+                                ExtendDanglingLink(isForwardDirection, link, node, sameOrientation, false), TaskCreationOptions.None));
                         }
-
                         return null;
                     }
-
                     return link;
                 }
-                
+
                 if (sameDirectionExtensionsCount > 1)
                 {
                     // Have reached a point of ambiguity. Return list after updating it.
-                    link = this.CheckAndAddDanglingNode(link, node, out reachedEndPoint);
-                    if (this.erodeThreshold != -1 && reachedEndPoint != true && !node.IsMarkedForDelete)
+                    link = CheckAndAddDanglingNode(link, node, out reachedEndPoint);
+                    if (_erodeThreshold != -1 && reachedEndPoint != true && !node.IsMarkedForDelete)
                     {
-                        lock (this.danglingLinkExtensionTasks)
+                        lock (_danglingLinkExtensionTasks)
                         {
-                            this.danglingLinkExtensionTasks.Add(new Task<int>((o) => this.ExtendDanglingLink(isForwardDirection, link, node, sameOrientation, true), TaskCreationOptions.None));
+                            _danglingLinkExtensionTasks.Add(new Task<int>(_ => 
+                                ExtendDanglingLink(isForwardDirection, link, node, sameOrientation, true), TaskCreationOptions.None));
                         }
-
                         return null;
                     }
-
                     return link;
                 }
-                
+
                 // (sameDirectionExtensions == 1 && oppDirectionExtensions == 1)
                 // Continue trace back. Add this node to that list and recurse.
-                link = this.CheckAndAddDanglingNode(link, node, out reachedEndPoint);
+                link = CheckAndAddDanglingNode(link, node, out reachedEndPoint);
                 if (reachedEndPoint)
                 {
                     // Loop is found or threshold length has been exceeded.
                     return link;
                 }
-                
-                //still in loop, so just add the extension and keeps going
+
+                // Still in loop, so just add the extension and keeps going
                 var item = sameDirectionExtensions.First();
                 node = item.Key;
                 sameOrientation = !(sameOrientation ^ item.Value);
             }
-
-            return null; // code will never reach here. Valid returns happen within the while loop.
         }
 
         /// <summary>
@@ -437,9 +403,7 @@ namespace Bio.Algorithms.Assembly.Padena
         /// <returns>Updated dangling link.</returns>
         private DeBruijnPath CheckAndAddDanglingNode(DeBruijnPath link, DeBruijnNode node, out bool reachedErrorEndPoint)
         {
-            if (this.erodeThreshold != -1
-                && link.PathNodes.Count == 0
-                && node.KmerCount < this.erodeThreshold)
+            if (_erodeThreshold != -1 && link.PathNodes.Count == 0 && node.KmerCount < _erodeThreshold)
             {
                 if (node.IsMarkedForDelete)
                 {
@@ -448,12 +412,10 @@ namespace Bio.Algorithms.Assembly.Padena
                     reachedErrorEndPoint = true;
                     return link;
                 }
-                else
-                {
-                    node.MarkNodeForDelete();
-                    reachedErrorEndPoint = false;
-                    return link;
-                }
+                
+                node.MarkNodeForDelete();
+                reachedErrorEndPoint = false;
+                return link;
             }
 
             if (link.PathNodes.Contains(node))
@@ -464,7 +426,7 @@ namespace Bio.Algorithms.Assembly.Padena
                 return link;
             }
 
-            if (link.PathNodes.Count >= this.LengthThreshold)
+            if (link.PathNodes.Count >= LengthThreshold)
             {
                 // Length crosses threshold. Not a dangling link.
                 // So set reached error end point as true and return null.
@@ -483,18 +445,17 @@ namespace Bio.Algorithms.Assembly.Padena
         /// </summary>
         private void ExtendDanglingLinks()
         {
-            if (this.danglingLinkExtensionTasks != null && this.danglingLinkExtensionTasks.Count > 0)
+            if (_danglingLinkExtensionTasks != null && _danglingLinkExtensionTasks.Count > 0)
             {
-                var tasks = this.danglingLinkExtensionTasks.ToArray();
-                foreach (var t in tasks)
-                    t.Start();
+                Task<int>[] tasks = _danglingLinkExtensionTasks.ToArray();
+                tasks.ForEach(t => t.Start());
                 Task.WaitAll(tasks);
 
                 var t2 = tasks.AsParallel().Select(t => t.Result).ToList();
-                this.danglingLinkLengths.Union(t2.Where(l => l > 0));
+                _danglingLinkLengths.Union(t2.Where(l => l > 0));
 
-                //variable may be referenced later so should not be set to null
-                this.danglingLinkExtensionTasks.Clear();
+                // variable may be referenced later so should not be set to null
+                _danglingLinkExtensionTasks.Clear();
             }
         }
 
@@ -521,11 +482,11 @@ namespace Bio.Algorithms.Assembly.Padena
                 // DanglingLink is empty. So check if node is an end-point.
                 if (node.RightExtensionNodesCount == 0)
                 {
-                    danglingLink = this.TraceDanglingExtensionLink(false, new DeBruijnPath(), node, true);
+                    danglingLink = TraceDanglingExtensionLink(false, new DeBruijnPath(), node, true);
                 }
                 else if (node.LeftExtensionNodesCount == 0)
                 {
-                    danglingLink = this.TraceDanglingExtensionLink(true, new DeBruijnPath(), node, true);
+                    danglingLink = TraceDanglingExtensionLink(true, new DeBruijnPath(), node, true);
                 }
                 else
                 {
@@ -536,11 +497,18 @@ namespace Bio.Algorithms.Assembly.Padena
             else
             {
                 // Extend existing link.
-                danglingLink = this.TraceDanglingExtensionLink(isForwardDirection, danglingLink, node, sameOrientation);
+                danglingLink = TraceDanglingExtensionLink(isForwardDirection, danglingLink, node, sameOrientation);
             }
 
             // Return length of dangling link found.
-            return danglingLink == null ? 0 : danglingLink.PathNodes.Count;
+            if (danglingLink == null)
+            {
+                return 0;
+            }
+            else
+            {
+                return danglingLink.PathNodes.Count;
+            }
         }
     }
 }

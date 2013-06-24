@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Bio;
 using Bio.Algorithms.Assembly.Padena;
 using Bio.Extensions;
 using Bio.Tests.Framework;
@@ -38,22 +37,22 @@ namespace Bio.Tests
             long graphCount = Graph.NodeCount;
 
             long graphEdges = Graph.GetNodes().Select(n => n.ExtensionsCount).Sum();
-            HashSet<string> graphNodes = new HashSet<string>(Graph.GetNodes().Select(n => Graph.GetNodeSequence(n).ConvertToString()));
+            var graphNodes = Graph.GetNodes().Select(n => Graph.GetNodeSequence(n)).ToList();
 
             DanglingLinksThreshold = DangleThreshold;
             UnDangleGraph();
 
             long dangleRemovedGraphCount = Graph.NodeCount;
             long dangleRemovedGraphEdge = Graph.GetNodes().Select(n => n.ExtensionsCount).Sum();
-            HashSet<string> dangleRemovedGraphNodes = new HashSet<string>(Graph.GetNodes().Select(n => Graph.GetNodeSequence(n).ConvertToString()));
+            var dangleRemovedGraphNodes = Graph.GetNodes().Select(n => Graph.GetNodeSequence(n)).ToList();
 
             // Compare the two graphs
             Assert.AreEqual(2, graphCount - dangleRemovedGraphCount);
             Assert.AreEqual(4, graphEdges - dangleRemovedGraphEdge);
-            graphNodes.ExceptWith(dangleRemovedGraphNodes);
+            var checkList = graphNodes.Except(dangleRemovedGraphNodes, new SequenceEqualityComparer());
 
             HashSet<string> expected = new HashSet<string> { "ATCGAACGATG","TCGAACGATGA" };
-            AlignmentHelpers.CompareSequenceLists(expected, graphNodes);
+            AlignmentHelpers.CompareSequenceLists(expected, checkList);
         }
     }
 }

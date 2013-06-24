@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using Bio;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Bio.Algorithms.Assembly.Graph
 {
@@ -32,7 +31,7 @@ namespace Bio.Algorithms.Assembly.Graph
         protected long DeletedEdgeCount { get; set; }
 
         /// <summary>
-        /// No of vertices presnet in the graph excluding deleted vertices.
+        /// # of vertices present in the graph excluding deleted vertices.
         /// </summary>
         public long VertexCount
         {
@@ -91,13 +90,7 @@ namespace Bio.Algorithms.Assembly.Graph
         /// </summary>
         public IEnumerable<Vertex<T>> GetVertices()
         {
-            foreach (Vertex<T> node in VertexArray)
-            {
-                if (node != null)
-                {
-                    yield return node;
-                }
-            }
+            return VertexArray.Where(node => node != null);
         }
 
         /// <summary>
@@ -106,13 +99,7 @@ namespace Bio.Algorithms.Assembly.Graph
         /// <returns></returns>
         public IEnumerable<Edge<U>> GetEdges()
         {
-            foreach (var edge in EdgeArray)
-            {
-                if (edge != null)
-                {
-                    yield return edge;
-                }
-            }
+            return EdgeArray.Where(edge => edge != null);
         }
 
         /// <summary>
@@ -165,11 +152,14 @@ namespace Bio.Algorithms.Assembly.Graph
         /// <returns>New Edge.</returns>
         public Edge<U> AddEdge(U edgeData, long vertexId1, long vertexId2)
         {
-            Edge<U> newedge = new Edge<U>(EdgeArray.Count);
-            newedge.Data = edgeData;
-            newedge.VertexId1 = vertexId1;
-            newedge.VertexId2 = vertexId2;
+            Edge<U> newedge = new Edge<U>(EdgeArray.Count)
+            {
+                Data = edgeData,
+                VertexId1 = vertexId1,
+                VertexId2 = vertexId2
+            };
             EdgeArray.Add(newedge);
+
             return newedge;
         }
 
@@ -265,7 +255,6 @@ namespace Bio.Algorithms.Assembly.Graph
                     return edge;
                 }
             }
-
             return null;
         }
     }
