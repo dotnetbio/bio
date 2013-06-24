@@ -1,4 +1,4 @@
-Copyright (c) 2011, The Outercurve Foundation. 
+Copyright (c) 2011-2013, The Outercurve Foundation. 
 This software is released under the Apache License 2.0 (the "License"); you may not use the software except in compliance with the License. You can find a copy of the License in the file LICENSE[.TXT] accompanying this file. 
 
 Additional Copyrights:
@@ -97,15 +97,15 @@ AppliedBioSystems
 Author: Jeremy Kolpak
 Contact: JKolpak@its.jnj.com
 Company: Johnson & Johnson Pharmaceutical Research and Development
- Copyright: Copyright (c) 2011, The Outercurve Foundation
- License: Apache License 2.0
+Copyright: Copyright (c) 2011-2013, The Outercurve Foundation
+License: Apache License 2.0
 
 FileFormatConverter
  -----------------
 Author: Daniel Ourada
 Contact: daniel.ourada@gmail.com
 Company: cBio - www.cbiocorp.com
- Copyright: Copyright (c) 2011, The Outercurve Foundation
- License: Apache License 2.0
+Copyright: Copyright (c) 2011-2013, The Outercurve Foundation
+License: Apache License 2.0
 
 
