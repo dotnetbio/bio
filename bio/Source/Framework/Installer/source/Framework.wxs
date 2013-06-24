@@ -76,7 +76,7 @@
         <!-- Application shortcuts region -->
         <DirectoryRef Id="ApplicationProgramsFolder">
             <Component Id="DefInstallation" Guid="0B28C866-023E-49CF-99BE-593459FB2E01">
-                <Shortcut Id="ShortcutCommandLine" Name="!(loc.BioCommandPrompt)" Description="!(loc.BioCommandPrompt)" Target="[%ComSpec]" Arguments="/F:ON" WorkingDirectory="FRAMEWORKINSTALLFOLDER" />
+                <Shortcut Id="ShortcutCommandLine" Name="!(loc.BioCommandPrompt)" Description="!(loc.BioCommandPrompt)" Target="[%SystemRoot]\System32\cmd.exe" WorkingDirectory="FRAMEWORKINSTALLFOLDER" />
                 <Shortcut Id="ShortcutReadme" Name="ReadMe" Description=".NET Bio Readme" Target="[ProductTools]ReadMe.txt" WorkingDirectory="ToolsFolder" />
                 <RemoveFolder Id="RemoveShortcutReadme" On="uninstall" />
                 <RegistryValue Root="HKCU" Key="Software\.NET Bio\$(env.ProductVersion)\Framework" Name="Framework Read Me" Type="integer" Value="1" KeyPath="yes" />
