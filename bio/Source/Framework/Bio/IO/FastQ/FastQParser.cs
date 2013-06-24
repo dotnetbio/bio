@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Text;
 
 namespace Bio.IO.FastQ
@@ -45,7 +44,7 @@ namespace Bio.IO.FastQ
         /// Gets the type of parser.
         /// This is intended to give developers name of the parser.
         /// </summary>
-        public string Name
+        public virtual string Name
         {
             get
             {
@@ -59,7 +58,7 @@ namespace Bio.IO.FastQ
         /// of the parser class. This property returns a simple description of what this
         ///  class achieves.
         /// </summary>
-        public string Description
+        public virtual string Description
         {
             get
             {
