@@ -1,5 +1,5 @@
 .NET Bio Sequence Assembler: Readme.txt
-Version 1.01, March 2012
+Version 1.1, June 2013
 
 The .NET Bio Sequence Assembler is a proof-of-concept-application that demonstrates how the .NET Bio Framework can be used to create applications for bioinformatics research. It uses rich UI elements to enable the manipulation and visualization of genomic data. 
 
