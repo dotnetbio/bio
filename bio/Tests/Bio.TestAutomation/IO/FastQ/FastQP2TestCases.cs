@@ -149,20 +149,7 @@ namespace Bio.Silverlight.TestAutomation.IO.FastQ
             InValidateFastQParser(Constants.FastQParserWithInvalidAlphabet);
         }
 
-        /// <summary>
-        ///     Invalidate empty fastq file using Parse().
-        ///     Input : Empty fastq file.
-        ///     Output : Validate Exception.
-        /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
-        [ExpectedException(typeof(FileFormatException))]
-        public void InvalidateParseEmptyFastQFile()
-        {
-            InValidateFastQParser(Constants.EmptyFastQFileNode);
-        }
-
+      
 
         /// <summary>
         ///     Invalidate fastq formatter with Sequence as null value.
