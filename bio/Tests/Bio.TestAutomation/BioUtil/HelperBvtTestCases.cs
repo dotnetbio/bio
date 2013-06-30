@@ -33,6 +33,7 @@ namespace Bio.TestAutomation.Util
         [TestMethod]
         [Priority(0)]
         [TestCategory("Priority0")]
+        //TODO: This is really a PADENA Test, needs to be renamed.
         public void ValidateGetReverseComplement()
         {
             const int kmerLength = 6;
@@ -51,7 +52,7 @@ namespace Bio.TestAutomation.Util
 
                 PadenaAssembly result = (PadenaAssembly)assembler.Assemble(GetReadsForScaffolds(), true);
 
-                Assert.AreEqual(10, result.ContigSequences.Count());
+               
 
                 var expectedContigs = new List<string>
                 {
@@ -66,6 +67,8 @@ namespace Bio.TestAutomation.Util
                    "TTTAAA",
                    "ATGCCTCCTATCTTAGC",
                 };
+                
+                Assert.AreEqual(10, result.ContigSequences.Count());
 
                 foreach (ISequence contig in result.ContigSequences)
                 {

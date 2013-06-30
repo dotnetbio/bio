@@ -877,8 +877,7 @@ namespace Bio.TestAutomation.Util
             "FastQSequenceWithEmptyQualityScoreAndSeqId";
         public const string FastQParserWithInvalidAlphabet =
             "FastQSequenceWithInvalidAlphabet";
-        public const string EmptyFastQFileNode =
-            "FastQSequenceWithEmptyFile";
+        
         public const string FastQDataVirtulizationMultiSequenceFileNode =
             "FastQDataVirtulizationMultiSequenceFile";
         public const string FastQInvalidFormatFileNode =

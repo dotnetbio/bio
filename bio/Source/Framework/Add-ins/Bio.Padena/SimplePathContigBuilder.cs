@@ -83,8 +83,9 @@ namespace Bio.Algorithms.Assembly.Padena
         private void ExcludeAmbiguousExtensions()
         {
             Parallel.ForEach(_graph.GetNodes(), node =>
-                {   
-                    if (node.LeftExtensionNodesCount > 1)
+                {
+                    bool isPalindrome = node.IsPalindrome(this._graph.KmerLength);
+                    if (isPalindrome || node.LeftExtensionNodesCount > 1)
                     {
                         // Ambiguous. Remove all extensions
                         foreach (DeBruijnNode left in node.GetLeftExtensionNodes())
@@ -101,7 +102,7 @@ namespace Bio.Algorithms.Assembly.Padena
                             node.MarkLeftExtensionAsInvalid(node);
                         }
                     }
-                    if (node.RightExtensionNodesCount > 1)
+                    if ( isPalindrome || node.RightExtensionNodesCount > 1)
                     {
                         // Ambiguous. Remove all extensions
                         foreach (DeBruijnNode right in node.GetRightExtensionNodes())
@@ -308,7 +309,8 @@ namespace Bio.Algorithms.Assembly.Padena
         {
             // Since ambiguous extensions have been removed, the only way a link could be in the list 
             // is if the first item in the list points to this item
-            if (contigPath.Count>0 && contigPath[0]==nextNode)
+         
+            if (contigPath.Count>0 && contigPath.Contains(nextNode)) //contigPath[0]==nextNode)
             {
                 // there is a loop in this link
                 // Return false indicating no update has been made

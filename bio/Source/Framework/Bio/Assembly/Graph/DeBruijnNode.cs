@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Bio.Algorithms.Kmer;
+using System.Diagnostics;
 
 namespace Bio.Algorithms.Assembly.Graph
 {
@@ -9,8 +10,20 @@ namespace Bio.Algorithms.Assembly.Graph
     /// A node is associated with a k-mer. 
     /// Also holds adjacency information with other nodes.
     /// </summary>
+    [DebuggerDisplay("Seq = {ORIGINAL_SYMBOLS}")]
     public class DeBruijnNode
     {
+        //temp addition
+        /// <summary>
+        /// 
+        /// </summary>
+        public string ORIGINAL_SYMBOLS
+        {
+            get {
+                return new Bio.Sequence(DnaAlphabet.Instance, GetOriginalSymbols(6)).ConvertToString(0,6);
+            }
+        }
+
         #region Node Operations Masks
         private const byte NodeOperationMaskLeftExtension       = 56;   // 8,16,24 
         private const byte NodeOperationMaskRightExtension      = 7;    // 1,2,4
@@ -1435,6 +1448,15 @@ namespace Bio.Algorithms.Assembly.Graph
         public byte[] GetReverseComplementOfOriginalSymbols(int kmerLength)
         {
             return this.NodeValue.GetReverseComplementOfOriginalSymbols(kmerLength);
+        }
+
+        /// <summary>
+        /// Checks whether the node value (kmer data) is palindrome or not.
+        /// </summary>
+        /// <returns>True if the node value is palindrome otherwise false.</returns>
+        public bool IsPalindrome(int kmerLength)
+        {
+            return this.NodeValue.IsPalindrome(kmerLength);
         }
     }
 }
