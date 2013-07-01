@@ -120,7 +120,7 @@
     <Compile Include="AmbiguousProteinAlphabet.cs" />
     <Compile Include="AmbiguousRnaAlphabet.cs" />
     <Compile Include="Assembly\Contig.cs" />
-    <Compile Include="Assembly\Graph\BinaryTreeOfDebruijinNodes.cs" />
+    <Compile Include="Assembly\Graph\BinaryTreeOfDebrujinNodes.cs" />
     <Compile Include="Assembly\Graph\DeBruijnEdge.cs" />
     <Compile Include="Assembly\Graph\DeBruijnGraph.cs" />
     <Compile Include="Assembly\Graph\DeBruijnNode.cs" />
