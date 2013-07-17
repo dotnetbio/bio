@@ -18,6 +18,11 @@ namespace Bio.Util
     public static class Helper
     {
         /// <summary>
+        /// The .gz extension to indicate gzipped files
+        /// </summary>
+        public const string ZippedFileExtension = ".gz";
+
+        /// <summary>
         /// Stores the number of alphabets to show in ToString function of a class.
         /// </summary>
         public const int AlphabetsToShowInToString = 64;
@@ -324,11 +329,6 @@ namespace Bio.Util
 			return false;
 		}
 
-
-		/// <summary>
-		/// The .gz extension to indicate gzipped files
-		/// </summary>
-		public const string ZippedFileExtension = ".gz";
 		/// <summary>
 		/// Determine if file ends with extension ".gz"
 		/// </summary>

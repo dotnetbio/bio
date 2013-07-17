@@ -15,7 +15,7 @@
         #region -- Private Members --
 
         /// <summary>
-        /// Inidcates the number of alphabets to be displayed per line.
+        /// Indicates the number of alphabets to be displayed per line.
         /// </summary>
         private const int NumberOfAlphabets = 60;
 

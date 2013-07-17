@@ -12,7 +12,7 @@
     #endregion -- Using Directive --
 
     /// <summary>
-    /// This is a buisness object class which
+    /// This is a business object class which
     /// holds the output of a particular alignment process.
     /// </summary>
     public class AlignmentOutput

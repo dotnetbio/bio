@@ -11,6 +11,13 @@ namespace Bio.IO.FastA
 	/// </summary>
 	public class FastAZippedParser : FastAParser
 	{
+        /// <summary>
+        /// Default constructor used to load into SequenceParsers.
+        /// </summary>
+	    public FastAZippedParser()
+	    {
+	    }
+
 		/// <summary>
 		/// Initializes a new instance of the FastAParser class by 
 		/// loading the specified filename and ensuring that it ends with ".gz"

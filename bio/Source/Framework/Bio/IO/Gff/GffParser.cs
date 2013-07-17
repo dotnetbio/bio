@@ -60,7 +60,6 @@ namespace Bio.IO.Gff
         /// Default constructor chooses default encoding based on alphabet.
         /// </summary>
         public GffParser()
-            : base()
         {
         }
 

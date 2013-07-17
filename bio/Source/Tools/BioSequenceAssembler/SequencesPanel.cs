@@ -28,12 +28,12 @@ namespace SequenceAssembler
         private double lastPlotPoint = 0;
 
         /// <summary>
-        /// Struct to hold some properties of each seqeunce internally
+        /// Structure to hold some properties of each sequence internally
         /// </summary>
         private struct SequenceProperties
         {
             /// <summary>
-            /// Position on concensus where the sequence starts aligning
+            /// Position on consensus where the sequence starts aligning
             /// </summary>
             public long AlignPosition;
 
@@ -494,9 +494,8 @@ namespace SequenceAssembler
                 return noSequencePresentText.DesiredSize;
             }
 
-            // Calculate font dimentions
-            TextBlock charSizeBlock = new TextBlock();
-            charSizeBlock.FontSize = FontSize;
+            // Calculate font dimensions
+            TextBlock charSizeBlock = new TextBlock {FontSize = FontSize};
             Children.Add(charSizeBlock);
             charSizeBlock.Text = "Wp";
             charSizeBlock.Measure(availableSize);

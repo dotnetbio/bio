@@ -72,13 +72,13 @@ namespace Bio
         /// Auto detection starts from top of the list.
         /// </summary>
         private static List<IAlphabet> alphabetPriorityList = new List<IAlphabet>
-                                                                  {
+        {
             DnaAlphabet.Instance,
             AmbiguousDnaAlphabet.Instance,
             RnaAlphabet.Instance,
             AmbiguousRnaAlphabet.Instance,
             ProteinAlphabet.Instance,
-            AmbiguousProteinAlphabet.Instance
+            AmbiguousProteinAlphabet.Instance,
         };
 
         /// <summary>
@@ -214,7 +214,6 @@ namespace Bio
                         }
                         catch (NotImplementedException)
                         {
-                            continue;
                         }
                     }
 

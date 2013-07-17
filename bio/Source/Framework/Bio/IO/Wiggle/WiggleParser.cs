@@ -8,7 +8,7 @@ namespace Bio.IO.Wiggle
 {
     /// <summary>
     /// Implementation of wiggle parser with support for fixed/variable step formats.
-    /// BED Wiggle is not supported in this implementation as its obselete.
+    /// BED Wiggle is not supported in this implementation as its obsolete.
     /// </summary>
     public class WiggleParser
     {
@@ -214,16 +214,11 @@ namespace Bio.IO.Wiggle
                 }
             }
 
-            Dictionary<string, string> metadata = new Dictionary<string, string>();
-
             // Remove quotes from values and add to result.
-            foreach (string token in tokens)
-            {
-                string[] metadataArray = token.Split('=');
-                metadata.Add(metadataArray[0], metadataArray[1].Replace("\"", string.Empty));
-            }
-
-            return metadata;
+            return tokens
+                .Select(token => token.Split('='))
+                .ToDictionary(metadataArray => metadataArray[0], metadataArray => metadataArray[1]
+                .Replace("\"", string.Empty));
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using Bio.SimilarityMatrices.Resources;
 using Bio.Util.Logging;
 using System.Collections.Generic;
@@ -356,7 +357,7 @@ namespace Bio.SimilarityMatrices
                 localSimilarityMatrix[x] = new int[columnCount];
             }
 
-            int row, col; // row and col indices.
+            int row; // row indices.
             for (row = 0; row < symbolCount; row++)
             {
                 line = reader.ReadLine();
@@ -368,6 +369,7 @@ namespace Bio.SimilarityMatrices
                 }
 
                 string[] rowValues = line.Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
+                int col; // column indices.
                 for (col = 0; col < symbolCount; col++)
                 {
                     try
@@ -409,15 +411,7 @@ namespace Bio.SimilarityMatrices
         /// <returns>true if sequence is valid.</returns>
         public bool ValidateSequence(ISequence sequence)
         {
-            foreach (byte item in sequence)
-            {
-                if (!supportedAlphabets.Contains(item))
-                {
-                    return false;
-                }
-            }
-
-            return true;
+            return sequence.All(item => supportedAlphabets.Contains(item));
         }
 
         #endregion

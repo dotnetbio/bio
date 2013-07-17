@@ -11,6 +11,13 @@ namespace Bio.IO.FastQ
 	/// </summary>
 	public class FastQZippedParser : FastQParser
 	{
+        /// <summary>
+        /// Default constructor used to load parser into SequenceParsers list.
+        /// </summary>
+        public FastQZippedParser()
+        {
+        }
+
 		/// <summary>
 		/// Initializes a new instance of the FastAParser class by 
 		/// loading the specified filename and ensuring that it ends with ".gz"

@@ -63,7 +63,6 @@ namespace Bio.IO.Snp
 
         #endregion Properties introduced by SnpParser
 
-
         #region Constructor
 
         /// <summary>
@@ -87,7 +86,6 @@ namespace Bio.IO.Snp
         }
 
         #endregion Constructor
-
 
         #region Methods implementing ISequenceParser
 

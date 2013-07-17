@@ -18,7 +18,7 @@ namespace Bio.IO.FastA
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly")]
     public class FastAParser : ISequenceParser
     {
-        #region Member variables
+        #region Constants
         /// <summary>
         /// The Size is 1 KB.
         /// </summary>
@@ -45,6 +45,10 @@ namespace Bio.IO.FastA
         /// Maximum sequence length.
         /// </summary>
         private const long MaximumSequenceLength = (long)2 * GBytes;
+        #endregion
+
+        #region Fields
+        private IAlphabet _baseAlphabet;
         #endregion
 
         #region Constructor
@@ -231,7 +235,6 @@ namespace Bio.IO.FastA
             }
 
             IAlphabet alphabet = Alphabet;
-            IAlphabet baseAlphabet = null;
             bool tryAutoDetectAlphabet = alphabet == null;
 
             do
@@ -260,31 +263,43 @@ namespace Bio.IO.FastA
                 // Auto detect alphabet if alphabet is set to null, else validate with already set alphabet
                 if (tryAutoDetectAlphabet)
                 {
-                    // Attempt to identify alphabet
-                    alphabet = Alphabets.AutoDetectAlphabet(buffer, bufferPosition, bufferPosition + line.Length, alphabet);
-                    if (alphabet == null)
+                    // If we have a base alphabet we detected earlier, 
+                    // then try that first.
+                    if (_baseAlphabet != null &&
+                        _baseAlphabet.ValidateSequence(buffer, bufferPosition, bufferPosition + line.Length))
                     {
-                        throw new FileFormatException(string.Format(CultureInfo.InvariantCulture,
-                                                                    Properties.Resource.InvalidSymbolInString, line));
+                        alphabet = _baseAlphabet;
+                    }
+                    // Otherwise attempt to identify alphabet
+                    else
+                    {
+                        // Different alphabet - try to auto detect.
+                        _baseAlphabet = null;
+                        alphabet = Alphabets.AutoDetectAlphabet(buffer, bufferPosition, bufferPosition + line.Length, alphabet);
+                        if (alphabet == null)
+                        {
+                            throw new FileFormatException(string.Format(CultureInfo.InvariantCulture,
+                                            Properties.Resource.InvalidSymbolInString, line));
+                        }
                     }
 
                     // Determine the base alphabet used.
-                    if (baseAlphabet == null)
+                    if (_baseAlphabet == null)
                     {
-                        baseAlphabet = alphabet;
+                        _baseAlphabet = alphabet;
                     }
                     else
                     {
                         // If they are not the same, then this might be an error.
-                        if (baseAlphabet != alphabet)
+                        if (_baseAlphabet != alphabet)
                         {
                             // If the new alphabet includes all the base alphabet then use it instead.
                             // This happens when we hit an ambiguous form of the alphabet later in the file.
-                            if (!baseAlphabet.HasAmbiguity && Alphabets.GetAmbiguousAlphabet(baseAlphabet) == alphabet)
+                            if (!_baseAlphabet.HasAmbiguity && Alphabets.GetAmbiguousAlphabet(_baseAlphabet) == alphabet)
                             {
-                                baseAlphabet = alphabet;
+                                _baseAlphabet = alphabet;
                             }
-                            else if (alphabet.HasAmbiguity || Alphabets.GetAmbiguousAlphabet(alphabet) != baseAlphabet)
+                            else if (alphabet.HasAmbiguity || Alphabets.GetAmbiguousAlphabet(alphabet) != _baseAlphabet)
                             {
                                 throw new FileFormatException(Properties.Resource.FastAContainsMorethanOnebaseAlphabet);
                             }
@@ -324,7 +339,7 @@ namespace Bio.IO.FastA
 
             if (tryAutoDetectAlphabet)
             {
-                alphabet = baseAlphabet;
+                alphabet = _baseAlphabet;
             }
 
             // In memory sequence
