@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using Bio.Util;
+using System.Collections;
 
 namespace Bio.IO.BAM
 {
@@ -9,6 +10,13 @@ namespace Bio.IO.BAM
     /// </summary>
     public class BAMIndexFile : IDisposable
     {
+       
+        /// <summary>
+        /// The highest number of bins allowed, meta-data can be stored in the chunks position for a bin
+        /// this large
+        /// </summary>
+        public const int MAX_BINS = 37450;   // =(8^6-1)/7+1
+
         #region Private Fields
         // holds index stream
         private Stream sourceStream;
@@ -144,17 +152,14 @@ namespace Bio.IO.BAM
             {
                 throw new FormatException(Properties.Resource.BAM_InvalidIndexFile);
             }
-
             Read(arrays, 0, 4);
             int n_ref = Helper.GetInt32(arrays, 0);
-
             for (Int32 refindex = 0; refindex < n_ref; refindex++)
             {
                 BAMReferenceIndexes bamindices = new BAMReferenceIndexes();
                 bamIndex.RefIndexes.Add(bamindices);
                 Read(arrays, 0, 4);
                 int n_bin = Helper.GetInt32(arrays, 0);
-
                 for (Int32 binIndex = 0; binIndex < n_bin; binIndex++)
                 {
                     Bin bin = new Bin();
@@ -164,18 +169,31 @@ namespace Bio.IO.BAM
 
                     bin.BinNumber = Helper.GetUInt32(arrays, 0);
                     Read(arrays, 0, 4);
-
                     int n_chunk = Helper.GetInt32(arrays, 0);
-
-
-                    for (Int32 chunkIndex = 0; chunkIndex < n_chunk; chunkIndex++)
+                    if (bin.BinNumber == MAX_BINS)//some groups use this to place meta-data, such as the picard toolkit
                     {
-                        Chunk chunk = new Chunk();
-                        bin.Chunks.Add(chunk);
-                        Read(arrays, 0, 8);
-                        chunk.ChunkStart = GetBAMOffset(arrays, 0);
-                        Read(arrays, 0, 8);
-                        chunk.ChunkEnd = GetBAMOffset(arrays, 0);
+                        //Skip over the meta data here, it is currently not part of the specificaiton 7/17/2013
+                        for (Int32 chunkIndex = 0; chunkIndex < n_chunk; chunkIndex++)
+                        {
+                            Read(arrays, 0, 8);
+                            Read(arrays, 0, 8);
+                        }
+                    }
+                    else if (bin.BinNumber > MAX_BINS)
+                    {
+                        throw new FileFormatException("BAM Index is incorrectly formatted.  Bin number specified is higher than the maximum allowed.");
+                    }
+                    else
+                    {
+                        for (Int32 chunkIndex = 0; chunkIndex < n_chunk; chunkIndex++)
+                        {
+                            Chunk chunk = new Chunk();
+                            bin.Chunks.Add(chunk);
+                            Read(arrays, 0, 8);
+                            chunk.ChunkStart = GetBAMOffset(arrays, 0);
+                            Read(arrays, 0, 8);
+                            chunk.ChunkEnd = GetBAMOffset(arrays, 0);
+                        }
                     }
                 }
 
@@ -190,6 +208,7 @@ namespace Bio.IO.BAM
                     bamindices.LinearOffsets.Add(value);
                 }
             }
+            
 
             return bamIndex;
         }
@@ -268,7 +287,7 @@ namespace Bio.IO.BAM
         {
             if (IsEOF() || sourceStream.Read(array, offset, count) != count)
             {
-                throw new FileFormatException(Properties.Resource.BAM_InvalidIndexFile);
+                throw new FileFormatException(Properties.Resource.BAM_InvalidIndexFile+"\nCould not read the correct number of bytes from file");
             }
         }
 
