@@ -4,7 +4,6 @@ using System.Text;
 using System.Windows.Forms;
 using EnvDTE;
 using Microsoft.VisualStudio.TemplateWizard;
-using Microsoft.Win32;
 
 namespace Bio.TemplateWizard
 {
@@ -16,7 +15,7 @@ namespace Bio.TemplateWizard
         /// <summary>
         /// Key containing installation path of Bio
         /// </summary>
-        private const string BioRegistryInstallationPathKeyName = "InstallationPath";
+        //private const string BioRegistryInstallationPathKeyName = "InstallationPath";
 
         /// <summary>
         /// Called by VS before opening a project item
@@ -207,7 +206,7 @@ namespace Bio.TemplateWizard
         /// <returns>True to add, false not to add.</returns>
         public bool ShouldAddProjectItem(string filePath)
         {
-            // Always return true as we dont want to skip any files in the template.
+            // Always return true as we do not want to skip any files in the template.
             return true;
         }
     }

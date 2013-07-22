@@ -11,8 +11,8 @@
     2. Change Product Id (GUID) and all component GUIDs.
     3. Modify the code in this region as necessary.
     -->
-        <!--Detect older version of the product for Upgrade support-->
-        <Upgrade Id="D3AF0002-2D7E-45EB-86CF-06FCFDF075A0">
+      <!--Detect older version of the product for Upgrade support-->
+      <Upgrade Id="D3AF0002-2D7E-45EB-86CF-06FCFDF075A0">
 	    <UpgradeVersion Minimum="$(env.ProductVersion)" IncludeMinimum="no" OnlyDetect="yes" Property="NEWERVERSIONFOUND" /> 
             <UpgradeVersion Minimum="1.0.0" IncludeMinimum="yes" Maximum="$(env.ProductVersion)" IncludeMaximum="no" Property="LOWERVERSIONFOUND" /> 
         </Upgrade>
@@ -84,6 +84,7 @@
         </DirectoryRef>
         <DirectoryRef Id="ApplicationDocumentsFolder">
             <Component Id="DocumentShortcut" Guid="1D9E0154-61D8-4B5F-9916-2EA72038EF48">
+                <!-- ".NET Bio_Getting_Started.docx" -->
                 <Shortcut Id="ShortcutGettingStarted" Name="!(loc.GettingStarted)" Description="!(loc.GettingStartedDescription)" Target="[SDKFolder]\Docs\.NET Bio_Getting_Started.docx" WorkingDirectory="SDKFolder" />
                 <!--".NET Bio Coding_Conventions.docx"-->
                 <Shortcut Id="ShortcutCodingConventions" Name="!(loc.CodingConventions)" Description="!(loc.CodingConventionsDescription)" Target="[SDKFolder]\Docs\.NET Bio_Coding_Conventions.docx" WorkingDirectory="SDKFolder" />
@@ -91,9 +92,10 @@
                 <Shortcut Id="ShortcutCommentingConventions" Name="!(loc.CommentingConventions)" Description="!(loc.CommentingConventionsDescription)" Target="[SDKFolder]\Docs\.NET Bio_Commenting_Conventions.docx" WorkingDirectory="SDKFolder" />
                 <!--".NET Bio Contribution_Documentation_Template_v2.docx"-->
                 <Shortcut Id="ShortcutContributionDocumentationTemplate" Name="!(loc.ContributionDocumentationTemplate)" Description="!(loc.ContributionDocTemplateDescription)" Target="[SDKFolder]\Docs\.NET Bio_Contribution_Documentation_Template.docx" WorkingDirectory="SDKFolder" />
-                <!--".NET Bio IronPython Programming_Guide_v2.docx"-->
+                <!--".NET Bio_Sample_for_IronPython_Programming_Guide.docx"-->
+                <Shortcut Id="ShortcutIronPythonProgrammingGuide" Name="!(loc.IronPythonProgrammingGuide)" Description="!(loc.IronPythonProgrammingGuideDescription)" Target="[SDKFolder]\Docs\.NET Bio_Sample_for_IronPython_Programming_Guide.docx" WorkingDirectory="SDKFolder" />
                 <!--".NET Bio Overview.docx"-->
-                <Shortcut Id="ShortcutBioOverview" Name="!(loc.Overview)" Description="!(loc.OverviewDescription)" Target="[SDKFolder]\Docs\.NET Bio_Overview.docx" WorkingDirectory="SDKFolder" />
+                <!--<Shortcut Id="ShortcutBioOverview" Name="!(loc.Overview)" Description="!(loc.OverviewDescription)" Target="[SDKFolder]\Docs\.NET Bio_Overview.docx" WorkingDirectory="SDKFolder" />-->
                 <!--".NET Bio Parallel de Novo Assembler Technical Guide.docx"-->
                 <Shortcut Id="ShortcutPaDeNa" Name="!(loc.PaDeNA)" Description="!(loc.PaDeNADescription)" Target="[SDKFolder]\Docs\.NET Bio_Parallel_de_Novo_Assembler_Technical_Guide.docx" WorkingDirectory="SDKFolder" />
                 <!--.NET Bio Comparative Assembly Technical Guide.docx-->

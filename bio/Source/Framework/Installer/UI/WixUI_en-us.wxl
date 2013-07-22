@@ -650,6 +650,7 @@
   <String Id="CodingConventions">.NET Bio Coding Conventions</String>
   <String Id="CommentingConventions">.NET Bio Commenting Conventions</String>
   <String Id="ContributionDocumentationTemplate">.NET Bio Contribution Documentation Template</String>
+  <String Id="IronPythonProgrammingGuide">.NET Bio Sample for IronPython Programming Guide</String>
   <String Id="ContributionGuide">.NET Bio Contribution Guide</String>
   <String Id="GettingStarted">.NET Bio Getting Started</String>
   <String Id="Onboarding">.NET Bio Onboarding</String>
@@ -666,6 +667,7 @@
   <String Id="CodingConventionsDescription">.NET Bio Framework C# Coding Standards</String>
   <String Id="CommentingConventionsDescription">How to Write Documentation Comments in Source Code</String>
   <String Id="ContributionDocTemplateDescription">.NET Bio Framework Contribution Documentation Template</String>
+  <String Id="IronPythonProgrammingGuideDescription">.NET Bio Iron Python Sample Programming Guide Documentation</String>
   <String Id="ContributionGuideDescription">.NET Bio Framework Code Contribution Guide</String>
   <String Id="GettingStartedDescription">Getting Started with the .NET Bio Framework</String>
   <String Id="OnboardingDescription">.NET Bio Framework Onboarding Guide</String>

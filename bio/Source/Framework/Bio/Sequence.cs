@@ -142,7 +142,7 @@ namespace Bio
 #if (SILVERLIGHT == false)
             Array.Copy(values, this._sequenceData, values.LongLength);
 #else
-            Array.Copy(values, this.sequenceData, values.Length);  
+            Array.Copy(values, this._sequenceData, values.Length);  
 #endif
 
             this.Alphabet = alphabet;
@@ -256,7 +256,7 @@ namespace Bio
 #if (SILVERLIGHT == false)
             Array.Copy(this._sequenceData, values, this._sequenceData.LongLength);
 #else
-            Array.Copy(this.sequenceData, values, this.sequenceData.Length);  
+            Array.Copy(this._sequenceData, values, this._sequenceData.Length);  
 #endif
 
             Array.Reverse(values);
@@ -526,7 +526,7 @@ namespace Bio
 #if !SILVERLIGHT
             Array.Copy(this._sequenceData, start, byteArray, 0, count);
 #else
-            Array.Copy(this.sequenceData, (int)start, byteArray, 0, (int)count);
+            Array.Copy(this._sequenceData, (int)start, byteArray, 0, (int)count);
 #endif
         }
 

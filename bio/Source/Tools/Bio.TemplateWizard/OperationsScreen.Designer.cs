@@ -48,17 +48,17 @@
             this.versionSelectorLabel.AutoSize = true;
             this.versionSelectorLabel.Location = new System.Drawing.Point(27, 14);
             this.versionSelectorLabel.Name = "versionSelectorLabel";
-            this.versionSelectorLabel.Size = new System.Drawing.Size(103, 13);
+            this.versionSelectorLabel.Size = new System.Drawing.Size(121, 13);
             this.versionSelectorLabel.TabIndex = 18;
-            this.versionSelectorLabel.Text = Properties.Resources.TargetBioVersionLabel;
+            this.versionSelectorLabel.Text = "Target .NET Bio version";
             // 
             // versionSelector
             // 
             this.versionSelector.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.versionSelector.FormattingEnabled = true;
-            this.versionSelector.Location = new System.Drawing.Point(136, 11);
+            this.versionSelector.Location = new System.Drawing.Point(154, 11);
             this.versionSelector.Name = "versionSelector";
-            this.versionSelector.Size = new System.Drawing.Size(86, 21);
+            this.versionSelector.Size = new System.Drawing.Size(128, 21);
             this.versionSelector.TabIndex = 19;
             // 
             // operationsPanel
