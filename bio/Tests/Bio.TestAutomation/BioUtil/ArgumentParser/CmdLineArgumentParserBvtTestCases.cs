@@ -39,7 +39,7 @@ namespace Bio.TestAutomation.Util.ArgumentParser
             parser.Parameter(ArgumentType.Required, "ResultFile", ArgumentValueType.String, "r", "File to store output");
             string inputfileName = Path.GetTempFileName().Replace(Path.GetTempPath(), "");
             string outputfileName = Path.GetTempFileName().Replace(Path.GetTempPath(), "");
-            string[] args = { "/InputFile:" + inputfileName , "/ResultFile:" + outputfileName };
+            string[] args = { "-InputFile:" + inputfileName , "-ResultFile:" + outputfileName };
             parser.Parse(args, aggregateNos);
             Assert.IsNotNull(parser);
             Assert.IsTrue(aggregateNos.InputFile.Contains(inputfileName));
@@ -62,7 +62,7 @@ namespace Bio.TestAutomation.Util.ArgumentParser
             parser.Parameter(ArgumentType.Required, "ResultFile", ArgumentValueType.String, "r", "File to store output");
             string inputfileName = Path.GetTempFileName().Replace(Path.GetTempPath(), "");
             string outputfileName = Path.GetTempFileName().Replace(Path.GetTempPath(), "");
-            string[] args = { "/InputFile:" + inputfileName, "/ResultFile:" + outputfileName };
+            string[] args = { "-InputFile:" + inputfileName, "-ResultFile:" + outputfileName };
             parser.Parse(args, aggregateNos);
             IEnumerator parsedVals =  parser.GetEnumerator();
             Assert.IsNotNull(parsedVals);
@@ -97,7 +97,7 @@ namespace Bio.TestAutomation.Util.ArgumentParser
             parser.Parameter(ArgumentType.Required, "dValue", ArgumentValueType.Int, "dv", "double");
             parser.Parameter(ArgumentType.DefaultArgument, "usValues", ArgumentValueType.MultipleUniqueStrings, "usv", "Unique strings");
 
-            string[] args = { "/bValue:true", "/iValue:5", "/fValue:3.45", "/dValue:78.9876", "Str1", "Str2","Str3"};
+            string[] args = { "-bValue:true", "-iValue:5", "-fValue:3.45", "-dValue:78.9876", "Str1", "Str2","Str3"};
             parser.Parse(args, aggregateNos);
             Assert.IsNotNull(parser);
         }

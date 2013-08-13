@@ -193,7 +193,7 @@ namespace Bio.TestAutomation.Util.ArgumentParser
                 parser.Parameter(ArgumentType.Required, "bValue", ArgumentValueType.Bool, "bv", "bool");
                 parser.Parameter(ArgumentType.Required, "iValue", ArgumentValueType.Int, "iv", "int");
 
-                string[] args = { "/:true", "/iValue:5" };
+                string[] args = { "-:true", "-iValue:5" };
                 parser.Parse(args, aggregateNos);
                 Assert.Fail();
             }
@@ -279,7 +279,7 @@ namespace Bio.TestAutomation.Util.ArgumentParser
                 parser.Parameter(ArgumentType.Required, "dValue", ArgumentValueType.Int, "dv", "double");
                 parser.Parameter(ArgumentType.DefaultArgument, "usValues", ArgumentValueType.MultipleUniqueStrings, "usv", "Unique strings");
 
-                string[] args = { "/bValue:true", "/iValue:5", "/fValue:3.45", "/dValue:78.9876", "Str1", "Str2","Str1"};
+                string[] args = { "-bValue:true", "-iValue:5", "-fValue:3.45", "-dValue:78.9876", "Str1", "Str2","Str1"};
                 parser.Parse(args, aggregateNos);
             }
             catch (DuplicateArgumentValueException ex)
@@ -310,8 +310,8 @@ namespace Bio.TestAutomation.Util.ArgumentParser
                 parser.Parameter(ArgumentType.DefaultArgument, "usValues", ArgumentValueType.MultipleUniqueStrings, "usv", "Unique strings");
 
                 //not including the first required param
-                string[] args = { "/iValue:5", "/bArrValues:true" ,"false",
-                            "/fValue:3.45", "/dValue:78.9876", "Str1", "Str2","Str3"};
+                string[] args = { "-iValue:5", "-bArrValues:true" ,"false",
+                            "-fValue:3.45", "-dValue:78.9876", "Str1", "Str2","Str3"};
                 parser.Parse(args, aggregateNos);
                 Assert.Fail();
             }

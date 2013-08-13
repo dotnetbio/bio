@@ -111,7 +111,7 @@
             this.argumentList = new SortedDictionary<string, Argument>(StringComparer.OrdinalIgnoreCase);
             this.enumerator = this.parsedArguments.GetEnumerator();
 
-            this.ArgumentSeparator = "/";
+            this.ArgumentSeparator = "-";
             this.AllowAdditionalArguments = false;
         }
 
@@ -197,7 +197,7 @@
             {
                 if (arg.Value.AllowType == ArgumentType.DefaultArgument)
                 {
-                    defaultArgs = string.Concat("/", arg.Value.Name, "=");
+                    defaultArgs = string.Concat(this.ArgumentSeparator, arg.Value.Name, "=");
                     break;
                 }
             }
@@ -206,7 +206,7 @@
             foreach (string s in arguments)
             {
                 string val;
-                if (s.StartsWith("/", StringComparison.OrdinalIgnoreCase) || s.StartsWith("-", StringComparison.OrdinalIgnoreCase))
+                if (s.StartsWith(this.ArgumentSeparator, StringComparison.OrdinalIgnoreCase) )
                 {
                     int endIndex = s.IndexOfAny(new char[] { ':', '=' }, 1);
                     string parameter = s.Substring(1, endIndex == -1 ? s.Length - 1 : endIndex - 1);
@@ -224,7 +224,7 @@
                         paramVal = s.Substring(parameter.Length + 1);
                     }
 
-                    val = "/" + parameter;
+                    val = this.ArgumentSeparator + parameter;
                     string encodedValue = EncodeValue(paramVal);
                     if (!string.IsNullOrEmpty(encodedValue))
                     {

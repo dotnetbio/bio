@@ -1,64 +1,64 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <AutomationTest>
   <MummerDefaultParams>
-    <Command>mumutil.exe /v /o:TestUtils\MumOutput.txt "TestUtils\Small_Size.fasta" "TestUtils\Search_Small_Size.fasta"</Command>
-    <ConsoleCommand>mumutil.exe /v "TestUtils\Small_Size.fasta" "TestUtils\Search_Small_Size.fasta"</ConsoleCommand>
+    <Command>mumutil.exe -v -o:TestUtils\MumOutput.txt "TestUtils\Small_Size.fasta" "TestUtils\Search_Small_Size.fasta"</Command>
+    <ConsoleCommand>mumutil.exe -v "TestUtils\Small_Size.fasta" "TestUtils\Search_Small_Size.fasta"</ConsoleCommand>
     <ActualOutputFile>TestUtils\MumOutput.txt</ActualOutputFile>
     <VerboseResult>MumUtil v1.1 - Maximal Unique Match Utility,Copyright (c) 2011-2013, The Outercurve Foundation.,NucmerUtilandMummerUtilare.NETre-implementationsofMUMmer3.0,whichwassupportedinpartbytheNationalScienceFoundationundergrantsIIS-9902923andIIS-9820497,andbytheNationalInstitutesofHealthundergrantsR01-LM06845andN01-AI-15447.ThedevelopmentoftheoriginalreferencewasajointeffortbyStefanKurtzoftheUniversityofHamburgandAdamPhillippy,ArtDelcherandStevenSalzbergatTIGR.ProcessedReferenceFastAfile,LengthoffirstSequence,Read/Processingtime:,Filesize,Suffixtreeconstructiontime:,MemoryconsumedbySuffixtree:,Totaledgescreated:,Memoryperedge:,Processed,QueryFastAfile:,FileSize:,Read/Processingtime:,NumberofquerySequences:</VerboseResult>                   
     <ExpectedOutputFile>TestUtils\Small_Size_MumUtil_Output.txt</ExpectedOutputFile>
   </MummerDefaultParams>
   <MummerDefaultParamsWithEColiData>
-    <Command>mumutil.exe /o:TestUtils\EColiMumOutput.txt TestUtils\E-Coli_5Mb_RefFile_NC_000913.bd.fasta TestUtils\E-Coli_5Mb_ReadsFile_NC_000913.bd_1X_1.fa</Command>
+    <Command>mumutil.exe -o:TestUtils\EColiMumOutput.txt TestUtils\E-Coli_5Mb_RefFile_NC_000913.bd.fasta TestUtils\E-Coli_5Mb_ReadsFile_NC_000913.bd_1X_1.fa</Command>
     <ConsoleCommand>mumutil.exe TestUtils\E-Coli_5Mb_RefFile_NC_000913.bd.fasta TestUtils\E-Coli_5Mb_ReadsFile_NC_000913.bd_1X_1.fa</ConsoleCommand>
     <ActualOutputFile>TestUtils\EColiMumOutput.txt</ActualOutputFile>
     <ExpectedOutputFile>TestUtils\EColiMumUtilOutput.txt</ExpectedOutputFile>
   </MummerDefaultParamsWithEColiData>
   <MummerWithMaxMatch>
-    <Command>mumutil.exe /v /maxmatch /o:TestUtils\MumOutput.txt "TestUtils\Small_Size.fasta" "TestUtils\Search_Small_Size.fasta"</Command>
-    <ConsoleCommand>mumutil.exe /v /maxmatch "TestUtils\Small_Size.fasta" "TestUtils\Search_Small_Size.fasta"</ConsoleCommand>
+    <Command>mumutil.exe -v -maxmatch -o:TestUtils\MumOutput.txt "TestUtils\Small_Size.fasta" "TestUtils\Search_Small_Size.fasta"</Command>
+    <ConsoleCommand>mumutil.exe -v -maxmatch "TestUtils\Small_Size.fasta" "TestUtils\Search_Small_Size.fasta"</ConsoleCommand>
     <ActualOutputFile>TestUtils\MumOutput.txt</ActualOutputFile>
     <ExpectedOutputFile>TestUtils\Small_Size_MumUtil_Output.txt</ExpectedOutputFile>
   </MummerWithMaxMatch>
   <MummerWithAmbiguity>
-    <Command>MumUtil.exe /o:TestUtils\MumOutput.txt /n "TestUtils\Ecoli.500.fasta" "TestUtils\Ecoli.500_WithError_1x_Paired.fasta"</Command>
-    <ConsoleCommand>MumUtil.exe /n "TestUtils\Ecoli.500.fasta" "TestUtils\Ecoli.500_WithError_1x_Paired.fasta"</ConsoleCommand>
+    <Command>MumUtil.exe -o:TestUtils\MumOutput.txt -n "TestUtils\Ecoli.500.fasta" "TestUtils\Ecoli.500_WithError_1x_Paired.fasta"</Command>
+    <ConsoleCommand>MumUtil.exe -n "TestUtils\Ecoli.500.fasta" "TestUtils\Ecoli.500_WithError_1x_Paired.fasta"</ConsoleCommand>
     <ActualOutputFile>TestUtils\MumOutput.txt</ActualOutputFile>
     <ExpectedOutputFile>TestUtils\MumUtil_NoAmbiguity_EColi500Output.txt</ExpectedOutputFile>
   </MummerWithAmbiguity>
   <MummerWithMumSwitch>
-    <Command>MumUtil.exe /v /mum /o:TestUtils\MumOutput.txt /n "TestUtils\Ecoli.500.fasta" "TestUtils\Ecoli.500_WithError_1x_Paired.fasta"</Command>
-    <ConsoleCommand>MumUtil.exe /v /mum /n "TestUtils\Ecoli.500.fasta" "TestUtils\Ecoli.500_WithError_1x_Paired.fasta"</ConsoleCommand>
+    <Command>MumUtil.exe -v -mum -o:TestUtils\MumOutput.txt -n "TestUtils\Ecoli.500.fasta" "TestUtils\Ecoli.500_WithError_1x_Paired.fasta"</Command>
+    <ConsoleCommand>MumUtil.exe -v -mum -n "TestUtils\Ecoli.500.fasta" "TestUtils\Ecoli.500_WithError_1x_Paired.fasta"</ConsoleCommand>
     <ActualOutputFile>TestUtils\MumOutput.txt</ActualOutputFile>
     <VerboseResult>MumUtilv1.1-MaximalUniqueMatchUtilityCopyright(c)2011-2013Microsoft.Allrightsreserved.NucmerUtilandMummerUtilare.NETre-implementationsofMUMmer3.0,whichwassupportedinpartbytheNationalScienceFoundationundergrantsIIS-9902923andIIS-9820497,andbytheNationalInstitutesofHealthundergrantsR01-LM06845andN01-AI-15447.ThedevelopmentoftheoriginalreferencewasajointeffortbyStefanKurtzoftheUniversityofHamburgandAdamPhillippy,ArtDelcherandStevenSalzbergatTIGR.ProcessedReferenceFastAfile,fastaLengthoffirstSequence,Read/Processingtime,Filesize,Suffixtreeconstructiontime,MemoryconsumedbySuffixtree,Totaledgescreated,Memoryperedge</VerboseResult>
     <ExpectedOutputFile>TestUtils\MumUtil_NoAmbiguity_EColi500Output.txt</ExpectedOutputFile>
   </MummerWithMumSwitch>
   <MummerWithLengthAndBothSwitch>
-    <Command>MumUtil.exe /o:TestUtils\MumOutput.txt /l:10 /both /c "TestUtils\Ecoli.500.fasta" "TestUtils\Ecoli.500_WithError_1x_Paired.fasta"</Command>
-    <ConsoleCommand>MumUtil.exe /l:10 /both /c "TestUtils\Ecoli.500.fasta" "TestUtils\Ecoli.500_WithError_1x_Paired.fasta"</ConsoleCommand>
+    <Command>MumUtil.exe -o:TestUtils\MumOutput.txt -l:10 -both -c "TestUtils\Ecoli.500.fasta" "TestUtils\Ecoli.500_WithError_1x_Paired.fasta"</Command>
+    <ConsoleCommand>MumUtil.exe -l:10 -both -c "TestUtils\Ecoli.500.fasta" "TestUtils\Ecoli.500_WithError_1x_Paired.fasta"</ConsoleCommand>
     <ActualOutputFile>TestUtils\MumOutput.txt</ActualOutputFile>
     <ExpectedOutputFile>TestUtils\MumUtil__EColi500Output_WithLength_AndBoth.txt</ExpectedOutputFile>
   </MummerWithLengthAndBothSwitch>
   <NucmerUtilDefaultParams>
-    <Command>NucmerUtil.exe /v /o:TestUtils\NucmerOutput.txt "TestUtils\Small_Size.fasta" "TestUtils\Search_Small_Size.fasta"</Command>
-    <ConsoleCommand>NucmerUtil.exe /v "TestUtils\Small_Size.fasta" "TestUtils\Search_Small_Size.fasta"</ConsoleCommand>
+    <Command>NucmerUtil.exe -v -o:TestUtils\NucmerOutput.txt "TestUtils\Small_Size.fasta" "TestUtils\Search_Small_Size.fasta"</Command>
+    <ConsoleCommand>NucmerUtil.exe -v "TestUtils\Small_Size.fasta" "TestUtils\Search_Small_Size.fasta"</ConsoleCommand>
     <ActualOutputFile>TestUtils\NucmerOutput.txt</ActualOutputFile>
     <VerboseResult>Processed Reference FastA file,Read/Processing time,File Size,Processed Query FastA file,Read/Processing time,Compute time,Write time</VerboseResult>
     <ExpectedOutputFile>TestUtils\Small_Size_NucmerUtil_Output.txt</ExpectedOutputFile>
   </NucmerUtilDefaultParams>
   <NucmerUtilWithEColiData>
-    <Command>NucmerUtil.exe -l:30 /o:TestUtils\EColiNucmerOutput.txt TestUtils\E-Coli_5Mb_RefFile_NC_000913.bd.fasta TestUtils\E-Coli_5Mb_ReadsFile_NC_000913.bd_1X_1.fa</Command>
+    <Command>NucmerUtil.exe -l:30 -o:TestUtils\EColiNucmerOutput.txt TestUtils\E-Coli_5Mb_RefFile_NC_000913.bd.fasta TestUtils\E-Coli_5Mb_ReadsFile_NC_000913.bd_1X_1.fa</Command>
     <ConsoleCommand>NucmerUtil.exe -l:30 TestUtils\E-Coli_5Mb_RefFile_NC_000913.bd.fasta TestUtils\E-Coli_5Mb_ReadsFile_NC_000913.bd_1X_1.fa</ConsoleCommand>
     <ActualOutputFile>TestUtils\EColiNucmerOutput.txt</ActualOutputFile>
     <ExpectedOutputFile>TestUtils\EColiNucmerUtilOutput.txt</ExpectedOutputFile>
   </NucmerUtilWithEColiData>
   <NucmerUtilLengthAnchorClusterLengthAndDiagonalSwitches>
-    <Command>NucmerUtil.exe -l:300 -m -c:100 -d:100 /o:TestUtils\NucmerOutput.txt "TestUtils\Ecoli.500.fasta" "TestUtils\Ecoli.500_Copy.fasta"</Command>
+    <Command>NucmerUtil.exe -l:300 -m -c:100 -d:100 -o:TestUtils\NucmerOutput.txt "TestUtils\Ecoli.500.fasta" "TestUtils\Ecoli.500_Copy.fasta"</Command>
     <ConsoleCommand>NucmerUtil.exe -l:300 -m -c:100 -d:100 "TestUtils\Ecoli.500.fasta" "TestUtils\Ecoli.500_Copy.fasta"</ConsoleCommand>
     <ActualOutputFile>TestUtils\NucmerOutput.txt</ActualOutputFile>
     <ExpectedOutputFile>TestUtils\EColi_500_NucmerOutput.txt</ExpectedOutputFile>
   </NucmerUtilLengthAnchorClusterLengthAndDiagonalSwitches>
   <NucmerUtilWithManySwitches>
-    <Command>NucmerUtil.exe -b:10 -n -r -x /o:TestUtils\NucmerOutput.txt "TestUtils\Ecoli.500.fasta" "TestUtils\Ecoli.500_Copy.fasta"</Command>
+    <Command>NucmerUtil.exe -b:10 -n -r -x -o:TestUtils\NucmerOutput.txt "TestUtils\Ecoli.500.fasta" "TestUtils\Ecoli.500_Copy.fasta"</Command>
     <ConsoleCommand>NucmerUtil.exe -b:10 -n -r -x "TestUtils\Ecoli.500.fasta" "TestUtils\Ecoli.500_Copy.fasta"</ConsoleCommand>
     <ActualOutputFile>TestUtils\NucmerOutput.txt</ActualOutputFile>
     <ExpectedOutputFile>TestUtils\EColi.500_NucmerOutputWithManySwitches.txt</ExpectedOutputFile>
@@ -121,8 +121,8 @@
     <ExpectedOutputFile>TestUtils\ComparativeTestData\ComparativeExpectedOutputDefaultParams.txt</ExpectedOutputFile>
   </ComparativeUtilDefaultParams>
   <ComparativeUtilWithScaffoldEcoli>
-    <Command>ComparativeUtil.exe /s /k:25 "TestUtils\NC_000913.bd.fasta" "TestUtils\NC_000913.bd_1X_1.fa"  -o:TestUtils\ComparativeActualOutputEcoliWithScaffold.txt</Command>
-    <ConsoleCommand>ComparativeUtil.exe /s /k:25 "TestUtils\NC_000913.bd.fasta" "TestUtils\NC_000913.bd_1X_1.fa"</ConsoleCommand>
+    <Command>ComparativeUtil.exe -s -k:25 "TestUtils\NC_000913.bd.fasta" "TestUtils\NC_000913.bd_1X_1.fa"  -o:TestUtils\ComparativeActualOutputEcoliWithScaffold.txt</Command>
+    <ConsoleCommand>ComparativeUtil.exe -s -k:25 "TestUtils\NC_000913.bd.fasta" "TestUtils\NC_000913.bd_1X_1.fa"</ConsoleCommand>
     <ActualOutputFile>TestUtils\ComparativeActualOutputEcoliWithScaffold.txt</ActualOutputFile>
     <ExpectedOutputFile>TestUtils\ComparativeExpectedOutputEcoliWithScaffold.txt</ExpectedOutputFile>
   </ComparativeUtilWithScaffoldEcoli>
@@ -139,14 +139,14 @@
     <VerboseResult>Processed reference file,Read/Processing time,File Size,Processed reads file,Read/Processing time,File Size,Time taken for Validating reads,Output written,Assemble time,Write time</VerboseResult>
   </ComparativeUtilVerbose>
   <ComparativeUtilWithKmerAndMum>
-    <Command>ComparativeUtil.exe /k:7 /m:10 "TestUtils\ComparativeTestData\DNA-Medium-Ref.fasta" "TestUtils\ComparativeTestData\DNA-Medium-RefReads-WithError_1.fa" -o:TestUtils\ComparativeTestData\ComparativeActualOutputWithKmerAndMum.txt</Command>
-    <ConsoleCommand>ComparativeUtil.exe /k:7 /m:10 "TestUtils\ComparativeTestData\DNA-Medium-Ref.fasta" "TestUtils\ComparativeTestData\DNA-Medium-RefReads-WithError_1.fa"</ConsoleCommand>
+    <Command>ComparativeUtil.exe -k:7 -m:10 "TestUtils\ComparativeTestData\DNA-Medium-Ref.fasta" "TestUtils\ComparativeTestData\DNA-Medium-RefReads-WithError_1.fa" -o:TestUtils\ComparativeTestData\ComparativeActualOutputWithKmerAndMum.txt</Command>
+    <ConsoleCommand>ComparativeUtil.exe -k:7 -m:10 "TestUtils\ComparativeTestData\DNA-Medium-Ref.fasta" "TestUtils\ComparativeTestData\DNA-Medium-RefReads-WithError_1.fa"</ConsoleCommand>
     <ActualOutputFile>TestUtils\ComparativeTestData\ComparativeActualOutputWithKmerAndMum.txt</ActualOutputFile>
     <ExpectedOutputFile>TestUtils\ComparativeTestData\ComparativeExpectedOutputWithKmerAndMum.txt</ExpectedOutputFile>
   </ComparativeUtilWithKmerAndMum>
   <ComparativeUtilWithMeanLengthInsert>
-    <Command>ComparativeUtil.exe /i:10 "TestUtils\ComparativeTestData\DNA-Medium-Ref.fasta" "TestUtils\ComparativeTestData\DNA-Medium-RefReads-WithError_1.fa" -o:TestUtils\ComparativeTestData\ComparativeActualOutputWithMeanLengthInsert.txt</Command>
-    <ConsoleCommand>ComparativeUtil.exe /i:10 "TestUtils\ComparativeTestData\DNA-Medium-Ref.fasta" "TestUtils\ComparativeTestData\DNA-Medium-RefReads-WithError_1.fa"</ConsoleCommand>
+    <Command>ComparativeUtil.exe -i:10 "TestUtils\ComparativeTestData\DNA-Medium-Ref.fasta" "TestUtils\ComparativeTestData\DNA-Medium-RefReads-WithError_1.fa" -o:TestUtils\ComparativeTestData\ComparativeActualOutputWithMeanLengthInsert.txt</Command>
+    <ConsoleCommand>ComparativeUtil.exe -i:10 "TestUtils\ComparativeTestData\DNA-Medium-Ref.fasta" "TestUtils\ComparativeTestData\DNA-Medium-RefReads-WithError_1.fa"</ConsoleCommand>
     <ActualOutputFile>TestUtils\ComparativeTestData\ComparativeActualOutputWithMeanLengthInsert.txt</ActualOutputFile>
     <ExpectedOutputFile>TestUtils\ComparativeTestData\ComparativeExpectedOutputWithMeanLengthInsert.txt</ExpectedOutputFile>
   </ComparativeUtilWithMeanLengthInsert>
@@ -163,56 +163,56 @@
     <ExpectedOutputFile>TestUtils\LisUtilExpectedOutputEcoli.txt</ExpectedOutputFile>
   </LisUtilEcoliDefaultParams>
   <LisUtilVerbose>
-    <Command>LisUtil.exe /v "TestUtils\100K-Ecoli-Ref.fasta" "TestUtils\100K-Ecoli-Query.fasta" -o:TestUtils\LisUtilActualOutputDefaultParams.txt</Command>
+    <Command>LisUtil.exe -v "TestUtils\100K-Ecoli-Ref.fasta" "TestUtils\100K-Ecoli-Query.fasta" -o:TestUtils\LisUtilActualOutputDefaultParams.txt</Command>
     <ActualOutputFile>TestUtils\LisUtilActualOutputDefaultParams.txt</ActualOutputFile>
     <ExpectedOutputFile>TestUtils\LisUtilExpectedOutputDefaultParams.txt</ExpectedOutputFile>
     <VerboseResult>Processed Reference FastA file,Length of first Sequence,Read/Processing time,File Size,Processed Query FastA file,Suffix tree construction time,Number of query Sequences,Average length of query Sequences,Compute GetMumsReference() time,WriteMums() time,Total LisUtil Runtime</VerboseResult>
   </LisUtilVerbose>
   <LisUtilWithMaxMatch>
-    <Command>LisUtil.exe /MaxMatch "TestUtils\100K-Ecoli-Ref.fasta" "TestUtils\100K-Ecoli-Query.fasta" -o:TestUtils\LisUtilActualOutputWithMaxMatch.txt</Command>
-    <ConsoleCommand>LisUtil.exe /MaxMatch "TestUtils\100K-Ecoli-Ref.fasta" "TestUtils\100K-Ecoli-Query.fasta"</ConsoleCommand>
+    <Command>LisUtil.exe -MaxMatch "TestUtils\100K-Ecoli-Ref.fasta" "TestUtils\100K-Ecoli-Query.fasta" -o:TestUtils\LisUtilActualOutputWithMaxMatch.txt</Command>
+    <ConsoleCommand>LisUtil.exe -MaxMatch "TestUtils\100K-Ecoli-Ref.fasta" "TestUtils\100K-Ecoli-Query.fasta"</ConsoleCommand>
     <ActualOutputFile>TestUtils\LisUtilActualOutputWithMaxMatch.txt</ActualOutputFile>
     <ExpectedOutputFile>TestUtils\LisUtilExpectedOutputWithMaxMatch.txt</ExpectedOutputFile>
   </LisUtilWithMaxMatch>
   <LisUtilWithLisOnly>
-    <Command>LisUtil.exe /p "TestUtils\100K-Ecoli-Ref.fasta" "TestUtils\100K-Ecoli-Query.fasta" -o:TestUtils\LisUtilActualOutputWithLisOnly.txt</Command>
-    <ConsoleCommand>LisUtil.exe /p "TestUtils\100K-Ecoli-Ref.fasta" "TestUtils\100K-Ecoli-Query.fasta"</ConsoleCommand>
+    <Command>LisUtil.exe -p "TestUtils\100K-Ecoli-Ref.fasta" "TestUtils\100K-Ecoli-Query.fasta" -o:TestUtils\LisUtilActualOutputWithLisOnly.txt</Command>
+    <ConsoleCommand>LisUtil.exe -p "TestUtils\100K-Ecoli-Ref.fasta" "TestUtils\100K-Ecoli-Query.fasta"</ConsoleCommand>
     <ActualOutputFile>TestUtils\LisUtilActualOutputWithLisOnly.txt</ActualOutputFile>
     <ExpectedOutputFile>TestUtils\LisUtilExpectedOutputWithLisOnly.txt</ExpectedOutputFile>
   </LisUtilWithLisOnly>
   <LisUtilWithReverseOnly>
-    <Command>LisUtil.exe /r "TestUtils\100K-Ecoli-Ref.fasta" "TestUtils\100K-Ecoli-Query.fasta" -o:TestUtils\LisUtilActualOutputReverseOnly.txt</Command>
-    <ConsoleCommand>LisUtil.exe /r "TestUtils\100K-Ecoli-Ref.fasta" "TestUtils\100K-Ecoli-Query.fasta"</ConsoleCommand>
+    <Command>LisUtil.exe -r "TestUtils\100K-Ecoli-Ref.fasta" "TestUtils\100K-Ecoli-Query.fasta" -o:TestUtils\LisUtilActualOutputReverseOnly.txt</Command>
+    <ConsoleCommand>LisUtil.exe -r "TestUtils\100K-Ecoli-Ref.fasta" "TestUtils\100K-Ecoli-Query.fasta"</ConsoleCommand>
     <ActualOutputFile>TestUtils\LisUtilActualOutputReverseOnly.txt</ActualOutputFile>
     <ExpectedOutputFile>TestUtils\LisUtilExpectedOutputReverseOnly.txt</ExpectedOutputFile>
   </LisUtilWithReverseOnly>
   <LisUtilWithBoth>
-    <Command>LisUtil.exe /b "TestUtils\100K-Ecoli-Ref.fasta" "TestUtils\100K-Ecoli-Query.fasta" -o:TestUtils\LisUtilActualOutputBoth.txt</Command>
-    <ConsoleCommand>LisUtil.exe /b "TestUtils\100K-Ecoli-Ref.fasta" "TestUtils\100K-Ecoli-Query.fasta"</ConsoleCommand>
+    <Command>LisUtil.exe -b "TestUtils\100K-Ecoli-Ref.fasta" "TestUtils\100K-Ecoli-Query.fasta" -o:TestUtils\LisUtilActualOutputBoth.txt</Command>
+    <ConsoleCommand>LisUtil.exe -b "TestUtils\100K-Ecoli-Ref.fasta" "TestUtils\100K-Ecoli-Query.fasta"</ConsoleCommand>
     <ActualOutputFile>TestUtils\LisUtilActualOutputBoth.txt</ActualOutputFile>
     <ExpectedOutputFile>TestUtils\LisUtilExpectedOutputBoth.txt</ExpectedOutputFile>
   </LisUtilWithBoth>
   <LisUtilWithNoAmbiguity>
-    <Command>LisUtil.exe /n "TestUtils\100K-Ecoli-Ref.fasta" "TestUtils\100K-Ecoli-Query.fasta" -o:TestUtils\LisUtilActualOutputNoAmbiguity.txt</Command>
-    <ConsoleCommand>LisUtil.exe /n "TestUtils\100K-Ecoli-Ref.fasta" "TestUtils\100K-Ecoli-Query.fasta"</ConsoleCommand>
+    <Command>LisUtil.exe -n "TestUtils\100K-Ecoli-Ref.fasta" "TestUtils\100K-Ecoli-Query.fasta" -o:TestUtils\LisUtilActualOutputNoAmbiguity.txt</Command>
+    <ConsoleCommand>LisUtil.exe -n "TestUtils\100K-Ecoli-Ref.fasta" "TestUtils\100K-Ecoli-Query.fasta"</ConsoleCommand>
     <ActualOutputFile>TestUtils\LisUtilActualOutputNoAmbiguity.txt</ActualOutputFile>
     <ExpectedOutputFile>TestUtils\LisUtilExpectedOutputNoAmbiguity.txt</ExpectedOutputFile>
   </LisUtilWithNoAmbiguity>
   <LisUtilWithComplementReverseOnly>
-    <Command>LisUtil.exe /r /c "TestUtils\100K-Ecoli-Ref.fasta" "TestUtils\100K-Ecoli-Query.fasta" -o:TestUtils\LisUtilActualOutputComplementReverseOnly.txt</Command>
-    <ConsoleCommand>LisUtil.exe /r /c "TestUtils\100K-Ecoli-Ref.fasta" "TestUtils\100K-Ecoli-Query.fasta"</ConsoleCommand>
+    <Command>LisUtil.exe -r -c "TestUtils\100K-Ecoli-Ref.fasta" "TestUtils\100K-Ecoli-Query.fasta" -o:TestUtils\LisUtilActualOutputComplementReverseOnly.txt</Command>
+    <ConsoleCommand>LisUtil.exe -r -c "TestUtils\100K-Ecoli-Ref.fasta" "TestUtils\100K-Ecoli-Query.fasta"</ConsoleCommand>
     <ActualOutputFile>TestUtils\LisUtilActualOutputComplementReverseOnly.txt</ActualOutputFile>
     <ExpectedOutputFile>TestUtils\LisUtilExpectedOutputComplementReverseOnly.txt</ExpectedOutputFile>
   </LisUtilWithComplementReverseOnly>
   <LisUtilWithComplementBoth>
-    <Command>LisUtil.exe /b /c "TestUtils\100K-Ecoli-Ref.fasta" "TestUtils\100K-Ecoli-Query.fasta" -o:TestUtils\LisUtilActualOutputComplementBoth.txt</Command>
-    <ConsoleCommand>LisUtil.exe /b /c "TestUtils\100K-Ecoli-Ref.fasta" "TestUtils\100K-Ecoli-Query.fasta"</ConsoleCommand>
+    <Command>LisUtil.exe -b -c "TestUtils\100K-Ecoli-Ref.fasta" "TestUtils\100K-Ecoli-Query.fasta" -o:TestUtils\LisUtilActualOutputComplementBoth.txt</Command>
+    <ConsoleCommand>LisUtil.exe -b -c "TestUtils\100K-Ecoli-Ref.fasta" "TestUtils\100K-Ecoli-Query.fasta"</ConsoleCommand>
     <ActualOutputFile>TestUtils\LisUtilActualOutputComplementBoth.txt</ActualOutputFile>
     <ExpectedOutputFile>TestUtils\LisUtilExpectedOutputComplementBoth.txt</ExpectedOutputFile>
   </LisUtilWithComplementBoth>
   <LisUtilWithShowMatchingStr>
-    <Command>LisUtil.exe /s "TestUtils\100K-Ecoli-Ref.fasta" "TestUtils\100K-Ecoli-Query.fasta" -o:TestUtils\LisUtilActualOutputShowMatchingStr.txt</Command>
-    <ConsoleCommand>LisUtil.exe /s "TestUtils\100K-Ecoli-Ref.fasta" "TestUtils\100K-Ecoli-Query.fasta"</ConsoleCommand>
+    <Command>LisUtil.exe -s "TestUtils\100K-Ecoli-Ref.fasta" "TestUtils\100K-Ecoli-Query.fasta" -o:TestUtils\LisUtilActualOutputShowMatchingStr.txt</Command>
+    <ConsoleCommand>LisUtil.exe -s "TestUtils\100K-Ecoli-Ref.fasta" "TestUtils\100K-Ecoli-Query.fasta"</ConsoleCommand>
     <ActualOutputFile>TestUtils\LisUtilActualOutputShowMatchingStr.txt</ActualOutputFile>
     <ExpectedOutputFile>TestUtils\LisUtilExpectedOutputShowMatchingStr.txt</ExpectedOutputFile>
   </LisUtilWithShowMatchingStr>
@@ -289,17 +289,17 @@
     <ExpectedOutputFile>TestUtils\SAMBAMTestData\ExpectedOutputViewWithUncompressedBAM.txt</ExpectedOutputFile>
   </SamUtilsWithViewCompressedBAM>
   <HelpValidation>
-    <LisUtilHelpCommand>LisUtil /h</LisUtilHelpCommand>
+    <LisUtilHelpCommand>LisUtil -h</LisUtilHelpCommand>
     <LisUtilExpectedHelp>TestUtils\ExpectedLisUtilHelp.txt</LisUtilExpectedHelp>
-    <ComparativeUtilHelpCommand>ComparativeUtil /h</ComparativeUtilHelpCommand>
+    <ComparativeUtilHelpCommand>ComparativeUtil -h</ComparativeUtilHelpCommand>
     <ComparativeUtilExpectedHelp>TestUtils\ExpectedComparativeUtilHelp.txt</ComparativeUtilExpectedHelp>
-    <MumUtilHelpCommand>MumUtil /h</MumUtilHelpCommand>
+    <MumUtilHelpCommand>MumUtil -h</MumUtilHelpCommand>
     <MumUtilExpectedHelp>TestUtils\ExpectedMumUtilHelp.txt</MumUtilExpectedHelp>
-    <NucmerUtilHelpCommand>NucmerUtil /h</NucmerUtilHelpCommand>
+    <NucmerUtilHelpCommand>NucmerUtil -h</NucmerUtilHelpCommand>
     <NucmerUtilExpectedHelp>TestUtils\ExpectedNucmerUtilHelp.txt</NucmerUtilExpectedHelp>
     <SamUtilsImportHelpCommand>SamUtils Import</SamUtilsImportHelpCommand>
     <SamUtilsImportExpectedHelp>TestUtils\ExpectedSamUtilsImportHelp.txt</SamUtilsImportExpectedHelp>
-    <SamUtilsHelpCommand>SamUtils /h</SamUtilsHelpCommand>
+    <SamUtilsHelpCommand>SamUtils -h</SamUtilsHelpCommand>
     <SamUtilsExpectedHelp>TestUtils\ExpectedSamUtilsHelp.txt</SamUtilsExpectedHelp>
     <SamUtilsViewHelpCommand>SamUtils View</SamUtilsViewHelpCommand>
     <SamUtilsViewExpectedHelp>TestUtils\ExpectedSamUtilsViewHelp.txt</SamUtilsViewExpectedHelp>
@@ -309,15 +309,15 @@
     <SamUtilsSortExpectedHelp>TestUtils\ExpectedSamUtilsSortHelp.txt</SamUtilsSortExpectedHelp>
     <SamUtilsIndexHelpCommand>SamUtils Index</SamUtilsIndexHelpCommand>
     <SamUtilsIndexExpectedHelp>TestUtils\ExpectedSamUtilsIndexHelp.txt</SamUtilsIndexExpectedHelp>
-    <ScaffoldUtilHelpCommand>ScaffoldUtil /h</ScaffoldUtilHelpCommand>
+    <ScaffoldUtilHelpCommand>ScaffoldUtil -h</ScaffoldUtilHelpCommand>
     <ScaffoldUtilExpectedHelp>TestUtils\ExpectedScaffoldUtilHelp.txt</ScaffoldUtilExpectedHelp>
-    <ConsensusUtilHelpCommand>ConsensusUtil /h</ConsensusUtilHelpCommand>
+    <ConsensusUtilHelpCommand>ConsensusUtil -h</ConsensusUtilHelpCommand>
     <ConsensusUtilExpectedHelp>TestUtils\ExpectedConsensusUtilHelp.txt</ConsensusUtilExpectedHelp>
-    <LayoutRefinementUtilHelpCommand>LayoutRefinementUtil /h</LayoutRefinementUtilHelpCommand>
+    <LayoutRefinementUtilHelpCommand>LayoutRefinementUtil -h</LayoutRefinementUtilHelpCommand>
     <LayoutRefinementUtilExpectedHelp>TestUtils\ExpectedLayoutRefinementUtilHelp.txt</LayoutRefinementUtilExpectedHelp>
-    <RepeatResolutionUtilHelpCommand>RepeatResolutionUtil /h</RepeatResolutionUtilHelpCommand>
+    <RepeatResolutionUtilHelpCommand>RepeatResolutionUtil -h</RepeatResolutionUtilHelpCommand>
     <RepeatResolutionUtilExpectedHelp>TestUtils\ExpectedRepeatResolutionUtilHelp.txt</RepeatResolutionUtilExpectedHelp>
-    <PadenaUtilHelpCommand>PadenaUtil /h</PadenaUtilHelpCommand>
+    <PadenaUtilHelpCommand>PadenaUtil -h</PadenaUtilHelpCommand>
     <PadenaUtilExpectedHelp>TestUtils\ExpectedPadenaUtilHelp.txt</PadenaUtilExpectedHelp>
   </HelpValidation>
 </AutomationTest>
