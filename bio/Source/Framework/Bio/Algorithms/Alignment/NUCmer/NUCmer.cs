@@ -725,7 +725,7 @@ namespace Bio.Algorithms.Alignment
             // till score is optimized irrespective of length.
             if ((currentAlignment.SecondSequenceStart - targetQuery + 1) > ModifiedSmithWaterman.MaximumAlignmentLength)
             {
-                targetQuery = currentAlignment.SecondSequenceStart = ModifiedSmithWaterman.MaximumAlignmentLength + 1;
+                targetQuery = currentAlignment.SecondSequenceStart - ModifiedSmithWaterman.MaximumAlignmentLength + 1;
                 if (!isOverflow)
                 {
                     isOverflow = true;
