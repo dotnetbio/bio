@@ -561,14 +561,19 @@ namespace SamUtil
             while (!bamparser.IsEOF())
             {
                 SAMAlignedSequence alignedSequence = bamparser.GetAlignedSequence(false);
-                if (isFilterRequired)
+                //TODO: The parser should probably never return a null sequence
+                //this may be a bandaid over a lurking problem, fix in futre
+                if (alignedSequence != null)
                 {
-                    display = Filter(alignedSequence);
-                }
+                    if (isFilterRequired)
+                    {
+                        display = Filter(alignedSequence);
+                    }
 
-                if (display)
-                {
-                    yield return alignedSequence;
+                    if (display)
+                    {
+                        yield return alignedSequence;
+                    }
                 }
             }
         }
