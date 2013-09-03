@@ -140,9 +140,9 @@ namespace Bio.IO.SAM
         private int isize;
 
         /// <summary>
-        /// Holds reference sequence end position in alignment depending on CIGAR value.
+        /// Holds the length of the alignment determined by the CIGAR value if available or the default read length if not.
         /// </summary>
-        private int refEndPos;
+        private int alignmentLength;
 
         /// <summary>
         /// Holds CIGAR value.
@@ -168,7 +168,7 @@ namespace Bio.IO.SAM
         {
             OptionalFields = new List<SAMOptionalField>();
             cigar = DefaultCIGAR;
-            refEndPos = DefaultReadLength;
+            alignmentLength = DefaultReadLength;
         }
         #endregion
 
@@ -285,7 +285,7 @@ namespace Bio.IO.SAM
                 }
 
                 cigar = value;
-                refEndPos = GetRefSeqAlignmentLengthFromCIGAR();
+                alignmentLength = GetRefSeqAlignmentLengthFromCIGAR();
                 bin = GetBin();
             }
         }
@@ -378,13 +378,14 @@ namespace Bio.IO.SAM
         {
             get
             {
-                return refEndPos;
+                return Pos+alignmentLength-1;
             }
-
-            internal set
-            {
-                refEndPos = value;
-            }
+            //TODO: Not clear that we should allow this field to be set from outside of this class, as alignment length, cigar string and RefEndPos need
+            //to be consistent with each other, one should set the RefEndPosition by changing the cigar string.
+            //internal set
+            //{
+            //    alignmentLength = value;
+            //}
         }
 
         /// <summary>
@@ -542,7 +543,7 @@ namespace Bio.IO.SAM
         {
             // As SAM stores 1 based position and to calculte BAM Bin, zero based positions are required.
             int start = Pos - 1;
-            int end = start + refEndPos - 1;
+            int end = start + alignmentLength - 1;
             return RegionToBin(start, end);
         }
 
@@ -557,9 +558,8 @@ namespace Bio.IO.SAM
                 return DefaultReadLength;
             }
 
-            List<char> chars = new List<char>();
-            Dictionary<int, int> dic = new Dictionary<int, int>();
-
+            List<KeyValuePair<char,int>> charsAndPositions = new List<KeyValuePair<char,int>>();
+            
             for (int i = 0; i < CIGAR.Length; i++)
             {
                 char ch = CIGAR[i];
@@ -567,16 +567,13 @@ namespace Bio.IO.SAM
                 {
                     continue;
                 }
-
-                chars.Add(ch);
-                dic.Add(chars.Count - 1, i);
+                charsAndPositions.Add(new KeyValuePair<char,int>(ch,i));
             }
-
             string CIGARforClen = "MDNX=";
             int len = 0;
-            for (int i = 0; i < chars.Count; i++)
+            for (int i = 0; i < charsAndPositions.Count; i++)
             {
-                char ch = chars[i];
+                char ch = charsAndPositions[i].Key;
                 int start = 0;
                 int end = 0;
                 if (CIGARforClen.Contains(ch))
@@ -587,15 +584,14 @@ namespace Bio.IO.SAM
                     }
                     else
                     {
-                        start = dic[i - 1] + 1;
+                        start = charsAndPositions[i - 1].Value + 1;
                     }
 
-                    end = dic[i] - start;
+                    end = charsAndPositions[i].Value - start;
 
                     len += int.Parse(CIGAR.Substring(start, end), CultureInfo.InvariantCulture);
                 }
             }
-
             return len;
         }
         #endregion
