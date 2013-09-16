@@ -103,7 +103,7 @@ namespace Bio.Web
                 Close();    // get rid of any old response
                 _webResponse = (HttpWebResponse)request.GetResponse();
                 webAccessorResponse.StatusDescription = _webResponse.StatusDescription;
-                if (webAccessorResponse.StatusDescription == "OK")
+                if (webAccessorResponse.StatusDescription == "OK" || webAccessorResponse.StatusDescription=="(OK)")
                 {
                     Stream s = _webResponse.GetResponseStream();
 
