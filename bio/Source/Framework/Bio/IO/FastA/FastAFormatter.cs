@@ -146,6 +146,7 @@ namespace Bio.IO.FastA
         /// where each line will contain maximum of MaxSymbolsAllowedPerLine symbols.
         /// </summary>
         /// <param name="sequences">Sequences to write.</param>
+        [Obsolete("Use the IEnumerable overload instead")]
         public void Write(ICollection<ISequence> sequences)
         {
             if (sequences == null)
@@ -160,7 +161,27 @@ namespace Bio.IO.FastA
 
             this.streamWriter.Flush();
         }
+        /// <summary>
+        /// Writes the Multiple sequence in FastA format to the file.
+        /// Note that if the sequence contains more than the MaxSymbolsAllowedPerLine 
+        /// value then it will split the symbols in the specified sequence in to multiple lines, 
+        /// where each line will contain maximum of MaxSymbolsAllowedPerLine symbols.
+        /// </summary>
+        /// <param name="sequences">Sequences to write.</param>
+        public void Write(IEnumerable<ISequence> sequences)
+        {
+            if (sequences == null)
+            {
+                throw new ArgumentNullException("sequences");
+            }
 
+            foreach (ISequence sequence in sequences)
+            {
+                Write(sequence);
+            }
+
+            this.streamWriter.Flush();
+        }
         /// <summary>
         /// Writes the specified sequence in FastA format to the file.
         /// Note that if the sequence contains more than the MaxSymbolsAllowedPerLine 
