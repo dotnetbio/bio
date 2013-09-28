@@ -27,6 +27,8 @@ namespace Bio.IO.Newick
         private string _treeName = "PhylogeneticTree";
         #endregion -- Member Variables --
 
+       
+
         #region -- Constructors --
         /// <summary>
         /// Default constructor.
@@ -176,12 +178,26 @@ namespace Bio.IO.Newick
             if (isRoot)
             {
                 edge.Distance = double.NaN;
-
                 char secondPeek = Peek();
+                if (!newickSpecialCharacters.Contains(secondPeek))
+                {
+                    node.Name = GetName();
+                    secondPeek = Peek();
+                }
                 if (secondPeek == ':')
                 {   // move to next char after ":"
                     ReadChar();
+                    edge.Distance = ReadLength();
+                    secondPeek = Peek();
+                }                
+                if (secondPeek == '[')
+                {
+                    node.MetaData = GetExtendedMetaData();
                 }
+             
+
+
+
             }
             else
             {
@@ -204,8 +220,54 @@ namespace Bio.IO.Newick
                     }
                 }
                 edge.Distance = ReadLength();
+                //Now to check for new hampshire extended fields
+                thirdPeek = Peek();
+                if (thirdPeek == '[')
+                {
+                    node.MetaData = GetExtendedMetaData();
+                }
             }
             return new KeyValuePair<Node, Edge>(node, edge);
+        }
+ 
+        /// <summary>
+        /// Parse Newick extend format files
+        /// http://home.cc.umanitoba.ca/~psgendb/doc/atv/NHX.pdf
+        /// If the string "[(ampersand)(ampersand)NHX" is not present, throws an error (note ampersand used instead of the xml for some nonsense xml parsing reasons) 
+        /// </summary>
+        /// <returns></returns>
+        private Dictionary<string, string> GetExtendedMetaData()
+        {
+            var builder=new StringBuilder();
+            while(true)
+            {
+                char peek=Peek();
+                builder.Append(ReadChar());
+                if(peek==']')
+                {                    
+                    break;
+                }
+            }
+            var str=builder.ToString();
+            //verify extended format and run with it.
+            if (!str.StartsWith("[&&NHX:") || !str.EndsWith("]"))
+            {
+                throw new FormatException("Was expecting a New Hampshire extended field collection, but found parser error.  Bad string is: " + str); 
+            }
+            int start="[&&NHX:".Length;
+            str = str.Substring(start, (str.Length - 1 - start));
+            string[] groups = str.Split(':');
+            var result = new Dictionary<string, string>();
+            foreach (var g in groups)
+            {
+                var sub=g.Split('=');
+                if(sub.Length!=2)
+                {
+                    throw new FormatException("Could not split NHX metadata key/value pair: "+g);
+                }
+                result[sub[0]] = sub[1];
+            }
+            return result;
         }
         private string GetName()
         {
@@ -352,7 +414,15 @@ namespace Bio.IO.Newick
                 sb.Append(ReadChar());
             }
             // consider -ive and +ive length
-            return double.Parse(sb.ToString(), CultureInfo.InvariantCulture); 
+            if (sb.Length == 0)
+            {
+                throw new FormatException("Attempted to read length when no length string was given");
+            }
+            else
+            {
+               return double.Parse(sb.ToString(), CultureInfo.InvariantCulture); 
+            }
+            
         }
 
         /// <summary>

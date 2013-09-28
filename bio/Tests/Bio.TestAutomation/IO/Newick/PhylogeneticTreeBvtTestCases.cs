@@ -14,6 +14,7 @@ using Bio.Phylogenetics;
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Linq;
 
 namespace Bio.TestAutomation.IO.Newick
 {
@@ -130,6 +131,38 @@ namespace Bio.TestAutomation.IO.Newick
             PhylogeneticTreeParserGeneralTests(
                 Constants.SpecialCharSmallSizePhyloTreeNode,
                 AdditionalParameters.TextReader);
+        }
+
+
+        /// <summary>
+        /// Parse a new extended file format tree and verify that it 
+        /// Input : Phylogenetic Tree
+        /// Validation : Root Branch Count, Node Name and Edge Distance.
+        /// </summary>
+        [TestMethod]
+        [Priority(0)]
+        [TestCategory("Priority0")]
+        public void PhylogeneticTreeBvtParserValidateNewickExtended()
+        {
+            using (NewickParser parser = new NewickParser())
+            {
+                Tree rootTree = null;
+                using (StreamReader reader = File.OpenText(@"TestUtils\NewickExtended.nhx"))
+                {
+                    rootTree = parser.Parse(reader);
+
+                    //Verify metadata at root
+                    Assert.AreEqual("40",rootTree.Root.MetaData["N"]);
+                    //Verify name at root
+                    Assert.AreEqual("Euteleostomi",rootTree.Root.Name);
+                    //now verify it also worked for a somewhat arbitrary internal node
+                    var internalNode = rootTree.Root.Children.Keys.First().Children.Keys.First();
+                    Assert.AreEqual("Tetrapoda", internalNode.Name);
+                    Assert.AreEqual("0.00044378",internalNode.MetaData["PVAL"]);
+                    Assert.AreEqual(8,internalNode.MetaData.Count);
+                }
+                
+            }
         }
 
         /// <summary>

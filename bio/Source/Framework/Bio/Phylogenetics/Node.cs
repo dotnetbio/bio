@@ -7,7 +7,7 @@ namespace Bio.Phylogenetics
     /// <summary>
     /// Node : Node of the tree which can be either Leaf or another branch node.
     /// </summary>
-    public class Node : ICloneable
+    public class Node :ICloneable
     {
         #region -- Member Variables --
         private Dictionary<Node, Edge> children;
@@ -24,6 +24,12 @@ namespace Bio.Phylogenetics
         #endregion -- Constructors --
 
         #region -- Properties --
+        /// <summary>
+        /// Metadata encoded as string
+        /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public Dictionary<string, string> MetaData {get;set;}
+
         /// <summary>
         /// Get Childern nodes
         /// </summary>

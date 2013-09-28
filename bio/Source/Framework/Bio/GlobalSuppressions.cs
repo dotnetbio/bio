@@ -1641,3 +1641,5 @@
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Scope = "member", Target = "Bio.Algorithms.Assembly.Graph.DeBruijnGraph.#GetMarkedNodes()")]
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Scope = "member", Target = "Bio.Registration.AssemblyResolver.#Resolve(System.Reflection.Assembly)")]
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity", Scope = "member", Target = "Bio.Util.DeltaAlignmentParser.#GetDeltaAlignmentAt(System.Int64)")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1307:SpecifyStringComparison", MessageId = "System.String.EndsWith(System.String)", Scope = "member", Target = "Bio.IO.Newick.NewickParser.#GetExtendedMetaData()")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1307:SpecifyStringComparison", MessageId = "System.String.StartsWith(System.String)", Scope = "member", Target = "Bio.IO.Newick.NewickParser.#GetExtendedMetaData()")]
