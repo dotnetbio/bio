@@ -1488,7 +1488,8 @@ namespace Bio
         /// <param name="formatType">Fastq format type.</param>
         /// <param name="invalidQualScore">returns invalid encoded quality score if found.</param>
         /// <returns>Returns true if the specified encoded quality scores are with in the limit, otherwise false.</returns>
-        private static bool ValidateQualScores(byte[] encodedQualScore, FastQFormatType formatType, out byte invalidQualScore)
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#")]
+        public static bool ValidateQualScores(byte[] encodedQualScore, FastQFormatType formatType, out byte invalidQualScore)
         {
             bool result = true;
             invalidQualScore = 0;

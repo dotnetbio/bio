@@ -108,6 +108,15 @@ namespace Bio.IO.SAM
                 seqHeader.RName = value;
             }
         }
+        /// <summary>
+        /// Sets the RName using a name that has already been validated as valid, and so does not need to be checked
+        /// against the regular expression.
+        /// </summary>
+        /// <param name="name"></param>
+        public void SetPreValidatedRName(string name)
+        {
+            seqHeader.SetPreValidatedRName(name);
+        }
 
         /// <summary>
         /// One-based leftmost position/coordinate of the clipped sequence.
@@ -183,6 +192,14 @@ namespace Bio.IO.SAM
                 seqHeader.CIGAR = value;
             }
         }
+        /// <summary>
+        /// Set a prevalidated extended cigar string, the alignment length and bin are still calculated
+        /// </summary>
+        /// <param name="value"></param>
+        public void SetPreValidatedCIGAR(string value)
+        {
+            seqHeader.SetPreValidatedCIGAR(value);
+        }
 
         /// <summary>
         /// Mate reference sequence name. 
@@ -198,6 +215,14 @@ namespace Bio.IO.SAM
             {
                 seqHeader.MRNM = value;
             }
+        }
+        /// <summary>
+        /// Set the mate reference sequence name assuming the value is already valid.
+        /// </summary>
+        /// <param name="item"></param>
+        public void SetPreValidatedMRNM(string item)
+        {
+            seqHeader.SetPreValidatedMRNM(item);
         }
 
         /// <summary>

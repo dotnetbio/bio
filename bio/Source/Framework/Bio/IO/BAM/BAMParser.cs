@@ -21,21 +21,14 @@ namespace Bio.IO.BAM
 public class BAMParser : IDisposable, ISequenceAlignmentParser
     {
         #region Private Fields
-        /// <summary>
-        /// Holds BAM optional field regular expression pattern.
-        /// </summary>
-        private const string BAMOptionalFieldPattern = "[AcCsSiIfZHB]";
-
+  
         /// <summary>
         /// Symbols supported by BAM.
         /// </summary>
         private const string BAMAlphabet = "=ACMGRSVTWYHKDBN";
 
-        /// <summary>
-        /// Regular expression object for BAM optioanl field.
-        /// </summary>
-        private static Regex BAMOptionalFieldRegex = new Regex(BAMOptionalFieldPattern);
-
+        private static byte[] BAMAlphabetAsBytes = BAMAlphabet.Select(x => (byte)x).ToArray();
+   
         /// <summary>
         /// Holds the BAM file stream.
         /// </summary>
@@ -49,7 +42,7 @@ public class BAMParser : IDisposable, ISequenceAlignmentParser
         /// <summary>
         /// Holds the names of the reference sequence.
         /// </summary>
-        private List<string> refSeqNames;
+        private RegexValidatedStringList refSeqNames;
 
         /// <summary>
         /// Holds the length of the reference sequences.
@@ -91,7 +84,7 @@ public class BAMParser : IDisposable, ISequenceAlignmentParser
         public BAMParser()
         {
             RefSequences = new List<ISequence>();
-            refSeqNames = new List<string>();
+            refSeqNames = new RegexValidatedStringList(SAMAlignedSequenceHeader.RNameRegxExprPattern);
             refSeqLengths = new List<int>();
         }
 
@@ -283,7 +276,8 @@ public class BAMParser : IDisposable, ISequenceAlignmentParser
 
             return i + 1 - startIndex;
         }
-
+   
+#if FALSE  //Old code that is avoided now by going straight to bytes, kept for future debugging purposes if necessary 
         /// <summary>
         /// Gets equivalent sequence char for the specified encoded value.
         /// </summary>
@@ -295,6 +289,20 @@ public class BAMParser : IDisposable, ISequenceAlignmentParser
                 return BAMAlphabet[encodedValue];
             }
 
+            throw new FileFormatException(Properties.Resource.BAM_InvalidEncodedSequenceValue);
+        }
+#endif
+
+        /// <summary>
+        /// Gets equivalent sequence char for the specified encoded value.
+        /// </summary>
+        /// <param name="encodedValue">Encoded value.</param>
+        private static byte GetSeqCharAsByte(int encodedValue)
+        {
+            if (encodedValue >= 0 && encodedValue <= BAMAlphabetAsBytes.Length)
+            {
+                return BAMAlphabetAsBytes[encodedValue];
+            }
             throw new FileFormatException(Properties.Resource.BAM_InvalidEncodedSequenceValue);
         }
 
@@ -813,7 +821,7 @@ public class BAMParser : IDisposable, ISequenceAlignmentParser
         private SAMAlignmentHeader GetHeader()
         {
             SAMAlignmentHeader header = new SAMAlignmentHeader();
-            refSeqNames = new List<string>();
+            refSeqNames = new RegexValidatedStringList(Bio.IO.SAM.SAMAlignedSequenceHeader.RNameRegxExprPattern);
             refSeqLengths = new List<int>();
 
             readStream.Seek(0, SeekOrigin.Begin);
@@ -1059,6 +1067,7 @@ public class BAMParser : IDisposable, ISequenceAlignmentParser
         /// <summary>
         /// Returns an aligned sequence by parses the BAM file.
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2208:InstantiateArgumentExceptionsCorrectly")]
         private SAMAlignedSequence GetAlignedSequence(int start, int end)
         {
             byte[] array = new byte[4];
@@ -1074,9 +1083,9 @@ public class BAMParser : IDisposable, ISequenceAlignmentParser
             int refSeqIndex = Helper.GetInt32(alignmentBlock, 0);
 
             if (refSeqIndex == -1)
-                alignedSeq.RName = "*";
+                alignedSeq.SetPreValidatedRName("*");
             else
-                alignedSeq.RName = refSeqNames[refSeqIndex];
+                alignedSeq.SetPreValidatedRName(refSeqNames[refSeqIndex]);
 
             // 4-8 bytes
             alignedSeq.Pos = Helper.GetInt32(alignmentBlock, 4) + 1;
@@ -1114,11 +1123,11 @@ public class BAMParser : IDisposable, ISequenceAlignmentParser
             int mateRefSeqIndex = Helper.GetInt32(alignmentBlock, 20);
             if (mateRefSeqIndex != -1)
             {
-                alignedSeq.MRNM = refSeqNames[mateRefSeqIndex];
+                alignedSeq.SetPreValidatedMRNM(refSeqNames[mateRefSeqIndex]);
             }
             else
             {
-                alignedSeq.MRNM = "*";
+                alignedSeq.SetPreValidatedMRNM("*");
             }
 
             // 24-28 bytes
@@ -1179,58 +1188,71 @@ public class BAMParser : IDisposable, ISequenceAlignmentParser
             string cigar = strbuilder.ToString();
             if (string.IsNullOrWhiteSpace(cigar))
             {
-                alignedSeq.CIGAR = "*";
+                alignedSeq.SetPreValidatedCIGAR("*");
             }
             else
             {
-                alignedSeq.CIGAR = cigar;
+                alignedSeq.SetPreValidatedCIGAR(cigar);
             }
-
             // if there is no overlap no need to parse further.
             // ZeroBasedRefEnd < start
             // => (alignedSeq.RefEndPos -1) < start
-            if (alignedSeq.RefEndPos - 1 < start && alignedSeq.RName!=Properties.Resource.SAM_NO_REFERENCE_DEFINED_INDICATOR)
+            if (alignedSeq.RefEndPos - 1 < start && alignedSeq.RName!="*")
             {
                 return null;
             }
 
             startIndex += cigarLen * 4;
-            strbuilder = new StringBuilder();
+            var sequence = new byte[readLen];
+            int sequenceIndex = 0;
             int index = startIndex;
             for (; index < (startIndex + (readLen + 1) / 2) - 1; index++)
             {
                 // Get first 4 bit value
                 value = (alignmentBlock[index] & 0xF0) >> 4;
-                strbuilder.Append(GetSeqChar(value));
+                sequence[sequenceIndex++] = GetSeqCharAsByte(value);
                 // Get last 4 bit value
                 value = alignmentBlock[index] & 0x0F;
-                strbuilder.Append(GetSeqChar(value));
+                sequence[sequenceIndex++] = GetSeqCharAsByte(value);
+                
             }
 
             value = (alignmentBlock[index] & 0xF0) >> 4;
-            strbuilder.Append(GetSeqChar(value));
+            sequence[sequenceIndex++] = GetSeqCharAsByte(value);
+                
             if (readLen % 2 == 0)
             {
                 value = alignmentBlock[index] & 0x0F;
-                strbuilder.Append(GetSeqChar(value));
+                sequence[sequenceIndex++] = GetSeqCharAsByte(value);
             }
 
             startIndex = index + 1;
-            string strSequence = strbuilder.ToString();
             byte[] qualValues = new byte[readLen];
-            string strQualValues = "*";
-
+            
             if (alignmentBlock[startIndex] != 0xFF)
             {
                 for (int i = startIndex; i < (startIndex + readLen); i++)
                 {
                     qualValues[i - startIndex] = (byte)(alignmentBlock[i] + 33);
                 }
-
-                strQualValues = System.Text.ASCIIEncoding.ASCII.GetString(qualValues);
+                //validate quality scores here
+                byte badVal;
+                bool ok = QualitativeSequence.ValidateQualScores(qualValues, SAMParser.QualityFormatType, out badVal);
+                if (!ok)
+                {
+                    string message = string.Format(CultureInfo.CurrentUICulture,
+                                         Properties.Resource.InvalidEncodedQualityScoreFound,
+                                         (char)badVal,
+                                         SAMParser.QualityFormatType);
+                    throw new ArgumentOutOfRangeException("encodedQualityScores", message);
+                }
             }
-
-            SAMParser.ParseQualityNSequence(alignedSeq, Alphabet, strSequence, strQualValues);
+            else
+            {
+                qualValues = new byte[] { SAMParser.AsteriskAsByte };
+            }
+            //Values have already been validated when first parsed at this point so no need to again
+            SAMParser.ParseQualityNSequence(alignedSeq, Alphabet, sequence, qualValues,false);
 
             startIndex += readLen;
             if (alignmentBlock.Length > startIndex + 4 && alignmentBlock[startIndex] != 0x0 && alignmentBlock[startIndex + 1] != 0x0)
@@ -1241,27 +1263,22 @@ public class BAMParser : IDisposable, ISequenceAlignmentParser
                     optionalField.Tag = System.Text.ASCIIEncoding.ASCII.GetString(alignmentBlock, index, 2);
                     index += 2;
                     char vType = (char)alignmentBlock[index++];
-                    string valueType = vType.ToString();
-
+                    
                     // SAM format supports [AifZH] for value type.
                     // In BAM, an integer may be stored as a signed 8-bit integer (c), unsigned 8-bit integer (C), signed short (s), unsigned
                     // short (S), signed 32-bit (i) or unsigned 32-bit integer (I), depending on the signed magnitude of the integer. However,
                     // in SAM, all types of integers are presented as type ʻiʼ. 
-                    string message = Helper.IsValidPatternValue("VType", valueType, BAMOptionalFieldRegex);
-                    if (!string.IsNullOrEmpty(message))
-                    {
-                        throw new FormatException(message);
-                    }
+
+                    //NOTE: Code previously here checked for valid value and threw an exception here, but this exception/validation is checked for in this method below, as while as when the value is set.
 
                     optionalField.Value = GetOptionalValue(vType, alignmentBlock, ref index).ToString();
 
-                    // Convert to SAM format.
+                    // Convert to SAM format, where all integers are represented the same way
                     if ("cCsSI".IndexOf(vType) >= 0)
                     {
-                        valueType = "i";
+                        vType = 'i';
                     }
-
-                    optionalField.VType = valueType;
+                    optionalField.VType = vType.ToString();
 
                     alignedSeq.OptionalFields.Add(optionalField);
                 }
@@ -1269,6 +1286,10 @@ public class BAMParser : IDisposable, ISequenceAlignmentParser
 
             return alignedSeq;
         }
+
+
+        
+
 
         /// <summary>
         /// Reads specified number of uncompressed bytes from BAM file to byte array

@@ -234,6 +234,7 @@
     <Compile Include="IO\BAM\Bin.cs" />
     <Compile Include="IO\BAM\Chunk.cs" />
     <Compile Include="IO\BAM\FileOffset.cs" />
+    <Compile Include="IO\BAM\RegexValidatedStringList.cs" />
     <Compile Include="IO\Bed\BedFormatter.cs" />
     <Compile Include="IO\Bed\BedParser.cs" />
     <Compile Include="IO\ClustalW\ClustalWParser.cs" />

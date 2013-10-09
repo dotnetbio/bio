@@ -646,6 +646,28 @@ namespace Bio.Util
             }
             return false;
         }
+        /// <summary>
+        /// Determines if the string contains any characters specified in the list.
+        /// </summary>
+        /// <param name="toTest"></param>
+        /// <param name="illegalCharacters"></param>
+        /// <returns></returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "1")]
+        public static bool StringContainsIllegalCharacters(string toTest, char[] illegalCharacters)
+        {
+            for (int j = 0; j < illegalCharacters.Length; j++)
+            {
+                char badVal=illegalCharacters[j];
+                for (int i = 0; i < toTest.Length; i++)
+                {
+                    if (toTest[i] == badVal)
+                    {
+                        return true; 
+                    }
+                }
+            }
+            return false;
+        }
 
         /// <summary>
         /// Validates specified value with the specified regular expression pattern.
@@ -684,6 +706,7 @@ namespace Bio.Util
                 throw new ArgumentNullException("regx");
             }
 
+           
             if (string.IsNullOrEmpty(value) || !IsValidRegexValue(regx, value))
             {
                 string message = string.Format(CultureInfo.CurrentCulture,

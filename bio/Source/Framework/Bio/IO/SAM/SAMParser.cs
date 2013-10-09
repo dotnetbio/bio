@@ -28,6 +28,11 @@ namespace Bio.IO.SAM
         public const string HeaderLinePattern = "(@..){1}((\t..:[^\t]+)+)";
 
         /// <summary>
+        /// An asterisk encoded as a byte
+        /// </summary>
+        public const byte AsteriskAsByte=42;//* in ascii
+
+        /// <summary>
         /// Constant to hold SAM optional filed line pattern.
         /// </summary>
         public const string OptionalFieldLinePattern = "..:.:([^\t\n\r]+)";
@@ -35,7 +40,7 @@ namespace Bio.IO.SAM
         /// <summary>
         /// Holds the qualitative value type.
         /// </summary>
-        private const FastQFormatType QualityFormatType = FastQFormatType.Sanger;
+        public const FastQFormatType QualityFormatType = FastQFormatType.Sanger;
 
         #endregion
 
@@ -234,13 +239,81 @@ namespace Bio.IO.SAM
             ISequence sequence = null;
             if (isQualitativeSequence)
             {
-                QualitativeSequence qualSeq = new QualitativeSequence(alphabet, fastQType, sequencedata, ASCIIEncoding.ASCII.GetString(qualScores));
+               QualitativeSequence qualSeq = new QualitativeSequence(alphabet, fastQType, sequencedata, ASCIIEncoding.ASCII.GetString(qualScores));
                 qualSeq.ID = alignedSeq.QName;
                 sequence = qualSeq;
             }
             else
             {
                 sequence = new Sequence(alphabet, sequencedata);
+                sequence.ID = alignedSeq.QName;
+            }
+
+            alignedSeq.QuerySequence = sequence;
+        }
+
+        /// <summary>
+        /// Parses sequence data and quality values and updates SAMAlignedSequence instance.
+        /// </summary>
+        /// <param name="alignedSeq">SAM aligned Sequence.</param>
+        /// <param name="alphabet">Alphabet of the sequence to be created.</param>
+        /// <param name="sequencedata">Sequence data.</param>
+        /// <param name="qualitydata">Quality values.</param>
+        /// <param name="validate">Validateation needed</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed")]
+        public static void ParseQualityNSequence(SAMAlignedSequence alignedSeq, IAlphabet alphabet, byte[] sequencedata, byte[] qualitydata,bool validate=true)
+        {
+            if (alignedSeq == null)
+            {
+                throw new ArgumentNullException("alignedSeq");
+            }
+
+            if (sequencedata==null || sequencedata.Length==0)
+            {
+                throw new ArgumentNullException("sequencedata");
+            }
+
+            if (qualitydata==null || qualitydata.Length==0)
+            {
+                throw new ArgumentNullException("qualitydata");
+            }
+
+            bool isQualitativeSequence = true;
+            string message = string.Empty;
+            FastQFormatType fastQType = QualityFormatType;
+            if(sequencedata.Length==1 && sequencedata[0]==AsteriskAsByte)
+            {
+                return;
+            }
+
+            if (qualitydata.Length==1 && qualitydata[0]==AsteriskAsByte)
+            {
+                isQualitativeSequence = false;
+            }
+
+            if (isQualitativeSequence)
+            {
+
+                // Check for sequence length and quality score length.
+                if (sequencedata.Length != qualitydata.Length)
+                {
+                    string message1 = string.Format(CultureInfo.CurrentCulture, Properties.Resource.FastQ_InvalidQualityScoresLength, alignedSeq.QName);
+                    message = string.Format(CultureInfo.CurrentCulture, Properties.Resource.IOFormatErrorMessage, Properties.Resource.SAM_NAME, message1);
+                    Trace.Report(message);
+                    throw new FileFormatException(message);
+                }
+            }
+
+            ISequence sequence = null;
+            if (isQualitativeSequence)
+            {
+                QualitativeSequence qualSeq = new QualitativeSequence(alphabet, fastQType, sequencedata, qualitydata,validate);
+                qualSeq.ID = alignedSeq.QName;
+                sequence = qualSeq;
+            }
+            else
+            {
+                sequence = new Sequence(alphabet, sequencedata,validate);
                 sequence.ID = alignedSeq.QName;
             }
 

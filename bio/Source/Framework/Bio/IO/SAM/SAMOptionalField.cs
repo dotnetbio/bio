@@ -16,30 +16,21 @@ namespace Bio.IO.SAM
         private const string TagRegexExprPattern = "[A-Za-z][A-Za-z0-9]";
 
         /// <summary>
-        /// Holds regular expression pattern of Vtype.
+        /// Holds allowable values for Vtype.
         /// </summary>
-        private const string VTypeRegexExprPattern = "[AifZHB]";
+        private static char[] VTypeAllowableValues = "AifZHB".ToCharArray();
 
         /// <summary>
-        /// Holds regular expression pattern of value.
+        /// Holds illegal characters for value.
         /// </summary>
-        private const string ValueRegexExprPattern = "[^\t\n\r]+";
+        private static char[] ValueIllegalCharacters = new char[] {'\t','\n','\r'};
 
         /// <summary>
         /// Holds regular expression for Tag.
         /// </summary>
         private static Regex TagRegexExpr = new Regex(TagRegexExprPattern);
 
-        /// <summary>
-        /// Holds regular expression for Vtype.
-        /// </summary>
-        private static Regex VTypeRegexExpr = new Regex(VTypeRegexExprPattern);
-
-        /// <summary>
-        /// Holds regular expression for Value.
-        /// </summary>
-        private static Regex ValueRegexExpr = new Regex(ValueRegexExprPattern);
-
+   
         /// <summary>
         /// Holds tag value of the option field.
         /// </summary>
@@ -124,16 +115,59 @@ namespace Bio.IO.SAM
         /// <param name="tag">Tag value to validate.</param>
         private static string IsValidTag(string tag)
         {
-            return Helper.IsValidPatternValue("Tag", tag, TagRegexExpr);
+            if(string.IsNullOrEmpty(tag) || tag.Length!=2 || !ValidateTagRegex(tag))
+            {
+                string message = string.Format(System.Globalization.CultureInfo.CurrentCulture,
+                                Properties.Resource.InvalidPatternMessage,
+                                "Tag",
+                                tag,
+                                TagRegexExpr.ToString());
+                return message;
+            }
+            return string.Empty;
+        }
+        /// <summary>
+        /// Validates that a TAG is a valid regex by converting to an integer and testing it is in the appropriate range
+        /// </summary>
+        /// <param name="tag"></param>
+        /// <returns></returns>
+        private static bool ValidateTagRegex(string tag)
+        {
+            //Going to validate that the tag matches this regex "[A-Za-z][A-Za-z0-9]"
+            //without actually using the regex class, to do this we use the following ascii conversions
+            //A=65
+            //Z=90
+            //a=97
+            //z=122
+            //0=48
+            //9=57
+            byte c1 = (byte)tag[0];
+            byte c2 = (byte)tag[1];
+            bool oneOk = (c1>=65 && c1<=90) | (c1>=97 && c1<=122);
+            bool twoOk = (c2 >= 65 && c2 <= 90) | (c2 >= 97 && c2 <= 122) | (c2 >= 48 && c2 <= 57);
+            return oneOk & twoOk;
         }
 
         /// <summary>
         /// Validates VType.
         /// </summary>
         /// <param name="vtype">VType value to validate.</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.Int32.ToString")]
         private static string IsValidVType(string vtype)
         {
-            return Helper.IsValidPatternValue("VType", vtype, VTypeRegexExpr);
+            if (vtype.Length != 1)
+            {
+                return "Optional field variable type must be of length 1, but was of length: " + vtype.Length.ToString();
+            }
+                //note in this case they are "legal" characters
+            else if (Helper.StringContainsIllegalCharacters(vtype, VTypeAllowableValues))
+            {
+                return String.Empty;
+            }
+            else
+            {
+                return "SAM optional field identifier: " + vtype + " was not recognized";
+            }
         }
 
         /// <summary>
@@ -142,7 +176,15 @@ namespace Bio.IO.SAM
         /// <param name="value">Value to validate.</param>
         private static string IsValidValue(string value)
         {
-            return Helper.IsValidPatternValue("Value", value, ValueRegexExpr);
+            bool notOkay = Helper.StringContainsIllegalCharacters(value, ValueIllegalCharacters);
+            if (!notOkay)
+            {
+                return String.Empty;
+            }
+            else
+            {
+                return value + " is not a valid SAM optional value";
+            }
         }
     }
 }

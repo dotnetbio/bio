@@ -20,12 +20,12 @@ namespace Bio.IO.SAM
         /// <summary>
         /// Regular expression pattern for QName.
         /// </summary>
-        private const string QNameRegxExprPattern = "[^ \t\n\r]+";
+        private static char[] QNameIllegalCharacters =  {' ','\t','\n','\r'};
 
         /// <summary>
         /// Regular expression pattern for RName.
         /// </summary>
-        private const string RNameRegxExprPattern = "[^ \t\n\r@=]+";
+        public const string RNameRegxExprPattern = @"[^\s\t\n\r@=]+";
 
         /// <summary>
         /// Regular expression pattern for CIGAR.
@@ -35,7 +35,7 @@ namespace Bio.IO.SAM
         /// <summary>
         ///  Regular expression pattern for MRNM.
         /// </summary>
-        private const string MRNMRegxExprPattern = @"[^ \t\n\r@]+";
+        private const string MRNMRegxExprPattern = @"[^\s\t\n\r@]+";
 
         /// <summary>
         /// Represents the largest possible value of POS. This field is constant.
@@ -87,11 +87,7 @@ namespace Bio.IO.SAM
         /// </summary>
         private const string DefaultCIGAR = "*";
 
-        /// <summary>
-        /// Regular Expression object for QName.
-        /// </summary>
-        private static Regex QNameRegxExpr = new Regex(QNameRegxExprPattern);
-
+   
         /// <summary>
         /// Regular Expression object for RName.
         /// </summary>
@@ -220,6 +216,15 @@ namespace Bio.IO.SAM
                 rname = value;
             }
         }
+        /// <summary>
+        /// Set the name of the reference without validating it by a regular expression, useful
+        /// when the same value is being repeatedly used.
+        /// </summary>
+        /// <param name="rName"></param>
+        public void SetPreValidatedRName(string rName)
+        {
+            rname = rName;
+        }
 
         /// <summary>
         /// One-based leftmost position/coordinate of the aligned sequence.
@@ -289,6 +294,16 @@ namespace Bio.IO.SAM
                 bin = GetBin();
             }
         }
+        /// <summary>
+        /// Sets the value of an extended CIGAR string known to be valid
+        /// </summary>
+        /// <param name="value"></param>
+        public void SetPreValidatedCIGAR(string value)
+        {
+            cigar = value;
+            alignmentLength = GetRefSeqAlignmentLengthFromCIGAR();
+            bin = GetBin();
+        }
 
         /// <summary>
         /// Mate reference sequence name. 
@@ -310,7 +325,14 @@ namespace Bio.IO.SAM
                 mrnm = value;
             }
         }
-
+        /// <summary>
+        /// Set the MRNM value without validating that it is a valid value
+        /// </summary>
+        /// <param name="value"></param>
+        public void SetPreValidatedMRNM(string value)
+        {
+            mrnm = value;
+        }
         /// <summary>
         /// One-based leftmost mate position of the clipped sequence.
         /// </summary>
@@ -444,23 +466,23 @@ namespace Bio.IO.SAM
         /// <param name="qname">QName value to validate.</param>
         private static string IsValidQName(string qname)
         {
-            string headerName = "QName";
-            string headerValue = qname;
+
             // Validate for the regx.
-            string message = Helper.IsValidPatternValue(headerName, headerValue, QNameRegxExpr);
-
-            if (!string.IsNullOrEmpty(message))
-            {
-                return message;
-            }
-
             // validate length.
-            if (headerValue.Length > 255)
+            if (qname.Length > 255)
             {
                 return Properties.Resource.InvalidQNameLength;
             }
+            bool badName = Helper.StringContainsIllegalCharacters(qname,QNameIllegalCharacters);
+            if (!badName)
+            {
+                return String.Empty;
+            }
+            else
+            {
+                return "Query name: " + qname + " contains illegal characters";
+            }
 
-            return string.Empty;
         }
 
         /// <summary>
