@@ -86,6 +86,7 @@
     <Compile Include="Algorithms\Alignment\Legacy\NeedlemanWunschAffineAlignmentJob.cs" />
     <Compile Include="Algorithms\Alignment\Legacy\LegacyNeedlemanWunschAligner.cs" />
     <Compile Include="Algorithms\Alignment\Legacy\NeedlemanWunschSimpleAlignmentJob.cs" />
+    <Compile Include="Algorithms\Alignment\MultipleSequenceAlignment\MultipleSequenceAlignment.cs" />
     <Compile Include="Algorithms\Alignment\NeedlemanWunschAligner.cs" />
     <Compile Include="Algorithms\Alignment\NucmerPairwiseAligner.cs" />
     <Compile Include="Algorithms\Alignment\NUCmer\Cluster.cs" />
