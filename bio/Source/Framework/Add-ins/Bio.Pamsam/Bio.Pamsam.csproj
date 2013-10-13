@@ -90,7 +90,6 @@
     <Compile Include="Algorithms\Alignment\MultipleSequenceAlignment\KmerDistanceMatrixGenerator.cs" />
     <Compile Include="Algorithms\Alignment\MultipleSequenceAlignment\KmerDistanceScoreCalculator.cs" />
     <Compile Include="Algorithms\Alignment\MultipleSequenceAlignment\MsaUtils.cs" />
-    <Compile Include="Algorithms\Alignment\MultipleSequenceAlignment\MultipleSequenceAlignment.cs" />
     <Compile Include="Algorithms\Alignment\MultipleSequenceAlignment\NeedlemanWunschProfileAlignerParallel.cs" />
     <Compile Include="Algorithms\Alignment\MultipleSequenceAlignment\NeedlemanWunschProfileAlignerSerial.cs" />
     <Compile Include="Algorithms\Alignment\MultipleSequenceAlignment\PamsamAlignmentAttributes.cs" />

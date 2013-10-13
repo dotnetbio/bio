@@ -75,9 +75,14 @@
     <Compile Include="EbiBlast\EbiBlastP1TestCases.cs" />
     <Compile Include="EbiBlast\EbiBlastP2TestCases.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Selectome\SelectomeTests.cs" />
     <Compile Include="WebAccessorTest.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Source\Framework\Add-ins\Bio.Selectome\Bio.Selectome.csproj">
+      <Project>{a56135a5-70dc-4992-aed3-957961b7154c}</Project>
+      <Name>Bio.Selectome</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Source\Framework\Bio.WebServiceHandlers\Bio.WebServiceHandlers.csproj">
       <Project>{c5a9b65e-98fb-4879-8699-69e8ab6a4baa}</Project>
       <Name>Bio.WebServiceHandlers</Name>
@@ -91,6 +96,7 @@
       <Name>Bio.TestUtils</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>
