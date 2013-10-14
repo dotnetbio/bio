@@ -190,7 +190,7 @@ namespace Bio
                 // Validate sequence data
                 if (!this.Alphabet.ValidateSequence(sequence, 0, sequence.LongLength()))
                 {
-                    throw new ArgumentOutOfRangeException("sequence");
+                    throw Helper.GenerateAlphabetCheckFailureException(this.Alphabet, sequence);
                 }
 
                 byte invalidEncodedQualityScore;
@@ -276,7 +276,7 @@ namespace Bio
                 // Validate sequence data
                 if (!this.Alphabet.ValidateSequence(this.sequenceData, 0, this.sequenceData.LongLength()))
                 {
-                    throw new ArgumentOutOfRangeException("sequence");
+                    throw Helper.GenerateAlphabetCheckFailureException(this.Alphabet, sequenceData);
                 }
 
                 byte invalidEncodedQualityScore;
@@ -295,6 +295,8 @@ namespace Bio
             this.Count = this.sequenceData.LongLength();
         }
 
+
+
         /// <summary>
         /// Initializes a new instance of the QualitativeSequence class with specified alphabet, quality score type,
         /// byte array representing symbols and signed byte array representing base quality scores 
@@ -307,6 +309,7 @@ namespace Bio
         /// (Phred or Solexa base according to the FastQ format type).</param>
         /// <param name="validate">If this flag is true then validation will be done to see whether the data is valid or not,
         /// else validation will be skipped.</param>
+        /// //TODO: Method is redundant, needs clean up
         public QualitativeSequence(IAlphabet alphabet, FastQFormatType fastQFormatType, byte[] sequence, sbyte[] qualityScores, bool validate)
         {
             if (alphabet == null)
@@ -341,7 +344,7 @@ namespace Bio
                 // Validate sequence data
                 if (!this.Alphabet.ValidateSequence(sequence, 0, sequence.LongLength()))
                 {
-                    throw new ArgumentOutOfRangeException("sequence");
+                    throw Helper.GenerateAlphabetCheckFailureException(this.Alphabet, sequence);
                 }
 
                 sbyte invalidQualityScore;
@@ -411,7 +414,7 @@ namespace Bio
                 // Validate sequence data
                 if (!this.Alphabet.ValidateSequence(sequence, 0, sequence.LongLength()))
                 {
-                    throw new ArgumentOutOfRangeException("sequence");
+                    throw Helper.GenerateAlphabetCheckFailureException(this.Alphabet, sequence);
                 }
 
                 int invalidQualityScore;

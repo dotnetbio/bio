@@ -88,7 +88,7 @@ namespace Bio
                 // Validate sequence data
                 if (!alphabet.ValidateSequence(values, 0, values.LongLength()))
                 {
-                    throw new ArgumentOutOfRangeException("sequence");
+                    throw Helper.GenerateAlphabetCheckFailureException(alphabet, values);
                 }
             }
 
@@ -132,7 +132,7 @@ namespace Bio
                 // Validate sequence data
                 if (!alphabet.ValidateSequence(values, 0, values.LongLength()))
                 {
-                    throw new ArgumentOutOfRangeException("values");
+                    throw Helper.GenerateAlphabetCheckFailureException(alphabet, values);
                 }
             }
 

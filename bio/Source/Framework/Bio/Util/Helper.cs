@@ -996,6 +996,23 @@ namespace Bio.Util
             return result;
         }
 
+        /// <summary>
+        /// Create a useful error message when a sequence fails validation.
+        /// </summary>
+        /// <param name="alphabet"></param>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public static ArgumentOutOfRangeException GenerateAlphabetCheckFailureException(IAlphabet alphabet, byte[] data)
+        {
+            string badSequence = "Could not parse sequence as ASCII";
+            try
+            { badSequence = new String(ASCIIEncoding.ASCII.GetChars(data)); }
+            catch { }
+            return new ArgumentOutOfRangeException("Sequence contains an illegal character not allowed in alphabet: " + alphabet.Name + ".  Sequence was:\r\n" + badSequence);
+
+        }
+
+
         #region BAM related methods
         /// <summary>
         /// Gets a byte array which represents value of 16 bit singed integer in LittleEndian format.
