@@ -534,11 +534,12 @@ namespace Bio.Silverlight.TestAutomation.IO.FastA
             }
 
             // Write to a new file
+#pragma warning disable 612, 618
             using (var formatter = new FastAFormatter(filepathTmp))
             {
                 formatter.Write(seqsOriginal);
             }
-
+#pragma warning restore 612, 618
             try
             {
                 // Compare original with new file

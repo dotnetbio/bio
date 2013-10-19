@@ -384,7 +384,9 @@ namespace Bio.Silverlight.TestAutomation.IO.FastA
                 seqList.Add(seqOriginal);
                 seqList.Add(seqOriginal);
                 seqList.Add(seqOriginal);
+#pragma warning disable 612, 618
                 formatter.Write(seqList);
+#pragma warning restore 612, 618
                 formatter.Close();
 
                 IEnumerable<ISequence> seqsNew = null;
