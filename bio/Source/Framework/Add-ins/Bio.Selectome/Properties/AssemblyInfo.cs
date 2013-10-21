@@ -7,9 +7,8 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: CLSCompliant(true)]
 [assembly: AssemblyTitle("Bio.Selectome")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Interface to the selectome database.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Bio.Selectome")]

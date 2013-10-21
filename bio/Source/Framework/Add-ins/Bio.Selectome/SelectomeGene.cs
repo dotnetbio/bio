@@ -159,6 +159,9 @@ namespace Bio.Selectome
             }
         }
        //TODO: These should probably all be replaced with a single method that takes an MSA reference and suffix and returns an MAS
+        /// <summary>
+        /// The masked amino acid alignment, masked by selectome procedures
+        /// </summary>
         public MultipleSequenceAlignment MaskedAminoAcidAlignment
         {
             get 
@@ -167,6 +170,9 @@ namespace Bio.Selectome
                 return _maskedVertebrateAminoAcidAlignment;
             }
         }
+        /// <summary>
+        /// The unmasked alignment.
+        /// </summary>
         public MultipleSequenceAlignment UnmaskedAminoAcidAlignment
         {
             get
