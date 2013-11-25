@@ -28,9 +28,10 @@ namespace Bio.Algorithms.SuffixTree
         /// </summary>
         /// <param name="startIndex">Index of first symbol of the edge.</param>
         public MultiWaySuffixEdge(long startIndex)
-            : this()
         {
             this.StartIndex = startIndex;
+            Children = null;
+            SuffixLink = null;
         }
 
         /// <summary>
