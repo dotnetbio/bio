@@ -194,7 +194,7 @@ namespace Bio.Selectome
            }
            //Now determine if positive seleciton has occurred.           
            bool positiveSelectionSignature = false;
-           if (data.Contains("Positions under positive selection"))
+           if (data.Contains("Positive selection found"))
            {
                positiveSelectionSignature = true;
            }

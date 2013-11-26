@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Bio.Selectome")]
-[assembly: AssemblyDescription("Interface to the selectome database.")]
+[assembly: AssemblyDescription("Interface to the Selectome web database")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Bio.Selectome")]
