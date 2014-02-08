@@ -63,12 +63,6 @@ namespace Bio.IO.SAM
         /// <summary>
         /// 0x0400 The read is either a PCR duplicate or an optical duplicate.
         /// </summary>
-        Duplicate = 0x0400,
-
-        /// <summary>
-        /// This is a supplementary alignment
-        /// </summary>
-        SupplementaryAlignment=0x0800
-
+        Duplicate = 0x0400
     }
 }
