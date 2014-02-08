@@ -419,7 +419,394 @@ public class BAMParser : IDisposable, ISequenceAlignmentParser
 
             return GetAlignment(reader);
         }
+        private SequenceAlignmentMap GetAlignmentMap(Stream reader, BAMIndexFile bamIndexFile = null,
+              string refSeqName = null, int? refSeqIndex = null, int start = 0, int end = int.MaxValue)
+        {
+            SAMAlignmentHeader header;
+            SequenceAlignmentMap seqMap;
 
+            if (reader == null || reader.Length == 0)
+            {
+                throw new FileFormatException(Properties.Resource.BAM_InvalidBAMFile);
+            }
+            readStream = reader;
+            ValidateReader();
+            header = GetHeader();
+            seqMap = null;
+
+            if (refSeqIndex.HasValue && refSeqName == null)
+            {
+                // verify whether the chromosome index is there in the header or not.
+                if (refSeqIndex < 0 || refSeqIndex >= header.ReferenceSequences.Count)
+                {
+                    throw new ArgumentOutOfRangeException("refSeqIndex");
+                }
+            }
+            else if (refSeqName != null && !refSeqIndex.HasValue)
+            {
+                refSeqIndex = refSeqNames.IndexOf(refSeqName);
+                if (refSeqIndex < 0 || !refSeqIndex.HasValue)
+                {
+                    string message = string.Format(CultureInfo.InvariantCulture, Properties.Resource.BAM_RefSeqNotFound, refSeqName);
+                    throw new ArgumentException(message, "refSeqName");
+                }
+            }
+            else if (refSeqIndex.HasValue && refSeqName != null)
+            {
+                throw new ArgumentException("Received values for params reSeqIndex and refSeqName. Only one parameter can have a value, not both.");
+            }
+
+            if (refSeqIndex.HasValue)
+            {
+                if (bamIndexFile != null)
+                {
+                    GetAlignmentWithIndex(bamIndexFile, (int)refSeqIndex, start, end, header, ref seqMap);
+                }
+                else
+                {
+                    throw new ArgumentNullException("refSeqIndex");
+                }
+            }
+            else
+            {
+                GetAlignmentWithoutIndex(header, ref seqMap);
+            }
+
+            return seqMap;
+        }
+
+        /// <summary>
+        /// Returns an iterator over a set of SAMAlignedSequences retrieved from a parsed BAM file.
+        /// </summary>
+        /// <param name="fileName">File name to read.</param>
+        /// <returns>IEnumerable SAMAlignedSequence object.</returns>
+        public IEnumerable<SAMAlignedSequence> ParseSequenceAsEnumberable(string fileName)
+        {
+            bamFilename = fileName;
+
+            if (string.IsNullOrWhiteSpace(fileName))
+            {
+                throw new ArgumentNullException("fileName");
+            }
+
+            using (readStream = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
+            {
+                foreach (SAMAlignedSequence seq in ParseSequence(readStream))
+                {
+                    yield return seq;
+                }
+            }
+        }
+        /// <summary>
+        /// Returns an iterator over a set of SAMAlignedSequences retrieved from a parsed BAM file.
+        /// </summary>
+        /// <param name="reader">Stream to read</param>
+        /// <returns>IEnumerable SAMAlignedSequence object.</returns>
+        public IEnumerable<SAMAlignedSequence> ParseSequence(Stream reader)
+        {
+            if (reader == null)
+            {
+                throw new ArgumentNullException("reader");
+            }
+            foreach (SAMAlignedSequence seq in GetAlignmentMapIterator(reader))
+            {
+                yield return seq;
+            }
+        }
+        /// <summary>
+        /// Returns SequenceAlignmentMap object by parsing specified BAM stream.
+        /// </summary>
+        /// <param name="reader"></param>
+        /// <returns></returns>
+        private SequenceAlignmentMap GetAlignment(Stream reader)
+        {
+            return GetAlignmentMap(reader);
+        }
+       
+        private IEnumerable<SAMAlignedSequence> GetAlignmentMapIterator(Stream reader, BAMIndexFile bamIndexFile = null,
+                string refSeqName = null, int? refSeq = null, int start = 0, int end = int.MaxValue)
+        {
+            SAMAlignmentHeader header;
+
+            if (reader == null || reader.Length == 0)
+            {
+                throw new FileFormatException(Properties.Resource.BAM_InvalidBAMFile);
+            }
+            readStream = reader;
+            ValidateReader();
+            header = GetHeader();
+
+            if (refSeq.HasValue && refSeqName == null)
+            {
+                // verify whether the chromosome index is there in the header or not.
+                if (refSeq < 0 || refSeq >= header.ReferenceSequences.Count)
+                {
+                    throw new ArgumentOutOfRangeException("refSeq");
+                }
+            }
+            else if (refSeqName != null && !refSeq.HasValue)
+            {
+                refSeq = refSeqNames.IndexOf(refSeqName);
+                if (refSeq < 0 || !refSeq.HasValue)
+                {
+                    string message = string.Format(CultureInfo.InvariantCulture, Properties.Resource.BAM_RefSeqNotFound, refSeqName);
+                    throw new ArgumentException(message, "refSeqName");
+                }
+            }
+            else if (refSeq.HasValue && refSeqName != null)
+            {
+                throw new ArgumentException("Received values for params reSeqIndex and refSeqName. Only one parameter can have a value, not both.");
+            }
+
+            if (refSeq.HasValue)
+            {
+                if (bamIndexFile != null)
+                {
+                    foreach (SAMAlignedSequence seq in GetAlignmentWithIndexYield(bamIndexFile, (int)refSeq, start, end))
+                    {
+                        yield return seq;
+                    }
+                }
+                else
+                {
+                    throw new ArgumentNullException("refSeqIndex");
+                }
+            }
+            else
+            {
+                foreach (SAMAlignedSequence seq in GetAlignmentWithoutIndexYield())
+                {
+                    yield return seq;
+                }
+            }
+        }
+        private IEnumerable<SAMAlignedSequence> GetAlignmentWithIndexYield(BAMIndexFile bamIndexFile, int refSeqIndex, int start, int end)
+        {
+            BAMIndex bamIndexInfo;
+            BAMReferenceIndexes refIndex;
+            IList<Chunk> chunks;
+
+            bamIndexInfo = bamIndexFile.Read();
+
+            if (refSeqIndex != -1 && bamIndexInfo.RefIndexes.Count <= refSeqIndex)
+            {
+                throw new ArgumentOutOfRangeException("refSeqIndex");
+            }
+
+            refIndex = bamIndexInfo.RefIndexes[refSeqIndex];
+
+            if (start == 0 && end == int.MaxValue)
+            {
+                chunks = GetChunks(refIndex);
+            }
+            else
+            {
+                chunks = GetChunks(refIndex, start, end);
+            }
+
+            IList<SAMAlignedSequence> alignedSeqs = GetAlignedSequences(chunks, start, end);
+            foreach (SAMAlignedSequence alignedSeq in alignedSeqs)
+            {
+                yield return alignedSeqs[0];
+            }
+
+            readStream = null;
+        }
+
+        private void GetAlignmentWithIndex(BAMIndexFile bamIndexFile, int refSeqIndex, int start, int end,
+               SAMAlignmentHeader header, ref SequenceAlignmentMap seqMap)
+        {
+            BAMIndex bamIndexInfo;
+            BAMReferenceIndexes refIndex;
+            IList<Chunk> chunks;
+            seqMap = new SequenceAlignmentMap(header);
+
+            bamIndexInfo = bamIndexFile.Read();
+
+            if (refSeqIndex != -1 && bamIndexInfo.RefIndexes.Count <= refSeqIndex)
+            {
+                throw new ArgumentOutOfRangeException("refSeqIndex");
+            }
+
+            refIndex = bamIndexInfo.RefIndexes[refSeqIndex];
+
+            if (start == 0 && end == int.MaxValue)
+            {
+                chunks = GetChunks(refIndex);
+            }
+            else
+            {
+                chunks = GetChunks(refIndex, start, end);
+            }
+
+            IList<SAMAlignedSequence> alignedSeqs = GetAlignedSequences(chunks, start, end);
+            foreach (SAMAlignedSequence alignedSeq in alignedSeqs)
+            {
+                seqMap.QuerySequences.Add(alignedSeq);
+            }
+
+            readStream = null;
+        }
+
+        //TODO: Actually make this method less complex.  A good way would be to factor out the indexing from the parser, as they are really too
+        //separate and independent tasks
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]
+        private void GetAlignmentWithoutIndex(SAMAlignmentHeader header, ref SequenceAlignmentMap seqMap)
+        {
+            Chunk lastChunk = null;
+            ulong lastcOffset = 0;
+            ushort lastuOffset = 0;
+            BAMReferenceIndexes refIndices = null;
+            int lastBin = int.MaxValue;
+            Bin bin;
+            Chunk chunk;
+            int lastRefSeqIndex = 0;
+            int lastRefPos = Int32.MinValue;
+            int curRefSeqIndex;
+
+            if (createBamIndex)
+            {
+                bamIndex = new BAMIndex();
+                for (int i = 0; i < refSeqNames.Count; i++)
+                {
+                    bamIndex.RefIndexes.Add(new BAMReferenceIndexes());
+                }
+                refIndices = bamIndex.RefIndexes[0];
+            }
+
+            if (!createBamIndex && seqMap == null)
+            {
+                seqMap = new SequenceAlignmentMap(header);
+            }
+
+            while (!IsEOF())
+            {
+                if (createBamIndex)
+                {
+                    lastcOffset = (ulong)currentCompressedBlockStartPos;
+                    lastuOffset = (ushort)deCompressedStream.Position;
+                }
+
+                SAMAlignedSequence alignedSeq = GetAlignedSequence(0, int.MaxValue);
+               
+                #region BAM indexing
+                if (createBamIndex)
+                {
+                    curRefSeqIndex = refSeqNames.IndexOf(alignedSeq.RName);
+                    if (lastRefSeqIndex != curRefSeqIndex)
+                    {
+                        //switch to a new reference sequence and force the last bins to be unequal
+                        if (lastRefSeqIndex > curRefSeqIndex)
+                        {
+                            throw new InvalidDataException("The BAM file is not sorted.  " + alignedSeq.QName + " appears after a later sequence");
+                        }
+                        refIndices = bamIndex.RefIndexes[curRefSeqIndex];
+                        lastBin = int.MaxValue;
+                        lastRefSeqIndex = curRefSeqIndex;
+                        lastRefPos = Int32.MinValue;
+                    }
+                    if (lastRefPos > alignedSeq.Pos)
+                    {
+                        throw new InvalidDataException("The BAM file is not sorted.  " + alignedSeq.QName + " appears after a later sequence");                      
+                    }
+                    lastRefPos = alignedSeq.Pos;
+                    if (lastBin != alignedSeq.Bin)
+                    {
+                        //do we need to add a new bin here or have we already seen it?
+                        bin = refIndices.Bins.FirstOrDefault(B => B.BinNumber == alignedSeq.Bin);
+                        if (bin == null) {
+                            bin = new Bin();
+                            bin.BinNumber = (uint)alignedSeq.Bin;
+                            refIndices.Bins.Add(bin);
+                        }
+                        //update the chunk we have just finished with, this code also appears outside the loop 
+                        if (lastChunk != null){
+                            lastChunk.ChunkEnd.CompressedBlockOffset = lastcOffset;
+                            lastChunk.ChunkEnd.UncompressedBlockOffset = lastuOffset;
+                        }
+                        //make a new chunk for the new bin
+                        chunk = new Chunk();
+                        chunk.ChunkStart = new FileOffset();
+                        chunk.ChunkEnd = new FileOffset();
+                        chunk.ChunkStart.CompressedBlockOffset = lastcOffset;
+                        chunk.ChunkStart.UncompressedBlockOffset = lastuOffset;
+                        bin.Chunks.Add(chunk);
+                        //update variables
+                        lastChunk = chunk;
+                        lastBin = alignedSeq.Bin;
+                    }
+
+                    // store linear index other than 16k bins, that is bin number less than 4681.
+                    if (alignedSeq.Bin < 4681)
+                    {
+                        int pos = alignedSeq.Pos > 0 ? alignedSeq.Pos - 1 : 0;
+                        int end = alignedSeq.RefEndPos > 0 ? alignedSeq.RefEndPos - 1 : 0;
+                        pos = pos >> 14;
+                        end = end >> 14;
+                        if (refIndices.LinearOffsets.Count == 0)
+                        {
+                            refIndices.LinearOffsets.Add(new FileOffset());
+                        }
+
+                        if (refIndices.LinearOffsets.Count <= end)
+                        {
+                            for (int i = refIndices.LinearOffsets.Count; i <= end; i++)
+                            {
+                                refIndices.LinearOffsets.Add(new FileOffset());
+                            }
+                        }
+
+                        for (int i = pos + 1; i <= end; i++)
+                        {
+                            FileOffset offset = refIndices.LinearOffsets[i];
+                            if (offset.CompressedBlockOffset == 0 && offset.UncompressedBlockOffset == 0)
+                            {
+                                offset.CompressedBlockOffset = lastcOffset;
+                                offset.UncompressedBlockOffset = lastuOffset;
+                            }
+                        }
+                    }
+                }
+                #endregion
+                if (!createBamIndex && alignedSeq != null)
+                {
+                    seqMap.QuerySequences.Add(alignedSeq);
+                }
+                alignedSeq = null;
+            }
+
+            #region BAM Indexing
+            if (createBamIndex)
+            {
+                lastChunk.ChunkEnd.CompressedBlockOffset = (ulong)readStream.Position;
+                if (deCompressedStream != null) {
+                    lastChunk.ChunkEnd.UncompressedBlockOffset = (ushort)deCompressedStream.Position;
+                }
+                else {
+                    lastChunk.ChunkEnd.UncompressedBlockOffset = 0;
+                }
+            }
+            #endregion
+
+        }
+
+
+
+        private IEnumerable<SAMAlignedSequence> GetAlignmentWithoutIndexYield()
+        {
+            if (createBamIndex) { throw new InvalidProgramException("It was assumed that the index would not be created during enumeration, please check the logic"); }
+            while (!IsEOF())
+            {
+                SAMAlignedSequence alignedSeq = GetAlignedSequence(0, int.MaxValue);
+                yield return alignedSeq;
+                alignedSeq = null;
+            }
+        }
+
+       
+
+
+        #endregion
 
         /// <summary>
         /// Returns a SequenceAlignmentMap object by parsing a BAM file.
@@ -755,7 +1142,7 @@ public class BAMParser : IDisposable, ISequenceAlignmentParser
         {
             return GetAlignedSequence(0, int.MaxValue);
         }
-        #endregion
+
 
         #region Protected Methods
 
@@ -915,155 +1302,7 @@ public class BAMParser : IDisposable, ISequenceAlignmentParser
             }
         }
 
-        // Returns SequenceAlignmentMap object by parsing specified BAM stream.
-        private SequenceAlignmentMap GetAlignment(Stream reader)
-        {
-            if (reader == null || reader.Length == 0)
-            {
-                throw new FileFormatException(Properties.Resource.BAM_InvalidBAMFile);
-            }
-
-            readStream = reader;
-            ValidateReader();
-            SAMAlignmentHeader header = GetHeader();
-            SequenceAlignmentMap sequenceAlignmentMap = null;
-
-            int lastBin = int.MaxValue;
-            Chunk lastChunk = null;
-            Bin bin;
-            Chunk chunk;
-            int lastRefSeqIndex = 0;
-            int curRefSeqIndex;
-            ulong lastcOffset = 0;
-            ushort lastuOffset = 0;
-            BAMReferenceIndexes refIndices = null;
-
-            if (createBamIndex)
-            {
-                bamIndex = new BAMIndex();
-
-                for (int i = 0; i < refSeqNames.Count; i++)
-                {
-                    bamIndex.RefIndexes.Add(new BAMReferenceIndexes());
-                }
-
-                refIndices = bamIndex.RefIndexes[0];
-            }
-
-            if (!createBamIndex && sequenceAlignmentMap == null)
-            {
-                sequenceAlignmentMap = new SequenceAlignmentMap(header);
-            }
-
-            while (!IsEOF())
-            {
-                if (createBamIndex)
-                {
-                    lastcOffset = (ulong)currentCompressedBlockStartPos;
-                    lastuOffset = (ushort)deCompressedStream.Position;
-                }
-
-                SAMAlignedSequence alignedSeq = GetAlignedSequence(0, int.MaxValue);
-
-                #region BAM indexing
-                if (createBamIndex)
-                {
-                    curRefSeqIndex = refSeqNames.IndexOf(alignedSeq.RName);
-
-                    if (lastRefSeqIndex != curRefSeqIndex)
-                    {
-                        refIndices = bamIndex.RefIndexes[curRefSeqIndex];
-                        lastBin = int.MaxValue;
-                        lastRefSeqIndex = curRefSeqIndex;
-                    }
-
-                    if (lastBin != alignedSeq.Bin)
-                    {
-                        bin = refIndices.Bins.FirstOrDefault(B => B.BinNumber == alignedSeq.Bin);
-                        if (bin == null)
-                        {
-                            bin = new Bin();
-                            bin.BinNumber = (uint)alignedSeq.Bin;
-                            refIndices.Bins.Add(bin);
-                        }
-
-                        if (lastChunk != null)
-                        {
-                            lastChunk.ChunkEnd.CompressedBlockOffset = lastcOffset;
-                            lastChunk.ChunkEnd.UncompressedBlockOffset = lastuOffset;
-                        }
-
-                        chunk = new Chunk();
-                        chunk.ChunkStart = new FileOffset();
-                        chunk.ChunkEnd = new FileOffset();
-                        chunk.ChunkStart.CompressedBlockOffset = lastcOffset;
-                        chunk.ChunkStart.UncompressedBlockOffset = lastuOffset;
-                        bin.Chunks.Add(chunk);
-
-                        lastChunk = chunk;
-                        lastBin = alignedSeq.Bin;
-                    }
-
-                    // store linear index other than 16k bins, that is bin number less than 4681.
-                    if (alignedSeq.Bin < 4681)
-                    {
-                        int pos = alignedSeq.Pos > 0 ? alignedSeq.Pos - 1 : 0;
-                        int end = alignedSeq.RefEndPos > 0 ? alignedSeq.RefEndPos - 1 : 0;
-                        pos = pos >> 14;
-                        end = end >> 14;
-                        if (refIndices.LinearOffsets.Count == 0)
-                        {
-                            refIndices.LinearOffsets.Add(new FileOffset());
-                        }
-
-                        if (refIndices.LinearOffsets.Count <= end)
-                        {
-                            for (int i = refIndices.LinearOffsets.Count; i <= end; i++)
-                            {
-                                refIndices.LinearOffsets.Add(new FileOffset());
-                            }
-                        }
-
-                        for (int i = pos + 1; i <= end; i++)
-                        {
-                            FileOffset offset = refIndices.LinearOffsets[i];
-                            if (offset.CompressedBlockOffset == 0 && offset.UncompressedBlockOffset == 0)
-                            {
-                                offset.CompressedBlockOffset = lastcOffset;
-                                offset.UncompressedBlockOffset = lastuOffset;
-                            }
-                        }
-                    }
-                }
-                #endregion
-
-                if (!createBamIndex && alignedSeq != null)
-                {
-                    sequenceAlignmentMap.QuerySequences.Add(alignedSeq);
-                }
-
-                alignedSeq = null;
-            }
-
-            #region BAM Indexing
-            if (createBamIndex)
-            {
-                lastChunk.ChunkEnd.CompressedBlockOffset = (ulong)readStream.Position;
-
-                if (deCompressedStream != null)
-                {
-                    lastChunk.ChunkEnd.UncompressedBlockOffset = (ushort)deCompressedStream.Position;
-                }
-                else
-                {
-                    lastChunk.ChunkEnd.UncompressedBlockOffset = 0;
-                }
-            }
-            #endregion
-
-            return sequenceAlignmentMap;
-        }
-
+     
         /// <summary>
         /// Returns an aligned sequence by parses the BAM file.
         /// </summary>
@@ -1342,10 +1581,11 @@ public class BAMParser : IDisposable, ISequenceAlignmentParser
             }
 
             currentCompressedBlockStartPos = readStream.Position;
-
+            //read the bgzf header array
             readStream.Read(arrays, 0, 18);
+            //called xlen in the spec
             ELEN = Helper.GetUInt16(arrays, 10);
-
+            //verify there is an extra field, get the block size
             if (ELEN != 0)
             {
                 BSIZE = Helper.GetUInt16(arrays, 12 + ELEN - 2);
@@ -1426,154 +1666,58 @@ public class BAMParser : IDisposable, ISequenceAlignmentParser
         // Returns SequenceAlignmentMap by prasing specified BAM stream and BAMIndexFile for the specified reference sequence index.
         private SequenceAlignmentMap GetAlignment(Stream bamStream, BAMIndexFile bamIndexFile, int refSeqIndex)
         {
-            readStream = bamStream;
-            if (readStream == null || readStream.Length == 0)
-            {
-                throw new FileFormatException(Properties.Resource.BAM_InvalidBAMFile);
-            }
-
-            ValidateReader();
-            SAMAlignmentHeader header = GetHeader();
-
-            // verify whether the chromosome index is there in the header or not.
-            if (refSeqIndex < 0 || refSeqIndex >= header.ReferenceSequences.Count)
-            {
-                throw new ArgumentOutOfRangeException("refSeqIndex");
-            }
-
-            SequenceAlignmentMap seqMap = new SequenceAlignmentMap(header);
-
-            BAMIndex bamIndexInfo = bamIndexFile.Read();
-
-            if (bamIndexInfo.RefIndexes.Count <= refSeqIndex)
-            {
-                throw new ArgumentOutOfRangeException("refSeqIndex");
-            }
-
-            BAMReferenceIndexes refIndex = bamIndexInfo.RefIndexes[refSeqIndex];
-            IList<Chunk> chunks = GetChunks(refIndex);
-
-            IList<SAMAlignedSequence> alignedSeqs = GetAlignedSequences(chunks, 0, int.MaxValue);
-            foreach (SAMAlignedSequence alignedSeq in alignedSeqs)
-            {
-                seqMap.QuerySequences.Add(alignedSeq);
-            }
-
-            readStream = null;
-            return seqMap;
+            return GetAlignmentMap(bamStream, bamIndexFile, null, refSeqIndex);
         }
-
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+        private IEnumerable<SAMAlignedSequence> GetAlignmentYield(Stream bamStream, BAMIndexFile bamIndexFile, int refSeqIndex)
+        {
+            foreach (SAMAlignedSequence seq in GetAlignmentMapIterator(bamStream, bamIndexFile, null, refSeqIndex))
+            {
+                yield return seq;
+            }
+        }
         // Returns SequenceAlignmentMap by prasing specified BAM stream and BAMIndexFile for the specified reference sequence name.
         private SequenceAlignmentMap GetAlignment(Stream bamStream, BAMIndexFile bamIndexFile, string refSeqName)
         {
-            readStream = bamStream;
-            if (readStream == null || readStream.Length == 0)
+            return GetAlignmentMap(bamStream, bamIndexFile, refSeqName);
+    
+        }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+        private IEnumerable<SAMAlignedSequence> GetAlignmentYield(Stream bamStream, BAMIndexFile bamIndexFile, string refSeqName)
+        {
+            foreach (SAMAlignedSequence seq in GetAlignmentMapIterator(bamStream, bamIndexFile, refSeqName))
             {
-                throw new FileFormatException(Properties.Resource.BAM_InvalidBAMFile);
+                yield return seq;
             }
-
-            ValidateReader();
-            SAMAlignmentHeader header = GetHeader();
-
-            // verify whether there is any reads related to chromosome.
-            int refSeqIndex = refSeqNames.IndexOf(refSeqName);
-            if (refSeqIndex < 0)
-            {
-                string message = string.Format(CultureInfo.InvariantCulture, Properties.Resource.BAM_RefSeqNotFound, refSeqName);
-                throw new ArgumentException(message, "refSeqName");
-            }
-
-            SequenceAlignmentMap seqMap = new SequenceAlignmentMap(header);
-            BAMIndex bamIndexInfo = bamIndexFile.Read();
-
-            BAMReferenceIndexes refIndex = bamIndexInfo.RefIndexes[refSeqIndex];
-            IList<Chunk> chunks = GetChunks(refIndex);
-
-            IList<SAMAlignedSequence> alignedSeqs = GetAlignedSequences(chunks, 0, int.MaxValue);
-            foreach (SAMAlignedSequence alignedSeq in alignedSeqs)
-            {
-                seqMap.QuerySequences.Add(alignedSeq);
-            }
-            readStream = null;
-            return seqMap;
         }
 
         // Returns SequenceAlignmentMap by prasing specified BAM stream and BAMIndexFile for the specified reference sequence index.
         // this method uses linear index information also.
         private SequenceAlignmentMap GetAlignment(Stream bamStream, BAMIndexFile bamIndexFile, string refSeqName, int start, int end)
         {
-            readStream = bamStream;
-            if (readStream == null || readStream.Length == 0)
-            {
-                throw new FileFormatException(Properties.Resource.BAM_InvalidBAMFile);
-            }
-
-            ValidateReader();
-            SAMAlignmentHeader header = GetHeader();
-
-            // verify whether there is any reads related to chromosome.
-            int refSeqIndex = refSeqNames.IndexOf(refSeqName);
-            if (refSeqIndex < 0)
-            {
-                string message = string.Format(CultureInfo.InvariantCulture, Properties.Resource.BAM_RefSeqNotFound, refSeqName);
-                throw new ArgumentException(message, "refSeqName");
-            }
-
-            SequenceAlignmentMap seqMap = new SequenceAlignmentMap(header);
-
-            BAMIndex bamIndexInfo = bamIndexFile.Read();
-            BAMReferenceIndexes refIndex = bamIndexInfo.RefIndexes[refSeqIndex];
-            IList<Chunk> chunks = GetChunks(refIndex, start, end);
-
-            IList<SAMAlignedSequence> alignedSeqs = GetAlignedSequences(chunks, start, end);
-            foreach (SAMAlignedSequence alignedSeq in alignedSeqs)
-            {
-                seqMap.QuerySequences.Add(alignedSeq);
-            }
-
-            readStream = null;
-            return seqMap;
+            return GetAlignmentMap(bamStream, bamIndexFile, refSeqName, null, start, end);
         }
-
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+        private IEnumerable<SAMAlignedSequence> GetAlignmentYield(Stream bamStream, BAMIndexFile bamIndexFile, string refSeqName, int start, int end)
+        {
+            foreach (SAMAlignedSequence seq in GetAlignmentMapIterator(bamStream, bamIndexFile, refSeqName, -1, start, end))
+            {
+                yield return seq;
+            }
+        }
         // Returns SequenceAlignmentMap by prasing specified BAM stream and BAMIndexFile for the specified reference sequence index.
         // this method uses linear index information also.
         private SequenceAlignmentMap GetAlignment(Stream bamStream, BAMIndexFile bamIndexFile, int refSeqIndex, int start, int end)
         {
-            readStream = bamStream;
-            if (readStream == null || readStream.Length == 0)
+            return GetAlignmentMap(bamStream, bamIndexFile, null, refSeqIndex, start, end);
+        }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+        private IEnumerable<SAMAlignedSequence> GetAlignmentYield(Stream bamStream, BAMIndexFile bamIndexFile, int refSeqIndex, int start, int end)
+        {
+            foreach (SAMAlignedSequence seq in GetAlignmentMapIterator(bamStream, bamIndexFile, null, refSeqIndex, start, end))
             {
-                throw new FileFormatException(Properties.Resource.BAM_InvalidBAMFile);
+                yield return seq;
             }
-
-            ValidateReader();
-            SAMAlignmentHeader header = GetHeader();
-
-            // verify whether there is any reads related to chromosome.
-            if (refSeqIndex < 0 || refSeqIndex >= header.ReferenceSequences.Count)
-            {
-                throw new ArgumentOutOfRangeException("refSeqIndex");
-            }
-
-            SequenceAlignmentMap seqMap = new SequenceAlignmentMap(header);
-
-            BAMIndex bamIndexInfo = bamIndexFile.Read();
-
-            if (bamIndexInfo.RefIndexes.Count < refSeqIndex)
-            {
-                throw new ArgumentOutOfRangeException("refSeqIndex");
-            }
-
-            BAMReferenceIndexes refIndex = bamIndexInfo.RefIndexes[refSeqIndex];
-            IList<Chunk> chunks = GetChunks(refIndex, start, end);
-
-            IList<SAMAlignedSequence> alignedSeqs = GetAlignedSequences(chunks, start, end);
-            foreach (SAMAlignedSequence alignedSeq in alignedSeqs)
-            {
-                seqMap.QuerySequences.Add(alignedSeq);
-            }
-
-            readStream = null;
-            return seqMap;
         }
 
         // Gets aligned sequence from the specified chunks of the BAM file which overlaps with the specified start and end co-ordinates.

@@ -18,7 +18,7 @@ namespace Bio.Tests.IO.BAM
         /// </summary>
         [TestMethod]
         [Priority(0)]
-        [TestCategory("Priority0")]
+        [TestCategory("Priority0"), TestCategory("BAM")]
         public void TestParser()
         {
             string filePath = @"TestUtils\BAM\SeqAlignment.bam";
@@ -43,7 +43,7 @@ namespace Bio.Tests.IO.BAM
         /// </summary>
         [TestMethod]
         [Priority(0)]
-        [TestCategory("Priority0")]
+        [TestCategory("Priority0"),TestCategory("BAM")]
         public void TestFormatter()
         {
             string filePath = @"TestUtils\BAM\SeqAlignment.bam";
@@ -103,7 +103,7 @@ namespace Bio.Tests.IO.BAM
         /// </summary>
         [TestMethod]
         [Priority(0)]
-        [TestCategory("Priority0")]
+        [TestCategory("Priority0"), TestCategory("BAM")]
         public void BAMProperties()
         {
             using (BAMParser parser = new BAMParser())
@@ -125,7 +125,7 @@ namespace Bio.Tests.IO.BAM
         /// </summary>
         [TestMethod]
         [Priority(0)]
-        [TestCategory("Priority0")]
+        [TestCategory("Priority0"), TestCategory("BAM")]
         public void TestFormatterWithSort()
         {
             string inputFilePath = @"TestUtils\BAM\SeqAlignment.bam";

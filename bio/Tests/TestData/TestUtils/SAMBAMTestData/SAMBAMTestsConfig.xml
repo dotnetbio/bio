@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <AutomationTest>
   <SmallSAMFile>
     <FilePath>TestUtils\SAMBAMTestData\SeqAlignment.sam</FilePath>
@@ -203,7 +203,7 @@
     <Metadata>1</Metadata>
     <MPos>0</MPos>
     <OptionalFields>3</OptionalFields>
-    <Pos>5212</Pos>
+    <Pos>1</Pos>
     <QueryLength>35</QueryLength>
     <RName>gi|110640213|ref|NC_008253.1|</RName>
   </BAMAlignedSeqProperties>
@@ -280,7 +280,7 @@
     <Mean>200</Mean>
     <deviation>50</deviation>
     <InsertLength>0,0</InsertLength>
-    <PairedReadType>Chimera,MultipleHits,Orphan,Chimera,Orphan,Normal</PairedReadType>    
+    <PairedReadType>Chimera,MultipleHits,Orphan,Chimera,Orphan,Normal</PairedReadType>
     <LibraryName>2K</LibraryName>
   </PairedReadTypesForMeanAndDeviation>
   <PairedReadTypesForReads>
@@ -303,4 +303,7 @@
     <PairedReadType>Chimera,Chimera,Orphan,Chimera,Orphan,LengthAnomaly</PairedReadType>
     <LibraryName>2K</LibraryName>
   </PairedReadTypesForLibraryInfo>
+  <UnsortedBAM>
+    <FilePath>TestUtils\SAMBAMTestData\SortedByName.bam</FilePath>
+  </UnsortedBAM>
 </AutomationTest>

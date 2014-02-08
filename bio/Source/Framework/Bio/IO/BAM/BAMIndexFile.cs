@@ -164,19 +164,20 @@ namespace Bio.IO.BAM
                 {
                     Bin bin = new Bin();
                     bamindices.Bins.Add(bin);
-
                     Read(arrays, 0, 4);
-
                     bin.BinNumber = Helper.GetUInt32(arrays, 0);
                     Read(arrays, 0, 4);
                     int n_chunk = Helper.GetInt32(arrays, 0);
-                    if (bin.BinNumber == MAX_BINS)//some groups use this to place meta-data, such as the picard toolkit
+                    if (bin.BinNumber == MAX_BINS)//some groups use this to place meta-data, such as the picard toolkit and now SAMTools
                     {
-                        //Skip over the meta data here, it is currently not part of the specificaiton 7/17/2013
+                        //Meta data was later added in to the SAMTools specification
                         for (Int32 chunkIndex = 0; chunkIndex < n_chunk; chunkIndex++)
                         {
+                            bamindices.HasMetaData = true;
                             Read(arrays, 0, 8);
+                            bamindices.MappedReads = Helper.GetUInt64(arrays, 0);
                             Read(arrays, 0, 8);
+                            bamindices.UnMappedReads = Helper.GetUInt64(arrays, 0);
                         }
                     }
                     else if (bin.BinNumber > MAX_BINS)
@@ -196,7 +197,7 @@ namespace Bio.IO.BAM
                         }
                     }
                 }
-
+                //Get number of linear bins
                 Read(arrays, 0, 4);
                 int n_intv = Helper.GetInt32(arrays, 0);
 

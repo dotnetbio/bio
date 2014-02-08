@@ -2145,6 +2145,7 @@ namespace Bio.TestAutomation.Util
         public const string AlignedSeqCountNode = "AlignedSeqCount";
         public const string BAMTempFileName = "Temp.bam";
         public const string BAMToSAMConversionNode = "BAMTOSAMConversion";
+        public const string BAMUnsortedFilePath = "UnsortedBAM";
         public const string BAMTempIndexFile = "Temp.bam.bai";
         public const string BAMTempIndexFileForIndexData = "TempIndexFile.bam.bai";
         public const string BAMTempIndexFileForSequenceAlignment = "TempIndexFileSequence.bam.bai";

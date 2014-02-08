@@ -1120,6 +1120,35 @@ namespace Bio.Util
         }
 
         /// <summary>
+        /// Returns 32 bit unsigned integer from the byte array stored as little-endian.
+        /// </summary>
+        /// <param name="byteArray">byte array.</param>
+        /// <param name="startIndex">Start index of the byte array.</param>
+        public static UInt32 GetUInt64(byte[] byteArray, int startIndex)
+        {
+            if (byteArray == null)
+            {
+                throw new ArgumentNullException("byteArray");
+            }
+
+            if (startIndex < 0 || startIndex >= byteArray.Length)
+            {
+                throw new ArgumentOutOfRangeException("startIndex");
+            }
+
+            return (UInt32)(byteArray[startIndex + 7] << 56)+
+                (UInt32)(byteArray[startIndex + 6] << 48)+
+                (UInt32)(byteArray[startIndex + 5] << 40)+
+                (UInt32)(byteArray[startIndex + 4] << 32)+
+                (UInt32)(byteArray[startIndex + 3] << 24)+
+                (UInt32)(byteArray[startIndex + 2] << 16)+
+                (UInt32)(byteArray[startIndex + 1] << 8)+
+                (UInt32)byteArray[startIndex];
+        }
+
+
+
+        /// <summary>
         /// Returns 16 bit signed integer from the byte array stored as little-endian.
         /// </summary>
         /// <param name="byteArray">byte array.</param>

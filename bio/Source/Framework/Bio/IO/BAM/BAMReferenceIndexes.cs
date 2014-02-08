@@ -18,6 +18,18 @@ namespace Bio.IO.BAM
         /// </summary>
         public IList<FileOffset> LinearOffsets { get; private set; }
 
+
+        public bool HasMetaData {get;internal set;}
+
+        public ulong MappedReads { get; internal set; }
+
+        public ulong UnMappedReads { get; internal set; }
+
+        //TODO: Currently these are in a pull request on github, see if they show up
+        //public FileOffset UnmappedOffSetStart { get; private set; }
+        //public FileOffset UnmappedOffSetEnd { get; private set; }
+
+
         /// <summary>
         /// Creats new instance of BAMReferenceIndexes class.
         /// </summary>

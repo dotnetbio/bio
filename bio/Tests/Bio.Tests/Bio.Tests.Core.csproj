@@ -2282,6 +2282,9 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="TestUtils\BAM\SortedByName.bam" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>Xcopy /Y /S "$(ProjectDir)\..\TestData\TestUtils\*" "$(TargetDir)\TestUtils\*"</PostBuildEvent>

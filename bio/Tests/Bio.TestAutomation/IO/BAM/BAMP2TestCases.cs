@@ -73,7 +73,7 @@ namespace Bio.TestAutomation.IO.BAM
         /// </summary>
         [TestMethod]
         [Priority(2)]
-        [TestCategory("Priority2")]
+        [TestCategory("Priority1"), TestCategory("BAM")]
         public void InValidateSequenceAlignmentParseTextReader()
         {
             InValidateISequenceAlignmentBAMParser(Constants.SmallSizeBAMFileNode,
@@ -87,7 +87,7 @@ namespace Bio.TestAutomation.IO.BAM
         /// </summary>
         [TestMethod]
         [Priority(2)]
-        [TestCategory("Priority2")]
+        [TestCategory("Priority1"), TestCategory("BAM")]
         public void InvalidateBAMParserForInvalidStreamInput()
         {
             InValidateSeqAlignmentMapBAMParser(Constants.InvalidBAMFileNode,
@@ -101,7 +101,7 @@ namespace Bio.TestAutomation.IO.BAM
         /// </summary>
         [TestMethod]
         [Priority(2)]
-        [TestCategory("Priority2")]
+        [TestCategory("Priority1"), TestCategory("BAM")]
         public void InvalidateBAMParserForInvalidBAMFile()
         {
             InValidateSeqAlignmentMapBAMParser(Constants.SmallSizeBAMFileNode,
@@ -116,7 +116,7 @@ namespace Bio.TestAutomation.IO.BAM
         /// </summary>
         [TestMethod]
         [Priority(2)]
-        [TestCategory("Priority2")]
+        [TestCategory("Priority1"), TestCategory("BAM")]
         public void InvalidateGetIndexFromBAMFile()
         {
             // Create BAM Parser object
@@ -145,7 +145,7 @@ namespace Bio.TestAutomation.IO.BAM
         /// </summary>
         [TestMethod]
         [Priority(2)]
-        [TestCategory("Priority2")]
+        [TestCategory("Priority1"), TestCategory("BAM")]
         public void InvalidateGetIndexFromBAMFileUsingStream()
         {
             // Create BAM Parser object
@@ -173,7 +173,7 @@ namespace Bio.TestAutomation.IO.BAM
         /// </summary>
         [TestMethod]
         [Priority(2)]
-        [TestCategory("Priority2")]
+        [TestCategory("Priority1"), TestCategory("BAM")]
         public void InValidateSequenceAlignmentParseOneTextReader()
         {
             InValidateISequenceAlignmentBAMParser(Constants.SmallSizeBAMFileNode,
@@ -187,7 +187,7 @@ namespace Bio.TestAutomation.IO.BAM
         /// </summary>
         [TestMethod]
         [Priority(2)]
-        [TestCategory("Priority2")]
+        [TestCategory("Priority1"), TestCategory("BAM")]
         public void InvalidateParseRangeForInvalidInputs()
         {
             InValidateSeqAlignmentMapBAMParser(Constants.SmallSizeBAMFileNode,
@@ -201,7 +201,7 @@ namespace Bio.TestAutomation.IO.BAM
         /// </summary>
         [TestMethod]
         [Priority(2)]
-        [TestCategory("Priority2")]
+        [TestCategory("Priority1"), TestCategory("BAM")]
         public void InvalidateParseRangeForInvalidSequenceRange()
         {
             InValidateSeqAlignmentMapBAMParser(Constants.SmallSizeBAMFileNode,
@@ -215,7 +215,7 @@ namespace Bio.TestAutomation.IO.BAM
         /// </summary>
         [TestMethod]
         [Priority(2)]
-        [TestCategory("Priority2")]
+        [TestCategory("Priority1"), TestCategory("BAM")]
         public void InvalidateSetAlphabet()
         {
             // Create BAM Parser object
@@ -248,7 +248,7 @@ namespace Bio.TestAutomation.IO.BAM
         /// </summary>
         [TestMethod]
         [Priority(2)]
-        [TestCategory("Priority2")]
+        [TestCategory("Priority1"), TestCategory("BAM")]
         public void InvalidateBAMFormatMethods()
         {
             InValidateBAMFormatter(Constants.SmallSizeBAMFileNode);
@@ -262,7 +262,7 @@ namespace Bio.TestAutomation.IO.BAM
         /// </summary>
         [TestMethod]
         [Priority(2)]
-        [TestCategory("Priority2")]
+        [TestCategory("Priority1"), TestCategory("BAM")]
         public void InvalidateBAMFormatMethodsWithISequenceAlignment()
         {
             InValidateBAMFormatterWithSequenceAlignment(
@@ -274,7 +274,7 @@ namespace Bio.TestAutomation.IO.BAM
         /// </summary>
         [TestMethod]
         [Priority(2)]
-        [TestCategory("Priority2")]
+        [TestCategory("Priority1"), TestCategory("BAM")]
         public void InvalidateBAMFormatterWriteHeader()
         {
             //pass null value for stream
@@ -312,7 +312,7 @@ namespace Bio.TestAutomation.IO.BAM
         /// </summary>
         [TestMethod]
         [Priority(2)]
-        [TestCategory("Priority2")]
+        [TestCategory("Priority1"), TestCategory("BAM")]
         public void InvalidateWriteAlignedSequence()
         {
             //pass nul for SAMAlignmentHeader
@@ -367,7 +367,7 @@ namespace Bio.TestAutomation.IO.BAM
         /// </summary>
         [TestMethod]
         [Priority(2)]
-        [TestCategory("Priority2")]
+        [TestCategory("Priority1"), TestCategory("BAM")]
         public void InvalidateCompressBAMFile()
         {
             //pass null for stream
@@ -415,7 +415,7 @@ namespace Bio.TestAutomation.IO.BAM
         [SuppressMessage("Microsoft.Usage", "CA1806:DoNotIgnoreMethodResults", MessageId = "Bio.IO.BAM.BAMIndexFile"),
          TestMethod]
         [Priority(2)]
-        [TestCategory("Priority2")]
+        [TestCategory("Priority1"), TestCategory("BAM")]
         public void InvalidateBAMIndexFile()
         {
             //set source stream as null            
