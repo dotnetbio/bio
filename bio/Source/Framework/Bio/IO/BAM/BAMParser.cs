@@ -18,7 +18,7 @@ namespace Bio.IO.BAM
     /// Documentation for the latest BAM file format can be found at
     /// http://samtools.sourceforge.net/SAM1.pdf
     /// </summary>
-public class BAMParser : IDisposable, ISequenceAlignmentParser
+public partial class BAMParser : IDisposable, ISequenceAlignmentParser
     {
         #region Private Fields
   
@@ -349,31 +349,26 @@ public class BAMParser : IDisposable, ISequenceAlignmentParser
         // Gets chunks for specified ref seq index, start and end co-ordinate this method considers linear index also.
         private static IList<Chunk> GetChunks(BAMReferenceIndexes refIndex, int start, int end)
         {
-            List<Chunk> chunks = new List<Chunk>();
+            //get all bins that overlap
             IList<uint> binnumbers = Reg2Bins((uint)start, (uint)end);
-            List<Bin> bins = refIndex.Bins.Where(B => binnumbers.Contains(B.BinNumber)).ToList();
-
-            // consider linear indexing only for the bins less than 4681.
-            foreach (Bin bin in bins.Where(B => B.BinNumber < 4681))
+            //now only get those that match
+            List<Chunk> chunks = refIndex.Bins.Where(B => binnumbers.Contains(B.BinNumber)).SelectMany(x=>x.Chunks).ToList();
+            //now use linear indexing to filter any chunks that end before the first start
+            if (refIndex.LinearIndex.Count > 0)
             {
-                chunks.InsertRange(chunks.Count, bin.Chunks);
+                var binStart = start >> 14;
+                FileOffset minStart;
+                if (refIndex.Bins.Count <= binStart)
+                {
+                    minStart = refIndex.LinearIndex[binStart];
+                }
+                else
+                {
+                    minStart = refIndex.LinearIndex.Last();
+                }
+                chunks = chunks.Where(x => x.ChunkEnd >= minStart).ToList();
             }
-
-            int index = start / (16 * 1024);  // Linear indexing window size is 16K
-
-            if (refIndex.LinearOffsets.Count > index)
-            {
-                FileOffset offset = refIndex.LinearOffsets[index];
-                chunks = chunks.Where(C => C.ChunkEnd.CompressedBlockOffset > offset.CompressedBlockOffset || (C.ChunkEnd.CompressedBlockOffset == offset.CompressedBlockOffset && C.ChunkEnd.UncompressedBlockOffset > offset.UncompressedBlockOffset)).ToList();
-            }
-
-            // add chunks for the bin numbers greater than 4681.
-            foreach (Bin bin in bins.Where(B => B.BinNumber >= 4681))
-            {
-                chunks.InsertRange(chunks.Count, bin.Chunks);
-            }
-
-            return SortAndMergeChunks(chunks);
+                return SortAndMergeChunks(chunks);
         }
 
         /// <summary>
@@ -383,6 +378,7 @@ public class BAMParser : IDisposable, ISequenceAlignmentParser
         private static List<Chunk> SortAndMergeChunks(List<Chunk> chunks)
         {
             List<Chunk> sortedChunks = chunks.OrderBy(C => C, ChunkSorterForMerging.GetInstance()).ToList();
+
 
             for (int i = 0; i < sortedChunks.Count - 1; i++)
             {
@@ -433,7 +429,6 @@ public class BAMParser : IDisposable, ISequenceAlignmentParser
             ValidateReader();
             header = GetHeader();
             seqMap = null;
-
             if (refSeqIndex.HasValue && refSeqName == null)
             {
                 // verify whether the chromosome index is there in the header or not.
@@ -455,7 +450,6 @@ public class BAMParser : IDisposable, ISequenceAlignmentParser
             {
                 throw new ArgumentException("Received values for params reSeqIndex and refSeqName. Only one parameter can have a value, not both.");
             }
-
             if (refSeqIndex.HasValue)
             {
                 if (bamIndexFile != null)
@@ -471,7 +465,6 @@ public class BAMParser : IDisposable, ISequenceAlignmentParser
             {
                 GetAlignmentWithoutIndex(header, ref seqMap);
             }
-
             return seqMap;
         }
 
@@ -480,7 +473,7 @@ public class BAMParser : IDisposable, ISequenceAlignmentParser
         /// </summary>
         /// <param name="fileName">File name to read.</param>
         /// <returns>IEnumerable SAMAlignedSequence object.</returns>
-        public IEnumerable<SAMAlignedSequence> ParseSequenceAsEnumberable(string fileName)
+        public IEnumerable<SAMAlignedSequence> ParseSequenceAsEnumerable(string fileName)
         {
             bamFilename = fileName;
 
@@ -491,7 +484,7 @@ public class BAMParser : IDisposable, ISequenceAlignmentParser
 
             using (readStream = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
             {
-                foreach (SAMAlignedSequence seq in ParseSequence(readStream))
+                foreach (SAMAlignedSequence seq in ParseSequenceAsEnumerable(readStream))
                 {
                     yield return seq;
                 }
@@ -502,7 +495,7 @@ public class BAMParser : IDisposable, ISequenceAlignmentParser
         /// </summary>
         /// <param name="reader">Stream to read</param>
         /// <returns>IEnumerable SAMAlignedSequence object.</returns>
-        public IEnumerable<SAMAlignedSequence> ParseSequence(Stream reader)
+        public IEnumerable<SAMAlignedSequence> ParseSequenceAsEnumerable(Stream reader)
         {
             if (reader == null)
             {
@@ -648,14 +641,10 @@ public class BAMParser : IDisposable, ISequenceAlignmentParser
             readStream = null;
         }
 
-        //TODO: Actually make this method less complex.  A good way would be to factor out the indexing from the parser, as they are really too
-        //separate and independent tasks
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]
         private void GetAlignmentWithoutIndex(SAMAlignmentHeader header, ref SequenceAlignmentMap seqMap)
         {
             Chunk lastChunk = null;
-            ulong lastcOffset = 0;
-            ushort lastuOffset = 0;
+            FileOffset lastOffSet=new FileOffset(0,0);
             BAMReferenceIndexes refIndices = null;
             int lastBin = int.MaxValue;
             Bin bin;
@@ -663,35 +652,30 @@ public class BAMParser : IDisposable, ISequenceAlignmentParser
             int lastRefSeqIndex = 0;
             int lastRefPos = Int32.MinValue;
             int curRefSeqIndex;
-
             if (createBamIndex)
             {
                 bamIndex = new BAMIndex();
-                for (int i = 0; i < refSeqNames.Count; i++)
+                for (int i = 0; i < refSeqLengths.Count; i++)
                 {
-                    bamIndex.RefIndexes.Add(new BAMReferenceIndexes());
+                    bamIndex.RefIndexes.Add(new BAMReferenceIndexes(refSeqLengths[i]));
                 }
                 refIndices = bamIndex.RefIndexes[0];
             }
-
             if (!createBamIndex && seqMap == null)
             {
                 seqMap = new SequenceAlignmentMap(header);
             }
-
             while (!IsEOF())
             {
                 if (createBamIndex)
                 {
-                    lastcOffset = (ulong)currentCompressedBlockStartPos;
-                    lastuOffset = (ushort)deCompressedStream.Position;
+                    lastOffSet=new FileOffset((ulong)currentCompressedBlockStartPos,(ushort)deCompressedStream.Position);
                 }
-
                 SAMAlignedSequence alignedSeq = GetAlignedSequence(0, int.MaxValue);
-               
                 #region BAM indexing
                 if (createBamIndex)
                 {
+                    //TODO: This linear lookup is probably performance murder if many names
                     curRefSeqIndex = refSeqNames.IndexOf(alignedSeq.RName);
                     if (lastRefSeqIndex != curRefSeqIndex)
                     {
@@ -709,63 +693,34 @@ public class BAMParser : IDisposable, ISequenceAlignmentParser
                     {
                         throw new InvalidDataException("The BAM file is not sorted.  " + alignedSeq.QName + " appears after a later sequence");                      
                     }
+                 
                     lastRefPos = alignedSeq.Pos;
+                    //update Bins when we switch over
                     if (lastBin != alignedSeq.Bin)
                     {
                         //do we need to add a new bin here or have we already seen it?
                         bin = refIndices.Bins.FirstOrDefault(B => B.BinNumber == alignedSeq.Bin);
-                        if (bin == null) {
+                        if (bin == null)
+                        {
                             bin = new Bin();
                             bin.BinNumber = (uint)alignedSeq.Bin;
                             refIndices.Bins.Add(bin);
                         }
                         //update the chunk we have just finished with, this code also appears outside the loop 
-                        if (lastChunk != null){
-                            lastChunk.ChunkEnd.CompressedBlockOffset = lastcOffset;
-                            lastChunk.ChunkEnd.UncompressedBlockOffset = lastuOffset;
+                        if (lastChunk != null)
+                        {
+                            lastChunk.ChunkEnd = lastOffSet;
                         }
                         //make a new chunk for the new bin
                         chunk = new Chunk();
-                        chunk.ChunkStart = new FileOffset();
-                        chunk.ChunkEnd = new FileOffset();
-                        chunk.ChunkStart.CompressedBlockOffset = lastcOffset;
-                        chunk.ChunkStart.UncompressedBlockOffset = lastuOffset;
+                        chunk.ChunkStart = lastOffSet;
                         bin.Chunks.Add(chunk);
                         //update variables
                         lastChunk = chunk;
                         lastBin = alignedSeq.Bin;
                     }
-
-                    // store linear index other than 16k bins, that is bin number less than 4681.
-                    if (alignedSeq.Bin < 4681)
-                    {
-                        int pos = alignedSeq.Pos > 0 ? alignedSeq.Pos - 1 : 0;
-                        int end = alignedSeq.RefEndPos > 0 ? alignedSeq.RefEndPos - 1 : 0;
-                        pos = pos >> 14;
-                        end = end >> 14;
-                        if (refIndices.LinearOffsets.Count == 0)
-                        {
-                            refIndices.LinearOffsets.Add(new FileOffset());
-                        }
-
-                        if (refIndices.LinearOffsets.Count <= end)
-                        {
-                            for (int i = refIndices.LinearOffsets.Count; i <= end; i++)
-                            {
-                                refIndices.LinearOffsets.Add(new FileOffset());
-                            }
-                        }
-
-                        for (int i = pos + 1; i <= end; i++)
-                        {
-                            FileOffset offset = refIndices.LinearOffsets[i];
-                            if (offset.CompressedBlockOffset == 0 && offset.UncompressedBlockOffset == 0)
-                            {
-                                offset.CompressedBlockOffset = lastcOffset;
-                                offset.UncompressedBlockOffset = lastuOffset;
-                            }
-                        }
-                    }
+                    //UPDATE LINEAR INDEX AND PROCESS READ FOR META-DATA
+                    refIndices.AddReadToIndexInformation(alignedSeq,lastOffSet);                    
                 }
                 #endregion
                 if (!createBamIndex && alignedSeq != null)
@@ -778,12 +733,17 @@ public class BAMParser : IDisposable, ISequenceAlignmentParser
             #region BAM Indexing
             if (createBamIndex)
             {
-                lastChunk.ChunkEnd.CompressedBlockOffset = (ulong)readStream.Position;
+                ulong compressedOff=(ulong)readStream.Position;
+                ushort uncompressedEnd=0;
+                //TODO: Shouldn't this always be true?  Or go to max value?
                 if (deCompressedStream != null) {
-                    lastChunk.ChunkEnd.UncompressedBlockOffset = (ushort)deCompressedStream.Position;
+                    uncompressedEnd = (ushort)deCompressedStream.Position;
                 }
-                else {
-                    lastChunk.ChunkEnd.UncompressedBlockOffset = 0;
+                FileOffset veryLast=new FileOffset(compressedOff,uncompressedEnd);
+                lastChunk.ChunkEnd=veryLast;
+                foreach (var ri in bamIndex.RefIndexes)
+                {
+                    ri.Freeze();
                 }
             }
             #endregion
@@ -1270,19 +1230,19 @@ public class BAMParser : IDisposable, ISequenceAlignmentParser
             for (int i = 0; i < bamIndex.RefIndexes.Count; i++)
             {
                 BAMReferenceIndexes bamRefIndex = bamIndex.RefIndexes[i];
+
                 for (int j = 0; j < bamRefIndex.Bins.Count; j++)
                 {
                     Bin bin = bamRefIndex.Bins[j];
                     int lastIndex = 0;
                     int noofchunksToRemove = 0;
-
                     for (int k = 1; k < bin.Chunks.Count; k++)
                     {
                         // check for the chunks which are in the same compressed blocks.
+                        //note picard merges the same or adjacent blocks, though I think that may be a coding error oon their part
                         if (bin.Chunks[lastIndex].ChunkEnd.CompressedBlockOffset == bin.Chunks[k].ChunkStart.CompressedBlockOffset)
                         {
-                            bin.Chunks[lastIndex].ChunkEnd.CompressedBlockOffset = bin.Chunks[k].ChunkEnd.CompressedBlockOffset;
-                            bin.Chunks[lastIndex].ChunkEnd.UncompressedBlockOffset = bin.Chunks[k].ChunkEnd.UncompressedBlockOffset;
+                            bin.Chunks[lastIndex].ChunkEnd = bin.Chunks[k].ChunkEnd;
                             noofchunksToRemove++;
                         }
                         else
@@ -1290,7 +1250,6 @@ public class BAMParser : IDisposable, ISequenceAlignmentParser
                             bin.Chunks[++lastIndex] = bin.Chunks[k];
                         }
                     }
-
                     if (noofchunksToRemove > 0)
                     {
                         for (int index = 0; index < noofchunksToRemove; index++)
@@ -1525,9 +1484,7 @@ public class BAMParser : IDisposable, ISequenceAlignmentParser
 
             return alignedSeq;
         }
-
-
-        
+            
 
 
         /// <summary>

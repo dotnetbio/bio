@@ -302,7 +302,7 @@ namespace Bio.IO.SAM
         {
             cigar = value;
             alignmentLength = GetRefSeqAlignmentLengthFromCIGAR();
-            bin = GetBin();
+            bin = GetBin();           
         }
 
         /// <summary>
@@ -565,7 +565,17 @@ namespace Bio.IO.SAM
         {
             // As SAM stores 1 based position and to calculte BAM Bin, zero based positions are required.
             int start = Pos - 1;
-            int end = start + alignmentLength - 1;
+
+            //This is strange, but do not seem to be getting a match with picard/samtools with the -1
+            //int end = start + alignmentLength - 1;
+            //Changing to match compatibility, think the other implementations are off due to
+            //repeated 0 to 1 index based conversions where they lost track of the current state.
+            int end;
+            if (alignmentLength == 0) { end = start + 1; }
+            else
+            {
+               end = start + alignmentLength;
+            }
             return RegionToBin(start, end);
         }
 

@@ -6,18 +6,44 @@ namespace Bio.IO.BAM
     /// <summary>
     /// Class to hold offset of a BAM file.
     /// </summary>
-    public class FileOffset : IComparable<FileOffset>
+    public struct FileOffset : IComparable<FileOffset>
     {
+        /// <summary>
+        /// The two types are stored  in one 64 bit field here.
+        /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields")]
+        public ulong BothDataElements;
         /// <summary>
         /// Gets or sets BGZF block start offset.
         /// </summary>
-        public UInt64 CompressedBlockOffset { get; set; }
+        public UInt64 CompressedBlockOffset { 
+            get 
+            {
+                return (BothDataElements >> 16);
+            } 
+        }
 
         /// <summary>
         /// Gets or sets an offset of uncompressed block inside a BGZF block 
         /// from which aligned sequences starts or ends.
         /// </summary>
-        public UInt16 UncompressedBlockOffset { get; set; }
+        public UInt16 UncompressedBlockOffset
+        {
+            get 
+            {
+                return (ushort)BothDataElements;
+            }
+        }
+        /// <summary>
+        /// Create a new file offset.
+        /// </summary>
+        /// <param name="compressedStreamPosition"></param>
+        /// <param name="decompressedStreamPosition"></param>
+        public FileOffset(ulong compressedStreamPosition, ushort decompressedStreamPosition)
+        {
+            BothDataElements = (compressedStreamPosition << 16) | decompressedStreamPosition;
+ 
+        }
 
         /// <summary>
         /// Compares two FileOffsets.
@@ -25,18 +51,7 @@ namespace Bio.IO.BAM
         /// <param name="other">Other file offset to compare.</param>
         public int CompareTo(FileOffset other)
         {
-            if (Object.ReferenceEquals(other, null))
-            {
-                return 1;
-            }
-
-            int result = CompressedBlockOffset.CompareTo(other.CompressedBlockOffset);
-            if (result == 0)
-            {
-                result = UncompressedBlockOffset.CompareTo(other.UncompressedBlockOffset);
-            }
-
-            return result;
+            return this.BothDataElements.CompareTo(other.BothDataElements);
         }
 
         /// <summary>
@@ -46,14 +61,9 @@ namespace Bio.IO.BAM
         /// <returns> true if obj has the same value as this instance; otherwise, false.</returns>
         public override bool Equals(object obj)
         {
-            FileOffset other = obj as FileOffset;
-
-            if (Object.ReferenceEquals(other, null))
-            {
-                return false;
-            }
-
-            return this.CompressedBlockOffset == other.CompressedBlockOffset && this.UncompressedBlockOffset == other.UncompressedBlockOffset;
+            if (!(obj is FileOffset)) { return false; }
+            FileOffset other = (FileOffset) obj;
+            return this.BothDataElements == other.BothDataElements ;
         }
 
         /// <summary>
@@ -63,12 +73,7 @@ namespace Bio.IO.BAM
         /// <returns> true if other has the same value as this instance; otherwise, false.</returns>
         public bool Equals(FileOffset other)
         {
-            if (Object.ReferenceEquals(other, null))
-            {
-                return false;
-            }
-
-            return this.CompressedBlockOffset == other.CompressedBlockOffset && this.UncompressedBlockOffset == other.UncompressedBlockOffset;
+            return this.BothDataElements == other.BothDataElements;
         }
 
         /// <summary>
@@ -78,17 +83,7 @@ namespace Bio.IO.BAM
         /// <param name="y">second operand.</param>
         public static bool operator ==(FileOffset x, FileOffset y)
         {
-            if (Object.ReferenceEquals(x, y))
-            {
-                return true;
-            }
-
-            if (Object.ReferenceEquals(x, null) || Object.ReferenceEquals(null, y))
-            {
-                return false;
-            }
-
-            return x.Equals(y);
+            return x.BothDataElements == y.BothDataElements;
         }
 
         /// <summary>
@@ -98,17 +93,26 @@ namespace Bio.IO.BAM
         /// <param name="y">second operand.</param>
         public static bool operator >(FileOffset x, FileOffset y)
         {
-            if (Object.ReferenceEquals(x, y))
-            {
-                return false;
-            }
+            return x.BothDataElements>y.BothDataElements;
+        }
+        /// <summary>
+        /// Returns a value indicating whether x is greater than or equal to y.
+        /// </summary>
+        /// <param name="x">First operand.</param>
+        /// <param name="y">second operand.</param>
+        public static bool operator >=(FileOffset x, FileOffset y)
+        {
+            return x.BothDataElements >= y.BothDataElements;
+        }
 
-            if (Object.ReferenceEquals(x, null))
-            {
-                return false;
-            }
-
-            return x.CompareTo(y) > 0;
+        /// <summary>
+        /// Returns a value indicating whether x is less than or equal to y.
+        /// </summary>
+        /// <param name="x">First operand.</param>
+        /// <param name="y">second operand.</param>
+        public static bool operator <=(FileOffset x, FileOffset y)
+        {
+            return x.BothDataElements <= y.BothDataElements;
         }
 
         /// <summary>
@@ -118,17 +122,7 @@ namespace Bio.IO.BAM
         /// <param name="y">second operand.</param>
         public static bool operator <(FileOffset x, FileOffset y)
         {
-            if (Object.ReferenceEquals(x, y))
-            {
-                return false;
-            }
-
-            if (Object.ReferenceEquals(y, null))
-            {
-                return false;
-            }
-
-            return y.CompareTo(x) > 0;
+            return x.BothDataElements < y.BothDataElements;
         }
 
         /// <summary>

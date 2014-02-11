@@ -10,13 +10,29 @@ namespace Bio.IO.BAM
     /// </summary>
     public class BAMIndexFile : IDisposable
     {
-       
+        #region Constants and Static Methods
         /// <summary>
         /// The highest number of bins allowed, meta-data can be stored in the chunks position for a bin
         /// this large
         /// </summary>
-        public const int MAX_BINS = 37450;   // =(8^6-1)/7+1
+        internal const int MAX_BINS = 37450;   // =(8^6-1)/7+1
 
+        /// <summary>
+        /// The number of 16kb (2^14) bins in the indexing scheme
+        /// </summary>
+        internal const int MAX_LINERINDEX_ARRAY_SIZE=MAX_BINS+1-4681;
+
+        /// <summary>
+        /// Not all sequences can get all possible bins, so this returns the largest sequence length possible
+        /// </summary>
+        /// <param name="sequenceLength"></param>
+        /// <returns></returns>
+        internal static int LargestBinPossibleForSequenceLength(int sequenceLength)
+        {
+            return 4681 + (sequenceLength >> 14);
+        }
+
+        #endregion 
         #region Private Fields
         // holds index stream
         private Stream sourceStream;
@@ -78,12 +94,10 @@ namespace Bio.IO.BAM
             {
                 throw new ArgumentNullException("bamIndex");
             }
-
             if (sourceStream == null)
             {
                 throw new InvalidOperationException(Properties.Resource.BAM_CantUseBAMIndexStreamDisposed);
             }
-
             byte[] arrays = new byte[20];
 
             byte[] magic = new byte[] { 66, 65, 73, 1 };
@@ -94,19 +108,26 @@ namespace Bio.IO.BAM
 
             for (Int32 refindex = 0; refindex < bamIndex.RefIndexes.Count; refindex++)
             {
+                
                 BAMReferenceIndexes bamindices = bamIndex.RefIndexes[refindex];
-                arrays = Helper.GetLittleEndianByteArray(bamindices.Bins.Count);
+                int binCount = bamindices.Bins.Count;
+                bool addingMetaData = bamindices.HasMetaData && BitConverter.IsLittleEndian;
+                if (addingMetaData)
+                {
+                    binCount++;
+                }                
+                arrays = Helper.GetLittleEndianByteArray(binCount);
                 Write(arrays, 0, 4);
-
+                //Write each bin
                 for (Int32 binIndex = 0; binIndex < bamindices.Bins.Count; binIndex++)
                 {
                     Bin bin = bamindices.Bins[binIndex];
                     arrays = Helper.GetLittleEndianByteArray(bin.BinNumber);
                     Write(arrays, 0, 4);
-
-                    arrays = Helper.GetLittleEndianByteArray(bin.Chunks.Count);
+                    int chunkCount = bin.Chunks.Count;
+                   
+                    arrays = Helper.GetLittleEndianByteArray(chunkCount);
                     Write(arrays, 0, 4);
-
                     for (Int32 chunkIndex = 0; chunkIndex < bin.Chunks.Count; chunkIndex++)
                     {
                         Chunk chunk = bin.Chunks[chunkIndex];
@@ -115,21 +136,39 @@ namespace Bio.IO.BAM
                         arrays = GetBAMOffsetArray(chunk.ChunkEnd);
                         Write(arrays, 0, 8);
                     }
+                    
                 }
-
-                arrays = Helper.GetLittleEndianByteArray(bamindices.LinearOffsets.Count);
-                Write(arrays, 0, 4);
-
-                for (Int32 offsetIndex = 0; offsetIndex < bamindices.LinearOffsets.Count; offsetIndex++)
+                //Add Meta Data - this varies by implementation, .NET Bio will do start and
+                //end of reads found in file and then mapped/unmapped
+                //TODO: Assumes little endian, only adds if so
+                if (addingMetaData)
                 {
-                    FileOffset value = bamindices.LinearOffsets[offsetIndex];
+                    //Dummy bin to indicate meta-data
+                    arrays = Helper.GetLittleEndianByteArray(BAMIndexFile.MAX_BINS);
+                    Write(arrays, 0, 4);
+                    //2 chunks worth of meta data
+                    //first the file offsets
+                    arrays = Helper.GetLittleEndianByteArray((int)2);
+                    Write(arrays, 0, 4);
+                    arrays = GetBAMOffsetArray(bamindices.FirstOffSetSeen);
+                    Write(arrays, 0, 8);
+                    arrays = GetBAMOffsetArray(bamindices.LastOffSetSeen);
+                    Write(arrays, 0, 8);
+                    arrays = BitConverter.GetBytes(bamindices.MappedReadsCount);
+                    Write(arrays, 0, 8);
+                    arrays = BitConverter.GetBytes(bamindices.UnMappedReadsCount);
+                    Write(arrays, 0, 8);
+                }
+                arrays = Helper.GetLittleEndianByteArray(bamindices.LinearIndex.Count);
+                Write(arrays, 0, 4);
+                for (Int32 offsetIndex = 0; offsetIndex < bamindices.LinearIndex.Count; offsetIndex++)
+                {
+                    FileOffset value = bamindices.LinearIndex[offsetIndex];
                     arrays = GetBAMOffsetArray(value);
                     Write(arrays, 0, 8);
                 }
-
                 sourceStream.Flush();
             }
-
             sourceStream.Flush();
         }
 
@@ -163,7 +202,6 @@ namespace Bio.IO.BAM
                 for (Int32 binIndex = 0; binIndex < n_bin; binIndex++)
                 {
                     Bin bin = new Bin();
-                    bamindices.Bins.Add(bin);
                     Read(arrays, 0, 4);
                     bin.BinNumber = Helper.GetUInt32(arrays, 0);
                     Read(arrays, 0, 4);
@@ -175,10 +213,11 @@ namespace Bio.IO.BAM
                         {
                             bamindices.HasMetaData = true;
                             Read(arrays, 0, 8);
-                            bamindices.MappedReads = Helper.GetUInt64(arrays, 0);
+                            bamindices.MappedReadsCount = Helper.GetUInt64(arrays, 0);
                             Read(arrays, 0, 8);
-                            bamindices.UnMappedReads = Helper.GetUInt64(arrays, 0);
+                            bamindices.UnMappedReadsCount = Helper.GetUInt64(arrays, 0);
                         }
+
                     }
                     else if (bin.BinNumber > MAX_BINS)
                     {
@@ -186,6 +225,7 @@ namespace Bio.IO.BAM
                     }
                     else
                     {
+                         bamindices.Bins.Add(bin);
                         for (Int32 chunkIndex = 0; chunkIndex < n_chunk; chunkIndex++)
                         {
                             Chunk chunk = new Chunk();
@@ -206,7 +246,7 @@ namespace Bio.IO.BAM
                     FileOffset value;
                     Read(arrays, 0, 8);
                     value = GetBAMOffset(arrays, 0);
-                    bamindices.LinearOffsets.Add(value);
+                    bamindices.LinearIndex.Add(value);
                 }
             }
             
@@ -245,17 +285,16 @@ namespace Bio.IO.BAM
         // Converts bytes array to FileOffset object.
         private static FileOffset GetBAMOffset(byte[] bytes, int startIndex)
         {
-            FileOffset offset = new FileOffset();
+            
             UInt64 value = bytes[startIndex + 7];
             value = (value << 8) + bytes[startIndex + 6];
             value = (value << 8) + bytes[startIndex + 5];
             value = (value << 8) + bytes[startIndex + 4];
             value = (value << 8) + bytes[startIndex + 3];
             value = (value << 8) + bytes[startIndex + 2];
-            offset.CompressedBlockOffset = value;
             UInt16 uvalue = bytes[startIndex + 1];
             uvalue = (UInt16)((UInt16)(uvalue << 8) + (UInt16)bytes[startIndex]);
-            offset.UncompressedBlockOffset = uvalue;
+            FileOffset offset = new FileOffset(value,uvalue);
             return offset;
         }
 
@@ -298,5 +337,6 @@ namespace Bio.IO.BAM
             return sourceStream.Position == sourceStream.Length;
         }
         #endregion
+
     }
 }

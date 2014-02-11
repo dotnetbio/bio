@@ -73,6 +73,113 @@ namespace Bio.TestAutomation.IO.BAM
         # region BAM Parser P1 Test Cases
 
         /// <summary>
+        /// Validate that a sequence query of a file over several ranges
+        /// returns the same number of hits as samtools. (e.g. samtools view BamFile "MT:1-100" | wc -l )
+        /// </summary>
+        [TestMethod]
+        [Priority(1)]
+        [TestCategory("Priority1"), TestCategory("BAM")]
+        public void ValidateBAMRangeQuery()
+        {
+             // Get input and output values from xml node.
+            string bamFilePath = utilityObj.xmlUtil.GetTextValue(
+                Constants.BAMHumanLargeNode, Constants.FilePathNode);
+            
+           var bp=new BAMParser();
+           var m = bp.ParseRange(bamFilePath, "MT");
+           var names = m.QuerySequences.Select(x => x.RName).Distinct().ToList();
+           var all = m.QuerySequences.Select(x => x).Distinct().ToList();
+           var tot = m.QuerySequences.Select(x => x.QName).Distinct().ToList();
+           var toTest = new[] {new RangeQuery("MT",1,100,48),
+                               new RangeQuery("1",0,Int32.MaxValue,45),
+                               new RangeQuery("11",0,Int32.MaxValue,2),
+                               new RangeQuery("MT",0,Int32.MaxValue,4335),
+                               new RangeQuery("MT",16300,16500,92) };//Last one is on a 2^14 boundary
+           foreach (var r in toTest)
+           {
+               var res = bp.ParseRange(bamFilePath, r.RName, r.start, r.End);
+               Assert.AreEqual(r.ExpectedReturns, res.QuerySequences.Count);
+           }
+        }
+        //Helper class for range query
+        public class RangeQuery
+        {
+            public string RName; public int start; public int End; public int ExpectedReturns;
+            public RangeQuery(string r, int s, int e, int exp)
+            {
+                this.RName = r; this.start = s; this.End = e; this.ExpectedReturns = exp;
+            }
+        }
+
+
+        /// <summary>
+        /// Validate that a sequence produces the same index file as samtools
+        /// Note that the ordering of bins/chunks does not appear to be guaranteed.
+        /// </summary>
+        [TestMethod]
+        [Priority(1)]
+        [TestCategory("Priority1"), TestCategory("BAM")]
+        public void ValidateBAMIndexMatchesExpectation()
+        {
+            // Get input and output values from xml node.
+            string bamFilePath = utilityObj.xmlUtil.GetTextValue(
+                Constants.BAMHumanLargeNode, Constants.FilePathNode);
+            string expectedIndexPath= utilityObj.xmlUtil.GetTextValue(
+                Constants.BAMHumanLargeNode, Constants.BAMIndexFileNode);
+            var bp = new BAMParser();
+            //get observed index file
+            BAMIndex bi;
+            using (Stream bamStream = new FileStream(bamFilePath, FileMode.Open, FileAccess.Read))
+            {
+               bi=bp.GetIndexFromBAMFile(bamStream);
+            }
+            //get expected
+            var bi2 = new BAMIndexFile(expectedIndexPath, FileMode.Open, FileAccess.Read).Read();
+            //now verify
+            Assert.AreEqual(bi2.RefIndexes.Count, bi.RefIndexes.Count);
+            for (int i = 0; i < bi.RefIndexes.Count; i++)
+            {
+                var obs = bi.RefIndexes[i];
+                var exp = bi2.RefIndexes[i];
+                Assert.AreEqual(obs.Bins.Count, exp.Bins.Count);
+                Assert.AreEqual(obs.LinearIndex.Count, exp.LinearIndex.Count);
+                Assert.AreEqual(obs.MappedReadsCount, exp.MappedReadsCount);
+                Assert.AreEqual(obs.UnMappedReadsCount, exp.UnMappedReadsCount);
+                var ob = obs.Bins.ToList();
+                var eb = exp.Bins.ToList();
+                ob.Sort((x, y) => x.BinNumber.CompareTo(y.BinNumber));
+                eb.Sort((x, y) => x.BinNumber.CompareTo(y.BinNumber));
+                for (int j = 0; j < ob.Count; j++)
+                {
+                    var obb=ob[0];
+                    var ebb=eb[0];
+                    Assert.AreEqual(obb.BinNumber, ebb.BinNumber);
+                    Assert.AreEqual(obb.Chunks.Count, ebb.Chunks.Count);
+                    var c1 = obb.Chunks.ToList();
+                    var c2 = ebb.Chunks.ToList();
+                    c1.Sort((x, y) => x.ChunkStart.CompareTo(y.ChunkStart));
+                    c2.Sort((x, y) => x.ChunkStart.CompareTo(y.ChunkStart));
+
+                    for (int k = 0; k < c1.Count; k++)
+                    {
+                        var co = c1[k];
+                        var eo = c2[k];
+                        Assert.AreEqual(eo.ChunkStart, co.ChunkStart);
+                        Assert.AreEqual(eo.ChunkEnd, co.ChunkEnd);
+
+
+                    }
+                }
+
+
+            }
+        }
+
+
+
+
+
+        /// <summary>
         /// Validate BAM Parse(Stream) by passing Multiple aligned sequence 
         /// BAM file.
         /// Input : Multiple aligned seq BAM file.
@@ -448,6 +555,10 @@ namespace Bio.TestAutomation.IO.BAM
                 Constants.SmallSizeBAMFileNode, BAMParserParameters.FileName,
                 false, false);
         }
+
+
+        
+
 
         /// <summary>
         /// Validate format BAM file for Multiple aligned sequence 
@@ -1312,6 +1423,8 @@ namespace Bio.TestAutomation.IO.BAM
         }
 
         # endregion Helper Methods
+
+
     }
 
 }

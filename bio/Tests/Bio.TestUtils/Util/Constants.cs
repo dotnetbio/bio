@@ -2181,10 +2181,12 @@ namespace Bio.TestAutomation.Util
         public const string RName = "RName";
         public const string SAMToBAMConversionForMultipleAlignedSeqNode =
             "SAMToBAMConversionForMultipleAlignedSeq";
-        public const string BAMIndexFileNode = "BAMIndexFile";
+        public const string BAMIndexFileNode = "IndexFilePath";
         public const string SAMToBAMConversionForQualitySeqsNode =
             "SAMToBAMConversionForQualitySeqs";
         public const string BAMIndexNode = "BAMIndex";
+        public const string BAMHumanLargeNode = "BAMHumanLarge";
+        public const string BAMHumanLargeIndexNode = "IndexFilePath";
         public const string BAMIndexCountNode = "BAMIndexCount";
         public const string BAMFileName = "BAM";
         public const string BAMFileType = ".bam";

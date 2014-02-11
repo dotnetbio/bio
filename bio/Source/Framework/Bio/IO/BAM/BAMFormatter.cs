@@ -420,7 +420,7 @@ namespace Bio.IO.BAM
             byte[] array = new byte[MaxBlockSize];
 
             int bytesRead = -1;
-
+            //note that the reads can be split over a block per mailing list discussion
             bytesRead = reader.Read(array, 0, MaxBlockSize);
             while (bytesRead != 0)
             {
@@ -748,7 +748,7 @@ namespace Bio.IO.BAM
 
             bgzfArray[16] = intvalue[0];
             bgzfArray[17] = intvalue[1];
-
+            //start at 10 to skip the gzip header which was already added above
             for (int i = 10; i < compressedStream.Length; i++)
             {
                 bgzfArray[i + 8] = compressedArray[i];

@@ -492,9 +492,6 @@
     <Content Include="..\TestData\TestUtils\E-Coli_5Mb_RefFile_NC_000913.bd.fasta">
       <Link>TestUtils\E-Coli_5Mb_RefFile_NC_000913.bd</Link>
     </Content>
-    <Content Include="..\TestData\TestUtils\E-Coli_5Mb_RefFile_NC_000913.bd_Copy.fasta">
-      <Link>TestUtils\E-Coli_5Mb_RefFile_NC_000913.bd_Copy</Link>
-    </Content>
     <Content Include="..\TestData\TestUtils\Ecoli.500.fasta">
       <Link>TestUtils\Ecoli.500</Link>
     </Content>
@@ -1917,9 +1914,6 @@
     <Content Include="..\TestData\TestUtils\SAMBAMTestData\MediumSizeBam.bam">
       <Link>TestUtils\SAMBAMTestData\MediumSizeBam</Link>
     </Content>
-    <Content Include="..\TestData\TestUtils\SAMBAMTestData\MediumSizeBam.bam.bai">
-      <Link>TestUtils\SAMBAMTestData\MediumSizeBam.bam</Link>
-    </Content>
     <Content Include="..\TestData\TestUtils\SAMBAMTestData\MediumSizeBAMSequences.fa">
       <Link>TestUtils\SAMBAMTestData\MediumSizeBAMSequences</Link>
     </Content>
@@ -2284,6 +2278,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="TestUtils\BAM\SortedByName.bam" />
+    <None Include="TestUtils\SAMBAMTestData\MediumSizeBamSorted.bam" />
+    <None Include="TestUtils\SAMBAMTestData\MediumSizeBamSorted.bam.bai" />
+    <None Include="TestUtils\SAMBAMTestData\SortedByName.bam" />
+    <None Include="TestUtils\SAMBAMTestData\SortedHuman.bam" />
+    <None Include="TestUtils\SAMBAMTestData\SortedHuman.bam.bai" />
+    <None Include="TestUtils\SAMBAMTestData\SortedHuman.bam.expected.bai" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

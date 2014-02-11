@@ -80,17 +80,6 @@ namespace Bio.TestConsole
         }
 
         /// <summary>
-        /// Runs SamUtils with option index and validates with expected output
-        /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
-        public void ValidateSamUtilsWithIndex()
-        {
-            ValidateSamUtils(Constants.SamUtilsWithIndexNodeName);
-        }
-
-        /// <summary>
         /// Runs SamUtils with option View and default parameters  and validates with expected output
         /// </summary>
         [TestMethod]
