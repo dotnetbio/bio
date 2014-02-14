@@ -441,36 +441,7 @@ namespace Bio.TestAutomation.IO.BAM
                 "BAM Parser P1 : Validated the Aligned sequence properties successfully"));
         }
 
-        /// <summary>
-        /// Validate BAM refernce indices.
-        /// Input : BAM file.
-        /// Output : BAM indices validation
-        /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1"), TestCategory("BAM")]
-        public void ValidateBAMIndexes()
-        {
-            // Get input and output values from xml node.
-            string bamFilePath = utilityObj.xmlUtil.GetTextValue(
-                Constants.BAMIndexNode, Constants.FilePathNode);
-            string expectedBAMIndices = utilityObj.xmlUtil.GetTextValue(
-                Constants.BAMIndexNode, Constants.BAMIndexCountNode);
-
-            // Create BAMParser object.
-            using (BAMParser bamParserObj = new BAMParser())
-            {
-
-                BAMIndex bamIndices = bamParserObj.GetIndexFromBAMFile(bamFilePath);
-
-                // Validate BAM reference indices.
-                Assert.AreEqual(expectedBAMIndices, bamIndices.RefIndexes.Count.ToString((IFormatProvider)null));
-            }
-
-            // Log to VSTest GUI.
-            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                "BAM Parser P1 : Validated the BAM indices successfully"));
-        }
+      
 
         # endregion BAM Parser P1 Test Cases
 

@@ -306,4 +306,8 @@
   <UnsortedBAM>
     <FilePath>TestUtils\SAMBAMTestData\SortedByName.bam</FilePath>
   </UnsortedBAM>
+    <BAMHumanLarge>
+    <FilePath>TestUtils\SAMBAMTestData\SortedHuman.bam</FilePath>
+    <IndexFilePath>TestUtils\SAMBAMTestData\SortedHuman.bam.expected.bai</IndexFilePath>
+  </BAMHumanLarge>
 </AutomationTest>

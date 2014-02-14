@@ -2367,6 +2367,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="TestUtils\NewickExtended.nhx" />
+    <None Include="TestUtils\SAMBAMTestData\MediumSizeBamSorted.bam" />
+    <None Include="TestUtils\SAMBAMTestData\MediumSizeBamSorted.bam.bai" />
+    <None Include="TestUtils\SAMBAMTestData\SortedByName.bam" />
+    <None Include="TestUtils\SAMBAMTestData\SortedHuman.bam" />
+    <None Include="TestUtils\SAMBAMTestData\SortedHuman.bam.bai" />
+    <None Include="TestUtils\SAMBAMTestData\SortedHuman.bam.expected.bai" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

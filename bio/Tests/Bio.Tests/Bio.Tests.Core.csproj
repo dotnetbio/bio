@@ -2280,10 +2280,10 @@
     <None Include="TestUtils\BAM\SortedByName.bam" />
     <None Include="TestUtils\SAMBAMTestData\MediumSizeBamSorted.bam" />
     <None Include="TestUtils\SAMBAMTestData\MediumSizeBamSorted.bam.bai" />
-    <None Include="TestUtils\SAMBAMTestData\SortedByName.bam" />
-    <None Include="TestUtils\SAMBAMTestData\SortedHuman.bam" />
-    <None Include="TestUtils\SAMBAMTestData\SortedHuman.bam.bai" />
-    <None Include="TestUtils\SAMBAMTestData\SortedHuman.bam.expected.bai" />
+    <Content Include="TestUtils\SAMBAMTestData\SortedByName.bam" />
+    <Content Include="TestUtils\SAMBAMTestData\SortedHuman.bam" />
+    <Content Include="TestUtils\SAMBAMTestData\SortedHuman.bam.bai" />
+    <Content Include="TestUtils\SAMBAMTestData\SortedHuman.bam.expected.bai" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
