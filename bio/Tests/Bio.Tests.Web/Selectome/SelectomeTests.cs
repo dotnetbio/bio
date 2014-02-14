@@ -38,7 +38,19 @@ namespace Bio.Tests.Web.Selectome
             var d = SelectomeDataFetcher.FetchGeneByEnsemblID("ENSG00000125246").Gene;
             Assert.AreEqual(41, d.VertebrateTree.TaxaPresent.Count); 
         }
-
+        /// <summary>
+        /// Verifies that a gene which caused problems previously can work, the formatting on 
+        /// this one may be weird.
+        /// </summary>
+        [TestMethod]
+        [Priority(0)]
+        [TestCategory("Priority0"), TestCategory("Selectome")]
+        public void TestSelectomeQueryCarnitinePalmitoTransferase()
+        {
+            //var d = SelectomeDataFetcher.FetchGeneByEnsemblID("ENSG00000110090").Gene;
+            var d = SelectomeDataFetcher.FetchGeneByEnsemblID("CPT1A").Gene;
+            Assert.AreEqual(41, d.VertebrateTree.TaxaPresent.Count);
+        }
         /// <summary>
         /// Test the number of selected nodes are correctly identified
         /// </summary>
