@@ -1088,8 +1088,8 @@ public partial class BAMParser : IDisposable, ISequenceAlignmentParser
             ValidateReader();
 
             return GetHeader();
-        }
-
+        }   
+     
         /// <summary>
         /// Returns an aligned sequence by parses the BAM file.
         /// </summary>
@@ -1198,7 +1198,7 @@ public partial class BAMParser : IDisposable, ISequenceAlignmentParser
             }
 
             if (samHeaderData.Length != 0)
-            {
+            {               
                 string str = System.Text.ASCIIEncoding.ASCII.GetString(samHeaderData);
                 using (StringReader reader = new StringReader(str))
                 {
@@ -1518,7 +1518,7 @@ public partial class BAMParser : IDisposable, ISequenceAlignmentParser
             if (bytesToRead < count)
             {
                 GetNextBlock();
-                ReadUnCompressedData(array, bytesToRead, count - bytesToRead);
+                ReadUnCompressedData(array, offset+bytesToRead, count - bytesToRead);
             }
         }
 
