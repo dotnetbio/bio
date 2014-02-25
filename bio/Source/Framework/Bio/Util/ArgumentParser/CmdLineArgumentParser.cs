@@ -545,7 +545,7 @@
         private void Parse(string arguments)
         {
             // regular expression to split the arguments.
-            string parserExpression = "^([\\s]*)([/-](?<name>[^\\s-/:=]+)([:=]?)([\\s]*)(?<value>(\"[^\"]*\")|('[^']*')|([\\s]*[^/-][^\\s]+[\\s]*)|([^/-]+)|)?([\\s]*))*$";
+            string parserExpression = "^([\\s]*)([-](?<name>[^\\s-/:=]+)([:=]?)([\\s]*)(?<value>(\"[^\"]*\")|('[^']*')|([\\s]*[^/-][^\\s]+[\\s]*)|([^/-]+)|)?([\\s]*))*$";
 
             RegexOptions ro = new RegexOptions();
             ro = ro | RegexOptions.IgnoreCase;
