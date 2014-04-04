@@ -84,68 +84,80 @@ namespace Bio.Selectome
                 // Setting the XmlResolver to null causes the DTDs specified in the XML
                 // header to be ignored. 
                 settings.XmlResolver = null;
-                    using (var sr = new StringReader(webResponse))
+                using (var sr = new StringReader(webResponse))
+                {
+                    using (XmlReader r = XmlReader.Create(sr, settings))
                     {
-                        using (XmlReader r = XmlReader.Create(sr, settings))
+                        string curElement = string.Empty;
+                        bool alreadyAdvanced = false;
+                        while (alreadyAdvanced || r.Read())
                         {
-                            string curElement = string.Empty;
-                            bool alreadyAdvanced = false;
-                            while (alreadyAdvanced || r.Read())
+                            alreadyAdvanced = false;
+                            switch (r.NodeType)
                             {
-                                alreadyAdvanced = false;
-                                switch (r.NodeType)
-                                {
-                                    case XmlNodeType.Element:
-                                        curElement = r.Name;
-                                        // ApplicationLog.WriteLine("element: " + curElement);
-                                        if (curElement == "FEATURE")
+                                case XmlNodeType.Element:
+                                    curElement = r.Name;
+                                    if (curElement == "FEATURE")
+                                    {
+                                        geneName = r.GetAttribute("label");
+                                    }
+                                    else if (curElement == "NOTE")
+                                    {
+                                        //Construct the data from the note
+                                        string innerText = r.ReadInnerXml();
+                                        alreadyAdvanced = true;
+                                        string[] groups = innerText.Split(NOTE_DIVIDER, StringSplitOptions.RemoveEmptyEntries);
+                                        var tempResults = groups.Where(x => x.Contains("selection")).Select(x => processSelectomeData(x)).ToArray();
+                                        foreach (var selectionRes in tempResults)
                                         {
-                                            geneName = r.GetAttribute("label");
+                                            results[selectionRes.Group] = selectionRes;
                                         }
-                                        else if (curElement == "NOTE")
+                                    }
+                                    else if (curElement == "LINK")
+                                    {
+                                        //example a la =<LINK href="http://selectome.unil.ch/cgi-bin/subfamily.cgi?ac=ENSGT00390000009030&#x26;sub=1&#x26;tax=Euteleostomi" />
+                                        string linkText = r.GetAttribute("href");
+                                        var sp1 = linkText.Split('=');
+                                        var treename = sp1[1].Split('&')[0];//ENSGT0039000000009446
+                                        var subTreeName = sp1[2].Split('&')[0]; //1
+                                        SelectomeTaxaGroup curGroup = SelectomeTaxaGroup.NotSet;
+                                        foreach (var kv in SelectomeConstantsAndEnums.GroupToNameList)
                                         {
-                                            //Construct the data from the note
-                                            string innerText = r.ReadInnerXml();
-                                            alreadyAdvanced = true;
-                                            string[] groups = innerText.Split(NOTE_DIVIDER, StringSplitOptions.RemoveEmptyEntries);
-                                            var tempResults = groups.Where(x => x.Contains("selection")).Select(x => processSelectomeData(x)).ToArray();
-                                            foreach (var selectionRes in tempResults)
+                                            if (sp1[3].Contains(kv.Value))
                                             {
-                                                results[selectionRes.Group] = selectionRes;
+                                                curGroup = kv.Key;
+                                                break;
                                             }
                                         }
-                                        else if (curElement == "LINK")
+                                        if (curGroup != SelectomeTaxaGroup.NotSet)
                                         {
-                                            //example a la =<LINK href="http://selectome.unil.ch/cgi-bin/subfamily.cgi?ac=ENSGT00390000009030&#x26;sub=1&#x26;tax=Euteleostomi" />
-                                            string linkText = r.GetAttribute("href");
-                                            var sp1 = linkText.Split('=');
-                                            var treename = sp1[1].Split('&')[0];
-                                            var subTreeName = sp1[2].Split('&')[0];
-                                            SelectomeTaxaGroup curGroup = SelectomeTaxaGroup.NotSet;
-                                            foreach (var kv in SelectomeConstantsAndEnums.GroupToNameList)
+                                            //Verify it isn't over-writing another gene
+                                            var sql = new SelectomeQueryLink(curGroup, treename, subTreeName);
+                                            if (results.ContainsKey(curGroup) && results[curGroup].RelatedLink!=null)
                                             {
-                                                if (sp1[3].Contains(kv.Value))
-                                                {
-                                                    curGroup = kv.Key;
-                                                    break;
-                                                }
+                                                var old = results[curGroup];
+                                                if ((old.RelatedLink.Group != sql.Group || old.RelatedLink.SubTree != sql.SubTree || old.RelatedLink.Tree != sql.Tree))
+                                                    throw new ArgumentException("Over-writing past tree group, investigate this gene.\r\n" + webResponse);
                                             }
-                                            var sql = new SelectomeQueryLink( curGroup, treename, subTreeName);
-                                            results[curGroup].RelatedLink = sql;
-                                        }
-                                        break;
-                                    case XmlNodeType.XmlDeclaration:
-                                        break;
-                                    case XmlNodeType.ProcessingInstruction:
-                                        break;
-                                    case XmlNodeType.Comment:
-                                        break;
-                                    case XmlNodeType.EndElement:
-                                        break;
-                                }
+                                            else
+                                            {
+                                                results[curGroup].RelatedLink = sql;
+                                            }
+                                        }                                            
+                                    }
+                                    break;
+                                case XmlNodeType.XmlDeclaration:
+                                    break;
+                                case XmlNodeType.ProcessingInstruction:
+                                    break;
+                                case XmlNodeType.Comment:
+                                    break;
+                                case XmlNodeType.EndElement:
+                                    break;
                             }
                         }
                     }
+                }
                 
                 if (results != null && results.Count> 0)
                 {
@@ -201,6 +213,10 @@ namespace Bio.Selectome
            else if (data.Contains("No positive selection found"))
            {
                positiveSelectionSignature = false;
+           }
+           else if (data.Contains("Branch(es) under positive selection BUT no site found"))
+           {
+               positiveSelectionSignature=true;
            }
            else
            {

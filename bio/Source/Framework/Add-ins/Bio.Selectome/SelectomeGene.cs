@@ -85,9 +85,9 @@ namespace Bio.Selectome
             //make a URL like
             //http://selectome.unil.ch/wwwtmp/ENSGT00550000074556/Euteleostomi/ENSGT00550000074556.Euteleostomi.003.nhx
             WebAccessor wb = new WebAccessor();
-            //var treePrefix = "." + new String('0', 3 - vetebrateQueryResult.RelatedLink.subTree.Length);
+            var treePrefix = "." + new String('0', 3 - vetebrateQueryResult.RelatedLink.SubTree.Length)+vetebrateQueryResult.RelatedLink.SubTree;
             string url=SelectomeConstantsAndEnums.BASE_SELECTOME_WEBSITE+"wwwtmp/"+vetebrateQueryResult.RelatedLink.Tree+"/"+SelectomeConstantsAndEnums.VERTEBRATES_GROUP_NAME+"/"
-                +vetebrateQueryResult.RelatedLink.Tree+"."+SelectomeConstantsAndEnums.VERTEBRATES_GROUP_NAME+".00"+vetebrateQueryResult.RelatedLink.SubTree+"."+suffix;
+                +vetebrateQueryResult.RelatedLink.Tree+"."+SelectomeConstantsAndEnums.VERTEBRATES_GROUP_NAME+treePrefix+"."+suffix;
             var reqUri = new Uri(url);
             if (useCache)
             {
@@ -158,6 +158,24 @@ namespace Bio.Selectome
                 return _vetebrateTree;
             }
         }
+        /// <summary>
+        /// The vertebrate tree returned
+        /// </summary>
+        public Bio.Phylogenetics.Tree VertebrateTreeAsStandardTree
+        {
+            get
+            {
+                    //make the tree
+                    var treeString = GetStringFromURLRequest("nhx");
+                    using (Bio.IO.Newick.NewickParser np = new IO.Newick.NewickParser())
+                    {
+                        return np.Parse(new StringBuilder(treeString));
+                    }
+               
+            }
+        }
+
+
        //TODO: These should probably all be replaced with a single method that takes an MSA reference and suffix and returns an MAS
         /// <summary>
         /// The masked amino acid alignment, masked by selectome procedures
@@ -193,7 +211,7 @@ namespace Bio.Selectome
         {
             get
             {
-                downloadAlignmentIfNeccessary(ref _maskedVertebrateNucleotideAlignment, "nt.fas");
+                downloadAlignmentIfNeccessary(ref _maskedVertebrateNucleotideAlignment, "nt_masked.fas");
                 return _maskedVertebrateNucleotideAlignment;
             }
         }

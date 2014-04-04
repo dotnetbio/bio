@@ -42,6 +42,22 @@ namespace Bio.Selectome
             this.IsRoot = true;
         }
 
+        public Bio.Phylogenetics.Tree ConvertToStandardTree()
+        {
+            throw new NotImplementedException();
+            //Tree t = new Tree();
+            //var root = new Node();
+            //root.MetaData = this.Root.MetaData;
+            //root.Children = new Dictionary<Node, Edge>();
+            //root.Name = this.Root.Name;
+            //root.IsRoot = true;
+            ////recursively update child nodes
+            //foreach (var child in this.Root.Children)
+            //{
+            //    this._Children.Add(new Node(child.Key), child.Value);
+            //}
+        }
+
         /// <summary>
         /// All TaxaShortName fields from the leaves
         /// </summary>
