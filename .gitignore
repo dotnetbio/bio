@@ -1,0 +1,14 @@
+*.exe
+*.dll
+*/bin/*
+*/obj/*
+*/publish/*
+bio/Tests/Bio.Tests.Web/bin/*
+bio/Tests/Bio.Tests.Web/obj/*
+bio/Tests/Bio.Tests.Pamsam/bin/*
+bio/Tests/Bio.Tests.Padena/bin/*
+bio/build/Binaries/Debug/*
+bio/build/Binaries/Release/*
+
+
+
