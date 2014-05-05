@@ -459,7 +459,7 @@ namespace Bio.TestAutomation.IO.BAM
         //TODO: Actually verify file is correct
         public void ValidateCreateBAMIndexFile()
         {
-            string bamFilePath = utilityObj.xmlUtil.GetTextValue(Constants.MediumSizeBAMFileNode,
+            string bamFilePath = utilityObj.xmlUtil.GetTextValue(Constants.MediumSizeSortedBAMFileNode,
                                                                  Constants.FilePathNode);
             BAMFormatter.CreateBAMIndexFile(bamFilePath);
         }

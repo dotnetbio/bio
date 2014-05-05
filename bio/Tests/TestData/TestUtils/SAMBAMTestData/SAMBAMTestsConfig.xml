@@ -168,6 +168,12 @@
     <MediumSizeBAMSortOutputMatchChromosomeCoordinates>TestUtils\SAMBAMTestData\MediumSizeBAMSortOutputMatchChromosomeCoordinates.txt</MediumSizeBAMSortOutputMatchChromosomeCoordinates>
     <MediumSizeBAMSortOutputMatchChromosomeNameAndCoordinates>TestUtils\SAMBAMTestData\MediumSizeBAMSortOutputMatchChromosomeNameAndCoordinates.txt</MediumSizeBAMSortOutputMatchChromosomeNameAndCoordinates>
   </MediumSizeBAMFile>
+  <MediumSizeSortedBAMFile>
+    <FilePath>TestUtils\SAMBAMTestData\MediumSizeBamSorted.bam</FilePath>
+    <BAMIndexFile>TestUtils\SAMBAMTestData\SeqAlignment.bam.bai</BAMIndexFile>
+    </MediumSizeSortedBAMFile>
+
+
   <MediumSizeBAMFileWithSmallerEndIndex>
     <FilePath>TestUtils\SAMBAMTestData\MediumSizeBam.bam</FilePath>
     <BAMIndexFile>TestUtils\SAMBAMTestData\SeqAlignment.bam.bai</BAMIndexFile>

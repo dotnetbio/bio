@@ -2164,6 +2164,8 @@ namespace Bio.TestAutomation.Util
         public const string BAMFileWithSequenceRangeRefSeqsNode =
             "BAMFileWithSequenceRangeRefSeqs";
         public const string MediumSizeBAMFileNode = "MediumSizeBAMFile";
+        public const string MediumSizeSortedBAMFileNode = "MediumSizeSortedBAMFile";
+        
         public const string MediumSizeBAMFileWithSmallerEndIndexNode =
             "MediumSizeBAMFileWithSmallerEndIndex";
         public const string MediumSizeBAMFileWithRefIndexNode =
