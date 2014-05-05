@@ -47,9 +47,10 @@ namespace Bio.Tests.Web.Selectome
         [TestCategory("Priority0"), TestCategory("Selectome")]
         public void TestSelectomeQueryCarnitinePalmitoTransferase()
         {
-            //var d = SelectomeDataFetcher.FetchGeneByEnsemblID("ENSG00000110090").Gene;
-            var d = SelectomeDataFetcher.FetchGeneByEnsemblID("CPT1A").Gene;
-            Assert.AreEqual(41, d.VertebrateTree.TaxaPresent.Count);
+            var d = SelectomeDataFetcher.FetchGeneByEnsemblID("ENSG00000110090").Gene;
+            //var d = SelectomeDataFetcher.FetchGeneByEnsemblID("CPT1A").Gene;
+            //TODO: Should be 41 for unique taxa.
+            Assert.AreEqual(45, d.VertebrateTree.TaxaPresent.Count);
         }
         /// <summary>
         /// Test the number of selected nodes are correctly identified

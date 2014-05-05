@@ -19,7 +19,7 @@ entire genomes or very large protein sequences.
                           form -b)
 -reverseOnly[+|-]         Compute only reverse complement matches (short form
                           -r)
--displayQueryLength[+|-]  Show the length of the query sequence (short form /d)
+-displayQueryLength[+|-]  Show the length of the query sequence (short form -d)
 -showMatchingString[+|-]  Show the matching substring in the output (short form
                           -s)
 -c[+|-]                   Report the query position of a reverse complement

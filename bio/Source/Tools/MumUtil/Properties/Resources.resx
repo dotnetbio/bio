@@ -132,8 +132,8 @@ entire genomes or very large protein sequences.
                           unique in both the reference and query sets
 -maxmatch[+|-]            Compute all maximal matches ignoring uniqueness
 -noAmbiguity[+|-]         Disallow ambiguity character matches and only match
-                          A, T, C, or G (case insensitive) (short form /n)
--length:&lt;int&gt;             Minimium match length [20] (short form /l)
+                          A, T, C, or G (case insensitive) (short form -n)
+-length:&lt;int&gt;             Minimium match length [20] (short form -l)
 -both[+|-]                Compute forward and reverse complement matches (short
                           form -b)
 -reverseOnly[+|-]         Compute only reverse complement matches (short form
