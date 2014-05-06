@@ -691,7 +691,4 @@
   <FastQInvalidQualScoreFile>
     <FilePath>TestUtils\InvalidFastQQualScore.fastq</FilePath>
   </FastQInvalidQualScoreFile>
-  <LargeSizeDnaIlluminaFastQFile>
-    <FilePath>TestUtils\LargeSizeDnaIlluminaFastq.fastq</FilePath>
-  </LargeSizeDnaIlluminaFastQFile>
 </AutomationTest>

@@ -827,7 +827,6 @@ namespace Bio.TestAutomation.Util
         public const string MediumSizeDnaSolexaFastQNode = "MediumSizeDnaSolexaFastQ";
         public const string LargeSizeDnaSangerFastQNode = "LargeSizeDnaSangerFastQ";
         public const string LargeSizeDnaIlluminaFastQNode = "LargeSizeDnaIlluminaFastQ";
-        public const string LargeSizeDnaIlluminaFastQFileNode = "LargeSizeDnaIlluminaFastQFile";
         public const string LargeSizeDnaSolexaFastQNode = "LargeSizeDnaSolexaFastQ";
         public const string OneLineDnaIlluminaFastQNode = "SingleSequenceIlluminaFastQ";
         public const string OneLineDnaSolexaFastQNode = "SingleSequenceSolexaFastQ";
