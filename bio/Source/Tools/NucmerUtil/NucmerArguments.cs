@@ -331,7 +331,15 @@ namespace NucmerUtil
         /// <returns>List of sequence.</returns>
         private static IEnumerable<ISequence> Parse(string fileName)
         {
-            FastAParser parser = new FastAParser(fileName);
+            FastAParser parser;
+            if (Bio.Util.Helper.IsZippedFasta(fileName))
+            {
+                parser = new FastAZippedParser(fileName);
+            }
+            else
+            {
+                parser = new FastAParser(fileName);
+            }
             return parser.Parse();
         }
 

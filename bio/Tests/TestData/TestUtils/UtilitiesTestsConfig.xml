@@ -8,8 +8,8 @@
     <ExpectedOutputFile>TestUtils\Small_Size_MumUtil_Output.txt</ExpectedOutputFile>
   </MummerDefaultParams>
   <MummerDefaultParamsWithEColiData>
-    <Command>mumutil.exe -o:TestUtils\EColiMumOutput.txt TestUtils\E-Coli_5Mb_RefFile_NC_000913.bd.fasta TestUtils\E-Coli_5Mb_ReadsFile_NC_000913.bd_1X_1.fa</Command>
-    <ConsoleCommand>mumutil.exe TestUtils\E-Coli_5Mb_RefFile_NC_000913.bd.fasta TestUtils\E-Coli_5Mb_ReadsFile_NC_000913.bd_1X_1.fa</ConsoleCommand>
+    <Command>mumutil.exe -o:TestUtils\EColiMumOutput.txt TestUtils\E-Coli_5Mb_RefFile_NC_000913.bd.fasta TestUtils\E-Coli_5Mb_ReadsFile_NC_000913.bd_1X_1.fa.gz</Command>
+    <ConsoleCommand>mumutil.exe TestUtils\E-Coli_5Mb_RefFile_NC_000913.bd.fasta TestUtils\E-Coli_5Mb_ReadsFile_NC_000913.bd_1X_1.fa.gz</ConsoleCommand>
     <ActualOutputFile>TestUtils\EColiMumOutput.txt</ActualOutputFile>
     <ExpectedOutputFile>TestUtils\EColiMumUtilOutput.txt</ExpectedOutputFile>
   </MummerDefaultParamsWithEColiData>
