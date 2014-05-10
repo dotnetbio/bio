@@ -51,7 +51,7 @@ namespace Bio.Tests.MUMmer
                 FirstSequence = new Sequence(Alphabets.DNA, "TTAATTTTAG--"),
                 SecondSequence = new Sequence(Alphabets.DNA, "---AGTTTAGAG"),
                 Consensus = new Sequence(AmbiguousDnaAlphabet.Instance, "TTAAKTTTAGAG"),
-                Score = 5,
+                Score = -6,
                 FirstOffset = 0,
                 SecondOffset = 3
             };

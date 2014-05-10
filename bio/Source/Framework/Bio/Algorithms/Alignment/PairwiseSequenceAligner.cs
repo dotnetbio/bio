@@ -37,6 +37,23 @@ namespace Bio.Algorithms.Alignment
         protected int Cols;
 
         /// <summary>
+        /// A variable to keep track of whether the traceback table was constructed with an affine gap model.
+        /// </summary>
+        protected bool usingAffineGapModel;
+
+        /// <summary>
+        /// This array keeps track of the length of gaps up to a point along the horizontal axis.
+        /// Only used with the affine gap model
+        /// </summary>
+        protected int[] h_Gap_Length;
+        
+        /// <summary>
+        /// This array keeps track of the length of gaps up to a point along the vertical axis.
+        /// nly used with the affine gap model.
+        /// </summary>
+        protected int[] v_Gap_Length;
+
+        /// <summary>
         /// The reference sequence being aligned (sequence #1)
         /// </summary>
         protected byte[] ReferenceSequence;
@@ -49,17 +66,17 @@ namespace Bio.Algorithms.Alignment
         /// <summary>
         /// The gap character being used for the shared alphabet between the reference and query sequence.
         /// </summary>
-        private byte _gap;
+        protected byte _gap;
 
         /// <summary>
         /// Original sequence
         /// </summary>
-        private ISequence _sequence1;
+        protected ISequence _sequence1;
 
         /// <summary>
         /// Original sequence #2
         /// </summary>
-        private ISequence _sequence2;
+        protected ISequence _sequence2;
         #endregion
 
         /// <summary>
@@ -94,14 +111,44 @@ namespace Bio.Algorithms.Alignment
         /// The GapOpenCost is the cost of inserting a gap character into 
         /// a sequence.
         /// </summary>
-        public int GapOpenCost { get; set; }
+        public int GapOpenCost
+        {
+            get { return pGapOpenCost; }
+            set
+            {
+                // Hard constrain on GapOpen/Extension costs, some programs have inputs of these be positive 
+                // and then flip them internally so it is confusing.  Our users will know the difference right away.
+                if (value >= 0)
+                {
+                    throw new ArgumentOutOfRangeException("GapOpenCost", "Gap Open Cost must be less than 0");
+                }
+                pGapOpenCost = value;
+            }
+        }
+        private int pGapOpenCost;
 
         /// <summary>
         /// Gets or sets value of GapExtensionCost 
         /// The GapExtensionCost is the cost of extending an already existing gap.
         /// This is only used in the affine gap model
         /// </summary>
-        public int GapExtensionCost { get; set; }
+        public int GapExtensionCost
+        {
+            get 
+            {
+                return pGapExtensionCost;
+            
+            }
+            set
+            {
+                if (value > 0)
+                {
+                    throw new ArgumentOutOfRangeException("GapExtensionCost", "Gap Extension Cost must be less than 0");
+                }
+                pGapExtensionCost = value;
+            }
+        } 
+        private int pGapExtensionCost;
 
         /// <summary>
         /// Gets or sets the object that will be used to compute the alignment's consensus.
@@ -228,7 +275,7 @@ namespace Bio.Algorithms.Alignment
         {
             this.SimilarityMatrix = localSimilarityMatrix;
             this.GapOpenCost = gapPenalty;
-            return DoAlign(inputA, inputB, false);
+            return DoAlign(inputA, inputB,false);
         }
 
         /// <summary>
@@ -263,6 +310,7 @@ namespace Bio.Algorithms.Alignment
         /// <returns></returns>
         private IList<IPairwiseSequenceAlignment> DoAlign(ISequence sequence1, ISequence sequence2, bool useAffineGapModel)
         {
+            usingAffineGapModel = useAffineGapModel;
             if (sequence1 == null)
                 throw new ArgumentNullException("sequence1");
             if (sequence2 == null)
@@ -290,17 +338,13 @@ namespace Bio.Algorithms.Alignment
             {
                 Trace.Report(Properties.Resource.SecondInputSequenceMismatchSimilarityMatrix);
                 throw new ArgumentException(Properties.Resource.SecondInputSequenceMismatchSimilarityMatrix);
-            }
+            }           
 
-            // Warning if gap penalty > 0
-            if (GapOpenCost > 0)
-            {
-                ApplicationLog.WriteLine("Gap Open Penalty {0} > 0, possible error", GapOpenCost);
-            }
 
-            if (GapExtensionCost > 0)
+            if (GapOpenCost > GapExtensionCost)
             {
-                ApplicationLog.WriteLine("Gap Extension Penalty {0} > 0, possible error", GapExtensionCost);
+                Trace.Report(Properties.Resource.GapOpenGreaterThanGapExtension);               
+                throw new ArgumentException(Properties.Resource.GapOpenGreaterThanGapExtension);
             }
 
             _sequence1 = sequence1;
@@ -317,7 +361,7 @@ namespace Bio.Algorithms.Alignment
             else
                 ConsensusResolver.SequenceAlphabet = alphabet.HasAmbiguity ? alphabet : Alphabets.AmbiguousAlphabetMap[sequence1.Alphabet];
 
-            return new List<IPairwiseSequenceAlignment> { Process(useAffineGapModel) };
+            return new List<IPairwiseSequenceAlignment> { Process() };
         }
 
         /// <summary>
@@ -343,13 +387,13 @@ namespace Bio.Algorithms.Alignment
         /// 3. Traceback (alignment)
         /// </summary>
         /// <returns>Aligned sequences</returns>
-        private PairwiseSequenceAlignment Process(bool useAffineGapModel)
+        private PairwiseSequenceAlignment Process()
         {
             // Step 1: Initialize
             Initialize();
 
             // Step 2: Matrix fill (scoring)
-            var scores = CreateTracebackTable(useAffineGapModel);
+            var scores = CreateTracebackTable();
 
             // Step 3: Traceback (alignment)
             return CreateAlignment(scores);
@@ -405,8 +449,7 @@ namespace Bio.Algorithms.Alignment
         /// and calculate the traceback entries.  This is algorithm specific and so is left
         /// as an abstract method.
         /// </summary>
-        /// <param name="useAffineGapModel">True to use the affine gap model</param>
-        protected abstract IEnumerable<OptScoreMatrixCell> CreateTracebackTable(bool useAffineGapModel);
+        protected abstract IEnumerable<OptScoreMatrixCell> CreateTracebackTable();
 
         /// <summary>
         /// This is step (3) in the dynamic programming model - to walk the traceback/scoring
@@ -432,11 +475,13 @@ namespace Bio.Algorithms.Alignment
         /// </summary>
         /// <param name="startingCell">Starting point</param>
         /// <returns>Pairwise alignment</returns>
-        private PairwiseAlignedSequence CreateAlignmentFromCell(OptScoreMatrixCell startingCell)
+        protected PairwiseAlignedSequence CreateAlignmentFromCell(OptScoreMatrixCell startingCell)
         {
-            long estimatedLength = ReferenceSequence.Length * QuerySequence.Length;
-            var firstAlignment = new byte[estimatedLength];
-            var secondAlignment = new byte[estimatedLength];
+            int gapStride = Cols + 1;
+            //Using list to avoid allocation issues
+            int estimatedLength = (int)( 1.1*Math.Max(ReferenceSequence.Length,QuerySequence.Length));
+            var firstAlignment = new List<byte>(estimatedLength);
+            var secondAlignment = new List<byte>(estimatedLength);
 
             // Get the starting cell position and record the optimal score found there.
             int i = startingCell.Row;
@@ -446,56 +491,66 @@ namespace Bio.Algorithms.Alignment
             long rowGaps = 0, colGaps = 0, identicalCount = 0, similarityCount = 0;
 
             // Walk the traceback matrix and build the alignments.
-            int faLength = 0, saLength = 0;
             while (!TracebackIsComplete(i, j))
             {
                 sbyte tracebackDirection = Traceback[i][j];
-
-                // Reference sequence uses the current cell if we moved diagonal or left.
-                if (tracebackDirection == SourceDirection.Left || tracebackDirection == SourceDirection.Diagonal)
-                {
-                    firstAlignment[faLength++] = ReferenceSequence[j-1];
-                }
-                else
-                {
-                    firstAlignment[faLength++] = _gap;
-                    colGaps++;
-                }
-
-                // Query sequence uses the current cell if we moved diagonal or up.
-                if (tracebackDirection == SourceDirection.Up || tracebackDirection == SourceDirection.Diagonal)
-                {
-                    secondAlignment[saLength++] = QuerySequence[i - 1];
-                }
-                else
-                {
-                    secondAlignment[saLength++] = _gap;
-                    rowGaps++;
-                }
-
-                // Track some useful statistics
-                byte n1 = firstAlignment[faLength - 1];
-                byte n2 = secondAlignment[faLength - 1];
-                if (n1 == n2 && n1 != _gap)
-                {
-                    identicalCount++;
-                    similarityCount++;
-                }
-                else if (SimilarityMatrix[n2, n1] > 0)
-                    similarityCount++;
-
                 // Walk backwards through the trace back
+                int gapLength;
                 switch (tracebackDirection)
                 {
                     case SourceDirection.Diagonal:
+                        byte n1 = ReferenceSequence[j - 1];
+                        byte n2 = QuerySequence[i - 1];
+                        firstAlignment.Add(n1);
+                        secondAlignment.Add(n2);
                         i--;
                         j--;
+                        // Track some useful statistics
+                        if (n1 == n2 && n1 != _gap)
+                        {
+                            identicalCount++;
+                            similarityCount++;
+                        }
+                        else if (SimilarityMatrix[n2, n1] > 0)
+                            similarityCount++;
                         break;
                     case SourceDirection.Left:
-                        j--;
+                        //Add 1 because this only counts number of extensions
+                        if (usingAffineGapModel)
+                        {
+                            gapLength = h_Gap_Length[i * gapStride + j];
+                            for (int k = 0; k < gapLength; k++)
+                            {
+                                firstAlignment.Add(ReferenceSequence[--j]);
+                                secondAlignment.Add(_gap);
+                                rowGaps++;
+                            }
+                        }
+                        else
+                        {
+                            firstAlignment.Add(ReferenceSequence[--j]);
+                            secondAlignment.Add(_gap);
+                            rowGaps++;
+                        }
                         break;
                     case SourceDirection.Up:
-                        i--;
+                        //add 1 because this only counts number of extensions.
+                        if (usingAffineGapModel)
+                        {
+                            gapLength = v_Gap_Length[i * gapStride + j];
+                            for (int k = 0; k < gapLength; k++)
+                            {
+                                firstAlignment.Add(_gap);
+                                colGaps++;
+                                secondAlignment.Add(QuerySequence[--i]);
+                            }
+                        }
+                        else
+                        {
+                            secondAlignment.Add(QuerySequence[--i]);
+                            firstAlignment.Add(_gap);
+                            colGaps++;
+                        }
                         break;
                     default:
                         break;
@@ -506,13 +561,10 @@ namespace Bio.Algorithms.Alignment
             // walking backwards through the matrix table. To create
             // the proper alignments we need to resize and reverse
             // both underlying arrays.
-            Array.Resize(ref firstAlignment, faLength);
-            Array.Reverse(firstAlignment);
-            Array.Resize(ref secondAlignment, saLength);
-            Array.Reverse(secondAlignment);
-
+            firstAlignment.Reverse();
+            secondAlignment.Reverse();
             // Create the Consensus sequence
-            byte[] consensus = new byte[Math.Min(faLength, saLength)];
+            byte[] consensus = new byte[Math.Min(firstAlignment.Count, secondAlignment.Count)];
             for (int n = 0; n < consensus.Length; n++)
             {
                 consensus[n] = ConsensusResolver.GetConsensus(new[] { firstAlignment[n], secondAlignment[n] });
@@ -522,8 +574,8 @@ namespace Bio.Algorithms.Alignment
             var pairwiseAlignedSequence = new PairwiseAlignedSequence
             {
                 Score = finalScore,
-                FirstSequence = new Sequence(_sequence1.Alphabet, firstAlignment) { ID = _sequence1.ID },
-                SecondSequence = new Sequence(_sequence2.Alphabet, secondAlignment) { ID = _sequence2.ID },
+                FirstSequence = new Sequence(_sequence1.Alphabet, firstAlignment.ToArray()) { ID = _sequence1.ID },
+                SecondSequence = new Sequence(_sequence2.Alphabet, secondAlignment.ToArray()) { ID = _sequence2.ID },
                 Consensus = new Sequence(ConsensusResolver.SequenceAlphabet, consensus),
             };
 
@@ -552,6 +604,7 @@ namespace Bio.Algorithms.Alignment
             pairwiseAlignedSequence.Metadata["SimilarityCount"] = similarityCount;
 
             return pairwiseAlignedSequence;
+
         }
 
         /// <summary>

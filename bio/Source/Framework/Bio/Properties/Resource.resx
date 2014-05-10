@@ -1491,4 +1491,7 @@ provided. There is also a default encoding for each alphabet that may be encount
   <data name="ZippedFASTQName" xml:space="preserve">
     <value>Zipped Fastq</value>
   </data>
+  <data name="GapOpenGreaterThanGapExtension" xml:space="preserve">
+    <value>The Gap open penalty must be more severe than the gap extension penalty.</value>
+  </data>
 </root>

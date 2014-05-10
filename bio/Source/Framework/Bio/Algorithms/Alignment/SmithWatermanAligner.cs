@@ -38,9 +38,9 @@ namespace Bio.Algorithms.Alignment
         /// highest scoring cell during the algorithm - this is often NOT the bottom/right cell as
         /// it would be in a global alignment.
         /// </summary>
-        protected override IEnumerable<OptScoreMatrixCell> CreateTracebackTable(bool useAffineGapModel)
+        protected override IEnumerable<OptScoreMatrixCell> CreateTracebackTable()
         {
-            if (useAffineGapModel)
+            if (usingAffineGapModel)
                 return CreateAffineTracebackTable();
 
             int[][] matrix = SimilarityMatrix.Matrix;
@@ -123,6 +123,7 @@ namespace Bio.Algorithms.Alignment
             return highScoreCells;
         }
 
+       
         /// <summary>
         /// This method is used to create the traceback/scoring table when an affine gap model 
         /// is being used - this is where the open cost is different than the extension cost for a gap
@@ -140,23 +141,23 @@ namespace Bio.Algorithms.Alignment
 
             // Horizontal and vertical gap counts.
             int gapStride = Cols + 1;
-            int[] hgapLength = new int[(Rows + 1) * gapStride];
-            int[] vgapLength = new int[(Rows + 1) * gapStride];
+            h_Gap_Length = new int[(Rows + 1) * gapStride];
+            v_Gap_Length = new int[(Rows + 1) * gapStride];
             int[] hgapCost = new int[(Rows + 1) * gapStride];
             int[] vgapCost = new int[(Rows + 1) * gapStride];
 
             // Initialize the gap extension cost matrices.
             for (int i = 1; i < Rows; i++)
             {
-                hgapLength[i * gapStride] = i;
-                vgapLength[i * gapStride] = 1;
-                hgapCost[i * gapStride] = GapExtensionCost * i;
+                h_Gap_Length[i * gapStride] = i;
+                v_Gap_Length[i * gapStride] = 1;
+                hgapCost[i * gapStride] = GapExtensionCost * (i-1)+GapOpenCost;
             }
             for (int j = 1; j < Cols; j++)
             {
-                hgapLength[j] = 1;
-                vgapLength[j] = j;
-                vgapCost[j] = GapExtensionCost * j;
+                h_Gap_Length[j] = 1;
+                v_Gap_Length[j] = j;
+                vgapCost[j] = GapExtensionCost * (j-1)+GapOpenCost;
             }
 
             // Walk the sequences and generate the scoring/traceback matrix
@@ -180,11 +181,12 @@ namespace Bio.Algorithms.Alignment
                     if (scoreAboveOpen > scoreAboveExtend)
                     {
                         scoreAbove = scoreAboveOpen;
+                        v_Gap_Length[i * gapStride + j] = 1;
                     }
                     else
                     {
                         scoreAbove = scoreAboveExtend;
-                        vgapLength[i * gapStride + j] = vgapLength[(i - 1) * gapStride + j] + 1;
+                        v_Gap_Length[i * gapStride + j] = v_Gap_Length[(i - 1) * gapStride + j] + 1;
                     }
 
                     // Gap in sequence #2 (query)
@@ -194,11 +196,12 @@ namespace Bio.Algorithms.Alignment
                     if (scoreLeftOpen > scoreLeftExtend)
                     {
                         scoreLeft = scoreLeftOpen;
+                        h_Gap_Length[i * gapStride + j] = 1;
                     }
                     else
                     {
                         scoreLeft = scoreLeftExtend;
-                        hgapLength[i * gapStride + j] = hgapLength[i * gapStride + (j - 1)] + 1;
+                        h_Gap_Length[i * gapStride + j] = h_Gap_Length[i * gapStride + (j - 1)] + 1;
                     }
 
                     // Store off the gaps costs for this cell
@@ -254,7 +257,6 @@ namespace Bio.Algorithms.Alignment
                     Array.Copy(scoreRow, 0, ScoreTable, i * Cols, Cols);
                 }
             }
-
             return highScoreCells;
         }
     }

@@ -44,7 +44,7 @@
     <MUMAlignLength>7</MUMAlignLength>
     <GapOpenCost>-10</GapOpenCost>
     <AlphabetName>Dna</AlphabetName>
-    <Score>-698</Score>
+    <Score>-700</Score>
     <ExpectedSequences>
       <Sequence>-------------------------------CATTA---------T-------GTA-TA----GG-----TTATCATGCGAACAATTCAACAGACACTGTAGACACAGTACTAGAAAAGAATGTAAC</Sequence>
       <Sequence>CAAAAGGGATTGCAAATGTTGGAGTGAATGCCATTACCTACCGGCTAGGAGGAGTAGTACAAAGGAGCTATTATCAT-------AT-----------------------A-T---------T-T---</Sequence>

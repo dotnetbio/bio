@@ -212,7 +212,7 @@ namespace Bio.Tests.Algorithms.Alignment
                 FirstSequence = new Sequence(Alphabets.Protein, "HEAGAWGHE-E"),
                 SecondSequence = new Sequence(Alphabets.Protein, "-PA--W-HEAE"),
                 Consensus = new Sequence(AmbiguousProteinAlphabet.Instance, "HXAGAWGHEAE"),
-                Score = -8,
+                Score = -1,
                 FirstOffset = 0,
                 SecondOffset = 0
             });
@@ -245,10 +245,10 @@ namespace Bio.Tests.Algorithms.Alignment
             IPairwiseSequenceAlignment align = new PairwiseSequenceAlignment();
             align.PairwiseAlignedSequences.Add(new PairwiseAlignedSequence
             {
-                FirstSequence = new Sequence(Alphabets.Protein, "HEAG-AWGHE-E"),
-                SecondSequence = new Sequence(Alphabets.Protein, "----PAW-HEAE"),
-                Consensus = new Sequence(AmbiguousProteinAlphabet.Instance, "HEAGPAWGHEAE"),
-                Score = 12,
+                FirstSequence = new Sequence(Alphabets.Protein,  "HEAGAWGHE-E"),
+                SecondSequence = new Sequence(Alphabets.Protein, "P---AW-HEAE"),
+                Consensus = new Sequence(AmbiguousProteinAlphabet.Instance, "XEAGAWGHEAE"),
+                Score = 5,
                 FirstOffset = 0,
                 SecondOffset = 0
             });

@@ -36,12 +36,12 @@ namespace Bio.Algorithms.Alignment
         /// This is step (2) in the dynamic programming model - to fill in the scoring matrix
         /// and calculate the traceback entries. 
         /// </summary>
-        protected override IEnumerable<OptScoreMatrixCell> CreateTracebackTable(bool useAffineGapModel)
+        protected override IEnumerable<OptScoreMatrixCell> CreateTracebackTable()
         {
             // The affine gap model (Gotoh) is unrolled into a duplicate routine since this is really
             // a massive loop.  We could combine most of the logic with delegates, but that has a severe
             // penalty in performance due to the number of times they are called.
-            if (useAffineGapModel)
+            if (usingAffineGapModel)
                 return CreateAffineTracebackTable();
 
             int[] scoreLastRow = new int[Cols];
@@ -142,8 +142,8 @@ namespace Bio.Algorithms.Alignment
         {
             // Horizontal and vertical gap counts.
             int gapStride = Cols + 1;
-            int[] hgapLength = new int[(Rows + 1) * gapStride];
-            int[] vgapLength = new int[(Rows + 1) * gapStride];
+            h_Gap_Length = new int[(Rows + 1) * gapStride];
+            v_Gap_Length = new int[(Rows + 1) * gapStride];
             int[] hgapCost = new int[(Rows + 1) * gapStride];
             int[] vgapCost = new int[(Rows + 1) * gapStride];
 
@@ -152,53 +152,49 @@ namespace Bio.Algorithms.Alignment
             int[][] matrix = SimilarityMatrix.Matrix;
 
             // Initialize the gap extension cost matrices.
+            // Since this is a global alignment, the first column and first row should be set to the 
+            // indels to get there
             for (int i = 1; i < Rows; i++)
             {
-                hgapLength[i * gapStride] = i;
-                vgapLength[i * gapStride] = 1;
-                hgapCost[i * gapStride] = GapExtensionCost * i;
+                //can't move horizontally at this stage, set to value 
+                //where gap open is destined to be better.
+                hgapCost[i * gapStride] = 2*GapOpenCost*i;
+                v_Gap_Length[i * gapStride] = i;
+                int initialScore = (i - 1) * GapExtensionCost + GapOpenCost;
+                if (IncludeScoreTable)
+                    ScoreTable[i * gapStride] = initialScore;
             }
+            scoreRow[0] = GapOpenCost;
             for (int j = 1; j < Cols; j++)
             {
-                hgapLength[j] = 1;
-                vgapLength[j] = j;
-                vgapCost[j] = GapExtensionCost * j;
+                //always have to go left from top
+                Traceback[0][j] = SourceDirection.Left;
+                h_Gap_Length[j] = j;
+                //make sure the gap extension option from the top row going vertically is not picked, as 
+                //nonsense would result (can't move further up along query)
+                vgapCost[j] = j * 2 * GapOpenCost;
+                int initialScore = (j - 1) * GapExtensionCost + GapOpenCost;
+                scoreLastRow[j] = initialScore;
+                if (IncludeScoreTable)
+                    ScoreTable[j] = initialScore;
             }
-
-            // Initialize the first row of the TB table
-            for (int index = 1; index < Cols; index++)
-                Traceback[0][index] = SourceDirection.Left;
-
+            
             for (int i = 1; i < Rows; i++)
             {
                 // Create the next TB row
                 sbyte[] traceback = new sbyte[Cols];
-                traceback[0] = SourceDirection.Up;
-
                 if (i > 1)
                 {
-                    // Move current row to last row
-                    Array.Copy(scoreRow, scoreLastRow, Cols);
+                    traceback[0] = SourceDirection.Up;
+                    // Move current row to last row, Array.Copy(scoreRow, scoreLastRow, Cols);
+                    var tmp = scoreLastRow;
+                    scoreLastRow = scoreRow;
+                    scoreRow = tmp;                    
+                    // Initialize the next scoring row, should be no need for this since we are 
+                    //doing it as run.
+                    scoreRow[0] = GapExtensionCost * (i-1)+GapOpenCost;
 
-                    // Initialize the next scoring row
-                    scoreRow[0] = GapExtensionCost * i;
-                    for (int index = 1; index < Cols; index++)
-                        scoreRow[index] = GapExtensionCost * index;
-                }
-                else // first iteration
-                {
-                    scoreRow[0] = GapExtensionCost;
-
-                    // Initialize the first row
-                    for (int index = 0; index < Cols; index++)
-                    {
-                        int initialScore = GapExtensionCost * index;
-                        scoreLastRow[index] = initialScore;
-                        if (IncludeScoreTable)
-                            ScoreTable[index] = initialScore;
-                    }
-                }
-
+                }                
                 for (int j = 1; j < Cols; j++)
                 {
                     // Gap in reference sequence
@@ -208,11 +204,12 @@ namespace Bio.Algorithms.Alignment
                     if (scoreAboveOpen > scoreAboveExtend)
                     {
                         scoreAbove = scoreAboveOpen;
+                        v_Gap_Length[i * gapStride + j] = 1;
                     }
                     else
                     {
                         scoreAbove = scoreAboveExtend;
-                        vgapLength[i * gapStride + j] = vgapLength[(i - 1) * gapStride + j] + 1;
+                        v_Gap_Length[i * gapStride + j] = v_Gap_Length[(i - 1) * gapStride + j] + 1;
                     }
 
                     // Gap in query sequence
@@ -222,14 +219,15 @@ namespace Bio.Algorithms.Alignment
                     if (scoreLeftOpen > scoreLeftExtend)
                     {
                         scoreLeft = scoreLeftOpen;
+                        h_Gap_Length[i * gapStride + j] = 1;
                     }
                     else
                     {
                         scoreLeft = scoreLeftExtend;
-                        hgapLength[i * gapStride + j] = hgapLength[i * gapStride + (j - 1)] + 1;
+                        h_Gap_Length[i * gapStride + j] = h_Gap_Length[i * gapStride + (j - 1)] + 1;
                     }
 
-                    // Store off the gaps costs for this cell
+                    // Store the gaps costs for this cell
                     hgapCost[i * gapStride + j] = scoreLeft;
                     vgapCost[i * gapStride + j] = scoreAbove;
 
@@ -274,16 +272,6 @@ namespace Bio.Algorithms.Alignment
                 }
             };
         }
-
-        /// <summary>
-        /// This method is used to determine when the traceback step is complete.
-        /// </summary>
-        /// <param name="row">Row</param>
-        /// <param name="col">Column</param>
-        /// <returns>True if we are finished with the traceback step, false if not.</returns>
-        protected override bool TracebackIsComplete(int row, int col)
-        {
-            return Traceback[row][col] == SourceDirection.Stop;
-        }
+       
     }
 }

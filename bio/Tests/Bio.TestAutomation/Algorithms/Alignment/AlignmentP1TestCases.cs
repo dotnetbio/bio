@@ -207,40 +207,7 @@ namespace Bio.TestAutomation.Algorithms.Alignment
                                              AlignParameters.AllParam);
         }
 
-        /// <summary>
-        ///     Pass a Valid Sequence with valid GapPenalty, Similarity Matrix
-        ///     which is in a text file using the method Align(ListofSequences)
-        ///     and validate if the aligned sequence is as expected and
-        ///     also validate the score for the same
-        ///     Input : FastA Protein File with Max Gap Cost
-        ///     Validation : Aligned sequence and score.
-        /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
-        public void NeedlemanWunschSimpleAlignListSequencesGapCostMax()
-        {
-            ValidateNeedlemanWunschAlignment(Constants.NeedlemanWunschGapCostMaxAlignAlgorithmNodeName,
-                                             AlignParameters.AlignList);
-        }
-
-        /// <summary>
-        ///     Pass a Valid Sequence with valid GapPenalty, Similarity Matrix
-        ///     which is in a text file using the method Align(all parameters)
-        ///     and validate if the aligned sequence is as expected and
-        ///     also validate the score for the same
-        ///     Input : FastA Protein File with Max Gap Cost
-        ///     Validation : Aligned sequence and score.
-        /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
-        public void NeedlemanWunschSimpleAlignAllParamGapCostMax()
-        {
-            ValidateNeedlemanWunschAlignment(Constants.NeedlemanWunschGapCostMaxAlignAlgorithmNodeName,
-                                             AlignParameters.AllParam);
-        }
-
+     
         /// <summary>
         ///     Pass a Valid Sequence with valid GapPenalty, Similarity Matrix
         ///     which is in a text file using the method Align(ListofSequences)
@@ -619,73 +586,7 @@ namespace Bio.TestAutomation.Algorithms.Alignment
                                              AlignParameters.AllParamCode);
         }
 
-        /// <summary>
-        ///     Pass a Valid Sequence with valid GapPenalty, Similarity Matrix
-        ///     which is in a text file using the method Align(two sequences)
-        ///     and validate if the aligned sequence is as expected and
-        ///     also validate the score for the same
-        ///     Input : FastA Protein File with Max Gap Cost
-        ///     Validation : Aligned sequence and score.
-        /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
-        public void NeedlemanWunschSimpleAlignTwoSequencesGapCostMax()
-        {
-            ValidateNeedlemanWunschAlignment(Constants.NeedlemanWunschGapCostMaxAlignAlgorithmNodeName,
-                                             AlignParameters.AlignTwo);
-        }
 
-        /// <summary>
-        ///     Pass a Valid Sequence with valid GapPenalty, Similarity Matrix
-        ///     which is in a xml file using the method Align(two sequences)
-        ///     and validate if the aligned sequence is as expected and
-        ///     also validate the score for the same
-        ///     Input : FastA Protein Sequence with Max Gap Cost
-        ///     Validation : Aligned sequence and score.
-        /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
-        public void NeedlemanWunschSimpleAlignTwoSequencesGapCostMaxFromXml()
-        {
-            ValidateNeedlemanWunschAlignment(Constants.NeedlemanWunschGapCostMaxAlignAlgorithmNodeName,
-                                             AlignParameters.AlignTwoCode);
-        }
-
-        /// <summary>
-        ///     Pass a Valid Sequence with valid GapPenalty, Similarity Matrix
-        ///     which is in a xml file using the method Align(list of sequences)
-        ///     and validate if the aligned sequence is as expected and
-        ///     also validate the score for the same
-        ///     Input : FastA Protein Sequence with Max Gap Cost
-        ///     Validation : Aligned sequence and score.
-        /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
-        public void NeedlemanWunschSimpleAlignSequenceListGapCostMaxFromXml()
-        {
-            ValidateNeedlemanWunschAlignment(Constants.NeedlemanWunschGapCostMaxAlignAlgorithmNodeName,
-                                             AlignParameters.AlignListCode);
-        }
-
-        /// <summary>
-        ///     Pass a Valid Sequence with valid GapPenalty, Similarity Matrix
-        ///     which is in a xml file using the method Align(all parameters)
-        ///     and validate if the aligned sequence is as expected and
-        ///     also validate the score for the same
-        ///     Input : FastA Protein Sequence with Max Gap Cost
-        ///     Validation : Aligned sequence and score.
-        /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
-        public void NeedlemanWunschSimpleAlignAllParamGapCostMaxFromXml()
-        {
-            ValidateNeedlemanWunschAlignment(Constants.NeedlemanWunschGapCostMaxAlignAlgorithmNodeName,
-                                             AlignParameters.AllParamCode);
-        }
 
         /// <summary>
         ///     Pass a Valid Sequence with valid GapPenalty, Similarity Matrix
@@ -935,42 +836,9 @@ namespace Bio.TestAutomation.Algorithms.Alignment
                                              AlignmentType.Align);
         }
 
-        /// <summary>
-        ///     Pass a Valid Sequence with valid Gap Cost, Gap Extension, Similarity Matrix
-        ///     which is in a text file using the method Align(ListofSequences)
-        ///     and validate if the aligned sequence is as expected and
-        ///     also validate the score for the same
-        ///     Input : FastA Protein File with Max Gap Cost
-        ///     Validation : Aligned sequence and score.
-        /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
-        public void NeedlemanWunschAlignListSequencesGapCostMax()
-        {
-            ValidateNeedlemanWunschAlignment(Constants.NeedlemanWunschGapCostMaxAlignAlgorithmNodeName,
-                                             AlignParameters.AlignList, SimilarityMatrixParameters.Default,
-                                             AlignmentType.Align);
-        }
+       
 
-        /// <summary>
-        ///     Pass a Valid Sequence with valid Gap Cost, Gap Extension, Similarity Matrix
-        ///     which is in a text file using the method Align(all parameters)
-        ///     and validate if the aligned sequence is as expected and
-        ///     also validate the score for the same
-        ///     Input : FastA Protein File with Max Gap Cost
-        ///     Validation : Aligned sequence and score.
-        /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
-        public void NeedlemanWunschAlignAllParamGapCostMax()
-        {
-            ValidateNeedlemanWunschAlignment(Constants.NeedlemanWunschGapCostMaxAlignAlgorithmNodeName,
-                                             AlignParameters.AllParam, SimilarityMatrixParameters.Default,
-                                             AlignmentType.Align);
-        }
-
+       
         /// <summary>
         ///     Pass a Valid Sequence with valid Gap Cost, Gap Extension, Similarity Matrix
         ///     which is in a text file using the method Align(ListofSequences)
@@ -1295,39 +1163,8 @@ namespace Bio.TestAutomation.Algorithms.Alignment
                                            AlignParameters.AllParam);
         }
 
-        /// <summary>
-        ///     Pass a Valid Sequence with valid GapPenalty, Similarity Matrix
-        ///     which is in a text file using the method Align(ListofSequences)
-        ///     and validate if the aligned sequence is as expected and
-        ///     also validate the score for the same
-        ///     Input : FastA Protein File with Max Gap Cost
-        ///     Validation : Aligned sequence and score.
-        /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
-        public void SmithWatermanSimpleAlignListSequencesGapCostMax()
-        {
-            ValidateSmithWatermanAlignment(Constants.SmithWatermanGapCostMaxAlignAlgorithmNodeName,
-                                           AlignParameters.AlignList);
-        }
-
-        /// <summary>
-        ///     Pass a Valid Sequence with valid GapPenalty, Similarity Matrix
-        ///     which is in a text file using the method Align(all parameters)
-        ///     and validate if the aligned sequence is as expected and
-        ///     also validate the score for the same
-        ///     Input : FastA Protein File with Max Gap Cost
-        ///     Validation : Aligned sequence and score.
-        /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
-        public void SmithWatermanSimpleAlignAllParamGapCostMax()
-        {
-            ValidateSmithWatermanAlignment(Constants.SmithWatermanGapCostMaxAlignAlgorithmNodeName,
-                                           AlignParameters.AllParam);
-        }
+      
+    
 
         /// <summary>
         ///     Pass a Valid Sequence with valid GapPenalty, Similarity Matrix
@@ -1707,74 +1544,7 @@ namespace Bio.TestAutomation.Algorithms.Alignment
                                            AlignParameters.AllParamCode);
         }
 
-        /// <summary>
-        ///     Pass a Valid Sequence with valid GapPenalty, Similarity Matrix
-        ///     which is in a text file using the method Align(two sequences)
-        ///     and validate if the aligned sequence is as expected and
-        ///     also validate the score for the same
-        ///     Input : FastA Protein File with Max Gap Cost
-        ///     Validation : Aligned sequence and score.
-        /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
-        public void SmithWatermanSimpleAlignTwoSequencesGapCostMax()
-        {
-            ValidateSmithWatermanAlignment(Constants.SmithWatermanGapCostMaxAlignAlgorithmNodeName,
-                                           AlignParameters.AlignTwo);
-        }
-
-        /// <summary>
-        ///     Pass a Valid Sequence with valid GapPenalty, Similarity Matrix
-        ///     which is in a xml file using the method Align(two sequences)
-        ///     and validate if the aligned sequence is as expected and
-        ///     also validate the score for the same
-        ///     Input : FastA Protein Sequence with Max Gap Cost
-        ///     Validation : Aligned sequence and score.
-        /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
-        public void SmithWatermanSimpleAlignTwoSequencesGapCostMaxFromXml()
-        {
-            ValidateSmithWatermanAlignment(Constants.SmithWatermanGapCostMaxAlignAlgorithmNodeName,
-                                           AlignParameters.AlignTwoCode);
-        }
-
-        /// <summary>
-        ///     Pass a Valid Sequence with valid GapPenalty, Similarity Matrix
-        ///     which is in a xml file using the method Align(list of sequences)
-        ///     and validate if the aligned sequence is as expected and
-        ///     also validate the score for the same
-        ///     Input : FastA Protein Sequence with Max Gap Cost
-        ///     Validation : Aligned sequence and score.
-        /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
-        public void SmithWatermanSimpleAlignSequenceListGapCostMaxFromXml()
-        {
-            ValidateSmithWatermanAlignment(Constants.SmithWatermanGapCostMaxAlignAlgorithmNodeName,
-                                           AlignParameters.AlignListCode);
-        }
-
-        /// <summary>
-        ///     Pass a Valid Sequence with valid GapPenalty, Similarity Matrix
-        ///     which is in a xml file using the method Align(all parameters)
-        ///     and validate if the aligned sequence is as expected and
-        ///     also validate the score for the same
-        ///     Input : FastA Protein Sequence with Max Gap Cost
-        ///     Validation : Aligned sequence and score.
-        /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
-        public void SmithWatermanSimpleAlignAllParamGapCostMaxFromXml()
-        {
-            ValidateSmithWatermanAlignment(Constants.SmithWatermanGapCostMaxAlignAlgorithmNodeName,
-                                           AlignParameters.AllParamCode);
-        }
-
+     
         /// <summary>
         ///     Pass a Valid Sequence with valid GapPenalty, Similarity Matrix
         ///     which is in a text file using the method Align(two sequences)
@@ -2023,41 +1793,6 @@ namespace Bio.TestAutomation.Algorithms.Alignment
                                            AlignmentType.Align);
         }
 
-        /// <summary>
-        ///     Pass a Valid Sequence with valid Gap Cost, Gap Extension, Similarity Matrix
-        ///     which is in a text file using the method Align(ListofSequences)
-        ///     and validate if the aligned sequence is as expected and
-        ///     also validate the score for the same
-        ///     Input : FastA Protein File with Max Gap Cost
-        ///     Validation : Aligned sequence and score.
-        /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
-        public void SmithWatermanAlignListSequencesGapCostMax()
-        {
-            ValidateSmithWatermanAlignment(Constants.SmithWatermanGapCostMaxAlignAlgorithmNodeName,
-                                           AlignParameters.AlignList, SimilarityMatrixParameters.Default,
-                                           AlignmentType.Align);
-        }
-
-        /// <summary>
-        ///     Pass a Valid Sequence with valid Gap Cost, Gap Extension, Similarity Matrix
-        ///     which is in a text file using the method Align(all parameters)
-        ///     and validate if the aligned sequence is as expected and
-        ///     also validate the score for the same
-        ///     Input : FastA Protein File with Max Gap Cost
-        ///     Validation : Aligned sequence and score.
-        /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
-        public void SmithWatermanAlignAllParamGapCostMax()
-        {
-            ValidateSmithWatermanAlignment(Constants.SmithWatermanGapCostMaxAlignAlgorithmNodeName,
-                                           AlignParameters.AllParam, SimilarityMatrixParameters.Default,
-                                           AlignmentType.Align);
-        }
 
         /// <summary>
         ///     Pass a Valid Sequence with valid Gap Cost, Gap Extension, Similarity Matrix

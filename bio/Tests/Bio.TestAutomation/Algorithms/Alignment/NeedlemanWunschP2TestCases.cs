@@ -1247,27 +1247,7 @@ namespace Bio.TestAutomation.Algorithms.Alignment
                 AlignmentType.Align);
         }
 
-        /// <summary>
-        ///     Pass a Valid Sequence with valid GapPenalty, Similarity Matrix
-        ///     which is in a text file using the method Align(two sequences)
-        ///     and validate if the aligned sequence is as expected and
-        ///     also validate the score for the same
-        ///     Input : FastA Protein File with Max Gap Cost
-        ///     Validation : Aligned sequence and score.
-        /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
-        public void ValidateNeedlemanWunschAlignTwoSequencesGapCostMax()
-        {
-            ValidateNeedlemanWunschAlignment(
-                Constants.NeedlemanWunschGapCostMaxAlignAlgorithmNodeName,
-                true,
-                SequenceCaseType.LowerCase,
-                AlignParameters.AlignTwo,
-                AlignmentType.Align);
-        }
-
+       
         /// <summary>
         ///     Pass a Valid Sequence with valid GapPenalty, Similarity Matrix
         ///     which is in a text file using the method Align(two sequences)

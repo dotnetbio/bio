@@ -13,7 +13,7 @@ namespace Bio.Algorithms.Alignment
     {
         /// <summary>
         /// A convenience method - we know there are exactly two inputs.
-        /// AlignSimple uses a linear gap penalty.
+        /// AlignSimple uses a single gap penalty.
         /// </summary>
         /// <param name="sequence1">First input sequence.</param>
         /// <param name="sequence2">Second input sequence.</param>

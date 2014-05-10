@@ -150,6 +150,30 @@ namespace Bio.TestAutomation.Algorithms.Alignment
                 AlignParameters.AlignTwo);
         }
 
+
+        [TestMethod]
+        [Priority(2)]
+        [TestCategory("Priority2")]
+        public void SmithWatermanGotohAlignSequenceWithMultiplePossibleIndelPositions()
+        {
+            var longRef = "TGACCCCGAGGGGGCCCGGGGCCGCGTCCCTGGGCCCTCCCCA";
+            var longHapOrg = "TGACCCCGAGGG---CCGGG--------------CCCTCCCCA";
+            var longHap = longHapOrg.Replace("-", "");
+            var lr = new Sequence(DnaAlphabet.Instance, longRef);
+            var lh = new Sequence(DnaAlphabet.Instance, longHap);
+            
+            var al = new Bio.Algorithms.Alignment.SmithWatermanAligner();
+            al.SimilarityMatrix = new Bio.SimilarityMatrices.DiagonalSimilarityMatrix(20, -15);
+            al.GapOpenCost = -26;
+            al.GapExtensionCost = -1;
+
+            var res = al.Align(lr, lh);
+            var results = res.First();
+            var alignedSeq = results.AlignedSequences[0].Sequences[1].ToString();
+            Assert.AreEqual(alignedSeq, longHapOrg);
+        }
+
+
         /// <summary>
         ///     Pass a Valid Sequence(Upper case) with valid GapPenalty, Similarity Matrix
         ///     which is in a text file using the method Align(sequence1, sequence2)
@@ -1249,27 +1273,7 @@ namespace Bio.TestAutomation.Algorithms.Alignment
                 AlignmentType.Align);
         }
 
-        /// <summary>
-        ///     Pass a Valid Sequence with valid GapPenalty, Similarity Matrix
-        ///     which is in a text file using the method Align(two sequences)
-        ///     and validate if the aligned sequence is as expected and
-        ///     also validate the score for the same
-        ///     Input : FastA Protein File with Max Gap Cost
-        ///     Validation : Aligned sequence and score.
-        /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
-        public void ValidateSmithWatermanAlignTwoSequencesGapCostMax()
-        {
-            ValidateSmithWatermanAlignment(
-                Constants.SmithWatermanGapCostMaxAlignAlgorithmNodeName,
-                true,
-                SequenceCaseType.LowerCase,
-                AlignParameters.AlignTwo,
-                AlignmentType.Align);
-        }
-
+       
         /// <summary>
         ///     Pass a Valid Sequence with valid GapPenalty, Similarity Matrix
         ///     which is in a text file using the method Align(two sequences)
