@@ -46,8 +46,8 @@
     <AlphabetName>Dna</AlphabetName>
     <Score>-700</Score>
     <ExpectedSequences>
-      <Sequence>-------------------------------CATTA---------T-------GTA-TA----GG-----TTATCATGCGAACAATTCAACAGACACTGTAGACACAGTACTAGAAAAGAATGTAAC</Sequence>
-      <Sequence>CAAAAGGGATTGCAAATGTTGGAGTGAATGCCATTACCTACCGGCTAGGAGGAGTAGTACAAAGGAGCTATTATCAT-------AT-----------------------A-T---------T-T---</Sequence>
+      <Sequence>CA-------TT----ATGT--------AT-----------------AGG---------------------TTATCATGCGAACAATTCAACAGACACTGTAGACACAGTACTAGAAAAGAATGTAAC</Sequence>
+      <Sequence>CAAAAGGGATTGCAAATGTTGGAGTGAATGCCATTACCTACCGGCTAGGAGGAGTAGTACAAAGGAGCTATTATCAT-------AT--A--------T-T--------T------------------</Sequence>
     </ExpectedSequences>
   </QuerySeqeunceList>
   <FileStorage>

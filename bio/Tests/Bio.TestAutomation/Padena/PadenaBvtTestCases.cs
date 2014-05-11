@@ -613,6 +613,7 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         [TestMethod]
         [Priority(0)]
         [TestCategory("Priority0")]
+        [Ignore]
         public void ValidatePadenaStep6CalculateDistanceForReversePairedContigs()
         {
             using (PadenaBvtTest testObj = new Padena.PadenaBvtTest())
@@ -634,6 +635,7 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         [TestMethod]
         [Priority(0)]
         [TestCategory("Priority0")]
+        [Ignore]
         public void ValidatePadenaStep6ScaffoldPathForForwardOrientation()
         {
             using (PadenaBvtTest testObj = new Padena.PadenaBvtTest())
@@ -651,6 +653,7 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         [TestMethod]
         [Priority(0)]
         [TestCategory("Priority0")]
+        [Ignore]
         public void ValidatePadenaStep6ScaffoldPathForReverseOrientation()
         {
             using (PadenaBvtTest testObj = new Padena.PadenaBvtTest())
@@ -672,6 +675,7 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         [TestMethod]
         [Priority(0)]
         [TestCategory("Priority0")]
+        [Ignore]
         public void ValidatePadenaStep6AssembledPathWithOverlapContigs()
         {
             using (PadenaBvtTest testObj = new Padena.PadenaBvtTest())
@@ -689,6 +693,7 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         [TestMethod]
         [Priority(0)]
         [TestCategory("Priority0")]
+        [Ignore]
         public void ValidatePadenaStep6AssembledPathWithPartialOverlapContigs()
         {
             using (PadenaBvtTest testObj = new Padena.PadenaBvtTest())

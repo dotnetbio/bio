@@ -335,6 +335,8 @@ namespace Bio.TestAutomation.Web.ClustalW
         /// Validate the CancelRequest()
         /// </summary>
         /// <param name="nodeName">xml node name</param>
+        [TestCategory("WebServices")]
+        [Ignore]
         void ValidateCancelRequest(string nodeName)
         {
             // Read input from config file

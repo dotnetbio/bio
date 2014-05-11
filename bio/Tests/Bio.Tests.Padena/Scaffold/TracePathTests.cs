@@ -36,9 +36,9 @@ namespace Bio.Tests
         [TestCategory("Priority0")]
         public void TracePathTestWithPalindromicContig()
         {
-            const int kmerLengthConst = 6;
+            const int kmerLengthConst = 5;
             const int dangleThreshold = 3;
-            const int redundantThreshold = 7;
+            const int redundantThreshold = 6;
 
             var sequences = new List<ISequence>()
             {

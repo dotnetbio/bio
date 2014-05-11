@@ -41,6 +41,7 @@ namespace Bio.TestConsole
         [TestMethod]
         [Priority(0)]
         [TestCategory("Priority0")]
+        [Ignore]
         public void ValidatePadenaUtilWithAssembleAndVerbose()
         {
             ValidatePadenaUtil(Constants.PadenaUtilDefaultParamsNodeName, true);
@@ -63,6 +64,7 @@ namespace Bio.TestConsole
         [TestMethod]
         [Priority(0)]
         [TestCategory("Priority0")]
+        [Ignore]
         public void ValidatePadenaUtilAssembleWithScaffoldAndVerbose()
         {
             ValidatePadenaUtil(Constants.PadenaUtilAssembleWithScaffoldNode, true);
@@ -74,6 +76,7 @@ namespace Bio.TestConsole
         [TestMethod]
         [Priority(0)]
         [TestCategory("Priority0")]
+        [Ignore]
         public void ValidatePadenaUtilAssembleWithScaffoldAndQuiet()
         {
             ValidatePadenaUtil(Constants.PadenaUtilAssembleWithScaffoldNode, false);

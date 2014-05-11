@@ -212,7 +212,7 @@ namespace Bio.Tests.Algorithms.Alignment
                 FirstSequence = new Sequence(Alphabets.Protein, "HEAGAWGHE-E"),
                 SecondSequence = new Sequence(Alphabets.Protein, "-PA--W-HEAE"),
                 Consensus = new Sequence(AmbiguousProteinAlphabet.Instance, "HXAGAWGHEAE"),
-                Score = -1,
+                Score = -8,
                 FirstOffset = 0,
                 SecondOffset = 0
             });

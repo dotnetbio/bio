@@ -352,9 +352,9 @@ namespace Bio.Tests
             foreach (var alignedSequence in alignments[0].AlignedSequences)
                 alignment.AlignedSequences.Add(alignedSequence);
 
-            const string expected = "KRLNIPXXXXLXXXXXXFXXXXXXLSXFLHN\r\n" +
-                                    "KR--IPKSQNLRSIHSIFPFLEDKLSH-L-N\r\n" +
-                                    "--LNIPSLITLNKSIYVFSKRKKRLSGFLHN\r\n\r\n";
+            const string expected = "XXIPXXXXLXXXXXXFXXXXXXLSXXLHN\r\n" +
+                                    "KRIPKSQNLRSIHSIFPFLEDKLSHL--N\r\n" +
+                                    "LNIPSLITLNKSIYVFSKRKKRLSGFLHN\r\n\r\n";
             Assert.AreEqual(expected, alignment.ToString());
         }
 

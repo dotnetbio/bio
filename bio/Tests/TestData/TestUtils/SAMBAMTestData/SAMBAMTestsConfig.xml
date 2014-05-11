@@ -209,8 +209,8 @@
     <Metadata>1</Metadata>
     <MPos>0</MPos>
     <OptionalFields>3</OptionalFields>
-    <Pos>1</Pos>
-    <QueryLength>35</QueryLength>
+    <Pos>5212</Pos>
+    <QueryLength>5246</QueryLength>
     <RName>gi|110640213|ref|NC_008253.1|</RName>
   </BAMAlignedSeqProperties>
   <SAMToBAMConversionForMultipleAlignedSeq>

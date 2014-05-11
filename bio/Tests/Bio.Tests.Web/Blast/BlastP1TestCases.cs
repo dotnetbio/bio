@@ -828,7 +828,8 @@ namespace Bio.TestAutomation.Web.Blast
         /// </summary>
         [TestMethod]
         [Priority(1)]
-        [TestCategory("Priority1")]
+        [TestCategory("Priority1"),TestCategory("Web")]
+        [Ignore]//Test takes 18 minutes and is of uncertain utility, listing as ignored for now.
         public void ValidateFetchResultsSyncForProteinSequenceWithSwissprotDatabase()
         {
             ValidateGeneralFetchResults(
@@ -1158,6 +1159,7 @@ namespace Bio.TestAutomation.Web.Blast
         [TestMethod]
         [Priority(1)]
         [TestCategory("Priority1")]
+        [Ignore]//Test took 472 minutes and is of uncertain utility, ignoring for now.
         public void ValidateNcbiBlastResultsUsingConfigPams()
         {
             GeneralMethodToValidateResults(Constants.EmRelNcbiDatabaseParametersNode,

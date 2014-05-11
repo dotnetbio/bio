@@ -1809,7 +1809,7 @@ namespace Bio.TestAutomation.Algorithms.Alignment
             string expectedErrorMessage = GetExpectedErrorMeesageWithInvalidSequenceType(nodeName,
                                                                                          sequenceType);
 
-            Assert.AreEqual(expectedErrorMessage.Replace("\r", "").Replace("\n", "").Replace("\t", ""),
+            Assert.AreEqual(expectedErrorMessage.Replace("\\r", "").Replace("\\n", "").Replace("\t", ""),
                             actualException.Message.Replace("\r", "").Replace("\n", "").Replace("\t", ""));
 
             ApplicationLog.WriteLine("PairwiseOverlapAligner P2 : Expected Error message is thrown ", expectedErrorMessage);

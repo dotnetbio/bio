@@ -57,7 +57,7 @@
     <AlphabetNullException>Value cannot be null.Parameter name: alphabet</AlphabetNullException>
     <InvalidQualityScore>value cannot be null.parameter name: encodedqualityscores</InvalidQualityScore>
     <InvalidByteQualScore>invalid encoded quality score found. è is not supported in sanger format.parameter name: encodedqualityscores</InvalidByteQualScore>
-    <AlphabetMapError>specified argument was out of the range of valid values.parameter name: sequence</AlphabetMapError>
+    <AlphabetMapError>Specified argument was out of the range of valid values.Parameter name: Sequence contains an illegal character not allowed in alphabet: Dna.  Sequence was:AGTZ</AlphabetMapError>
     <EncodingError>Specified encoding "NCBIeaa" is not valid for the DNA Alphabet.</EncodingError>
     <ReadOnlyException>Can not modify a read only sequence</ReadOnlyException>
     <ReverseQualSeq>GTTACCTACATCCCACATTCACGCGG</ReverseQualSeq>
