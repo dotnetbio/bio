@@ -129,14 +129,17 @@
                 AddNameValuePair(excelData, 0, Properties.Resources.GenbankMetadataAccession, "", metadata.Accession.Primary + secondaryAccession);
             }
 
-            if (metadata.DbLink != null)
+            if (metadata.DbLinks != null)
             {
-                string linkNumbers = string.Empty;
-                foreach (string linkNumber in metadata.DbLink.Numbers)
+                foreach (var link in metadata.DbLinks)
                 {
-                    linkNumbers += linkNumber + ",";
+                    string linkNumbers = string.Empty;
+                    foreach (string linkNumber in link.Numbers)
+                    {
+                        linkNumbers += linkNumber + ",";
+                    }
+                    AddNameValuePair(excelData, 0, Properties.Resources.GenbankMetadataDBLink, "", link.Type.ToString() + ":" + linkNumbers);
                 }
-                AddNameValuePair(excelData, 0, Properties.Resources.GenbankMetadataDBLink, "", metadata.DbLink.Type.ToString() + ":" + linkNumbers);
             }
 
             if (!string.IsNullOrWhiteSpace(metadata.DbSource))

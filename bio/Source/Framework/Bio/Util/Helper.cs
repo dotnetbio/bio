@@ -41,6 +41,7 @@ namespace Bio.Util
         private const string Colon = ":";
         private const string Comma = ",";
         private const string ProjectDBLink = "Project";
+        private const string BioProjectDBLink = "BioProject";
         private const string TraceAssemblyArchiveDBLink = "Trace Assembly Archive";
         private const string SegmentDelim = " of ";
         private const string SingleStrand = "ss-";
@@ -459,39 +460,46 @@ namespace Bio.Util
         /// <summary>
         /// Returns a string which represents specified CrossReferenceLink.
         /// </summary>
-        /// <param name="crossReferenceLink">CrossReferenceLink.</param>
+        /// <param name="crossReferenceLinks">CrossReferenceLinks.</param>
         /// <returns>Returns string.</returns>
-        public static string GetCrossReferenceLink(CrossReferenceLink crossReferenceLink)
+        public static string GetCrossReferenceLink(IList<CrossReferenceLink> crossReferenceLinks)
         {
-            if (crossReferenceLink == null)
+            if (crossReferenceLinks == null)
             {
-                throw new ArgumentNullException("crossReferenceLink");
+                throw new ArgumentNullException("crossReferenceLinks");
             }
 
             StringBuilder strBuilder = new StringBuilder();
-            string referenceType = string.Empty;
-            if (crossReferenceLink.Type == CrossReferenceType.Project)
+            List<string> toReturn = new List<string>();
+            foreach(var crossReferenceLink in crossReferenceLinks)
             {
-                referenceType = ProjectDBLink;
-            }
-            else if (crossReferenceLink.Type == CrossReferenceType.TraceAssemblyArchive)
-            {
-                referenceType = TraceAssemblyArchiveDBLink;
-            }
-
-            strBuilder.Append(referenceType);
-            strBuilder.Append(Colon);
-
-            for (int i = 0; i < crossReferenceLink.Numbers.Count; i++)
-            {
-                strBuilder.Append(crossReferenceLink.Numbers[i]);
-                if (i != crossReferenceLink.Numbers.Count - 1)
+                string referenceType = string.Empty;
+                if (crossReferenceLink.Type == CrossReferenceType.Project)
                 {
-                    strBuilder.Append(Comma);
+                    referenceType = ProjectDBLink;
                 }
+                else if (crossReferenceLink.Type == CrossReferenceType.TraceAssemblyArchive)
+                {
+                    referenceType = TraceAssemblyArchiveDBLink;
+                }
+                else if (crossReferenceLink.Type == CrossReferenceType.BioProject)
+                {
+                    referenceType = BioProjectDBLink;
+                }
+                strBuilder.Append(referenceType);
+                strBuilder.Append(Colon);
+                for (int i = 0; i < crossReferenceLink.Numbers.Count; i++)
+                {
+                    strBuilder.Append(crossReferenceLink.Numbers[i]);
+                    if (i != crossReferenceLink.Numbers.Count - 1)
+                    {
+                        strBuilder.Append(Comma);
+                    }
+                }
+                toReturn.Add(strBuilder.ToString());
+                strBuilder.Clear();
             }
-
-            return strBuilder.ToString();
+            return String.Join("\n", toReturn);
         }
 
         /// <summary>

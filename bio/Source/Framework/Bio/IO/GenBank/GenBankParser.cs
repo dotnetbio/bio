@@ -7,6 +7,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using Bio.Util;
 using Bio.Util.Logging;
+using System.ComponentModel;
 
 namespace Bio.IO.GenBank
 {
@@ -489,32 +490,48 @@ namespace Bio.IO.GenBank
                         break;
 
                     case "DBLINK":
-                        lineData = GetLineData(line, DataIndent);
-                        tokens = lineData.Split(':');
-                        if (tokens.Length == 2)
+                        data = ParseMultiLineData(ref line, "\n", DataIndent, stream);
+                        metadata.DbLinks = new List<CrossReferenceLink>();
+                        foreach (string link in data.Split('\n'))
                         {
-                            metadata.DbLink = new CrossReferenceLink();
-                            if (string.Compare(tokens[0], CrossReferenceType.Project.ToString(), StringComparison.OrdinalIgnoreCase) == 0)
+                            tokens = link.Split(':');
+
+                            if (tokens.Length == 2)
                             {
-                                metadata.DbLink.Type = CrossReferenceType.Project;
+                                CrossReferenceLink newLink = new CrossReferenceLink();
+                                //metadata.DbLink = new CrossReferenceLink();
+                                if (string.Compare(tokens[0], CrossReferenceType.Project.ToString(), StringComparison.OrdinalIgnoreCase) == 0)
+                                {
+                                    newLink.Type = CrossReferenceType.Project;
+                                }
+                                else if (string.Compare(tokens[0], CrossReferenceType.BioProject.ToString(), StringComparison.OrdinalIgnoreCase) == 0)
+                                {
+                                    newLink.Type = CrossReferenceType.BioProject;
+                                }
+                                else
+                                {
+                                    newLink.Type = CrossReferenceType.None;
+                                    DescriptionAttribute[] attributes = (DescriptionAttribute[])CrossReferenceType.TraceAssemblyArchive.GetType().GetField(CrossReferenceType.TraceAssemblyArchive.ToString()).GetCustomAttributes(typeof(DescriptionAttribute), false);
+                                    if (attributes != null && attributes.Length > 0)
+                                    {
+                                        if (string.Compare(tokens[0], attributes[0].Description, StringComparison.OrdinalIgnoreCase) == 0)
+                                        {
+                                            newLink.Type = CrossReferenceType.TraceAssemblyArchive;
+                                        }
+                                    }
+                                }
+                                tokens = tokens[1].Split(',');
+                                for (int i = 0; i < tokens.Length; i++)
+                                {
+                                    newLink.Numbers.Add(tokens[i]);
+                                }
+                                metadata.DbLinks.Add(newLink);
                             }
                             else
                             {
-                                metadata.DbLink.Type = CrossReferenceType.TraceAssemblyArchive;
-                            }
-
-                            tokens = tokens[1].Split(',');
-                            for (int i = 0; i < tokens.Length; i++)
-                            {
-                                metadata.DbLink.Numbers.Add(tokens[i]);
+                                ApplicationLog.WriteLine("WARN: unexpected DBLINK header: " + line);
                             }
                         }
-                        else
-                        {
-                            ApplicationLog.WriteLine("WARN: unexpected DBLINK header: " + line);
-                        }
-
-                        line = GoToNextLine(line, stream);
                         break;
 
                     case "DBSOURCE":

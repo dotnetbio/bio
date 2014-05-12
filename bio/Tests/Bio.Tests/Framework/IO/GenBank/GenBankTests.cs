@@ -38,6 +38,7 @@ namespace Bio.Tests.IO.GenBank
         #region Fields
         private const string _genBankFile_LocusTokenParserTest = @"TestUtils\GenBank\LocusTokenParserTest.gb";
         private const string _genBankFile_WithTPAPrimaryData = @"TestUtils\GenBank\BK000016-tpa.gbk";
+        private const string _genBankFile_WithMultipleDBLines = @"TestUtils\GenBank\seq1.gbk";
         private const string _genBankFile_WithREFSEQPrimaryData = @"TestUtils\GenBank\NM_001747.gb";
         private const string _genBankDataPath = @"TestUtils\GenBank";
         private const string TempGenBankFileName = "tempGenBank.gbk";
@@ -615,5 +616,63 @@ ORIGIN
             GenBankParser parser = new GenBankParser(_genBankFile_WithREFSEQPrimaryData);
             parser.Parse();
         }
+
+         /// <summary>
+        ///     New test based on GenBankFormatterValidateWrite that ensures the input and output
+        ///     files are the same. Designed to test the case of multiple dblink fields.
+        /// </summary>
+        [TestMethod]
+        [Priority(0)]
+        [TestCategory("Priority0")]
+        public void GenBankFormatterValidateReadAndWriteMultipleDBLinks()
+        {
+            // Create a Sequence with all attributes.
+            // parse and update the properties instead of parsing entire file.   
+            string tempFileName = Path.GetTempFileName();
+            using (ISequenceParser parser1 = new GenBankParser(_genBankFile_WithMultipleDBLines))
+            {
+                var orgSeq = parser1.Parse().First();
+                using (ISequenceFormatter formatter = new GenBankFormatter(tempFileName))
+                {
+                    formatter.Write(orgSeq);
+                    formatter.Close();
+                }
+            }
+            var same = CompareFiles(tempFileName, _genBankFile_WithMultipleDBLines);
+            File.Delete(tempFileName);
+            Assert.IsTrue(same);
+            ApplicationLog.WriteLine("GenBank Formatter: Successful read->write loop");
+        }
+
+        /// <summary>
+        /// Compare the results/output file
+        /// </summary>
+        /// <param name="file1">File 1 to compare</param>
+        /// <param name="file2">File 2 to compare with</param>
+        /// <returns>True, if both files are the same.</returns>
+        internal static bool CompareFiles(string file1, string file2)
+        {
+            FileInfo fileInfoObj1 = new FileInfo(file1);
+            FileInfo fileInfoObj2 = new FileInfo(file2);
+
+            if (fileInfoObj1.Length != fileInfoObj2.Length)
+                return false;
+
+            byte[] bytesFile1 = File.ReadAllBytes(file1);
+            byte[] bytesFile2 = File.ReadAllBytes(file2);
+
+            if (bytesFile1.Length != bytesFile2.Length)
+                return false;
+
+            for (int i = 0; i <= bytesFile2.Length - 1; i++)
+            {
+                if (bytesFile1[i] != bytesFile2[i])
+                    return false;
+            }
+
+            return true;
+        }
+
+
     }
 }

@@ -1,5 +1,5 @@
 ﻿using System;
-
+using System.ComponentModel;
 namespace Bio.IO.GenBank
 {
     /// <summary>
@@ -19,8 +19,16 @@ namespace Bio.IO.GenBank
         Project,
 
         /// <summary>
-        /// Trace Assembly Archive.
+        /// Trace Assembly Archive.  The Description specifies the actual string 
+        /// with spaces that appears in the genbank file.
         /// </summary>
-        TraceAssemblyArchive
+        [Description("Trace Assembly Archive")]
+        TraceAssemblyArchive,
+
+
+        /// <summary>
+        /// BioProject Type.
+        /// </summary>
+        BioProject
     }
 }

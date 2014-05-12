@@ -288,9 +288,9 @@ namespace Bio.IO.GenBank
                     WriteHeaderSection("PROJECT", Helper.GetProjectIdentifier(metadata.Project), txtWriter);
                 }
 
-                if (metadata.DbLink != null)
+                if (metadata.DbLinks != null && metadata.DbLinks.Count>0)
                 {
-                    WriteHeaderSection("DBLINK", Helper.GetCrossReferenceLink(metadata.DbLink), txtWriter);
+                    WriteHeaderSection("DBLINK", Helper.GetCrossReferenceLink(metadata.DbLinks), txtWriter);
                 }
 
                 WriteHeaderSection("DBSOURCE", metadata.DbSource, txtWriter);

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Bio.Util.Logging;
+using System.ComponentModel;
 
 namespace Bio.IO.GenBank
 {
@@ -48,10 +49,9 @@ namespace Bio.IO.GenBank
             {
                 Project = other.Project.Clone();
             }
-
-            if (other.DbLink != null)
+            if (other.DbLinks != null)
             {
-                DbLink = other.DbLink.Clone();
+                DbLinks = other.DbLinks.ToList();
             }
 
             DbSource = other.DbSource;
@@ -127,7 +127,34 @@ namespace Bio.IO.GenBank
         /// a sequence record, such as the Project Database and the NCBI 
         /// Trace Assembly Archive.
         /// </summary>
-        public CrossReferenceLink DbLink { get; set; }
+        [Obsolete("Use the IList in DbLinks instead as there can be more than one DBLink.")]
+        public CrossReferenceLink DbLink {
+            get
+            {
+                if (DbLinks != null && DbLinks.Count > 0)
+                {
+                    return DbLinks[0];
+                }
+                else
+                {
+                    return null;
+                }
+
+            }
+            set {
+                DbLinks = new List<CrossReferenceLink>();
+                DbLinks.Add(value);
+            }
+
+        }
+
+        /// <summary>
+        /// DBLinks provides a list of cross-references to resources that support the existence 
+        /// a sequence record, such as the Project Database and the NCBI 
+        /// Trace Assembly Archive.
+        /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public IList<CrossReferenceLink> DbLinks { get; set; }
 
         /// <summary>
         /// DBSource provies reference to the GenBank record from which the protein 

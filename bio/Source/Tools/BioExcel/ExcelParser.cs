@@ -942,24 +942,35 @@
                         tokens = value.Split(':');
                         if (tokens.Length == 2)
                         {
-                            metadata.DbLink = new CrossReferenceLink();
+                            if (metadata.DbLinks == null) 
+                            { metadata.DbLinks = new List<CrossReferenceLink>(2); }
+                            var curLink = new CrossReferenceLink();
+                            
                             if (string.Compare(tokens[0],
                                 CrossReferenceType.Project.ToString(),
                                 StringComparison.OrdinalIgnoreCase) == 0)
                             {
-                                metadata.DbLink.Type = CrossReferenceType.Project;
+                                curLink.Type = CrossReferenceType.Project;
+                            }
+                            else if (string.Compare(tokens[0], 
+                                CrossReferenceType.BioProject.ToString(), 
+                                StringComparison.OrdinalIgnoreCase) == 0)
+                            {
+                                curLink.Type = CrossReferenceType.BioProject;
                             }
                             else
                             {
-                                metadata.DbLink.Type = CrossReferenceType.TraceAssemblyArchive;
+                                curLink.Type = CrossReferenceType.TraceAssemblyArchive;
                             }
 
                             tokens = tokens[1].Split(',');
                             for (int i = 0; i < tokens.Length; i++)
                             {
-                                metadata.DbLink.Numbers.Add(tokens[i]);
+                                curLink.Numbers.Add(tokens[i]);
                             }
+                            metadata.DbLinks.Add(curLink);
                         }
+
                         break;
                     case DBSOURCE:
                         metadata.DbSource = value;
