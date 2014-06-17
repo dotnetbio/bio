@@ -507,6 +507,11 @@
     <Compile Include="Util\ArgumentParser\TypeExtensions.cs" />
     <Compile Include="Util\UOPair.cs" />
     <Compile Include="Util\ValueConverter.cs" />
+    <Compile Include="Variant\BaseAndQuality.cs" />
+    <Compile Include="Variant\BaseAndQualityAndPosition.cs" />
+    <Compile Include="Variant\PileUp.cs" />
+    <Compile Include="Variant\PileUpProducer.cs" />
+    <Compile Include="Variant\Utils.cs" />
     <Compile Include="Web\AsyncMethodState.cs" />
     <Compile Include="Web\AsyncWebMethodCompleted.cs" />
     <Compile Include="Web\AsyncWebMethodRequest.cs" />
