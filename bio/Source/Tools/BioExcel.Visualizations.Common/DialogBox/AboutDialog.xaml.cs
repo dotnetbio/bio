@@ -19,7 +19,7 @@
         /// <summary>
         /// Stores the name of "Bio.dll"
         /// </summary>
-        private static string bioDll = "Bio";
+        private static string bioDll = "Bio.Core";
 
         #region -- Constructor --
 
@@ -43,7 +43,7 @@
             this.btnOk.Focus();
 
             // Assign the version
-            txtVersionNumber.Text = string.Format(" {0}, using Bio.dll {1}", GetDllVersion("BioExcel"), GetDllVersion(bioDll));
+            txtVersionNumber.Text = string.Format(" {0}, using Bio.Core.dll {1}", GetDllVersion("BioExcel"), GetDllVersion(bioDll));
         }
 
         /// <summary>

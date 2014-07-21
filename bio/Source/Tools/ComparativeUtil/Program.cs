@@ -41,8 +41,6 @@ namespace ComparativeUtil
             }
         }
 
-        #region Private Methods
-
         /// <summary>
         /// Catches Inner Exception Messages.
         /// </summary>
@@ -116,6 +114,5 @@ namespace ComparativeUtil
             parser.Parameter(ArgumentType.Optional, "Verbose", ArgumentValueType.Bool, "v", "Display verbose logging during processing.");
         }
 
-        #endregion
     }
 }

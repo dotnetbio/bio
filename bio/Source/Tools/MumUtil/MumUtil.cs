@@ -149,8 +149,8 @@ namespace MumUtil
 
         static string SplashString()
         {
-            const string splashString = "\nMumUtil v1.1 - Maximal Unique Match Utility"
-                                      + "\nCopyright (c) 2011-2013, The Outercurve Foundation.\n\n"
+            const string splashString = "\nMumUtil v2.0 - Maximal Unique Match Utility"
+                                      + "\nCopyright (c) 2011-2014, The Outercurve Foundation.\n\n"
                                       + "NucmerUtil and MummerUtil are .NET re-implementations of MUMmer3.0, which was supported in part by the National Science Foundation under grants IIS-9902923 and IIS-9820497, and by the National Institutes of Health under grants R01-LM06845 and N01-AI-15447.  The development of the original reference was a joint effort by Stefan Kurtz of the University of Hamburg and Adam Phillippy, Art Delcher and Steven Salzberg at TIGR.\n";
             return (splashString);
         }
@@ -560,7 +560,7 @@ namespace MumUtil
         static IEnumerable<ISequence> ParseFastA(string filename)
         {
             // A new parser to import a file
-            return new FastAParser(filename).Parse();
+            return new FastAParser().Parse(filename);
         }
 
         private static void AddParameters(CommandLineArguments parser)

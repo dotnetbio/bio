@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using Bio;
 using Bio.Algorithms.Assembly.Padena.Scaffold;
+using Bio.Extensions;
 using Bio.IO.FastA;
 
 namespace ScaffoldUtil
@@ -85,8 +86,8 @@ namespace ScaffoldUtil
             }
 
             runAlgorithm.Restart();
-            FastAParser parser = new FastAParser(this.FilePath[0]);
-            IEnumerable<ISequence> contigs = parser.Parse();
+            FastAParser parser = new FastAParser();
+            IEnumerable<ISequence> contigs = parser.Parse(this.FilePath[0]);
             runAlgorithm.Stop();
 
             if (this.Verbose)
@@ -101,8 +102,8 @@ namespace ScaffoldUtil
             inputFileLength = inputFileinfo.Length;
 
             runAlgorithm.Restart();
-            FastAParser readParser = new FastAParser(this.FilePath[1]);
-            IEnumerable<ISequence> reads = readParser.Parse();
+            FastAParser readParser = new FastAParser();
+            IEnumerable<ISequence> reads = readParser.Parse(this.FilePath[1]);
             runAlgorithm.Stop();
 
             if (this.Verbose)
@@ -141,19 +142,13 @@ namespace ScaffoldUtil
         {
             if (!string.IsNullOrEmpty(this.OutputFile))
             {
-                using (FastAFormatter ff = new FastAFormatter(this.OutputFile))
-                {
-                    foreach (ISequence sequence in sequences)
-                    {
-                        ff.Write(sequence);
-                    }
-                }
+                new FastAFormatter().Format(sequences, this.OutputFile);
             }
             else
             {
                 foreach (ISequence sequence in sequences)
                 {
-                    Console.WriteLine(new string(sequence.Select(a=>(char)a).ToArray()));
+                    Console.WriteLine(sequence.ConvertToString());
                 }
             }
         }

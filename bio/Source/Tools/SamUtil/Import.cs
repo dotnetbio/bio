@@ -1,5 +1,7 @@
 ﻿using System;
 using System.IO;
+
+using Bio;
 using Bio.IO.BAM;
 using Bio.IO.SAM;
 using Bio.Util;
@@ -175,7 +177,7 @@ namespace SamUtil
                 BAMParser parser = new BAMParser();
                 try
                 {
-                    _sequenceAlignmentMap = parser.Parse(InputFilename);
+                    _sequenceAlignmentMap = parser.ParseOne<SequenceAlignmentMap>(InputFilename);
                 }
                 catch (Exception ex)
                 {
@@ -192,7 +194,7 @@ namespace SamUtil
                 SAMParser parser = new SAMParser();
                 try
                 {
-                    _sequenceAlignmentMap = parser.Parse(InputFilename);
+                    _sequenceAlignmentMap = parser.ParseOne<SequenceAlignmentMap>(InputFilename);
                 }
                 catch (Exception ex)
                 {

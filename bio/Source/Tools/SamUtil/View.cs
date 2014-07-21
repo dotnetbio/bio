@@ -249,7 +249,8 @@ namespace SamUtil
             SAMAlignmentHeader header = null;
             try
             {
-                header = SAMParser.ParseSAMHeader(InputFilePath);
+                using (var reader = new StreamReader(InputFilePath))
+                    header = SAMParser.ParseSAMHeader(reader);
             }
             catch(Exception ex)
             {
@@ -258,7 +259,7 @@ namespace SamUtil
 
             if (header == null)
             {
-                Console.Error.WriteLine("Warning: SAM file doesn't contian header");
+                Console.Error.WriteLine("Warning: SAM file doesn't contain header");
             }
 
             if (HeaderOnly)
@@ -527,7 +528,7 @@ namespace SamUtil
             }
             else
             {
-                SAMFormatter.WriteHeader(header, writer);
+                SAMFormatter.WriteHeader(writer, header);
             }
         }
 
@@ -540,19 +541,19 @@ namespace SamUtil
         {
             if (UnCompressedBAM || BAMOutput)
             {
-                // Incase of compressed bamoutput uncompressed file will be compressed before sending it to output stream.
+                // In case of compressed bamoutput uncompressed file will be compressed before sending it to output stream.
                 bamformatter.WriteAlignedSequence(header, alignedSequence, bamUncompressedOutStream);
             }
             else
             {
-                SAMFormatter.WriteSAMAlignedSequence(alignedSequence, writer);
+                SAMFormatter.WriteSAMAlignedSequence(writer, alignedSequence);
             }
         }
 
         /// <summary>
-        /// Gets Aligned seqeunces in the Specified BAM file.
+        /// Gets Aligned sequences in the Specified BAM file.
         /// </summary>
-        /// <param name="textReader">BAM file stream.</param>
+        /// <param name="bamStream"></param>
         private IEnumerable<SAMAlignedSequence> GetAlignedSequence(Stream bamStream)
         {
             bool isFilterRequired = IsFilterApplied();
@@ -562,7 +563,7 @@ namespace SamUtil
             {
                 SAMAlignedSequence alignedSequence = bamparser.GetAlignedSequence(false);
                 //TODO: The parser should probably never return a null sequence
-                //this may be a bandaid over a lurking problem, fix in futre
+                //this may be a band aid over a lurking problem, fix in future
                 if (alignedSequence != null)
                 {
                     if (isFilterRequired)
@@ -579,7 +580,7 @@ namespace SamUtil
         }
 
         /// <summary>
-        /// Gets Aligned seqeunces in the Specified SAM file.
+        /// Gets Aligned sequences in the Specified SAM file.
         /// </summary>
         /// <param name="textReader">SAM file stream.</param>
         private IEnumerable<SAMAlignedSequence> GetAlignedSequence(TextReader textReader)

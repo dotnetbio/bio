@@ -1,42 +1,48 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
+
 using Bio;
 using Bio.IO;
-using System.IO;
 
 namespace FileFormatConverter
 {
     public class FileFormatConverter
     {
         #region Fields
+
         /// <summary>
         /// File inputs
         /// </summary>
         public string[] FileList;
+
         /// <summary>
         /// input file
         /// </summary>
         public string InputFile;
+
         /// <summary>
         /// output file
         /// </summary>
         public string OutputFile;
+
         #endregion
 
         #region Methods
+
         /// <summary>
         /// convert input file to output file using the specified format conversion
         /// </summary>
         public void ConvertFile()
         {
             //make sure input file is valid
-            if (!File.Exists(InputFile))
+            if (!File.Exists(this.InputFile))
             {
                 throw new Exception("Input file does not exist.");
             }
 
             //Finds a parser and opens the file
-            var inputParser = SequenceParsers.FindParserByFileName(InputFile);
+            ISequenceParser inputParser = SequenceParsers.FindParserByFileName(this.InputFile);
 
             if (inputParser == null)
             {
@@ -44,7 +50,7 @@ namespace FileFormatConverter
             }
 
             //Finds a formatter and opens the file
-            var outputFormatter = SequenceFormatters.FindFormatterByFileName(OutputFile);
+            ISequenceFormatter outputFormatter = SequenceFormatters.FindFormatterByFileName(this.OutputFile);
 
             if (outputFormatter == null)
             {
@@ -55,14 +61,16 @@ namespace FileFormatConverter
             {
                 foreach (ISequence sequence in inputParser.Parse())
                 {
-                    outputFormatter.Write(sequence);
+                    outputFormatter.Format(sequence);
                 }
             }
             catch
             {
                 throw new OperationCanceledException(
-                    string.Format("Unable to convert sequences from {0} to {1} - verify that the input sequences have the appropriate type of data to convert to the output formatter.",
-                                    inputParser.Name, outputFormatter.Name));
+                    string.Format(
+                        "Unable to convert sequences from {0} to {1} - verify that the input sequences have the appropriate type of data to convert to the output formatter.",
+                        inputParser.Name,
+                        outputFormatter.Name));
             }
             finally
             {
@@ -77,7 +85,9 @@ namespace FileFormatConverter
         /// <returns></returns>
         public string ListOfExtensionsToParse()
         {
-            return SequenceParsers.All.Aggregate(string.Empty, (current, sp) => current + String.Format("{0} Parse From:{1}\n", sp.Name, sp.SupportedFileTypes));
+            return SequenceParsers.All.Aggregate(
+                string.Empty,
+                (current, sp) => current + String.Format("{0} Parse From:{1}\n", sp.Name, sp.SupportedFileTypes));
         }
 
         /// <summary>
@@ -87,10 +97,11 @@ namespace FileFormatConverter
         /// <returns></returns>
         public string ListOfExtensionsForConversion()
         {
-            return SequenceFormatters.All.Aggregate(string.Empty, (current, sf) => current + String.Format("{0} Convert To: {1}\n", sf.Name, sf.SupportedFileTypes));
+            return SequenceFormatters.All.Aggregate(
+                string.Empty,
+                (current, sf) => current + String.Format("{0} Convert To: {1}\n", sf.Name, sf.SupportedFileTypes));
         }
 
         #endregion
     }
 }
-

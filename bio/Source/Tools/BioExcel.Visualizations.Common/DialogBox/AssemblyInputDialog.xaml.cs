@@ -1,30 +1,21 @@
-﻿using System.Linq;
-using Bio.Algorithms.Alignment.Legacy;
+﻿using System;
+using System.Collections.Generic;
+using System.Windows;
+using System.Windows.Controls;
+using System.Linq;
+using Bio;
+using Bio.Algorithms.Alignment;
+using Bio.Algorithms.MUMmer;
+using Bio.SimilarityMatrices;
 
 namespace BiodexExcel.Visualizations.Common
 {
-    #region -- Using Directive --
-
-    using System;
-    using System.Collections.Generic;
-    using System.Windows;
-    using System.Windows.Controls;
-    using Bio;
-    using Bio.Algorithms.Alignment;
-    using Bio.Algorithms.MUMmer;
-    using Bio.SimilarityMatrices;
-
-
-    #endregion -- Using Directive --
-
     /// <summary>
     /// AssemblerDialog class will provide a pop-up to the user, which will be allow
     /// the user to configure input parameters to the Assembly process.
     /// </summary>
-    public partial class AssemblyInputDialog : Window
+    public partial class AssemblyInputDialog
     {
-        #region -- Private Members --
-
         /// <summary>
         /// Flag to say if the operation is alignment or assembly
         /// </summary>
@@ -59,10 +50,6 @@ namespace BiodexExcel.Visualizations.Common
         /// Alphabet used on the sequence to be aligned or assembled
         /// </summary>
         private IAlphabet sequenceAlphabet;
-
-        #endregion -- Private Members --
-
-        #region -- Constructor --
 
         /// <summary>
         /// Initializes a new instance of the AssemblyInputDialog class.
@@ -119,9 +106,9 @@ namespace BiodexExcel.Visualizations.Common
             // Load our parameters.
             LoadAlignmentArguments(alignerDropDown.Text);
 
-            this.btnSubmit.Click += new RoutedEventHandler(this.OnSubmitButtonClicked);
-            this.btnCancel.Click += new RoutedEventHandler(this.OnCancelClicked);
-            this.alignerDropDown.SelectionChanged += new SelectionChangedEventHandler(OnAlignerChanged);
+            this.btnSubmit.Click += this.OnSubmitButtonClicked;
+            this.btnCancel.Click += this.OnCancelClicked;
+            this.alignerDropDown.SelectionChanged += this.OnAlignerChanged;
             this.btnSubmit.Focus();
         }
 
@@ -171,24 +158,8 @@ namespace BiodexExcel.Visualizations.Common
         /// <returns>Class which instantiates the algorithm.</returns>
         private static ISequenceAligner ChooseAlgorithm(string algorithmName)
         {
-            foreach (ISequenceAligner aligner in SequenceAligners.All)
-            {
-                if (aligner.Name.Equals(algorithmName))
-                {
-                    ISequenceAligner pairWise = aligner as ISequenceAligner;
-                    if (pairWise != null)
-                    {
-                        return pairWise;
-                    }
-                }
-            }
-
-            return null;
+            return SequenceAligners.All.FirstOrDefault(aligner => aligner.Name.Equals(algorithmName));
         }
-
-        #endregion -- Constructor --
-
-        #region -- Public Properties --
 
         /// <summary>
         /// Gets the Match score.
@@ -227,10 +198,6 @@ namespace BiodexExcel.Visualizations.Common
         /// </summary>
         public ISequenceAligner Aligner { get; set; }
 
-        #endregion -- Public Properties --
-
-        #region -- Public Methods --
-
         /// <summary>
         /// This method displays the color dialog and waits for the user to choose the color
         /// scheme and returns the chosen color scheme back to the listener.
@@ -243,26 +210,21 @@ namespace BiodexExcel.Visualizations.Common
         }
 
         /// <summary>
-        /// Get the aligner input paramater from the controls in stack panel
+        /// Get the aligner input parameter from the controls in stack panel
         /// </summary>
-        /// <param name="assemblyInput">aligner input object</param>
         /// <returns>Are parameters valid</returns>
         public AlignerInputEventArgs GetAlignmentInput()
         {
             StackPanel stkPanel = this.stkAlingerParam;
-            AlignerInputEventArgs alignerInput = new AlignerInputEventArgs();
-            TextBox textBox;
-            int intValue;
-            float floatValue;
-
-            alignerInput.Aligner = this.Aligner;
+            AlignerInputEventArgs alignerInput = new AlignerInputEventArgs { Aligner = this.Aligner };
 
             foreach (UIElement uiElement in stkPanel.Children)
             {
                 if (uiElement is TextBox)
                 {
-                    textBox = uiElement as TextBox;
+                    TextBox textBox = uiElement as TextBox;
 
+                    int intValue;
                     switch (textBox.Tag.ToString())
                     {
                         case PairwiseAlignmentAttributes.GapOpenCost:
@@ -380,6 +342,7 @@ namespace BiodexExcel.Visualizations.Common
                             break;
 
                         case NUCmerAttributes.SeparationFactor:
+                            float floatValue;
                             if (float.TryParse(textBox.Text.Trim(), out floatValue))
                             {
                                 alignerInput.SeparationFactor = floatValue;
@@ -472,17 +435,13 @@ namespace BiodexExcel.Visualizations.Common
             return alignerInput;
         }
 
-        #endregion -- Public Methods --
-
-        #region -- Private Methods --
-
         /// <summary>
         /// Parses a string value and converts it into
         /// double value.
         /// </summary>
         /// <param name="value">Value to be parsed.</param>
         /// <param name="result">The result of the parse operation.</param>
-        /// <returns>Indicates whether the parsing was succesful or not.</returns>
+        /// <returns>Indicates whether the parsing was successful or not.</returns>
         private static bool ParseValue(string value, out double result)
         {
             if (double.TryParse(value, out result))
@@ -590,7 +549,6 @@ namespace BiodexExcel.Visualizations.Common
         /// <summary>
         /// Load the list of arguments as appropriate control on the UI.
         /// </summary>
-        /// <param name="alignmentAttributes">List of Alignment parameters</param>
         private void LoadAlignmentArguments(string algoName)
         {
             IAlignmentAttributes alignmentAttributes = this.GetAlignmentAttribute(algoName);
@@ -631,28 +589,30 @@ namespace BiodexExcel.Visualizations.Common
                 StackPanel parentPanel,
                 string tag)
         {
-            TextBlock block = new TextBlock();
-            block.Margin = new Thickness(0, 10, 0, 0);
-            block.TextWrapping = TextWrapping.Wrap;
-            block.Text = alignmentAttribute.Name;
-            block.Height = 20;
+            TextBlock block = new TextBlock {
+                Margin = new Thickness(0, 10, 0, 0),
+                TextWrapping = TextWrapping.Wrap,
+                Text = alignmentAttribute.Name,
+                Height = 20
+            };
 
-            ComboBox combo = new ComboBox();
-            combo.HorizontalAlignment = HorizontalAlignment.Left;
-            combo.IsSynchronizedWithCurrentItem = true;
-            combo.Margin = new Thickness(0, 0, 0, 0);
-            combo.Tag = tag;
-            combo.Width = 180;
-            combo.Height = 22;
-            combo.ToolTip = alignmentAttribute.Description;
+            ComboBox combo = new ComboBox {
+                HorizontalAlignment = HorizontalAlignment.Left,
+                IsSynchronizedWithCurrentItem = true,
+                Margin = new Thickness(0, 0, 0, 0),
+                Tag = tag,
+                Width = 180,
+                Height = 22,
+                ToolTip = alignmentAttribute.Description
+            };
 
             StringListValidator validator = alignmentAttribute.Validator as StringListValidator;
             combo.ItemsSource = validator.ValidValues;
-            combo.SelectedIndex = validator.ValidValues.IndexOf(alignmentAttribute.DefaultValue);
+            combo.SelectedIndex = validator.ValidValues.ToList().IndexOf(alignmentAttribute.DefaultValue);
 
             if (alignmentAttribute.Name == "Similarity Matrix")
             {
-                combo.SelectedIndex = validator.ValidValues.IndexOf(GetDefaultSM(this.sequenceAlphabet));
+                combo.SelectedIndex = validator.ValidValues.ToList().IndexOf(GetDefaultSM(this.sequenceAlphabet));
             }
 
             parentPanel.Children.Add(block);
@@ -662,26 +622,16 @@ namespace BiodexExcel.Visualizations.Common
         /// <summary>
         /// Gets a default similarity matrix for assemblying any given sequence
         /// </summary>
-        /// <param name="sequence">Sequence used to identify the molecule type and get the SM</param>
         /// <returns>Similarity matrix name</returns>
         private string GetDefaultSM(IAlphabet sequenceAlphabet)
         {
-            if (sequenceAlphabet == Alphabets.DNA)
-            {
-                return SimilarityMatrix.StandardSimilarityMatrix.AmbiguousDna.ToString();
-            }
-            else if (sequenceAlphabet == Alphabets.RNA)
-            {
-                return SimilarityMatrix.StandardSimilarityMatrix.AmbiguousRna.ToString();
-            }
-            else if (sequenceAlphabet == Alphabets.Protein)
-            {
-                return SimilarityMatrix.StandardSimilarityMatrix.Blosum50.ToString();
-            }
-            else
-            {
-                return SimilarityMatrix.StandardSimilarityMatrix.AmbiguousDna.ToString();
-            }
+            return sequenceAlphabet == Alphabets.DNA
+                       ? SimilarityMatrix.StandardSimilarityMatrix.AmbiguousDna.ToString()
+                       : (sequenceAlphabet == Alphabets.RNA
+                              ? SimilarityMatrix.StandardSimilarityMatrix.AmbiguousRna.ToString()
+                              : (sequenceAlphabet == Alphabets.Protein
+                                     ? SimilarityMatrix.StandardSimilarityMatrix.Blosum50.ToString()
+                                     : SimilarityMatrix.StandardSimilarityMatrix.AmbiguousDna.ToString()));
         }
 
         /// <summary>
@@ -695,26 +645,26 @@ namespace BiodexExcel.Visualizations.Common
                 StackPanel parentPanel,
                 string tag)
         {
-            TextBlock block = new TextBlock();
-            block.Margin = new Thickness(0, 10, 0, 0);
-            block.TextWrapping = TextWrapping.Wrap;
-            block.Text = alignmentAttribute.Name;
-            block.Height = 20;
+            TextBlock block = new TextBlock {
+                Margin = new Thickness(0, 10, 0, 0),
+                TextWrapping = TextWrapping.Wrap,
+                Text = alignmentAttribute.Name,
+                Height = 20
+            };
 
-            TextBox box = new TextBox();
-            box.HorizontalAlignment = HorizontalAlignment.Left;
-            box.Margin = new Thickness(0, 0, 0, 0);
-            box.TextWrapping = TextWrapping.Wrap;
-            box.Text = alignmentAttribute.DefaultValue;
-            box.Tag = tag;
-            box.Width = 120;
-            box.Height = 20;
-            box.ToolTip = alignmentAttribute.Description;
+            TextBox box = new TextBox {
+                HorizontalAlignment = HorizontalAlignment.Left,
+                Margin = new Thickness(0, 0, 0, 0),
+                TextWrapping = TextWrapping.Wrap,
+                Text = alignmentAttribute.DefaultValue,
+                Tag = tag,
+                Width = 120,
+                Height = 20,
+                ToolTip = alignmentAttribute.Description
+            };
 
             parentPanel.Children.Add(block);
             parentPanel.Children.Add(box);
         }
-
-        #endregion -- Private Methods --
     }
 }

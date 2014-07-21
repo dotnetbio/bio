@@ -18,8 +18,6 @@ namespace ComparativeUtil
     /// </summary>
     internal class AssembleArguments
     {
-        #region Public Fields
-
         /// <summary>
         /// Paths of input and output file.
         /// </summary>
@@ -69,9 +67,6 @@ namespace ComparativeUtil
         /// Display verbose logging during processing.
         /// </summary>
         public bool Verbose = false;
-        #endregion
-
-        #region Public methods
 
         /// <summary>
         /// It assembles the sequences.
@@ -112,9 +107,19 @@ namespace ComparativeUtil
             inputFileinfo = new FileInfo(this.FilePath[1]);
             inputFileLength = inputFileinfo.Length;
             runAlgorithm.Restart();
-            FastASequencePositionParser queryParser = new FastASequencePositionParser(this.FilePath[1], true);
-            queryParser.CacheSequencesForRandomAccess();
-            IEnumerable<ISequence> reads = queryParser.Parse();
+            FastASequencePositionParser queryParser;
+            using (var stream = File.OpenRead(this.FilePath[1]))
+            {
+                // Parse and cache the sequences.
+                queryParser = new FastASequencePositionParser(stream, true);
+                queryParser.CacheSequencesForRandomAccess();
+            }
+
+            // Check the input
+            var reads = queryParser.Parse();
+            if (reads.Any(s => s.Alphabet.HasAmbiguity))
+                throw new ArgumentException(Resources.AmbiguousReadsNotSupported);
+
             runAlgorithm.Stop();
 
             if (this.Verbose)
@@ -126,7 +131,8 @@ namespace ComparativeUtil
             }
 
             runAlgorithm.Restart();
-            ValidateAmbiguousReads(reads);
+
+
             runAlgorithm.Stop();
 
             if (this.Verbose)
@@ -157,10 +163,6 @@ namespace ComparativeUtil
                 Output.WriteLine(OutputLevel.Verbose, "Write time: {0}", runAlgorithm.Elapsed);
             }
         }
-
-        #endregion
-
-        #region Protected Members
 
         /// <summary>
         /// Helper method to parse the given filename into a set
@@ -202,15 +204,14 @@ namespace ComparativeUtil
             int counter = 1;
             if (!string.IsNullOrEmpty(this.OutputFile))
             {
-                using (FastAFormatter formatter = new FastAFormatter(this.OutputFile))
+                FastAFormatter formatter = new FastAFormatter { AutoFlush = true };
+                using (formatter.Open(this.OutputFile))
                 {
-                    formatter.AutoFlush = true;
-
                     foreach (ISequence seq in assembly)
                     {
                         if (string.IsNullOrEmpty(seq.ID))
                             seq.ID = GenerateSequenceId(counter);
-                        formatter.Write(seq);
+                        formatter.Format(seq);
                         counter++;
                     }
                 }
@@ -233,32 +234,19 @@ namespace ComparativeUtil
         /// <summary>
         /// Method to handle status changed event.
         /// </summary>
-        /// <param name="sender">The sender</param>
-        /// <param name="statusEventArgs">Status message.</param>
-        protected void AssemblerStatusChanged(object sender, StatusChangedEventArgs statusEventArgs)
+        protected void AssemblerStatusChanged(string statusMessage)
         {
             if (Verbose)
-                Output.WriteLine(OutputLevel.Verbose, statusEventArgs.StatusMessage);
+                Output.WriteLine(OutputLevel.Verbose, statusMessage);
             else
             {
-                if (statusEventArgs.StatusMessage.StartsWith("Step", StringComparison.OrdinalIgnoreCase)
-                    && statusEventArgs.StatusMessage.Contains("Start"))
+                if (statusMessage.StartsWith("Step", StringComparison.OrdinalIgnoreCase)
+                    && statusMessage.Contains("Start"))
                 {
-                    int pos = statusEventArgs.StatusMessage.IndexOf(" - ", StringComparison.OrdinalIgnoreCase);
-                    Output.WriteLine(OutputLevel.Information, statusEventArgs.StatusMessage.Substring(0, pos));
+                    int pos = statusMessage.IndexOf(" - ", StringComparison.OrdinalIgnoreCase);
+                    Output.WriteLine(OutputLevel.Information, statusMessage.Substring(0, pos));
                 }
             }
         }
-
-        /// <summary>
-        /// Checks for ambiguous reads if any, if found ArgumentException.
-        /// </summary>
-        /// <param name="reads">Input reads.</param>
-        private static void ValidateAmbiguousReads(IEnumerable<ISequence> reads)
-        {
-            if (reads.Any(s => s.Alphabet.HasAmbiguity))
-                throw new ArgumentException(Properties.Resources.AmbiguousReadsNotSupported);
-        }
-        #endregion
     }
 }

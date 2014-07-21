@@ -76,16 +76,6 @@
                                         <StackPanel x:Name="thirdColumnParams" />
                                     </StackPanel>
                                 </Grid>
-
-                                <Grid Grid.Row="1" Grid.Column="0">
-                                    <StackPanel x:Name="stkConfigurationParams" />
-                                </Grid>
-
-                                <Grid Grid.Row="1" Grid.Column="0">
-                                    <StackPanel>
-                                        <CheckBox Content="{DynamicResource BlastDialog_Proxy}" x:Name="chkUseBrowerProxy" HorizontalAlignment="Left" Margin="0,5,5,0"/>
-                                    </StackPanel>
-                                </Grid>
                             </Grid>
                         </Grid>
                         <Grid Margin="0,5,0,0">

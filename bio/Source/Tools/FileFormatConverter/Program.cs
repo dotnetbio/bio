@@ -1,17 +1,19 @@
 using System;
 using System.Linq;
+
 using Bio.Util.ArgumentParser;
+
 using FileFormatConverter.Properties;
 
 namespace FileFormatConverter
 {
-    class Program
+    internal class Program
     {
         /// <summary>
         /// main entry point for application
         /// </summary>
         /// <param name="args"></param>
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             Console.WriteLine(Resources.SplashScreen);
             try
@@ -40,18 +42,23 @@ namespace FileFormatConverter
 
         /// <summary>
         /// ConvertFileFormat method that will call the appropriate class to perform
-        /// file conversion, this class using the commandline parser to parse 
+        /// file conversion, this class using the command line parser to parse
         /// command line options and then calls the FileFormatConverter.convertFile method
         /// which does the work
         /// </summary>
         /// <param name="args"></param>
         private static void ConvertFileFormat(string[] args)
         {
-            FileFormatConverter ffc = new FileFormatConverter();
-            CommandLineArguments parser = new CommandLineArguments();
+            var ffc = new FileFormatConverter();
+            var parser = new CommandLineArguments();
 
             //add parameters
-            parser.Parameter(ArgumentType.DefaultArgument, "FileList", ArgumentValueType.MultipleUniqueStrings, "", "Input and Output files.");
+            parser.Parameter(
+                ArgumentType.DefaultArgument,
+                "FileList",
+                ArgumentValueType.MultipleUniqueStrings,
+                "",
+                "Input and Output files.");
 
             if (args.Length > 0)
             {
@@ -85,7 +92,7 @@ namespace FileFormatConverter
         }
 
         /// <summary>
-        /// gets the usage message, if the fileformatconverter class is available we can also write the
+        /// gets the usage message, if the FileFormatConverter class is available we can also write the
         /// available file extensions that we can parse and convert to otherwise just use static
         /// usage text
         /// </summary>
@@ -98,11 +105,11 @@ namespace FileFormatConverter
             if (ffc != null)
             {
                 usage = Resources.UsageHelp;
-                usage += System.Environment.NewLine;
-                usage += System.Environment.NewLine;
+                usage += Environment.NewLine;
+                usage += Environment.NewLine;
                 usage += String.Format("File extensions for parsing:\n{0}", ffc.ListOfExtensionsToParse());
-                usage += System.Environment.NewLine;
-                usage += System.Environment.NewLine;
+                usage += Environment.NewLine;
+                usage += Environment.NewLine;
                 usage += String.Format("File extensions for conversion:\n{0}", ffc.ListOfExtensionsForConversion());
             }
             else
@@ -114,4 +121,3 @@ namespace FileFormatConverter
         }
     }
 }
-

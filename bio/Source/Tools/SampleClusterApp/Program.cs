@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
+
+using Bio;
 using Bio.IO;
 using Bio.Util;
 using Bio.Util.ArgumentParser;
@@ -36,7 +37,7 @@ namespace SampleClusterApp
         public override void RunTasks(RangeCollection tasksToRun, long taskCount)
         {
             ISequenceParser parser = SequenceParsers.FindParserByFileName(InputFile.FullName);
-            var allTheWorkQuery = parser.Parse();
+            var allTheWorkQuery = parser.Parse(InputFile.FullName);
             var myWorkAndAnIndex = SpecialFunctions.DivideWork(allTheWorkQuery, tasksToRun, taskCount, 1, new RangeCollection());
 
             var myUniqueResultFileName = GetFileTaskFileName(tasksToRun.ToString());

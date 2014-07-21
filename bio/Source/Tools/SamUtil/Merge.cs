@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+
+using Bio;
 using Bio.IO.BAM;
 using Bio.IO.SAM;
 using SamUtil.Properties;
@@ -87,7 +89,7 @@ namespace SamUtil
                 {
                     try
                     {
-                        map = parser.Parse(FilePaths[0]);
+                        map = parser.ParseOne<SequenceAlignmentMap>(FilePaths[0]);
                     }
                     catch
                     {
@@ -110,7 +112,7 @@ namespace SamUtil
                         SequenceAlignmentMap head;
                         try
                         {
-                            head = parse.Parse(HeaderFile);
+                            head = parse.ParseOne<SequenceAlignmentMap>(HeaderFile);
                         }
                         catch
                         {
@@ -135,7 +137,7 @@ namespace SamUtil
                 {
                     try
                     {
-                        map = parser.Parse(FilePaths[index]);
+                        map = parser.ParseOne<SequenceAlignmentMap>(FilePaths[index]);
                     }
                     catch
                     {

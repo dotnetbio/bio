@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+
+using Bio;
 using Bio.IO.BAM;
 using Bio.IO.SAM;
 using Bio.Matrix;
@@ -58,12 +60,12 @@ namespace SamUtil
             if (!SAMInput)
             {
                 BAMParser bamParser = new BAMParser();
-                alignmentMapobj = bamParser.Parse(filename);
+                alignmentMapobj = bamParser.ParseOne<SequenceAlignmentMap>(filename);
             }
             else
             {
                 SAMParser samParser = new SAMParser();
-                alignmentMapobj = samParser.Parse(filename);
+                alignmentMapobj = samParser.ParseOne<SequenceAlignmentMap>(filename);
             }
 
             // get reads from sequence alignment map object.

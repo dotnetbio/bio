@@ -69,7 +69,9 @@ namespace RepeatResolutionUtil
 
             runRepeatResolution.Restart();
             DeltaAlignmentSorter sorter = null;
-            using (DeltaAlignmentCollection deltaCollection = new DeltaAlignmentCollection(this.FilePath[0], this.FilePath[1]))
+            using (var alignmentStream = File.OpenRead(this.FilePath[0]))
+            using (var readStream = File.OpenRead(this.FilePath[1]))
+            using (DeltaAlignmentCollection deltaCollection = new DeltaAlignmentCollection(alignmentStream, readStream))
             {
                 runRepeatResolution.Stop();
 
@@ -110,53 +112,41 @@ namespace RepeatResolutionUtil
         /// <param name="sorter">The Deltas.</param>
         private void WriteDelta(DeltaAlignmentSorter sorter)
         {
-            FastASequencePositionParser sequenceParser = null;
-            DeltaAlignmentParser unsortedDeltaParser = null;
-
             TextWriter textWriterConsoleOutSave = Console.Out;
             StreamWriter streamWriterConsoleOut = null;
 
             try
             {
-                sequenceParser = new FastASequencePositionParser(this.FilePath[1], true);
-                unsortedDeltaParser = new DeltaAlignmentParser(UnsortedDeltaFile, sequenceParser);
-                if (!string.IsNullOrEmpty(this.OutputFile))
+                using (var reads = File.OpenRead(this.FilePath[1]))
+                using (var unsortedDeltas = File.OpenRead(UnsortedDeltaFile))
+                using (var sequenceParser = new FastASequencePositionParser(reads, true))
+                using (var unsortedDeltaParser = new DeltaAlignmentParser(unsortedDeltas, sequenceParser))
                 {
-                    streamWriterConsoleOut = new StreamWriter(this.OutputFile);
-                    Console.SetOut(streamWriterConsoleOut);
+                    if (!string.IsNullOrEmpty(this.OutputFile))
+                    {
+                        streamWriterConsoleOut = new StreamWriter(this.OutputFile);
+                        Console.SetOut(streamWriterConsoleOut);
+                    }
+
+                    long deltaPositionInFile = 0;
+
+                    foreach (long id in sorter.GetSortedIds())
+                    {
+                        DeltaAlignment deltaAlignment = unsortedDeltaParser.GetDeltaAlignmentAt(id);
+
+                        deltaAlignment.Id = deltaPositionInFile;
+                        string deltaString = Helper.GetString(deltaAlignment);
+                        deltaPositionInFile += deltaString.Length;
+                        Console.Write(deltaString);
+                    }
+
+                    Console.Out.Flush();
                 }
-
-                long deltaPositionInFile = 0;
-
-                foreach (long id in sorter.GetSortedIds())
-                {
-                    DeltaAlignment deltaAlignment = unsortedDeltaParser.GetDeltaAlignmentAt(id);
-
-                    deltaAlignment.Id = deltaPositionInFile;
-                    string deltaString = Helper.GetString(deltaAlignment);
-                    deltaPositionInFile += deltaString.Length;
-                    Console.Write(deltaString);
-                }
-
-                Console.Out.Flush();
             }
             finally
             {
                 if (streamWriterConsoleOut != null)
-                {
                     streamWriterConsoleOut.Dispose();
-                }
-
-                if (sequenceParser != null)
-                {
-                    sequenceParser.Dispose();
-                }
-
-                if (unsortedDeltaParser != null)
-                {
-                    unsortedDeltaParser.Dispose();
-                }
-
                 Console.SetOut(textWriterConsoleOutSave);
             }
         }
@@ -168,7 +158,7 @@ namespace RepeatResolutionUtil
         /// <param name="sorter">Sorter instance.</param>
         private static void WriteUnsortedDelta(IEnumerable<DeltaAlignment> delta, DeltaAlignmentSorter sorter)
         {
-            using (StreamWriter writer = new StreamWriter(UnsortedDeltaFile))
+            using (var writer = new StreamWriter(UnsortedDeltaFile))
             {
                 long deltaPositionInFile = 0;
                 foreach (DeltaAlignment deltaAlignment in delta)
@@ -179,8 +169,6 @@ namespace RepeatResolutionUtil
                     writer.Write(deltaString);
                     sorter.Add(deltaAlignment.Id, deltaAlignment.FirstSequenceStart);
                 }
-
-                writer.Flush();
             }
         }
 

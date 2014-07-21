@@ -49,12 +49,13 @@ namespace ReadSimulator
             if (parser == null)
                 throw new ArgumentException("Could not find an appropriate parser for " + fileName);
 
-            // Get the first sequence from the file
-            SequenceToSplit = parser.Parse().FirstOrDefault();
-            parser.Close();
-
-            if (SequenceToSplit == null)
-                throw new ArgumentException("Unable to parse a sequence from file " + fileName);
+            using (parser.Open(fileName))
+            {
+                // Get the first sequence from the file
+                SequenceToSplit = parser.ParseOne();
+                if (SequenceToSplit == null)
+                    throw new ArgumentException("Unable to parse a sequence from file " + fileName);
+            }
         }
 
         /// <summary>
@@ -94,12 +95,11 @@ namespace ReadSimulator
                 if (generatedSequenceList.Count >= Settings.OutputSequenceCount)
                 {
                     FileInfo outFile = new FileInfo(filePrefix + string.Format(filePostfix, fileIndex++));
-                    formatter = new FastAFormatter(outFile.FullName);
-                    foreach (ISequence seq in generatedSequenceList)
+                    formatter = new FastAFormatter();
+                    using (formatter.Open(outFile.FullName))
                     {
-                        formatter.Write(seq);
+                        formatter.Format(generatedSequenceList);
                     }
-                    formatter.Close();
                     generatedSequenceList.Clear();
                 }
             }
@@ -108,12 +108,11 @@ namespace ReadSimulator
             if (generatedSequenceList.Count > 0)
             {
                 FileInfo outFile = new FileInfo(filePrefix + string.Format(filePostfix, fileIndex++));
-                formatter = new FastAFormatter(outFile.FullName);
-                foreach (ISequence seq in generatedSequenceList)
+                formatter = new FastAFormatter();
+                using (formatter.Open(outFile.FullName))
                 {
-                    formatter.Write(seq);
+                    formatter.Format(generatedSequenceList);
                 }
-                formatter.Close();
                 simulationComplete(formatter.Name);
             }
 

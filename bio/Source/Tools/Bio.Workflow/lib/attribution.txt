@@ -1,3 +1,0 @@
-The ScientificWorkflow.TridentWorkflowCommon.dll file is part of the Trident open source project, located at 
-http://tridentworkflow.codeplex.com/.  
-Licensed under Apache 2.0.

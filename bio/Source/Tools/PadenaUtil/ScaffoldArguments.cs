@@ -193,31 +193,21 @@ namespace PadenaUtil
 
             if (!string.IsNullOrEmpty(this.OutputFile))
             {
-                using (FastAFormatter formatter = new FastAFormatter(this.OutputFile))
+                FastAFormatter formatter = new FastAFormatter { AutoFlush = true };
+                using (formatter.Open(this.OutputFile))
                 {
-                    formatter.AutoFlush = true;
-
-                    foreach (ISequence seq in scaffolds)
-                    {
-                        formatter.Write(seq);
-                    }
+                    formatter.Format(scaffolds);
                 }
                 Output.WriteLine(OutputLevel.Information, "Wrote {0} scaffolds to {1}", scaffolds.Count, this.OutputFile);
             }
             else
             {
                 Output.WriteLine(OutputLevel.Information, "Scaffold Results: {0} sequences", scaffolds.Count);
-                using (FastAFormatter formatter = new FastAFormatter())
-                {
-                    formatter.Open(new StreamWriter(Console.OpenStandardOutput()));
-                    formatter.MaxSymbolsAllowedPerLine = Math.Min(80, Console.WindowWidth - 2);
-                    formatter.AutoFlush = true;
-
-                    foreach (ISequence seq in scaffolds)
-                    {
-                        formatter.Write(seq);
-                    }
-                }
+                FastAFormatter formatter = new FastAFormatter {
+                    MaxSymbolsAllowedPerLine = Math.Min(80, Console.WindowWidth - 2),
+                    AutoFlush = true
+                };
+                formatter.Format(Console.OpenStandardOutput(), scaffolds);
             }
         }
 

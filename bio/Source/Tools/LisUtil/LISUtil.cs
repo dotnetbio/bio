@@ -114,8 +114,8 @@ namespace LisUtil
 
         private static string SplashString()
         {
-            const string SplashString = "\nLisUtil v1.1 - Longest Increasing Subsequence Utility"
-                                      + "\n  Copyright (c) 2011-2013, The Outercurve Foundation.";
+            const string SplashString = "\nLisUtil v2.0 - Longest Increasing Subsequence Utility"
+                                      + "\n  Copyright (c) 2011-2014, The Outercurve Foundation.";
             return (SplashString);
         }
 
@@ -534,20 +534,7 @@ namespace LisUtil
         /// <returns>List of MUMs.</returns>
         private static IList<Match> GetMumsForLIS(IEnumerable<Match> mums)
         {
-            int index = 0;
-            IList<Match> querySortedMum2 = new List<Match>();
-
-            foreach (Match sortedMum in mums)
-            {
-                Match mum2 = new Match();
-                mum2.ReferenceSequenceOffset = sortedMum.ReferenceSequenceOffset;
-                mum2.QuerySequenceOffset = sortedMum.QuerySequenceOffset;
-                mum2.Length = sortedMum.Length;
-                querySortedMum2.Add(mum2);
-                index++;
-            }
-
-            return querySortedMum2;
+            return mums.Select(sortedMum => new Match { ReferenceSequenceOffset = sortedMum.ReferenceSequenceOffset, QuerySequenceOffset = sortedMum.QuerySequenceOffset, Length = sortedMum.Length }).ToList();
         }
 
         /// <summary>
@@ -559,7 +546,6 @@ namespace LisUtil
         {
             // TODO: Parse files with multiple query sequences
             IList<Match> mumList = new List<Match>();
-            int index = 0;
             try
             {
                 using (TextReader tr = File.OpenText(filename))
@@ -572,14 +558,14 @@ namespace LisUtil
                             string[] items = line.Trim().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
                             if (items[0] != ">")
                             {
-                                Match mum2 = new Match();
-                                mum2.ReferenceSequenceOffset = Convert.ToInt32(items[0]);
-                                mum2.QuerySequenceOffset = Convert.ToInt32(items[1]);
-                                mum2.Length = Convert.ToInt32(items[2]);
+                                Match mum2 = new Match
+                                {
+                                    ReferenceSequenceOffset = Convert.ToInt32(items[0]),
+                                    QuerySequenceOffset = Convert.ToInt32(items[1]),
+                                    Length = Convert.ToInt32(items[2])
+                                };
                                 mumList.Add(mum2);
                             }
-
-                            index++;
                         }
                     }
                 }
@@ -592,7 +578,6 @@ namespace LisUtil
             }
         }
 
-#if true
         /// <summary>
         /// Parses a FastA file which has one or more sequences.
         /// </summary>
@@ -601,10 +586,9 @@ namespace LisUtil
         private static IEnumerable<ISequence> ParseFastA(string filename)
         {
             // A new parser to import a file
-            FastAParser parser = new FastAParser(filename);
-            return parser.Parse();
+            FastAParser parser = new FastAParser();
+            return parser.Parse(filename);
         }
-#endif
 
         /// <summary>
         /// Display Exception Messages, if inner exception found then displays the inner exception.

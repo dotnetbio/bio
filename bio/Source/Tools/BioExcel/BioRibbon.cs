@@ -1,45 +1,53 @@
-﻿using Bio.Algorithms.Alignment.Legacy;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Drawing;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Runtime.InteropServices;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading;
+using System.Windows.Forms;
+using System.Windows.Interop;
+using System.Windows.Media;
+
+using Bio;
+using Bio.Algorithms.Alignment;
+using Bio.Algorithms.Assembly;
+using Bio.Algorithms.MUMmer;
 using Bio.Extensions;
+using Bio.IO;
+using Bio.IO.Bed;
+using Bio.IO.FastA;
+using Bio.IO.FastQ;
+using Bio.IO.GenBank;
+using Bio.IO.Gff;
+using Bio.Web.Blast;
+
+using BiodexExcel.Properties;
+using BiodexExcel.Visualizations.Common;
 using BiodexExcel.Visualizations.Common.DialogBox;
+
+using Microsoft.Office.Core;
+using Microsoft.Office.Interop.Excel;
+using Microsoft.Office.Tools.Ribbon;
+using Microsoft.Vbe.Interop;
+using Microsoft.Win32;
+
+using Tools.VennDiagram;
+
+using Color = System.Drawing.Color;
+using OpenFileDialog = System.Windows.Forms.OpenFileDialog;
+using SaveFileDialog = System.Windows.Forms.SaveFileDialog;
+using XlHAlign = Microsoft.Office.Interop.Excel.XlHAlign;
+using XlVAlign = Microsoft.Office.Interop.Excel.XlVAlign;
 
 namespace BiodexExcel
 {
-    #region -- Using Directive --
-
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.Drawing;
-    using System.Globalization;
-    using System.IO;
-    using System.Linq;
-    using System.Reflection;
-    using System.Runtime.InteropServices;
-    using System.Text;
-    using System.Text.RegularExpressions;
-    using System.Threading;
-    using System.Windows.Forms;
-    using Bio;
-    using Bio.Algorithms.Alignment;
-    using Bio.Algorithms.Assembly;
-    using Bio.Algorithms.MUMmer;
-    using Bio.IO;
-    using Bio.IO.FastA;
-    using Bio.IO.FastQ;
-    using Bio.IO.GenBank;
-    using Bio.IO.Gff;
-    using Bio.Web;
-    using Bio.Web.Blast;
-    using BiodexExcel.Properties;
-    using BiodexExcel.Visualizations.Common;
-    using Microsoft.Office.Core;
-    using Microsoft.Office.Interop.Excel;
-    using Microsoft.Office.Tools.Ribbon;
-    using Microsoft.Vbe.Interop;
-    using Microsoft.Win32;
-
-    #endregion -- Using Directive --
-
     /// <summary>
     /// BioRibbon represents the .NET Bio tab in the Excel main ribbon. This class is the heart
     /// of the workbench and controls the entire workflow of the Ribbon.
@@ -77,11 +85,6 @@ namespace BiodexExcel
         /// Required version of NodeXL for venn tool
         /// </summary>
         private const String NodeXLTemplateRequiredVersion = "1.0.1.108";
-
-        /// <summary>
-        /// Flag to indicate if NodeXL is installed or not.
-        /// </summary>
-        private bool isNodeXLInstalled;
 
         /// <summary>
         /// Stores the number of english alphabets.
@@ -142,53 +145,76 @@ namespace BiodexExcel
         /// <summary>
         /// List of headers which will be displayed in a Sequence range sheet.
         /// </summary>
-        private static List<string> rangeHeaders = new List<string>() { Properties.Resources.CHROM_ID, Properties.Resources.CHROM_START, Properties.Resources.CHROM_END, Properties.Resources.BED_NAME, Properties.Resources.BED_SCORE, Properties.Resources.BED_STRAND, Properties.Resources.BED_THICK_START, Properties.Resources.BED_THICK_END, Properties.Resources.BED_ITEM_RGB, Properties.Resources.BED_BLOCK_COUNT, Properties.Resources.BED_BLOCK_SIZES, Properties.Resources.BED_BLOCK_STARTS };
+        private static readonly List<string> rangeHeaders = new List<string>
+                                                            {
+                                                                Resources.CHROM_ID,
+                                                                Resources.CHROM_START,
+                                                                Resources.CHROM_END,
+                                                                Resources.BED_NAME,
+                                                                Resources.BED_SCORE,
+                                                                Resources.BED_STRAND,
+                                                                Resources.BED_THICK_START,
+                                                                Resources.BED_THICK_END,
+                                                                Resources.BED_ITEM_RGB,
+                                                                Resources.BED_BLOCK_COUNT,
+                                                                Resources.BED_BLOCK_SIZES,
+                                                                Resources.BED_BLOCK_STARTS
+                                                            };
 
         /// <summary>
         /// List of headers which will be displayed in a BLAST sheet.
         /// </summary>
-        private static string[] blastHeaders = { Resources.QUERY_ID, Resources.SUBJECT_ID, Resources.IDENTITY, Resources.ALIGNMENT, Resources.LENGTH, Resources.QSTART, Resources.QEND, Resources.SSTART, Resources.SEND, Resources.EVALUE, Resources.SCORE, Resources.GAPS };
+        private static readonly string[] blastHeaders =
+        {
+            Resources.QUERY_ID, Resources.SUBJECT_ID, Resources.IDENTITY,
+            Resources.ALIGNMENT, Resources.LENGTH, Resources.QSTART,
+            Resources.QEND, Resources.SSTART, Resources.SEND,
+            Resources.EVALUE, Resources.SCORE, Resources.GAPS
+        };
 
         /// <summary>
         /// Lists the name of the first 40 columns.
         /// </summary>
-        private static string[] columnAZ = new string[] { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
+        private static readonly string[] columnAZ =
+        {
+            "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M",
+            "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"
+        };
 
         /// <summary>
         /// Default background color for cells containing "A".
         /// </summary>
-        private static Color defaultAColor = Color.Gold;
+        private static readonly Color defaultAColor = Color.Gold;
 
         /// <summary>
         /// Default background color for cells containing "G".
         /// </summary>
-        private static Color defaultGColor = Color.Green;
+        private static readonly Color defaultGColor = Color.Green;
 
         /// <summary>
         /// Default background color for cells containing "C".
         /// </summary>
-        private static Color defaultCColor = Color.Crimson;
+        private static readonly Color defaultCColor = Color.Crimson;
 
         /// <summary>
         /// Default background color for cells containing "T".
         /// </summary>
-        private static Color defaultTColor = Color.Teal;
+        private static readonly Color defaultTColor = Color.Teal;
 
         /// <summary>
         /// Default background color for cells containing "U".
         /// </summary>
-        private static Color defaultUColor = Color.Teal;
+        private static readonly Color defaultUColor = Color.Teal;
 
         /// <summary>
-        /// Stores the default background color of the cells.
+        /// Stores the list of all file-names that have been imported into excel sheet.
         /// </summary>
-        private Color transparentColor;
+        private readonly List<string> fileNames = new List<string>();
 
         /// <summary>
-        /// References the background thread which will performs sequence assembly
-        /// in the background.
+        /// Indicates a value whether all sequence sheet should be re-aligned or not.
         /// </summary>
-        private BackgroundWorker assemblerThread;
+        private bool alignAllSequenceSheet = false;
 
         /// <summary>
         /// References the background thread which will performs sequence alignment
@@ -197,15 +223,50 @@ namespace BiodexExcel
         private BackgroundWorker alignerThread;
 
         /// <summary>
-        /// Name of the web service currently running.
+        /// References the background thread which will performs sequence assembly
+        /// in the background.
         /// </summary>
-        private string webserviceName;
+        private BackgroundWorker assemblerThread;
+
+        /// <summary>
+        /// Stores information regarding the enabled state of
+        /// Cancel button in Alignment (btnCancelAlign)
+        /// </summary>
+        private bool cancelAlignButtonState;
+
+        /// <summary>
+        /// Stores information regarding the enabled state of
+        /// Cancel button in Assembly
+        /// </summary>
+        private bool cancelAssemblyButtonState;
+
+        /// <summary>
+        /// Stores information regarding the enabled state of
+        /// Cancel button in Blast Search (btnCancelSearch)
+        /// </summary>
+        private bool cancelSearchButtonState;
+
+        /// <summary>
+        /// Stores mapping of a particular molecule name and the colors used.
+        /// </summary>
+        private Dictionary<byte, Color> colorMap = new Dictionary<byte, Color>();
+
+        /// <summary>
+        /// Sheet number to append to a alignment result sheet name
+        /// </summary>
+        private int currentAlignResultSheetNumber = 1;
 
         /// <summary>
         /// Number of times the BLAST service has been run in this instance. This number
         /// is appended to the name of the sheet.
         /// </summary>
         private int currentBlastSheetNumber = 1;
+
+        /// <summary>
+        /// Maintains a count of the number of times sequences were assembled in this instance.
+        /// This number is appended to the name of the sheet.
+        /// </summary>
+        private int currentConsensusSheetNumber = 1;
 
         /// <summary>
         /// Maintains a count of the number of times sequence files are imported in this instance.
@@ -220,21 +281,25 @@ namespace BiodexExcel
         private int currentMergeSheetNumber = 1;
 
         /// <summary>
-        /// Sheet number to append to a alignment result sheet name
-        /// </summary>
-        private int currentAlignResultSheetNumber = 1;
-
-        /// <summary>
-        /// Maintains a count of the number of times sequences were assembled in this instance.
-        /// This number is appended to the name of the sheet.
-        /// </summary>
-        private int currentConsensusSheetNumber = 1;
-
-        /// <summary>
         /// Maintains a count of the number of times intersect operation were performed in this instance.
         /// This number is appended to the name of the sheet.
         /// </summary>
         private int intersectSheetNumber = 1;
+
+        /// <summary>
+        /// Flag to indicate if NodeXL is installed or not.
+        /// </summary>
+        private bool isNodeXLInstalled;
+
+        /// <summary>
+        /// Identifier of the blast job submitted.
+        /// </summary>
+        private string requestIdentifier = string.Empty;
+
+        /// <summary>
+        /// Holds the number of sequences we import onto a single worksheet.
+        /// </summary>
+        private int sequencesPerWorksheet = 1;
 
         /// <summary>
         /// Maintains a count of the number of times subtract operation were performed in this instance.
@@ -243,47 +308,14 @@ namespace BiodexExcel
         private int subtractSheetNumber = 1;
 
         /// <summary>
-        /// Stores the list of all file-names that have been imported into excel sheet.
+        /// Stores the default background color of the cells.
         /// </summary>
-        private List<string> fileNames = new List<string>();
+        private Color transparentColor;
 
         /// <summary>
-        /// Identifier of the blast job submitted.
+        /// Name of the web service currently running.
         /// </summary>
-        private string requestIdentifier = string.Empty;
-
-        /// <summary>
-        /// Indicates a value whether all sequence sheet should be re-aligned or not.
-        /// </summary>
-        private bool alignAllSequenceSheet = false;
-
-        /// <summary>
-        /// Stores mapping of a particular molecule name and the colors used. 
-        /// </summary>
-        private Dictionary<byte, Color> colorMap = new Dictionary<byte, Color>();
-
-        /// <summary>
-        /// Holds the number of sequences we import onto a single worksheet.
-        /// </summary>
-        private int sequencesPerWorksheet = 1;
-
-        /// <summary>
-        /// Stores information regarding the enabled state of 
-        /// Cancel button in Blast Search (btnCancelSearch)
-        /// </summary>
-        private bool cancelSearchButtonState = false;
-
-        /// <summary>
-        /// Stores information regarding the enabled state of 
-        /// Cancel button in Alignment (btnCancelAlign)
-        /// </summary>
-        private bool cancelAlignButtonState = false;
-
-        /// <summary>
-        /// Stores information regarding the enabled state of 
-        /// Cancel button in Assembly
-        /// </summary>
-        private bool cancelAssemblyButtonState = false;
+        private string webserviceName;
 
         /// <summary>
         /// Key containing installation path of .NET Bio
@@ -293,24 +325,25 @@ namespace BiodexExcel
             get
             {
                 //typical path is Program Files\Microsoft Biology Initiative\Microsoft Biology Framework
-                var assembly = Assembly.GetEntryAssembly();
+                Assembly assembly = Assembly.GetEntryAssembly();
 
                 if (assembly != null)
+                {
                     return Path.GetDirectoryName(assembly.Location);
+                }
 
-                string codeBase = Assembly.GetCallingAssembly().CodeBase.ToString();
-                Uri uri = new Uri(codeBase);
+                string codeBase = Assembly.GetCallingAssembly().CodeBase;
+                var uri = new Uri(codeBase);
 
                 // BioExcel specific
                 if (codeBase.Contains("exce..vsto"))
                 {
                     //look into [HKEY_CURRENT_USER\Software\Microsoft\Office\Excel\Addins\BioExcel]
-                    RegistryKey regKeyAppRoot = Registry.CurrentUser.OpenSubKey
-                        (@"Software\Microsoft\Office\Excel\Addins\BioExcel");
+                    RegistryKey regKeyAppRoot =
+                        Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Office\Excel\Addins\BioExcel");
                     uri = new Uri(regKeyAppRoot.GetValue("Manifest").ToString());
                 }
                 return Uri.UnescapeDataString(Path.GetDirectoryName(uri.AbsolutePath));
-
             }
         }
 
@@ -322,12 +355,12 @@ namespace BiodexExcel
         public BioRibbon()
             : base(Globals.Factory.GetRibbonFactory())
         {
-            InitializeComponent();
+            this.InitializeComponent();
 
             // Create a dummy 1st group -- this is to correct a bug
             // related to Excel add-ins where the first group disappears when
             // you start Excel with a file (vs. just starting a blank worksheet).
-            var dummyGroup = Factory.CreateRibbonGroup();
+            RibbonGroup dummyGroup = this.Factory.CreateRibbonGroup();
             dummyGroup.Label = "Dummy";
             dummyGroup.Visible = false;
 
@@ -335,20 +368,20 @@ namespace BiodexExcel
 
             this.BuildRibbonTabs();
 
-            this.btnCancelAlign.Click += new RibbonControlEventHandler(this.OnCancelAlignClicked);
-            this.btnCancelAssemble.Click += new RibbonControlEventHandler(this.OnCancelAssembleClicked);
-            this.btnCancelSearch.Click += new RibbonControlEventHandler(this.OnCancelSearchClicked);
-            this.btnMaxColumn.Click += new RibbonControlEventHandler(this.OnSizeChangedClicked);
-            this.btnRunChartMacro.Click += new RibbonControlEventHandler(this.RunMacro);
-            this.btnAbout.Click += new RibbonControlEventHandler(this.OnAboutClick);
-            this.btnMerge.Click += new RibbonControlEventHandler(this.OnMergeRangeSequence);
-            this.btnIntersect.Click += new RibbonControlEventHandler(this.OnIntersectClick);
-            this.btnSubtract.Click += new RibbonControlEventHandler(this.OnSubtractClick);
-            this.btnConfigureColor.Click += new RibbonControlEventHandler(this.OnConfigureColorClick);
-            this.btnConfigureImport.Click += new RibbonControlEventHandler(this.OnConfigureImportOptions);
-            this.btnVennDiagram.Click += new RibbonControlEventHandler(OnVennDiagramClick);
-            this.btnHomePage.Click += new RibbonControlEventHandler(OnHomePageClick);
-            this.btnAssemble.Click += new RibbonControlEventHandler(OnAssembleClick);
+            this.btnCancelAlign.Click += this.OnCancelAlignClicked;
+            this.btnCancelAssemble.Click += this.OnCancelAssembleClicked;
+            this.btnCancelSearch.Click += this.OnCancelSearchClicked;
+            this.btnMaxColumn.Click += this.OnSizeChangedClicked;
+            this.btnRunChartMacro.Click += this.RunMacro;
+            this.btnAbout.Click += this.OnAboutClick;
+            this.btnMerge.Click += this.OnMergeRangeSequence;
+            this.btnIntersect.Click += this.OnIntersectClick;
+            this.btnSubtract.Click += this.OnSubtractClick;
+            this.btnConfigureColor.Click += this.OnConfigureColorClick;
+            this.btnConfigureImport.Click += this.OnConfigureImportOptions;
+            this.btnVennDiagram.Click += this.OnVennDiagramClick;
+            this.btnHomePage.Click += this.OnHomePageClick;
+            this.btnAssemble.Click += this.OnAssembleClick;
 
             this.SetScreenTips();
         }
@@ -373,7 +406,7 @@ namespace BiodexExcel
         /// <returns>Column name</returns>
         private static string GetColumnString(long number)
         {
-            StringBuilder value = new StringBuilder();
+            var value = new StringBuilder();
 
             while (number > 0)
             {
@@ -425,7 +458,7 @@ namespace BiodexExcel
             double mergeThreshold = input.MergeThreshold;
             List<ISequence> sequence = input.Sequences.ToList();
 
-            OverlapDeNovoAssembler assemble = new OverlapDeNovoAssembler();
+            var assemble = new OverlapDeNovoAssembler();
             assemble.OverlapAlgorithm = input.Aligner;
 
             // Special casing for SW alignment.
@@ -449,7 +482,7 @@ namespace BiodexExcel
 
             IDeNovoAssembly assemblyOutput = assemble.Assemble(sequence);
 
-            if (worker != null && worker.CancellationPending == true)
+            if (worker != null && worker.CancellationPending)
             {
                 return null;
             }
@@ -462,13 +495,11 @@ namespace BiodexExcel
         /// </summary>
         /// <param name="sequenceAligner">Sequence Aligner object</param>
         /// <param name="alignerInput">Aligner Input object</param>
-        private static void AssignAlignerParameter(
-            ISequenceAligner sequenceAligner,
-            AlignerInputEventArgs alignerInput)
+        private static void AssignAlignerParameter(ISequenceAligner sequenceAligner, AlignerInputEventArgs alignerInput)
         {
             if (sequenceAligner is NucmerPairwiseAligner)
             {
-                NucmerPairwiseAligner nucmer = sequenceAligner as NucmerPairwiseAligner;
+                var nucmer = sequenceAligner as NucmerPairwiseAligner;
 
                 nucmer.LengthOfMUM = alignerInput.LengthOfMUM;
                 nucmer.FixedSeparation = alignerInput.FixedSeparation;
@@ -479,7 +510,7 @@ namespace BiodexExcel
             }
             else if (sequenceAligner is MUMmerAligner)
             {
-                MUMmerAligner mummer = sequenceAligner as MUMmerAligner;
+                var mummer = sequenceAligner as MUMmerAligner;
 
                 mummer.LengthOfMUM = alignerInput.LengthOfMUM;
             }
@@ -501,13 +532,11 @@ namespace BiodexExcel
             {
                 foreach (BlastSearchRecord record in result.Records)
                 {
-                    if (null != record.Hits
-                            && 0 < record.Hits.Count)
+                    if (null != record.Hits && 0 < record.Hits.Count)
                     {
                         foreach (Hit hit in record.Hits)
                         {
-                            if (null != hit.Hsps
-                                    && 0 < hit.Hsps.Count)
+                            if (null != hit.Hsps && 0 < hit.Hsps.Count)
                             {
                                 foreach (Hsp hsp in hit.Hsps)
                                 {
@@ -551,7 +580,7 @@ namespace BiodexExcel
             Workbook workBook = Globals.ThisAddIn.Application.ActiveWorkbook;
             Sheets sheets = workBook.Worksheets;
 
-            List<Worksheet> worksheetList = new List<Worksheet>();
+            var worksheetList = new List<Worksheet>();
             foreach (string sheetName in sheetNames)
             {
                 worksheetList.Add(GetSheetReference(sheetName));
@@ -561,7 +590,7 @@ namespace BiodexExcel
         }
 
         /// <summary>
-        ///  Gets a reference to worksheet which has the same name as the sheet name.
+        /// Gets a reference to worksheet which has the same name as the sheet name.
         /// </summary>
         /// <param name="sheetName">Name of the worksheet.</param>
         /// <returns>Reference to worksheet.</returns>
@@ -572,7 +601,7 @@ namespace BiodexExcel
             Worksheet finalSheet = null;
             for (int i = 1; i <= sheets.Count; i++)
             {
-                Worksheet sheet = sheets[i] as Worksheet;
+                var sheet = sheets[i] as Worksheet;
                 if (sheet != null && sheet.Name.Equals(sheetName))
                 {
                     finalSheet = sheet;
@@ -587,12 +616,21 @@ namespace BiodexExcel
 
         #region -- Private Methods --
 
+        private readonly Regex regexAddress = new Regex(
+            @"(?<Sheet>^.[^!]*)!\$(?<Column>.[^$]*)\$(?<Row>.[^$]*)$",
+            RegexOptions.IgnoreCase);
+
+        private readonly Regex regexRangeAddress =
+            new Regex(
+                @"(?<Sheet>^.[^!]*)!\$(?<Column>.[^$]*)\$(?<Row>.[^$]*):\$(?<Column1>.[^$]*)\$(?<Row1>.[^$]*)$",
+                RegexOptions.IgnoreCase);
+
         /// <summary>
         /// Navigate to .NET Bio homepage using default browser.
         /// </summary>
-        void OnHomePageClick(object sender, RibbonControlEventArgs e)
+        private void OnHomePageClick(object sender, RibbonControlEventArgs e)
         {
-            System.Diagnostics.Process.Start(MBFHomePage);
+            Process.Start(MBFHomePage);
         }
 
         /// <summary>
@@ -635,7 +673,7 @@ namespace BiodexExcel
 
         /// <summary>
         /// This method is called when the entire ribbon is loaded.
-        /// At this point of time all our UI elements will be properly 
+        /// At this point of time all our UI elements will be properly
         /// initialized.
         /// </summary>
         /// <param name="sender">.NET Bio Ribbon.</param>
@@ -663,14 +701,12 @@ namespace BiodexExcel
             if (IntPtr.Size == 4)
             {
                 // NodeXL is running within 32-bit Excel.
-                programFilesFolder = Environment.GetFolderPath(
-                    Environment.SpecialFolder.ProgramFiles);
+                programFilesFolder = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
             }
             else
             {
                 // NodeXL is running within 64-bit Excel.
-                programFilesFolder = System.Environment.GetEnvironmentVariable(
-                    "ProgramFiles(x86)");
+                programFilesFolder = Environment.GetEnvironmentVariable("ProgramFiles(x86)");
             }
 
             if (string.IsNullOrWhiteSpace(programFilesFolder))
@@ -678,13 +714,19 @@ namespace BiodexExcel
                 programFilesFolder = string.Empty;
             }
 
-            string templatePath = Path.Combine(programFilesFolder, @"Microsoft Research\Microsoft NodeXL Excel Template\NodeXLGraph.xltx");
+            string templatePath = Path.Combine(
+                programFilesFolder,
+                @"Microsoft Research\Microsoft NodeXL Excel Template\NodeXLGraph.xltx");
             if (File.Exists(templatePath))
+            {
                 return templatePath;
+            }
 
             templatePath = Path.Combine(Globals.ThisAddIn.Application.TemplatesPath, "NodeXLGraph.xltx");
             if (File.Exists(templatePath))
+            {
                 return templatePath;
+            }
 
             return string.Empty;
         }
@@ -694,9 +736,9 @@ namespace BiodexExcel
         /// </summary>
         private void CheckForNodeXL()
         {
-            if (File.Exists(GetNodeXLTemplatePath())) // check if it exists at all
+            if (File.Exists(this.GetNodeXLTemplatePath())) // check if it exists at all
             {
-                isNodeXLInstalled = true;
+                this.isNodeXLInstalled = true;
             }
             else
             {
@@ -710,8 +752,12 @@ namespace BiodexExcel
         /// </summary>
         private void BuildColorScheme()
         {
-            System.Windows.Media.Color transparentShade = System.Windows.Media.Colors.Transparent;
-            this.transparentColor = Color.FromArgb(transparentShade.A, transparentShade.R, transparentShade.G, transparentShade.B);
+            System.Windows.Media.Color transparentShade = Colors.Transparent;
+            this.transparentColor = Color.FromArgb(
+                transparentShade.A,
+                transparentShade.R,
+                transparentShade.G,
+                transparentShade.B);
             foreach (byte nucleotide in DnaAlphabet.Instance)
             {
                 if (!this.colorMap.ContainsKey(nucleotide))
@@ -779,13 +825,13 @@ namespace BiodexExcel
             this.ResetStatus();
             Globals.ThisAddIn.Application.Cursor = XlMousePointer.xlWait;
 
-            ImportConfiguration configuration = new ImportConfiguration() { SequencesPerWorksheet = sequencesPerWorksheet };
-            System.Windows.Interop.WindowInteropHelper helper = new System.Windows.Interop.WindowInteropHelper(configuration);
+            var configuration = new ImportConfiguration { SequencesPerWorksheet = this.sequencesPerWorksheet };
+            var helper = new WindowInteropHelper(configuration);
             helper.Owner = (IntPtr)Globals.ThisAddIn.Application.Hwnd;
-            configuration.Activated += new EventHandler(OnWPFWindowActivated);
+            configuration.Activated += this.OnWPFWindowActivated;
             if (configuration.ShowDialog() == true)
             {
-                sequencesPerWorksheet = configuration.SequencesPerWorksheet;
+                this.sequencesPerWorksheet = configuration.SequencesPerWorksheet;
             }
         }
 
@@ -798,13 +844,13 @@ namespace BiodexExcel
         private void OnConfigureColorClick(object sender, RibbonControlEventArgs e)
         {
             this.ResetStatus();
-            Worksheet sheet = Globals.ThisAddIn.Application.ActiveSheet as Worksheet;
+            var sheet = Globals.ThisAddIn.Application.ActiveSheet as Worksheet;
 
             Globals.ThisAddIn.Application.Cursor = XlMousePointer.xlWait;
-            ColorConfiguration configuration = new ColorConfiguration(Globals.ThisAddIn.Application, this.colorMap);
-            System.Windows.Interop.WindowInteropHelper helper = new System.Windows.Interop.WindowInteropHelper(configuration);
+            var configuration = new ColorConfiguration(Globals.ThisAddIn.Application, this.colorMap);
+            var helper = new WindowInteropHelper(configuration);
             helper.Owner = (IntPtr)Globals.ThisAddIn.Application.Hwnd;
-            configuration.Activated += new EventHandler(OnWPFWindowActivated);
+            configuration.Activated += this.OnWPFWindowActivated;
             if (configuration.Show())
             {
                 this.colorMap = configuration.ColorMap;
@@ -816,91 +862,6 @@ namespace BiodexExcel
             }
         }
 
-        #region -- Enable-Disable Controls --
-
-        /// <summary>
-        /// This method enables the given list of controls.
-        /// </summary>
-        private void EnableAllControls()
-        {
-            List<RibbonGroup> groups = new List<RibbonGroup>();
-
-            groups.Add(this.groupImportExport);
-            groups.Add(this.groupAlignment);
-            groups.Add(this.groupWebService);
-            groups.Add(this.groupCharts);
-            groups.Add(this.grpGenomicInterval);
-            groups.Add(this.groupConfig);
-            groups.Add(this.groupAssembly);
-            groups.Add(this.groupNodeXL);
-
-            foreach (RibbonGroup group in groups)
-            {
-                foreach (RibbonControl control in group.Items)
-                {
-                    control.Enabled = true;
-                }
-            }
-
-            this.btnVennDiagram.Enabled = this.isNodeXLInstalled;
-            this.btnCancelSearch.Enabled = this.cancelSearchButtonState;
-            this.btnCancelAlign.Enabled = this.cancelAlignButtonState;
-            this.btnCancelAssemble.Enabled = this.cancelAssemblyButtonState;
-        }
-
-        /// <summary>
-        /// This method disables all controls in the ribbon including generic controls.
-        /// </summary>
-        private void DisableAllControls()
-        {
-            List<RibbonGroup> groups = new List<RibbonGroup>();
-
-            groups.Add(this.groupImportExport);
-            groups.Add(this.groupAlignment);
-            groups.Add(this.groupWebService);
-            groups.Add(this.groupCharts);
-            groups.Add(this.grpGenomicInterval);
-            groups.Add(this.groupConfig);
-            groups.Add(this.groupAssembly);
-            groups.Add(this.groupNodeXL);
-
-            foreach (RibbonGroup group in groups)
-            {
-                foreach (RibbonControl control in group.Items)
-                {
-                    control.Enabled = false;
-                }
-            }
-        }
-
-        /// <summary>
-        /// Raised when a workbook switches to another one or when its closed.
-        /// </summary>
-        /// <param name="Wb">workbook being deactivated</param>
-        private void OnWorkbookDeactivate(Workbook Wb)
-        {
-            if (Globals.ThisAddIn.Application.Workbooks.Count == 1) // If count is one and is deactivating, it is closing!
-            {
-                this.DisableAllControls();
-            }
-        }
-
-        /// <summary>
-        /// This event is fired when a workbook is activated.
-        /// this event enables all controls in the Generic group.
-        /// </summary>
-        /// <param name="workBook">Workbook being opened.</param>
-        private void OnWorkBookOpen(Workbook workBook)
-        {
-            if (!SequenceCache.IsInitialized)
-                SequenceCache.Initialize();
-
-            this.EnableAllControls();
-            this.LoadSheetNames(Globals.ThisAddIn.Application.ActiveWorkbook);
-        }
-
-        #endregion -- Enable-Disable groups --
-
         /// <summary>
         /// This method Intersect the intervals of 2 queries
         /// </summary>
@@ -909,10 +870,15 @@ namespace BiodexExcel
         private void OnIntersectClick(object sender, RibbonControlEventArgs e)
         {
             this.ResetStatus();
-            InputSelection inputs = new InputSelection();
+            var inputs = new InputSelection();
             inputs.MinimumSequenceCount = 2;
-            inputs.SequenceLabels = new string[] { Resources.InputSelection_SequenceLabel_BED1, Resources.InputSelection_SequenceLabel_BED2, Resources.Export_BED_SequenceRangeString }; // Set labels for the sequences
-            inputs.GetInputSequenceRanges(DoBEDIntersect, true, true, true);
+            inputs.SequenceLabels = new[]
+                                    {
+                                        Resources.InputSelection_SequenceLabel_BED1,
+                                        Resources.InputSelection_SequenceLabel_BED2,
+                                        Resources.Export_BED_SequenceRangeString
+                                    }; // Set labels for the sequences
+            inputs.GetInputSequenceRanges(this.DoBEDIntersect, true, true, true);
         }
 
         /// <summary>
@@ -924,8 +890,8 @@ namespace BiodexExcel
             this.ScreenUpdate(false);
 
             Workbook currentWorkbook = Globals.ThisAddIn.Application.ActiveWorkbook;
-            IntersectOutputType intersectOutputType = IntersectOutputType.OverlappingIntervals;
-            List<SequenceRangeGrouping> result = new List<SequenceRangeGrouping>();
+            var intersectOutputType = IntersectOutputType.OverlappingIntervals;
+            var result = new List<SequenceRangeGrouping>();
 
             if ((bool)e.Parameter[InputSelection.OVERLAP])
             {
@@ -936,30 +902,28 @@ namespace BiodexExcel
             {
                 if (0 == result.Count)
                 {
-                    result.Add(e.Sequences[i - 1].Intersect(
-                        e.Sequences[i],
-                        (long)e.Parameter[InputSelection.MINIMUMOVERLAP],
-                        intersectOutputType,
-                        true));
+                    result.Add(
+                        e.Sequences[i - 1].Intersect(
+                            e.Sequences[i],
+                            (long)e.Parameter[InputSelection.MINIMUMOVERLAP],
+                            intersectOutputType,
+                            true));
                 }
                 else
                 {
-                    result.Add(result[result.Count - 1].Intersect(
-                        e.Sequences[i],
-                        (long)e.Parameter[InputSelection.MINIMUMOVERLAP],
-                        intersectOutputType,
-                        true));
+                    result.Add(
+                        result[result.Count - 1].Intersect(
+                            e.Sequences[i],
+                            (long)e.Parameter[InputSelection.MINIMUMOVERLAP],
+                            intersectOutputType,
+                            true));
                 }
             }
 
-            string sheetName = Resources.INTERSECT_SHEET + this.intersectSheetNumber.ToString(CultureInfo.CurrentCulture);
+            string sheetName = Resources.INTERSECT_SHEET
+                               + this.intersectSheetNumber.ToString(CultureInfo.CurrentCulture);
             this.intersectSheetNumber++;
-            this.WriteSequenceRange(currentWorkbook,
-                    sheetName,
-                    result[result.Count - 1],
-                    e.Data,
-                    true,
-                    false);
+            this.WriteSequenceRange(currentWorkbook, sheetName, result[result.Count - 1], e.Data, true, false);
 
             this.ScreenUpdate(true);
         }
@@ -973,11 +937,16 @@ namespace BiodexExcel
         {
             this.ResetStatus();
 
-            InputSelection inputs = new InputSelection();
+            var inputs = new InputSelection();
             inputs.MinimumSequenceCount = 2;
             inputs.MaximumSequenceCount = 2;
-            inputs.SequenceLabels = new string[] { Resources.InputSelection_SequenceLabel_BED1, Resources.InputSelection_SequenceLabel_BED2, Resources.Export_BED_SequenceRangeString };
-            inputs.GetInputSequenceRanges(DoBEDSubtract, false, true, true);
+            inputs.SequenceLabels = new[]
+                                    {
+                                        Resources.InputSelection_SequenceLabel_BED1,
+                                        Resources.InputSelection_SequenceLabel_BED2,
+                                        Resources.Export_BED_SequenceRangeString
+                                    };
+            inputs.GetInputSequenceRanges(this.DoBEDSubtract, false, true, true);
         }
 
         /// <summary>
@@ -989,7 +958,7 @@ namespace BiodexExcel
             this.ScreenUpdate(false);
 
             Workbook currentWorkbook = Globals.ThisAddIn.Application.ActiveWorkbook;
-            SubtractOutputType subtractOutputType = SubtractOutputType.NonOverlappingPiecesOfIntervals;
+            var subtractOutputType = SubtractOutputType.NonOverlappingPiecesOfIntervals;
             SequenceRangeGrouping result = null;
 
             if ((bool)e.Parameter[InputSelection.OVERLAP])
@@ -998,19 +967,14 @@ namespace BiodexExcel
             }
 
             result = e.Sequences[0].Subtract(
-                    e.Sequences[1],
-                    (long)e.Parameter[InputSelection.MINIMUMOVERLAP],
-                    subtractOutputType,
-                    true);
+                e.Sequences[1],
+                (long)e.Parameter[InputSelection.MINIMUMOVERLAP],
+                subtractOutputType,
+                true);
 
             string sheetName = Resources.SUBTRACT_SHEET + this.subtractSheetNumber.ToString(CultureInfo.CurrentCulture);
             this.subtractSheetNumber++;
-            this.WriteSequenceRange(currentWorkbook,
-                    sheetName,
-                    result,
-                    e.Data,
-                    true,
-                    false);
+            this.WriteSequenceRange(currentWorkbook, sheetName, result, e.Data, true, false);
 
             this.ScreenUpdate(true);
         }
@@ -1038,10 +1002,14 @@ namespace BiodexExcel
         {
             this.ResetStatus();
 
-            InputSelection inputs = new InputSelection();
+            var inputs = new InputSelection();
             inputs.MinimumSequenceCount = 1;
-            inputs.SequenceLabels = new string[] { Resources.InputSelection_SequenceLabel_BED1, Resources.Export_BED_SequenceRangeString };
-            inputs.GetInputSequenceRanges(DoBEDMerge, false, false, true);
+            inputs.SequenceLabels = new[]
+                                    {
+                                        Resources.InputSelection_SequenceLabel_BED1,
+                                        Resources.Export_BED_SequenceRangeString
+                                    };
+            inputs.GetInputSequenceRanges(this.DoBEDMerge, false, false, true);
         }
 
         /// <summary>
@@ -1056,24 +1024,21 @@ namespace BiodexExcel
 
             if (e.Sequences.Count > 1)
             {
-                SequenceRangeGrouping referenceGrouping = e.Sequences[0]; // First item is mentioned as reference sequence when calling the dialog.
+                SequenceRangeGrouping referenceGrouping = e.Sequences[0];
+                    // First item is mentioned as reference sequence when calling the dialog.
                 for (int i = 1; i < e.Sequences.Count; i++)
                 {
                     SequenceRangeGrouping rangeGrouping = e.Sequences[i];
                     referenceGrouping = referenceGrouping.MergeOverlaps(
-                            rangeGrouping,
-                            (long)e.Parameter[InputSelection.MINIMUMOVERLAP],
-                            true);
+                        rangeGrouping,
+                        (long)e.Parameter[InputSelection.MINIMUMOVERLAP],
+                        true);
                 }
 
-                string sheetName = Resources.MERGED_SHEET + this.currentMergeSheetNumber.ToString(CultureInfo.CurrentCulture);
+                string sheetName = Resources.MERGED_SHEET
+                                   + this.currentMergeSheetNumber.ToString(CultureInfo.CurrentCulture);
                 this.currentMergeSheetNumber++;
-                this.WriteSequenceRange(currentWorkbook,
-                        sheetName,
-                        referenceGrouping,
-                        e.Data,
-                        false,
-                        true);
+                this.WriteSequenceRange(currentWorkbook, sheetName, referenceGrouping, e.Data, false, true);
             }
             else
             {
@@ -1081,15 +1046,11 @@ namespace BiodexExcel
 
                 if (mergedOverlap != null)
                 {
-                    string sheetName = Resources.MERGED_SHEET + this.currentMergeSheetNumber.ToString(CultureInfo.CurrentCulture);
+                    string sheetName = Resources.MERGED_SHEET
+                                       + this.currentMergeSheetNumber.ToString(CultureInfo.CurrentCulture);
                     this.currentMergeSheetNumber++;
                     mergedOverlap = mergedOverlap.MergeOverlaps((long)e.Parameter[InputSelection.MINIMUMOVERLAP], true);
-                    this.WriteSequenceRange(currentWorkbook,
-                            sheetName,
-                            mergedOverlap,
-                            e.Data,
-                            false,
-                            true);
+                    this.WriteSequenceRange(currentWorkbook, sheetName, mergedOverlap, e.Data, false, true);
                 }
             }
 
@@ -1099,7 +1060,8 @@ namespace BiodexExcel
         /// <summary>
         /// Formats and writes the query region (Output of Merge/Subtract/Intersect) operations
         /// </summary>
-        /// <param name="resultWorkbook">Workbook to which Range has to be written
+        /// <param name="resultWorkbook">
+        /// Workbook to which Range has to be written
         /// </param>
         /// <param name="resultSheetname">New worksheet name</param>
         /// <param name="resultGroup">Output group</param>
@@ -1108,12 +1070,12 @@ namespace BiodexExcel
         /// Contains individual Group, sheet and addresses of ISequenceRange
         /// </param>
         private void WriteSequenceRange(
-                Workbook resultWorkbook,
-                string resultSheetname,
-                SequenceRangeGrouping resultGroup,
-                Dictionary<SequenceRangeGrouping, GroupData> groupsData,
-                bool showMetadata,
-                bool showBasePairCount)
+            Workbook resultWorkbook,
+            string resultSheetname,
+            SequenceRangeGrouping resultGroup,
+            Dictionary<SequenceRangeGrouping, GroupData> groupsData,
+            bool showMetadata,
+            bool showBasePairCount)
         {
             if (resultGroup.GroupIDs.Count() > 0)
             {
@@ -1134,31 +1096,33 @@ namespace BiodexExcel
                 SequenceRangeGrouping sheetGroup = null;
                 int sheetCount = 0;
                 Range activeRange = null;
-                
-                Worksheet resultWorksheet = resultWorkbook.Worksheets.Add(
+
+                var resultWorksheet =
+                    resultWorkbook.Worksheets.Add(
                         Type.Missing,
                         resultWorkbook.Worksheets.get_Item(resultWorkbook.Worksheets.Count),
                         Type.Missing,
                         Type.Missing) as Worksheet;
-                ((Microsoft.Office.Interop.Excel._Worksheet)resultWorksheet).Activate();
+                ((_Worksheet)resultWorksheet).Activate();
                 Globals.ThisAddIn.Application.ActiveWindow.Zoom = ZoomLevel;
 
                 resultWorksheet.Name = resultSheetname;
                 activeRange = resultWorksheet.get_Range(GetColumnString(baseColumnIndex) + baseRowIndex, Type.Missing);
 
                 rangedata = groupsData.Values.Select(gd => gd.Metadata) // Get the Metadata
-                        .SelectMany(sd => sd.Values).ToList() // Get the Dictionary
-                        .SelectMany(rd => rd).ToList().ToDictionary(k => k.Key, v => v.Value); // Convert to dictionary
+                    .SelectMany(sd => sd.Values).ToList() // Get the Dictionary
+                    .SelectMany(rd => rd).ToList().ToDictionary(k => k.Key, v => v.Value); // Convert to dictionary
 
                 groupSheetIndices = new Dictionary<SequenceRangeGrouping, Dictionary<string, int>>();
-                baseRowIndex = WriteSequenceRangeHeader(resultWorksheet,
-                        groupSheetIndices,
-                        groupsData,
-                        baseRowIndex,
-                        baseColumnIndex,
-                        ref totalColumnCount,
-                        showMetadata,
-                        showBasePairCount);
+                baseRowIndex = this.WriteSequenceRangeHeader(
+                    resultWorksheet,
+                    groupSheetIndices,
+                    groupsData,
+                    baseRowIndex,
+                    baseColumnIndex,
+                    ref totalColumnCount,
+                    showMetadata,
+                    showBasePairCount);
                 totalColumnCount -= (baseColumnIndex - 1);
 
                 foreach (string resultGroupKey in resultGroup.GroupIDs)
@@ -1166,7 +1130,9 @@ namespace BiodexExcel
                     resultSequenceRanges = resultGroup.GetGroup(resultGroupKey);
                     dataRowIndex = 0;
                     values = new object[resultSequenceRanges.Count, totalColumnCount];
-                    activeRange = resultWorksheet.get_Range(GetColumnString(baseColumnIndex) + baseRowIndex, Missing.Value);
+                    activeRange = resultWorksheet.get_Range(
+                        GetColumnString(baseColumnIndex) + baseRowIndex,
+                        Missing.Value);
                     activeRange = activeRange.get_Resize(resultSequenceRanges.Count, totalColumnCount);
 
                     foreach (ISequenceRange resultSequenceRange in resultSequenceRanges)
@@ -1188,15 +1154,20 @@ namespace BiodexExcel
                         {
                             for (int index = 3; index < rangeHeaders.Count; index++)
                             {
-                                values[dataRowIndex, dataColumnIndex] =
-                                        ExtractRangeMetadata(resultSequenceRange, rangeHeaders[index]);
+                                values[dataRowIndex, dataColumnIndex] = ExtractRangeMetadata(
+                                    resultSequenceRange,
+                                    rangeHeaders[index]);
                                 dataColumnIndex++;
                             }
                         }
 
-                        columnData = PrepareSequenceRowRange(groupsData, groupSheetIndices, rangedata, resultSequenceRange);
+                        columnData = PrepareSequenceRowRange(
+                            groupsData,
+                            groupSheetIndices,
+                            rangedata,
+                            resultSequenceRange);
 
-                        foreach (KeyValuePair<int, Tuple<SequenceRangeGrouping, bool, List<ISequenceRange>>> columnGroup in columnData)
+                        foreach (var columnGroup in columnData)
                         {
                             if (showBasePairCount)
                             {
@@ -1208,7 +1179,8 @@ namespace BiodexExcel
                                 }
 
                                 // Render data for Group's range in a column
-                                values[dataRowIndex, columnGroup.Key] = groupToMerge.GroupRanges.Sum(sr => sr.End - sr.Start);
+                                values[dataRowIndex, columnGroup.Key] =
+                                    groupToMerge.GroupRanges.Sum(sr => sr.End - sr.Start);
                                 values[dataRowIndex, columnGroup.Key + 1] = columnGroup.Value.Item3.Count;
                             }
                             else
@@ -1223,18 +1195,22 @@ namespace BiodexExcel
                                 hyperlinks.AddRange(rangedata[range].Split(','));
                             }
 
-                            ShowHyperlink(hyperlinks,
-                                    activeRange,
-                                    columnGroup.Key,
-                                    dataRowIndex,
-                                    showBasePairCount);
+                            this.ShowHyperlink(
+                                hyperlinks,
+                                activeRange,
+                                columnGroup.Key,
+                                dataRowIndex,
+                                showBasePairCount);
 
                             if (showBasePairCount)
                             {
                                 // Calculate data for all group
                                 if (allSheetData.TryGetValue(columnGroup.Value.Item1, out sheetGroup))
                                 {
-                                    allSheetData[columnGroup.Value.Item1] = sheetGroup.MergeOverlaps(groupToMerge, 0, false);
+                                    allSheetData[columnGroup.Value.Item1] = sheetGroup.MergeOverlaps(
+                                        groupToMerge,
+                                        0,
+                                        false);
                                 }
                                 else
                                 {
@@ -1278,12 +1254,13 @@ namespace BiodexExcel
                         }
 
                         // Render all columns in SequenceRangeGrouping
-                        foreach (KeyValuePair<SequenceRangeGrouping, int> allData in allSheetCount)
+                        foreach (var allData in allSheetCount)
                         {
                             dataColumnIndex = groupSheetIndices[allData.Key].Values.Min() - (showBasePairCount ? 2 : 1);
                             if (showBasePairCount)
                             {
-                                values[dataRowIndex, dataColumnIndex] = allSheetData[allData.Key].GroupRanges.Sum(sr => sr.End - sr.Start);
+                                values[dataRowIndex, dataColumnIndex] =
+                                    allSheetData[allData.Key].GroupRanges.Sum(sr => sr.End - sr.Start);
                                 dataColumnIndex++;
                             }
                             values[dataRowIndex, dataColumnIndex] = allData.Value;
@@ -1295,11 +1272,12 @@ namespace BiodexExcel
                             if (null != referenceGroup && null != queryGroup)
                             {
                                 referenceGroup = referenceGroup.Intersect(
-                                        queryGroup,
-                                        0,
-                                        IntersectOutputType.OverlappingPiecesOfIntervals,
-                                        false);
-                                values[dataRowIndex, totalColumnCount - 1] = referenceGroup.GroupRanges.Sum(sr => sr.End - sr.Start);
+                                    queryGroup,
+                                    0,
+                                    IntersectOutputType.OverlappingPiecesOfIntervals,
+                                    false);
+                                values[dataRowIndex, totalColumnCount - 1] =
+                                    referenceGroup.GroupRanges.Sum(sr => sr.End - sr.Start);
                             }
                             else
                             {
@@ -1316,22 +1294,18 @@ namespace BiodexExcel
                 }
 
                 resultWorksheet.Columns.AutoFit();
-                NormalizeColumWidths(resultWorksheet.UsedRange);
+                this.NormalizeColumWidths(resultWorksheet.UsedRange);
                 this.EnableAllControls();
             }
             else
             {
-                MessageBox.Show(Properties.Resources.NO_RESULT, Properties.Resources.CAPTION, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(
+                    Resources.NO_RESULT,
+                    Resources.CAPTION,
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
             }
         }
-
-        Regex regexAddress = new Regex(
-                @"(?<Sheet>^.[^!]*)!\$(?<Column>.[^$]*)\$(?<Row>.[^$]*)$",
-                RegexOptions.IgnoreCase);
-
-        Regex regexRangeAddress = new Regex(
-                @"(?<Sheet>^.[^!]*)!\$(?<Column>.[^$]*)\$(?<Row>.[^$]*):\$(?<Column1>.[^$]*)\$(?<Row1>.[^$]*)$",
-                RegexOptions.IgnoreCase);
 
         /// <summary>
         /// There are range that can be merged (row-wise)
@@ -1341,11 +1315,12 @@ namespace BiodexExcel
         /// <param name="columnIndex">Column index in Active range</param>
         /// <param name="dataRowIndex">Data row index in Active range</param>
         /// <param name="showBasePairCount">Show base pair count</param>
-        private void ShowHyperlink(List<string> hyperlinkList,
-                Range activeRange,
-                int columnIndex,
-                int dataRowIndex,
-                bool showBasePairCount)
+        private void ShowHyperlink(
+            List<string> hyperlinkList,
+            Range activeRange,
+            int columnIndex,
+            int dataRowIndex,
+            bool showBasePairCount)
         {
             // make sure the address are arranged in order
             hyperlinkList.Sort();
@@ -1370,7 +1345,7 @@ namespace BiodexExcel
                 // Check if the lastAddress and hyperlink are adjacent (differ by one row)
                 // They must be in same format 
                 // (<Sheet>!$<Column>$<Row)
-                currentMatch = regexAddress.Match(hyperlink);
+                currentMatch = this.regexAddress.Match(hyperlink);
                 if (currentMatch.Success)
                 {
                     currentSheet = currentMatch.Groups["Sheet"].Value;
@@ -1382,7 +1357,7 @@ namespace BiodexExcel
                 else
                 {
                     // (<Sheet>!$<Column>$<Row>:$<Column1>$<Row1>)
-                    currentMatch = regexRangeAddress.Match(hyperlink);
+                    currentMatch = this.regexRangeAddress.Match(hyperlink);
                     if (currentMatch.Success)
                     {
                         currentSheet = currentMatch.Groups["Sheet"].Value;
@@ -1398,7 +1373,7 @@ namespace BiodexExcel
                     }
                 }
 
-                lastMatch = regexAddress.Match(lastAddress);
+                lastMatch = this.regexAddress.Match(lastAddress);
                 if (lastMatch.Success)
                 {
                     lastSheet = lastMatch.Groups["Sheet"].Value;
@@ -1409,7 +1384,7 @@ namespace BiodexExcel
                 }
                 else
                 {
-                    lastMatch = regexRangeAddress.Match(lastAddress);
+                    lastMatch = this.regexRangeAddress.Match(lastAddress);
                     if (lastMatch.Success)
                     {
                         lastSheet = lastMatch.Groups["Sheet"].Value;
@@ -1430,26 +1405,27 @@ namespace BiodexExcel
                     && 0 == string.Compare(currentColumn1, lastColumn1, true)
                     && currentRow1 == lastRow + adjustmentRowCount + 1)
                 {
-                    lastAddress = string.Concat(currentSheet,
-                            "!$",
-                            lastColumn,
-                            "$",
-                            lastRow,
-                            ":$",
-                            currentColumn1,
-                            "$",
-                            currentRow1);
+                    lastAddress = string.Concat(
+                        currentSheet,
+                        "!$",
+                        lastColumn,
+                        "$",
+                        lastRow,
+                        ":$",
+                        currentColumn1,
+                        "$",
+                        currentRow1);
                     adjustmentRowCount++;
                     continue;
                 }
 
                 if (string.IsNullOrEmpty(rangeAddress))
                 {
-                    rangeAddress = HandleSpecialChars(lastAddress);
+                    rangeAddress = this.HandleSpecialChars(lastAddress);
                 }
                 else
                 {
-                    rangeAddress = string.Concat(rangeAddress, ",", HandleSpecialChars(lastAddress));
+                    rangeAddress = string.Concat(rangeAddress, ",", this.HandleSpecialChars(lastAddress));
                 }
 
                 lastAddress = hyperlink;
@@ -1458,20 +1434,22 @@ namespace BiodexExcel
 
             if (string.IsNullOrEmpty(rangeAddress))
             {
-                rangeAddress = HandleSpecialChars(lastAddress);
+                rangeAddress = this.HandleSpecialChars(lastAddress);
             }
             else
             {
-                rangeAddress = string.Concat(rangeAddress, ",", HandleSpecialChars(lastAddress));
+                rangeAddress = string.Concat(rangeAddress, ",", this.HandleSpecialChars(lastAddress));
             }
 
             // Add hyperlink
             activeRange.Hyperlinks.Add(
-                activeRange.get_Range(GetColumnString(columnIndex + (showBasePairCount ? 2 : 1)) + (dataRowIndex + 1), Missing.Value),
-                    string.Empty,
-                    rangeAddress,
-                    Missing.Value,
-                    Missing.Value);
+                activeRange.get_Range(
+                    GetColumnString(columnIndex + (showBasePairCount ? 2 : 1)) + (dataRowIndex + 1),
+                    Missing.Value),
+                string.Empty,
+                rangeAddress,
+                Missing.Value,
+                Missing.Value);
         }
 
         /// <summary>
@@ -1501,11 +1479,12 @@ namespace BiodexExcel
         /// <param name="rangedata">Sequence and address list</param>
         /// <param name="resultSequenceRange">Query region that has to be prepared</param>
         /// <returns>Prepared data ready for output</returns>
-        private static Dictionary<int, Tuple<SequenceRangeGrouping, bool, List<ISequenceRange>>> PrepareSequenceRowRange(
-                Dictionary<SequenceRangeGrouping, GroupData> groupsData,
-                Dictionary<SequenceRangeGrouping, Dictionary<string, int>> groupSheetIndices,
-                Dictionary<ISequenceRange, string> rangedata,
-                ISequenceRange resultSequenceRange)
+        private static Dictionary<int, Tuple<SequenceRangeGrouping, bool, List<ISequenceRange>>> PrepareSequenceRowRange
+            (
+            Dictionary<SequenceRangeGrouping, GroupData> groupsData,
+            Dictionary<SequenceRangeGrouping, Dictionary<string, int>> groupSheetIndices,
+            Dictionary<ISequenceRange, string> rangedata,
+            ISequenceRange resultSequenceRange)
         {
             Dictionary<int, Tuple<SequenceRangeGrouping, bool, List<ISequenceRange>>> columnData = null;
 
@@ -1533,13 +1512,13 @@ namespace BiodexExcel
         /// <param name="columnData">Data ready for output</param>
         /// <param name="parentRange">Query region that has to be prepared</param>
         private static void PrepareSequenceRangeRow(
-                Dictionary<SequenceRangeGrouping, GroupData> groupsData,
-                Dictionary<SequenceRangeGrouping, Dictionary<string, int>> groupSheetIndices,
-                Dictionary<ISequenceRange, string> rangedata,
-                Dictionary<int, Tuple<SequenceRangeGrouping, bool, List<ISequenceRange>>> columnData,
-                ISequenceRange parentRange)
+            Dictionary<SequenceRangeGrouping, GroupData> groupsData,
+            Dictionary<SequenceRangeGrouping, Dictionary<string, int>> groupSheetIndices,
+            Dictionary<ISequenceRange, string> rangedata,
+            Dictionary<int, Tuple<SequenceRangeGrouping, bool, List<ISequenceRange>>> columnData,
+            ISequenceRange parentRange)
         {
-            var grp = groupsData.Keys.Where(s => s.GroupRanges.Contains(parentRange));
+            IEnumerable<SequenceRangeGrouping> grp = groupsData.Keys.Where(s => s.GroupRanges.Contains(parentRange));
             if (0 == grp.Count())
             {
                 foreach (ISequenceRange grandParent in parentRange.ParentSeqRanges)
@@ -1550,13 +1529,14 @@ namespace BiodexExcel
                 return;
             }
 
-            Tuple<SequenceRangeGrouping, bool, List<ISequenceRange>> parentType = null; // Where the parent is ref / query
+            Tuple<SequenceRangeGrouping, bool, List<ISequenceRange>> parentType = null;
+                // Where the parent is ref / query
             List<ISequenceRange> parentRanges = null;
             SequenceRangeGrouping group = null;
             List<SequenceRangeGrouping> inputGroups = groupsData.Keys.ToList();
 
             // Regular expression to read the sheet name from address
-            Regex regexSheetname = new Regex(@"(?<Sheetname>^.[^!]*)", RegexOptions.IgnoreCase);
+            var regexSheetname = new Regex(@"(?<Sheetname>^.[^!]*)", RegexOptions.IgnoreCase);
             Match matchSheetname = null;
             Dictionary<string, int> sheetIndices = null;
             string sheetName = string.Empty;
@@ -1581,9 +1561,9 @@ namespace BiodexExcel
                     {
                         parentRanges = new List<ISequenceRange>();
                         parentType = new Tuple<SequenceRangeGrouping, bool, List<ISequenceRange>>(
-                                group,
-                                inputGroups.IndexOf(group) == 0,
-                                parentRanges);
+                            group,
+                            inputGroups.IndexOf(group) == 0,
+                            parentRanges);
                         columnData.Add(sheetIndex, parentType);
                     }
 
@@ -1608,14 +1588,14 @@ namespace BiodexExcel
         /// <param name="baseColumnIndex"></param>
         /// <returns>Current index of sheet row</returns>
         private int WriteSequenceRangeHeader(
-                Worksheet currentSheet,
-                Dictionary<SequenceRangeGrouping, Dictionary<string, int>> groupSheetIndices,
-                Dictionary<SequenceRangeGrouping, GroupData> groupsData,
-                int baseRowIndex,
-                int baseColumnIndex,
-                ref int sheetColumnIndex,
-                bool showMetadata,
-                bool showBasePairCount)
+            Worksheet currentSheet,
+            Dictionary<SequenceRangeGrouping, Dictionary<string, int>> groupSheetIndices,
+            Dictionary<SequenceRangeGrouping, GroupData> groupsData,
+            int baseRowIndex,
+            int baseColumnIndex,
+            ref int sheetColumnIndex,
+            bool showMetadata,
+            bool showBasePairCount)
         {
             int sheetRowIndex = baseRowIndex + 2;
             Dictionary<string, int> sheetIndices = null;
@@ -1623,19 +1603,19 @@ namespace BiodexExcel
             Range activeRange = currentSheet.get_Range(GetColumnString(sheetColumnIndex) + sheetRowIndex, Type.Missing);
 
             activeRange.Cells.Font.Bold = true;
-            activeRange.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenter;
+            activeRange.HorizontalAlignment = XlHAlign.xlHAlignCenter;
             WriteRangeValue(activeRange, Resources.CHROM_ID);
             sheetColumnIndex++;
 
             activeRange = activeRange.Next;
             activeRange.Cells.Font.Bold = true;
-            activeRange.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenter;
+            activeRange.HorizontalAlignment = XlHAlign.xlHAlignCenter;
             WriteRangeValue(activeRange, Resources.CHROM_START);
             sheetColumnIndex++;
 
             activeRange = activeRange.Next;
             activeRange.Cells.Font.Bold = true;
-            activeRange.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenter;
+            activeRange.HorizontalAlignment = XlHAlign.xlHAlignCenter;
             WriteRangeValue(activeRange, Resources.CHROM_END);
             sheetColumnIndex++;
 
@@ -1645,30 +1625,31 @@ namespace BiodexExcel
                 {
                     activeRange = activeRange.Next;
                     activeRange.Cells.Font.Bold = true;
-                    activeRange.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenter;
+                    activeRange.HorizontalAlignment = XlHAlign.xlHAlignCenter;
                     WriteRangeValue(activeRange, rangeHeaders[index]);
                     sheetColumnIndex++;
                 }
             }
 
             sheetRowIndex -= 2;
-            foreach (KeyValuePair<SequenceRangeGrouping, GroupData> groupData in groupsData)
+            foreach (var groupData in groupsData)
             {
                 activeRange = currentSheet.get_Range(GetColumnString(sheetColumnIndex) + sheetRowIndex, Type.Missing);
-                activeRange = activeRange.get_Resize(1,
+                activeRange = activeRange.get_Resize(
+                    1,
                     (groupData.Value.Metadata.Count * (showBasePairCount ? 2 : 1)) + (showBasePairCount ? 2 : 1));
                 activeRange.Merge();
                 activeRange.Cells.Font.Bold = true;
-                activeRange.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenter;
+                activeRange.HorizontalAlignment = XlHAlign.xlHAlignCenter;
                 WriteRangeValue(activeRange, groupData.Value.Name);
 
                 WriteSequeceRangeHeader(
-                        currentSheet,
-                        activeRange,
-                        Resources.ALL_SHEETS,
-                        ref sheetRowIndex,
-                        ref sheetColumnIndex,
-                        showBasePairCount);
+                    currentSheet,
+                    activeRange,
+                    Resources.ALL_SHEETS,
+                    ref sheetRowIndex,
+                    ref sheetColumnIndex,
+                    showBasePairCount);
 
                 foreach (string sheetname in groupData.Value.Metadata.Keys)
                 {
@@ -1680,12 +1661,12 @@ namespace BiodexExcel
 
                     sheetIndices[sheetname] = sheetColumnIndex - baseColumnIndex;
                     WriteSequeceRangeHeader(
-                            currentSheet,
-                            activeRange,
-                            sheetname,
-                            ref sheetRowIndex,
-                            ref sheetColumnIndex,
-                            showBasePairCount);
+                        currentSheet,
+                        activeRange,
+                        sheetname,
+                        ref sheetRowIndex,
+                        ref sheetColumnIndex,
+                        showBasePairCount);
                 }
             }
 
@@ -1693,13 +1674,13 @@ namespace BiodexExcel
             {
                 activeRange = currentSheet.get_Range(GetColumnString(sheetColumnIndex) + sheetRowIndex, Type.Missing);
                 activeRange.Cells.Font.Bold = true;
-                activeRange.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenter;
+                activeRange.HorizontalAlignment = XlHAlign.xlHAlignCenter;
                 WriteRangeValue(activeRange, Resources.COMMON);
 
                 sheetRowIndex++;
                 activeRange = currentSheet.get_Range(GetColumnString(sheetColumnIndex) + sheetRowIndex, Type.Missing);
                 activeRange.Cells.Font.Bold = true;
-                activeRange.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenter;
+                activeRange.HorizontalAlignment = XlHAlign.xlHAlignCenter;
                 WriteRangeValue(activeRange, Resources.BASE_PAIR_COUNT);
                 sheetRowIndex += 2;
             }
@@ -1720,19 +1701,19 @@ namespace BiodexExcel
         /// <param name="sheetRowIndex">Sheet row index</param>
         /// <param name="sheetColumnIndex">Sheet column index</param>
         private static void WriteSequeceRangeHeader(
-                Worksheet currentSheet,
-                Range currentRange,
-                string sequenceGroupName,
-                ref int sheetRowIndex,
-                ref int sheetColumnIndex,
-                bool showBasePairCount)
+            Worksheet currentSheet,
+            Range currentRange,
+            string sequenceGroupName,
+            ref int sheetRowIndex,
+            ref int sheetColumnIndex,
+            bool showBasePairCount)
         {
             sheetRowIndex++;
             currentRange = currentSheet.get_Range(GetColumnString(sheetColumnIndex) + sheetRowIndex, Type.Missing);
             currentRange = currentRange.get_Resize(1, showBasePairCount ? 2 : 1);
             currentRange.Merge();
             currentRange.Cells.Font.Bold = true;
-            currentRange.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenter;
+            currentRange.HorizontalAlignment = XlHAlign.xlHAlignCenter;
             WriteRangeValue(currentRange, sequenceGroupName);
             sheetRowIndex++;
 
@@ -1740,14 +1721,14 @@ namespace BiodexExcel
             {
                 currentRange = currentSheet.get_Range(GetColumnString(sheetColumnIndex) + sheetRowIndex, Type.Missing);
                 currentRange.Cells.Font.Bold = true;
-                currentRange.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenter;
+                currentRange.HorizontalAlignment = XlHAlign.xlHAlignCenter;
                 WriteRangeValue(currentRange, Resources.BASE_PAIR_COUNT);
                 sheetColumnIndex++;
             }
 
             currentRange = currentSheet.get_Range(GetColumnString(sheetColumnIndex) + sheetRowIndex, Type.Missing);
             currentRange.Cells.Font.Bold = true;
-            currentRange.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenter;
+            currentRange.HorizontalAlignment = XlHAlign.xlHAlignCenter;
             WriteRangeValue(currentRange, Resources.NUMBER_OF_RANGES);
             sheetColumnIndex++;
 
@@ -1778,9 +1759,9 @@ namespace BiodexExcel
         {
             Globals.ThisAddIn.Application.Cursor = XlMousePointer.xlWait;
             this.ResetStatus();
-            AboutDialog dialog = new AboutDialog();
-            dialog.Activated += new EventHandler(OnWPFWindowActivated);
-            System.Windows.Interop.WindowInteropHelper helper = new System.Windows.Interop.WindowInteropHelper(dialog);
+            var dialog = new AboutDialog();
+            dialog.Activated += this.OnWPFWindowActivated;
+            var helper = new WindowInteropHelper(dialog);
             helper.Owner = (IntPtr)Globals.ThisAddIn.Application.Hwnd;
             dialog.ShowDialog();
         }
@@ -1789,14 +1770,19 @@ namespace BiodexExcel
         /// Create a Venn diagram out of two/three SequenceRangeGrouping objects.
         /// This method gets the user input for creating the diagram
         /// </summary>
-        void OnVennDiagramClick(object sender, RibbonControlEventArgs e)
+        private void OnVennDiagramClick(object sender, RibbonControlEventArgs e)
         {
-            InputSelection inputs = new InputSelection();
+            var inputs = new InputSelection();
             inputs.MinimumSequenceCount = 2;
             inputs.MaximumSequenceCount = 3;
             inputs.PromptForSequenceName = false;
-            inputs.SequenceLabels = new string[] { Resources.InputSelection_SequenceLabel_Venn1, Resources.InputSelection_SequenceLabel_Venn2, Resources.InputSelection_SequenceLabel_Venn3 };
-            inputs.GetInputSequenceRanges(DoDrawVenn, false, false, false);
+            inputs.SequenceLabels = new[]
+                                    {
+                                        Resources.InputSelection_SequenceLabel_Venn1,
+                                        Resources.InputSelection_SequenceLabel_Venn2,
+                                        Resources.InputSelection_SequenceLabel_Venn3
+                                    };
+            inputs.GetInputSequenceRanges(this.DoDrawVenn, false, false, false);
         }
 
         /// <summary>
@@ -1807,11 +1793,18 @@ namespace BiodexExcel
             // Call VennToNodeXL which will do the calculations and add the NodeXL workbook to the application object passed.
             if (e.Sequences.Count == 2)
             {
-                Tools.VennDiagram.VennToNodeXL.CreateNodeXLVennDiagramWorkbookFromSequenceRangeGroupings(Globals.ThisAddIn.Application, e.Sequences[0], e.Sequences[1]);
+                VennToNodeXL.CreateNodeXLVennDiagramWorkbookFromSequenceRangeGroupings(
+                    Globals.ThisAddIn.Application,
+                    e.Sequences[0],
+                    e.Sequences[1]);
             }
             else // if sequence count is not 2, its 3. InputSequenceDialog guarentees it as we set min=2 and max=3.
             {
-                Tools.VennDiagram.VennToNodeXL.CreateNodeXLVennDiagramWorkbookFromSequenceRangeGroupings(Globals.ThisAddIn.Application, e.Sequences[0], e.Sequences[1], e.Sequences[2]);
+                VennToNodeXL.CreateNodeXLVennDiagramWorkbookFromSequenceRangeGroupings(
+                    Globals.ThisAddIn.Application,
+                    e.Sequences[0],
+                    e.Sequences[1],
+                    e.Sequences[2]);
             }
         }
 
@@ -1830,8 +1823,8 @@ namespace BiodexExcel
         /// <returns>A valid name for worksheets</returns>
         private string GetValidFileNames(string fileName)
         {
-            string file = fileName;
-            StringBuilder sb = new StringBuilder();
+            string file = fileName, validFileName;
+            var sb = new StringBuilder();
 
             int index = 0;
 
@@ -1846,9 +1839,11 @@ namespace BiodexExcel
 
             if (sb.Length == 0)
             {
-                sb = new StringBuilder(Properties.Resources.SHEET_NAME + this.currentFileNumber.ToString(CultureInfo.CurrentCulture));
+                sb =
+                    new StringBuilder(
+                        Resources.SHEET_NAME + this.currentFileNumber.ToString(CultureInfo.CurrentCulture));
 
-                string validFileName = sb.ToString();
+                validFileName = sb.ToString();
                 this.fileNames.Add(validFileName);
                 return validFileName;
             }
@@ -1894,7 +1889,9 @@ namespace BiodexExcel
                     // If it still doesnt have a unique name, then the new name is Seq_1 or Seq_2.......
                     if (this.fileNames.Contains(sb.ToString()))
                     {
-                        sb = new StringBuilder(Properties.Resources.SHEET_NAME + this.currentFileNumber.ToString(CultureInfo.CurrentCulture));
+                        sb =
+                            new StringBuilder(
+                                Resources.SHEET_NAME + this.currentFileNumber.ToString(CultureInfo.CurrentCulture));
                         this.currentFileNumber++;
                     }
                 }
@@ -1902,12 +1899,10 @@ namespace BiodexExcel
                 this.fileNames.Add(sb.ToString());
                 return sb.ToString();
             }
-            else
-            {
-                string validFileName = sb.ToString(0, maxLength);
-                this.fileNames.Add(validFileName);
-                return validFileName;
-            }
+
+            validFileName = sb.ToString(0, maxLength);
+            this.fileNames.Add(validFileName);
+            return validFileName;
         }
 
         /// <summary>
@@ -1918,7 +1913,7 @@ namespace BiodexExcel
             this.AddParsersDropDowns();
             this.AddFormattersDropDowns();
             this.AddAlignersDropDown();
-            this.AddWebServiceDropDowns();
+            //this.AddWebServiceDropDowns();
         }
 
         /// <summary>
@@ -1929,11 +1924,11 @@ namespace BiodexExcel
         {
             foreach (ISequenceAligner aligner in SequenceAligners.All)
             {
-                RibbonButton button = Factory.CreateRibbonButton();
+                RibbonButton button = this.Factory.CreateRibbonButton();
                 button.ControlSize = RibbonControlSize.RibbonControlSizeLarge;
                 button.Image = Resources.FromExcel;
                 button.Tag = aligner;
-                button.Click += new RibbonControlEventHandler(this.OnAlignmentButtonClicked);
+                button.Click += this.OnAlignmentButtonClicked;
                 button.Label = string.Format(aligner.Name);
                 button.Description = string.Format(aligner.Description);
                 if (aligner is IPairwiseSequenceAligner)
@@ -1956,27 +1951,27 @@ namespace BiodexExcel
         {
             foreach (ISequenceFormatter formatter in SequenceFormatters.All)
             {
-                RibbonButton button = Factory.CreateRibbonButton();
+                RibbonButton button = this.Factory.CreateRibbonButton();
                 button.ControlSize = RibbonControlSize.RibbonControlSizeLarge;
                 button.Image = Resources.FromText;
                 button.Label = string.Format(formatter.Name.ToUpper(CultureInfo.CurrentCulture));
                 button.ShowImage = true;
                 button.ScreenTip = string.Format(Resources.SCREEN_TIP_EXPORT_MENU, button.Label);
                 button.Tag = formatter;
-                button.Click += new RibbonControlEventHandler(OnExportClick);
+                button.Click += this.OnExportClick;
                 this.splitExport.Items.Add(button);
             }
 
             foreach (ISequenceRangeFormatter formatter in SequenceRangeFormatters.All)
             {
-                RibbonButton button = Factory.CreateRibbonButton();
+                RibbonButton button = this.Factory.CreateRibbonButton();
                 button.ControlSize = RibbonControlSize.RibbonControlSizeLarge;
                 button.Image = Resources.FromText;
                 button.Label = string.Format(formatter.Name.ToUpper(CultureInfo.CurrentCulture));
                 button.ShowImage = true;
                 button.ScreenTip = string.Format(Resources.SCREEN_TIP_EXPORT_MENU, button.Label);
                 button.Tag = formatter;
-                button.Click += new RibbonControlEventHandler(OnExportClick);
+                button.Click += this.OnExportClick;
                 this.splitExport.Items.Add(button);
             }
         }
@@ -1989,10 +1984,10 @@ namespace BiodexExcel
         {
             foreach (ISequenceParser parser in SequenceParsers.All)
             {
-                RibbonButton button = Factory.CreateRibbonButton();
+                RibbonButton button = this.Factory.CreateRibbonButton();
                 button.ControlSize = RibbonControlSize.RibbonControlSizeLarge;
                 button.Image = Resources.FromText;
-                button.Click += new RibbonControlEventHandler(this.ReadSequenceFiles);
+                button.Click += this.ReadSequenceFiles;
                 button.Label = string.Format(parser.Name.ToUpper(CultureInfo.CurrentCulture));
                 button.ShowImage = true;
                 button.Tag = parser;
@@ -2002,10 +1997,10 @@ namespace BiodexExcel
 
             foreach (ISequenceRangeParser parser in SequenceRangeParsers.All)
             {
-                RibbonButton button = Factory.CreateRibbonButton();
+                RibbonButton button = this.Factory.CreateRibbonButton();
                 button.ControlSize = RibbonControlSize.RibbonControlSizeLarge;
                 button.Image = Resources.FromText;
-                button.Click += new RibbonControlEventHandler(this.ReadSequenceFiles);
+                button.Click += this.ReadSequenceFiles;
                 button.Label = string.Format(parser.Name.ToUpper(CultureInfo.CurrentCulture));
                 button.ShowImage = true;
                 button.Tag = parser;
@@ -2020,20 +2015,20 @@ namespace BiodexExcel
         /// </summary>
         private void AddWebServiceDropDowns()
         {
-            foreach (IBlastServiceHandler blastService in
-                WebServices.All.Where(service => service is IBlastServiceHandler))
-            {
-                RibbonButton button = Factory.CreateRibbonButton();
-                button.ControlSize = RibbonControlSize.RibbonControlSizeLarge;
-                button.Image = Resources.FromWeb;
-                button.Click += new RibbonControlEventHandler(this.OnExecuteBlastSearch);
-                button.Label = string.Format(Properties.Resources.SERVICE_LABEL, blastService.Name);
-                button.Tag = blastService.Name;
-                button.Description = string.Format(Properties.Resources.SERVICE_DESC, blastService.Name);
-                button.ShowImage = true;
-                button.ScreenTip = string.Format(Resources.SCREEN_TIP_BLAST_SEARCH, blastService.Name);
-                this.splitWebService.Items.Add(button);
-            }
+            //foreach (IBlastServiceHandler blastService in
+            //    WebServices.All.Where(service => service is IBlastServiceHandler))
+            //{
+            //    RibbonButton button = this.Factory.CreateRibbonButton();
+            //    button.ControlSize = RibbonControlSize.RibbonControlSizeLarge;
+            //    button.Image = Resources.FromWeb;
+            //    button.Click += this.OnExecuteBlastSearch;
+            //    button.Label = string.Format(Resources.SERVICE_LABEL, blastService.Name);
+            //    button.Tag = blastService.Name;
+            //    button.Description = string.Format(Resources.SERVICE_DESC, blastService.Name);
+            //    button.ShowImage = true;
+            //    button.ScreenTip = string.Format(Resources.SCREEN_TIP_BLAST_SEARCH, blastService.Name);
+            //    this.splitWebService.Items.Add(button);
+            //}
         }
 
         /// <summary>
@@ -2081,23 +2076,51 @@ namespace BiodexExcel
                 if (!string.IsNullOrEmpty(macroName))
                 {
                     // If found, run the macro.
-                    Globals.ThisAddIn.Application.Run(macroName, Missing.Value, Missing.Value, Missing.Value,
-                                     Missing.Value, Missing.Value, Missing.Value, Missing.Value,
-                                     Missing.Value, Missing.Value, Missing.Value, Missing.Value,
-                                     Missing.Value, Missing.Value, Missing.Value, Missing.Value,
-                                     Missing.Value, Missing.Value, Missing.Value, Missing.Value,
-                                     Missing.Value, Missing.Value, Missing.Value, Missing.Value,
-                                     Missing.Value, Missing.Value, Missing.Value, Missing.Value,
-                                     Missing.Value, Missing.Value, Missing.Value);
+                    Globals.ThisAddIn.Application.Run(
+                        macroName,
+                        Missing.Value,
+                        Missing.Value,
+                        Missing.Value,
+                        Missing.Value,
+                        Missing.Value,
+                        Missing.Value,
+                        Missing.Value,
+                        Missing.Value,
+                        Missing.Value,
+                        Missing.Value,
+                        Missing.Value,
+                        Missing.Value,
+                        Missing.Value,
+                        Missing.Value,
+                        Missing.Value,
+                        Missing.Value,
+                        Missing.Value,
+                        Missing.Value,
+                        Missing.Value,
+                        Missing.Value,
+                        Missing.Value,
+                        Missing.Value,
+                        Missing.Value,
+                        Missing.Value,
+                        Missing.Value,
+                        Missing.Value,
+                        Missing.Value,
+                        Missing.Value,
+                        Missing.Value,
+                        Missing.Value);
                 }
                 else
                 {
-                    MessageBox.Show(Properties.Resources.MACRO_MISSING, Properties.Resources.CAPTION, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(
+                        Resources.MACRO_MISSING,
+                        Resources.CAPTION,
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, Properties.Resources.CAPTION, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, Resources.CAPTION, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -2111,10 +2134,10 @@ namespace BiodexExcel
         {
             Globals.ThisAddIn.Application.Cursor = XlMousePointer.xlWait;
             this.ResetStatus();
-            MaxColumnsDialog dialog = new MaxColumnsDialog(maxNumberOfCharacters, this.alignAllSequenceSheet);
-            System.Windows.Interop.WindowInteropHelper helper = new System.Windows.Interop.WindowInteropHelper(dialog);
+            var dialog = new MaxColumnsDialog(maxNumberOfCharacters, this.alignAllSequenceSheet);
+            var helper = new WindowInteropHelper(dialog);
             helper.Owner = (IntPtr)Globals.ThisAddIn.Application.Hwnd;
-            dialog.Activated += new EventHandler(OnWPFWindowActivated);
+            dialog.Activated += this.OnWPFWindowActivated;
             if (dialog.Show())
             {
                 maxNumberOfCharacters = dialog.MaxNumber;
@@ -2129,23 +2152,22 @@ namespace BiodexExcel
         /// <param name="e">Event data</param>
         private void OnCancelSearchClicked(object sender, RibbonControlEventArgs e)
         {
-            IBlastServiceHandler blastServiceHandler =
-                    this.GetWebServiceInstance(this.webserviceName);
-            try
-            {
-                blastServiceHandler.CancelRequest(this.requestIdentifier);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(
-                    String.Format(Properties.Resources.BLAST_CANCEL_FAILED, ex.Message),
-                    Properties.Resources.CAPTION,
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
-            }
+            IBlastWebHandler blastServiceHandler = this.GetWebServiceInstance(this.webserviceName);
+            //try
+            //{
+            //    blastServiceHandler.CancelRequest(this.requestIdentifier);
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(
+            //        String.Format(Resources.BLAST_CANCEL_FAILED, ex.Message),
+            //        Resources.CAPTION,
+            //        MessageBoxButtons.OK,
+            //        MessageBoxIcon.Error);
+            //}
 
             this.btnCancelSearch.Enabled = this.cancelSearchButtonState = false;
-            this.ChangeStatusBar(string.Format(Properties.Resources.WEBSERVICE_STATUS_BAR, Resources.CANCELLED));
+            this.ChangeStatusBar(string.Format(Resources.WEBSERVICE_STATUS_BAR, Resources.CANCELLED));
         }
 
         /// <summary>
@@ -2162,7 +2184,7 @@ namespace BiodexExcel
             }
 
             this.btnCancelAlign.Enabled = this.cancelAlignButtonState = false;
-            this.ChangeStatusBar(string.Format(Properties.Resources.ALIGNMENT_STATUS_BAR, Resources.CANCELLED));
+            this.ChangeStatusBar(string.Format(Resources.ALIGNMENT_STATUS_BAR, Resources.CANCELLED));
         }
 
         /// <summary>
@@ -2179,12 +2201,12 @@ namespace BiodexExcel
             }
 
             this.btnCancelAssemble.Enabled = this.cancelAssemblyButtonState = false;
-            this.ChangeStatusBar(string.Format(Properties.Resources.ASSEMBLER_STATUS_BAR, Resources.CANCELLED));
+            this.ChangeStatusBar(string.Format(Resources.ASSEMBLER_STATUS_BAR, Resources.CANCELLED));
         }
 
         /// <summary>
         /// This method is called when the user wants to start a alignment operation.
-        /// This method extracts the sequences present in the selected excel sheets 
+        /// This method extracts the sequences present in the selected excel sheets
         /// and runs alignment on them.
         /// </summary>
         /// <param name="sender">Align button</param>
@@ -2192,16 +2214,16 @@ namespace BiodexExcel
         private void OnAlignmentButtonClicked(object sender, RibbonControlEventArgs e)
         {
             this.ResetStatus();
-            ISequenceAligner aligner = (sender as RibbonButton).Tag as ISequenceAligner;
+            var aligner = (sender as RibbonButton).Tag as ISequenceAligner;
 
-            InputSelection inputs = new InputSelection();
+            var inputs = new InputSelection();
             inputs.MinimumSequenceCount = 2;
             if (aligner is IPairwiseSequenceAligner)
             {
                 inputs.MaximumSequenceCount = 2;
             }
 
-            inputs.GetInputSequences(DoAlignment, false, aligner);
+            inputs.GetInputSequences(this.DoAlignment, false, aligner);
         }
 
         /// <summary>
@@ -2216,10 +2238,13 @@ namespace BiodexExcel
 
             Globals.ThisAddIn.Application.Cursor = XlMousePointer.xlWait;
 
-            AssemblyInputDialog alignerDialog = new AssemblyInputDialog(true, selectedSequences[0].Alphabet, args[0] as ISequenceAligner);
-            System.Windows.Interop.WindowInteropHelper assemblyInputHelper = new System.Windows.Interop.WindowInteropHelper(alignerDialog);
+            var alignerDialog = new AssemblyInputDialog(
+                true,
+                selectedSequences[0].Alphabet,
+                args[0] as ISequenceAligner);
+            var assemblyInputHelper = new WindowInteropHelper(alignerDialog);
             assemblyInputHelper.Owner = (IntPtr)Globals.ThisAddIn.Application.Hwnd;
-            alignerDialog.Activated += new EventHandler(OnWPFWindowActivated);
+            alignerDialog.Activated += this.OnWPFWindowActivated;
             if (alignerDialog.Show())
             {
                 AlignerInputEventArgs alignerInput = alignerDialog.GetAlignmentInput();
@@ -2228,12 +2253,12 @@ namespace BiodexExcel
                     alignerInput.Sequences = selectedSequences;
                     alignerInput.Aligner = alignerDialog.Aligner;
 
-                    this.ChangeStatusBar(string.Format(Properties.Resources.ALIGNMENT_STATUS_BAR, Resources.ALIGNING));
+                    this.ChangeStatusBar(string.Format(Resources.ALIGNMENT_STATUS_BAR, Resources.ALIGNING));
 
                     this.alignerThread = new BackgroundWorker();
                     this.alignerThread.WorkerSupportsCancellation = true;
-                    this.alignerThread.DoWork += new DoWorkEventHandler(this.OnRunAlignerAlgorithm);
-                    this.alignerThread.RunWorkerCompleted += new RunWorkerCompletedEventHandler(this.OnAlignerCompleted);
+                    this.alignerThread.DoWork += this.OnRunAlignerAlgorithm;
+                    this.alignerThread.RunWorkerCompleted += this.OnAlignerCompleted;
                     this.alignerThread.RunWorkerAsync(alignerInput);
                 }
             }
@@ -2247,7 +2272,7 @@ namespace BiodexExcel
         /// <param name="e">BackgroundWorker event args</param>
         private void OnRunAlignerAlgorithm(object sender, DoWorkEventArgs e)
         {
-            AlignerInputEventArgs alignerInput = e.Argument as AlignerInputEventArgs;
+            var alignerInput = e.Argument as AlignerInputEventArgs;
 
             AssignAlignerParameter(alignerInput.Aligner, alignerInput);
             alignerInput.Aligner.GapOpenCost = alignerInput.GapCost;
@@ -2261,7 +2286,7 @@ namespace BiodexExcel
             try
             {
                 IList<ISequenceAlignment> alignedResult = alignerInput.Aligner.Align(alignerInput.Sequences);
-                if (alignerThread.CancellationPending)
+                if (this.alignerThread.CancellationPending)
                 {
                     e.Cancel = true;
                     return;
@@ -2273,7 +2298,11 @@ namespace BiodexExcel
                 else
                 {
                     e.Cancel = true;
-                    MessageBox.Show(Properties.Resources.NO_RESULT, Resources.CAPTION, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(
+                        Resources.NO_RESULT,
+                        Resources.CAPTION,
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
                     this.ResetStatus();
                 }
             }
@@ -2281,7 +2310,7 @@ namespace BiodexExcel
             {
                 e.Cancel = true;
                 MessageBox.Show(ex.Message, Resources.CAPTION, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                this.ChangeStatusBar(string.Format(Properties.Resources.ALIGNMENT_STATUS_BAR, Resources.ERROR));
+                this.ChangeStatusBar(string.Format(Resources.ALIGNMENT_STATUS_BAR, Resources.ERROR));
             }
             finally
             {
@@ -2305,10 +2334,14 @@ namespace BiodexExcel
             try
             {
                 var results = e.Result as Tuple<IList<ISequenceAlignment>, AlignerInputEventArgs>;
-                if (results.Item2.Aligner is Bio.Algorithms.Alignment.MultipleSequenceAlignment.IMultipleSequenceAligner)
-                    BuildMultipleAlignmentResultView(results);
+                if (results.Item2.Aligner is IMultipleSequenceAligner)
+                {
+                    this.BuildMultipleAlignmentResultView(results);
+                }
                 else
-                    BuildAlignmentResultView(results);
+                {
+                    this.BuildAlignmentResultView(results);
+                }
             }
             catch (Exception ex)
             {
@@ -2316,7 +2349,7 @@ namespace BiodexExcel
             }
             finally
             {
-                this.ChangeStatusBar(string.Format(Properties.Resources.ALIGNMENT_STATUS_BAR, Resources.DONE));
+                this.ChangeStatusBar(string.Format(Resources.ALIGNMENT_STATUS_BAR, Resources.DONE));
             }
         }
 
@@ -2331,17 +2364,25 @@ namespace BiodexExcel
 
             if (alignedResult.Count == 0 || alignedResult[0].AlignedSequences.Count == 0)
             {
-                MessageBox.Show(Resources.NO_RESULT, Resources.CAPTION, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(
+                    Resources.NO_RESULT,
+                    Resources.CAPTION,
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
                 return;
             }
 
-            Workbook activeWorkBook = (Workbook)Globals.ThisAddIn.Application.ActiveWorkbook;
-            Worksheet activesheet = (Worksheet)Globals.ThisAddIn.Application.ActiveSheet;
-            Worksheet currentsheet = (Worksheet)activeWorkBook.Worksheets.Add(Type.Missing, activesheet, Type.Missing, Type.Missing);
+            Workbook activeWorkBook = Globals.ThisAddIn.Application.ActiveWorkbook;
+            var activesheet = (Worksheet)Globals.ThisAddIn.Application.ActiveSheet;
+            var currentsheet =
+                (Worksheet)activeWorkBook.Worksheets.Add(Type.Missing, activesheet, Type.Missing, Type.Missing);
 
-            ((Microsoft.Office.Interop.Excel._Worksheet)currentsheet).Activate();
+            ((_Worksheet)currentsheet).Activate();
             Globals.ThisAddIn.Application.ActiveWindow.Zoom = ZoomLevel;
-            currentsheet.Name = this.GetValidFileNames(Resources.Alignment_AlignedSequencesHeading + this.currentAlignResultSheetNumber.ToString(CultureInfo.CurrentCulture));
+            currentsheet.Name =
+                this.GetValidFileNames(
+                    Resources.Alignment_AlignedSequencesHeading
+                    + this.currentAlignResultSheetNumber.ToString(CultureInfo.CurrentCulture));
             this.currentAlignResultSheetNumber++;
 
             int rowNumber = 1;
@@ -2376,9 +2417,9 @@ namespace BiodexExcel
                     // calculate number of alphabets in one cell
                     if (maxSequenceLength > MaxExcelColumns)
                     {
-                        numberofCharacters = maxSequenceLength%MaxExcelColumns == 0
-                                                 ? maxSequenceLength/MaxExcelColumns
-                                                 : 1 + (maxSequenceLength/MaxExcelColumns);
+                        numberofCharacters = maxSequenceLength % MaxExcelColumns == 0
+                                                 ? maxSequenceLength / MaxExcelColumns
+                                                 : 1 + (maxSequenceLength / MaxExcelColumns);
                     }
 
                     // write to sheet
@@ -2387,16 +2428,24 @@ namespace BiodexExcel
                     List<long> endOffsets = null;
 
                     if (alignedSequence.Metadata.ContainsKey(StartOffsetString))
+                    {
                         startOffsets = alignedSequence.Metadata[StartOffsetString] as List<long>;
+                    }
 
                     if (startOffsets == null)
+                    {
                         startOffsets = new List<long>();
+                    }
 
                     if (alignedSequence.Metadata.ContainsKey(EndOffsetString))
+                    {
                         endOffsets = alignedSequence.Metadata[EndOffsetString] as List<long>;
+                    }
 
                     if (endOffsets == null)
+                    {
                         endOffsets = new List<long>();
+                    }
 
                     foreach (ISequence currSeq in alignedSequence.Sequences)
                     {
@@ -2405,9 +2454,13 @@ namespace BiodexExcel
 
                         string id = null;
                         if (!string.IsNullOrEmpty(currSeq.ID))
+                        {
                             id = currSeq.ID;
+                        }
                         else
-                            id = alignerInput.Sequences[sequenceNumber-1].ID;
+                        {
+                            id = alignerInput.Sequences[sequenceNumber - 1].ID;
+                        }
 
                         if (string.IsNullOrEmpty(id))
                         {
@@ -2416,10 +2469,18 @@ namespace BiodexExcel
 
                         // Attempt to link back to original value
                         object seqAddress;
-                        if ((currSeq.Metadata.TryGetValue(Resources.EXCEL_CELL_LINK, out seqAddress) && seqAddress != null)
-                            || (alignerInput.Sequences[sequenceNumber - 1].Metadata.TryGetValue(Resources.EXCEL_CELL_LINK, out seqAddress) && seqAddress != null))
+                        if ((currSeq.Metadata.TryGetValue(Resources.EXCEL_CELL_LINK, out seqAddress)
+                             && seqAddress != null)
+                            || (alignerInput.Sequences[sequenceNumber - 1].Metadata.TryGetValue(
+                                Resources.EXCEL_CELL_LINK,
+                                out seqAddress) && seqAddress != null))
                         {
-                            currentsheet.Hyperlinks.Add(header, string.Empty, seqAddress, "Jump to Original Sequence", id);
+                            currentsheet.Hyperlinks.Add(
+                                header,
+                                string.Empty,
+                                seqAddress,
+                                "Jump to Original Sequence",
+                                id);
                         }
                         else
                         {
@@ -2445,17 +2506,20 @@ namespace BiodexExcel
                         }
 
                         // Build the data
-                        string[,] rangeData = new string[1, maxSequenceLength > MaxExcelColumns ? MaxExcelColumns : maxSequenceLength];
+                        var rangeData =
+                            new string[1, maxSequenceLength > MaxExcelColumns ? MaxExcelColumns : maxSequenceLength];
                         int columnIndex = 0;
 
                         for (long i = 0; i < currSeq.Count; i += numberofCharacters, columnIndex++)
                         {
-                            var tempSeq = currSeq.GetSubSequence(i, numberofCharacters);
+                            ISequence tempSeq = currSeq.GetSubSequence(i, numberofCharacters);
                             rangeData[0, columnIndex] = tempSeq.ConvertToString();
                         }
 
                         // dump to sheet
-                        Range currentRange = currentsheet.get_Range(GetColumnString(startingColumn) + rowNumber, Type.Missing);
+                        Range currentRange = currentsheet.get_Range(
+                            GetColumnString(startingColumn) + rowNumber,
+                            Type.Missing);
                         if (columnIndex > 1)
                         {
                             currentRange = currentRange.get_Resize(1, columnIndex);
@@ -2463,8 +2527,16 @@ namespace BiodexExcel
                             currentRange.Columns.AutoFit();
                             this.FillBackGroundColor(currentRange);
 
-                            string rangeName = "AlignedSeq_" + alignResultNumber + "_" + currSeq.ID + "_" + sequenceNumber;
-                            CreateNamedRange(currentsheet, currentRange, rangeName, startingColumn, rowNumber, columnIndex, 1);
+                            string rangeName = "AlignedSeq_" + alignResultNumber + "_" + currSeq.ID + "_"
+                                               + sequenceNumber;
+                            this.CreateNamedRange(
+                                currentsheet,
+                                currentRange,
+                                rangeName,
+                                startingColumn,
+                                rowNumber,
+                                columnIndex,
+                                1);
                         }
 
                         rowNumber++;
@@ -2491,18 +2563,25 @@ namespace BiodexExcel
 
             if (alignedResult.Count == 0 || alignedResult[0].AlignedSequences.Count == 0)
             {
-                MessageBox.Show(Resources.NO_RESULT, Resources.CAPTION, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(
+                    Resources.NO_RESULT,
+                    Resources.CAPTION,
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
                 return;
             }
 
-            Workbook activeWorkBook = (Workbook)Globals.ThisAddIn.Application.ActiveWorkbook;
-            Worksheet activesheet = (Worksheet)Globals.ThisAddIn.Application.ActiveSheet;
-            Worksheet currentsheet = (Worksheet)activeWorkBook.Worksheets.Add(Type.Missing, activesheet, Type.Missing, Type.Missing);
+            Workbook activeWorkBook = Globals.ThisAddIn.Application.ActiveWorkbook;
+            var activesheet = (Worksheet)Globals.ThisAddIn.Application.ActiveSheet;
+            var currentsheet =
+                (Worksheet)activeWorkBook.Worksheets.Add(Type.Missing, activesheet, Type.Missing, Type.Missing);
 
-            ((Microsoft.Office.Interop.Excel._Worksheet)currentsheet).Activate();
+            ((_Worksheet)currentsheet).Activate();
             Globals.ThisAddIn.Application.ActiveWindow.Zoom = ZoomLevel;
-            currentsheet.Name = this.GetValidFileNames(
-                    Resources.Alignment_AlignedSequencesHeading + this.currentAlignResultSheetNumber.ToString(CultureInfo.CurrentCulture));
+            currentsheet.Name =
+                this.GetValidFileNames(
+                    Resources.Alignment_AlignedSequencesHeading
+                    + this.currentAlignResultSheetNumber.ToString(CultureInfo.CurrentCulture));
             this.currentAlignResultSheetNumber++;
 
             int rowNumber = 1;
@@ -2544,9 +2623,13 @@ namespace BiodexExcel
 
                         string id = null;
                         if (!string.IsNullOrEmpty(currSeq.ID))
+                        {
                             id = currSeq.ID;
+                        }
                         else
+                        {
                             id = alignerInput.Sequences[sequenceNumber - 1].ID;
+                        }
 
                         if (string.IsNullOrEmpty(id))
                         {
@@ -2555,10 +2638,18 @@ namespace BiodexExcel
 
                         // Attempt to link back to original value
                         object seqAddress;
-                        if ((currSeq.Metadata.TryGetValue(Resources.EXCEL_CELL_LINK, out seqAddress) && seqAddress != null)
-                            || (alignerInput.Sequences[sequenceNumber - 1].Metadata.TryGetValue(Resources.EXCEL_CELL_LINK, out seqAddress) && seqAddress != null))
+                        if ((currSeq.Metadata.TryGetValue(Resources.EXCEL_CELL_LINK, out seqAddress)
+                             && seqAddress != null)
+                            || (alignerInput.Sequences[sequenceNumber - 1].Metadata.TryGetValue(
+                                Resources.EXCEL_CELL_LINK,
+                                out seqAddress) && seqAddress != null))
                         {
-                            currentsheet.Hyperlinks.Add(header, string.Empty, seqAddress, "Jump to Original Sequence", id);
+                            currentsheet.Hyperlinks.Add(
+                                header,
+                                string.Empty,
+                                seqAddress,
+                                "Jump to Original Sequence",
+                                id);
                         }
                         else
                         {
@@ -2566,18 +2657,21 @@ namespace BiodexExcel
                         }
 
                         // Build the data
-                        string[,] rangeData = new string[1, maxSequenceLength > MaxExcelColumns ? MaxExcelColumns : maxSequenceLength];
+                        var rangeData =
+                            new string[1, maxSequenceLength > MaxExcelColumns ? MaxExcelColumns : maxSequenceLength];
 
                         int columnIndex = 0;
 
                         for (long i = 0; i < currSeq.Count; i += numberofCharacters, columnIndex++)
                         {
-                            var tempSeq = currSeq.GetSubSequence(i, numberofCharacters);
+                            ISequence tempSeq = currSeq.GetSubSequence(i, numberofCharacters);
                             rangeData[0, columnIndex] = tempSeq.ConvertToString();
                         }
 
                         // dump to sheet
-                        Range currentRange = currentsheet.get_Range(GetColumnString(startingColumn) + rowNumber, Type.Missing);
+                        Range currentRange = currentsheet.get_Range(
+                            GetColumnString(startingColumn) + rowNumber,
+                            Type.Missing);
                         if (columnIndex > 1)
                         {
                             currentRange = currentRange.get_Resize(1, columnIndex);
@@ -2585,8 +2679,16 @@ namespace BiodexExcel
                             currentRange.Columns.AutoFit();
                             this.FillBackGroundColor(currentRange);
 
-                            string rangeName = "AlignedSeq_" + alignResultNumber + "_" + currSeq.ID + "_" + sequenceNumber;
-                            CreateNamedRange(currentsheet, currentRange, rangeName, startingColumn, rowNumber, columnIndex, 1);
+                            string rangeName = "AlignedSeq_" + alignResultNumber + "_" + currSeq.ID + "_"
+                                               + sequenceNumber;
+                            this.CreateNamedRange(
+                                currentsheet,
+                                currentRange,
+                                rangeName,
+                                startingColumn,
+                                rowNumber,
+                                columnIndex,
+                                1);
                         }
 
                         rowNumber++;
@@ -2612,18 +2714,36 @@ namespace BiodexExcel
         /// <param name="startingRow">Starting row</param>
         /// <param name="cols">Total number of colums</param>
         /// <param name="rows">Total number of rows</param>
-        private void CreateNamedRange(Worksheet currentsheet, Range currentRange, string rangeName, int startingCol, int startingRow, int cols, int rows)
+        private void CreateNamedRange(
+            Worksheet currentsheet,
+            Range currentRange,
+            string rangeName,
+            int startingCol,
+            int startingRow,
+            int cols,
+            int rows)
         {
-            StringBuilder formulaBuilder = new StringBuilder();
+            var formulaBuilder = new StringBuilder();
             formulaBuilder.Append("=");
             formulaBuilder.Append(currentsheet.Name);
             formulaBuilder.Append("!$");
             formulaBuilder.Append(GetColumnString(startingCol) + "$" + startingRow);
             formulaBuilder.Append(":$");
-            formulaBuilder.Append(GetColumnString(startingCol + (cols - 1)) + "$" + (startingRow + (rows - 1)).ToString());
+            formulaBuilder.Append(GetColumnString(startingCol + (cols - 1)) + "$" + (startingRow + (rows - 1)));
             string sequenceFormula = formulaBuilder.ToString();
 
-            currentsheet.Names.Add(GetValidFileNames(rangeName), sequenceFormula, true, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
+            currentsheet.Names.Add(
+                this.GetValidFileNames(rangeName),
+                sequenceFormula,
+                true,
+                Type.Missing,
+                Type.Missing,
+                Type.Missing,
+                Type.Missing,
+                Type.Missing,
+                Type.Missing,
+                Type.Missing,
+                Type.Missing);
         }
 
         /// <summary>
@@ -2633,9 +2753,9 @@ namespace BiodexExcel
         {
             this.ResetStatus();
 
-            InputSelection inputs = new InputSelection();
+            var inputs = new InputSelection();
             inputs.MinimumSequenceCount = 2;
-            inputs.GetInputSequences(DoAssembly, false);
+            inputs.GetInputSequences(this.DoAssembly, false);
         }
 
         /// <summary>
@@ -2649,18 +2769,22 @@ namespace BiodexExcel
             // cannot align them (no complements).
             if (selectedSequences.Any(s => s.Alphabet is ProteinAlphabet))
             {
-                MessageBox.Show(Properties.Resources.PROTEIN_NOT_SUPPORTED, Properties.Resources.CAPTION, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(
+                    Resources.PROTEIN_NOT_SUPPORTED,
+                    Resources.CAPTION,
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
                 return;
             }
 
             Globals.ThisAddIn.Application.Cursor = XlMousePointer.xlWait;
-            AssemblyInputDialog assemblerDialog = new AssemblyInputDialog(false, selectedSequences[0].Alphabet);
-            System.Windows.Interop.WindowInteropHelper assemblyInputHelper = new System.Windows.Interop.WindowInteropHelper(assemblerDialog);
+            var assemblerDialog = new AssemblyInputDialog(false, selectedSequences[0].Alphabet);
+            var assemblyInputHelper = new WindowInteropHelper(assemblerDialog);
             assemblyInputHelper.Owner = (IntPtr)Globals.ThisAddIn.Application.Hwnd;
-            assemblerDialog.Activated += new EventHandler(OnWPFWindowActivated);
+            assemblerDialog.Activated += this.OnWPFWindowActivated;
             if (assemblerDialog.Show())
             {
-                AssemblyInputEventArgs eventArgs = new AssemblyInputEventArgs(selectedSequences, assemblerDialog.Aligner);
+                var eventArgs = new AssemblyInputEventArgs(selectedSequences, assemblerDialog.Aligner);
                 eventArgs.ConsensusThreshold = assemblerDialog.ConsensusThreshold;
                 eventArgs.MatchScore = assemblerDialog.MatchScore;
                 eventArgs.MergeThreshold = assemblerDialog.MergeThreshold;
@@ -2687,14 +2811,10 @@ namespace BiodexExcel
             this.ResetStatus();
             this.webserviceName = (sender as RibbonButton).Tag as string;
 
-            InputSelection inputs = new InputSelection();
-            inputs.SequenceLabels = new string[] { Resources.InputSelection_SequenceLabel_Blast };
+            var inputs = new InputSelection();
+            inputs.SequenceLabels = new[] { Resources.InputSelection_SequenceLabel_Blast };
             inputs.MinimumSequenceCount = 1;
-            if (WebServices.BioHPCBlast != null && !WebServices.BioHPCBlast.Name.Equals(this.webserviceName))
-            {
-                inputs.MaximumSequenceCount = 1;
-            }
-            inputs.GetInputSequences(OnExecuteSearch, false);
+            inputs.GetInputSequences(this.OnExecuteSearch, false);
         }
 
         /// <summary>
@@ -2711,15 +2831,20 @@ namespace BiodexExcel
             List<ISequenceRange> sequences = rangeGroup.Flatten();
             if (sequences == null || sequences.Count == 0)
             {
-                string strMessage = string.Format(Properties.Resources.PARSE_ERROR, Path.GetFileName(fileName), string.Empty);
+                string strMessage = string.Format(Resources.PARSE_ERROR, Path.GetFileName(fileName), string.Empty);
                 strMessage = strMessage.TrimEnd(" :".ToCharArray());
-                MessageBox.Show(strMessage, Properties.Resources.CAPTION, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(strMessage, Resources.CAPTION, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             Workbook workBook = Globals.ThisAddIn.Application.ActiveWorkbook;
-            Worksheet workSheet = workBook.Worksheets.Add(Type.Missing, workBook.Worksheets.get_Item(workBook.Worksheets.Count), Type.Missing, Type.Missing) as Worksheet;
-            ((Microsoft.Office.Interop.Excel._Worksheet)workSheet).Activate();
+            var workSheet =
+                workBook.Worksheets.Add(
+                    Type.Missing,
+                    workBook.Worksheets.get_Item(workBook.Worksheets.Count),
+                    Type.Missing,
+                    Type.Missing) as Worksheet;
+            ((_Worksheet)workSheet).Activate();
             Globals.ThisAddIn.Application.ActiveWindow.Zoom = ZoomLevel;
 
             string validName = this.GetValidFileNames(Path.GetFileNameWithoutExtension(fileName));
@@ -2742,7 +2867,7 @@ namespace BiodexExcel
 
             Range activeSelectedRange = workSheet.get_Range(GetColumnString(columnNumber) + rowNumber, Missing.Value);
             activeSelectedRange = activeSelectedRange.get_Resize(sequences.Count, 12);
-            object[,] values = new object[sequences.Count, 12];
+            var values = new object[sequences.Count, 12];
 
             for (int i = 0; i < sequences.Count; i++)
             {
@@ -2750,20 +2875,20 @@ namespace BiodexExcel
                 values[i, 0] = range.ID;
                 values[i, 1] = range.Start;
                 values[i, 2] = range.End;
-                values[i, 3] = ExtractRangeMetadata(range, Properties.Resources.BED_NAME);
-                values[i, 4] = ExtractRangeMetadata(range, Properties.Resources.BED_SCORE);
+                values[i, 3] = ExtractRangeMetadata(range, Resources.BED_NAME);
+                values[i, 4] = ExtractRangeMetadata(range, Resources.BED_SCORE);
 
-                object value = ExtractRangeMetadata(range, Properties.Resources.BED_STRAND);
+                object value = ExtractRangeMetadata(range, Resources.BED_STRAND);
                 if (value != null)
                 {
                     values[i, 5] = value.ToString();
                 }
 
-                values[i, 6] = ExtractRangeMetadata(range, Properties.Resources.BED_THICK_START);
-                values[i, 7] = ExtractRangeMetadata(range, Properties.Resources.BED_THICK_END);
-                values[i, 8] = ExtractRangeMetadata(range, Properties.Resources.BED_ITEM_RGB);
-                values[i, 9] = ExtractRangeMetadata(range, Properties.Resources.BED_BLOCK_COUNT);
-                string strValue = ExtractRangeMetadata(range, Properties.Resources.BED_BLOCK_SIZES) as string;
+                values[i, 6] = ExtractRangeMetadata(range, Resources.BED_THICK_START);
+                values[i, 7] = ExtractRangeMetadata(range, Resources.BED_THICK_END);
+                values[i, 8] = ExtractRangeMetadata(range, Resources.BED_ITEM_RGB);
+                values[i, 9] = ExtractRangeMetadata(range, Resources.BED_BLOCK_COUNT);
+                var strValue = ExtractRangeMetadata(range, Resources.BED_BLOCK_SIZES) as string;
 
                 // As excel is not handling more than 4000 chars in a single cell.
                 if (strValue != null && strValue.Length > 4000)
@@ -2773,7 +2898,7 @@ namespace BiodexExcel
 
                 values[i, 10] = strValue;
 
-                strValue = ExtractRangeMetadata(range, Properties.Resources.BED_BLOCK_STARTS) as string;
+                strValue = ExtractRangeMetadata(range, Resources.BED_BLOCK_STARTS) as string;
 
                 // As excel is not handling more than 4000 chars in a single cell.
                 if (strValue != null && strValue.Length > 4000)
@@ -2789,10 +2914,10 @@ namespace BiodexExcel
             activeSelectedRange.set_Value(Missing.Value, values);
 
             workSheet.Columns.AutoFit();
-            NormalizeColumWidths(workSheet.UsedRange);
+            this.NormalizeColumWidths(workSheet.UsedRange);
             this.EnableAllControls();
 
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
             sb.Append("='");
             sb.Append(workSheet.Name);
             sb.Append("'!");
@@ -2802,7 +2927,18 @@ namespace BiodexExcel
             sb.Append(GetColumnString(maxColumnNumber) + "$" + (rowNumber - 1).ToString(CultureInfo.CurrentCulture));
             string formula = sb.ToString();
 
-            Name dataWithHeader = workSheet.Names.Add(Properties.Resources.SEQUENCERANGEDATA_PRESELECTION + workSheet.Name, formula, true, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
+            Name dataWithHeader = workSheet.Names.Add(
+                Resources.SEQUENCERANGEDATA_PRESELECTION + workSheet.Name,
+                formula,
+                true,
+                Type.Missing,
+                Type.Missing,
+                Type.Missing,
+                Type.Missing,
+                Type.Missing,
+                Type.Missing,
+                Type.Missing,
+                Type.Missing);
             dataWithHeader.RefersToRange.Select();
             //added default from UI as auto detect and ignore space
             SequenceCache.Add(activeSelectedRange, rangeGroup, "_Auto Detect_NB");
@@ -2816,17 +2952,23 @@ namespace BiodexExcel
         /// <param name="e">Event data</param>
         private void ReadSequenceFiles(object sender, RibbonControlEventArgs e)
         {
-            IParser parser = (sender as RibbonButton).Tag as IParser;
+            var parser = (sender as RibbonButton).Tag as IParser;
             if (parser == null)
+            {
                 return;
+            }
 
             this.ResetStatus();
-            var openFileDialog1 = new System.Windows.Forms.OpenFileDialog
-            {
-                Multiselect = true,
-                Filter = string.Format("{0} ({1})|{1}|All Files (*.*)|*.*", parser.Name,
-                                        parser.SupportedFileTypes.Replace(".", "*.").Replace(',', ';'))
-            };
+            var openFileDialog1 = new OpenFileDialog
+                                  {
+                                      Multiselect = true,
+                                      Filter =
+                                          string.Format(
+                                              "{0} ({1})|{1}|All Files (*.*)|*.*",
+                                              parser.Name,
+                                              parser.SupportedFileTypes.Replace(".", "*.")
+                                          .Replace(',', ';'))
+                                  };
 
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
@@ -2837,7 +2979,7 @@ namespace BiodexExcel
                     {
                         this.ScreenUpdate(false);
 
-                        ISequenceParser sequenceParser = parser as ISequenceParser;
+                        var sequenceParser = parser as ISequenceParser;
                         if (sequenceParser != null)
                         {
                             try
@@ -2852,13 +2994,17 @@ namespace BiodexExcel
                         }
                         else
                         {
-                            ISequenceRangeParser rangeParser = parser as ISequenceRangeParser;
+                            var rangeParser = parser as ISequenceRangeParser;
                             this.ReadRangeSequence(rangeParser, fileName);
                         }
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show(string.Format(Properties.Resources.PARSE_ERROR, Path.GetFileName(fileName), ex.Message), Properties.Resources.CAPTION, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(
+                            string.Format(Resources.PARSE_ERROR, Path.GetFileName(fileName), ex.Message),
+                            Resources.CAPTION,
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
                     }
                     finally
                     {
@@ -2879,22 +3025,22 @@ namespace BiodexExcel
         /// <param name="currentRow">Current row of insertion</param>
         private void ReadSequences(ISequenceParser parser, string fileName, ref int currentRow)
         {
-            ScreenUpdate(false);
+            this.ScreenUpdate(false);
 
-            if (sequencesPerWorksheet == 1)
+            if (this.sequencesPerWorksheet == 1)
             {
-                ImportSequencesOnePerSheet(parser, fileName);
+                this.ImportSequencesOnePerSheet(parser, fileName);
             }
-            else if (sequencesPerWorksheet <= 0)
+            else if (this.sequencesPerWorksheet <= 0)
             {
-                ImportSequencesAllInOneSheet(parser, fileName, ref currentRow);
+                this.ImportSequencesAllInOneSheet(parser, fileName, ref currentRow);
             }
-            else if (sequencesPerWorksheet > 0)
+            else if (this.sequencesPerWorksheet > 0)
             {
-                ImportSequencesAcrossSheets(parser, fileName, ref currentRow);
+                this.ImportSequencesAcrossSheets(parser, fileName, ref currentRow);
             }
 
-            ScreenUpdate(true);
+            this.ScreenUpdate(true);
         }
 
         /// <summary>
@@ -2915,36 +3061,50 @@ namespace BiodexExcel
             {
                 foreach (ISequence sequence in parser.Parse())
                 {
-                    if (worksheet == null || sequenceCount++ >= sequencesPerWorksheet)
+                    if (worksheet == null || sequenceCount++ >= this.sequencesPerWorksheet)
                     {
-                        if(worksheet != null)
+                        if (worksheet != null)
+                        {
                             worksheet.Cells[1, 1].EntireColumn.AutoFit(); // Autofit first column
+                        }
 
                         currentRow = 1;
                         sequenceCount = 1;
-                        worksheet = workBook.Worksheets.Add(Type.Missing, workBook.Worksheets.Item[workBook.Worksheets.Count], Type.Missing, Type.Missing) as Worksheet;
+                        worksheet =
+                            workBook.Worksheets.Add(
+                                Type.Missing,
+                                workBook.Worksheets.Item[workBook.Worksheets.Count],
+                                Type.Missing,
+                                Type.Missing) as Worksheet;
                         if (worksheet == null)
+                        {
                             return;
+                        }
 
                         // Get a name for the worksheet.
-                        string validName = GetValidFileNames(string.IsNullOrEmpty(sequence.ID)
-                                ? Path.GetFileNameWithoutExtension(fileName)
-                                : sequence.ID);
+                        string validName =
+                            this.GetValidFileNames(
+                                string.IsNullOrEmpty(sequence.ID)
+                                    ? Path.GetFileNameWithoutExtension(fileName)
+                                    : sequence.ID);
                         worksheet.Name = validName;
                         ((_Worksheet)worksheet).Activate();
                         Globals.ThisAddIn.Application.ActiveWindow.Zoom = ZoomLevel;
                     }
 
-
                     // If sequence ID cannot be used as a sheet name, update the sequence DisplayID with the string used as sheet name.
                     if (string.IsNullOrEmpty(sequence.ID))
+                    {
                         sequence.ID = Path.GetFileNameWithoutExtension(fileName) + "_" + sequenceCount;
+                    }
 
-                    WriteOneSequenceToWorksheet(parser, ref currentRow, sequence, worksheet);
+                    this.WriteOneSequenceToWorksheet(parser, ref currentRow, sequence, worksheet);
                 }
-                
+
                 if (worksheet != null)
+                {
                     worksheet.Cells[1, 1].EntireColumn.AutoFit(); // Autofit first column
+                }
             }
             finally
             {
@@ -2963,18 +3123,26 @@ namespace BiodexExcel
             Workbook workBook = Globals.ThisAddIn.Application.ActiveWorkbook;
             foreach (ISequence sequence in parser.Parse())
             {
-                Worksheet worksheet = workBook.Worksheets.Add(Type.Missing, workBook.Worksheets.Item[workBook.Worksheets.Count], Type.Missing, Type.Missing) as Worksheet;
+                var worksheet =
+                    workBook.Worksheets.Add(
+                        Type.Missing,
+                        workBook.Worksheets.Item[workBook.Worksheets.Count],
+                        Type.Missing,
+                        Type.Missing) as Worksheet;
                 if (worksheet == null)
+                {
                     return;
+                }
 
-                string validName = GetValidFileNames(
-                    string.IsNullOrEmpty(sequence.ID) 
-                        ? Path.GetFileNameWithoutExtension(fileName) 
-                        : sequence.ID);
+                string validName =
+                    this.GetValidFileNames(
+                        string.IsNullOrEmpty(sequence.ID) ? Path.GetFileNameWithoutExtension(fileName) : sequence.ID);
 
                 // If sequence ID cannot be used as a sheet name, update the sequence DisplayID with the string used as sheet name.
                 if (string.IsNullOrEmpty(sequence.ID))
+                {
                     sequence.ID = validName;
+                }
 
                 worksheet.Name = validName;
                 ((_Worksheet)worksheet).Activate();
@@ -2984,8 +3152,8 @@ namespace BiodexExcel
                 try
                 {
                     int currentRow = 1;
-                    WriteOneSequenceToWorksheet(parser, ref currentRow, sequence, worksheet);
-                    currentFileNumber++;
+                    this.WriteOneSequenceToWorksheet(parser, ref currentRow, sequence, worksheet);
+                    this.currentFileNumber++;
                 }
                 finally
                 {
@@ -3005,7 +3173,12 @@ namespace BiodexExcel
         private void ImportSequencesAllInOneSheet(ISequenceParser parser, string fileName, ref int currentRow)
         {
             Workbook workBook = Globals.ThisAddIn.Application.ActiveWorkbook;
-            Worksheet worksheet = workBook.Worksheets.Add(Type.Missing, workBook.Worksheets.Item[workBook.Worksheets.Count], Type.Missing, Type.Missing) as Worksheet;
+            var worksheet =
+                workBook.Worksheets.Add(
+                    Type.Missing,
+                    workBook.Worksheets.Item[workBook.Worksheets.Count],
+                    Type.Missing,
+                    Type.Missing) as Worksheet;
             worksheet.Name = this.GetValidFileNames(Path.GetFileNameWithoutExtension(fileName));
             ((_Worksheet)worksheet).Activate();
             Globals.ThisAddIn.Application.ActiveWindow.Zoom = ZoomLevel;
@@ -3018,9 +3191,11 @@ namespace BiodexExcel
                 {
                     sequenceCount++;
                     if (string.IsNullOrEmpty(sequence.ID))
+                    {
                         sequence.ID = Path.GetFileNameWithoutExtension(fileName) + "_" + sequenceCount;
-                    WriteOneSequenceToWorksheet(parser, ref currentRow, sequence, worksheet);
-                    currentFileNumber++;
+                    }
+                    this.WriteOneSequenceToWorksheet(parser, ref currentRow, sequence, worksheet);
+                    this.currentFileNumber++;
                 }
             }
             finally
@@ -3038,13 +3213,17 @@ namespace BiodexExcel
         /// <param name="currentRow"></param>
         /// <param name="sequence"></param>
         /// <param name="worksheet"></param>
-        private void WriteOneSequenceToWorksheet(ISequenceParser parser, ref int currentRow, ISequence sequence, Worksheet worksheet)
+        private void WriteOneSequenceToWorksheet(
+            ISequenceParser parser,
+            ref int currentRow,
+            ISequence sequence,
+            Worksheet worksheet)
         {
             // Write the header (sequence id)
             if (!string.IsNullOrEmpty(sequence.ID))
             {
                 string[,] formattedMetadata = ExcelImportFormatter.SequenceIDHeaderToRange(sequence);
-                Range range = WriteToSheet(worksheet, formattedMetadata, currentRow, 1);
+                Range range = this.WriteToSheet(worksheet, formattedMetadata, currentRow, 1);
                 if (range != null)
                 {
                     range.WrapText = false;
@@ -3056,9 +3235,11 @@ namespace BiodexExcel
             Range dataRange;
             if (sequence.Count > 0)
             {
-                currentRow = WriteSequence(worksheet, sequence, currentRow, out dataRange);
+                currentRow = this.WriteSequence(worksheet, sequence, currentRow, out dataRange);
                 if (dataRange != null)
+                {
                     dataRange.Columns.AutoFit(); // Autofit columns with sequence data
+                }
             }
 
             // Write quality values if file is FastQ
@@ -3066,14 +3247,21 @@ namespace BiodexExcel
             {
                 currentRow++;
                 worksheet.Cells[currentRow, 1].Value2 = Resources.Sequence_QualityScores;
-                currentRow = WriteQualityValues(sequence as QualitativeSequence, worksheet, currentRow, 3, out dataRange);
+                currentRow = this.WriteQualityValues(
+                    sequence as QualitativeSequence,
+                    worksheet,
+                    currentRow,
+                    3,
+                    out dataRange);
                 if (dataRange != null)
+                {
                     dataRange.Columns.AutoFit(); // Autofit columns with quality scores
+                }
             }
 
             // Write out the metadata 
             Range metadataRange;
-            WriteMetadata(sequence, parser, worksheet, currentRow, out metadataRange);
+            this.WriteMetadata(sequence, parser, worksheet, currentRow, out metadataRange);
             if (metadataRange != null)
             {
                 currentRow += metadataRange.Rows.Count;
@@ -3090,14 +3278,21 @@ namespace BiodexExcel
         /// <param name="worksheet">Sheet on to which the metadata should be written.</param>
         /// <param name="startingRow">Row we are on</param>
         /// <param name="metadataRange">Will have the range to which the metadata was written</param>
-        private void WriteMetadata(ISequence sequence, ISequenceParser parserUsed, Worksheet worksheet, int startingRow, out Range metadataRange)
+        private void WriteMetadata(
+            ISequence sequence,
+            ISequenceParser parserUsed,
+            Worksheet worksheet,
+            int startingRow,
+            out Range metadataRange)
         {
             if (parserUsed is GenBankParser)
             {
                 if (sequence.Metadata.ContainsKey(GenbankMetadataKey))
                 {
-                    string[,] formattedMetadata = ExcelImportFormatter.GenBankMetadataToRange(sequence.Metadata[GenbankMetadataKey] as GenBankMetadata);
-                    metadataRange = WriteToSheet(worksheet, formattedMetadata, startingRow, 1);
+                    string[,] formattedMetadata =
+                        ExcelImportFormatter.GenBankMetadataToRange(
+                            sequence.Metadata[GenbankMetadataKey] as GenBankMetadata);
+                    metadataRange = this.WriteToSheet(worksheet, formattedMetadata, startingRow, 1);
                     if (metadataRange != null)
                     {
                         // Turn off wrapping for metadata values.
@@ -3112,10 +3307,10 @@ namespace BiodexExcel
             else if (parserUsed is GffParser)
             {
                 string[,] formattedMetadata = ExcelImportFormatter.GffMetaDataToRange(sequence);
-                metadataRange = WriteToSheet(worksheet, formattedMetadata, startingRow, 1);
+                metadataRange = this.WriteToSheet(worksheet, formattedMetadata, startingRow, 1);
                 if (metadataRange != null)
                 {
-                    metadataRange.Columns.VerticalAlignment = Microsoft.Office.Interop.Excel.XlVAlign.xlVAlignTop;
+                    metadataRange.Columns.VerticalAlignment = XlVAlign.xlVAlignTop;
                     metadataRange.WrapText = false;
                     // Now wrap data columns
                     metadataRange.Columns[2].AutoFit();
@@ -3140,10 +3335,15 @@ namespace BiodexExcel
         /// <param name="startingColumn">Column we wrote to</param>
         /// <param name="dataRange">Range where quality values were written</param>
         /// <returns>Index of row after last written row</returns>
-        private int WriteQualityValues(QualitativeSequence sequence, Worksheet worksheet, int startingRow, int startingColumn, out Range dataRange)
+        private int WriteQualityValues(
+            QualitativeSequence sequence,
+            Worksheet worksheet,
+            int startingRow,
+            int startingColumn,
+            out Range dataRange)
         {
             string[,] qualityScores = ExcelImportFormatter.FastQQualityValuesToRange(sequence, maxNumberOfCharacters);
-            dataRange = WriteToSheet(worksheet, qualityScores, startingRow, startingColumn);
+            dataRange = this.WriteToSheet(worksheet, qualityScores, startingRow, startingColumn);
 
             return startingRow + qualityScores.GetLength(0) + 1;
         }
@@ -3157,7 +3357,7 @@ namespace BiodexExcel
         /// <param name="col">Starting col</param>
         private Range WriteToSheet(Worksheet worksheet, string[,] data, int row, int col)
         {
-            Range range = worksheet.Range[GetColumnString(col) + (row).ToString(), Type.Missing];
+            Range range = worksheet.Range[GetColumnString(col) + (row), Type.Missing];
             range = range.Resize[data.GetLength(0), data.GetLength(1)];
             range.set_Value(Missing.Value, data);
 
@@ -3172,12 +3372,22 @@ namespace BiodexExcel
         /// <param name="initialRowNumber">Initial row number</param>
         /// <param name="sequenceDataRange">The row number from where the sequence rendering has to begin</param>
         /// <returns>Index of last row where sequence data was written</returns>
-        private int WriteSequence(Worksheet worksheet, ISequence sequence, int initialRowNumber, out Range sequenceDataRange)
+        private int WriteSequence(
+            Worksheet worksheet,
+            ISequence sequence,
+            int initialRowNumber,
+            out Range sequenceDataRange)
         {
             Range heading = worksheet.Range["A" + initialRowNumber.ToString(CultureInfo.CurrentCulture), Type.Missing];
             WriteRangeValue(heading, Resources.SEQUENCE_DATA);
 
-            return WriteSequenceDataIntoSheet(worksheet, sequence, initialRowNumber, 3, Resources.SEQUENCEDATA_PRESELECTION + GetValidFileNames(sequence.ID), out sequenceDataRange);
+            return this.WriteSequenceDataIntoSheet(
+                worksheet,
+                sequence,
+                initialRowNumber,
+                3,
+                Resources.SEQUENCEDATA_PRESELECTION + this.GetValidFileNames(sequence.ID),
+                out sequenceDataRange);
         }
 
         /// <summary>
@@ -3190,7 +3400,13 @@ namespace BiodexExcel
         /// <param name="rangeName">Name to use for range</param>
         /// <param name="sequenceDataRange">The row number from where the sequence rendering has to begin</param>
         /// <returns>Index of last row where sequence data was written</returns>
-        private int WriteSequenceDataIntoSheet(Worksheet worksheet, ISequence sequence, int initialRowNumber, int initialColumnNumber, string rangeName, out Range sequenceDataRange)
+        private int WriteSequenceDataIntoSheet(
+            Worksheet worksheet,
+            ISequence sequence,
+            int initialRowNumber,
+            int initialColumnNumber,
+            string rangeName,
+            out Range sequenceDataRange)
         {
             int counts = 0;
             int maxColumnNumber = 0;
@@ -3198,26 +3414,31 @@ namespace BiodexExcel
             string columnPos = GetColumnString(initialColumnNumber);
 
             int rowNumber = initialRowNumber;
-            int rowCount = (int)Math.Ceiling((decimal)sequence.Count / maxNumberOfCharacters);
+            var rowCount = (int)Math.Ceiling((decimal)sequence.Count / maxNumberOfCharacters);
             long columnCount = sequence.Count > maxNumberOfCharacters ? maxNumberOfCharacters : sequence.Count;
             var rangeData = new string[rowCount, columnCount];
 
             // Put the data into the rows.
             while (counts < sequence.Count)
             {
-                int columnNumber = initialColumnNumber-1;
+                int columnNumber = initialColumnNumber - 1;
                 for (int i = 0; (i < maxNumberOfCharacters) && (counts < sequence.Count); i++, counts++, columnNumber++)
+                {
                     rangeData[rowNumber - initialRowNumber, i] = new string(new[] { (char)sequence[counts] });
+                }
 
                 if (columnNumber > maxColumnNumber)
+                {
                     maxColumnNumber = columnNumber;
+                }
 
                 rowNumber++;
             }
 
             if (sequence.Count > 0)
             {
-                Range range = worksheet.Range[columnPos + initialRowNumber.ToString(CultureInfo.CurrentCulture), Type.Missing];
+                Range range =
+                    worksheet.Range[columnPos + initialRowNumber.ToString(CultureInfo.CurrentCulture), Type.Missing];
                 range = range.Resize[rowCount, columnCount];
                 range.set_Value(Missing.Value, rangeData);
 
@@ -3226,20 +3447,34 @@ namespace BiodexExcel
                 // Add a range name to this selected sequence.
                 if (!string.IsNullOrEmpty(rangeName))
                 {
-                    StringBuilder sb = new StringBuilder();
+                    var sb = new StringBuilder();
                     sb.Append("='");
                     sb.Append(worksheet.Name);
                     sb.Append("'!");
                     sb.Append("$" + columnPos + "$" + initialRowNumber);
                     sb.Append(":$");
-                    sb.Append(GetColumnString(maxColumnNumber) + "$" + (rowNumber - 1).ToString(CultureInfo.CurrentCulture));
+                    sb.Append(
+                        GetColumnString(maxColumnNumber) + "$" + (rowNumber - 1).ToString(CultureInfo.CurrentCulture));
                     string formula = sb.ToString();
 
-                    worksheet.Names.Add(rangeName,
-                        formula, true, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
+                    worksheet.Names.Add(
+                        rangeName,
+                        formula,
+                        true,
+                        Type.Missing,
+                        Type.Missing,
+                        Type.Missing,
+                        Type.Missing,
+                        Type.Missing,
+                        Type.Missing,
+                        Type.Missing,
+                        Type.Missing);
                 }
 
-                Range fullSelection = worksheet.Range[columnPos + initialRowNumber.ToString(CultureInfo.CurrentCulture), GetColumnString(maxColumnNumber) + (rowNumber - 1).ToString(CultureInfo.CurrentCulture)];
+                Range fullSelection =
+                    worksheet.Range[
+                        columnPos + initialRowNumber.ToString(CultureInfo.CurrentCulture),
+                        GetColumnString(maxColumnNumber) + (rowNumber - 1).ToString(CultureInfo.CurrentCulture)];
                 fullSelection.Select();
                 sequenceDataRange = fullSelection;
                 //added default from UI as auto detect and ignore space
@@ -3321,19 +3556,214 @@ namespace BiodexExcel
         /// </summary>
         /// <param name="webserviceName">Name of the webservice</param>
         /// <returns>Instance of the web service</returns>
-        private IBlastServiceHandler GetWebServiceInstance(string webserviceName)
+        private IBlastWebHandler GetWebServiceInstance(string webserviceName)
         {
-            foreach (IBlastServiceHandler blastService in
-                WebServices.All.Where(service => service is IBlastServiceHandler))
-            {
-                if (blastService.Name.Equals(this.webserviceName))
-                {
-                    return blastService;
-                }
-            }
+            //foreach (IBlastServiceHandler blastService in
+            //    WebServices.All.Where(service => service is IBlastServiceHandler))
+            //{
+            //    if (blastService.Name.Equals(this.webserviceName))
+            //    {
+            //        return blastService;
+            //    }
+            //}
 
             return null;
         }
+
+        /// <summary>
+        /// This event is triggered when any of the buttons in ribbon is clicked.
+        /// </summary>
+        private void RibbonControl_Click(object sender, RibbonControlEventArgs e)
+        {
+            this.ResetStatus();
+        }
+
+        /// <summary>
+        /// Reset the status to Ready
+        /// </summary>
+        private void ResetStatus()
+        {
+            this.ChangeStatusBar(Resources.STATUS_READY);
+        }
+
+        private void btnUserManual_Click(object sender, RibbonControlEventArgs e)
+        {
+            string userGuidePath = MBFInstallationPath + Resources.UserGuideRelativePath;
+
+            if (File.Exists(userGuidePath))
+            {
+                Process.Start(userGuidePath);
+            }
+            else
+            {
+                MessageBox.Show(Resources.NoUserGuidePresent, Resources.CAPTION, MessageBoxButtons.OK);
+            }
+        }
+
+        #region Export options
+
+        /// <summary>
+        /// Export data from sheets to a particulat sequence file format
+        /// </summary>
+        private void OnExportClick(object sender, RibbonControlEventArgs e)
+        {
+            var formatter = ((sender as RibbonButton).Tag as ISequenceFormatter);
+            if (formatter is FastAFormatter || formatter is FastQFormatter || formatter is GenBankFormatter
+                || formatter is GffFormatter)
+            {
+                var sequenceSelection = new InputSelection();
+
+                if (formatter is GenBankFormatter)
+                {
+                    sequenceSelection.MaximumSequenceCount = 1;
+                    sequenceSelection.MinimumSequenceCount = 1;
+                }
+
+                sequenceSelection.GetSequencesForExport(this.DoExportSequence, formatter);
+            }
+            else
+            {
+                // as its not a ISequenceFormatter try to cast it to ISequenceRangeFormatter
+                var rangeformatter = ((sender as RibbonButton).Tag as ISequenceRangeFormatter);
+
+                if (rangeformatter is ISequenceRangeFormatter)
+                {
+                    var sequenceSelection = new InputSelection();
+                    sequenceSelection.SequenceLabels = new[] { Resources.Export_BED_SequenceRangeString };
+                    sequenceSelection.MaximumSequenceCount = 1;
+                    sequenceSelection.PromptForSequenceName = false;
+                    sequenceSelection.GetInputSequenceRanges(
+                        this.DoExportRangeSequence,
+                        false,
+                        false,
+                        false,
+                        rangeformatter);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Method which will export a parsed BED file
+        /// </summary>
+        /// <param name="e">Event Arguments</param>
+        private void DoExportRangeSequence(InputSequenceRangeSelectionEventArg e)
+        {
+            Stream sequenceWriter = null;
+            //todo: Below line used hard coded BEDFormatter, have to get it from args later on
+            ISequenceRangeFormatter formatter = new BedFormatter();
+            var saveDialog = new SaveFileDialog { Filter = "BED Files|*.BED" };
+
+            try
+            {
+                if (e.Sequences[0].GroupIDs.Any())
+                {
+                    if (saveDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        // Get a textwriter to the file which will append text to it.
+                        sequenceWriter = File.OpenWrite(saveDialog.FileName);
+                        formatter.Format(sequenceWriter, e.Sequences[0]);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show(
+                        Resources.EMPTY_SEQUENCE_RANGE,
+                        Resources.CAPTION,
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, Resources.CAPTION, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                if (sequenceWriter != null)
+                {
+                    sequenceWriter.Close();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Method which will export the parsed data to the appropriate file format
+        /// </summary>
+        /// <param name="sequences"></param>
+        /// <param name="args"></param>
+        private void DoExportSequence(List<ISequence> sequences, params object[] args)
+        {
+            bool openedFormatter = false;
+            var formatter = args[0] as ISequenceFormatter;
+            var saveDialog = new SaveFileDialog();
+
+            if (formatter is FastAFormatter)
+            {
+                saveDialog.Filter = "FastA Files|*.FastA";
+            }
+            else if (formatter is FastQFormatter)
+            {
+                saveDialog.Filter = "FastQ Files|*.FastQ";
+            }
+            else if (formatter is GenBankFormatter)
+            {
+                saveDialog.Filter = "GenBank Files|*.gbk";
+            }
+            else if (formatter is GffFormatter)
+            {
+                saveDialog.Filter = "Gff Files|*.gff";
+            }
+            try
+            {
+                if (saveDialog.ShowDialog() == DialogResult.OK)
+                {
+                    // Remove file is exists
+                    if (File.Exists(saveDialog.FileName))
+                    {
+                        File.Delete(saveDialog.FileName);
+                    }
+
+                    // Get a textwriter to the file which will append text to it.
+                    formatter.Open(saveDialog.FileName);
+                    openedFormatter = true;
+
+                    // Check the formatter chosen, Loop through if there are multiple sequences selected and append to the file
+                    if (formatter is FastAFormatter || formatter is FastQFormatter || formatter is GenBankFormatter)
+                    {
+                        foreach (ISequence currentSequence in sequences)
+                        {
+                            formatter.Format(currentSequence);
+                        }
+                    }
+                    else if (formatter is GffFormatter)
+                    {
+                        var gffFormatter = formatter as GffFormatter;
+                        if (gffFormatter != null)
+                        {
+                            gffFormatter.ShouldWriteSequenceData = true;
+                        }
+
+                        foreach (ISequence currentSequence in sequences)
+                        {
+                            formatter.Format(currentSequence);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, Resources.CAPTION, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                if (openedFormatter)
+                {
+                    formatter.Close();
+                }
+            }
+        }
+
+        #endregion
 
         #region -- Web Service --
 
@@ -3342,15 +3772,15 @@ namespace BiodexExcel
         /// the NCBI database. This method creates a type of web-service object
         /// and passes parameters to it. And waits for the result.
         /// </summary>
-        /// <param name="sender">IAssembler instance</param>
-        /// <param name="e">Event data.</param>
+        /// <param name="sequences">IAssembler instance</param>
+        /// <param name="args">Event data.</param>
         private void OnExecuteSearch(List<ISequence> sequences, params object[] args)
         {
             Globals.ThisAddIn.Application.Cursor = XlMousePointer.xlWait;
-            BlastDialog dialog = new BlastDialog(this.webserviceName);
-            System.Windows.Interop.WindowInteropHelper helper = new System.Windows.Interop.WindowInteropHelper(dialog);
+            var dialog = new BlastDialog(this.webserviceName);
+            var helper = new WindowInteropHelper(dialog);
             helper.Owner = (IntPtr)Globals.ThisAddIn.Application.Hwnd;
-            dialog.Activated += new EventHandler(OnWPFWindowActivated);
+            dialog.Activated += this.OnWPFWindowActivated;
             dialog.ShowDialog();
 
             if (dialog.WebServiceInputArgs != null)
@@ -3362,41 +3792,38 @@ namespace BiodexExcel
 
                 if (e != null && !string.IsNullOrEmpty(this.webserviceName))
                 {
-                    IBlastServiceHandler blastServiceHandler =
-                            this.GetWebServiceInstance(this.webserviceName);
+                    IBlastWebHandler blastServiceHandler = this.GetWebServiceInstance(this.webserviceName);
 
-                    blastServiceHandler.Configuration = e.Configuration;
+                    //blastServiceHandler.Configuration = e.Configuration;
 
-                    // Make sure if the event handler was already added, it is removed
-                    // otherwise the handler will be invoked multiple times when the
-                    // event is raised.
-                    blastServiceHandler.RequestCompleted -=
-                            new EventHandler<BlastRequestCompletedEventArgs>(this.OnBlastRequestCompleted);
+                    //// Make sure if the event handler was already added, it is removed
+                    //// otherwise the handler will be invoked multiple times when the
+                    //// event is raised.
+                    //blastServiceHandler.RequestCompleted -=
+                    //    new EventHandler<BlastRequestCompletedEventArgs>(this.OnBlastRequestCompleted);
 
-                    blastServiceHandler.RequestCompleted +=
-                            new EventHandler<BlastRequestCompletedEventArgs>(this.OnBlastRequestCompleted);
-                    try
-                    {
-                        if (WebServices.BioHPCBlast != null && WebServices.BioHPCBlast.Name.Equals(this.webserviceName))
-                        {
-                            this.requestIdentifier = blastServiceHandler.SubmitRequest(sequences, e.ServiceParameters);
-                        }
-                        else
-                        {
-                            this.requestIdentifier = blastServiceHandler.SubmitRequest(sequences[0], e.ServiceParameters);
-                        }
+                    //blastServiceHandler.RequestCompleted +=
+                    //    new EventHandler<BlastRequestCompletedEventArgs>(this.OnBlastRequestCompleted);
+                    //try
+                    //{
+                    //    if (WebServices.BioHPCBlast != null && WebServices.BioHPCBlast.Name.Equals(this.webserviceName))
+                    //    {
+                    //        this.requestIdentifier = blastServiceHandler.SubmitRequest(sequences, e.ServiceParameters);
+                    //    }
+                    //    else
+                    //    {
+                    //        this.requestIdentifier = blastServiceHandler.SubmitRequest(
+                    //            sequences[0],
+                    //            e.ServiceParameters);
+                    //    }
 
-                        this.ChangeStatusBar(string.Format(Properties.Resources.WEBSERVICE_STATUS_BAR, Resources.SEARCHING));
-                    }
-                    catch (Exception ex)
-                    {
-                        this.btnCancelSearch.Enabled = this.cancelSearchButtonState = false;
-                        MessageBox.Show(
-                                ex.Message,
-                                Properties.Resources.CAPTION,
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Error);
-                    }
+                    //    this.ChangeStatusBar(string.Format(Resources.WEBSERVICE_STATUS_BAR, Resources.SEARCHING));
+                    //}
+                    //catch (Exception ex)
+                    //{
+                    //    this.btnCancelSearch.Enabled = this.cancelSearchButtonState = false;
+                    //    MessageBox.Show(ex.Message, Resources.CAPTION, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //}
                 }
             }
         }
@@ -3417,17 +3844,18 @@ namespace BiodexExcel
 
             this.ScreenUpdate(false);
 
-            List<BlastResult> blastResults = e.Result as List<BlastResult>;
+            var blastResults = e.Result as List<BlastResult>;
 
             if (blastResults != null)
             {
                 if (BlastHasResults(blastResults))
                 {
-                    Workbook activeWorkBook = (Workbook)Globals.ThisAddIn.Application.ActiveWorkbook;
-                    Worksheet activesheet = (Worksheet)Globals.ThisAddIn.Application.ActiveSheet;
-                    Worksheet currentsheet = (Worksheet)activeWorkBook.Worksheets.Add(Type.Missing, activesheet, Type.Missing, Type.Missing);
+                    Workbook activeWorkBook = Globals.ThisAddIn.Application.ActiveWorkbook;
+                    var activesheet = (Worksheet)Globals.ThisAddIn.Application.ActiveSheet;
+                    var currentsheet =
+                        (Worksheet)activeWorkBook.Worksheets.Add(Type.Missing, activesheet, Type.Missing, Type.Missing);
 
-                    currentsheet.Name = Properties.Resources.BLAST_RESULTS + this.currentBlastSheetNumber.ToString();
+                    currentsheet.Name = Resources.BLAST_RESULTS + this.currentBlastSheetNumber;
                     this.currentBlastSheetNumber++;
 
                     int rowNumber = 2;
@@ -3447,30 +3875,28 @@ namespace BiodexExcel
                     {
                         foreach (BlastSearchRecord record in result.Records)
                         {
-                            if (null != record.Hits
-                                    && 0 < record.Hits.Count)
+                            if (null != record.Hits && 0 < record.Hits.Count)
                             {
                                 foreach (Hit hit in record.Hits)
                                 {
-                                    if (null != hit.Hsps
-                                            && 0 < hit.Hsps.Count)
+                                    if (null != hit.Hsps && 0 < hit.Hsps.Count)
                                     {
                                         foreach (Hsp hsp in hit.Hsps)
                                         {
                                             DisplayValues(
-                                                    currentsheet,
-                                                    rowNumber,
-                                                    record.IterationQueryId,
-                                                    hit.Id,
-                                                    hsp.IdentitiesCount.ToString(CultureInfo.CurrentCulture),
-                                                    hsp.AlignmentLength.ToString(CultureInfo.CurrentCulture),
-                                                    hit.Length.ToString(CultureInfo.CurrentCulture),
-                                                    hsp.QueryStart.ToString(),
-                                                    hsp.QueryEnd.ToString(),
-                                                    hsp.HitStart.ToString(CultureInfo.CurrentCulture),
-                                                    hsp.HitEnd.ToString(),
-                                                    hsp.EValue.ToString(CultureInfo.CurrentCulture),
-                                                    hsp.BitScore.ToString(CultureInfo.CurrentCulture));
+                                                currentsheet,
+                                                rowNumber,
+                                                record.IterationQueryId,
+                                                hit.Id,
+                                                hsp.IdentitiesCount.ToString(CultureInfo.CurrentCulture),
+                                                hsp.AlignmentLength.ToString(CultureInfo.CurrentCulture),
+                                                hit.Length.ToString(CultureInfo.CurrentCulture),
+                                                hsp.QueryStart.ToString(),
+                                                hsp.QueryEnd.ToString(),
+                                                hsp.HitStart.ToString(CultureInfo.CurrentCulture),
+                                                hsp.HitEnd.ToString(),
+                                                hsp.EValue.ToString(CultureInfo.CurrentCulture),
+                                                hsp.BitScore.ToString(CultureInfo.CurrentCulture));
                                             rowNumber++;
                                         }
                                     }
@@ -3484,45 +3910,22 @@ namespace BiodexExcel
                 }
                 else
                 {
-                    MessageBox.Show(Properties.Resources.BLAST_NO_RESULT, Properties.Resources.CAPTION, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(
+                        Resources.BLAST_NO_RESULT,
+                        Resources.CAPTION,
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
                 }
 
-                this.ChangeStatusBar(string.Format(Properties.Resources.WEBSERVICE_STATUS_BAR, Resources.DONE));
+                this.ChangeStatusBar(string.Format(Resources.WEBSERVICE_STATUS_BAR, Resources.DONE));
             }
             else if (e.Result is string)
             {
-                this.ChangeStatusBar(string.Format(Properties.Resources.WEBSERVICE_STATUS_BAR, Resources.DONE));
-                MessageBox.Show(e.Result.ToString(), Properties.Resources.CAPTION, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.ChangeStatusBar(string.Format(Resources.WEBSERVICE_STATUS_BAR, Resources.DONE));
+                MessageBox.Show(e.Result.ToString(), Resources.CAPTION, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             this.ScreenUpdate(true);
-        }
-
-        /// <summary>
-        /// Invoked by Azure Blast Handler when it is done executing the request.
-        /// It sets the output of search in the Result property of event argument.
-        /// </summary>
-        /// <param name="sender">Azure Blast Handler</param>
-        /// <param name="e">Event Arguments</param>
-        private void OnBlastRequestCompleted(object sender, BlastRequestCompletedEventArgs e)
-        {
-            RunWorkerCompletedEventArgs ev = null;
-            if (e.IsSearchSuccessful)
-            {
-                ev = new RunWorkerCompletedEventArgs(
-                        e.SearchResult,
-                        null,
-                        e.IsCanceled);
-            }
-            else
-            {
-                ev = new RunWorkerCompletedEventArgs(
-                        e.ErrorMessage,
-                        null,
-                        e.IsCanceled);
-            }
-
-            this.OnSearchCompleted(sender, ev);
         }
 
         #endregion
@@ -3540,11 +3943,11 @@ namespace BiodexExcel
             if (e.Sequences != null && e.Aligner != null)
             {
                 this.btnCancelAssemble.Enabled = this.cancelAssemblyButtonState = true;
-                this.ChangeStatusBar(string.Format(Properties.Resources.ASSEMBLER_STATUS_BAR, Resources.ASSEMBLING));
+                this.ChangeStatusBar(string.Format(Resources.ASSEMBLER_STATUS_BAR, Resources.ASSEMBLING));
                 this.assemblerThread = new BackgroundWorker();
                 this.assemblerThread.WorkerSupportsCancellation = true;
-                this.assemblerThread.DoWork += new DoWorkEventHandler(this.OnAssembleStarted);
-                this.assemblerThread.RunWorkerCompleted += new RunWorkerCompletedEventHandler(this.OnAssemblerCompleted);
+                this.assemblerThread.DoWork += this.OnAssembleStarted;
+                this.assemblerThread.RunWorkerCompleted += this.OnAssemblerCompleted;
                 this.assemblerThread.RunWorkerAsync(e);
             }
         }
@@ -3562,21 +3965,21 @@ namespace BiodexExcel
                 return;
             }
 
-            IDeNovoAssembly assemblerResult = e.Result as IDeNovoAssembly;
+            var assemblerResult = e.Result as IDeNovoAssembly;
             if (assemblerResult != null)
             {
                 this.BuildConsensusView(assemblerResult);
             }
 
             this.btnCancelAssemble.Enabled = this.cancelAssemblyButtonState = false;
-            this.ChangeStatusBar(string.Format(Properties.Resources.ASSEMBLER_STATUS_BAR, Resources.DONE));
+            this.ChangeStatusBar(string.Format(Resources.ASSEMBLER_STATUS_BAR, Resources.DONE));
 
             // This is an error scenario, display it to the users.
-            string errorMessage = e.Result as string;
+            var errorMessage = e.Result as string;
             if (errorMessage != null)
             {
-                this.ChangeStatusBar(string.Format(Properties.Resources.ASSEMBLER_STATUS_BAR, Resources.ERROR));
-                MessageBox.Show(errorMessage, Properties.Resources.CAPTION, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.ChangeStatusBar(string.Format(Resources.ASSEMBLER_STATUS_BAR, Resources.ERROR));
+                MessageBox.Show(errorMessage, Resources.CAPTION, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -3586,31 +3989,38 @@ namespace BiodexExcel
         /// <param name="assemblerResult">Result of the assembly process.</param>
         private void BuildConsensusView(IDeNovoAssembly assemblerResult)
         {
-            IOverlapDeNovoAssembly overlapAssemblerResult = assemblerResult as IOverlapDeNovoAssembly;
+            var overlapAssemblerResult = assemblerResult as IOverlapDeNovoAssembly;
             if (overlapAssemblerResult != null)
             {
                 this.ScreenUpdate(false);
-                Workbook activeWorkBook = (Workbook)Globals.ThisAddIn.Application.ActiveWorkbook;
-                Worksheet activesheet = (Worksheet)Globals.ThisAddIn.Application.ActiveSheet;
-                Worksheet currentsheet = (Worksheet)activeWorkBook.Worksheets.Add(Type.Missing, activesheet, Type.Missing, Type.Missing);
+                Workbook activeWorkBook = Globals.ThisAddIn.Application.ActiveWorkbook;
+                var activesheet = (Worksheet)Globals.ThisAddIn.Application.ActiveSheet;
+                var currentsheet =
+                    (Worksheet)activeWorkBook.Worksheets.Add(Type.Missing, activesheet, Type.Missing, Type.Missing);
                 string[,] rangeData;
                 int rowNumber = 1;
                 int contigNumber = 1;
                 int rowCount, rowIndex, columnIndex;
 
-                ((Microsoft.Office.Interop.Excel._Worksheet)currentsheet).Activate();
+                ((_Worksheet)currentsheet).Activate();
                 Globals.ThisAddIn.Application.ActiveWindow.Zoom = ZoomLevel;
 
-                currentsheet.Name = this.GetValidFileNames("ConsensusView" + this.currentConsensusSheetNumber.ToString(CultureInfo.CurrentCulture));
+                currentsheet.Name =
+                    this.GetValidFileNames(
+                        "ConsensusView" + this.currentConsensusSheetNumber.ToString(CultureInfo.CurrentCulture));
                 this.currentConsensusSheetNumber++;
                 foreach (Contig contig in overlapAssemblerResult.Contigs)
                 {
                     // Write Header
-                    Range header = currentsheet.get_Range("A" + rowNumber.ToString(CultureInfo.CurrentCulture), Type.Missing);
+                    Range header = currentsheet.get_Range(
+                        "A" + rowNumber.ToString(CultureInfo.CurrentCulture),
+                        Type.Missing);
                     WriteRangeValue(header, "Contig" + contigNumber.ToString(CultureInfo.CurrentCulture));
 
                     ISequence contigSequence = contig.Consensus;
-                    Range currentRange = currentsheet.get_Range("B" + rowNumber.ToString(CultureInfo.CurrentCulture), Type.Missing);
+                    Range currentRange = currentsheet.get_Range(
+                        "B" + rowNumber.ToString(CultureInfo.CurrentCulture),
+                        Type.Missing);
 
                     long numberofCharacters = 1;
                     if (contigSequence.Count > MaxExcelColumns)
@@ -3628,14 +4038,12 @@ namespace BiodexExcel
 
                     int columnCount = 1;
 
-                    rowCount = (int)Math.Ceiling((decimal)contigSequence.Count / (decimal)MaxExcelColumns);
+                    rowCount = (int)Math.Ceiling(contigSequence.Count / (decimal)MaxExcelColumns);
                     rowIndex = 0;
                     columnIndex = 0;
-                    rangeData = new string[
-                            rowCount,
-                            contigSequence.Count > MaxExcelColumns
-                                ? MaxExcelColumns
-                                : contigSequence.Count];
+                    rangeData =
+                        new string[rowCount,
+                            contigSequence.Count > MaxExcelColumns ? MaxExcelColumns : contigSequence.Count];
 
                     for (long i = 0; i < contigSequence.Count; i += numberofCharacters)
                     {
@@ -3654,7 +4062,7 @@ namespace BiodexExcel
                         columnCount++;
                     }
 
-                    StringBuilder formulaBuilder = new StringBuilder();
+                    var formulaBuilder = new StringBuilder();
                     string formula = string.Empty;
                     string name = string.Empty;
                     if (columnCount > 1)
@@ -3667,11 +4075,23 @@ namespace BiodexExcel
                         formulaBuilder.Append("!");
                         formulaBuilder.Append("$B$" + rowNumber);
                         formulaBuilder.Append(":$");
-                        formulaBuilder.Append(GetColumnString(columnCount) + "$" + rowNumber.ToString(CultureInfo.CurrentCulture));
+                        formulaBuilder.Append(
+                            GetColumnString(columnCount) + "$" + rowNumber.ToString(CultureInfo.CurrentCulture));
                         formula = formulaBuilder.ToString();
-                        name = Properties.Resources.CONTIG + contigNumber.ToString(CultureInfo.CurrentCulture);
+                        name = Resources.CONTIG + contigNumber.ToString(CultureInfo.CurrentCulture);
 
-                        currentsheet.Names.Add(GetValidFileNames(name), formula, true, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
+                        currentsheet.Names.Add(
+                            this.GetValidFileNames(name),
+                            formula,
+                            true,
+                            Type.Missing,
+                            Type.Missing,
+                            Type.Missing,
+                            Type.Missing,
+                            Type.Missing,
+                            Type.Missing,
+                            Type.Missing,
+                            Type.Missing);
                     }
 
                     rowNumber++;
@@ -3685,7 +4105,8 @@ namespace BiodexExcel
                         ISequence assembledSequence = assembled.Sequence;
 
                         // Write Header
-                        Range sequenceHeader = currentsheet.get_Range("A" + rowNumber.ToString(CultureInfo.CurrentCulture), Type.Missing);
+                        Range sequenceHeader =
+                            currentsheet.get_Range("A" + rowNumber.ToString(CultureInfo.CurrentCulture), Type.Missing);
                         WriteRangeValue(sequenceHeader, assembledSequence.ID);
 
                         if (assembled.IsComplemented && assembled.IsReversed)
@@ -3706,7 +4127,10 @@ namespace BiodexExcel
 
                         long startingColumn = assembled.Position / numberofCharacters;
                         startingColumn++;
-                        currentRange = currentsheet.get_Range(GetColumnString(startingColumn + 1) + rowNumber.ToString(CultureInfo.CurrentCulture), Type.Missing);
+                        currentRange =
+                            currentsheet.get_Range(
+                                GetColumnString(startingColumn + 1) + rowNumber.ToString(CultureInfo.CurrentCulture),
+                                Type.Missing);
 
                         long startingIndex = 0;
 
@@ -3717,8 +4141,9 @@ namespace BiodexExcel
                             long startextractCharacters = endingIndex - assembled.Position + 1;
                             long numberOfSpaces = Math.Abs(assembled.Position - cellStartIndex);
 
-                            string firstcell = assembledSequence.GetSubSequence(0, startextractCharacters).ConvertToString();
-                            StringBuilder sb = new StringBuilder();
+                            string firstcell =
+                                assembledSequence.GetSubSequence(0, startextractCharacters).ConvertToString();
+                            var sb = new StringBuilder();
 
                             for (int i = 1; i <= numberOfSpaces; i++)
                             {
@@ -3731,14 +4156,12 @@ namespace BiodexExcel
                             currentRange = currentRange.Next;
                         }
 
-                        rowCount = (int)Math.Ceiling((decimal)assembledSequence.Count / (decimal)MaxExcelColumns);
+                        rowCount = (int)Math.Ceiling(assembledSequence.Count / (decimal)MaxExcelColumns);
                         rowIndex = 0;
                         columnIndex = 0;
-                        rangeData = new string[
-                                rowCount,
-                                assembledSequence.Count > MaxExcelColumns
-                                    ? MaxExcelColumns
-                                    : assembledSequence.Count];
+                        rangeData =
+                            new string[rowCount,
+                                assembledSequence.Count > MaxExcelColumns ? MaxExcelColumns : assembledSequence.Count];
 
                         for (long i = startingIndex; i < assembledSequence.Count; i += numberofCharacters)
                         {
@@ -3770,10 +4193,24 @@ namespace BiodexExcel
                             formulaBuilder.Append("!$");
                             formulaBuilder.Append(GetColumnString(startingColumn + 1) + "$" + initialRowNumber);
                             formulaBuilder.Append(":$");
-                            formulaBuilder.Append(GetColumnString(startingColumn + columnCount - 1) + "$" + rowNumber.ToString(CultureInfo.CurrentCulture));
+                            formulaBuilder.Append(
+                                GetColumnString(startingColumn + columnCount - 1) + "$"
+                                + rowNumber.ToString(CultureInfo.CurrentCulture));
                             string sequenceFormula = formulaBuilder.ToString();
-                            name = Properties.Resources.CONTIG + contigNumber.ToString() + "_" + assembledSequence.ID + sequenceNumber.ToString(CultureInfo.CurrentCulture);
-                            currentsheet.Names.Add(GetValidFileNames(name), sequenceFormula, true, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
+                            name = Resources.CONTIG + contigNumber + "_" + assembledSequence.ID
+                                   + sequenceNumber.ToString(CultureInfo.CurrentCulture);
+                            currentsheet.Names.Add(
+                                this.GetValidFileNames(name),
+                                sequenceFormula,
+                                true,
+                                Type.Missing,
+                                Type.Missing,
+                                Type.Missing,
+                                Type.Missing,
+                                Type.Missing,
+                                Type.Missing,
+                                Type.Missing,
+                                Type.Missing);
                         }
 
                         rowNumber++;
@@ -3788,7 +4225,9 @@ namespace BiodexExcel
                 foreach (ISequence sequence in overlapAssemblerResult.UnmergedSequences)
                 {
                     // Write Header
-                    Range sequenceHeader = currentsheet.get_Range("A" + rowNumber.ToString(CultureInfo.CurrentCulture), Type.Missing);
+                    Range sequenceHeader = currentsheet.get_Range(
+                        "A" + rowNumber.ToString(CultureInfo.CurrentCulture),
+                        Type.Missing);
                     WriteRangeValue(sequenceHeader, "Unmerged Sequence_" + sequence.ID);
 
                     long numberofCharacters = 1;
@@ -3805,17 +4244,16 @@ namespace BiodexExcel
                         }
                     }
 
-                    Range currentRange = currentsheet.get_Range("B" + rowNumber.ToString(CultureInfo.CurrentCulture), Type.Missing);
+                    Range currentRange = currentsheet.get_Range(
+                        "B" + rowNumber.ToString(CultureInfo.CurrentCulture),
+                        Type.Missing);
 
                     int columnCount = 1;
-                    rowCount = (int)Math.Ceiling((decimal)sequence.Count / (decimal)MaxExcelColumns);
+                    rowCount = (int)Math.Ceiling(sequence.Count / (decimal)MaxExcelColumns);
                     rowIndex = 0;
                     columnIndex = 0;
-                    rangeData = new string[
-                            rowCount,
-                            sequence.Count > MaxExcelColumns
-                                ? MaxExcelColumns
-                                : sequence.Count];
+                    rangeData =
+                        new string[rowCount, sequence.Count > MaxExcelColumns ? MaxExcelColumns : sequence.Count];
 
                     for (long i = 0; i < sequence.Count; i += numberofCharacters)
                     {
@@ -3841,16 +4279,28 @@ namespace BiodexExcel
 
                         this.FillBackGroundColor(currentRange);
 
-                        StringBuilder formulaBuilder = new StringBuilder();
+                        var formulaBuilder = new StringBuilder();
                         formulaBuilder.Append("=");
                         formulaBuilder.Append(currentsheet.Name);
                         formulaBuilder.Append("!");
                         formulaBuilder.Append("$B$" + rowNumber);
                         formulaBuilder.Append(":$");
-                        formulaBuilder.Append(GetColumnString(columnCount) + "$" + rowNumber.ToString(CultureInfo.CurrentCulture));
+                        formulaBuilder.Append(
+                            GetColumnString(columnCount) + "$" + rowNumber.ToString(CultureInfo.CurrentCulture));
                         string formula = formulaBuilder.ToString();
-                        string name = Properties.Resources.UNMERGED_SEQUENCE + unmerged.ToString(CultureInfo.CurrentCulture);
-                        currentsheet.Names.Add(GetValidFileNames(name), formula, true, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
+                        string name = Resources.UNMERGED_SEQUENCE + unmerged.ToString(CultureInfo.CurrentCulture);
+                        currentsheet.Names.Add(
+                            this.GetValidFileNames(name),
+                            formula,
+                            true,
+                            Type.Missing,
+                            Type.Missing,
+                            Type.Missing,
+                            Type.Missing,
+                            Type.Missing,
+                            Type.Missing,
+                            Type.Missing,
+                            Type.Missing);
                     }
 
                     rowNumber++;
@@ -3870,13 +4320,13 @@ namespace BiodexExcel
         /// <param name="currentRange">Range whose background color has to be filled.</param>
         private void FillBackGroundColor(Range currentRange)
         {
-            ScreenUpdate(false);
+            this.ScreenUpdate(false);
             if (currentRange.FormatConditions.Count > 0)
             {
                 currentRange.FormatConditions.Delete();
             }
 
-            foreach (KeyValuePair<byte, Color> color in this.colorMap)
+            foreach (var color in this.colorMap)
             {
                 if (color.Value == null) // skip if no color specified
                 {
@@ -3888,7 +4338,7 @@ namespace BiodexExcel
                 }
 
                 Range keyExists = currentRange.Find(
-                    new string(new char[] { (char)color.Key }),
+                    new string(new[] { (char)color.Key }),
                     Missing.Value,
                     Missing.Value,
                     XlLookAt.xlWhole,
@@ -3900,11 +4350,13 @@ namespace BiodexExcel
 
                 if (null != keyExists)
                 {
-                    FormatCondition cond = (FormatCondition)currentRange.FormatConditions.Add(
+                    var cond =
+                        (FormatCondition)
+                        currentRange.FormatConditions.Add(
                             XlFormatConditionType.xlCellValue,
                             XlFormatConditionOperator.xlEqual,
-                            new string(new char[] { (char)color.Key }),
-                             Missing.Value,
+                            new string(new[] { (char)color.Key }),
+                            Missing.Value,
                             Missing.Value,
                             Missing.Value,
                             Missing.Value,
@@ -3914,7 +4366,7 @@ namespace BiodexExcel
                 }
             }
 
-            ScreenUpdate(true);
+            this.ScreenUpdate(true);
         }
 
         /// <summary>
@@ -3925,16 +4377,16 @@ namespace BiodexExcel
         /// <param name="e">Event data.</param>
         private void OnAssembleStarted(object sender, DoWorkEventArgs e)
         {
-            BackgroundWorker worker = sender as BackgroundWorker;
+            var worker = sender as BackgroundWorker;
             try
             {
                 if (worker != null)
                 {
-                    AssemblyInputEventArgs assemblerInput = e.Argument as AssemblyInputEventArgs;
+                    var assemblerInput = e.Argument as AssemblyInputEventArgs;
                     if (assemblerInput != null)
                     {
                         IDeNovoAssembly assemblerResult = RunAssembly(assemblerInput, worker);
-                        if (worker.CancellationPending == true)
+                        if (worker.CancellationPending)
                         {
                             e.Cancel = true;
                             return;
@@ -3946,7 +4398,7 @@ namespace BiodexExcel
             }
             catch (Exception ex)
             {
-                if (worker.CancellationPending == true)
+                if (worker.CancellationPending)
                 {
                     e.Cancel = true;
                     return;
@@ -3958,182 +4410,93 @@ namespace BiodexExcel
 
         #endregion
 
+        #region -- Enable-Disable Controls --
+
         /// <summary>
-        /// This event is triggered when any of the buttons in ribbon is clicked.
+        /// This method enables the given list of controls.
         /// </summary>
-        private void RibbonControl_Click(object sender, RibbonControlEventArgs e)
+        private void EnableAllControls()
         {
-            ResetStatus();
+            var groups = new List<RibbonGroup>();
+
+            groups.Add(this.groupImportExport);
+            groups.Add(this.groupAlignment);
+            groups.Add(this.groupWebService);
+            groups.Add(this.groupCharts);
+            groups.Add(this.grpGenomicInterval);
+            groups.Add(this.groupConfig);
+            groups.Add(this.groupAssembly);
+            groups.Add(this.groupNodeXL);
+
+            foreach (RibbonGroup group in groups)
+            {
+                foreach (RibbonControl control in group.Items)
+                {
+                    control.Enabled = true;
+                }
+            }
+
+            this.btnVennDiagram.Enabled = this.isNodeXLInstalled;
+            this.btnCancelSearch.Enabled = this.cancelSearchButtonState;
+            this.btnCancelAlign.Enabled = this.cancelAlignButtonState;
+            this.btnCancelAssemble.Enabled = this.cancelAssemblyButtonState;
         }
 
         /// <summary>
-        /// Reset the status to Ready
+        /// This method disables all controls in the ribbon including generic controls.
         /// </summary>
-        private void ResetStatus()
+        private void DisableAllControls()
         {
-            this.ChangeStatusBar(Resources.STATUS_READY);
-        }
+            var groups = new List<RibbonGroup>();
 
-        #region Export options
+            groups.Add(this.groupImportExport);
+            groups.Add(this.groupAlignment);
+            groups.Add(this.groupWebService);
+            groups.Add(this.groupCharts);
+            groups.Add(this.grpGenomicInterval);
+            groups.Add(this.groupConfig);
+            groups.Add(this.groupAssembly);
+            groups.Add(this.groupNodeXL);
 
-        /// <summary>
-        /// Export data from sheets to a particulat sequence file format
-        /// </summary>
-        void OnExportClick(object sender, RibbonControlEventArgs e)
-        {
-            ISequenceFormatter formatter = ((sender as RibbonButton).Tag as ISequenceFormatter);
-            if (formatter is FastAFormatter || formatter is FastQFormatter || formatter is GenBankFormatter || formatter is GffFormatter)
+            foreach (RibbonGroup group in groups)
             {
-                InputSelection sequenceSelection = new InputSelection();
-
-                if (formatter is GenBankFormatter)
+                foreach (RibbonControl control in group.Items)
                 {
-                    sequenceSelection.MaximumSequenceCount = 1;
-                    sequenceSelection.MinimumSequenceCount = 1;
-                }
-
-                sequenceSelection.GetSequencesForExport(DoExportSequence, formatter);
-            }
-            else
-            {
-                // as its not a ISequenceFormatter try to cast it to ISequenceRangeFormatter
-                ISequenceRangeFormatter rangeformatter = ((sender as RibbonButton).Tag as ISequenceRangeFormatter);
-
-                if (rangeformatter is ISequenceRangeFormatter)
-                {
-                    InputSelection sequenceSelection = new InputSelection();
-                    sequenceSelection.SequenceLabels = new string[] { Resources.Export_BED_SequenceRangeString };
-                    sequenceSelection.MaximumSequenceCount = 1;
-                    sequenceSelection.PromptForSequenceName = false;
-                    sequenceSelection.GetInputSequenceRanges(DoExportRangeSequence, false, false, false, rangeformatter);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Method which will export a parsed BED file
-        /// </summary>
-        /// <param name="e">Event Arguments</param>
-        private void DoExportRangeSequence(InputSequenceRangeSelectionEventArg e)
-        {
-            TextWriter sequenceWriter = null;
-            //todo: Below line used hard coded BEDFormatter, have to get it from args later on
-            ISequenceRangeFormatter formatter = new Bio.IO.Bed.BedFormatter();
-            System.Windows.Forms.SaveFileDialog saveDialog = new System.Windows.Forms.SaveFileDialog();
-
-            saveDialog.Filter = "BED Files|*.BED";
-
-            try
-            {
-                if (e.Sequences[0].GroupIDs.Count() > 0)
-                {
-                    if (saveDialog.ShowDialog() == DialogResult.OK)
-                    {
-                        // Get a textwriter to the file which will append text to it.
-                        sequenceWriter = new StreamWriter(saveDialog.FileName, false);
-                        formatter.Format(e.Sequences[0], sequenceWriter);
-                    }
-                }
-                else
-                {
-                    MessageBox.Show(Resources.EMPTY_SEQUENCE_RANGE, Properties.Resources.CAPTION, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, Properties.Resources.CAPTION, MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            finally
-            {
-                if (sequenceWriter != null)
-                {
-                    sequenceWriter.Close();
+                    control.Enabled = false;
                 }
             }
         }
 
         /// <summary>
-        /// Method which will export the parsed data to the appropriate file format
+        /// Raised when a workbook switches to another one or when its closed.
         /// </summary>
-        /// <param name="sequences"></param>
-        /// <param name="args"></param>
-        private void DoExportSequence(List<ISequence> sequences, params object[] args)
+        /// <param name="Wb">workbook being deactivated</param>
+        private void OnWorkbookDeactivate(Workbook Wb)
         {
-            bool openedFormatter = false;
-            ISequenceFormatter formatter = args[0] as ISequenceFormatter;
-            System.Windows.Forms.SaveFileDialog saveDialog = new System.Windows.Forms.SaveFileDialog();
-
-            if (formatter is FastAFormatter)
-                saveDialog.Filter = "FastA Files|*.FastA";
-            else if (formatter is FastQFormatter)
-                saveDialog.Filter = "FastQ Files|*.FastQ";
-            else if (formatter is GenBankFormatter)
-                saveDialog.Filter = "GenBank Files|*.gbk";
-            else if (formatter is GffFormatter)
-                saveDialog.Filter = "Gff Files|*.gff";
-            try
+            if (Globals.ThisAddIn.Application.Workbooks.Count == 1) // If count is one and is deactivating, it is closing!
             {
-                if (saveDialog.ShowDialog() == DialogResult.OK)
-                {
-                    // Remove file is exists
-                    if (File.Exists(saveDialog.FileName))
-                        File.Delete(saveDialog.FileName);
-
-                    // Get a textwriter to the file which will append text to it.
-                    formatter.Open(saveDialog.FileName);
-                    openedFormatter = true;
-
-                    // Check the formatter chosen, Loop through if there are multiple sequences selected and append to the file
-                    if (formatter is FastAFormatter || formatter is FastQFormatter || formatter is GenBankFormatter)
-                    {
-                        foreach (ISequence currentSequence in sequences)
-                        {
-                            formatter.Write(currentSequence);
-                        }
-                    }
-                    else if (formatter is GffFormatter)
-                    {
-                        GffFormatter gffFormatter = formatter as GffFormatter;
-                        if (gffFormatter != null)
-                        {
-                            gffFormatter.ShouldWriteSequenceData = true;
-                        }
-
-                        foreach (ISequence currentSequence in sequences)
-                        {
-                            formatter.Write(currentSequence);
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, Properties.Resources.CAPTION, MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            finally
-            {
-                if (openedFormatter)
-                    formatter.Close();
+                this.DisableAllControls();
             }
         }
 
-        #endregion
-
-        private void btnUserManual_Click(object sender, RibbonControlEventArgs e)
+        /// <summary>
+        /// This event is fired when a workbook is activated.
+        /// this event enables all controls in the Generic group.
+        /// </summary>
+        /// <param name="workBook">Workbook being opened.</param>
+        private void OnWorkBookOpen(Workbook workBook)
         {
-            string userGuidePath = MBFInstallationPath + Properties.Resources.UserGuideRelativePath;
+            if (!SequenceCache.IsInitialized)
+            {
+                SequenceCache.Initialize();
+            }
 
-            if (File.Exists(userGuidePath))
-            {
-                System.Diagnostics.Process.Start(userGuidePath);
-            }
-            else
-            {
-                MessageBox.Show(Properties.Resources.NoUserGuidePresent, Properties.Resources.CAPTION, MessageBoxButtons.OK);
-            }
+            this.EnableAllControls();
+            this.LoadSheetNames(Globals.ThisAddIn.Application.ActiveWorkbook);
         }
+
+        #endregion -- Enable-Disable groups --
 
         #endregion -- Private Methods --
-
     }
 }

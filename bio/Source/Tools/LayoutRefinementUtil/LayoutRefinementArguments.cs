@@ -54,9 +54,12 @@ namespace LayoutRefinementUtil
             runAlgorithm.Restart();
             FileInfo inputFileinfo = new FileInfo(this.FilePath[1]);
             long inputFileLength = inputFileinfo.Length;
-            inputFileinfo = null;
-            FastASequencePositionParser queryParser = new FastASequencePositionParser(this.FilePath[1], true);
-            queryParser.CacheSequencesForRandomAccess();
+            FastASequencePositionParser queryParser;
+            using(var input = File.OpenRead(FilePath[1]))
+            {
+                queryParser = new FastASequencePositionParser(input, true);
+                queryParser.CacheSequencesForRandomAccess();
+            }
             runAlgorithm.Stop();
 
             if (this.Verbose)
@@ -69,9 +72,9 @@ namespace LayoutRefinementUtil
 
             inputFileinfo = new FileInfo(this.FilePath[0]);
             inputFileLength = inputFileinfo.Length;
-            inputFileinfo = null;
             runAlgorithm.Restart();
-            using (DeltaAlignmentCollection deltaCollection = new DeltaAlignmentCollection(this.FilePath[0], queryParser))
+            using (var input = File.OpenRead(FilePath[0]))
+            using (DeltaAlignmentCollection deltaCollection = new DeltaAlignmentCollection(input, queryParser))
             {
                 runAlgorithm.Stop();
 
@@ -116,7 +119,8 @@ namespace LayoutRefinementUtil
         /// <param name="outputfilename">Output file name.</param>
         private static void WriteSortedDelta(DeltaAlignmentSorter sorter, string unsortedDeltaFilename, FastASequencePositionParser queryParser, string outputfilename)
         {
-            using (DeltaAlignmentParser unsortedDeltaParser = new DeltaAlignmentParser(unsortedDeltaFilename, queryParser))
+            using (var unsortedReads = File.OpenRead(unsortedDeltaFilename))
+            using (DeltaAlignmentParser unsortedDeltaParser = new DeltaAlignmentParser(unsortedReads, queryParser))
             {
                 TextWriter textWriterConsoleOutSave = Console.Out;
                 StreamWriter streamWriterConsoleOut = null;

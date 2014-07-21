@@ -1,82 +1,34 @@
-﻿namespace BiodexExcel.Visualizations.Common
+﻿using System;
+
+using Bio.Web.Blast;
+
+namespace BiodexExcel.Visualizations.Common
 {
-    #region -- Using Directives --
-    using System;
-    using Bio.Web;
-    using Bio.Web.Blast;
-    #endregion
-    
     /// <summary>
     /// WebServiceInput args describes the custom event Args which contains 
     /// the service parameter list selected by the user.
     /// </summary>
     public class WebServiceInputEventArgs : EventArgs
     {
-        #region -- Private members --
+        /// <summary>
+        /// Web service name
+        /// </summary>
+        public string ServiceName { get; set; }
 
         /// <summary>
-        /// Describes the service parameters selected by the user
+        /// BLAST parameters
         /// </summary>
-        private BlastParameters serviceParam;
-
-        /// <summary>
-        /// Describes the name of the web service selected.
-        /// </summary>
-        private string webServiceName;
-
-        /// <summary>
-        /// Configuration parameters of service.
-        /// </summary>
-        private ConfigParameters configuration;
-
-        #endregion
-
-        #region -- Constructor(s) --
+        public BlastRequestParameters Parameters { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the WebServiceInputEventArgs class
         /// </summary>
+        /// <param name="serviceName">Web service name</param>
         /// <param name="parameters">the selected service parameters</param>
-        /// <param name="webServiceName">Name of the webservice used.</param>
-        /// <param name="configuration">Configuration of service</param>
-        public WebServiceInputEventArgs(
-                BlastParameters parameters,
-                string webServiceName,
-                ConfigParameters configuration)
+        public WebServiceInputEventArgs(string serviceName, BlastRequestParameters parameters)
         {
-            this.serviceParam = parameters;
-            this.webServiceName = webServiceName;
-            this.configuration = configuration;
+            this.ServiceName = serviceName;
+            this.Parameters = parameters;
         }
-
-        #endregion
-
-        #region -- Public Properties --
-
-        /// <summary>
-        /// Gets the the service parameters selected by the user
-        /// </summary>
-        public BlastParameters ServiceParameters
-        {
-            get { return this.serviceParam; }
-        }
-
-        /// <summary>
-        /// Gets the name of the web service selected.
-        /// </summary>
-        public string WebServiceName
-        {
-            get { return this.webServiceName; }
-        }
-
-        /// <summary>
-        /// Gets the the configuration parameters selected by the user
-        /// </summary>
-        public ConfigParameters Configuration
-        {
-            get { return this.configuration; }
-        }
-
-        #endregion
     }
 }

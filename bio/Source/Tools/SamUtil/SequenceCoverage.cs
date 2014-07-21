@@ -50,12 +50,12 @@ namespace SamUtil
             if (!SAMInput)
             {
                 BAMParser bamParser = new BAMParser();
-                alignmentMapobj = bamParser.Parse(inputFile);
+                alignmentMapobj = bamParser.ParseOne<SequenceAlignmentMap>(inputFile);
             }
             else
             {
                 SAMParser samParser = new SAMParser();
-                alignmentMapobj = samParser.Parse(inputFile);
+                alignmentMapobj = samParser.ParseOne<SequenceAlignmentMap>(inputFile);
             }
 
             IList<string> chromosomes = alignmentMapobj.GetRefSequences();

@@ -7,6 +7,7 @@ using Bio;
 using Bio.Algorithms.Alignment;
 using Bio.Algorithms.SuffixTree;
 using Bio.Extensions;
+using Bio.IO;
 using Bio.IO.FastA;
 using Bio.Util;
 
@@ -331,16 +332,16 @@ namespace NucmerUtil
         /// <returns>List of sequence.</returns>
         private static IEnumerable<ISequence> Parse(string fileName)
         {
-            FastAParser parser;
-            if (Bio.Util.Helper.IsZippedFasta(fileName))
+            if (Helper.IsZippedFasta(fileName))
             {
-                parser = new FastAZippedParser(fileName);
+                var parser = new GZipFastAParser();
+                return parser.Parse(fileName);
             }
             else
             {
-                parser = new FastAParser(fileName);
+                var parser = new FastAParser();
+                return parser.Parse(fileName);
             }
-            return parser.Parse();
         }
 
         /// <summary>
@@ -350,8 +351,11 @@ namespace NucmerUtil
         /// <returns>List of sequence.</returns>
         private static IEnumerable<ISequence> ParseWithPosition(string fileName)
         {
-            FastASequencePositionParser parser = new FastASequencePositionParser(fileName);
-            return parser.Parse();
+            using (var stream = File.OpenRead(fileName))
+            {
+                FastASequencePositionParser parser = new FastASequencePositionParser(stream);
+                return parser.Parse().ToList();
+            }
         }
 
         /// <summary>
