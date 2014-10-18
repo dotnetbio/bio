@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>bdb423a3-d3b6-434c-96ba-102025e2ea3b</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Shared</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)BAM\BAMSort.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BAM\BAMSortedIndex.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\BAMFormatterExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\BAMParserExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\FormatterExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\INamedStreamCreatorExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\ParserFormatterExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\PhylogeneticTreeFormatterExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\PhylogeneticTreeParserExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\SequenceAlignmentFormatterExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\SequenceAlignmentParserExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\ParserExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\SequenceRangeFormatterExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\SequenceRangeParserExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\WiggleFormatterExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\WiggleParserExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\XsvContigFormatterExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\XsvContigParserExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Util\CommentedStreamReader.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Util\FileAccessComparer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Util\FileUtils.cs" />
+  </ItemGroup>
+</Project>

@@ -3,7 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:app="clr-namespace:ReadSimulator" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" d:DesignHeight="460" SizeToContent="Height"
-    Title="Sequence Read Simulator" Height="Auto" Width="684">
+    Title="Sequence Read Simulator 2.0" Height="Auto" Width="684">
     
     <Window.Resources>
         <!-- Converter for a true/false radio button group -->

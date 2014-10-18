@@ -117,7 +117,8 @@ namespace PadenaUtil
             }
 
             runAlgorithm.Restart();
-            ValidateAmbiguousReads(reads);
+            if (reads.Any(s => s.Alphabet.HasAmbiguity))
+                throw new ArgumentException(Resources.AmbiguousReadsNotSupported);
             runAlgorithm.Stop();
 
             if (this.Verbose)
@@ -186,13 +187,12 @@ namespace PadenaUtil
 
             if (!string.IsNullOrEmpty(this.OutputFile))
             {
-                using (FastAFormatter formatter = new FastAFormatter(this.OutputFile))
+                FastAFormatter formatter = new FastAFormatter { AutoFlush = true };
+                using (formatter.Open(this.OutputFile))
                 {
-                    formatter.AutoFlush = true;
-
                     foreach (ISequence seq in assembly.AssembledSequences)
                     {
-                        formatter.Write(seq);
+                        formatter.Format(seq);
                     }
                 }
                 Output.WriteLine(OutputLevel.Information, "Wrote {0} sequences to {1}", assembly.AssembledSequences.Count, this.OutputFile);
@@ -200,17 +200,12 @@ namespace PadenaUtil
             else
             {
                 Output.WriteLine(OutputLevel.Information, "Assembled Sequence Results: {0} sequences", assembly.AssembledSequences.Count);
-                using (FastAFormatter formatter = new FastAFormatter())
-                {
-                    formatter.Open(new StreamWriter(Console.OpenStandardOutput()));
-                    formatter.MaxSymbolsAllowedPerLine = Math.Min(80, Console.WindowWidth - 2);
-                    formatter.AutoFlush = true;
-
-                    foreach (ISequence seq in assembly.AssembledSequences)
-                    {
-                        formatter.Write(seq);
-                    }
-                }
+                FastAFormatter formatter = new FastAFormatter {
+                    AutoFlush = true,
+                    MaxSymbolsAllowedPerLine = Math.Min(80, Console.WindowWidth - 2)
+                };
+                foreach (ISequence seq in assembly.AssembledSequences)
+                    formatter.Format(Console.OpenStandardOutput(), seq);
             }
         }
 
@@ -247,7 +242,7 @@ namespace PadenaUtil
         /// <summary>
         /// Parses the File.
         /// </summary>
-        protected IEnumerable<ISequence> ParseFile()
+        protected IList<ISequence> ParseFile()
         {
             return ParseFile(this.Filename);
         }
@@ -259,42 +254,29 @@ namespace PadenaUtil
         /// </summary>
         /// <param name="fileName">Filename to load data from</param>
         /// <returns>Enumerable set of ISequence elements</returns>
-        internal static IEnumerable<ISequence> ParseFile(string fileName)
+        internal static IList<ISequence> ParseFile(string fileName)
         {
-            ISequenceParser parser = SequenceParsers.FindParserByFileName(fileName);
-            if (parser == null)
-                parser = new FastAParser(fileName);
-
-            return parser.Parse();
+            ISequenceParser parser = SequenceParsers.FindParserByFileName(fileName) ?? new FastAParser();
+            return parser.Parse(fileName).ToList(); // so we don't read it multiple times.
         }
 
 
         /// <summary>
         /// Method to handle status changed event.
         /// </summary>
-        protected void AssemblerStatusChanged(object sender, StatusChangedEventArgs statusEventArgs)
+        protected void AssemblerStatusChanged(string statusMessage)
         {
             if (Verbose)
-                Output.WriteLine(OutputLevel.Verbose,  statusEventArgs.StatusMessage);
+                Output.WriteLine(OutputLevel.Verbose, statusMessage);
             else if (!Quiet)
             {
-                if (statusEventArgs.StatusMessage.StartsWith("Step", StringComparison.OrdinalIgnoreCase)
-                    && statusEventArgs.StatusMessage.Contains("Start"))
+                if (statusMessage.StartsWith("Step", StringComparison.OrdinalIgnoreCase)
+                    && statusMessage.Contains("Start"))
                 {
-                    int pos = statusEventArgs.StatusMessage.IndexOf(" - ", StringComparison.OrdinalIgnoreCase);
-                    Output.WriteLine(OutputLevel.Information, statusEventArgs.StatusMessage.Substring(0,pos));
+                    int pos = statusMessage.IndexOf(" - ", StringComparison.OrdinalIgnoreCase);
+                    Output.WriteLine(OutputLevel.Information, statusMessage.Substring(0, pos));
                 }
             }
-        }
-
-        /// <summary>
-        /// Checks for ambiguous reads if any, if found ArgumentException.
-        /// </summary>
-        /// <param name="reads">Input reads.</param>
-        protected static void ValidateAmbiguousReads(IEnumerable<ISequence> reads)
-        {
-            if (reads.Any(s => s.Alphabet.HasAmbiguity))
-                throw new ArgumentException(Properties.Resources.AmbiguousReadsNotSupported);
         }
         #endregion
     }

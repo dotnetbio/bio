@@ -5,7 +5,6 @@ using System.IO;
 using System.Linq;
 using Bio;
 using Bio.Algorithms.Assembly.Comparative;
-using Bio.IO;
 using Bio.IO.FastA;
 using Bio.Util;
 
@@ -16,10 +15,8 @@ namespace ConsensusUtil
     /// </summary>
     internal class ConsensusArguments
     {
-        #region Public Fields
-
         /// <summary>
-        /// Paths of deltaalignment and query file.
+        /// Paths of delta alignment and query file.
         /// </summary>
         public string[] FilePath = null;
 
@@ -37,10 +34,6 @@ namespace ConsensusUtil
         /// Display verbose logging during processing.
         /// </summary>
         public bool Verbose = false;
-        
-        #endregion
-
-        #region Public Method
 
         /// <summary>
         /// Refine layout in the delta alignments.
@@ -53,7 +46,6 @@ namespace ConsensusUtil
             runAlgorithm.Restart();
             FileInfo inputFileinfo = new FileInfo(this.FilePath[1]);
             long inputFileLength = inputFileinfo.Length;
-            inputFileinfo = null;
             runAlgorithm.Stop();
 
             if (this.Verbose)
@@ -66,10 +58,11 @@ namespace ConsensusUtil
 
             inputFileinfo = new FileInfo(this.FilePath[0]);
             inputFileLength = inputFileinfo.Length;
-            inputFileinfo = null;
             runAlgorithm.Restart();
 
-            using (DeltaAlignmentCollection deltaCollection = new DeltaAlignmentCollection(this.FilePath[0], this.FilePath[1]))
+            using (var alignmentStream = File.OpenRead(this.FilePath[0]))
+            using (var readStream = File.OpenRead(this.FilePath[1]))
+            using (DeltaAlignmentCollection deltaCollection = new DeltaAlignmentCollection(alignmentStream, readStream))
             {
                 runAlgorithm.Stop();
 
@@ -98,10 +91,6 @@ namespace ConsensusUtil
             }
         }
 
-        #endregion
-
-        #region Private Methods
-
         /// <summary>
         /// Write sequences to the file
         /// </summary>
@@ -111,13 +100,13 @@ namespace ConsensusUtil
             if (!string.IsNullOrEmpty(this.OutputFile))
             {
                 int count = 0;
-                using (var formatter = new FastAFormatter(this.OutputFile))
+                var formatter = new FastAFormatter { AutoFlush = true };
+                using (formatter.Open(this.OutputFile))
                 {
-                    formatter.AutoFlush = true;
                     foreach (ISequence sequence in sequences)
                     {
                         count++;
-                        formatter.Write(sequence);
+                        formatter.Format(sequence);
                     }
                 }
                 Output.WriteLine(OutputLevel.Information, "Wrote {0} sequences to {1}.", count, this.OutputFile);
@@ -133,6 +122,5 @@ namespace ConsensusUtil
                 }
             }
         }
-        #endregion
     }
 }

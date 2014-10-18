@@ -62,12 +62,12 @@ namespace SamUtil
             if (!SAMInput)
             {
                 BAMParser bamParser = new BAMParser();
-                alignmentMapobj = bamParser.Parse(filename);
+                alignmentMapobj = bamParser.ParseOne<SequenceAlignmentMap>(filename);
             }
             else
             {
                 SAMParser samParser = new SAMParser();
-                alignmentMapobj = samParser.Parse(filename);
+                alignmentMapobj = samParser.ParseOne<SequenceAlignmentMap>(filename);
             }
 
             // get reads from sequence alignment map object.
@@ -80,22 +80,19 @@ namespace SamUtil
 
             // Get the orphan regions.
             var orphans = pairedReads.Where(PR => PR.PairedType == PairedReadType.Orphan);
-
-            if (orphans.Count() == 0)
+            int count = orphans.Count();
+            if (count == 0)
             {
                 Console.WriteLine("No Orphans to display");
             }
 
-            List<ISequenceRange> orphanRegions = new List<ISequenceRange>(orphans.Count());
-            foreach (PairedRead orphanRead in orphans)
-            {
-                orphanRegions.Add(GetRegion(orphanRead.Read1));
-            }
+            var orphanRegions = new List<ISequenceRange>(count);
+            orphanRegions.AddRange(orphans.Select(orphanRead => GetRegion(orphanRead.Read1)));
 
             // Get sequence range grouping object.
             SequenceRangeGrouping rangeGroup = new SequenceRangeGrouping(orphanRegions);
 
-            if (rangeGroup.GroupIDs.Count() == 0)
+            if (!rangeGroup.GroupIDs.Any())
             {
                 Console.Write("\r\nNo Orphan reads to display");
             }
@@ -107,7 +104,7 @@ namespace SamUtil
 
             SequenceRangeGrouping mergedRegions = rangeGroup.MergeOverlaps();
 
-            if (mergedRegions.GroupIDs.Count() == 0)
+            if (!mergedRegions.GroupIDs.Any())
             {
                 Console.Write("\r\nNo hot spots to display");
             }

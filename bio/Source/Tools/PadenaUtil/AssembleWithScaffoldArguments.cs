@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
+
 using Bio;
 using Bio.Algorithms.Assembly;
 using Bio.Algorithms.Assembly.Padena;
@@ -77,7 +79,8 @@ namespace PadenaUtil
             }
 
             runAlgorithm.Restart();
-            ValidateAmbiguousReads(reads);
+            if (reads.Any(s => s.Alphabet.HasAmbiguity))
+                throw new ArgumentException(Resources.AmbiguousReadsNotSupported);
             runAlgorithm.Stop();
 
             if (this.Verbose)

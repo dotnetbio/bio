@@ -207,8 +207,8 @@ It is recommended that you use odd numbers to ensure palindrome sequences do not
     <value>Are you sure you want to continue (Y/N)?</value>
   </data>
   <data name="PadenaSplashScreen" xml:space="preserve">
-    <value>Padena Utility v1.1
-Copyright (c) 2011-2013, The Outercurve Foundation.
+    <value>Padena Utility v2.0
+Copyright (c) 2011-2014, The Outercurve Foundation.
 </value>
   </data>
   <data name="PadenaUtilHelp" xml:space="preserve">

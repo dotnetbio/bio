@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.IO;
 using Bio;
 using Bio.IO.FastA;
-using Bio.Util;
 using Bio.Util.ArgumentParser;
 using System.Collections.Concurrent;
 using System.Threading.Tasks;
@@ -117,8 +116,8 @@ namespace FilterReadsUtil
         /// <returns>String to display in slpash screen.</returns>
         private static string SplashString()
         {
-            const string splashString = "\nFilterReadsUtil v1.1 - Utility to filter reads"
-                                      + "\n  Copyright (c) 2011-2013, The Outercurve Foundation.";
+            const string splashString = "\nFilterReadsUtil v2.0 - Utility to filter reads"
+                                      + "\n  Copyright (c) 2011-2014, The Outercurve Foundation.";
             return (splashString);
         }
 
@@ -146,7 +145,6 @@ namespace FilterReadsUtil
                     {
                         FileInfo refFileinfo = new FileInfo(options.Filename);
                         long refFileLength = refFileinfo.Length;
-                        refFileinfo = null;
                         swFilterUtil.Restart();
                         IEnumerable<ISequence> reads = ParseFastA(options.Filename);
                         IEnumerable<ISequence> filteredReads = FilterAmbiguousReads(reads);
@@ -154,11 +152,7 @@ namespace FilterReadsUtil
                         if (!string.IsNullOrEmpty(options.AmbiguousOutputFile))
                         {
                             filteredAmbiguousReads = new BlockingCollection<ISequence>();
-
-                            task = Task.Factory.StartNew(() =>
-                              {
-                                  WriteAmbiguousReads(filteredAmbiguousReads, options.AmbiguousOutputFile);
-                              });
+                            task = Task.Run(() => WriteAmbiguousReads(filteredAmbiguousReads, options.AmbiguousOutputFile));
                         }
 
                         WriteOutput(filteredReads);
@@ -181,7 +175,7 @@ namespace FilterReadsUtil
         }
 
         /// <summary>
-        /// Seperates the abiguous reads from the specified input reads from Unambiguous reads.
+        /// Separates the ambiguous reads from the specified input reads from Unambiguous reads.
         /// Unambiguous reads are returned as IEnumerable, and ambiguous reads are added to the 
         /// filteredAmbiguousReads collection.
         /// </summary>
@@ -215,8 +209,8 @@ namespace FilterReadsUtil
         private static IEnumerable<ISequence> ParseFastA(string filename)
         {
             // A new parser to import a file
-            FastAParser parser = new FastAParser(filename);
-            return parser.Parse();
+            FastAParser parser = new FastAParser();
+            return parser.Parse(filename);
         }
 
         /// <summary>
@@ -225,9 +219,10 @@ namespace FilterReadsUtil
         /// <param name="reads">Reads to write.</param>
         private static void WriteOutput(IEnumerable<ISequence> reads)
         {
+            FastAFormatter formatter = new FastAFormatter();
             foreach (ISequence seq in reads)
             {
-                Console.WriteLine(FastAFormatter.FormatString(seq));
+                Console.WriteLine(formatter.FormatString(seq));
             }
         }
 
@@ -238,18 +233,18 @@ namespace FilterReadsUtil
         /// <param name="ambiguousFilename">File to write.</param>
         private static void WriteAmbiguousReads(BlockingCollection<ISequence> ambiguousReads, string ambiguousFilename)
         {
-            FastAFormatter formatter = new FastAFormatter(ambiguousFilename);
-            while (!ambiguousReads.IsCompleted)
+            FastAFormatter formatter = new FastAFormatter() { AutoFlush = true };
+            using (formatter.Open(ambiguousFilename))
             {
-                ISequence seq;
-                if (ambiguousReads.TryTake(out seq, -1))
+                while (!ambiguousReads.IsCompleted)
                 {
-                    formatter.Write(seq);
-                    formatter.Flush();
+                    ISequence seq;
+                    if (ambiguousReads.TryTake(out seq, -1))
+                    {
+                        formatter.Format(seq);
+                    }
                 }
             }
-
-            formatter.Close();
         }
 
         /// <summary>

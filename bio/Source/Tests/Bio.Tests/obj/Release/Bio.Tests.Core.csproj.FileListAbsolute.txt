@@ -1,0 +1,7 @@
+C:\Users\Mark\Source\bio2\bio\Source\Tests\Bio.Tests\obj\Release\Bio.Tests.Core.csprojResolveAssemblyReference.cache
+C:\Users\Mark\Source\bio2\bio\Source\Tests\Bio.Tests\obj\Release\Bio.Tests.Properties.Resource.resources
+C:\Users\Mark\Source\bio2\bio\Source\Tests\Bio.Tests\obj\Release\Bio.Tests.Core.csproj.GenerateResource.Cache
+C:\Users\Mark\Source\bio2\bio\Source\Build\Binaries\Release\Bio.Tests.dll
+C:\Users\Mark\Source\bio2\bio\Source\Build\Binaries\Release\Bio.Tests.pdb
+C:\Users\Mark\Source\bio2\bio\Source\Tests\Bio.Tests\obj\Release\Bio.Tests.dll
+C:\Users\Mark\Source\bio2\bio\Source\Tests\Bio.Tests\obj\Release\Bio.Tests.pdb

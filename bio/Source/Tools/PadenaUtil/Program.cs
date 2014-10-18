@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Runtime.InteropServices;
+
 using PadenaUtil.Properties;
 using Bio.Util.ArgumentParser;
 using System.Globalization;
@@ -68,8 +68,8 @@ namespace PadenaUtil
             Process p = Process.GetCurrentProcess();
             Console.WriteLine(Resources.PeakWorkingSet64, FormatMemorySize(p.PeakWorkingSet64));
             Console.WriteLine(Resources.TotalProcessorTime, p.TotalProcessorTime);
-            Debug.Print(Resources.PeakVirtualMemorySize64, FormatMemorySize(p.PeakVirtualMemorySize64));
-            Debug.Print(Resources.PeakPagedMemorySize64, FormatMemorySize(p.PeakPagedMemorySize64));
+            Console.WriteLine(Resources.PeakVirtualMemorySize64, FormatMemorySize(p.PeakVirtualMemorySize64));
+            Console.WriteLine(Resources.PeakPagedMemorySize64, FormatMemorySize(p.PeakPagedMemorySize64));
         }
 
         #region Private Methods

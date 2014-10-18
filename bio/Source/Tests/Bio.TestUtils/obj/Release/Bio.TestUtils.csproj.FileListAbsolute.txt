@@ -1,0 +1,5 @@
+C:\Users\Mark\Source\bio2\bio\Source\Tests\Bio.TestUtils\obj\Release\Bio.TestUtils.csprojResolveAssemblyReference.cache
+C:\Users\Mark\Source\bio2\bio\Source\Build\Binaries\Release\Bio.TestUtils.dll
+C:\Users\Mark\Source\bio2\bio\Source\Build\Binaries\Release\Bio.TestUtils.pdb
+C:\Users\Mark\Source\bio2\bio\Source\Tests\Bio.TestUtils\obj\Release\Bio.TestUtils.dll
+C:\Users\Mark\Source\bio2\bio\Source\Tests\Bio.TestUtils\obj\Release\Bio.TestUtils.pdb

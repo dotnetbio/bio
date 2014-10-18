@@ -7,15 +7,15 @@ namespace ComparativeUtil
     /// </summary>
     public static class Output
     {
-        private static OutputLevel _traceLevel;
+        private static OutputLevel traceLevel;
 
         /// <summary>
         /// The current output level
         /// </summary>
         public static OutputLevel TraceLevel
         {
-            get { return _traceLevel | OutputLevel.Required | OutputLevel.Results | OutputLevel.Error; }
-            set { _traceLevel = value; }
+            get { return traceLevel | OutputLevel.Required | OutputLevel.Results | OutputLevel.Error; }
+            set { traceLevel = value; }
         }
 
         /// <summary>
