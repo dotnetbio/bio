@@ -190,7 +190,7 @@
     <MinimumScore>0</MinimumScore>
     <FixedSeparation>0</FixedSeparation>
     <MUMAlignLength>8</MUMAlignLength>
-    <ClustCount1>529</ClustCount1>
+    <ClustCount1>530</ClustCount1>
     <ClustCount2>518</ClustCount2>
     <AlphabetName>Dna</AlphabetName>
     <EdgeStartIndexes>TestUtils\Medium_Size_Start_Index.txt</EdgeStartIndexes>

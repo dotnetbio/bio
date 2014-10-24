@@ -254,6 +254,8 @@ namespace Bio.Tests.Algorithms.Alignment.NUCmer
         [TestCategory("Priority0")]
         public void ValidateNUCmerGetClusters()
         {
+            // NOTE: Nigel ran this test with the same data through mmummer and mgaps and got the same result.
+
             // Gets the reference sequence from the FastA file
             string filePath = this.utilityObj.xmlUtil.GetTextValue(Constants.MediumSizeSequenceNodeName,
                 Constants.FilePathNode);
@@ -268,7 +270,6 @@ namespace Bio.Tests.Algorithms.Alignment.NUCmer
             var nuc = new Bio.Algorithms.Alignment.NUCmer(seqs1.First()) {
                 LengthOfMUM = 5,
                 MinimumScore = 0,
-                BreakLength = 0
             };
             var clusts = nuc.GetClusters(seqs2.First());
             string clustCount1 = this.utilityObj.xmlUtil.GetTextValue(
