@@ -208,7 +208,12 @@ namespace Bio.Algorithms.Alignment
         /// <returns>Returns clusters.</returns>
         public IList<Cluster> GetClusters(ISequence querySequence, bool isUniqueInReference = true, bool isReversed = false)
         {
+            // This program performs two steps in Mummer that are performed by different programs.  To diagnose problems,
+            // Run either of the stand alone programs (mummer or mgaps) and compare the output found here.
+
+            // This is equivalent to the nucmer step that calls  MUMMER
             var internalMumList = GetMumList(querySequence, isUniqueInReference);
+            // equivalent to the call to mgaps.
             var clusterList = internalMumList.Count > 0 ? GetClusters(internalMumList, false) : new List<Cluster>();
             if (isReversed)
             {

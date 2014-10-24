@@ -160,7 +160,7 @@ namespace Bio.Algorithms.Alignment
                 matches[counter1].IsGood = true;
             }
 
-            for (counter1 = 0; counter1 < matches.Count - 1; counter1++)
+            for (counter1 = 0; counter1 < matches.Count ; counter1++)
             {
                 long diagonalIndex, endIndex;
 

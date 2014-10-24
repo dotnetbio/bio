@@ -190,7 +190,7 @@ namespace Bio.Algorithms.MUMmer
         }
 
         /// <summary>
-        /// Align the list of input sequences using linear gap model.
+        /// Align the list of input sequences using a simple constant penalty gap model.
         /// </summary>
         /// <param name="inputSequences">The sequences to align.</param>
         /// <returns>A list of sequence alignments.</returns>
@@ -201,7 +201,7 @@ namespace Bio.Algorithms.MUMmer
         }
 
         /// <summary>
-        /// Align the reference sequence and query sequences using linear gap model.
+        /// Align the reference sequence and query sequences using an affine gap model.
         /// </summary>
         /// <param name="referenceSequence">Reference sequence.</param>
         /// <param name="querySequenceList">List of query sequence.</param>
