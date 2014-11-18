@@ -318,7 +318,7 @@ namespace Bio.IO.BAM
             {
                 var binStart = start >> 14;
                 FileOffset minStart;
-                if (refIndex.Bins.Count <= binStart)
+                if (refIndex.LinearIndex.Count > binStart)
                 {
                     minStart = refIndex.LinearIndex[binStart];
                 }
