@@ -31,6 +31,7 @@ namespace Bio.Tests.IO.GenBank
 
         #region Fields
         private const string _genBankFile_LocusTokenParserTest = @"TestUtils\GenBank\LocusTokenParserTest.gb";
+        private const string _genBankFile_EmptyOrganismClassificationTest = @"TestUtils\GenBank\EmptyOrganismClassificationTest.gb";
         private const string _genBankFile_WithTPAPrimaryData = @"TestUtils\GenBank\BK000016-tpa.gbk";
         private const string    _genBankFile_WithMultipleDBLines = @"TestUtils\GenBank\seq1.gbk";
         private const string _genBankFile_WithREFSEQPrimaryData = @"TestUtils\GenBank\NM_001747.gb";
@@ -264,6 +265,21 @@ ORIGIN
             // parse
             GenBankParser parser = new GenBankParser();
             ISequence seq = parser.Parse(_genBankFile_LocusTokenParserTest).FirstOrDefault();
+            Assert.IsNotNull(seq);
+        }
+
+        /// <summary>
+        /// This test used to fail.  The sequence is in a GenBank format and would fail if the classification of the 
+        /// ORGANISM was empty (a line with a single dot).
+        /// </summary>
+        [TestMethod]
+        [Priority(0)]
+        [TestCategory("Priority0")]
+        public void TestGenBankEmptyOrganismClassification()
+        {
+            // parse
+            GenBankParser parser = new GenBankParser();
+            ISequence seq = parser.Parse(_genBankFile_EmptyOrganismClassificationTest).FirstOrDefault();
             Assert.IsNotNull(seq);
         }
 
