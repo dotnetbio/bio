@@ -12,6 +12,7 @@ bio/Tests/Bio.Tests.Pamsam/bin/*
 bio/Tests/Bio.Tests.Padena/bin/*
 bio/build/Binaries/Debug/*
 bio/build/Binaries/Release/*
-
-
-
+bio/Source/Build/Binaries/Debug/*
+bio/Source/Build/Binaries/Release/*
+bio/Source/**/bin/**
+bio/Source/**/obj/**
