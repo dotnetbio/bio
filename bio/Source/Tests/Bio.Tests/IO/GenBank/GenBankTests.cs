@@ -31,6 +31,7 @@ namespace Bio.Tests.IO.GenBank
 
         #region Fields
         private const string _genBankFile_LocusTokenParserTest = @"TestUtils\GenBank\LocusTokenParserTest.gb";
+        private const string _genBankFile_ParseOriginShifted = @"TestUtils\GenBank\ParseOriginShifted.gb";
         private const string _genBankFile_ParseVersionEmpty = @"TestUtils\GenBank\ParseVersionEmptyTest.gb";
         private const string _genBankFile_EmptyOrganismClassificationTest = @"TestUtils\GenBank\EmptyOrganismClassificationTest.gb";
         private const string _genBankFile_WithTPAPrimaryData = @"TestUtils\GenBank\BK000016-tpa.gbk";
@@ -297,6 +298,22 @@ ORIGIN
             // parse
             GenBankParser parser = new GenBankParser();
             ISequence seq = parser.Parse(_genBankFile_ParseVersionEmpty).FirstOrDefault();
+            Assert.IsNotNull(seq);
+        }
+
+        /// <summary>
+        /// This test used to fail.  The sequence is in a GenBank format and would fail if the
+        /// ORIGIN contents started at index 9 instead of 10. In rare occassions Vector NTI have 
+        /// produced such GenBank files.
+        /// </summary>
+        [TestMethod]
+        [Priority(0)]
+        [TestCategory("Priority0")]
+        public void TestGenBankParseOriginShifted()
+        {
+            // parse
+            GenBankParser parser = new GenBankParser();
+            ISequence seq = parser.Parse(_genBankFile_ParseOriginShifted).FirstOrDefault();
             Assert.IsNotNull(seq);
         }
 
