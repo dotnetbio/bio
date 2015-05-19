@@ -299,11 +299,14 @@ namespace Bio.IO.GenBank
                             }
                         }
 
-                        // second token contains primary ID
-                        m = Regex.Match(tokens[1], @"^GI:(?<primaryID>.*)");
-                        if (m.Success)
+                        if (tokens.Length > 1)
                         {
-                            metadata.Version.GiNumber = m.Groups["primaryID"].Value;
+                            // second token contains primary ID
+                            m = Regex.Match(tokens[1], @"^GI:(?<primaryID>.*)");
+                            if (m.Success)
+                            {
+                                metadata.Version.GiNumber = m.Groups["primaryID"].Value;
+                            }
                         }
 
                         line = GoToNextLine(line, stream);

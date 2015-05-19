@@ -371,6 +371,7 @@
     <None Include="$(MSBuildThisFileDirectory)TestUtils\GenBank\NC_001284.gbk" />
     <None Include="$(MSBuildThisFileDirectory)TestUtils\GenBank\NC_003070.gbk" />
     <None Include="$(MSBuildThisFileDirectory)TestUtils\GenBank\NM_001747.gb" />
+    <None Include="$(MSBuildThisFileDirectory)TestUtils\GenBank\ParseVersionEmptyTest.gb" />
     <None Include="$(MSBuildThisFileDirectory)TestUtils\GenBank\seq1.gbk" />
     <None Include="$(MSBuildThisFileDirectory)TestUtils\GenBank\U49845+D12555.gbk" />
     <None Include="$(MSBuildThisFileDirectory)TestUtils\GenBank\U49845.gbk" />
