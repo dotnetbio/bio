@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata minClientVersion="2.7.2">
     <id>NetBioCore.PCL</id>
-    <version>2.0.140630</version>
+    <version>2.0.141118</version>
     <authors>Various authors</authors>
     <owners>The Outercurve Foundation</owners>
     <licenseUrl>http://bio.codeplex.com/license</licenseUrl>

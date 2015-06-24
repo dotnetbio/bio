@@ -366,6 +366,7 @@
     <None Include="$(MSBuildThisFileDirectory)TestUtils\GenBankRepeatRegion.gbk" />
     <None Include="$(MSBuildThisFileDirectory)TestUtils\GenBank\BK000016-tpa.gbk" />
     <None Include="$(MSBuildThisFileDirectory)TestUtils\GenBank\D12555.gbk" />
+    <None Include="$(MSBuildThisFileDirectory)TestUtils\GenBank\EmptyOrganismClassificationTest.gb" />
     <None Include="$(MSBuildThisFileDirectory)TestUtils\GenBank\LocusTokenParserTest.gb" />
     <None Include="$(MSBuildThisFileDirectory)TestUtils\GenBank\NC_001284.gbk" />
     <None Include="$(MSBuildThisFileDirectory)TestUtils\GenBank\NC_003070.gbk" />

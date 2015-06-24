@@ -767,7 +767,7 @@ namespace Bio.IO.GenBank
             }
 
             metadata.Source.Organism.ClassLevels = classLevels;
-            if (classLevels.Trim().Length > 0)
+            if (classLevels.TrimEnd('.').Length > 0)
             {
                 string genus = classLevels.TrimEnd('.').Split(";".ToCharArray(), StringSplitOptions.RemoveEmptyEntries).Last().Trim();
                 if (!genus.Equals(metadata.Source.Organism.Genus.Trim()))
