@@ -299,11 +299,14 @@ namespace Bio.IO.GenBank
                             }
                         }
 
-                        // second token contains primary ID
-                        m = Regex.Match(tokens[1], @"^GI:(?<primaryID>.*)");
-                        if (m.Success)
+                        if (tokens.Length > 1)
                         {
-                            metadata.Version.GiNumber = m.Groups["primaryID"].Value;
+                            // second token contains primary ID
+                            m = Regex.Match(tokens[1], @"^GI:(?<primaryID>.*)");
+                            if (m.Success)
+                            {
+                                metadata.Version.GiNumber = m.Groups["primaryID"].Value;
+                            }
                         }
 
                         line = GoToNextLine(line, stream);
@@ -1039,7 +1042,7 @@ namespace Bio.IO.GenBank
             {
                 // Using a regex is too slow.
                 int len = line.Length;
-                int k = 10;
+                int k = line.Length > 8 && line[8] == ' ' ? 9 : 10;
                 while (k < len)
                 {
                     string seqData = line.Substring(k, Math.Min(10, len - k));

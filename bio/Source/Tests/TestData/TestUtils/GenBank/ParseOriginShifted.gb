@@ -1,0 +1,32 @@
+﻿LOCUS       AAB24880     74 aa            linear   DNA 08-MAY-1993
+DEFINITION  zinc finger [Homo sapiens].
+ACCESSION   AAB24880
+VERSION     .
+DBSOURCE    accession S52506.1
+KEYWORDS    .
+SOURCE      Homo sapiens (human)
+  ORGANISM  Homo sapiens
+            .
+REFERENCE   1  (residues 1 to 74)
+  AUTHORS   Saleh,M., Selleri,L., Little,P.F. and Evans,G.A.
+  TITLE     Isolation and expression of linked zinc finger gene clusters on
+            human chromosome 11q
+  JOURNAL   Genomics 14 (4), 970-978 (1992)
+   PUBMED   1339395
+  REMARK    GenBank staff at the National Library of Medicine created this
+            entry [NCBI gibbsq 122386] from the original journal article.
+COMMENT     Method: conceptual translation supplied by author.
+FEATURES             Location/Qualifiers
+     source          1..74
+                     /organism="Homo sapiens"
+                     /db_xref="taxon:9606"
+     Protein         1..74
+                     /name="zinc finger"
+     CDS             1..74
+                     /gene="ZNF123"
+                     /coded_by="S52506.1:1..222"
+ORIGIN      
+       1 CCTTCCATCG ATCGGAAAGA CTAGCTAGGG GCTGCAGGAA TTCGGGACAA AAGTCGCTTC 
+      61 GAAGCGGCGC GCCCCCGGAC CGGCTGTACA GGATTTAAAT GCGCTAGCGA ATTCTCATCA 
+      
+//
