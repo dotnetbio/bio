@@ -6,6 +6,7 @@
 **/obj/*
 **/Debug/*
 **/publish/*
+bio/Source/Build/*
 bio/bin/*
 bio/Tests/Bio.Tests.Web/bin/*
 bio/Tests/Bio.Tests.Web/obj/*
