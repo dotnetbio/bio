@@ -107,6 +107,38 @@ namespace Bio.Tests.Framework.IO.BAM
                               BAMParserParameters.FileName, false);
         }
 
+
+        /// <summary>
+        ///     Validate BAM Parse(filename) by passing valid BAM file
+        ///     Input : Small size BAM file.
+        ///     Output : Validation of aligned sequence.
+        /// </summary>
+        [TestMethod]
+        [Priority(0)]
+        [TestCategory("Priority0"), TestCategory("BAM")]
+        public void ValidateBAMParserWithDummyReads()
+        {
+            
+            string bamFilePath = utilityObj.xmlUtil.GetTextValue(Constants.BAMFileWithDummyReads,
+                                                                Constants.FilePathNode);
+            SequenceAlignmentMap seqAlignment = null;
+            BAMParser bamParser = null;
+            bamParser = new BAMParser();
+            seqAlignment = bamParser.ParseOne<SequenceAlignmentMap>(bamFilePath);
+            var seq = seqAlignment.QuerySequences.First();
+            Assert.AreEqual<string>("fakeref", seq.RName);
+            Assert.AreEqual<string>("1M", seq.CIGAR);
+            Assert.AreEqual<int>(10, seq.Pos);
+            Assert.IsNull(seq.QuerySequence);
+            var optField = seq.OptionalFields.First();
+            Assert.AreEqual<string>("CT", optField.Tag);
+            Assert.AreEqual<string>("Z", optField.VType);
+            Assert.AreEqual<string>(".;ESDN;", optField.Value);
+            Assert.IsTrue(seq.IsDummyRead);
+        }
+
+
+
         /// <summary>
         ///     Validate BAM ParseRange(filename,RefIndex) by passing valid BAM file
         ///     Input : Small size BAM file.
@@ -792,6 +824,7 @@ namespace Bio.Tests.Framework.IO.BAM
                     // Validate aligned sequences from BAM file.
                     for (int index = 0; index < alignedSeqs.Count; index++)
                     {
+                        Assert.IsFalse(alignedSeqs[index].IsDummyRead);
                         Assert.AreEqual(
                             new string(expectedSequencesList[index].Select(a => (char) a).ToArray()),
                             new string(alignedSeqs[index].QuerySequence.Select(a => (char) a).ToArray()));

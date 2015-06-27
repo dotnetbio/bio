@@ -2150,6 +2150,7 @@ namespace Bio.TestAutomation.Util
         public const string BAMTempIndexFileForSequenceAlignment = "TempIndexFileSequence.bam.bai";
         public const string BAMTempIndexFileForInvalidData = "InvalidTempIndexFile.bam.bai";
         public const string BAMFileWithRefSeqNode = "BAMFileWithRefSeq";
+        public const string BAMFileWithDummyReads = "BAMFileWithDummyReads";
         public const string BAMFileWithMultipleAlignedSeqsNode =
             "BAMFileWithMultipleAlignedSeqs";
         public const string BAMFileWithQualityValuesNode =

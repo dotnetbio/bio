@@ -1886,6 +1886,9 @@
     <None Include="$(MSBuildThisFileDirectory)TestUtils\SAMBAMTestData\BAMWithQualityValues.bam">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="$(MSBuildThisFileDirectory)TestUtils\SAMBAMTestData\DummyReads.bam">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\SAMBAMTestData\EmptyReaderLine.sam">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

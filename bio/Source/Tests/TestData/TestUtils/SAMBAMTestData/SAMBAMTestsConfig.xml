@@ -52,6 +52,9 @@
     <AlignedSeqCount>1</AlignedSeqCount>
     <ChromosomeName>chr20</ChromosomeName>
   </SeqRangeBAMFile>
+  <BAMFileWithDummyReads>
+    <FilePath>TestUtils\SAMBAMTestData\DummyReads.bam</FilePath>
+  </BAMFileWithDummyReads>
   <BAMFileWithRefSeq>
     <FilePath>TestUtils\SAMBAMTestData\NA07000.454.BCM.crossmatch.bam</FilePath>
     <ExpectedSequence>TestUtils\SAMBAMTestData\NA07000.454.BCM.crossmatchSeqAlignmentOutput.fa</ExpectedSequence>

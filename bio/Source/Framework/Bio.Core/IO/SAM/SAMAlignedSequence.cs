@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Bio.Algorithms.Alignment;
 using Bio.Util;
+using System.Linq;
 
 namespace Bio.IO.SAM
 {
@@ -89,6 +90,25 @@ namespace Bio.IO.SAM
             set
             {
                 seqHeader.RName = value;
+            }
+        }
+
+
+        /// <summary>
+        /// Is this read a special dummy read?  
+        /// 
+        /// These read types are a special type in later BAM file formats that are designed to hold
+        /// annotation data. They are identified as having SEQ set to *, FLAG bits 0x100 and 0x200 set
+        ///  (secondary and filtered), and a CT tag.
+        /// </summary>
+        public bool IsDummyRead
+        {
+            get
+            {
+                return QuerySequence == null && 
+                    Flag.HasFlag(SAMFlags.QualityCheckFailure) && 
+                    Flag.HasFlag(SAMFlags.NonPrimeAlignment) && 
+                    OptionalFields.Any(p=> p.Tag == "CT");
             }
         }
 

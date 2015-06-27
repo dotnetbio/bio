@@ -1071,34 +1071,47 @@ namespace Bio.IO.BAM
             }
 
             startIndex += cigarLen * 4;
-            var sequence = new byte[readLen];
+            byte[] sequence;
             int sequenceIndex = 0;
             int index = startIndex;
-            for (; index < (startIndex + (readLen + 1) / 2) - 1; index++)
+            /* A read length of 0 indicates a double read, and apparently samtools does encode this 
+               as an asterisk but leaves it to the parser to fill in a "*" for the sequence and quality scores,
+               we detect and avoid this edge case for both the sequence and quality score creation by evaluating 
+               the readLen */
+            if (readLen != 0)
             {
-                // Get first 4 bit value
+                sequence = new byte[readLen];
+                for (; index < (startIndex + (readLen + 1) / 2) - 1; index++)
+                {
+                    // Get first 4 bit value
+                    value = (alignmentBlock[index] & 0xF0) >> 4;
+                    sequence[sequenceIndex++] = GetSeqCharAsByte(value);
+                    // Get last 4 bit value
+                    value = alignmentBlock[index] & 0x0F;
+                    sequence[sequenceIndex++] = GetSeqCharAsByte(value);
+
+                }
+
                 value = (alignmentBlock[index] & 0xF0) >> 4;
                 sequence[sequenceIndex++] = GetSeqCharAsByte(value);
-                // Get last 4 bit value
-                value = alignmentBlock[index] & 0x0F;
-                sequence[sequenceIndex++] = GetSeqCharAsByte(value);
-                
-            }
 
-            value = (alignmentBlock[index] & 0xF0) >> 4;
-            sequence[sequenceIndex++] = GetSeqCharAsByte(value);
-                
-            if (readLen % 2 == 0)
+                if (readLen % 2 == 0)
+                {
+                    value = alignmentBlock[index] & 0x0F;
+                    sequence[sequenceIndex++] = GetSeqCharAsByte(value);
+                }
+                startIndex = index + 1;
+            }
+            else
             {
-                value = alignmentBlock[index] & 0x0F;
-                sequence[sequenceIndex++] = GetSeqCharAsByte(value);
+                sequence = new byte[] { SAMParser.AsteriskAsByte };
             }
-
-            startIndex = index + 1;
-            byte[] qualValues = new byte[readLen];
             
-            if (alignmentBlock[startIndex] != 0xFF)
+            byte[] qualValues;
+
+            if (alignmentBlock[startIndex] != 0xFF && readLen != 0)
             {
+                qualValues = new byte[readLen];
                 for (int i = startIndex; i < (startIndex + readLen); i++)
                 {
                     qualValues[i - startIndex] = (byte)(alignmentBlock[i] + 33);
