@@ -91,27 +91,30 @@ namespace Bio.Tests.IO.FastA
         [TestCategory("Priority0")]
         public void TestLargeFasta()
         {
-            int sequenceCount = 300 * 1024 * 1024; // 300 MB of data
-            string filePath = CreateData(sequenceCount);
-
-            Assert.IsTrue(File.Exists(filePath));
-
-            try
+            if (Environment.Is64BitProcess)
             {
-                var parser = new FastAParser { Alphabet = Alphabets.Protein };
-                int count = 0;
-                foreach (ISequence seq in parser.Parse(filePath))
+                int sequenceCount = 300 * 1024 * 1024; // 300 MB of data
+                string filePath = CreateData(sequenceCount);
+
+                Assert.IsTrue(File.Exists(filePath));
+
+                try
                 {
-                    Assert.IsNotNull(seq);
-                    Assert.AreEqual(sequenceCount, seq.Count);
-                    Assert.AreEqual(seq.Alphabet.Name, "Protein");
-                    count++;
+                    var parser = new FastAParser { Alphabet = Alphabets.Protein };
+                    int count = 0;
+                    foreach (ISequence seq in parser.Parse(filePath))
+                    {
+                        Assert.IsNotNull(seq);
+                        Assert.AreEqual(sequenceCount, seq.Count);
+                        Assert.AreEqual(seq.Alphabet.Name, "Protein");
+                        count++;
+                    }
+                    Assert.AreEqual(1, count);
                 }
-                Assert.AreEqual(1, count);
-            }
-            finally
-            {
-                File.Delete(filePath);
+                finally
+                {
+                    File.Delete(filePath);
+                }
             }
         }
 
