@@ -1298,7 +1298,9 @@
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MediumSizeDnaSanger.fastq">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="$(MSBuildThisFileDirectory)TestUtils\MediumSizeFastQDnaSolexa.fastq" />
+    <None Include="$(MSBuildThisFileDirectory)TestUtils\MediumSizeFastQDnaSolexa.fastq">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MediumSizeRNAGenBank.gbk">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
