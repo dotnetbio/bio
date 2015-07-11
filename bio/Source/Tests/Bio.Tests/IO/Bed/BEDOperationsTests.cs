@@ -213,7 +213,7 @@ namespace Bio.Tests.IO.Bed
             resultfilepath = "tmp_mergeresult.bed";
             string direc = Path.Combine("TestUtils", "BED", "Intersect");
 
-            string reffile = @"Intersect_ref.BED";
+            string reffile =  Path.Combine(direc, @"Intersect_ref.BED");
             string queryFile = Path.Combine(direc, "Intersect_query.BED");
             SequenceRangeGrouping refSeqRange = parser.ParseRangeGrouping(reffile);
             SequenceRangeGrouping querySeqRange = parser.ParseRangeGrouping(queryFile);
@@ -282,6 +282,7 @@ namespace Bio.Tests.IO.Bed
             Assert.IsTrue(resultvalue);
             resultvalue = ValidateParentSeqRange(result, refSeqRange, querySeqRange, true);
             Assert.IsTrue(resultvalue);
+            File.Delete(resultfilepath);
         }
 
         /// <summary>
