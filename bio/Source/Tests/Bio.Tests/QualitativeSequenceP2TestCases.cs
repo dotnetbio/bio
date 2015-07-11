@@ -6,14 +6,14 @@ using System.Text;
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bio.Tests
 {
     /// <summary>
     /// Test Automation code for Bio Qualitative Sequence P2 level validations.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class QualitativeSequenceP2TestCases
     {
         /// <summary>
@@ -48,9 +48,8 @@ namespace Bio.Tests
         /// Input Data : Null Sequence.
         /// Output Data : Validation of Exception by passing null value.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateQualSequenceWithNullValue()
         {
             // Get values from xml.
@@ -89,9 +88,8 @@ namespace Bio.Tests
         /// Input Data : Empty Sequence.
         /// Output Data : Validation of Exception by passing empty sequence.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateQualSequenceWithEmptySequence()
         {
             QualitativeSequence qualSeq = new QualitativeSequence(
@@ -110,9 +108,8 @@ namespace Bio.Tests
         /// Input Data : Valid Dna sanger Sequence, Invalid quality score.
         /// Output Data : Validate Exception by passing invalid quality score.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateSangerQualSequenceWithInvalidQualScore()
         {
             this.InValidateQualSequence(Constants.SimpleDnaSangerNode,
@@ -124,9 +121,8 @@ namespace Bio.Tests
         /// Input Data : Valid Dna Illumina Sequence, Invalid quality score.
         /// Output Data : Validate Exception by passing invalid quality score.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateIlluminaQualSequenceWithInvalidQualScore()
         {
             this.InValidateQualSequence(Constants.SimpleDnaIlluminaNode,
@@ -138,9 +134,8 @@ namespace Bio.Tests
         /// Input Data : Valid Dna Solexa Sequence, Invalid quality score.
         /// Output Data : Validate Exception by passing invalid quality score.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateSolexaQualSequenceWithInvalidQualScore()
         {
             this.InValidateQualSequence(Constants.SimpleDnaSolexaNode,
@@ -153,9 +148,8 @@ namespace Bio.Tests
         /// Input Data : Valid Dna sanger Sequence, Invalid quality score.
         /// Output Data : Validate Exception by passing invalid quality score.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateSangerQualSequenceWithInvalidByteArrayScore()
         {
             this.InValidateQualSequence(Constants.SimpleDnaSangerNode,
@@ -168,9 +162,8 @@ namespace Bio.Tests
         /// Input Data : Valid Dna Solexa Sequence, Invalid quality score.
         /// Output Data : Validate Exception by passing invalid quality score.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateSolexaQualSequenceWithInvalidByteArrayScore()
         {
             this.InValidateQualSequence(Constants.SimpleDnaSolexaNode,
@@ -183,9 +176,8 @@ namespace Bio.Tests
         /// Input Data : Valid Dna Illumina Sequence, Invalid quality score.
         /// Output Data : Validate Exception by passing invalid quality score.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateIlluminaQualSequenceWithInvalidByteArrayScore()
         {
             this.InValidateQualSequence(Constants.SimpleDnaIlluminaNode,
@@ -197,9 +189,8 @@ namespace Bio.Tests
         /// Input Data : Null Sequence.
         /// Output Data : Validation of Exception by passing seq with invalid characters.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateQualSequenceWithInvalidChars()
         {
             // Get values from xml.
@@ -238,9 +229,8 @@ namespace Bio.Tests
         /// Input Data : Qual Sequence.
         /// Output Data : Reverse of an Qualitative Sequence.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void ValidateReverseOfDnaQualSeq()
         {
             // Get Values from xml node.
@@ -266,9 +256,8 @@ namespace Bio.Tests
         /// Input Data : Qual Sequence.
         /// Output Data : Reverse of an Rna Qualitative Sequence.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void ValidateReverseOfRnaQualSeq()
         {
             // Get Values from xml node.
@@ -294,9 +283,8 @@ namespace Bio.Tests
         /// Input Data : Qual Sequence.
         /// Output Data : Reverse of an Protein Qualitative Sequence.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void ValidateReverseOfProteinQualSeq()
         {
             // Get Values from xml node.
@@ -322,9 +310,8 @@ namespace Bio.Tests
         /// Input Data : Qual Sequence.
         /// Output Data : Complement of an Qualitative Sequence.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void ValidateComplementOfDnaQualSeq()
         {
             // Get Values from xml node.
@@ -350,9 +337,8 @@ namespace Bio.Tests
         /// Input Data : Qual Sequence.
         /// Output Data : Reverse of an Rna Qualitative Sequence.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void ValidateComplementOfRnaQualSeq()
         {
             // Get Values from xml node.
@@ -378,9 +364,8 @@ namespace Bio.Tests
         /// Input Data : Qual Sequence.
         /// Output Data : Exception while getting Protein complement for Qual Sequence..
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidateComplementOfProteinQualSeq()
         {
             // Get values from xml.
@@ -421,9 +406,8 @@ namespace Bio.Tests
         /// and ByteArray score
         /// Output Data : Validation of Created Qualitative sequence.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void ValidateSolexaFormatTypeMediumSizeDnaQualitativeSequence()
         {
             this.GeneralQualitativeSequence(Constants.MediumSizeDNASolexaNode,
@@ -437,9 +421,8 @@ namespace Bio.Tests
         /// and ByteArray score
         /// Output Data : Validation of Created Qualitative sequence.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void ValidateSangerFormatTypeMediumSizeDnaQualitativeSequence()
         {
             this.GeneralQualitativeSequence(Constants.MediumSizeDNASangerNode,
@@ -453,9 +436,8 @@ namespace Bio.Tests
         /// and ByteArray score
         /// Output Data : Validation of Created Qualitative sequence.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void ValidateIlluminaFormatTypeMediumSizeDnaQualitativeSequence()
         {
             this.GeneralQualitativeSequence(Constants.MediumSizeDNAIlluminaNode,
@@ -469,9 +451,8 @@ namespace Bio.Tests
         /// and ByteArray score
         /// Output Data : Validation of Created Qualitative sequence.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void ValidateSolexaFormatTypeLargeSizeDnaQualitativeSequence()
         {
             this.GeneralQualitativeSequence(Constants.LargeSizeDNASolexaNode,
@@ -485,9 +466,8 @@ namespace Bio.Tests
         /// and ByteArray score
         /// Output Data : Validation of Created Qualitative sequence.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void ValidateIlluminaFormatTypeLargeSizeDnaQualitativeSequence()
         {
             this.GeneralQualitativeSequence(Constants.LargeSizeDNAIlluminaNode,
@@ -501,9 +481,8 @@ namespace Bio.Tests
         /// and ByteArray score
         /// Output Data : Validation of Created Qualitative sequence.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void ValidateSangerFormatTypeLargeSizeDnaQualitativeSequence()
         {
             this.GeneralQualitativeSequence(Constants.LargeSizeDNASangerNode,
@@ -517,9 +496,8 @@ namespace Bio.Tests
         /// and ByteArray score
         /// Output Data : Validation of Created Qualitative sequence.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void ValidateIlluminaFormatTypeVeryLargeSizeDnaQualitativeSequence()
         {
             this.GeneralQualitativeSequence(Constants.VeryLargeSizeDNAIlluminaNode,
@@ -533,9 +511,8 @@ namespace Bio.Tests
         /// and ByteArray score
         /// Output Data : Validation of Created Qualitative sequence.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void ValidateSangerFormatTypeVeryLargeSizeDnaQualitativeSequence()
         {
             this.GeneralQualitativeSequence(Constants.VeryLargeSizeDNASangerNode,
@@ -549,9 +526,8 @@ namespace Bio.Tests
         /// and ByteArray score
         /// Output Data : Validation of Created Qualitative sequence.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void ValidateSolexaFormatTypeVeryLargeSizeDnaQualitativeSequence()
         {
             this.GeneralQualitativeSequence(Constants.VeryLargeSizeDNASolexaNode,
@@ -563,9 +539,8 @@ namespace Bio.Tests
         /// Input Data : Invalid quality scores.
         /// Output Data : Validation of an expected exception.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateConvertSangerToIllumina()
         {
             this.InvalidateFormatTypeConvertion(
@@ -577,9 +552,8 @@ namespace Bio.Tests
         /// Input Data : Invalid quality scores.
         /// Output Data : Validation of an expected exception.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateConvertSangerToSolexa()
         {
             this.InvalidateFormatTypeConvertion(
@@ -591,9 +565,8 @@ namespace Bio.Tests
         /// Input Data : Invalid quality scores.
         /// Output Data : Validation of an expected exception.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateConvertSolexaToIllumina()
         {
             this.InvalidateFormatTypeConvertion(
@@ -605,9 +578,8 @@ namespace Bio.Tests
         /// Input Data : Invalid quality scores.
         /// Output Data : Validation of an expected exception.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateConvertSolexaToSanger()
         {
             this.InvalidateFormatTypeConvertion(
@@ -619,9 +591,8 @@ namespace Bio.Tests
         /// Input Data : Invalid quality scores.
         /// Output Data : Validation of an expected exception.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateConvertIlluminaToSanger()
         {
             this.InvalidateFormatTypeConvertion(
@@ -633,9 +604,8 @@ namespace Bio.Tests
         /// Input Data : Invalid quality scores.
         /// Output Data : Validation of an expected exception.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateConvertIlluminaToSolexa()
         {
             this.InvalidateFormatTypeConvertion(
@@ -647,9 +617,8 @@ namespace Bio.Tests
         /// Input Data : Invalid input values.
         /// Output Data : Validation of an expected exception.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateQualitativeSeqCtor()
         {
             // Get Input values from xml config file.

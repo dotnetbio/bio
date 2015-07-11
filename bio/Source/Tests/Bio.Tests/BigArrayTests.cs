@@ -2,20 +2,20 @@
 using System.Text;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bio.Tests.Framework
 {
     /// <summary>
     /// Tests BigArray class.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class BigArrayTests
     {
         /// <summary>
         /// Tests creating Zero length BigArray.
         /// </summary>
-        [TestMethod]
+        [Test]
         public void TestCreatingBigArrayWithZeroLength()
         {
             BigArray<int> bigArray = null;
@@ -34,7 +34,7 @@ namespace Bio.Tests.Framework
         /// <summary>
         /// Test creating BigArray.
         /// </summary>
-        [TestMethod]
+        [Test]
         public void TestCreatingBigArrayWithNonZeroLength()
         {
             int size = 100;
@@ -143,7 +143,7 @@ namespace Bio.Tests.Framework
         /// <summary>
         /// Test IndexOf method
         /// </summary>
-        [TestMethod]
+        [Test]
         public void TestIndexOf()
         {
             BigArray<int> bigArray = new BigArray<int>(10);
@@ -168,7 +168,7 @@ namespace Bio.Tests.Framework
         /// <summary>
         /// Test Clear method
         /// </summary>
-        [TestMethod]
+        [Test]
         public void TestClear()
         {
             BigArray<int> bigArray = new BigArray<int>(10);
@@ -196,7 +196,7 @@ namespace Bio.Tests.Framework
         /// <summary>
         /// Test Resize method
         /// </summary>
-        [TestMethod]
+        [Test]
         public void TestResize()
         {
             try
@@ -225,7 +225,7 @@ namespace Bio.Tests.Framework
         /// <summary>
         /// Test CopyTo Method
         /// </summary>
-        [TestMethod]
+        [Test]
         public void TestCopyTo()
         {
             BigArray<int> bigArray = new BigArray<int>(10);
@@ -290,7 +290,7 @@ namespace Bio.Tests.Framework
         /// <summary>
         /// Test GetEnumerator method
         /// </summary>
-        [TestMethod]
+        [Test]
         public void TestGetEnumerator()
         {
             BigArray<int> bigArray = new BigArray<int>(10);

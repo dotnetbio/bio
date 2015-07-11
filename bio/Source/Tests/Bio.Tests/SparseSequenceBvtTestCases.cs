@@ -5,14 +5,14 @@ using System.Text;
 
 using Bio.Util.Logging;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bio.Tests
 {
     /// <summary>
     ///     Test Automation code for Bio Sparse Sequence BVT level validations
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class SparseSequenceBvtTestCases
     {
         #region Sparse Sequence BVT Test Cases
@@ -21,9 +21,8 @@ namespace Bio.Tests
         ///     Creates sparse sequence object and validates the constructor.
         ///     Validates if all items are present in sparse sequence instance.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateDnaSparseSequenceConstAlp()
         {
             var sparseSeq = new SparseSequence(Alphabets.DNA);
@@ -37,9 +36,8 @@ namespace Bio.Tests
         ///     Creates sparse sequence object and validates the constructor with Index.
         ///     Validates if all items are present in sparse sequence instance.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateDnaSparseSequenceConstAlpIndex()
         {
             var sparseSeq = new SparseSequence(Alphabets.DNA, 0);
@@ -53,9 +51,8 @@ namespace Bio.Tests
         ///     Creates sparse sequence object and validates the constructor with Index, byte.
         ///     Validates if all items are present in sparse sequence instance.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateDnaSparseSequenceConstAlpIndexByte()
         {
             byte[] byteArrayObj = Encoding.ASCII.GetBytes("AGCT");
@@ -71,9 +68,8 @@ namespace Bio.Tests
         ///     Creates sparse sequence object and validates the constructor with Index, byte.
         ///     Validates if all items are present in sparse sequence instance.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateDnaSparseSequenceConstAlpIndexByteList()
         {
             byte[] byteArrayObj = Encoding.ASCII.GetBytes("AGCT");
@@ -98,9 +94,8 @@ namespace Bio.Tests
         ///     Creates a sparse a sequence and inserts all sequence items of alphabet.
         ///     Validates various properties present in the sparse class.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateDnaSparseSequenceProperties()
         {
             IAlphabet alphabet = Alphabets.DNA;
@@ -127,9 +122,8 @@ namespace Bio.Tests
         /// <summary>
         ///     Creates a sparse sequence and validates IndexOfNonGap method
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateSparseSequenceIndexOfNonGap()
         {
             var sparseSeqObj = new SparseSequence(Alphabets.DNA, 10);
@@ -145,9 +139,8 @@ namespace Bio.Tests
         /// <summary>
         ///     Creates a sparse sequence and validates LastIndexOfNonGap method
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateSparseSequenceLastIndexOfNonGap()
         {
             var sparseSeqObj = new SparseSequence(Alphabets.DNA, 10);
@@ -163,9 +156,8 @@ namespace Bio.Tests
         /// <summary>
         ///     Creates a sparse sequence and validates IndexOfNonGap method
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateSparseSequenceIndexOfNonGapNull()
         {
             var sparseSeqObj = new SparseSequence(Alphabets.DNA, 2);
@@ -180,9 +172,8 @@ namespace Bio.Tests
         /// <summary>
         ///     Creates a sparse sequence and validates LastIndexOfNonGap method
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateSparseSequenceLastIndexOfNonGapNull()
         {
             var sparseSeqObj = new SparseSequence(Alphabets.DNA, 2);
@@ -196,9 +187,8 @@ namespace Bio.Tests
         /// <summary>
         ///     Creates a sparse sequence and validates LastIndexOfNonGap method
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateSparseSequenceGetReversedSequence()
         {
             byte[] byteArrayObj = Encoding.ASCII.GetBytes("ACGT");
@@ -222,9 +212,8 @@ namespace Bio.Tests
         /// <summary>
         ///     Creates a sparse sequence and validates GetReverseComplementedSequence method
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateSparseSequenceGetReversedComplementedSequence()
         {
             byte[] byteArrayObj = Encoding.ASCII.GetBytes("ACGT");
@@ -246,9 +235,8 @@ namespace Bio.Tests
         /// <summary>
         ///     Creates a sparse sequence and validates GetKnownSequenceItems method
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateSparseSequenceGetKnownSequenceItems()
         {
             byte[] byteArrayObj = Encoding.ASCII.GetBytes("ACGT");
@@ -272,9 +260,8 @@ namespace Bio.Tests
         /// <summary>
         ///     Creates a sparse sequence and validates GetComplementedSequence method
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateSparseSequenceGetComplementedSequence()
         {
             byte[] byteArrayObj = Encoding.ASCII.GetBytes("ACGT");
@@ -298,9 +285,8 @@ namespace Bio.Tests
         /// <summary>
         ///     Creates a sparse sequence and validates GetSubSequence method
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateSparseSequenceGetSubSequence()
         {
             var byteList = new List<byte>
@@ -337,9 +323,8 @@ namespace Bio.Tests
         /// <summary>
         ///     Creates a sparse sequence and validates GetEnumerator method
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateSparseSequenceGetEnumerator()
         {
             byte[] byteArrayObj = Encoding.ASCII.GetBytes("ACGT");
@@ -370,9 +355,8 @@ namespace Bio.Tests
         ///     Input Data : Valid Alphabet
         ///     Output Data : Successfully set
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateSparseSequenceSetIndexer()
         {
             IAlphabet alphabet = Alphabets.DNA;
@@ -397,9 +381,8 @@ namespace Bio.Tests
         /// <summary>
         ///     Validates CopyTo
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateCopyTo()
         {
             var byteList = new List<byte>

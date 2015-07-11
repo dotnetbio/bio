@@ -9,7 +9,7 @@ using System;
 using System.Text;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using Bio.IO.FastA;
 using Bio.Util.Logging;
 
@@ -22,16 +22,15 @@ using Bio.Util.Logging;
     /// <summary>
     /// FASTA Priority Two parser and formatter test cases implementation.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class FastAP2TestCases
     {
 
         /// <summary>
         /// Invalidate close method; should be allowed now.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void FastAFormatterInvalidateClose()
         {
             FastAFormatter formatter = new FastAFormatter();
@@ -41,9 +40,8 @@ using Bio.Util.Logging;
         /// <summary>
         /// Invalidate FormatString method
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void FastAFormatterInvalidateFormatString()
         {
             ISequence iSeq = null;

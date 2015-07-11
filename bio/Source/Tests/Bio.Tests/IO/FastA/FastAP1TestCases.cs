@@ -14,7 +14,7 @@ using Bio.Extensions;
 using Bio.IO.FastA;
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 #if (SILVERLIGHT == false)
 namespace Bio.TestAutomation.IO.FastA
@@ -25,7 +25,7 @@ namespace Bio.Silverlight.TestAutomation.IO.FastA
     /// <summary>
     ///     FASTA Priority One parser and formatter test cases implementation.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class FastAP1TestCases
     {
         #region Global Variables
@@ -44,9 +44,8 @@ namespace Bio.Silverlight.TestAutomation.IO.FastA
         ///     Validation : Read the FastA file to which the sequence was formatted and
         ///     validate Sequence, Sequence Count
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void FastAParserValidateParseWithDnaSequence()
         {
             ValidateParseGeneralTestCases(Constants.SimpleFastaDnaNodeName);
@@ -59,9 +58,8 @@ namespace Bio.Silverlight.TestAutomation.IO.FastA
         ///     Validation : Read the FastA file to which the sequence was formatted and
         ///     validate Sequence, Sequence Count
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void FastAParserValidateParseWithProteinSequence()
         {
             ValidateParseGeneralTestCases(Constants.SimpleFastaProteinNodeName);
@@ -74,9 +72,8 @@ namespace Bio.Silverlight.TestAutomation.IO.FastA
         ///     Validation : Read the FastA file to which the sequence was formatted and
         ///     validate Sequence, Sequence Count
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void FastAParserValidateParseWithRnaSequence()
         {
             ValidateParseGeneralTestCases(Constants.SimpleFastaRnaNodeName);
@@ -90,9 +87,8 @@ namespace Bio.Silverlight.TestAutomation.IO.FastA
         ///     Validation : Read the FastA file to which the sequence was formatted and
         ///     validate Sequence, Sequence Count
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void FastAParserValidateParseWithMediumSizeSequence()
         {
             string filePath = utilityObj.xmlUtil.GetTextValue(
@@ -163,9 +159,8 @@ namespace Bio.Silverlight.TestAutomation.IO.FastA
         ///     Validation : Read the FastA file to which the sequence was formatted and
         ///     validate Sequence, Sequence Count
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void FastAParserValidateParseWithOneLineSequence()
         {
             ValidateParseGeneralTestCases(Constants.OneLineSequenceFastaNodeName);
@@ -179,9 +174,8 @@ namespace Bio.Silverlight.TestAutomation.IO.FastA
         ///     Validation : Read the FastA file to which the sequence was formatted and
         ///     validate Sequence, Sequence Count
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void FastAParserValidateParseWithAlphabetAsProperty()
         {
             string filePath = utilityObj.xmlUtil.GetTextValue(Constants.SimpleFastaDnaNodeName, Constants.FilePathNode);
@@ -209,9 +203,8 @@ namespace Bio.Silverlight.TestAutomation.IO.FastA
         ///     Validation : Read the FastA file to which the sequence was formatted and
         ///     validate Sequence, Sequence Count
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void FastAFormatterValidateFormatWithDnaSequence()
         {
             ValidateFormatterGeneralTestCases(Constants.SimpleFastaDnaNodeName);
@@ -224,9 +217,8 @@ namespace Bio.Silverlight.TestAutomation.IO.FastA
         ///     Validation : Read the FastA file to which the sequence was formatted and
         ///     validate Sequence, Sequence Count
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void FastAFormatterValidateFormatWithRnaSequence()
         {
             ValidateFormatterGeneralTestCases(Constants.SimpleFastaRnaNodeName);
@@ -239,9 +231,8 @@ namespace Bio.Silverlight.TestAutomation.IO.FastA
         ///     Validation : Read the FastA file to which the sequence was formatted and
         ///     validate Sequence, Sequence Count
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void FastAFormatterValidateFormatWithProteinSequence()
         {
             ValidateFormatterGeneralTestCases(Constants.SimpleFastaProteinNodeName);
@@ -254,9 +245,8 @@ namespace Bio.Silverlight.TestAutomation.IO.FastA
         ///     Validation : Read the New FastA file to which the sequence was formatted and
         ///     validate Sequence, Sequence Count
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void FastAFormatterValidateWithParseDnaSequence()
         {
             ValidateParseFormatGeneralTestCases(Constants.SimpleFastaDnaNodeName);
@@ -269,9 +259,8 @@ namespace Bio.Silverlight.TestAutomation.IO.FastA
         ///     Validation : Read the New FastA file to which the sequence was formatted and
         ///     validate Sequence, Sequence Count
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void FastAFormatterValidateWithParseRnaSequence()
         {
             ValidateParseFormatGeneralTestCases(Constants.SimpleFastaRnaNodeName);
@@ -284,9 +273,8 @@ namespace Bio.Silverlight.TestAutomation.IO.FastA
         ///     Validation : Read the New FastA file to which the sequence was formatted and
         ///     validate Sequence, Sequence Count
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void FastAFormatterValidateWithParseProteinSequence()
         {
             ValidateParseFormatGeneralTestCases(Constants.SimpleFastaProteinNodeName);
@@ -299,9 +287,8 @@ namespace Bio.Silverlight.TestAutomation.IO.FastA
         ///     Validation : Read the FastA file to which the sequence was formatted and
         ///     validate Sequence, Sequence Count
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void FastAFormatterValidateFormatWithMediumSizeSequence()
         {
             ValidateFormatterGeneralTestCases(Constants.MediumSizeFastaNodeName);
@@ -314,9 +301,8 @@ namespace Bio.Silverlight.TestAutomation.IO.FastA
         ///     Validation : Read the FastA file to which the sequence was formatted and
         ///     validate Sequence, Sequence Count
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void FastAFormatterValidateFormatWithLargeSizeSequence()
         {
             ValidateFormatterGeneralTestCases(Constants.LargeSizeFasta);
@@ -331,9 +317,8 @@ namespace Bio.Silverlight.TestAutomation.IO.FastA
         ///     Validation : Read the New FastA file to which the sequence was formatted and
         ///     validate Sequence, Sequence Count
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void FastAFormatterValidateWithParseMediumSizeSequence()
         {
             ValidateParseFormatGeneralTestCases(Constants.MediumSizeFastaNodeName);
@@ -347,9 +332,8 @@ namespace Bio.Silverlight.TestAutomation.IO.FastA
         ///     Validation : Read the New FastA file to which the sequence was formatted and
         ///     validate Sequence, Sequence Count
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void FastAFormatterValidateWithParseLargeSizeSequence()
         {
             ValidateParseFormatGeneralTestCases(Constants.LargeSizeFasta);
@@ -362,9 +346,8 @@ namespace Bio.Silverlight.TestAutomation.IO.FastA
         ///     Validation : Read the FastA file using Parse() and
         ///     validate Sequence, Sequence Count
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void FastAFormatterValidateWithFormatAndParse()
         {
             ValidateFormatterGeneralTestCases(Constants.SimpleFastaNodeName);

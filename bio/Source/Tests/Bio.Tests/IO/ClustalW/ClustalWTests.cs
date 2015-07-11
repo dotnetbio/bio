@@ -6,22 +6,21 @@ using Bio;
 using Bio.Algorithms.Alignment;
 using Bio.IO;
 using Bio.IO.ClustalW;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bio.Tests.IO.ClustalW
 {
     /// <summary>
     /// ClustalW format parser.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class ClustalWTests
     {
         /// <summary>
         /// Parse sample FASTA file 186972391.fasta and verify that it is read correctly.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ClustalWParse()
         {
             string filepath = @"TestUtils\ClustalW\AlignmentData.aln";
@@ -70,9 +69,8 @@ namespace Bio.Tests.IO.ClustalW
         /// <summary>
         /// Parse sample FASTA file 186972391.fasta and verify that it is read correctly.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ClustalWParseOne()
         {
             string filepath = @"TestUtils\ClustalW\AlignmentData.aln";

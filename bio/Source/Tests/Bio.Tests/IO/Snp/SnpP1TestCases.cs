@@ -13,7 +13,7 @@ using System.Linq;
 using Bio.IO.Snp;
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using System.Text;
 
 namespace Bio.TestAutomation.IO.Snp
@@ -21,7 +21,7 @@ namespace Bio.TestAutomation.IO.Snp
     /// <summary>
     /// Snp P1 parser Test case implementation.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class SnpP1TestCases
     {
         #region Enums
@@ -54,9 +54,8 @@ namespace Bio.TestAutomation.IO.Snp
         /// Input : Snp File
         /// Validation : Expected sequence, Chromosome position, Sequence Alphabet, Sequence ID.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void SnpP1ParserValidateParseAlphabetProperty()
         {
             SnpParserGeneralTestCases(Constants.SimpleSnpNodeName,
@@ -69,9 +68,8 @@ namespace Bio.TestAutomation.IO.Snp
         /// Input : Snp File
         /// Validation : Expected sequence, Chromosome position, Sequence Alphabet, Sequence ID.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void SnpP1ParserValidateParseAlleleOne()
         {
             SnpParserGeneralTestCases(Constants.SimpleSnpNodeName,
@@ -84,9 +82,8 @@ namespace Bio.TestAutomation.IO.Snp
         /// Input : Snp File
         /// Validation : Expected sequence, Chromosome position, Sequence Alphabet, Sequence ID.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void SnpP1ParserValidateParseMultiChromosomes()
         {
             SnpParserGeneralTestCases(Constants.MultiChromosomeSnpNodeName,

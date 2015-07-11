@@ -4,14 +4,14 @@ using System.IO;
 using System.Linq;
 using Bio;
 using Bio.IO.Snp;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bio.Tests.IO.Snp
 {
     ///<summary>
     /// Snp parser test cases
     ///</summary>
-    [TestClass]
+    [TestFixture]
     public class SnpParserTests
     {
         private const string snpFileName = @"TestUtils\SnpFile.tsv";
@@ -21,9 +21,8 @@ namespace Bio.Tests.IO.Snp
         /// Input : Snp File
         /// Validation : Expected sequence, Chromosome position, Sequence Alphabet, Sequence ID.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void SnpParserTest()
         {
             SnpParserGeneralTestCases("ParseFilePath");
@@ -35,9 +34,8 @@ namespace Bio.Tests.IO.Snp
         /// Input : Snp File
         /// Validation : Expected sequence, Chromosome position, Sequence Alphabet, Sequence ID.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void SnpParsereParseAlleleTwoTest()
         {
             SnpParserGeneralTestCases("ParseAlleleTwo");
@@ -47,9 +45,8 @@ namespace Bio.Tests.IO.Snp
         /// Validate All properties in Snp parser class
         /// Validation : Validate the properties
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void SnpParserPropertiesTest()
         {
             SimpleSnpParser snpParser = new SimpleSnpParser(Alphabets.DNA);
@@ -62,9 +59,8 @@ namespace Bio.Tests.IO.Snp
         /// <summary>
         /// Validate Equals(snpItem) method with valid values.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void SnpItemValidateEqualsSnpItem()
         {
             SnpItem snpItem1 = new SnpItem();
@@ -81,9 +77,8 @@ namespace Bio.Tests.IO.Snp
         /// <summary>
         /// Validate Equals(object) method with valid values.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void SnpItemValidateEqualsObject()
         {
             SnpItem snpItem1 = new SnpItem();

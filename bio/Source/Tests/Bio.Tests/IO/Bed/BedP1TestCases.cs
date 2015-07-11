@@ -11,7 +11,7 @@ using System.IO;
 using Bio.IO.Bed;
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 #if (SILVERLIGHT == false)
 namespace Bio.TestAutomation.IO.Bed
@@ -23,7 +23,7 @@ namespace Bio.Silverlight.TestAutomation.IO.Bed
     /// <summary>
     ///     Bed P1 parser and formatter Test case implementation.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class BedP1TestCases
     {
         #region Enums
@@ -62,9 +62,8 @@ namespace Bio.Silverlight.TestAutomation.IO.Bed
         ///     Input : Bed File
         ///     Validation: Range properties like ID, Start and End.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void BedParserValidateOneLineParseRangeTextReader()
         {
             ParserGeneralTestCases(Constants.OneLineBedNodeName,
@@ -78,9 +77,8 @@ namespace Bio.Silverlight.TestAutomation.IO.Bed
         ///     Input : Bed File
         ///     Validation: Range properties like ID, Start and End.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void BedParserValidateOneLineParseRangeGroupFileName()
         {
             ParserGeneralTestCases(Constants.OneLineBedNodeName,
@@ -94,9 +92,8 @@ namespace Bio.Silverlight.TestAutomation.IO.Bed
         ///     Input : Bed File
         ///     Validation: Range properties like ID, Start and End.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void BedParserValidateThreeChromosomeParseRangeFileName()
         {
             ParserGeneralTestCases(Constants.ThreeChromoBedNodeName,
@@ -115,9 +112,8 @@ namespace Bio.Silverlight.TestAutomation.IO.Bed
         ///     Validation : Read the Bed file to which the range was formatted
         ///     using File-Info and Validate Properties like ID, Start and End
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void BedFormatterValidateParseSmallSizeFormatRangeFileName()
         {
             FormatterGeneralTestCases(Constants.SmallSizeBedNodeName,
@@ -132,9 +128,8 @@ namespace Bio.Silverlight.TestAutomation.IO.Bed
         ///     Validation : Read the Bed file to which the range was formatted
         ///     using File-Info and Validate Properties like ID, Start and End
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void BedFormatterValidateParseSmallSizeFormatRangeTextWriter()
         {
             FormatterGeneralTestCases(Constants.SmallSizeBedNodeName,
@@ -149,9 +144,8 @@ namespace Bio.Silverlight.TestAutomation.IO.Bed
         ///     Validation : Read the Bed file to which the range was formatted
         ///     using File-Info and Validate Properties like ID, Start and End
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void BedFormatterValidateParseOneLineFormatRangeFileName()
         {
             FormatterGeneralTestCases(Constants.OneLineBedNodeName,
@@ -166,9 +160,8 @@ namespace Bio.Silverlight.TestAutomation.IO.Bed
         ///     Validation : Read the Bed file to which the range was formatted
         ///     using File-Info and Validate Properties like ID, Start and End
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void BedFormatterValidateParseSmallSizeFormatRangeGroupFileName()
         {
             FormatterGeneralTestCases(Constants.SmallSizeBedNodeName,
@@ -183,9 +176,8 @@ namespace Bio.Silverlight.TestAutomation.IO.Bed
         ///     Validation : Read the Bed file to which the range was formatted
         ///     using File-Info and Validate Properties like ID, Start and End
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void BedFormatterValidateParseSmallSizeFormatRangeGroupTextWriter()
         {
             FormatterGeneralTestCases(Constants.SmallSizeBedNodeName,
@@ -200,9 +192,8 @@ namespace Bio.Silverlight.TestAutomation.IO.Bed
         ///     Validation : Read the Bed file to which the range was formatted
         ///     using File-Info and Validate Properties like ID, Start and End
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void BedFormatterValidateParseOneLineFormatRangeGroupFileName()
         {
             FormatterGeneralTestCases(Constants.OneLineBedNodeName,
@@ -217,9 +208,8 @@ namespace Bio.Silverlight.TestAutomation.IO.Bed
         ///     Validation : Read the Bed file to which the range was formatted
         ///     using File-Info and Validate Properties like ID, Start and End
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void BedFormatterValidateParseOneLineFormatRangeTextWriter()
         {
             FormatterGeneralTestCases(Constants.OneLineBedNodeName,
@@ -234,9 +224,8 @@ namespace Bio.Silverlight.TestAutomation.IO.Bed
         ///     Validation : Read the Bed file to which the range was formatted
         ///     using File-Info and Validate Properties like ID, Start and End
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void BedFormatterValidateParseOneLineFormatRangeGroupTextWriter()
         {
             FormatterGeneralTestCases(Constants.OneLineBedNodeName,
@@ -251,9 +240,8 @@ namespace Bio.Silverlight.TestAutomation.IO.Bed
         ///     Validation : Read the Bed file to which the range was formatted
         ///     using File-Info and Validate Properties like ID, Start and End
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void BedFormatterValidateParseThreeChromosomeFormatRangeFileName()
         {
             FormatterGeneralTestCases(Constants.ThreeChromoBedNodeName,
@@ -268,9 +256,8 @@ namespace Bio.Silverlight.TestAutomation.IO.Bed
         ///     Validation : Read the Bed file to which the range was formatted
         ///     using File-Info and Validate Properties like ID, Start and End
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void BedFormatterValidateParseThreeChromosomeFormatRangeGroupFileName()
         {
             FormatterGeneralTestCases(Constants.ThreeChromoBedNodeName,
@@ -285,9 +272,8 @@ namespace Bio.Silverlight.TestAutomation.IO.Bed
         ///     Validation : Read the Bed file to which the range was formatted
         ///     using File-Info and Validate Properties like ID, Start and End
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void BedFormatterValidateParseLongStartEndFormatRangeFileName()
         {
             FormatterGeneralTestCases(Constants.LongStartEndBedNodeName,
@@ -302,9 +288,8 @@ namespace Bio.Silverlight.TestAutomation.IO.Bed
         ///     Validation : Read the Bed file to which the range was formatted
         ///     using File-Info and Validate Properties like ID, Start and End
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void BedFormatterValidateParseLongStartEndFormatRangeGroupFileName()
         {
             FormatterGeneralTestCases(Constants.LongStartEndBedNodeName,

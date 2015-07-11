@@ -1,7 +1,9 @@
 ﻿using Bio.Extensions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using System;
 using Bio;
+
+
 
 namespace Bio.Tests.Extensions
 {
@@ -9,7 +11,7 @@ namespace Bio.Tests.Extensions
     ///This is a test class for AlphabetExtensionsTest and is intended
     ///to contain all AlphabetExtensionsTest Unit Tests
     ///</summary>
-    [TestClass()]
+    [TestFixture]
     public class AlphabetExtensionsTest
     {
         /// <summary>
@@ -51,7 +53,7 @@ namespace Bio.Tests.Extensions
         /// <summary>
         /// Test the CheckIsAmbiguous extension with a valid ambiguous value.
         ///</summary>
-        [TestMethod()]
+        [Test]
         public void CheckIsAmbiguousTrueTest()
         {
             IAlphabet alphabet = Alphabets.AmbiguousDNA;
@@ -62,7 +64,7 @@ namespace Bio.Tests.Extensions
         /// <summary>
         /// Test the CheckIsAmbiguous extension with lower-case ambiguous value.
         ///</summary>
-        [TestMethod()]
+        [Test]
         public void CheckIsAmbiguousLowercaseTrueTest()
         {
             IAlphabet alphabet = Alphabets.AmbiguousDNA;
@@ -73,7 +75,7 @@ namespace Bio.Tests.Extensions
         /// <summary>
         /// Test the CheckIsAmbiguous extension with non-ambiguous value.
         ///</summary>
-        [TestMethod()]
+        [Test]
         public void CheckIsAmbiguousFalseTest()
         {
             IAlphabet alphabet = Alphabets.AmbiguousDNA;
@@ -84,7 +86,7 @@ namespace Bio.Tests.Extensions
         /// <summary>
         /// Test the CheckIsAmbiguous extension method with an alphabet that does not support ambiguous values.
         /// </summary>
-        [TestMethod()]
+        [Test]
         public void CheckIsAmbiguousUnsupportedTest()
         {
             IAlphabet alphabet = Alphabets.DNA;
@@ -95,18 +97,17 @@ namespace Bio.Tests.Extensions
         ///<summary>
         /// Test the CheckIsAmbiguous extension method with a null sequence.
         ///</summary>
-        [TestMethod()]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Test]
         public void CheckIsAmbiguousNullSequence()
         {
             IAlphabet alphabet = null;
-            alphabet.CheckIsAmbiguous('A');
+            Assert.Throws<ArgumentNullException>( () => alphabet.CheckIsAmbiguous('A'));
         }
 
         /// <summary>
         /// Test the CheckIsGap extension method with a valid gap.
         /// </summary>
-        [TestMethod()]
+        [Test]
         public void CheckIsGapTrueTest()
         {
             IAlphabet alphabet = Alphabets.DNA;
@@ -117,7 +118,7 @@ namespace Bio.Tests.Extensions
         /// <summary>
         /// Test the CheckIsGap extension method with a non-gap.
         ///</summary>
-        [TestMethod()]
+        [Test]
         public void CheckIsGapFalseTest()
         {
             IAlphabet alphabet = Alphabets.DNA;
@@ -128,18 +129,17 @@ namespace Bio.Tests.Extensions
         /// <summary>
         /// Test the CheckIsGap extension method with a null input sequence.
         ///</summary>
-        [TestMethod()]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Test]
         public void CheckIsGapNullSequence()
         {
             IAlphabet alphabet = null;
-            alphabet.CheckIsGap('A');
+            Assert.Throws<ArgumentNullException>( () => alphabet.CheckIsGap('A'));
         }
 
         /// <summary>
         /// Test for CheckIsTermination extension method with a valid termination.
         ///</summary>
-        [TestMethod()]
+        [Test]
         public void CheckIsTerminationTrueTest()
         {
             IAlphabet alphabet = Alphabets.Protein;
@@ -150,7 +150,7 @@ namespace Bio.Tests.Extensions
         /// <summary>
         /// Test for CheckIsTermination extension method with a normal character (non-terminator).
         ///</summary>
-        [TestMethod()]
+        [Test]
         public void CheckIsTerminationFalseTest()
         {
             IAlphabet alphabet = Alphabets.Protein;
@@ -161,7 +161,7 @@ namespace Bio.Tests.Extensions
         /// <summary>
         /// Test for CheckIsTermination extension method with an unsupported alphabet.
         ///</summary>
-        [TestMethod()]
+        [Test]
         public void CheckIsTerminationUnsupportedTest()
         {
             IAlphabet alphabet = Alphabets.DNA;
@@ -172,18 +172,17 @@ namespace Bio.Tests.Extensions
         /// <summary>
         /// Test for CheckIsTermination extension method with a null alphabet.
         ///</summary>
-        [TestMethod()]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Test]
         public void CheckIsTerminationMissingAlphabetTest()
         {
             IAlphabet alphabet = null;
-            alphabet.CheckIsTermination('A');
+            Assert.Throws<ArgumentNullException>(() => alphabet.CheckIsTermination('A'));
         }
 
         /// <summary>
         /// Test for GetFriendlyName
         ///</summary>
-        [TestMethod()]
+        [Test]
         public void GetFriendlyNameTest()
         {
             IAlphabet alphabet = Alphabets.DNA;
@@ -194,7 +193,7 @@ namespace Bio.Tests.Extensions
         /// <summary>
         /// Test for GetFriendlyName with a lower case input
         ///</summary>
-        [TestMethod()]
+        [Test]
         public void GetFriendlyNameLowecaseTest()
         {
             IAlphabet alphabet = Alphabets.DNA;
@@ -206,12 +205,11 @@ namespace Bio.Tests.Extensions
         /// <summary>
         /// Test for GetFriendlyName with a null input alphabet.
         ///</summary>
-        [TestMethod()]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Test]
         public void GetFriendlyNameTestNullAlphabet()
         {
             IAlphabet alphabet = null;
-            alphabet.GetFriendlyName('A');
+            Assert.Throws<ArgumentNullException>(() => alphabet.GetFriendlyName('A'));
         }
     }
 }

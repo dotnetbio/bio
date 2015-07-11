@@ -5,14 +5,14 @@ using Bio.Algorithms.Alignment;
 using Bio.Tests.Framework;
 using Bio.Util.Logging;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bio.Tests.Algorithms.Alignment
 {
     /// <summary>
     ///     Test Automation code for Bio Sequences and P1 level validations.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class PairwiseAlignedSequenceP1TestCases
     {
         #region PairwiseAlignedSequence P1 TestCases
@@ -20,9 +20,8 @@ namespace Bio.Tests.Algorithms.Alignment
         /// <summary>
         ///     Validate the attributes in PairwiseAlignedSequence.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidatePairwiseAlignedSequenceCustomBreakLength()
         {
             var referenceSeqs = new List<ISequence>()
@@ -154,9 +153,8 @@ namespace Bio.Tests.Algorithms.Alignment
         /// <summary>
         ///     Validate PairwiseAlignedSequence with Multiple reference.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidatePairwiseAlignedSequenceMultipleRef()
         {
             var referenceSeqs = new List<ISequence>()
@@ -216,9 +214,8 @@ namespace Bio.Tests.Algorithms.Alignment
         /// <summary>
         ///     Validate PairwiseAlignedSequence with multiple reference & query sequences
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidatePairwiseAlignedSequenceMultipleRefQuery()
         {
             var referenceSeqs = new List<ISequence>()

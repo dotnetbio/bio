@@ -4,14 +4,14 @@ using Bio.Algorithms.Alignment;
 using Bio.SimilarityMatrices;
 using Bio.Util.Logging;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bio.Tests.Algorithms.Alignment
 {
     /// <summary>
     ///     Test Automation code for Bio Sequences and BVT level validations.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class PairwiseAlignmentAttributesBvtTestCases
     {
         #region PairwiseAlignmentAttributes Bvt TestCases
@@ -19,9 +19,8 @@ namespace Bio.Tests.Algorithms.Alignment
         /// <summary>
         ///     Validate the attributes in PairwiseAlignmentAttributes.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidatePairwiseAlignmentAttributes()
         {
             var pwAlignAttrib = new PairwiseAlignmentAttributes();

@@ -4,23 +4,22 @@ using System.IO;
 using System.Linq;
 using Bio;
 using Bio.IO.FastA;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bio.Tests.IO.FastA
 {
     /// <summary>
     /// FASTA format parser and formatter.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class FastaTests
     {
         /// <summary>
         /// Verifies that the parser doesn't throw an exception when calling ParseOne on a file
         /// containing more than one sequence.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void TestFastaWhenParsingOneOfMany()
         {
             // parse
@@ -45,9 +44,8 @@ namespace Bio.Tests.IO.FastA
         /// <summary>
         /// Parse sample FASTA file 186972391.fasta and verify that it is read correctly.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void TestFastaFor186972391()
         {
             string expectedSequence =
@@ -86,9 +84,8 @@ namespace Bio.Tests.IO.FastA
         /// <summary>
         /// Parse sample FASTA file 186972391.fasta and verify that it is read correctly.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void TestLargeFasta()
         {
             if (Environment.Is64BitProcess)
@@ -121,9 +118,8 @@ namespace Bio.Tests.IO.FastA
         /// <summary>
         /// Verifies that the parser throws an exception when Parsing a sequence which contains valid id but no sequence data
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void TestFastaWhenParsingSequenceWithEmptyData()
         {
             // parse

@@ -1,20 +1,19 @@
 ﻿using Bio;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bio.Tests
 {
     /// <summary>
     /// PatternConverter Test cases
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class SequenceTests
     {
         /// <summary>
         /// Find pattern test.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void TestMultipleFindOneOutputPattern()
         {
             byte[] b = new byte[6];
@@ -51,9 +50,8 @@ namespace Bio.Tests
         /// <summary>
         /// Find pattern test.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void TestSequenceCTor()
         {
             byte[] b = new byte[6];

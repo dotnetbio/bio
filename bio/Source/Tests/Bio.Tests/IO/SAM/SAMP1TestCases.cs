@@ -15,7 +15,7 @@ using Bio.IO.SAM;
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using Bio.IO;
 using System;
 using System.Runtime.Serialization;
@@ -26,7 +26,7 @@ namespace Bio.TestAutomation.IO.SAM
     /// <summary>
     /// SAM P1 parser and formatter Test case implementation.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class SAMP1TestCases
     {
 
@@ -47,9 +47,8 @@ namespace Bio.TestAutomation.IO.SAM
         /// Input : medium size sam file
         /// Output: Validation of Sequence Alignment Map 
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateSAMParserWithReader()
         {
             ValidateSAMParser(Constants.SAMFileWithRefNode);
@@ -61,9 +60,8 @@ namespace Bio.TestAutomation.IO.SAM
         /// Input : Empty file
         /// Output: Validation of null Sequence Alignment Map 
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateSAMParserWithEmptyAlignmentMap()
         {
             SAMParser parser = new SAMParser();
@@ -83,9 +81,8 @@ namespace Bio.TestAutomation.IO.SAM
         /// Input : alignment
         /// Output: sam file
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateSAMFormatterSeqAlignReader()
         {
             ValidateSAMFormatter(Constants.SAMFileWithAllFieldsNode);

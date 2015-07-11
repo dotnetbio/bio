@@ -11,14 +11,14 @@ using Bio.TestAutomation.Util;
 using Bio.Tests.Framework;
 using Bio.Util.Logging;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bio.Tests.Algorithms.Alignment
 {
     /// <summary>
     ///     Pairwise Overlap Aligner algorithm Bvt test cases
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class PairwiseOverlapAlignerBvtTestCases
     {
         #region Enums
@@ -62,9 +62,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA File
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void PairwiseOverlapSimpleAlignTwoSequencesFromTextFile()
         {
             this.ValidatePairwiseOverlapAlignment(true, AlignmentParamType.AlignTwo);
@@ -78,9 +77,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : sequence in xml
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void PairwiseOverlapSimpleAlignTwoSequencesFromXml()
         {
             this.ValidatePairwiseOverlapAlignment(false, AlignmentParamType.AlignTwo);
@@ -94,9 +92,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA File
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void PairwiseOverlapSimpleAlignListSequencesFromTextFile()
         {
             this.ValidatePairwiseOverlapAlignment(true, AlignmentParamType.AlignList);
@@ -110,9 +107,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : sequence in xml
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void PairwiseOverlapSimpleAlignListSequencesFromXml()
         {
             this.ValidatePairwiseOverlapAlignment(false, AlignmentParamType.AlignList);
@@ -126,9 +122,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : sequence in xml
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void PairwiseOverlapSimpleAlignListSequencesFromXm()
         {
             this.ValidatePairwiseOverlapAlignment(false, AlignmentParamType.AlignList);
@@ -142,9 +137,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Text File i.e., Fasta
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void PairwiseOverlapSimpleAlignAllParamsFromTextFile()
         {
             this.ValidatePairwiseOverlapAlignment(true, AlignmentParamType.AllParam);
@@ -158,9 +152,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : sequence in xml
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void PairwiseOverlapSimpleAlignAllParamsFromXml()
         {
             this.ValidatePairwiseOverlapAlignment(false, AlignmentParamType.AllParam);
@@ -176,9 +169,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA File
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void PairwiseOverlapAlignTwoSequencesFromTextFile()
         {
             this.ValidatePairwiseOverlapAlignment(true, AlignmentParamType.AlignTwo,
@@ -193,9 +185,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA File
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void PairwiseOverlapAlignListSequencesFromTextFile()
         {
             this.ValidatePairwiseOverlapAlignment(true, AlignmentParamType.AlignList,
@@ -210,9 +201,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Text File i.e., Fasta
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void PairwiseOverlapAlignAllParamsFromTextFile()
         {
             this.ValidatePairwiseOverlapAlignment(true, AlignmentParamType.AllParam,

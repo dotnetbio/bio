@@ -6,22 +6,21 @@ using Bio;
 using Bio.Algorithms.Alignment;
 using Bio.IO;
 using Bio.IO.Phylip;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bio.Tests.IO.Phylip
 {
     /// <summary>
     /// Phylip format parser.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class PhylipTests
     {
         /// <summary>
         /// Parse sample FASTA file 186972391.fasta and verify that it is read correctly.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void PhylipParse()
         {
             string filepath = @"TestUtils\Phylip\dna.phy";
@@ -176,9 +175,8 @@ namespace Bio.Tests.IO.Phylip
         /// <summary>
         /// Parse sample Phylip file dna.phy and verify that it is read correctly.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void PhylipParseOne()
         {
             string filepath = @"TestUtils\Phylip\dna.phy";
@@ -334,9 +332,8 @@ namespace Bio.Tests.IO.Phylip
         /// <summary>
         /// Parse sample Phylip file primates.phy and verify that it is read correctly.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void PhylipParsePrimates()
         {
             string filepath = @"TestUtils\Phylip\primates.phy";

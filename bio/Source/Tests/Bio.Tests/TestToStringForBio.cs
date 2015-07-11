@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Bio.Extensions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using Bio.Util;
 using System.Globalization;
 using Bio.Algorithms.Alignment;
@@ -14,13 +14,13 @@ namespace Bio.Tests
     /// <summary>
     /// Summary description for TestToStringForBio
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class TestToStringForBio
     {
         /// <summary>
         /// Test for Sequence ConvertToString method.
         /// </summary>
-        [TestMethod]
+        [Test]
         public void TestSequenceConvertToString()
         {
             ISequence seq = new Sequence(Alphabets.DNA, "ATCGATCGGATCGATCGGCTACTAATATCGATCGGCTACGATCGGCTAATCGATCGATCGGCTAATCGATCGATCGGCTAGCTA");
@@ -32,7 +32,7 @@ namespace Bio.Tests
         /// <summary>
         /// Test for Sequence ConvertToString method.
         /// </summary>
-        [TestMethod]
+        [Test]
         public void TestDerivedSequenceConvertToString()
         {
             Sequence baseSeq = new Sequence(Alphabets.DNA, "ATCGATCGGATCGATCGGCTACTAATATCGATCGGCTACGATCGGCTAATCGATCGATCGGCTAATCGATCGATCGGCTAGCTA");
@@ -45,7 +45,7 @@ namespace Bio.Tests
         /// <summary>
         /// Test for Sequence ConvertToString method.
         /// </summary>
-        [TestMethod]
+        [Test]
         public void TestSequenceConvertToStringWithException()
         {
             Sequence seq = new Sequence(Alphabets.DNA, "ATCGATCGGATCGATCGGCTACTAATATCGATCGGCTACGATCGGCTAATCGATCGATCGGCTAATCGATCGATCGGCTAGCTA");
@@ -63,7 +63,7 @@ namespace Bio.Tests
         /// <summary>
         /// Test for Sequence ToString() Function.
         /// </summary>
-        [TestMethod]
+        [Test]
         public void TestSequenceToString()
         {
             ISequence seqSmall = new Sequence(Alphabets.DNA, "ATCG");
@@ -80,7 +80,7 @@ namespace Bio.Tests
         /// <summary>
         /// Test for DeriveSequence ToString() Function.
         /// </summary>
-        [TestMethod]
+        [Test]
         public void TestDerivedSequenceToString()
         {
             ISequence seqSmall = new Sequence(Alphabets.DNA, "ATCG");
@@ -100,7 +100,7 @@ namespace Bio.Tests
         /// <summary>
         /// Test for QualitativeSequence ToString() Function.
         /// </summary>
-        [TestMethod]
+        [Test]
         public void TestQualitativeSequenceToString()
         {
             byte[] seqData = new byte[4];
@@ -122,7 +122,7 @@ namespace Bio.Tests
         /// <summary>
         /// Test for All Alphabets ToString() Function.
         /// </summary>
-        [TestMethod]
+        [Test]
         public void TestAllAlphabetsToString()
         {
             DnaAlphabet dna = DnaAlphabet.Instance;
@@ -157,7 +157,7 @@ namespace Bio.Tests
         /// <summary>
         /// Test for SequenceRange ToString() Function.
         /// </summary>
-        [TestMethod]
+        [Test]
         public void TestSequenceRangeToString()
         {
             SequenceRange range = new SequenceRange("chr20", 0, 3);
@@ -169,7 +169,7 @@ namespace Bio.Tests
         /// <summary>
         /// Test for SequenceRangeGrouping ToString() Function.
         /// </summary>
-        [TestMethod]
+        [Test]
         public void TestSequenceRangeGroupingToString()
         {
             ISequenceRange range1 = new SequenceRange("chr20", 0, 3);
@@ -188,7 +188,7 @@ namespace Bio.Tests
          /// <summary>
         /// Test for SequenceStatistics ToString() Function.
         /// </summary>
-        [TestMethod]
+        [Test]
         public void TestSequenceStatisticsToString()
         {
             ISequence seq = new Sequence(Alphabets.DNA, "ATCGATCG");
@@ -201,7 +201,7 @@ namespace Bio.Tests
         /// <summary>
         /// Test for AlignedSequence ToString() Function.
         /// </summary>
-        [TestMethod]
+        [Test]
         public void TestAlignedSequenceToString()
         {
             var seqList = new List<ISequence>
@@ -236,7 +236,7 @@ namespace Bio.Tests
         /// <summary>
         /// Test for Cluster ToString() Function.
         /// </summary>
-        [TestMethod]
+        [Test]
         public void TestClusterToString()
         {
             Match match = new Match();
@@ -260,7 +260,7 @@ namespace Bio.Tests
         /// <summary>
         /// Test for DeltaAlignment ToString() Function.
         /// </summary>
-        [TestMethod]
+        [Test]
         public void TestDeltaAlignmentToString()
         {
             ISequence refSeq = new Sequence(Alphabets.DNA, "ATCGGGGGGGGAAAAAAATTTTCCCCGGGGG");
@@ -276,7 +276,7 @@ namespace Bio.Tests
          /// <summary>
         /// Test for PairwiseAlignedSequence ToString() Function.
         /// </summary>
-        [TestMethod]
+        [Test]
         public void TestPairwiseAlignedSequenceToString()
         {
             PairwiseAlignedSequence alignedSeq = new PairwiseAlignedSequence();
@@ -295,7 +295,7 @@ namespace Bio.Tests
         /// <summary>
         /// Test for PairwiseSequenceAlignment ToString() Function.
         /// </summary>
-        [TestMethod]
+        [Test]
         public void TestPairwiseSequenceAlignmentToString()
         {
             IPairwiseSequenceAlignment align = new PairwiseSequenceAlignment();
@@ -316,7 +316,7 @@ namespace Bio.Tests
          /// <summary>
         /// Test for Match And MatchExtension ToString() Function.
         /// </summary>
-        [TestMethod]
+        [Test]
         public void TestMatchAndMatchExtensionToString()
         {
             Match match = new Match();
@@ -339,7 +339,7 @@ namespace Bio.Tests
         /// <summary>
         /// Test for SequenceAlignment ToString() Function.
         /// </summary>
-        [TestMethod]
+        [Test]
         public void TestSequenceAlignmentToString()
         {
             ISequenceAligner aligner = SequenceAligners.NeedlemanWunsch;
@@ -369,7 +369,7 @@ namespace Bio.Tests
         /// <summary>
         /// Test for Contig ToString() Function.
         /// </summary>
-        [TestMethod]
+        [Test]
         public void TestContigToString()
         {
             // test parameters
@@ -405,7 +405,7 @@ namespace Bio.Tests
         /// <summary>
         /// Test for MatePair ToString() Function.
         /// </summary>
-        [TestMethod]
+        [Test]
         public void TestMatePairToString()
         {
             MatePair p = new MatePair("2K") {ForwardReadID = "F", ReverseReadID = "R"};
@@ -417,7 +417,7 @@ namespace Bio.Tests
         /// <summary>
         /// Test for OverlapDenovoAssembly ToString() Function.
         /// </summary>
-        [TestMethod]
+        [Test]
         public void TestOverlapDenovoAssemblyToString()
         {
             const int matchScore = 5;

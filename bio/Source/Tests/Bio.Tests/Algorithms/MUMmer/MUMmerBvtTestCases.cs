@@ -13,14 +13,14 @@ using Bio.TestAutomation.Util;
 using Bio.Tests.Framework;
 using Bio.Util.Logging;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bio.Tests.Algorithms.MUMmer
 {
     /// <summary>
     /// MUMmer Bvt Test case implementation.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class MUMmerBvtTestCases
     {
         Utility utilityObj = new Utility(@"TestUtils\MUMmerTestsConfig.xml");
@@ -50,9 +50,8 @@ namespace Bio.Tests.Algorithms.MUMmer
         /// Input : One line sequence for both reference and query parameter
         /// Validation : Validate the unique matches
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void SuffixTreeFindMatchesOneLineSequence()
         {
             this.ValidateFindMatchSuffixGeneralTestCases(Constants.OneLineSequenceNodeName, false);
@@ -65,9 +64,8 @@ namespace Bio.Tests.Algorithms.MUMmer
         /// Input : Small size sequence for both reference and query parameter
         /// Validation : Validate the unique matches
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void SuffixTreeFindMatchesSmallSizeSequence()
         {
             this.ValidateFindMatchSuffixGeneralTestCases(Constants.SmallSizeSequenceNodeName,
@@ -79,9 +77,8 @@ namespace Bio.Tests.Algorithms.MUMmer
         /// Input:A Dna Sequence.
         /// Output:Edge Count.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateEdgeCount()
         {
             string dnaSequence = "ATGCA";
@@ -107,9 +104,8 @@ namespace Bio.Tests.Algorithms.MUMmer
         /// <summary>      
         /// Validates the public properties for a leaf node.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateEdgesForALeaf()
         {
             MultiWaySuffixEdge rootEdge = new MultiWaySuffixEdge();
@@ -131,9 +127,8 @@ namespace Bio.Tests.Algorithms.MUMmer
         /// Input : One sequence for both reference and query parameter
         /// Validation : Validate longest sequence.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateLongestIncreasingSubsequenceTwoUniqueMatch()
         {
             this.ValidateLongestIncreasingSubsequenceTestCases(Constants.OneLineTwoMatchSequenceNodeName,
@@ -146,9 +141,8 @@ namespace Bio.Tests.Algorithms.MUMmer
         /// Input : One sequence for both reference and query parameter
         /// Validation : Validate longest sequence.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateLongestIncreasingSubsequenceOneUniqueMatch()
         {
             this.ValidateLongestIncreasingSubsequenceTestCases(Constants.OneLineSequenceNodeName,
@@ -165,9 +159,8 @@ namespace Bio.Tests.Algorithms.MUMmer
         /// Input : One line sequence
         /// Validation : Validate the aligned sequences.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void MUMmerAlignOneLineSequence()
         {
             this.ValidateMUMmerAlignGeneralTestCases(Constants.OneLineSequenceNodeName,
@@ -180,9 +173,8 @@ namespace Bio.Tests.Algorithms.MUMmer
         /// Input : small size sequence file
         /// Validation : Validate the aligned sequences.
         /// </summary>        
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void MUMmerAlignSmallSizeSequence()
         {
             this.ValidateMUMmerAlignGeneralTestCases(Constants.SmallSizeSequenceNodeName,
@@ -195,9 +187,8 @@ namespace Bio.Tests.Algorithms.MUMmer
         /// Input : One line multiple sequences
         /// Validation : Validate the aligned sequences.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void MUMmerAlignQuerySeqList()
         {
             this.ValidateMUMmerAlignGeneralTestCases(Constants.QuerySeqeunceListNode, false, true);
@@ -213,9 +204,8 @@ namespace Bio.Tests.Algorithms.MUMmer
         /// Input : One line sequence
         /// Validation : Validate the MUMs Output.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateMUMsWithOneLineSequence()
         {
             this.ValidateMUMsGeneralTestCases(Constants.OneLineSequenceNodeName,
@@ -228,8 +218,7 @@ namespace Bio.Tests.Algorithms.MUMmer
         /// Input : One line sequence
         /// Validation : Validate the MUMs Output.
         /// </summary>
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Category("Priority0")]
         public void ValidateGetMumsWithMaxMatchWithOneLineSequence()
         {
             // Gets the reference sequence from the configurtion file
@@ -270,9 +259,8 @@ namespace Bio.Tests.Algorithms.MUMmer
         /// Input : One line sequence
         /// Validation : Validate the MUMs Output.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateMUMsUpToLISWithOneLineSequence()
         {
             this.ValidateMUMsGeneralTestCases(Constants.OneLineSequenceNodeName,
@@ -282,9 +270,8 @@ namespace Bio.Tests.Algorithms.MUMmer
         /// <summary>
         /// Validates SearchMatch() with One line sequence as input.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateSearchMatchesWithOneLineSequence()
         {
             this.ValidateSearchMatch(Constants.OneLineSequenceNodeName);
@@ -299,9 +286,8 @@ namespace Bio.Tests.Algorithms.MUMmer
         /// Input : One line sequence for both reference and query parameter
         /// Validation : Validate the unique matches
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void SimpleSuffixTreeFindMatchesOneLineSequence()
         {
             this.ValidateFindMatchSimpleSuffixGeneralTestCases(Constants.OneLineSequenceNodeName,
@@ -313,9 +299,8 @@ namespace Bio.Tests.Algorithms.MUMmer
         /// Input : Small size sequence for both reference and query parameter
         /// Validation : Validate the unique matches
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void SimpleSuffixTreeFindMatchesSmallSizeSequence()
         {
             this.ValidateFindMatchSimpleSuffixGeneralTestCases(Constants.SmallSizeSequenceNodeName,

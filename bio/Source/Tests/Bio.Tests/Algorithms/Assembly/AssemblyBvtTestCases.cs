@@ -8,14 +8,14 @@ using Bio.SimilarityMatrices;
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bio.Tests.Algorithms.Assembly
 {
     /// <summary>
     ///     Assembly Bvt Test case implementation.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class AssemblyBvtTestCases
     {
         private readonly Utility utilityObj = new Utility(@"TestUtils\TestsConfig.xml");
@@ -30,9 +30,8 @@ namespace Bio.Tests.Algorithms.Assembly
         ///     Validation: validates unmerged sequences count, contigs count,
         ///     contig sequences count and concensus.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void SequenceAssemblerWithAssembleMethod()
         {
             IOverlapDeNovoAssembly assembly = this.GetSequenceAssembly("assemble");
@@ -79,9 +78,8 @@ namespace Bio.Tests.Algorithms.Assembly
         ///     gap cost, merge threshold, consensus threshold.
         ///     Validation: Validates valid Contig is read.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void SequenceAssemblerWithContigMethod()
         {
             IOverlapDeNovoAssembly assembly = this.GetSequenceAssembly("contig");
@@ -114,9 +112,8 @@ namespace Bio.Tests.Algorithms.Assembly
         ///     gap cost, merge threshold, consensus threshold.
         ///     Validation: Validates valid Contig is read.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void SimpleConsensusWithMakeConsensusMethod()
         {
             IOverlapDeNovoAssembly assembly = this.GetSequenceAssembly("consensus");

@@ -18,14 +18,14 @@ using Bio.IO.Phylip;
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bio.TestAutomation.IO.Phylip
 {
     /// <summary>
     /// Phylip P2 parser and formatter Test case implementation.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class PhylipP2TestCases
     {
 
@@ -55,9 +55,8 @@ namespace Bio.TestAutomation.IO.Phylip
         /// Input : Invalid File
         /// Output: Validation of exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateReadOnlyPhylipParserParseReader()
         {
             InvalidatePhylipParserTestCases(Constants.EmptyPhylipParserFileNode,
@@ -69,9 +68,8 @@ namespace Bio.TestAutomation.IO.Phylip
         /// Input : Invalid File
         /// Output: Validation of exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateReadOnlyPhylipParserOneReader()
         {
             InvalidatePhylipParserTestCases(Constants.EmptyPhylipParserFileNode,
@@ -83,9 +81,8 @@ namespace Bio.TestAutomation.IO.Phylip
         /// Input : Invalid File
         /// Output: Validation of exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidatePhylipParserHeader()
         {
             InvalidatePhylipParserTestCases(
@@ -98,9 +95,8 @@ namespace Bio.TestAutomation.IO.Phylip
         /// Input : Invalid File
         /// Output: Validation of exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidatePhylipParserAlphabet()
         {
             InvalidatePhylipParserTestCases(
@@ -113,9 +109,8 @@ namespace Bio.TestAutomation.IO.Phylip
         /// Input : Invalid File
         /// Output: Validation of exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidatePhylipParserAlignAlphabet()
         {
             InvalidatePhylipParserTestCases(
@@ -128,9 +123,8 @@ namespace Bio.TestAutomation.IO.Phylip
         /// Input : Invalid File
         /// Output: Validation of exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidatePhylipParserSeqLength()
         {
             InvalidatePhylipParserTestCases(

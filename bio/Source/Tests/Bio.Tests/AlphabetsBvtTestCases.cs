@@ -1,18 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
-
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bio.Tests
 {
     /// <summary>
     /// Test Automation code for Bio Alphabets and BVT level validations.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class AlphabetsBvtTestCases
     {
         /// <summary>
@@ -34,9 +32,8 @@ namespace Bio.Tests
         /// Input Data : Valid All Alphabets.
         /// Output Data : Validate all Alphabet types.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateAll()
         {
             List<IAlphabet> refAlphabets = new List<IAlphabet>();
@@ -62,9 +59,8 @@ namespace Bio.Tests
         /// Input Data : Valid Dna,Rna and Protein Alphabet. 
         /// Output Data : Validate detection of alphabets
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateAutoDetectAlphabet()
         {
             string alphabetName = this.utilityObj.xmlUtil.GetTextValue(
@@ -115,9 +111,8 @@ namespace Bio.Tests
         /// Input Data : Valid Dna Alphabet.
         /// Output Data : Validate Sequences.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void AlphabetStaticCtorValidatePhaseOne()
         {
             Sequence seq =
@@ -132,9 +127,8 @@ namespace Bio.Tests
         /// <summary>
         /// Validate CompareSymbols() method.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateDnaAlphabetCompareSymbols()
         {
             DnaAlphabet alp = DnaAlphabet.Instance;
@@ -148,9 +142,8 @@ namespace Bio.Tests
         /// Validates ValidateGetAmbiguousCharacters method for Dna type.
         /// Input: Dna Alphabet type.
         /// Output:Ambiguous characters corresponding to Dna type.
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateGetAmbiguousCharactersforDna()
         {
             this.ValidateGetAmbiguousCharacters(AlphabetsTypes.Dna);
@@ -160,9 +153,8 @@ namespace Bio.Tests
         /// Validates GetValidSymbols method for Dna type.
         /// Input: Dna Alphabet type.
         /// Output:Valid Symbols corresponding to Dna type.
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void GetValidSymbolsforDna()
         {
             this.ValidateGetValidSymbols(AlphabetsTypes.Dna);
@@ -172,9 +164,8 @@ namespace Bio.Tests
         /// Validates CompareSymbols method for Dna type.
         /// Input: Dna Alphabet type.
         /// Output:Validate Symbols corresponding to Dna type.
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateCompareSymbolsforDna()
         {
             this.ValidateCompareSymbols(AlphabetsTypes.Dna);
@@ -184,9 +175,8 @@ namespace Bio.Tests
         /// Validates TryGetComplementSymbol method for Dna type.
         /// Input: Dna Alphabet type.
         /// Output:Validate Complement corresponding to Dna type.
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateTryGetComplementSymbolforDna()
         {
             this.TryGetComplementSymbol(AlphabetsTypes.Dna);
@@ -197,9 +187,8 @@ namespace Bio.Tests
         /// Input Data : Valid Dna Alphabet instance. 
         /// Output Data : Validate Gap symbol for Dna alphabet.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateTryGetDefaultGapSymbolforDna()
         {
             this.ValidateTryGetDefaultGapSymbol(AlphabetsTypes.Dna);
@@ -210,9 +199,8 @@ namespace Bio.Tests
         /// Input Data : Valid Dna Alphabet instance. 
         /// Output Data : Validate Default termination symbol for Dna alphabet.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateGetDefaultTerminationSymbolforDna()
         {
             this.GetDefaultTerminationSymbol(AlphabetsTypes.Dna);
@@ -223,9 +211,8 @@ namespace Bio.Tests
         /// Input Data  : Valid Dna Alphabet instance. 
         /// Output Data : Validate Basic symbols for Dna alphabet.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateTryGetBasicSymbolsforDna()
         {
             this.ValidateTryGetBasicSymbols(AlphabetsTypes.Dna);
@@ -236,9 +223,8 @@ namespace Bio.Tests
         /// Input Data  : Valid Dna Alphabet instance. 
         /// Output Data : Validate Ambiguous symbols for Dna alphabets.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateTryGetAmbiguousSymbolforDna()
         {
             this.ValidateTryGetAmbiguousSymbol(AlphabetsTypes.Dna);
@@ -249,9 +235,8 @@ namespace Bio.Tests
         /// Input Data  : Valid Dna Sequence.
         /// Output Data : Validate Sequence type.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateSequenceTypesforDna()
         {
             this.ValidateSequenceTypes(AlphabetsTypes.Dna);
@@ -262,9 +247,8 @@ namespace Bio.Tests
         /// Input Data  : Valid Dna Sequence.
         /// Output Data : Validate Public properties like HasAmbiguity,HasGaps,HasTermination etc.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidatePublicPropertiesforDna()
         {
             this.ValidatePublicProperties(AlphabetsTypes.Dna);
@@ -275,9 +259,8 @@ namespace Bio.Tests
         /// Input Data  : Valid Dna Sequence and expected Dictionary output..
         /// Output Data : Expected Dictionary output.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateGetSymbolValueMapforDna()
         {
             this.ValidateGetSymbolValueMap(AlphabetsTypes.Dna);
@@ -288,9 +271,8 @@ namespace Bio.Tests
         /// Input Data  : Symbol names.
         /// Output Data : Friendly names for the symbols 
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateFriendlyNameForDna()
         {
             string friendlyName = this.utilityObj.xmlUtil.GetTextValue(Constants.FriendlyNameNode,
@@ -309,9 +291,8 @@ namespace Bio.Tests
         /// Input Data  : Ambiguous characters.
         /// Output Data : Expected values corresponding to Ambiguous characters.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateAmbiguousDnaAplhabet()
         {
             char[] ambiguousCharacters = new char[16] { 'A', 'M', 'R', 'S', 'W', 'Y', 'K', 'V', 'H', 'D', 'B', 'N', 'C', 'G', '-', 'T' };
@@ -342,9 +323,8 @@ namespace Bio.Tests
         /// Input Data  : Symbol names.
         /// Output Data : Friendly names for the symbols 
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateFriendlyNameForAmbiguousDna()
         {
             string friendlyName = this.utilityObj.xmlUtil.GetTextValue(Constants.FriendlyNameNode,
@@ -373,9 +353,8 @@ namespace Bio.Tests
         /// Input: Rna Alphabet type.
         /// Output:Ambiguous characters corresponding to Rna type.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateGetAmbiguousCharactersforRna()
         {
             this.ValidateGetAmbiguousCharacters(AlphabetsTypes.Rna);
@@ -384,9 +363,8 @@ namespace Bio.Tests
         /// <summary>
         /// Validate CompareSymbols() method.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateRnaAlphabetCompareSymbols()
         {
             RnaAlphabet alp = RnaAlphabet.Instance;
@@ -400,9 +378,8 @@ namespace Bio.Tests
         /// Validates GetValidSymbols method for Rna type.
         /// Input: Rna Alphabet type.
         /// Output:Valid Symbols corresponding to Rna type.
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void GetValidSymbolsforRna()
         {
             this.ValidateGetValidSymbols(AlphabetsTypes.Rna);
@@ -412,9 +389,8 @@ namespace Bio.Tests
         /// Validates CompareSymbols method for Rna type.
         /// Input: Rna Alphabet type.
         /// Output:Validate Symbols corresponding to Rna type.
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateCompareSymbolsforRna()
         {
             this.ValidateCompareSymbols(AlphabetsTypes.Rna);
@@ -424,9 +400,8 @@ namespace Bio.Tests
         /// Validates TryGetComplementSymbol method for Rna type.
         /// Input: Rna Alphabet type.
         /// Output:Validate Complement corresponding to Rna type.
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateTryGetComplementSymbolforRna()
         {
             this.TryGetComplementSymbol(AlphabetsTypes.Rna);
@@ -437,9 +412,8 @@ namespace Bio.Tests
         /// Input Data : Valid Rna Alphabet instance. 
         /// Output Data : Validate Default termination symbol for Rna alphabet.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateGetDefaultTerminationSymbolforRna()
         {
             this.GetDefaultTerminationSymbol(AlphabetsTypes.Rna);
@@ -450,9 +424,8 @@ namespace Bio.Tests
         /// Input Data : Valid Rna Alphabet instance. 
         /// Output Data : Validate Gap symbol for Rna alphabet.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateTryGetDefaultGapSymbolforRna()
         {
             this.ValidateTryGetDefaultGapSymbol(AlphabetsTypes.Rna);
@@ -463,9 +436,8 @@ namespace Bio.Tests
         /// Input Data  : Valid Rna Alphabet instance. 
         /// Output Data : Validate Basic symbols for Rna alphabet.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateTryGetBasicSymbolsforRna()
         {
             this.ValidateTryGetBasicSymbols(AlphabetsTypes.Rna);
@@ -476,9 +448,8 @@ namespace Bio.Tests
         /// Input Data  : Valid Rna Alphabet instance. 
         /// Output Data : Validate Ambiguous symbols for Rna alphabets.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateTryGetAmbiguousSymbolforRna()
         {
             this.ValidateTryGetAmbiguousSymbol(AlphabetsTypes.Rna);
@@ -489,9 +460,8 @@ namespace Bio.Tests
         /// Input Data  : Valid Rna Sequence.
         /// Output Data : Validate Sequence type.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateSequenceTypesforRna()
         {
             this.ValidateSequenceTypes(AlphabetsTypes.Rna);
@@ -502,9 +472,8 @@ namespace Bio.Tests
         /// Input Data  : Valid Rna Sequence.
         /// Output Data : Validate Public properties like HasAmbiguity,HasGaps,HasTermination etc.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidatePublicPropertiesforRna()
         {
             this.ValidatePublicProperties(AlphabetsTypes.Rna);
@@ -515,9 +484,8 @@ namespace Bio.Tests
         /// Input Data  : Valid Rna Sequence and expected Dictionary output..
         /// Output Data : Expected Dictionary output.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateGetSymbolValueMapforRna()
         {
             this.ValidateGetSymbolValueMap(AlphabetsTypes.Rna);
@@ -528,9 +496,8 @@ namespace Bio.Tests
         /// Input Data  : Symbol names.
         /// Output Data : Friendly names for the symbols 
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateFriendlyNameForRna()
         {
             string friendlyName = this.utilityObj.xmlUtil.GetTextValue(Constants.FriendlyNameNode,
@@ -549,9 +516,8 @@ namespace Bio.Tests
         /// Input Data  : Ambiguous characters.
         /// Output Data : Expected values corresponding to Ambiguous characters.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateAmbiguousRnaAplhabet()
         {
             char[] ambiguousCharacters = new char[10] { 'M', 'H', 'W', 'R', 'D', 'S', 'V', 'K', 'B', 'Y' };
@@ -576,9 +542,8 @@ namespace Bio.Tests
         /// Input Data  : Symbol names.
         /// Output Data : Friendly names for the symbols 
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateFriendlyNameForAmbiguousRna()
         {
             string friendlyName = this.utilityObj.xmlUtil.GetTextValue(Constants.FriendlyNameNode,
@@ -607,9 +572,8 @@ namespace Bio.Tests
         /// Input: Protein Alphabet type.
         /// Output:Ambiguous characters corresponding to Protein type.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateGetAmbiguousCharactersforProtein()
         {
             this.ValidateGetAmbiguousCharacters(AlphabetsTypes.Protein);
@@ -618,9 +582,8 @@ namespace Bio.Tests
         /// <summary>
         /// Validate CompareSymbols() method.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateProAlphabetCompareSymbols()
         {
             ProteinAlphabet alp = ProteinAlphabet.Instance;
@@ -634,9 +597,8 @@ namespace Bio.Tests
         /// Validates GetValidSymbols method for Protein type.
         /// Input: Rna Alphabet type.
         /// Output:Valid Symbols corresponding to Protein type.
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void GetValidSymbolsforProtein()
         {
             this.ValidateGetValidSymbols(AlphabetsTypes.Protein);
@@ -646,9 +608,8 @@ namespace Bio.Tests
         /// Validates CompareSymbols method for Protein type.
         /// Input: Protein Alphabet type.
         /// Output:Validate Symbols corresponding to Protein type.
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateCompareSymbolsforProtein()
         {
             this.ValidateCompareSymbols(AlphabetsTypes.Protein);
@@ -658,9 +619,8 @@ namespace Bio.Tests
         /// Validates TryGetComplementSymbol method for Protein type.
         /// Input: Protein Alphabet type.
         /// Output:Validate Complement corresponding to Protein type.
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateTryGetComplementSymbolforProtein()
         {
             this.TryGetComplementSymbol(AlphabetsTypes.Protein);
@@ -671,9 +631,8 @@ namespace Bio.Tests
         /// Input Data : Valid Protein Alphabet instance. 
         /// Output Data : Validate Default termination symbol for Protein alphabet.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateGetDefaultTerminationSymbolforProtein()
         {
             this.GetDefaultTerminationSymbol(AlphabetsTypes.Protein);
@@ -684,9 +643,8 @@ namespace Bio.Tests
         /// Input Data : Valid Protein Alphabet instance. 
         /// Output Data : Validate Gap symbol for Protein alphabet.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateTryGetDefaultGapSymbolforProtein()
         {
             this.ValidateTryGetDefaultGapSymbol(AlphabetsTypes.Protein);
@@ -697,9 +655,8 @@ namespace Bio.Tests
         /// Input Data  : Valid Protein Alphabet instance. 
         /// Output Data : Validate Basic symbols for Protein alphabet.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateTryGetBasicSymbolsforProtein()
         {
             this.ValidateTryGetBasicSymbols(AlphabetsTypes.Protein);
@@ -710,9 +667,8 @@ namespace Bio.Tests
         /// Input Data  : Valid Protein Alphabet instance. 
         /// Output Data : Validate Ambiguous symbols for Protein alphabets.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateTryGetAmbiguousSymbolforProtein()
         {
             this.ValidateTryGetAmbiguousSymbol(AlphabetsTypes.Protein);
@@ -723,9 +679,8 @@ namespace Bio.Tests
         /// Input Data  : Valid Protein Sequence.
         /// Output Data : Validate Sequence type.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateSequenceTypesforProtein()
         {
             this.ValidateSequenceTypes(AlphabetsTypes.Protein);
@@ -736,9 +691,8 @@ namespace Bio.Tests
         /// Input Data  : Valid Protein Sequence.
         /// Output Data : Validate Public properties like HasAmbiguity,HasGaps,HasTermination etc.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidatePublicPropertiesforProtein()
         {
             this.ValidatePublicProperties(AlphabetsTypes.Protein);
@@ -749,9 +703,8 @@ namespace Bio.Tests
         /// Input Data  : Valid Protein Sequence and expected Dictionary output..
         /// Output Data : Expected Dictionary output.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateGetSymbolValueMapforProtein()
         {
             this.ValidateGetSymbolValueMap(AlphabetsTypes.Protein);
@@ -762,9 +715,8 @@ namespace Bio.Tests
         /// Input Data  : Symbol names.
         /// Output Data : Friendly names for the symbols 
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateFriendlyNameForProtein()
         {
             string friendlyName = this.utilityObj.xmlUtil.GetTextValue(Constants.FriendlyNameNode,
@@ -802,9 +754,8 @@ namespace Bio.Tests
         /// Input Data  : Ambiguous characters.
         /// Output Data : Expected values corresponding to Ambiguous characters.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateAmbiguousProteinAplhabet()
         {
             AmbiguousProteinAlphabet proteinAlphabetInstance = AmbiguousProteinAlphabet.Instance;
@@ -822,9 +773,8 @@ namespace Bio.Tests
         /// Input Data  : Symbol names.
         /// Output Data : Friendly names for the symbols 
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateFriendlyNameForAmbiguousProtein()
         {
             string friendlyName = this.utilityObj.xmlUtil.GetTextValue(Constants.FriendlyNameNode,

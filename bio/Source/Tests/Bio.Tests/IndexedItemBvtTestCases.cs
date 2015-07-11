@@ -2,14 +2,14 @@
 
 using Bio.Util.Logging;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bio.Tests
 {
     /// <summary>
     /// Test Automation code for Bio IndexedItem BVT level validations.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class IndexedItemBvtTestCases
     {
         #region IndexedItem Bvt TestCases
@@ -17,10 +17,9 @@ namespace Bio.Tests
         /// <summary>
         /// Validate a GetHashCode() method in IndexedItem.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
-        [Ignore]
+        [Test]
+        [Category("Priority0")]
+        [Ignore("Not sure what this was for")]
         public void ValidateIndexedItemGetHashCode()
         {
             // Another test which fails when we version .NET; removing.
@@ -32,9 +31,8 @@ namespace Bio.Tests
         /// <summary>
         /// Validate a CompareTo() method in IndexedItem.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateIndexedItemCompareTo()
         {
             IndexedItem<byte> indexedObj = new IndexedItem<byte>(0, Encoding.ASCII.GetBytes("A")[0]);
@@ -51,9 +49,8 @@ namespace Bio.Tests
         /// <summary>
         /// Validate a Equals() method in IndexedItem.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateIndexedItemEquals()
         {
             IndexedItem<byte> indexedObj = new IndexedItem<byte>(0, Encoding.ASCII.GetBytes("A")[0]);
@@ -69,9 +66,8 @@ namespace Bio.Tests
         /// <summary>
         /// Validate the operators in IndexedItem.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateIndexedItemOperators()
         {
             IndexedItem<byte> indexedObj = new IndexedItem<byte>(0, Encoding.ASCII.GetBytes("A")[0]);

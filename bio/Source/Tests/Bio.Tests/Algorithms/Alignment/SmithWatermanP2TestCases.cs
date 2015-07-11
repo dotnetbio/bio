@@ -13,14 +13,14 @@ using Bio.TestAutomation.Util;
 using Bio.Tests.Framework;
 using Bio.Util.Logging;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bio.Tests.Algorithms.Alignment
 {
     /// <summary>
     ///     Smith Waterman Alignment algorithm P2 test cases
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class SmithWatermanP2TestCases
     {
         #region Enums
@@ -113,9 +113,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA File
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void SmithWatermanSimpleAlignTwoLowerCaseSequencesFromTextFile()
         {
             this.ValidateSmithWatermanAlignment(
@@ -126,9 +125,8 @@ namespace Bio.Tests.Algorithms.Alignment
         }
 
 
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void SmithWatermanGotohAlignSequenceWithMultiplePossibleIndelPositions()
         {
             var longRef = "TGACCCCGAGGGGGCCCGGGGCCGCGTCCCTGGGCCCTCCCCA";
@@ -159,9 +157,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA File
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void SmithWatermanSimpleAlignTwoUpperCaseSequencesFromTextFile()
         {
             this.ValidateSmithWatermanAlignment(
@@ -179,9 +176,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : 1000 BP FastA File
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void SmithWatermanSimpleAlignWith1000BP()
         {
             this.ValidateSmithWatermanAlignment(
@@ -200,9 +196,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA File
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void SmithWatermanSimpleAlignTwoLowerUpperCaseSequencesFromTextFile()
         {
             this.ValidateSmithWatermanAlignment(
@@ -220,9 +215,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA File
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void SmithWatermanSimpleAlignTwoLowerCaseSequencesFromCode()
         {
             this.ValidateSmithWatermanAlignment(
@@ -240,9 +234,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA File
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void SmithWatermanSimpleAlignTwoUpperCaseSequencesFromCode()
         {
             this.ValidateSmithWatermanAlignment(
@@ -260,9 +253,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA File
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void SmithWatermanSimpleAlignTwoLowerUpperCaseSequencesFromCode()
         {
             this.ValidateSmithWatermanAlignment(
@@ -280,9 +272,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA File
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void SmithWatermanSimpleAlignListLowerCaseSequencesFromTextFile()
         {
             this.ValidateSmithWatermanAlignment(
@@ -300,9 +291,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA File
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void SmithWatermanSimpleAlignListUpperCaseSequencesFromTextFile()
         {
             this.ValidateSmithWatermanAlignment(
@@ -320,9 +310,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA File
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void SmithWatermanSimpleAlignListLowerUpperCaseSequencesFromTextFile()
         {
             this.ValidateSmithWatermanAlignment(Constants.SmithWatermanAlignAlgorithmNodeName, true,
@@ -338,9 +327,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA File
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void SmithWatermanSimpleAlignAllParamsLowerCaseSequencesFromTextFile()
         {
             this.ValidateSmithWatermanAlignment(Constants.SmithWatermanAlignAlgorithmNodeName, true,
@@ -356,9 +344,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA File
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void SmithWatermanSimpleAlignAllParamsUpperCaseSequencesFromTextFile()
         {
             this.ValidateSmithWatermanAlignment(Constants.SmithWatermanAlignAlgorithmNodeName, true,
@@ -374,9 +361,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA File
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void SmithWatermanSimpleAlignAllParamsLowerUpperCaseSequencesFromTextFile()
         {
             this.ValidateSmithWatermanAlignment(Constants.SmithWatermanAlignAlgorithmNodeName, true,
@@ -389,9 +375,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Two Input sequence and Non Matching similarity matrix
         ///     Validation : Exception should be thrown
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidatePOSimpleAlignTwoSequencesWithNonMatchingSimilarityMatrix()
         {
             this.InValidateSmithWatermanAlignmentWithInvalidSimilarityMatrix(
@@ -406,9 +391,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Input sequence List and Non Matching similarity matrix
         ///     Validation : Exception should be thrown
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidatePOSimpleAlignListSequencesWithNonMatchingSimilarityMatrix()
         {
             this.InValidateSmithWatermanAlignmentWithInvalidSimilarityMatrix(
@@ -423,9 +407,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Input sequence and Non Matching similarity matrix
         ///     Validation : Exception should be thrown
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidatePOSimpleAlignAllParamsSequencesWithNonMatchingSimilarityMatrix()
         {
             this.InValidateSmithWatermanAlignmentWithInvalidSimilarityMatrix(
@@ -440,9 +423,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Two Input sequence and Empty similarity matrix
         ///     Validation : Exception should be thrown
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidatePOSimpleAlignTwoSequencesWithEmptySimilarityMatrix()
         {
             this.InValidateSmithWatermanAlignmentWithInvalidSimilarityMatrix(
@@ -457,9 +439,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Input sequence List and Empty similarity matrix
         ///     Validation : Exception should be thrown
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidatePOSimpleAlignListSequencesWithEmptySimilarityMatrix()
         {
             this.InValidateSmithWatermanAlignmentWithInvalidSimilarityMatrix(
@@ -475,9 +456,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Input sequence and Empty similarity matrix
         ///     Validation : Exception should be thrown
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidatePOSimpleAlignAllParamsSequencesWithEmptySimilarityMatrix()
         {
             this.InValidateSmithWatermanAlignmentWithInvalidSimilarityMatrix(
@@ -494,9 +474,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Two Input sequence and Only Alphabet similarity matrix
         ///     Validation : Exception should be thrown
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidatePOSimpleAlignTwoSequencesWithOnlyAlphabetSimilarityMatrix()
         {
             this.InValidateSmithWatermanAlignmentWithInvalidSimilarityMatrix(
@@ -512,9 +491,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Input sequence List and Only Alphabet similarity matrix
         ///     Validation : Exception should be thrown
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidatePOSimpleAlignListSequencesWithOnlyAlphabetSimilarityMatrix()
         {
             this.InValidateSmithWatermanAlignmentWithInvalidSimilarityMatrix(
@@ -531,9 +509,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Input sequence and Only Alphabet similarity matrix
         ///     Validation : Exception should be thrown
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidatePOSimpleAlignAllParamsSequencesWithOnlyAlphabetSimilarityMatrix()
         {
             this.InValidateSmithWatermanAlignmentWithInvalidSimilarityMatrix(
@@ -550,9 +527,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Two Input sequence and Modified similarity matrix
         ///     Validation : Exception should be thrown
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidatePOSimpleAlignTwoSequencesWithModifiedSimilarityMatrix()
         {
             this.InValidateSmithWatermanAlignmentWithInvalidSimilarityMatrix(
@@ -569,9 +545,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Input sequence list and Modified similarity matrix
         ///     Validation : Exception should be thrown
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidatePOSimpleAlignListSequencesWithModifiedSimilarityMatrix()
         {
             this.InValidateSmithWatermanAlignmentWithInvalidSimilarityMatrix(
@@ -588,9 +563,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Input sequence and Modified similarity matrix
         ///     Validation : Exception should be thrown
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidatePOSimpleAlignAllParamsSequencesWithModifiedSimilarityMatrix()
         {
             this.InValidateSmithWatermanAlignmentWithInvalidSimilarityMatrix(
@@ -607,9 +581,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Two Input sequence and Few Alphabet similarity matrix
         ///     Validation : Exception should be thrown
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidatePOSimpleAlignTwoSequencesWithFewAlphabetSimilarityMatrix()
         {
             this.InValidateSmithWatermanAlignmentWithInvalidSimilarityMatrix(
@@ -626,9 +599,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Input sequence list and Few Alphabet similarity matrix
         ///     Validation : Exception should be thrown
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidatePOSimpleAlignListSequencesWithFewAlphabetSimilarityMatrix()
         {
             this.InValidateSmithWatermanAlignmentWithInvalidSimilarityMatrix(
@@ -645,9 +617,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Input sequence and Few Alphabet similarity matrix
         ///     Validation : Exception should be thrown
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidatePOSimpleAlignAllParamsSequencesWithFewAlphabetSimilarityMatrix()
         {
             this.InValidateSmithWatermanAlignmentWithInvalidSimilarityMatrix(
@@ -664,9 +635,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Two Input sequence and Empty similarity matrix
         ///     Validation : Exception should be thrown
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidatePOSimpleAlignTwoSequencesFromCodeWithEmptySimilarityMatrix()
         {
             this.InValidateSmithWatermanAlignmentWithInvalidSimilarityMatrix(
@@ -683,9 +653,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Input sequence List and Empty similarity matrix
         ///     Validation : Exception should be thrown
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidatePOSimpleAlignListSequencesFromCodeWithEmptySimilarityMatrix()
         {
             this.InValidateSmithWatermanAlignmentWithInvalidSimilarityMatrix(
@@ -702,9 +671,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Input sequence List and Empty similarity matrix
         ///     Validation : Exception should be thrown
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidatePOSimpleAlignAllParamsSequencesFromCodeWithEmptySimilarityMatrix()
         {
             this.InValidateSmithWatermanAlignmentWithInvalidSimilarityMatrix(
@@ -721,9 +689,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Input sequence List and Only Alphabet similarity matrix
         ///     Validation : Exception should be thrown
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidatePOSimpleAlignTwoSequencesFromCodeWithOnlyAlphabetSimilarityMatrix()
         {
             this.InValidateSmithWatermanAlignmentWithInvalidSimilarityMatrix(
@@ -740,9 +707,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Input sequence List and Only Alphabet similarity matrix
         ///     Validation : Exception should be thrown
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidatePOSimpleAlignListSequencesFromCodeWithOnlyAlphabetSimilarityMatrix()
         {
             this.InValidateSmithWatermanAlignmentWithInvalidSimilarityMatrix(
@@ -759,9 +725,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Input sequence List and Only Alphabet similarity matrix
         ///     Validation : Exception should be thrown
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidatePOSimpleAlignAllParamsSequencesFromCodeWithOnlyAlphabetSimilarityMatrix()
         {
             this.InValidateSmithWatermanAlignmentWithInvalidSimilarityMatrix(
@@ -778,9 +743,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Input sequence and Few Alphabet similarity matrix
         ///     Validation : Exception should be thrown
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidatePOSimpleAlignTwoSequencesFromCodeWithNullSimilarityMatrix()
         {
             this.InValidateSmithWatermanAlignmentWithInvalidSimilarityMatrix(
@@ -797,9 +761,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Input sequence and Few Alphabet similarity matrix
         ///     Validation : Exception should be thrown
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidatePOSimpleAlignListSequencesFromCodeWithNullSimilarityMatrix()
         {
             this.InValidateSmithWatermanAlignmentWithInvalidSimilarityMatrix(
@@ -816,9 +779,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Input sequence and Few Alphabet similarity matrix
         ///     Validation : Exception should be thrown
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidatePOSimpleAlignAllParamsSequencesFromCodeWithNullSimilarityMatrix()
         {
             this.InValidateSmithWatermanAlignmentWithInvalidSimilarityMatrix(
@@ -835,9 +797,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Input sequence and Few Alphabet similarity matrix
         ///     Validation : Exception should be thrown
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidatePOSimpleAlignTwoSequencesWithInvalidDiagonalSimilarityMatrix()
         {
             this.InValidateSmithWatermanAlignmentWithInvalidSimilarityMatrix(
@@ -854,9 +815,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Input sequence and Invalid DiagonalSimilarityMatrix
         ///     Validation : Exception should be thrown
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidatePOSimpleAlignListSequencesWithInvalidDiagonalSimilarityMatrix()
         {
             this.InValidateSmithWatermanAlignmentWithInvalidSimilarityMatrix(
@@ -873,9 +833,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Input sequence and Invalid DiagonalSimilarityMatrix
         ///     Validation : Exception should be thrown
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidatePOSimpleAlignAllParamsSequencesWithInvalidDiagonalSimilarityMatrix()
         {
             this.InValidateSmithWatermanAlignmentWithInvalidSimilarityMatrix(
@@ -892,9 +851,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Input sequence List and Only Alphabet similarity matrix
         ///     Validation : Exception should be thrown
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidatePOSimpleAlignTwoWithInvalidSequencesFromTextFile()
         {
             this.InValidateSmithWatermanAlignmentWithInvalidSequence(
@@ -912,9 +870,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Input sequence List and Only Alphabet similarity matrix
         ///     Validation : Exception should be thrown
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidatePOSimpleAlignListWithInvalidSequencesFromTextFile()
         {
             this.InValidateSmithWatermanAlignmentWithInvalidSequence(
@@ -932,9 +889,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Input sequence List and Only Alphabet similarity matrix
         ///     Validation : Exception should be thrown
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidatePOSimpleAlignAllParamsWithInvalidSequencesFromTextFile()
         {
             this.InValidateSmithWatermanAlignmentWithInvalidSequence(
@@ -952,9 +908,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Input sequence List and Only Alphabet similarity matrix
         ///     Validation : Exception should be thrown
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidatePOSimpleAlignTwoWithEmptySequencesFromTextFile()
         {
             this.InValidateSmithWatermanAlignmentWithInvalidSequence(
@@ -972,9 +927,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Input sequence List and Only Alphabet similarity matrix
         ///     Validation : Exception should be thrown
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidatePOSimpleAlignListWithEmptySequencesFromTextFile()
         {
             this.InValidateSmithWatermanAlignmentWithInvalidSequence(
@@ -992,9 +946,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Input sequence List and Only Alphabet similarity matrix
         ///     Validation : Exception should be thrown
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidatePOSimpleAlignAllParamsWithEmptySequencesFromTextFile()
         {
             this.InValidateSmithWatermanAlignmentWithInvalidSequence(
@@ -1012,9 +965,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Input sequence List and Only Alphabet similarity matrix
         ///     Validation : Exception should be thrown
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidatePOSimpleAlignTwoWithGapSequencesFromTextFile()
         {
             this.InValidateSmithWatermanAlignmentWithInvalidSequence(
@@ -1032,9 +984,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Input sequence List and Only Alphabet similarity matrix
         ///     Validation : Exception should be thrown
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidatePOSimpleAlignListWithGapSequencesFromTextFile()
         {
             this.InValidateSmithWatermanAlignmentWithInvalidSequence(
@@ -1052,9 +1003,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Input sequence List and Only Alphabet similarity matrix
         ///     Validation : Exception should be thrown
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidatePOSimpleAlignAllParamsWithGapSequencesFromTextFile()
         {
             this.InValidateSmithWatermanAlignmentWithInvalidSequence(
@@ -1072,9 +1022,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Input sequence List and Only Alphabet similarity matrix
         ///     Validation : Exception should be thrown
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidatePOSimpleAlignTwoWithUnicodeSequencesFromTextFile()
         {
             this.InValidateSmithWatermanAlignmentWithInvalidSequence(
@@ -1092,9 +1041,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Input sequence List and Only Alphabet similarity matrix
         ///     Validation : Exception should be thrown
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidatePOSimpleAlignListWithUnicodeSequencesFromTextFile()
         {
             this.InValidateSmithWatermanAlignmentWithInvalidSequence(
@@ -1112,9 +1060,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Input sequence List and Only Alphabet similarity matrix
         ///     Validation : Exception should be thrown
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidatePOSimpleAlignAllParamsWithUnicodeSequencesFromTextFile()
         {
             this.InValidateSmithWatermanAlignmentWithInvalidSequence(
@@ -1132,9 +1079,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Input sequence List and Only Alphabet similarity matrix
         ///     Validation : Exception should be thrown
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidatePOSimpleAlignTwoSequencesWithSpacesFromTextFile()
         {
             this.InValidateSmithWatermanAlignmentWithInvalidSequence(
@@ -1152,9 +1098,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Input sequence List and Only Alphabet similarity matrix
         ///     Validation : Exception should be thrown
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidatePOSimpleAlignListSequencesWithSpacesFromTextFile()
         {
             this.InValidateSmithWatermanAlignmentWithInvalidSequence(
@@ -1172,9 +1117,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Input sequence List and Only Alphabet similarity matrix
         ///     Validation : Exception should be thrown
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidatePOSimpleAlignParamsSequencesWithSpacesFromTextFile()
         {
             this.InValidateSmithWatermanAlignmentWithInvalidSequence(
@@ -1195,9 +1139,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA DNA File
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void ValidateSmithWatermanAlignTwoDnaSequences()
         {
             this.ValidateSmithWatermanAlignment(
@@ -1216,9 +1159,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA DNA File
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void ValidateSmithWatermanAlignTwoRnaSequences()
         {
             this.ValidateSmithWatermanAlignment(
@@ -1237,9 +1179,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA DNA File
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void ValidateSmithWatermanAlignTwoProteinSequences()
         {
             this.ValidateSmithWatermanAlignment(
@@ -1259,9 +1200,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA Protein File with Max Gap Cost
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void ValidateSmithWatermanAlignTwoSequencesGapCostMin()
         {
             this.ValidateSmithWatermanAlignment(
@@ -1280,9 +1220,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA Protein File with Max Gap Cost
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void ValidateSmithWatermanAlignTwoSequencesWithBlosomSimilarityMatrix()
         {
             this.ValidateSmithWatermanAlignment(
@@ -1301,9 +1240,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA Protein File with Max Gap Cost
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void ValidateSmithWatermanAlignTwoSequencesWithPamSimilarityMatrix()
         {
             this.ValidateSmithWatermanAlignment(
@@ -1322,9 +1260,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA Protein File with Max Gap Cost
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void ValidateSmithWatermanAlignTwoSequencesWithTextReaderSimilarityMatrix()
         {
             this.ValidateSmithWatermanAlignment(
@@ -1344,9 +1281,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA Protein File with Max Gap Cost
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void ValidateSmithWatermanAlignTwoSequencesWithDiagonalSimilarityMatrix()
         {
             this.ValidateSmithWatermanAlignment(
@@ -1365,9 +1301,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA Protein File with Max Gap Cost
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void ValidateSmithWatermanAlignTwoSequencesWithEqualGapOpenAndExtensionCost()
         {
             this.ValidateSmithWatermanAlignment(

@@ -8,14 +8,14 @@ using Bio.IO.Wiggle;
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bio.Tests.IO.Wiggle
 {
     /// <summary>
     /// Wiggle Bvt parser and formatter Test case implementation.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class WiggleBvtTestCases
     {
         Utility utilityObj = new Utility(@"TestUtils\WiggleTestConfig.xml");
@@ -47,9 +47,8 @@ namespace Bio.Tests.IO.Wiggle
         /// <summary>
         /// Validate all public properties for Wiggle Parser.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateWiggleParserPublicProperties()
         {
             // Gets the filepath  from the Xml
@@ -86,9 +85,8 @@ namespace Bio.Tests.IO.Wiggle
         /// <summary>
         /// Validate Wiggle parser on a small fixed step file.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateWiggleParserWithFixedStep()
         {
             this.ValidateWiggleParser(Constants.SimpleWiggleWithFixedStepNodeName, ParseType.Default);
@@ -97,9 +95,8 @@ namespace Bio.Tests.IO.Wiggle
         /// <summary>
         /// Validate Wiggle parser on a small variable step file.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateWiggleParserWithVariableStep()
         {
             this.ValidateWiggleParser(Constants.SimpleWiggleWithVariableStepNodeName, ParseType.Default);
@@ -108,9 +105,8 @@ namespace Bio.Tests.IO.Wiggle
         /// <summary>
         /// Validate Wiggle parser on a small variable step file on parsing with a Stream.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateWiggleParserWithVariableStepOnAStream()
         {
             this.ValidateWiggleParser(Constants.SimpleWiggleWithVariableStepNodeName, ParseType.Stream);
@@ -123,9 +119,8 @@ namespace Bio.Tests.IO.Wiggle
         /// <summary>
         ///  Validate Wiggle formatter on a small fixed step file.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateWiggleFormatterWithFixedStep()
         {
             this.ValidateWiggleFormatter(Constants.SimpleWiggleWithFixedStepNodeName, FormatType.Default);
@@ -134,9 +129,8 @@ namespace Bio.Tests.IO.Wiggle
         /// <summary>
         ///   Validate Wiggle formatter on a small variable step file.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateWiggleFormatterWithVariableStep()
         {
             this.ValidateWiggleFormatter(Constants.SimpleWiggleWithVariableStepNodeName, FormatType.Default);
@@ -145,9 +139,8 @@ namespace Bio.Tests.IO.Wiggle
         /// <summary>
         ///   Validate Wiggle formatter on a small variable step file with a Stream.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateWiggleFormatterWithVariableStepOnAStream()
         {
             this.ValidateWiggleFormatter(Constants.SimpleWiggleWithVariableStepNodeName, FormatType.Stream);
@@ -156,9 +149,8 @@ namespace Bio.Tests.IO.Wiggle
         /// <summary>
         /// Validates all public properties for Wiggle formatter.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateWiggleFormatterPublicProperties()
         {
             //Get the expected values from configuration file.
@@ -185,9 +177,8 @@ namespace Bio.Tests.IO.Wiggle
         /// <summary>
         /// Validate all public properties for Annotation.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateAnnotationPublicProperties()
         {
             WiggleAnnotation annotation = null;
@@ -252,9 +243,8 @@ namespace Bio.Tests.IO.Wiggle
         /// <summary>
         /// Creates Annotation object from the scratch and validates successfull creation of Annotation object.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateWiggleAnnotation()
         {
             string[] expectedValues = this.utilityObj.xmlUtil.GetTextValue(Constants.
@@ -298,9 +288,8 @@ namespace Bio.Tests.IO.Wiggle
         /// <summary>
         /// Validate GetValueArray() returns all the values from an annotation object.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateGetValueArray()
         {
             string[] expectedValues = this.utilityObj.xmlUtil.GetTextValue(Constants.

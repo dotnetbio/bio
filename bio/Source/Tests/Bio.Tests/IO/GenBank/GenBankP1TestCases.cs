@@ -14,7 +14,7 @@ using Bio.IO.GenBank;
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using Bio;
 
 #if (SILVERLIGHT == false)
@@ -26,7 +26,7 @@ using Bio;
     /// <summary>
     /// GenBank Priority One parser and formatter test cases implementation.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class GenBankP1TestCases
     {
 
@@ -127,9 +127,8 @@ using Bio;
         /// Validation: Properties like StrandType, StrandTopology, Division, Date, 
         /// Version, PrimaryID, Sequence, Metadata Count and Sequence ID
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void GenBankParserValidateParseMediumSize()
         {
             InitializeXmlVariables(Constants.MediumSizeGenBankNodeName);
@@ -144,9 +143,8 @@ using Bio;
         /// Validation: Properties like StrandType, StrandTopology, Division, Date, 
         /// Version, PrimaryID, Sequence, Metadata Count and Sequence ID
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void GenBankParserValidateParseOneLineSeq()
         {
             InitializeXmlVariables(Constants.OneLineSequenceGenBankNodeName);
@@ -161,9 +159,8 @@ using Bio;
         /// Validation: Properties like StrandType, StrandTopology, Division, Date, 
         /// Version, PrimaryID, Sequence, Metadata Count and Sequence ID
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void GenBankParserValidateParseDnaSequence()
         {
             InitializeXmlVariables(Constants.SimpleGenBankDnaNodeName);
@@ -178,9 +175,8 @@ using Bio;
         /// Validation: Properties like StrandType, StrandTopology, Division, Date, 
         /// Version, PrimaryID, Sequence, Metadata Count and Sequence ID
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void GenBankParserValidateParseRnaSequence()
         {
             InitializeXmlVariables(Constants.SimpleGenBankRnaNodeName);
@@ -195,9 +191,8 @@ using Bio;
         /// Validation: Properties like StrandType, StrandTopology, Division, Date, 
         /// Version, PrimaryID, Sequence, Metadata Count and Sequence ID
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void GenBankParserValidateParseProteinSequence()
         {
             InitializeXmlVariables(Constants.SimpleGenBankProNodeName);
@@ -212,9 +207,8 @@ using Bio;
         /// Validation: Properties like StrandType, StrandTopology, Division, Date, 
         /// Version, PrimaryID, Sequence, Metadata Count and Sequence ID
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void GenBankParserValidateParseMandatoryHeaders()
         {
             InitializeXmlVariables(Constants.MandatoryGenBankHeadersNodeName);
@@ -229,9 +223,8 @@ using Bio;
         /// Validation: Properties like StrandType, StrandTopology, Division, Date, 
         /// Version, PrimaryID, Sequence, Metadata Count and Sequence ID
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void GenBankParserValidateParseLargeSizeSequence()
         {
             InitializeXmlVariables(Constants.LargeSizeGenBank);
@@ -246,9 +239,8 @@ using Bio;
         /// Validation: Properties like StrandType, StrandTopology, Division, Date, 
         /// Version, PrimaryID, Sequence, Metadata Count and Sequence ID
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void GenBankParserValidateParseMultiSequence()
         {
             ValidateParseMultiSeqTestCases(Constants.MultipleSequenceGenBankNodeName);
@@ -263,9 +255,8 @@ using Bio;
         /// Validation: Properties like StrandType, StrandTopology, Division, Date, 
         /// Version, PrimaryID, Sequence, Metadata Count and Sequence ID
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void GenBankParserValidateParseWithEncodingAsConstructor()
         {
             InitializeXmlVariables(Constants.SimpleGenBankDnaNodeName);
@@ -281,9 +272,8 @@ using Bio;
         /// Validation: Properties like StrandType, StrandTopology, Division, Date, 
         /// Version, PrimaryID, Sequence, Metadata Count and Sequence ID
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void GenBankParserValidateParseWithEncodingAsProperty()
         {
             InitializeXmlVariables(Constants.SimpleGenBankDnaNodeName);
@@ -299,9 +289,8 @@ using Bio;
         /// Validation: Properties like StrandType, StrandTopology, Division, Date, 
         /// Version, PrimaryID, Sequence, Metadata Count and Sequence ID
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void GenBankParserValidateParseWithAlphabetAsProperty()
         {
             InitializeXmlVariables(Constants.SimpleGenBankDnaNodeName);
@@ -322,9 +311,8 @@ using Bio;
         /// Validation: Properties like StrandType, StrandTopology, Division, Date, 
         /// Version, PrimaryID, Sequence, Metadata Count and Sequence ID
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void GenBankParserValidateParseMultipleReferenceSequence()
         {
             InitializeXmlVariables(Constants.MultipleReferenceGenBankNodeName);
@@ -339,9 +327,8 @@ using Bio;
         /// Validation: Properties like StrandType, StrandTopology, Division, Date, 
         /// Version, PrimaryID, Sequence, Metadata Count and Sequence ID
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void GenBankParserValidateParseMultipleGeneCdsSequence()
         {
             InitializeXmlVariables(Constants.MultipleGeneCDSGenBankNodeName);
@@ -356,9 +343,8 @@ using Bio;
         /// Validation: Properties like StrandType, StrandTopology, Division, Date, 
         /// Version, PrimaryID, Sequence, Metadata Count and Sequence ID
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void GenBankParserValidateParseWithTextReaderMultipleReferenceSequence()
         {
             InitializeXmlVariables(Constants.MultipleReferenceGenBankNodeName);
@@ -374,9 +360,8 @@ using Bio;
         /// Output : Properties like StrandType, StrandTopology, Division, Date, 
         /// Version, PrimaryID, Sequence, Metadata Count and Sequence ID
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void GenBankParserValidateParseOneFileNameWithSpecificFormats()
         {
             InitializeXmlVariables(Constants.SimpleGenBankPrimaryNode);
@@ -403,9 +388,8 @@ using Bio;
         /// using File-Path and Validate Properties like StrandType, StrandTopology,
         /// Division, Date, Version, PrimaryID, Sequence, Metadata Count and Sequence ID
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void GenBankFormatterValidateWriteDnaSequence()
         {
             InitializeXmlVariables(Constants.SimpleGenBankDnaNodeName);
@@ -422,9 +406,8 @@ using Bio;
         /// using File-Path and Validate Properties like StrandType, StrandTopology,
         /// Division, Date, Version, PrimaryID, Sequence, Metadata Count and Sequence ID
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void GenBankFormatterValidateWriteRnaSequence()
         {
             InitializeXmlVariables(Constants.SimpleGenBankRnaNodeName);
@@ -441,9 +424,8 @@ using Bio;
         /// using File-Path and Validate Properties like StrandType, StrandTopology,
         /// Division, Date, Version, PrimaryID, Sequence, Metadata Count and Sequence ID
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void GenBankFormatterValidateWriteProteinSequence()
         {
             InitializeXmlVariables(Constants.SimpleGenBankProNodeName);
@@ -460,9 +442,8 @@ using Bio;
         /// using File-Path and Validate Properties like StrandType, StrandTopology,
         /// Division, Date, Version, PrimaryID, Sequence, Metadata Count and Sequence ID
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void GenBankFormatterValidateWriteMandatoryHeaders()
         {
             InitializeXmlVariables(Constants.MandatoryGenBankHeadersNodeName);
@@ -479,9 +460,8 @@ using Bio;
         /// using File-Path and Validate Properties like StrandType, StrandTopology,
         /// Division, Date, Version, PrimaryID, Sequence, Metadata Count and Sequence ID
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void GenBankFormatterValidateWriteMediumSizeSequence()
         {
             InitializeXmlVariables(Constants.MediumSizeGenBankNodeName);
@@ -498,9 +478,8 @@ using Bio;
         /// using File-Path and Validate Properties like StrandType, StrandTopology,
         /// Division, Date, Version, PrimaryID, Sequence, Metadata Count and Sequence ID
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void GenBankFormatterValidateWriteLargeSizeSequence()
         {
             InitializeXmlVariables(Constants.LargeSizeGenBank);
@@ -517,9 +496,8 @@ using Bio;
         /// using File-Path and Validate Properties like StrandType, StrandTopology,
         /// Division, Date, Version, PrimaryID, Sequence, Metadata Count and Sequence ID
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void GenBankFormatterValidateWriteMultipleReferenceSequence()
         {
             InitializeXmlVariables(Constants.MultipleReferenceGenBankNodeName);
@@ -536,9 +514,8 @@ using Bio;
         /// using File-Path and Validate Properties like StrandType, StrandTopology,
         /// Division, Date, Version, PrimaryID, Sequence, Metadata Count and Sequence ID
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void GenBankFormatterValidateWriteMultipleGeneCdsSequence()
         {
             InitializeXmlVariables(Constants.MultipleGeneCDSGenBankNodeName);
@@ -555,9 +532,8 @@ using Bio;
         /// using File-Path and Validate Properties like StrandType, StrandTopology,
         /// Division, Date, Version, PrimaryID, Sequence, Metadata Count and Sequence ID
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void GenBankFormatterValidateParseWriteMediumSizeSequence()
         {
             InitializeXmlVariables(Constants.MediumSizeGenBankNodeName);
@@ -574,9 +550,8 @@ using Bio;
         /// using File-Path and Validate Properties like StrandType, StrandTopology,
         /// Division, Date, Version, PrimaryID, Sequence, Metadata Count and Sequence ID
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void GenBankFormatterValidateParseWriteLargeSizeSequence()
         {
             InitializeXmlVariables(Constants.LargeSizeGenBank);
@@ -591,9 +566,8 @@ using Bio;
         /// using File-Path and Validate Properties like StrandType, StrandTopology,
         /// Division, Date, Version, PrimaryID, Sequence, Metadata Count and Sequence ID
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void GenBankFormatterValidateWriteAndParse()
         {
             InitializeXmlVariables(Constants.SimpleGenBankNodeName);
@@ -610,9 +584,8 @@ using Bio;
         /// using textreader and Validate Properties like StrandType, StrandTopology,
         /// Division, Date, Version, PrimaryID, Sequence, Metadata Count and Sequence ID
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void GenBankFormatterParseWithTextReaderValidateWriteDnaSequence()
         {
             InitializeXmlVariables(Constants.SimpleGenBankDnaNodeName);
@@ -629,9 +602,8 @@ using Bio;
         /// using textreader and Validate Properties like StrandType, StrandTopology,
         /// Division, Date, Version, PrimaryID, Sequence, Metadata Count and Sequence ID
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void GenBankFormatterParseWithTextReaderValidateWriteRnaSequence()
         {
             InitializeXmlVariables(Constants.SimpleGenBankRnaNodeName);
@@ -648,9 +620,8 @@ using Bio;
         /// using textreader and Validate Properties like StrandType, StrandTopology,
         /// Division, Date, Version, PrimaryID, Sequence, Metadata Count and Sequence ID
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void GenBankFormatterParseWithTextReaderValidateWriteProteinSequence()
         {
             InitializeXmlVariables(Constants.SimpleGenBankProNodeName);
@@ -667,9 +638,8 @@ using Bio;
         /// using textreader and Validate Properties like StrandType, StrandTopology,
         /// Division, Date, Version, PrimaryID, Sequence, Metadata Count and Sequence ID
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void GenBankFormatterParseWithTextReaderValidateWriteMandatoryHeaders()
         {
             InitializeXmlVariables(Constants.MandatoryGenBankHeadersNodeName);
@@ -686,9 +656,8 @@ using Bio;
         /// using text reader and Validate Properties like StrandType, StrandTopology,
         /// Division, Date, Version, PrimaryID, Sequence, Metadata Count and Sequence ID
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void GenBankFormatterParseWithTextReaderValidateWriteMediumSizeSequence()
         {
             InitializeXmlVariables(Constants.MediumSizeGenBankNodeName);
@@ -705,9 +674,8 @@ using Bio;
         /// using text reader and Validate Properties like StrandType, StrandTopology,
         /// Division, Date, Version, PrimaryID, Sequence, Metadata Count and Sequence ID
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void GenBankFormatterParseWithTextReaderValidateWriteLargeSizeSequence()
         {
             InitializeXmlVariables(Constants.LargeSizeGenBank);
@@ -723,9 +691,8 @@ using Bio;
         /// StrandTopology; Division; Date; Version; PrimaryID; Sequence; Metadata Count 
         /// and Sequence ID.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void GenBankFormatterValidateWriteWithFilePathMultipleReferenceSequence()
         {
             InitializeXmlVariables(Constants.MultipleReferenceGenBankNodeName);
@@ -741,9 +708,8 @@ using Bio;
         /// StrandTopology; Division; Date; Version; PrimaryID; Sequence; Metadata Count 
         /// and Sequence ID.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void GenBankFormatterValidateWriteWithFilePathMultipleGeneCdsSequence()
         {
             InitializeXmlVariables(Constants.MultipleGeneCDSGenBankNodeName);
@@ -759,9 +725,8 @@ using Bio;
         /// StrandTopology; Division; Date; Version; PrimaryID; Sequence; Metadata Count 
         /// and Sequence ID.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void GenBankFormatterValidateWriteWithFilePathLargeSizeSequence()
         {
             InitializeXmlVariables(Constants.LargeSizeGenBank);
@@ -776,9 +741,8 @@ using Bio;
         /// StrandTopology; Division; Date; Version; PrimaryID; Sequence; Metadata Count 
         /// and Sequence ID.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void GenBankFormatterValidateWriteWithFilePathSimpleSequence()
         {
             InitializeXmlVariables(Constants.SimpleGenBankNodeName);

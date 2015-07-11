@@ -3,14 +3,14 @@
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bio.Tests
 {
     /// <summary>
     /// Test Automation code for Bio Derived Sequence P2 level validations..
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class DerivedSequenceP2TestCases
     {
         readonly Utility utilityObj = new Utility(@"TestUtils\TestsConfig.xml");
@@ -20,9 +20,8 @@ namespace Bio.Tests
         /// <summary>
         /// Invalidates CopyTo
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateCopyTo()
         {
             // Get input and expected values from xml

@@ -6,7 +6,7 @@ using Bio;
 using Bio.IO;
 using Bio.IO.Gff;
 using Bio.Util.Logging;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using Bio.Tests.Properties;
 
 namespace Bio.Tests.IO.Gff
@@ -14,7 +14,7 @@ namespace Bio.Tests.IO.Gff
     /// <summary>
     /// Unit tests for the GffParser and GffFormatter.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class GffTests
     {
 
@@ -207,9 +207,8 @@ NC_001143.7	RefSeq	CDS	49010	49810	.	-	0	ID=NC_001143.7:ADD66:unknown_transcript
         /// <summary>
         /// Verifies that the parser can read and format random.GFF correctly.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void TestGffWhenParsingOne()
         {
             // parse
@@ -229,9 +228,8 @@ NC_001143.7	RefSeq	CDS	49010	49810	.	-	0	ID=NC_001143.7:ADD66:unknown_transcript
         /// <summary>
         /// Verifies that the parser can read and format Tachibana2005.gff correctly.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void TestGffWhenParsingMultiple()
         {
             // parse
@@ -271,9 +269,8 @@ NC_001143.7	RefSeq	CDS	49010	49810	.	-	0	ID=NC_001143.7:ADD66:unknown_transcript
         /// <summary>
         /// Verifies that the parser can read and format many files without exceptions.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void TestGffForManyFiles()
         {
             // parser and formatter will be used for all files in input dir
@@ -300,9 +297,8 @@ NC_001143.7	RefSeq	CDS	49010	49810	.	-	0	ID=NC_001143.7:ADD66:unknown_transcript
         /// Tests the name, description, and file extension property of 
         /// Gff formatter and parser.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void GffProperties()
         {
             GffParser parser = new GffParser();

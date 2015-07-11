@@ -1,5 +1,5 @@
 ﻿using Bio;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using System.Collections.Generic;
 
 namespace Bio.Tests
@@ -7,13 +7,13 @@ namespace Bio.Tests
     /// <summary>
     /// Test for Qualitative sequence.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class QualitativeSequenceTest
     {
         /// <summary>
         /// Test constructor by passing byte array as sequence data and quality scores.
         /// </summary>
-        [TestMethod]
+        [Test]
         public void TestConstructorWithByteArray()
         {
             byte[] sequenceData = new byte[6];
@@ -63,7 +63,7 @@ namespace Bio.Tests
         /// <summary>
         /// Test constructor by passing string as sequence data and quality scores.
         /// </summary>
-        [TestMethod]
+        [Test]
         public void TestConstructorWithString()
         {
             string expectedSequence = "CAAGCT";
@@ -105,58 +105,58 @@ namespace Bio.Tests
         /// <summary>
         /// Validate GetMinQuality score.
         /// </summary>
-        [TestMethod]
+        [Test]
         public void TestGetMinQualScore()
         {
             byte b;
             b = QualitativeSequence.GetMinEncodedQualScore(FastQFormatType.Solexa_Illumina_v1_0);
-            Assert.AreEqual<byte>((byte)59, b);
+            Assert.AreEqual((byte)59, b);
 
             b = QualitativeSequence.GetMinEncodedQualScore(FastQFormatType.Sanger);
-            Assert.AreEqual<byte>((byte)33, b);
+            Assert.AreEqual((byte)33, b);
 
             b = QualitativeSequence.GetMinEncodedQualScore(FastQFormatType.Illumina_v1_3);
-            Assert.AreEqual<byte>((byte)64, b);
+            Assert.AreEqual((byte)64, b);
         }
 
         /// <summary>
         /// Validate GetMaxScore.
         /// </summary>
-        [TestMethod]
+        [Test]
         public void TestGetMaxQualScore()
         {
             byte b;
             b = QualitativeSequence.GetMaxEncodedQualScore(FastQFormatType.Solexa_Illumina_v1_0);
-            Assert.AreEqual<byte>((byte)126, b);
+            Assert.AreEqual((byte)126, b);
 
             b = QualitativeSequence.GetMaxEncodedQualScore(FastQFormatType.Sanger);
-            Assert.AreEqual<byte>((byte)126, b);
+            Assert.AreEqual((byte)126, b);
 
             b = QualitativeSequence.GetMaxEncodedQualScore(FastQFormatType.Illumina_v1_3);
-            Assert.AreEqual<byte>((byte)126, b);
+            Assert.AreEqual((byte)126, b);
         }
 
         /// <summary>
         /// Validate GetDefaultQualityScore.
         /// </summary>
-        [TestMethod]
+        [Test]
         public void TestGetDefaultQualScore()
         {
             byte b;
             b = QualitativeSequence.GetDefaultQualScore(FastQFormatType.Sanger);
-            Assert.AreEqual<byte>((byte)93, b);
+            Assert.AreEqual((byte)93, b);
 
             b = QualitativeSequence.GetDefaultQualScore(FastQFormatType.Solexa_Illumina_v1_0);
-            Assert.AreEqual<byte>((byte)124, b);
+            Assert.AreEqual((byte)124, b);
 
             b = QualitativeSequence.GetDefaultQualScore(FastQFormatType.Illumina_v1_3);
-            Assert.AreEqual<byte>((byte)124, b);
+            Assert.AreEqual((byte)124, b);
         }
 
         /// <summary>
         /// Validate ConvertFromSolexaToIllumina
         /// </summary>
-        [TestMethod]
+        [Test]
         public void TestConvertFromSolexa_Illumina_v1_0ToIllumina_v1_3()
         {
             byte[] illuminaScores;
@@ -165,15 +165,15 @@ namespace Bio.Tests
             solexaScores[1] = (byte)60;
             illuminaScores = QualitativeSequence.ConvertEncodedQualityScore(FastQFormatType.Solexa_Illumina_v1_0, FastQFormatType.Illumina_v1_3, solexaScores);
             Assert.IsNotNull((object)illuminaScores);
-            Assert.AreEqual<int>(2, illuminaScores.Length);
-            Assert.AreEqual<byte>((byte)65, illuminaScores[0]);
-            Assert.AreEqual<byte>((byte)65, illuminaScores[1]);
+            Assert.AreEqual(2, illuminaScores.Length);
+            Assert.AreEqual((byte)65, illuminaScores[0]);
+            Assert.AreEqual((byte)65, illuminaScores[1]);
         }
 
         /// <summary>
         /// Validate ConvertFromSolexaToSanger.
         /// </summary>
-        [TestMethod]
+        [Test]
         public void TestConvertFromSolexa_Illumina_v1_0ToSanger()
         {
             byte[] sangerScores;
@@ -181,14 +181,14 @@ namespace Bio.Tests
             solexaScores[0] = (byte)59;
             sangerScores = QualitativeSequence.ConvertEncodedQualityScore(FastQFormatType.Solexa_Illumina_v1_0, FastQFormatType.Sanger, solexaScores);
             Assert.IsNotNull((object)sangerScores);
-            Assert.AreEqual<int>(1, sangerScores.Length);
-            Assert.AreEqual<byte>((byte)33, sangerScores[0]);
+            Assert.AreEqual(1, sangerScores.Length);
+            Assert.AreEqual((byte)33, sangerScores[0]);
         }
 
         /// <summary>
         /// Validate ConvertFromSangerToSolexa
         /// </summary>
-        [TestMethod]
+        [Test]
         public void TestConvertFromSangerToSolexa_Illumina_v1_0()
         {
             byte[] solexaScores;
@@ -197,15 +197,15 @@ namespace Bio.Tests
             sangerScores[1] = (byte)34;
             solexaScores = QualitativeSequence.ConvertEncodedQualityScore(FastQFormatType.Sanger, FastQFormatType.Solexa_Illumina_v1_0, sangerScores);
             Assert.IsNotNull((object)solexaScores);
-            Assert.AreEqual<int>(2, solexaScores.Length);
-            Assert.AreEqual<byte>((byte)59, solexaScores[0]);
-            Assert.AreEqual<byte>((byte)59, solexaScores[1]);
+            Assert.AreEqual(2, solexaScores.Length);
+            Assert.AreEqual((byte)59, solexaScores[0]);
+            Assert.AreEqual((byte)59, solexaScores[1]);
         }
 
         /// <summary>
         /// Validate ConvertFromSangerToIllumina
         /// </summary>
-        [TestMethod]
+        [Test]
         public void TestConvertFromSangerToIllumina_v1_3()
         {
             byte[] illuminaScores;
@@ -214,15 +214,15 @@ namespace Bio.Tests
             sangerScores[1] = (byte)33;
             illuminaScores = QualitativeSequence.ConvertEncodedQualityScore(FastQFormatType.Sanger, FastQFormatType.Illumina_v1_3, sangerScores);
             Assert.IsNotNull((object)illuminaScores);
-            Assert.AreEqual<int>(2, illuminaScores.Length);
-            Assert.AreEqual<byte>((byte)64, illuminaScores[0]);
-            Assert.AreEqual<byte>((byte)64, illuminaScores[1]);
+            Assert.AreEqual(2, illuminaScores.Length);
+            Assert.AreEqual((byte)64, illuminaScores[0]);
+            Assert.AreEqual((byte)64, illuminaScores[1]);
         }
 
         /// <summary>
         /// Validate ConvertFromIlluminaToSolexa
         /// </summary>
-        [TestMethod]
+        [Test]
         public void TestConvertFromIllumina_v1_3ToSolexa_Illumina_v1_0()
         {
             byte[] solexaScores;
@@ -231,15 +231,15 @@ namespace Bio.Tests
             illuminaScores[1] = (byte)65;
             solexaScores = QualitativeSequence.ConvertEncodedQualityScore(FastQFormatType.Illumina_v1_3, FastQFormatType.Solexa_Illumina_v1_0, illuminaScores);
             Assert.IsNotNull((object)solexaScores);
-            Assert.AreEqual<int>(2, solexaScores.Length);
-            Assert.AreEqual<byte>((byte)59, solexaScores[0]);
-            Assert.AreEqual<byte>((byte)59, solexaScores[1]);
+            Assert.AreEqual(2, solexaScores.Length);
+            Assert.AreEqual((byte)59, solexaScores[0]);
+            Assert.AreEqual((byte)59, solexaScores[1]);
         }
 
         /// <summary>
         /// Validate - ConvertFromIlluminaToSanger
         /// </summary>
-        [TestMethod]
+        [Test]
         public void TestConvertFromIllumina_v1_3ToSanger()
         {
             byte[] sangerScores;
@@ -248,15 +248,15 @@ namespace Bio.Tests
             illuminaScores[1] = (byte)64;
             sangerScores = QualitativeSequence.ConvertEncodedQualityScore(FastQFormatType.Illumina_v1_3, FastQFormatType.Sanger, illuminaScores);
             Assert.IsNotNull((object)sangerScores);
-            Assert.AreEqual<int>(2, sangerScores.Length);
-            Assert.AreEqual<byte>((byte)33, sangerScores[0]);
-            Assert.AreEqual<byte>((byte)33, sangerScores[1]);
+            Assert.AreEqual(2, sangerScores.Length);
+            Assert.AreEqual((byte)33, sangerScores[0]);
+            Assert.AreEqual((byte)33, sangerScores[1]);
         }
 
         /// <summary>
         /// Validate - GetPhredQualityScore
         /// </summary>
-        [TestMethod]
+        [Test]
         public void TestGetPhredQualityScore()
         {
             // Validate using SangerFormat.

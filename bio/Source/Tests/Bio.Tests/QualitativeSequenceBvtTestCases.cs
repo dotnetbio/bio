@@ -5,14 +5,14 @@ using System.Text;
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bio.Tests
 {
     /// <summary>
     /// Test Automation code for Bio Qualitative sequence validations.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class QualitativeSequenceBvtTestCases
     {
         #region Enums
@@ -40,9 +40,8 @@ namespace Bio.Tests
         /// and Score "120" 
         /// Output Data : Validation of Created Qualitative sequence.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateSangerFormatTypeDnaQualitativeSequenceWithScore()
         {
             this.GeneralQualitativeSequence(Constants.SimpleDnaSangerNode,
@@ -54,9 +53,7 @@ namespace Bio.Tests
         /// Input Data : Dna Alphabet,Dna Sequence,"Sanger" FastQFormat.
         /// Output Data : Validation of Reverse/Complement Sequence.
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "compSequence"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "inputScoreArray"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "byteArray"), TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Category("Priority0")]
         public void ValidateSangerFormatTypeDnaReverseComplement()
         {
             // Gets the actual sequence and the alphabet from the Xml
@@ -98,9 +95,8 @@ namespace Bio.Tests
         /// and Score "104" 
         /// Output Data : Validation of Created Qualitative sequence.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateSolexaFormatTypeDnaQualitativeSequenceWithScore()
         {
             this.GeneralQualitativeSequence(Constants.SimpleDnaSolexaNode,
@@ -114,9 +110,8 @@ namespace Bio.Tests
         /// and Score "104" 
         /// Output Data : Validation of Created Qualitative sequence.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateIlluminaFormatTypeDnaQualitativeSequenceWithScore()
         {
             this.GeneralQualitativeSequence(Constants.SimpleDnaIlluminaNode,
@@ -129,9 +124,8 @@ namespace Bio.Tests
         /// Input Data : Dna Alphabet,Dna Sequence,"Solexa" FastQFormat.
         /// Output Data : Validation of Created Qualitative sequence with score.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateSolexaFormatTypeDnaQualitativeSequenceWithByteArray()
         {
             this.GeneralQualitativeSequence(Constants.SimpleDnaSolexaNode,
@@ -144,9 +138,8 @@ namespace Bio.Tests
         /// Input Data : Dna Alphabet,Dna Sequence,"Illumina" FastQFormat.
         /// Output Data : Validation of Created Qualitative sequence with score.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateIlluminaFormatTypeDnaQualitativeSequenceWithByteArray()
         {
             this.GeneralQualitativeSequence(Constants.SimpleDNAIlluminaByteArrayNode,
@@ -159,9 +152,8 @@ namespace Bio.Tests
         /// Input Data : Dna Alphabet,Dna Sequence,"Sanger" FastQFormat.
         /// Output Data : Validation of Created Qualitative sequence with score.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateSangerFormatTypeDnaQualitativeSequenceWithByteArray()
         {
             this.GeneralQualitativeSequence(Constants.SimpleDnaSangerNode,
@@ -173,9 +165,8 @@ namespace Bio.Tests
         /// Input Data : Dna Sequence.
         /// Output Data: Qualitative sequence having sequence data.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateQualititaiveSequenceConstructor()
         {
             // Gets the actual sequence and the alphabet from the Xml
@@ -214,9 +205,7 @@ namespace Bio.Tests
         /// Input Data : Sanger quality value, Sanger format sequence.
         /// Output Data :Validate convert from Sanger to Illumina and Solexa.
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "sangerSequence"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "expectedSolexaSequence"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "expectedIlluminaSequence"), TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Category("Priority0")]
         public void ConvertSangerToSolexaAndIllumina()
         {
             // Gets the actual sequence and the Qual score from the Xml
@@ -289,9 +278,7 @@ namespace Bio.Tests
         /// Input Data : Solexa quality value, Solexa format sequence.
         /// Output Data : Validate convert from Solexa to Sanger and Illumina.
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "expectedSangerSequence"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "solexaSequenceinBytes"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "expectedIlluminaSequence"), TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Category("Priority0")]
         public void ConvertSolexaToSangerAndIllumina()
         {
             // Gets the actual sequence and the Qual score from the Xml
@@ -361,9 +348,7 @@ namespace Bio.Tests
         /// Input Data : Illumina quality value, Illumina format sequence.
         /// Output Data : Validate convert from Illumina to Sanger and Solexa.
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "illuminaSequenceinBytes"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "expectedSolexaSequence"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "expectedSangerSequence"), TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Category("Priority0")]
         public void ConvertIlluminaToSangerAndSolexa()
         {
             // Gets the actual sequence and the Qual score from the Xml

@@ -8,14 +8,14 @@ using Bio.IO.FastA;
 using Bio.TestAutomation.Util;
 using Bio.Tests.Framework;
 using Bio.Util.Logging;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bio.TestAutomation.Algorithms.MUMmer
 {
     /// <summary>
     ///     MUMmer Priority Two Test case implementation.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class MUMmerP2TestCases
     {
         private readonly Utility utilityObj = new Utility(@"TestUtils\MUMmerTestsConfig.xml");
@@ -28,9 +28,8 @@ namespace Bio.TestAutomation.Algorithms.MUMmer
         ///     Input : Dna sequence with 1000 BP.
         ///     Validation : Validate the aligned sequences.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void MUMmerAlignDnaSequenceWith1000BP()
         {
             ValidateMUMmerAlignGeneralTestCases(Constants.Dna1000BPSequenceNodeName);

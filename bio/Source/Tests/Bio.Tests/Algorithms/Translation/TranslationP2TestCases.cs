@@ -4,14 +4,14 @@ using Bio.Algorithms.Translation;
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bio.Tests.Algorithms.Translation
 {
     /// <summary>
     ///     Test Automation code for Bio Translation and P2 level validations.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class TranslationP2TestCases
     {
         private readonly Utility utilityObj = new Utility(@"TestUtils\TestsConfig.xml");
@@ -23,9 +23,8 @@ namespace Bio.Tests.Algorithms.Translation
         ///     Input Data :Sequence with more than 12 characters - 'AAAGGGAUGCCUGUUUGA'.
         ///     Output Data : Corresponding amino acid 'Arginine'.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void ValidateLookupWithMoreThanTwelveChars()
         {
             string alphabetName = this.utilityObj.xmlUtil.GetTextValue(Constants.SimpleRnaAlphabetNode,
@@ -56,9 +55,8 @@ namespace Bio.Tests.Algorithms.Translation
         ///     Input Data :Sequence with more than 12 characters - 'AAAGGGAUGCCUGUUUGA'.
         ///     Output Data : Corresponding amino acid 'Isoleucine'.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void ValidateLookupWithZeroOffset()
         {
             string alphabetName = this.utilityObj.xmlUtil.GetTextValue(Constants.SimpleRnaAlphabetNode,
@@ -89,9 +87,8 @@ namespace Bio.Tests.Algorithms.Translation
         ///     Input Data :Sequence with 12 characters - 'AAAGGGAUGCCU'.
         ///     Output Data : Corresponding amino acid 'Isoleucine'.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void ValidateLookupWithOneOffset()
         {
             string alphabetName = this.utilityObj.xmlUtil.GetTextValue(Constants.SimpleRnaAlphabetNode,
@@ -122,9 +119,8 @@ namespace Bio.Tests.Algorithms.Translation
         ///     Input Data : Valid Sequence - 'ATGGCG'.
         ///     Output Data : Corresponding amino acid 'Threonine'.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void ValidateLookupWithDnaSeqAndOffsetValue()
         {
             string alphabetName = this.utilityObj.xmlUtil.GetTextValue(Constants.SimpleDnaAlphabetNode,
@@ -162,9 +158,8 @@ namespace Bio.Tests.Algorithms.Translation
         ///     Input Data : Invalid Sequence - 'null'
         ///     Output Data : Exception.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void ValidateRevTranscribeForNull()
         {
             bool Exthrown = false;
@@ -189,9 +184,8 @@ namespace Bio.Tests.Algorithms.Translation
         ///     Input Data : Invalid Sequence - 'null'
         ///     Output Data : Exception.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void ValidateTranslationForNull()
         {
             bool Exthrown = false;
@@ -217,9 +211,8 @@ namespace Bio.Tests.Algorithms.Translation
         ///     Input Data : Sequence - 'Null' and offset "10".
         ///     Output Data : Exception.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void ValidateTranslationForInvalidOffset()
         {
             // Get Node values from XML.
@@ -246,9 +239,8 @@ namespace Bio.Tests.Algorithms.Translation
         ///     Input Data : Sequence - 'UACCGC' and offset "-10".
         ///     Output Data : Exception.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void ValidateTranslationForNegativeOffset()
         {
             // Get Node values from XML.
@@ -280,9 +272,8 @@ namespace Bio.Tests.Algorithms.Translation
         ///     Input Data : Sequence - 'GUNAACAGAAANUGU' and offset "0".
         ///     Output Data : Exception.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void ValidateTranslationOfAmbiguousRnaUsingRnaAlphabet()
         {
             // Get Node values from XML.

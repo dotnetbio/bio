@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Bio.Algorithms.StringSearch;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using Bio;
 
 namespace Bio.Tests.Algorithms.StringSearch
@@ -8,15 +8,14 @@ namespace Bio.Tests.Algorithms.StringSearch
     /// <summary>
     /// BoyerMoore Test cases
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class BoyerMooreTests
     {
         /// <summary>
         /// Find pattern test.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void SimpleFindOneOutputPatternTest()
         {
             ISequence sequence = new Sequence(DnaAlphabet.Instance, "AGCT");
@@ -32,9 +31,8 @@ namespace Bio.Tests.Algorithms.StringSearch
         /// <summary>
         /// Find pattern test.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void SimpleFindMultipleOutputPatternTest()
         {
             ISequence sequence = new Sequence(DnaAlphabet.Instance, "AGTAGT");
@@ -51,9 +49,8 @@ namespace Bio.Tests.Algorithms.StringSearch
         /// <summary>
         /// Find pattern test.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void MultipleFindOneOutputPatternTest()
         {
             ISequence sequence = new Sequence(DnaAlphabet.Instance, "AGCTAGGTTGGCC");
@@ -77,9 +74,8 @@ namespace Bio.Tests.Algorithms.StringSearch
         /// <summary>
         /// Find pattern test.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void MultipleFindMultipleOutputPatternTest()
         {
             ISequence sequence = new Sequence(DnaAlphabet.Instance, "AGCTAGGTAGCTCAAAAA");
@@ -106,9 +102,8 @@ namespace Bio.Tests.Algorithms.StringSearch
         /// Compares the expected and actual values and return true if they match
         /// otherwise return false.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void MatchWildcardPatternEnd()
         {
             ISequence sequence = new Sequence(DnaAlphabet.Instance, "AGCTAGGTAGCTCAAAAA");
@@ -125,9 +120,8 @@ namespace Bio.Tests.Algorithms.StringSearch
         /// Compares the expected and actual values and return true if they match
         /// otherwise return false.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void MatchWildcardPatternMiddle()
         {
             ISequence sequence = new Sequence(DnaAlphabet.Instance, "AGCTAGGTAGCTCAAAAAAGGG");

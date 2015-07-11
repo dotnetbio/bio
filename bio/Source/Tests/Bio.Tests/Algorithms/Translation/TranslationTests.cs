@@ -1,6 +1,6 @@
 ﻿using System;
 using Bio.Algorithms.Translation;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using Bio;
 
 namespace Bio.Tests.Algorithms.Translation
@@ -8,15 +8,14 @@ namespace Bio.Tests.Algorithms.Translation
     /// <summary>
     /// Test the Translation classes.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class TranslationTests
     {
         /// <summary>
         /// Test the Transcription class.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void TestTranscription()
         {
             ISequence seq = new Sequence(Alphabets.DNA, "ATGGCG");
@@ -33,9 +32,8 @@ namespace Bio.Tests.Algorithms.Translation
         /// <summary>
         /// Test the Transcription class.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void TestTranscriptionSmallCase()
         {
             ISequence seq = new Sequence(Alphabets.DNA, "atggcg");
@@ -52,9 +50,8 @@ namespace Bio.Tests.Algorithms.Translation
         /// <summary>
         /// Test the Transcription class.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void TestTranscriptionAmbiguousData()
         {
             ISequence seq = new Sequence(Alphabets.AmbiguousDNA, "MSRWY");
@@ -71,9 +68,8 @@ namespace Bio.Tests.Algorithms.Translation
         /// <summary>
         /// Test the Transcription class.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void TestTranscriptionInvalidData()
         {
             try
@@ -120,9 +116,8 @@ namespace Bio.Tests.Algorithms.Translation
         /// <summary>
         /// Test the Transcription class.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void TestProteinTranslation()
         {
             Sequence rnaSeq = new Sequence(Alphabets.RNA, "AUGCGCCCG");
@@ -149,9 +144,8 @@ namespace Bio.Tests.Algorithms.Translation
         /// <summary>
         /// Test the Transcription class.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void TestProteinTranslationInvalid()
         {
             try

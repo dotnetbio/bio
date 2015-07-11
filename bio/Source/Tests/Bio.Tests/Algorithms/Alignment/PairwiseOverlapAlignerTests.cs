@@ -4,14 +4,14 @@ using Bio;
 using Bio.Algorithms.Alignment;
 using Bio.SimilarityMatrices;
 using Bio.Util.Logging;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bio.Tests.Algorithms.Alignment
 {
     /// <summary>
     /// Tests for the PairwiseOverlapAligner class.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class PairwiseOverlapAlignerTests
     {
         #region PairwiseOverlap Aligner
@@ -19,9 +19,8 @@ namespace Bio.Tests.Algorithms.Alignment
         /// <summary>
         /// Test PairwiseOverlapAligner using Protein sequence and Simple Gap Penalty Function.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void PairwiseOverlapProteinSeqSimpleGap()
         {
             string sequenceString1 = "HEAGAWGHEE";
@@ -73,9 +72,8 @@ namespace Bio.Tests.Algorithms.Alignment
         /// <summary>
         /// Test PairwiseOverlapAligner using Protein sequence and Affine Gap Penalty Function.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void PairwiseOverlapProteinSeqAffineGap()
         {
             string sequenceString1 = "HEAGAWGHEE";
@@ -129,9 +127,8 @@ namespace Bio.Tests.Algorithms.Alignment
         /// <summary>
         /// Test PairwiseOverlapAligner using Protein sequence with zero overlap
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void PairwiseOverlapProteinSeqWithZeroOverlap()
         {
             Sequence sequence1 = new Sequence(Alphabets.Protein, "ACDEF");
@@ -169,9 +166,8 @@ namespace Bio.Tests.Algorithms.Alignment
         /// <summary>
         /// Test PairwiseOverlapAligner for cases where it returns multiple alignments
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void PairwiseOverlapMultipleAlignments()
         {
             Sequence sequence1 = new Sequence(Alphabets.DNA, "CCCAACCC");

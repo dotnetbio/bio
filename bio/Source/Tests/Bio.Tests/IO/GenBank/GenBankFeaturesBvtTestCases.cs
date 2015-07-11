@@ -14,7 +14,7 @@ using Bio.IO;
 using Bio.IO.GenBank;
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 #if (SILVERLIGHT == false)
 namespace Bio.TestAutomation.IO.GenBank
@@ -25,7 +25,7 @@ namespace Bio.Silverlight.TestAutomation.IO.GenBank
     /// <summary>
     ///     GenBank Features Bvt test case implementation.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class GenBankFeaturesBvtTestCases
     {
         #region Enums
@@ -57,9 +57,8 @@ namespace Bio.Silverlight.TestAutomation.IO.GenBank
         ///     Input : DNA Sequence
         ///     Output : Validate GenBank features.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateGenBankFeaturesForDNASequence()
         {
             ValidateGenBankFeatures(Constants.SimpleGenBankDnaNodeName,
@@ -72,9 +71,8 @@ namespace Bio.Silverlight.TestAutomation.IO.GenBank
         ///     Input : Protein Sequence
         ///     Output : Validate GenBank features.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateGenBankFeaturesForPROTEINSequence()
         {
             ValidateGenBankFeatures(Constants.SimpleGenBankProNodeName,
@@ -87,9 +85,8 @@ namespace Bio.Silverlight.TestAutomation.IO.GenBank
         ///     Input : RNA Sequence
         ///     Output : Validate GenBank features.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateGenBankFeaturesForRNASequence()
         {
             ValidateGenBankFeatures(Constants.SimpleGenBankRnaNodeName,
@@ -102,9 +99,8 @@ namespace Bio.Silverlight.TestAutomation.IO.GenBank
         ///     Input : DNA Sequence
         ///     Output : Validate addition of new GenBank features.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateAdditionOfGenBankFeaturesForDNASequence()
         {
             ValidateAdditionGenBankFeatures(Constants.SimpleGenBankDnaNodeName);
@@ -116,9 +112,8 @@ namespace Bio.Silverlight.TestAutomation.IO.GenBank
         ///     Input : Protein Sequence
         ///     Output : Validate addition of new GenBank features.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateAdditionOfGenBankFeaturesForPROTEINSequence()
         {
             ValidateAdditionGenBankFeatures(Constants.SimpleGenBankProNodeName);
@@ -130,9 +125,8 @@ namespace Bio.Silverlight.TestAutomation.IO.GenBank
         ///     Input : RNA Sequence
         ///     Output : Validate addition of new GenBank features.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateAdditionOfGenBankFeaturesForRNASequence()
         {
             ValidateAdditionGenBankFeatures(Constants.RNAGenBankFeaturesNode);
@@ -144,9 +138,8 @@ namespace Bio.Silverlight.TestAutomation.IO.GenBank
         ///     Input : Valid DNA sequence.
         ///     Output : Validation
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateDNASeqStandardFeaturesKey()
         {
             ValidateStandardFeaturesKey(Constants.DNAStandardFeaturesKeyNode,
@@ -159,9 +152,8 @@ namespace Bio.Silverlight.TestAutomation.IO.GenBank
         ///     Input : Valid Protein sequence.
         ///     Output : Validation
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidatePROTEINSeqStandardFeaturesKey()
         {
             ValidateStandardFeaturesKey(Constants.SimpleGenBankProNodeName,
@@ -175,9 +167,8 @@ namespace Bio.Silverlight.TestAutomation.IO.GenBank
         ///     Input : MultiSequence GenBank DNA file.
         ///     Validation : Validate GenBank Features.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateGenBankFeaturesForMultipleDNASequence()
         {
             ValidateGenBankFeatures(Constants.MultiSequenceGenBankDNANode,
@@ -191,9 +182,8 @@ namespace Bio.Silverlight.TestAutomation.IO.GenBank
         ///     Input : MultiSequence GenBank Protein file.
         ///     Validation : Validate GenBank Features.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateGenBankFeaturesForMultiplePROTEINSequence()
         {
             ValidateGenBankFeatures(Constants.MultiSeqGenBankProteinNode,
@@ -207,9 +197,8 @@ namespace Bio.Silverlight.TestAutomation.IO.GenBank
         ///     Input : Valid DNA Sequence and specified range.
         ///     Ouput : Validation of features count within specified range.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateFeaturesWithinRangeForDNASequence()
         {
             ValidateGetFeatures(Constants.DNAStandardFeaturesKeyNode, null);
@@ -221,9 +210,8 @@ namespace Bio.Silverlight.TestAutomation.IO.GenBank
         ///     Input : Valid RNA Sequence and specified range.
         ///     Ouput : Validation of features count within specified range.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateFeaturesWithinRangeForRNASequence()
         {
             ValidateGetFeatures(Constants.RNAGenBankFeaturesNode, null);
@@ -235,9 +223,8 @@ namespace Bio.Silverlight.TestAutomation.IO.GenBank
         ///     Input : Valid Protein Sequence and specified range.
         ///     Ouput : Validation of features count within specified range.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateFeaturesWithinRangeForPROTEINSequence()
         {
             ValidateGetFeatures(Constants.SimpleGenBankProNodeName, null);
@@ -248,9 +235,8 @@ namespace Bio.Silverlight.TestAutomation.IO.GenBank
         ///     Input : Valid DNA Sequence.
         ///     Ouput : Validation of all CDS Qualifiers..
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateDNASequenceCDSQualifiers()
         {
             ValidateCDSQualifiers(Constants.DNAStandardFeaturesKeyNode, "DNA");
@@ -261,9 +247,8 @@ namespace Bio.Silverlight.TestAutomation.IO.GenBank
         ///     Input : Valid Protein Sequence.
         ///     Ouput : Validation of all CDS Qualifiers..
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidatePROTEINSequenceCDSQualifiers()
         {
             ValidateCDSQualifiers(Constants.SimpleGenBankProNodeName, "Protein");
@@ -274,9 +259,8 @@ namespace Bio.Silverlight.TestAutomation.IO.GenBank
         ///     Input : Valid RNA Sequence.
         ///     Ouput : Validation of all CDS Qualifiers..
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateRNASequenceCDSQualifiers()
         {
             ValidateCDSQualifiers(Constants.RNAGenBankFeaturesNode, "RNA");
@@ -287,9 +271,8 @@ namespace Bio.Silverlight.TestAutomation.IO.GenBank
         ///     Input : Valid DNA Sequence and accession number.
         ///     Ouput : Validation of all CDS Qualifiers..
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateFeaturesUsingAccessionForDNASequence()
         {
             ValidateGetFeatures(Constants.DNAStandardFeaturesKeyNode, "Accession");
@@ -300,9 +283,8 @@ namespace Bio.Silverlight.TestAutomation.IO.GenBank
         ///     Input : Valid RNA Sequence and accession number.
         ///     Ouput : Validation of all CDS Qualifiers..
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateFeaturesUsingAccessionForRNASequence()
         {
             ValidateGetFeatures(Constants.RNAGenBankFeaturesNode, "Accession");
@@ -313,9 +295,8 @@ namespace Bio.Silverlight.TestAutomation.IO.GenBank
         ///     Input : Valid Protein Sequence and accession number.
         ///     Ouput : Validation of all CDS Qualifiers..
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateFeaturesUsingAccessionForPROTEINSequence()
         {
             ValidateGetFeatures(Constants.SimpleGenBankProNodeName, "Accession");
@@ -327,9 +308,8 @@ namespace Bio.Silverlight.TestAutomation.IO.GenBank
         ///     Input : Valid DNA Sequence and specified range.
         ///     Ouput : Validation of citation referneced.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateCitationReferencedForDNASequence()
         {
             ValidateCitationReferenced(Constants.DNAStandardFeaturesKeyNode);
@@ -341,9 +321,8 @@ namespace Bio.Silverlight.TestAutomation.IO.GenBank
         ///     Input : Valid RNA Sequence and specified range.
         ///     Ouput : Validation of citation referneced.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateCitationReferencedForRNASequence()
         {
             ValidateCitationReferenced(Constants.RNAGenBankFeaturesNode);
@@ -355,9 +334,8 @@ namespace Bio.Silverlight.TestAutomation.IO.GenBank
         ///     Input : Valid Protein Sequence and specified range.
         ///     Ouput : Validation of citation referneced.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateCitationReferencedForPROTEINSequence()
         {
             ValidateCitationReferenced(Constants.SimpleGenBankProNodeName);
@@ -369,9 +347,8 @@ namespace Bio.Silverlight.TestAutomation.IO.GenBank
         ///     Input : Valid DNA Sequence and specified range.
         ///     Ouput : Validation of citation referneced.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateCitationReferencedForDNASequenceUsingFeatureItem()
         {
             ValidateCitationReferencedUsingFeatureItem(
@@ -384,9 +361,8 @@ namespace Bio.Silverlight.TestAutomation.IO.GenBank
         ///     Input : Valid RNA Sequence and specified range.
         ///     Ouput : Validation of citation referneced.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateCitationReferencedForRNASequenceUsingFeatureItem()
         {
             ValidateCitationReferencedUsingFeatureItem(Constants.RNAGenBankFeaturesNode);
@@ -398,9 +374,8 @@ namespace Bio.Silverlight.TestAutomation.IO.GenBank
         ///     Input : Valid Protein Sequence and specified range.
         ///     Ouput : Validation of citation referneced.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateCitationReferencedForPROTEINSequenceUsingFeatureItem()
         {
             ValidateCitationReferencedUsingFeatureItem(Constants.SimpleGenBankProNodeName);
@@ -411,9 +386,8 @@ namespace Bio.Silverlight.TestAutomation.IO.GenBank
         ///     Input : Genbank sequence.
         ///     Output : validation of GenBank features.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateGenBankFeatureProperties()
         {
             // Get Values from XML node.
@@ -559,9 +533,8 @@ namespace Bio.Silverlight.TestAutomation.IO.GenBank
         ///     Output Data : Validation of Location start,end position,seperator
         ///     and operators.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateNormalStringLocationBuilder()
         {
             ValidateLocationBuilder(Constants.NormalLocationBuilderNode,
@@ -574,9 +547,8 @@ namespace Bio.Silverlight.TestAutomation.IO.GenBank
         ///     Output Data : Validation of Location start,end position,seperator
         ///     and operators.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateSingleDotSeperatorLocationBuilder()
         {
             ValidateLocationBuilder(Constants.SingleDotLocationBuilderNode,
@@ -589,9 +561,8 @@ namespace Bio.Silverlight.TestAutomation.IO.GenBank
         ///     Output Data : Validation of Location start,end position,seperator
         ///     and operators.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateJoinOperatorLocationBuilder()
         {
             ValidateLocationBuilder(Constants.JoinOperatorLocationBuilderNode,
@@ -604,9 +575,8 @@ namespace Bio.Silverlight.TestAutomation.IO.GenBank
         ///     Output Data : Validation of Location start,end position,seperator
         ///     and operators.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateComplementOperatorLocationBuilder()
         {
             ValidateLocationBuilder(Constants.ComplementOperatorLocationBuilderNode,
@@ -619,9 +589,8 @@ namespace Bio.Silverlight.TestAutomation.IO.GenBank
         ///     Output Data : Validation of Location start,end position,seperator
         ///     and operators.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateOrderOperatorLocationBuilder()
         {
             ValidateLocationBuilder(Constants.OrderOperatorLocationBuilderNode,
@@ -635,9 +604,8 @@ namespace Bio.Silverlight.TestAutomation.IO.GenBank
         ///     Output Data : Validation of Location start,end position,seperator
         ///     and operators.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateSubSequenceGenBankFile()
         {
             ValidateLocationBuilder(Constants.GenBankFileLocationBuilderNode,
@@ -650,9 +618,8 @@ namespace Bio.Silverlight.TestAutomation.IO.GenBank
         ///     Output Data : Validation of Location start,end position,seperator
         ///     and operators.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateSequenceFeatureForRna()
         {
             ValidateSequenceFeature(Constants.GenBankFileSubSequenceNode);
@@ -664,9 +631,8 @@ namespace Bio.Silverlight.TestAutomation.IO.GenBank
         ///     Output Data : Validation of Location start,end position,seperator
         ///     and operators.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateSequenceFeatureForDna()
         {
             ValidateSequenceFeature(Constants.GenBankFileSubSequenceDnaNode);
@@ -678,9 +644,8 @@ namespace Bio.Silverlight.TestAutomation.IO.GenBank
         ///     Output Data : Validation of Location start,end position,seperator
         ///     and operators.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateSequenceFeatureForProteinA()
         {
             ValidateSequenceFeature(Constants.GenBankFileSubSequenceProteinNode);
@@ -692,9 +657,8 @@ namespace Bio.Silverlight.TestAutomation.IO.GenBank
         ///     Output Data : Validation of Location start,end position,seperator
         ///     and operators.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateSequenceFeatureUsingReferencedSequence()
         {
             // Get Values from XML node.
@@ -756,9 +720,8 @@ namespace Bio.Silverlight.TestAutomation.IO.GenBank
         ///     Input Data : Sequence feature item and location.
         ///     Output Data : Validation of created sequence features.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateGenBankSubFeatures()
         {
             ValidateGenBankSubFeatures(Constants.GenBankSequenceFeaturesNode);
@@ -769,9 +732,8 @@ namespace Bio.Silverlight.TestAutomation.IO.GenBank
         ///     Input Data : Sequence feature item and location.
         ///     Output Data : Validation of created sequence features.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateGenBankSubFeatureswithOperator()
         {
             ValidateGenBankSubFeatures(Constants.GenBankSequenceFeaturesForMRNA);
@@ -782,9 +744,8 @@ namespace Bio.Silverlight.TestAutomation.IO.GenBank
         ///     Input Data : Sequence feature item and location.
         ///     Output Data : Validation of created sequence features.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateGenBankSubFeatureswithEmptyOperator()
         {
             ValidateAdditionGenBankFeatures(

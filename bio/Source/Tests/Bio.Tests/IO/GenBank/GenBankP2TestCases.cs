@@ -10,7 +10,7 @@ using System.IO;
 using Bio.IO.GenBank;
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 #if (SILVERLIGHT == false)
     namespace Bio.TestAutomation.IO.GenBank
@@ -21,7 +21,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
     /// <summary>
     /// GenBank P2 parser and formatter Test case implementation.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class GenBankP2TestCases
     {
 
@@ -59,9 +59,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         /// Input : GenBank File
         /// Output : Validate the Exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateGenBankParseHeaderLocus()
         {
             InvalidateGenBankParser(
@@ -74,9 +73,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         /// Input : GenBank File
         /// Output : Validate the Exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateGenBankParseHeaderVersion()
         {
             InvalidateGenBankParser(
@@ -89,9 +87,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         /// Input : GenBank File
         /// Output : Validate the Exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateGenBankParseHeaderWithoutLocus()
         {
             InvalidateGenBankParser(
@@ -104,9 +101,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         /// Input : GenBank File
         /// Output : Validate the Exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateGenBankParseHeader()
         {
             InvalidateGenBankParser(
@@ -119,9 +115,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         /// Input : GenBank File
         /// Output : Validate the Exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateGenBankParseHeaderPrimary()
         {
             InvalidateGenBankParser(
@@ -134,9 +129,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         /// Input : GenBank File
         /// Output : Validate the Exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateGenBankParseFeaturesLocBuild()
         {
             InvalidateGenBankParser(
@@ -149,9 +143,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         /// Input : GenBank File
         /// Output : Validate the Exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateGenBankParseFeaturesLineHasReader()
         {
             InvalidateGenBankParser(
@@ -164,9 +157,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         /// Input : GenBank File with Locusheader contain pp
         /// Output : Validate the Exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateGenBankParseLocus()
         {
             InvalidateGenBankParser(
@@ -179,9 +171,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         /// Input : GenBank File with Locusheader contain invalid Strand
         /// Output : Validate the Exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateGenBankParseLocusStrandType()
         {
             InvalidateGenBankParser(
@@ -194,9 +185,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         /// Input : GenBank File with Locusheader contain invalid topology
         /// Output : Validate the Exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateGenBankParseLocusStrandTopology()
         {
             InvalidateGenBankParser(
@@ -209,9 +199,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         /// Input : GenBank File with Locusheader contain invalid date
         /// Output : Validate the Exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateGenBankParseLocusRawDate()
         {
             InvalidateGenBankParser(
@@ -224,9 +213,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         /// Input : GenBank File with Locusheader contain invalid MoleculeType
         /// Output : Validate the Exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateGenBankParseLocusInvalidMoleculeType()
         {
             InvalidateGenBankParser(
@@ -239,9 +227,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         /// Input : GenBank File
         /// Output : Validate the Exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateGenBankParseReference()
         {
             InvalidateGenBankParser(
@@ -254,9 +241,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         /// Input : GenBank File
         /// Output : Validate the Exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateGenBankParseReferenceDefault()
         {
             InvalidateGenBankParser(
@@ -269,9 +255,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         /// Input : GenBank File
         /// Output : Validate the Exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateGenBankParseSequenceDefault()
         {
             InvalidateGenBankParser(
@@ -284,9 +269,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         /// Input : GenBank File
         /// Output : Validate the Exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateGenBankParseSequence()
         {
             InvalidateGenBankParser(
@@ -299,9 +283,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         /// Input : GenBank File
         /// Output : Validate the Exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateGenBankParseSource()
         {
             InvalidateGenBankParser(
@@ -314,9 +297,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         /// Input : GenBank File
         /// Output : Validate the Exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateGenBankHeaderDataType()
         {
             InvalidateGenBankParser(
@@ -329,9 +311,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         /// Input : GenBank File
         /// Output : Validate the Exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateGenBankLocusAlphabet()
         {
             InvalidateGenBankParser(
@@ -344,9 +325,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         /// Input : GenBank File
         /// Output : Validate the Exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateGenBankReference()
         {
             InvalidateGenBankParser(
@@ -359,9 +339,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         /// Input : GenBank File
         /// Output : Validate the Exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateGenParserHeader()
         {
             InvalidateGenBankParser(

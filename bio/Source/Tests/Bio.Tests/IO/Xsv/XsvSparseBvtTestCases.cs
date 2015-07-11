@@ -9,14 +9,14 @@ using Bio.IO.Xsv;
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bio.Tests.IO.Xsv
 {
     /// <summary>
     /// XsvSparse Bvt parser Test case implementation.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class XsvSparseBvtTestCases
     {
         #region Enums
@@ -44,9 +44,8 @@ namespace Bio.Tests.IO.Xsv
         /// Input : XsvSparse File
         /// Validation : Expected sequence, Sequence Alphabet, Sequence ID.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void XsvSparseBvtParserValidateParseFilePath()
         {
             this.XsvSparseParserGeneralTestCases(Constants.SimpleXsvSparseNodeName);
@@ -57,9 +56,8 @@ namespace Bio.Tests.IO.Xsv
         /// Input : One line sequence and update all properties
         /// Validation : Validate the properties
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void XsvSparseBvtParserProperties()
         {
             XsvContigParser xsvParser = new XsvContigParser(Alphabets.DNA, ',', '#');
@@ -76,9 +74,8 @@ namespace Bio.Tests.IO.Xsv
         /// Input : Xsv file.
         /// Validation : Validation of Format() method.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void XsvSparseParseContig()
         {
             // Gets the expected file from the Xml
@@ -118,9 +115,8 @@ namespace Bio.Tests.IO.Xsv
         /// Input : XsvSparse File
         /// Validation : Format is successful.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void XsvSparseBvtFormatterValidateFilePath()
         {
             this.XsvSparseFormatterGeneralTestCases(Constants.SimpleXsvSparseNodeName,
@@ -134,9 +130,8 @@ namespace Bio.Tests.IO.Xsv
         /// Input : XsvSparse File
         /// Validation : Format is successful.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void XsvSparseBvtFormatterValidateFilePathWithSeqList()
         {
             this.XsvSparseFormatterGeneralTestCases(Constants.SimpleXsvSparseNodeName,
@@ -148,9 +143,8 @@ namespace Bio.Tests.IO.Xsv
         /// Input : One line sequence and update all properties
         /// Validation : Validate the properties
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void XsvSparseBvtFormatterProperties()
         {
             XsvSparseFormatter formatterObj = new XsvSparseFormatter(Constants.CharSeperator,
@@ -170,9 +164,8 @@ namespace Bio.Tests.IO.Xsv
         /// Input : Xsv file.
         /// Validation : Validation of Write() method.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void XsvSparseContigFormatterWrite()
         {
             // Gets the expected sequence from the Xml

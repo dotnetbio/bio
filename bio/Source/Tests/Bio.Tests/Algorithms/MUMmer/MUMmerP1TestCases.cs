@@ -15,14 +15,14 @@ using Bio.TestAutomation.Util;
 using Bio.Tests.Framework;
 using Bio.Util.Logging;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bio.Tests.Algorithms.MUMmer
 {
     /// <summary>
     /// MUMmer Priority One Test case implementation.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class MUMmerP1TestCases
     {
         #region Enums
@@ -61,9 +61,8 @@ namespace Bio.Tests.Algorithms.MUMmer
         /// Input : Dna sequence file
         /// Validation : Validate the nodes, edges and the sequence.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void SuffixTreeBuildSuffixTreeDnaSequence()
         {
             this.ValidateBuildSuffixTreeGeneralTestCases(Constants.DnaSequenceNodeName, true);
@@ -75,9 +74,8 @@ namespace Bio.Tests.Algorithms.MUMmer
         /// Input : Rna sequence file
         /// Validation : Validate the nodes, edges and the sequence.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void SuffixTreeBuildSuffixTreeRnaSequence()
         {
             this.ValidateBuildSuffixTreeGeneralTestCases(Constants.RnaSequenceNodeName, true);
@@ -89,9 +87,8 @@ namespace Bio.Tests.Algorithms.MUMmer
         /// Input : Medium size sequence file
         /// Validation : Validate the nodes, edges and the sequence.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void SuffixTreeBuildSuffixTreeMediumSizeSequence()
         {
             this.ValidateBuildSuffixTreeGeneralTestCases(Constants.MediumSizeSequenceNodeName, true);
@@ -103,9 +100,8 @@ namespace Bio.Tests.Algorithms.MUMmer
         /// Input : Continuous Repeating Characters
         /// Validation : Validate the nodes, edges and the sequence.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void SuffixTreeBuildSuffixTreeContinousRepeatingCharacters()
         {
             this.ValidateBuildSuffixTreeGeneralTestCases(Constants.OneLineRepeatingCharactersNodeName, false);
@@ -117,9 +113,8 @@ namespace Bio.Tests.Algorithms.MUMmer
         /// Input : Alternate Repeating Characters
         /// Validation : Validate the nodes, edges and the sequence.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void SuffixTreeBuildSuffixTreeAlternateRepeatingCharacters()
         {
             this.ValidateBuildSuffixTreeGeneralTestCases(Constants.OneLineAlternateRepeatingCharactersNodeName,
@@ -132,9 +127,8 @@ namespace Bio.Tests.Algorithms.MUMmer
         /// Input : Dna sequence Fasta file
         /// Validation : Validate the nodes, edges and the sequence.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void SuffixTreeBuildSuffixTreeFastaFileSequence()
         {
             this.ValidateBuildSuffixTreeGeneralTestCases(Constants.SimpleDnaFastaNodeName, true);
@@ -146,9 +140,8 @@ namespace Bio.Tests.Algorithms.MUMmer
         /// Input : Only Repeating Characters
         /// Validation : Validate the nodes, edges and the sequence.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void SuffixTreeBuildSuffixTreeOnlyRepeatingCharacters()
         {
             this.ValidateBuildSuffixTreeGeneralTestCases(
@@ -162,9 +155,8 @@ namespace Bio.Tests.Algorithms.MUMmer
         /// Input : Valid mum length with both reference and query parameter
         /// Validation : Validate the unique matches
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void SuffixTreeFindMatchesValidMumLengthSequence()
         {
             this.ValidateFindMatchSuffixGeneralTestCases(Constants.OneLineSequenceNodeName,
@@ -178,9 +170,8 @@ namespace Bio.Tests.Algorithms.MUMmer
         /// Input : Dna sequence for both reference and query parameter
         /// Validation : Validate the unique matches
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void SuffixTreeFindMatchesDnaSequence()
         {
             this.ValidateFindMatchSuffixGeneralTestCases(Constants.DnaSequenceNodeName,
@@ -194,9 +185,8 @@ namespace Bio.Tests.Algorithms.MUMmer
         /// Input : Rna sequence for both reference and query parameter
         /// Validation : Validate the unique matches
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void SuffixTreeFindMatchesRnaSequence()
         {
             this.ValidateFindMatchSuffixGeneralTestCases(Constants.RnaSequenceNodeName,
@@ -210,9 +200,8 @@ namespace Bio.Tests.Algorithms.MUMmer
         /// Input : Medium Size sequence for both reference and query parameter
         /// Validation : Validate the unique matches
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void SuffixTreeFindMatchesMediumSizeSequence()
         {
             this.ValidateFindMatchSuffixGeneralTestCases(Constants.MediumSizeSequenceNodeName,
@@ -226,9 +215,8 @@ namespace Bio.Tests.Algorithms.MUMmer
         /// Input : continuous repeating sequence for reference and valid sequence for query parameter
         /// Validation : Validate the unique matches
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void SuffixTreeFindMatchesContinousRepeatingSequence()
         {
             this.ValidateFindMatchSuffixGeneralTestCases(Constants.OneLineRepeatingCharactersNodeName,
@@ -242,9 +230,8 @@ namespace Bio.Tests.Algorithms.MUMmer
         /// Input : same sequence for reference and query parameter
         /// Validation : Validate the unique matches
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void SuffixTreeFindMatchesSameSequence()
         {
             this.ValidateFindMatchSuffixGeneralTestCases(Constants.OneLineSameCharactersNodeName,
@@ -258,9 +245,8 @@ namespace Bio.Tests.Algorithms.MUMmer
         /// Input : over lap sequence for reference and query parameter
         /// Validation : Validate the unique matches
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void SuffixTreeFindMatchesOverlapSequence()
         {
             this.ValidateFindMatchSuffixGeneralTestCases(Constants.OneLineOverlapSequenceNodeName,
@@ -274,9 +260,8 @@ namespace Bio.Tests.Algorithms.MUMmer
         /// Input : over lap sequence for reference and query parameter
         /// Validation : Validate there are no unique matches
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void SuffixTreeFindMatchesNoMatchSequence()
         {
             this.ValidateFindMatchSuffixGeneralTestCases(Constants.OneLineNoMatchSequenceNodeName,
@@ -290,9 +275,8 @@ namespace Bio.Tests.Algorithms.MUMmer
         /// Input : cross over lap sequence for reference and query parameter
         /// Validation : Validate the unique matches
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void SuffixTreeFindMatchesCrossoverlapSequence()
         {
             this.ValidateFindMatchSuffixGeneralTestCases(Constants.SmallSizeSequenceNodeName,
@@ -306,9 +290,8 @@ namespace Bio.Tests.Algorithms.MUMmer
         /// Input : valid Dna sequence for reference and ambiguity characters for query parameter
         /// Validation : Validate the unique matches
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void SuffixTreeFindMatchesDnaSearchAmbiguitySequence()
         {
             this.ValidateFindMatchSuffixGeneralTestCases(Constants.DnaSearchAmbiguitySequenceNodeName,
@@ -322,9 +305,8 @@ namespace Bio.Tests.Algorithms.MUMmer
         /// Input : valid Rna sequence for reference and ambiguity characters for query parameter
         /// Validation : Validate the unique matches
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void SuffixTreeFindMatchesRnaSearchAmbiguitySequence()
         {
             this.ValidateFindMatchSuffixGeneralTestCases(Constants.RnaSearchAmbiguitySequenceNodeName,
@@ -339,9 +321,8 @@ namespace Bio.Tests.Algorithms.MUMmer
         /// and valid sequence for query parameter
         /// Validation : Validate the unique matches
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void SuffixTreeFindMatchesDnaQueryAmbiguitySequence()
         {
             this.ValidateFindMatchSuffixGeneralTestCases(Constants.DnaQueryAmbiguitySequenceNodeName,
@@ -356,9 +337,8 @@ namespace Bio.Tests.Algorithms.MUMmer
         /// and valid sequence for query parameter
         /// Validation : Validate the unique matches
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void SuffixTreeFindMatchesRnaQueryAmbiguitySequence()
         {
             this.ValidateFindMatchSuffixGeneralTestCases(Constants.RnaQueryAmbiguitySequenceNodeName,
@@ -376,9 +356,8 @@ namespace Bio.Tests.Algorithms.MUMmer
         /// Validation : Validate the aligned sequences.
         /// </summary>
 
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void MUMmerAlignDnaSequence()
         {
             this.ValidateMUMmerAlignGeneralTestCases(Constants.DnaSequenceNodeName, true, false);
@@ -390,9 +369,8 @@ namespace Bio.Tests.Algorithms.MUMmer
         /// Input : Rna sequence
         /// Validation : Validate the aligned sequences.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void MUMmerAlignRnaSequence()
         {
             this.ValidateMUMmerAlignGeneralTestCases(Constants.RnaSequenceNodeName, true, false);
@@ -404,9 +382,8 @@ namespace Bio.Tests.Algorithms.MUMmer
         /// Input : valid sequence
         /// Validation : Validate the aligned sequences.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void MUMmerAlignListOneLineSequence()
         {
             this.ValidateMUMmerAlignGeneralTestCases(Constants.OneLineSequenceNodeName, false, true);
@@ -419,9 +396,8 @@ namespace Bio.Tests.Algorithms.MUMmer
         /// Validation : Validate the aligned sequences.
         /// </summary>
 
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void MUMmerAlignListSmallSizeSequence()
         {
             this.ValidateMUMmerAlignGeneralTestCases(Constants.SmallSizeSequenceNodeName, true, true);
@@ -434,9 +410,8 @@ namespace Bio.Tests.Algorithms.MUMmer
         /// Validation : Validate the aligned sequences.
         /// </summary>
 
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void MUMmerAlignListDnaSequence()
         {
             this.ValidateMUMmerAlignGeneralTestCases(Constants.DnaSequenceNodeName, true, true);
@@ -448,9 +423,8 @@ namespace Bio.Tests.Algorithms.MUMmer
         /// Input : valid Rna sequence
         /// Validation : Validate the aligned sequences.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void MUMmerAlignListRnaSequence()
         {
             this.ValidateMUMmerAlignGeneralTestCases(Constants.RnaSequenceNodeName, true, true);
@@ -462,9 +436,8 @@ namespace Bio.Tests.Algorithms.MUMmer
         /// Input : repeating character sequence
         /// Validation : Validate the aligned sequences.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void MUMmerAlignRepeatingCharactersSequence()
         {
             this.ValidateMUMmerAlignGeneralTestCases(Constants.OneLineRepeatingCharactersNodeName, false, false);
@@ -476,9 +449,8 @@ namespace Bio.Tests.Algorithms.MUMmer
         /// Input : repeating character sequence
         /// Validation : Validate the aligned sequences.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void MUMmerAlignAlternateRepeatingCharactersSequence()
         {
             this.ValidateMUMmerAlignGeneralTestCases(Constants.OneLineAlternateRepeatingCharactersNodeName, false, false);
@@ -491,9 +463,8 @@ namespace Bio.Tests.Algorithms.MUMmer
         /// Validation : Validate the aligned sequences.
         /// </summary>
 
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void MUMmerAlignFastAFileSequence()
         {
             this.ValidateMUMmerAlignGeneralTestCases(Constants.SimpleDnaFastaNodeName,
@@ -506,9 +477,8 @@ namespace Bio.Tests.Algorithms.MUMmer
         /// Input : only Repeating character sequence
         /// Validation : Validate the aligned sequences.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void MUMmerAlignOnlyRepeatingCharactersSequence()
         {
             this.ValidateMUMmerAlignGeneralTestCases(Constants.OneLineOnlyRepeatingCharactersNodeName,
@@ -521,9 +491,8 @@ namespace Bio.Tests.Algorithms.MUMmer
         /// Input : Two Query sequences
         /// Validation : Validate the aligned sequences.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void MUMmerAlignTwoQuerySequences()
         {
             this.ValidateMUMmerAlignGeneralTestCases(Constants.DnaQueryDnaRnaSequenceNodeName,
@@ -537,9 +506,8 @@ namespace Bio.Tests.Algorithms.MUMmer
         /// Validation : Validate the aligned sequences.
         /// </summary>
 
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void MUMmerAlignValidMumLengthSequence()
         {
             this.ValidateMUMmerAlignGeneralTestCases(Constants.DnaSequenceNodeName, true, false);
@@ -551,9 +519,8 @@ namespace Bio.Tests.Algorithms.MUMmer
         /// Input : Same sequence for both Query and Reference
         /// Validation : Validate the aligned sequences.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void MUMmerAlignSameCharactersSequence()
         {
             this.ValidateMUMmerAlignGeneralTestCases(Constants.OneLineSameCharactersNodeName,
@@ -566,9 +533,8 @@ namespace Bio.Tests.Algorithms.MUMmer
         /// Input : Over lap sequence
         /// Validation : Validate the aligned sequences.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void MUMmerAlignOverlapSequence()
         {
             this.ValidateMUMmerAlignGeneralTestCases(Constants.OneLineOverlapSequenceNodeName,
@@ -581,9 +547,8 @@ namespace Bio.Tests.Algorithms.MUMmer
         /// Input : No matching sequence
         /// Validation : Validate the aligned sequences.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void MUMmerAlignNoMatchSequence()
         {
             this.ValidateMUMmerAlignGeneralTestCases(Constants.OneLineNoMatchSequenceNodeName,
@@ -596,9 +561,8 @@ namespace Bio.Tests.Algorithms.MUMmer
         /// Input : Cross Over lap sequence
         /// Validation : Validate the aligned sequences.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void MUMmerAlignCrossOverlapSequence()
         {
             this.ValidateMUMmerAlignGeneralTestCases(Constants.OneLineMoreThanTwoMatchOverlapSequenceNodeName,
@@ -611,9 +575,8 @@ namespace Bio.Tests.Algorithms.MUMmer
         /// Input : Sequence with Similarity matrix Blosum 50.
         /// Validation : Validate the aligned sequences.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void MUMmerAlignSimilarityMatrixBlosum50Sequence()
         {
             this.ValidateMUMmerAlignGeneralTestCases(Constants.OneLineMultipleSameLengthMatchOverlapSequenceNodeName,
@@ -630,9 +593,8 @@ namespace Bio.Tests.Algorithms.MUMmer
         /// Input : One Line Multiple Match Overlap Sequences
         /// Validation : Validate the MUMs Output.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateMUMsUpToLISOneLineMultipleOverlapSeq()
         {
             this.ValidateMUMsGeneralTestCases(Constants.OneLineMultipleMatchOverlapSequenceUpToLISNode, false);
@@ -641,9 +603,8 @@ namespace Bio.Tests.Algorithms.MUMmer
         /// <summary>
         /// Validates SearchMatch() with One line sequence as input.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateGetMatchesWithOneLineSequence()
         {
             this.ValidateGetMatch(Constants.OneLineSequenceNodeName);
@@ -652,9 +613,8 @@ namespace Bio.Tests.Algorithms.MUMmer
         /// <summary>
         /// Validates MUMmer(ISuffixTree) constructor with One line sequence as input.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateMUMerConstructorWithSuffixTree()
         {
             this.ValidateConstructorWithSuffixTree(Constants.OneLineSequenceNodeName);
@@ -666,9 +626,8 @@ namespace Bio.Tests.Algorithms.MUMmer
         /// Input : One Line MultipleMatchOverlap Sequences
         /// Validation : Validate the MUMs Output.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateMUMsUpToLISOneLineMultipleOverlapSameLengthSeq()
         {
             this.ValidateMUMsGeneralTestCases(Constants.OneLineMultipleSameLengthMatchOverlapSequenceUptoLISNode, false);
@@ -680,9 +639,8 @@ namespace Bio.Tests.Algorithms.MUMmer
         /// Input : One Line More Than Two Match Sequence
         /// Validation : Validate the MUMs Output.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateMUMsUpToLISOneLineMoreThanTwoMatchSequence()
         {
             this.ValidateMUMsGeneralTestCases(Constants.OneLineMoreThanTwoMatchSequenceUpToLISNode,

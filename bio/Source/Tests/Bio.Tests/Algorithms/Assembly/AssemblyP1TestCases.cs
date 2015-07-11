@@ -11,14 +11,14 @@ using Bio.SimilarityMatrices;
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bio.Tests.Algorithms.Assembly
 {
     /// <summary>
     ///     Sequence Assembly and Consensus P1 Test case implementation.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class AssemblyP1TestCases
     {
         #region Enums
@@ -49,9 +49,8 @@ namespace Bio.Tests.Algorithms.Assembly
         ///     Validation: validates unmerged sequences count, contigs count,
         ///     contig sequences count and concensus.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void SequenceAssemblerWithAssembleMethodForDna()
         {
             this.ValidateSequenceAssemblerGeneral(Constants.AssemblySequenceAlgorithmNodeName,
@@ -66,9 +65,8 @@ namespace Bio.Tests.Algorithms.Assembly
         ///     Validation: validates unmerged sequences count, contigs count,
         ///     contig sequences count and concensus.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void SequenceAssemblerWithAssembleMethodForMaxSequences()
         {
             this.ValidateSequenceAssemblerGeneral(Constants.AssemblyMaxSequenceAlgorithmNodeName,
@@ -83,9 +81,8 @@ namespace Bio.Tests.Algorithms.Assembly
         ///     Validation: validates unmerged sequences count, contigs count,
         ///     contig sequences count and concensus.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void SequenceAssemblerWithAssembleMethodForMinSequences()
         {
             this.ValidateSequenceAssemblerGeneral(Constants.AssemblyMinSequenceAlgorithmNodeName,
@@ -100,9 +97,8 @@ namespace Bio.Tests.Algorithms.Assembly
         ///     Validation: validates unmerged sequences count, contigs count,
         ///     contig sequences count and concensus.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void SequenceAssemblerWithAssembleMethodForValidThreshold()
         {
             this.ValidateSequenceAssemblerGeneral(Constants.AssemblySequenceAlgorithmNodeName,
@@ -117,9 +113,8 @@ namespace Bio.Tests.Algorithms.Assembly
         ///     Validation: validates unmerged sequences count, contigs count,
         ///     contig sequences count and concensus.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void SequenceAssemblerWithAssembleMethodForMaxThreshold()
         {
             this.ValidateSequenceAssemblerGeneral(Constants.AssemblyMaxThresholdSequenceAlgorithmNodeName,
@@ -134,9 +129,8 @@ namespace Bio.Tests.Algorithms.Assembly
         ///     Validation: validates unmerged sequences count, contigs count,
         ///     contig sequences count and concensus.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void SequenceAssemblerWithAssembleMethodForMinThreshold()
         {
             this.ValidateSequenceAssemblerGeneral(Constants.AssemblyMinThresholdSequenceAlgorithmNodeName,
@@ -151,9 +145,8 @@ namespace Bio.Tests.Algorithms.Assembly
         ///     Validation: validates unmerged sequences count, contigs count,
         ///     contig sequences count and concensus.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void SequenceAssemblerWithAssembleMethodForDiagonalSM()
         {
             this.ValidateSequenceAssemblerGeneral(Constants.AssemblySequenceAlgorithmNodeName,
@@ -168,9 +161,8 @@ namespace Bio.Tests.Algorithms.Assembly
         ///     Validation: validates unmerged sequences count, contigs count,
         ///     contig sequences count and concensus.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void SequenceAssemblerWithAssembleMethodForSimilarityMatrix()
         {
             this.ValidateSequenceAssemblerGeneral(Constants.AssemblySequenceAlgorithmNodeName,
@@ -189,9 +181,8 @@ namespace Bio.Tests.Algorithms.Assembly
         ///     Validation: validates unmerged sequences count, contigs count,
         ///     contig sequences count and concensus.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void SimpleConsensusWithMakeConsensusMethodForDna()
         {
             this.ValidateSequenceAssemblerGeneral(Constants.AssemblySequenceAlgorithmNodeName,
@@ -206,9 +197,8 @@ namespace Bio.Tests.Algorithms.Assembly
         ///     Validation: validates unmerged sequences count, contigs count,
         ///     contig sequences count and concensus.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void SimpleConsensusWithMakeConsensusMethodForMaxThreshold()
         {
             this.ValidateSequenceAssemblerGeneral(Constants.AssemblyMaxThresholdSequenceAlgorithmNodeName,
@@ -223,9 +213,8 @@ namespace Bio.Tests.Algorithms.Assembly
         ///     Validation: validates unmerged sequences count, contigs count,
         ///     contig sequences count and concensus.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void SimpleConsensusWithMakeConsensusMethodForMinThreshold()
         {
             this.ValidateSequenceAssemblerGeneral(Constants.AssemblyMinThresholdSequenceAlgorithmNodeName,
@@ -240,9 +229,8 @@ namespace Bio.Tests.Algorithms.Assembly
         ///     Validation: validates unmerged sequences count, contigs count,
         ///     contig sequences count and concensus.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void SimpleConsensusWithMakeConsensusForValidThreshold()
         {
             this.ValidateSequenceAssemblerGeneral(Constants.AssemblySequenceAlgorithmNodeName,
@@ -256,9 +244,8 @@ namespace Bio.Tests.Algorithms.Assembly
         ///     Validation: Validate Sequence Assmebly default constructor,unmerged sequences count,
         ///     contigs count,contig sequences count and concensus.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void SequenceAssemblerWithAssembleMethodForDnaUsingSeqAssemblyCtr()
         {
             this.ValidateSequenceAssemblerGeneral(Constants.AssemblySequenceAlgorithmNodeName,
@@ -270,9 +257,8 @@ namespace Bio.Tests.Algorithms.Assembly
         ///     Input:  Valid Sequence
         ///     Validation: Validation of Kmer Sequence.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateKmerSequenceProperties()
         {
             this.ValidateKmer(Constants.AssemblyAlgorithmNodeName, false);
@@ -283,9 +269,8 @@ namespace Bio.Tests.Algorithms.Assembly
         ///     Input:  Valid Sequence and Kmer length.
         ///     Validation: Validation of Kmer builder.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateBuilderKmer()
         {
             this.ValidateKmer(Constants.KmerbuilderNode, true);
@@ -296,9 +281,8 @@ namespace Bio.Tests.Algorithms.Assembly
         ///     Input:  Valid Sequences and Kmer length.
         ///     Validation: Validation of  Comparing two sequences
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateCompareTwoSequences()
         {
             this.ValidateComputeFeature(
@@ -311,9 +295,8 @@ namespace Bio.Tests.Algorithms.Assembly
         ///     Input:  Valid Sequences and Kmer length.
         ///     Validation: Validation of Features two sequences
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateComputeFeatures()
         {
             this.ValidateComputeFeature(
@@ -326,9 +309,8 @@ namespace Bio.Tests.Algorithms.Assembly
         ///     Input:  Valid Sequences and Kmer length.
         ///     Validation: Validation of Features two sequences
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateComputeMoleculeFeatures()
         {
             this.ValidateComputeFeature(
@@ -341,9 +323,8 @@ namespace Bio.Tests.Algorithms.Assembly
         ///     Input:  Valid DifferenceNode object.
         ///     Validation: Validation of Properties
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateDifferenceNodeProperty()
         {
             var diffObj = new DifferenceNode(1, 1, 4, 4);
@@ -358,9 +339,8 @@ namespace Bio.Tests.Algorithms.Assembly
         /// <summary>
         ///     Compares the difference between 2 sequences.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateSequenceCompare()
         {
             string firstSequence = this.utilityObj.xmlUtil.GetTextValue(Constants.SequenceCompareNode,

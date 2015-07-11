@@ -1,23 +1,22 @@
 ﻿using System.Collections.Generic;
 using Bio.Algorithms.MUMmer.LIS;
 using Bio.Algorithms.SuffixTree;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bio.Tests.MUMmer.LIS
 {
     /// <summary>
     /// Tests for the LongestIncreasingSubsequence class.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class LongestIncreasingSubsequenceTests
     {
         /// <summary>
         /// Test LongestIncreasingSubsequence with MUM set which has neither
         /// crosses nor overlaps
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void TestLISWithoutCrossAndOverlap()
         {
             // Create a list of Mum classes.
@@ -61,9 +60,8 @@ namespace Bio.Tests.MUMmer.LIS
         /// Test LongestIncreasingSubsequence with MUM set which has crosses.
         /// First MUM is bigger
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void TestLISWithCross1()
         {
             // Create a list of Mum classes.
@@ -113,9 +111,8 @@ namespace Bio.Tests.MUMmer.LIS
         /// Test LongestIncreasingSubsequence with MUM set which has crosses.
         /// Second MUM is bigger
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void TestLISWithCross2()
         {
             // Create a list of Mum classes.
@@ -152,9 +149,8 @@ namespace Bio.Tests.MUMmer.LIS
         /// <summary>
         /// Test LongestIncreasingSubsequence with MUM set which has overlap
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void TestLISWithCrossAndOverlap()
         {
             // Create a list of Mum classes.
@@ -191,9 +187,8 @@ namespace Bio.Tests.MUMmer.LIS
         /// <summary>
         /// Test LongestIncreasingSubsequence with MUM set which has overlap
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void TestLISWithOverlap()
         {
             // Create a list of Mum classes.
@@ -236,9 +231,8 @@ namespace Bio.Tests.MUMmer.LIS
         /// <summary>
         /// Tests the sorted mums.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void TestSortMum()
         {
             // Create a list of Mum classes.

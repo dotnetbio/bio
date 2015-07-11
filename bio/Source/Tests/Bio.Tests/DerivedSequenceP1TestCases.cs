@@ -4,14 +4,14 @@ using System.Linq;
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bio.Tests
 {
     /// <summary>
     /// P1 test cases to confirm the features of Derived Sequence
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class DerivedSequenceP1TestCases
     {
         readonly Utility utilityObj = new Utility(@"TestUtils\TestsConfig.xml");
@@ -22,9 +22,8 @@ namespace Bio.Tests
         /// Creates a Rna derived sequence after adding and removing few items from original sequence.
         /// Validates it against expected sequence. 
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateRnaDerivedSequence()
         {
             // Get input and expected values from xml
@@ -48,9 +47,8 @@ namespace Bio.Tests
         /// <summary>
         /// Creates a Rna derived sequence using IndexOfNonGap() method.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateRnaDerivedSequenceIndexOfNonGap()
         {
             // Get input and expected values from xml
@@ -79,9 +77,8 @@ namespace Bio.Tests
         /// <summary>
         /// Creates a Rna derived sequence using IndexOfNonGap(int) method.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateRnaDerivedSequenceIndexOfNonGapInt()
         {
             // Get input and expected values from xml
@@ -110,9 +107,8 @@ namespace Bio.Tests
         /// <summary>
         /// Creates a Rna derived sequence using LastIndexOfNonGap() method.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateRnaDerivedSequenceLastIndexOfNonGap()
         {
             // Get input and expected values from xml
@@ -141,9 +137,8 @@ namespace Bio.Tests
         /// <summary>
         /// Creates a Rna derived sequence using LastIndexOfNonGap(int) method.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateRnaDerivedSequenceLastIndexOfNonGapInt()
         {
             // Get input and expected values from xml
@@ -172,9 +167,8 @@ namespace Bio.Tests
         /// <summary>
         /// Creates a Rna derived sequence and validates GetReverseComplementedSequence() method.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateRnaDerivedSequenceGetReverseComplemented()
         {
             // Get input and expected values from xml
@@ -203,9 +197,8 @@ namespace Bio.Tests
         /// <summary>
         /// Creates a Rna derived sequence and validates GetReversedSequence() method.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateRnaDerivedSequenceGetReversed()
         {
             // Get input and expected values from xml
@@ -234,9 +227,8 @@ namespace Bio.Tests
         /// <summary>
         /// Creates a Rna derived sequence and validates GetComplementedSequence() method.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateRnaDerivedSequenceGetComplemented()
         {
             // Get input and expected values from xml
@@ -265,9 +257,8 @@ namespace Bio.Tests
         /// <summary>
         /// Creates a Rna derived sequence and validates GetSubSequence() method.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateRnaDerivedSequenceGetSubSequence()
         {
             // Get input and expected values from xml
@@ -301,9 +292,8 @@ namespace Bio.Tests
         /// Creates a Protein derived sequence after adding and removing few items from original sequence.
         /// Validates it against expected sequence. 
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateProteinDerivedSequence()
         {
             // Get input and expected values from xml
@@ -327,9 +317,8 @@ namespace Bio.Tests
         /// <summary>
         /// Creates a Protein derived sequence using IndexOfNonGap() method.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateProteinDerivedSequenceIndexOfNonGap()
         {
             // Get input and expected values from xml
@@ -358,9 +347,8 @@ namespace Bio.Tests
         /// <summary>
         /// Creates a Protein derived sequence using IndexOfNonGap(int) method.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateProteinDerivedSequenceIndexOfNonGapInt()
         {
             // Get input and expected values from xml
@@ -389,9 +377,8 @@ namespace Bio.Tests
         /// <summary>
         /// Creates a Protein derived sequence using LastIndexOfNonGap() method.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateProteinDerivedSequenceLastIndexOfNonGap()
         {
             // Get input and expected values from xml
@@ -420,9 +407,8 @@ namespace Bio.Tests
         /// <summary>
         /// Creates a Protein derived sequence using LastIndexOfNonGap(int) method.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateProteinDerivedSequenceLastIndexOfNonGapInt()
         {
             // Get input and expected values from xml
@@ -451,9 +437,8 @@ namespace Bio.Tests
         /// <summary>
         /// Creates a Protein derived sequence and validates GetReversedSequence() method.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateProteinDerivedSequenceGetReversed()
         {
             // Get input and expected values from xml
@@ -482,9 +467,8 @@ namespace Bio.Tests
         /// <summary>
         /// Creates a Protein derived sequence and validates GetSubSequence() method.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateProteinDerivedSequenceGetSubSequence()
         {
             // Get input and expected values from xml

@@ -4,23 +4,22 @@ using System.Linq;
 using Bio;
 using Bio.IO.BAM;
 using Bio.IO.SAM;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bio.Tests.IO.BAM
 {
     /// <summary>
     /// Test BAM format parser and formatter.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class BAMTests
     {
 
         /// <summary>
         /// Test the BAM Parser.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0"), TestCategory("BAM")]
+        [Test]
+        [Category("Priority0"), Category("BAM")]
         public void TestParser()
         {
             const string FilePath = @"TestUtils\BAM\SeqAlignment.bam";
@@ -43,9 +42,8 @@ namespace Bio.Tests.IO.BAM
         /// <summary>
         /// Test the BAM Formatter.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0"),TestCategory("BAM")]
+        [Test]
+        [Category("Priority0"),Category("BAM")]
         public void TestFormatter()
         {
             const string filePath = @"TestUtils\BAM\SeqAlignment.bam";
@@ -95,9 +93,8 @@ namespace Bio.Tests.IO.BAM
         /// Tests the name,description and file extension property of 
         /// BAM formatter and parser.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0"), TestCategory("BAM")]
+        [Test]
+        [Category("Priority0"), Category("BAM")]
         public void BAMProperties()
         {
             using (BAMParser parser = new BAMParser())
@@ -117,9 +114,8 @@ namespace Bio.Tests.IO.BAM
         /// <summary>
         /// Test the BAM Formatter with sort by coordinate option
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0"), TestCategory("BAM")]
+        [Test]
+        [Category("Priority0"), Category("BAM")]
         public void TestFormatterWithSort()
         {
             string inputFilePath = @"TestUtils\BAM\SeqAlignment.bam";

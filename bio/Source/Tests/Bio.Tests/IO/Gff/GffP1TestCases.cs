@@ -15,7 +15,7 @@ using Bio.Extensions;
 using Bio.TestAutomation.Util;
 using Bio.IO.Gff;
 using Bio.Util.Logging;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 #if (SILVERLIGHT == false)
    namespace Bio.TestAutomation.IO.GFF
@@ -26,7 +26,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
     /// <summary>
     /// Gff Priority One parserObj and formatter test cases implementation.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class GffP1TestCases
     {
 
@@ -61,9 +61,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         /// Validation : Read the Gff file to which the sequence was parsed and 
         /// validate Features, Sequence, Sequence Count
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void GffParserValidateParseWithDnaSequence()
         {
             ValidateParseGeneralTestCases(Constants.SimpleGffDnaNodeName, true);
@@ -76,9 +75,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         /// Validation : Read the Gff file to which the sequence was parsed and 
         /// validate Features, Sequence, Sequence Count
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void GffParserValidateParseWithRnaSequence()
         {
             ValidateParseGeneralTestCases(Constants.SimpleGffRnaNodeName, true);
@@ -91,9 +89,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         /// Validation : Read the Gff file to which the sequence was parsed and 
         /// validate Features, Sequence, Sequence Count
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void GffParserValidateParseWithProteinSequence()
         {
             ValidateParseGeneralTestCases(Constants.SimpleGffProteinNodeName, true);
@@ -106,9 +103,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         /// Validation : Read the Gff file to which the sequence was formatted and 
         /// validate Features, Sequence, Sequence Count
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void GffParserValidateParseWithEncodingConstructor()
         {
             ValidateParseGeneralTestCases(Constants.SimpleGffDnaNodeName,
@@ -122,9 +118,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         /// Validation : Read the Gff file to which the sequence was parsed and 
         /// validate Features, Sequence, Sequence Count
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void GffParserValidateParseWithEncodingProperty()
         {
             ValidateParseGeneralTestCases(Constants.SimpleGffDnaNodeName,
@@ -138,9 +133,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         /// Validation : Read the Gff file to which the sequence was parsed and 
         /// validate Features, Sequence, Sequence Count
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void GffParserValidateParseWithAlphabetProperty()
         {
             ValidateParseGeneralTestCases(Constants.SimpleGffDnaNodeName,
@@ -154,9 +148,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         /// Validation : Read the Gff file with multi sequence (DNA & RNA) to which the sequence 
         /// parse and validate Features, Sequence, Sequence Count
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void GffParserValidateParseWithDnaRna()
         {
             ValidateParseMultiSequenceGeneralTestCases(Constants.MultiSeqDnaRnaGffNodeName,
@@ -170,9 +163,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         /// Validation : Read the Gff file with multi sequence (RNA & Protein) to which the sequence 
         /// parse and validate Features, Sequence, Sequence Count
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void GffParserValidateParseWithRnaProtein()
         {
             ValidateParseMultiSequenceGeneralTestCases(Constants.MultiSeqRnaProGffNodeName,
@@ -186,9 +178,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         /// Validation : Read the Gff file with multi sequence (DNA & Protein) to which the sequence 
         /// parse and validate Features, Sequence, Sequence Count
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void GffParserValidateParseWithDnaProtein()
         {
             ValidateParseMultiSequenceGeneralTestCases(Constants.MultiSeqDnaProGffNodeName,
@@ -202,9 +193,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         /// Validation : Read the Gff file with multi sequence (DNA, RNA & Protein) to which the sequence 
         /// parse and validate Features, Sequence, Sequence Count
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void GffParserValidateParseWithDnaRnaProtein()
         {
             ValidateParseMultiSequenceGeneralTestCases(Constants.MultiSeqDnaRnaProGffNodeName,
@@ -218,9 +208,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         /// Validation : Read the Gff file with large size to which the sequence 
         /// parse and validate Features, Sequence, Sequence Count
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void GffParserValidateParseWithLargeSize()
         {
             ValidateParseGeneralTestCases(Constants.LargeSizeGffNodeName, true);
@@ -233,9 +222,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         /// Validation : Read the Gff file with medium size to which the sequence 
         /// parse and validate Features, Sequence, Sequence Count
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void GffParserValidateParseWithMediumSize()
         {
             ValidateParseGeneralTestCases(Constants.MediumSizeGffNodeName, true);
@@ -249,9 +237,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         /// Validation : Read the Gff file with more than 3 sequences 
         /// parse and validate Features, Sequence, Sequence Count
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void GffParserValidateParseWithMaximumSequences()
         {
             ValidateParseMultiSequenceGeneralTestCases(Constants.MaxSequenceGffNodeName,
@@ -265,9 +252,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         /// Validation : Read the Gff file to which the sequence was parsed and 
         /// validate Features, Sequence, Sequence Count
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void GffParserValidateParseWithCommentsFeatures()
         {
             ValidateParseGeneralTestCases(Constants.SimpleGffDnaNodeName, true);
@@ -281,9 +267,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         /// Validation : Read the Gff file with only features to which the sequence 
         /// parse and validate Features, Sequence, Sequence Count
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void GffParserValidateParseWithOnlyFeatures()
         {
             ValidateParseGeneralTestCases(Constants.OnlyFeaturesGffNodeName, true);
@@ -301,9 +286,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         /// Validation : Read the Gff file to which the sequence was formatted and 
         /// validate Features, Sequence, Sequence Count
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void GffFormatterValidateFormatDnaSequence()
         {
             ValidateFormatGeneralTestCases(Constants.SimpleGffDnaNodeName, true, false);
@@ -317,9 +301,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         /// Validation : Read the Gff file to which the sequence was formatted and 
         /// validate Features, Sequence, Sequence Count
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void GffFormatterValidateFormatRnaSequence()
         {
             ValidateFormatGeneralTestCases(Constants.SimpleGffRnaNodeName, true, false);
@@ -333,9 +316,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         /// Validation : Read the Gff file to which the sequence was formatted and 
         /// validate Features, Sequence, Sequence Count
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void GffFormatterValidateFormatProteinSequence()
         {
             ValidateFormatGeneralTestCases(Constants.SimpleGffProteinNodeName, true, false);
@@ -349,9 +331,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         /// Validation : Read the Gff file to which the sequence was formatted and 
         /// validate Features, Sequence, Sequence Count
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void GffFormatterValidateFormatStringDna()
         {
             ValidateFormatStringTestCases(Constants.SimpleGffDnaNodeName);
@@ -365,9 +346,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         /// Validation : Read the Gff file to which the sequence was formatted and 
         /// validate Features, Sequence, Sequence Count
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void GffFormatterValidateFormatStringRna()
         {
             ValidateFormatStringTestCases(Constants.SimpleGffRnaNodeName);
@@ -381,9 +361,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         /// Validation : Read the Gff file to which the sequence was formatted and 
         /// validate Features, Sequence, Sequence Count
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void GffFormatterValidateFormatStringProtein()
         {
             ValidateFormatStringTestCases(Constants.SimpleGffProteinNodeName);
@@ -397,9 +376,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         /// Validation : Read the medium size Gff file to which the sequence was formatted and 
         /// validate Features, Sequence, Sequence Count
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void GffFormatterValidateFormatMediumSizeFileName()
         {
             ValidateFormatGeneralTestCases(Constants.MediumSizeGffNodeName, true, false);
@@ -413,9 +391,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         /// Validation : Read the medium size Gff file to which the sequence 
         /// was formatted and validate Features, Sequence, Sequence Count
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void GffFormatterValidateFormatStringMediumSize()
         {
             ValidateFormatStringTestCases(Constants.MediumSizeGffNodeName);
@@ -429,9 +406,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         /// Validation : Read the Gff file to which the sequence was formatted and 
         /// validate Features, Sequence, Sequence Count by reparsing
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void GffFormatterValidateFormatByReparsing()
         {
             ValidateFormatGeneralTestCases(Constants.SimpleGffDnaNodeName, false, false);
@@ -445,9 +421,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         /// Validation : Read the Dna, Rna Gff file to which the sequence was formatted and 
         /// validate Features, Sequence, Sequence Count
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void GffFormatterValidateFormatDnaRna()
         {
             ValidateFormatMultiSequencesTestCases(Constants.MultiSeqDnaRnaGffNodeName);
@@ -461,9 +436,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         /// Validation : Read the Protein, Rna Gff file to which the sequence was formatted and 
         /// validate Features, Sequence, Sequence Count
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void GffFormatterValidateFormatRnaProtein()
         {
             ValidateFormatMultiSequencesTestCases(Constants.MultiSeqRnaProGffNodeName);
@@ -477,9 +451,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         /// Validation : Read the Protein, Dna Gff file to which the sequence was formatted and 
         /// validate Features, Sequence, Sequence Count
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void GffFormatterValidateFormatDnaProtein()
         {
             ValidateFormatMultiSequencesTestCases(Constants.MultiSeqDnaProGffNodeName);
@@ -493,9 +466,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         /// Validation : Read the Protein, Rna, Dna Gff file to which the sequence was formatted and 
         /// validate Features, Sequence, Sequence Count
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void GffFormatterValidateFormatDnaRnaProtein()
         {
             ValidateFormatMultiSequencesTestCases(Constants.MultiSeqDnaRnaProGffNodeName);
@@ -509,9 +481,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         /// Validation : Read the Dna, Rna Gff file to which the sequence 
         /// was formatted and validate Features, Sequence, Sequence Count
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void GffFormatterValidateFormatStringDnaRna()
         {
             ValidateFormatStringTestCases(Constants.MultiSeqDnaRnaGffNodeName);
@@ -525,9 +496,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         /// Validation : Read the Protein, Rna Gff file to which the sequence 
         /// was formatted and validate Features, Sequence, Sequence Count
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void GffFormatterValidateFormatStringRnaProtein()
         {
             ValidateFormatStringTestCases(Constants.MultiSeqRnaProGffNodeName);
@@ -541,9 +511,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         /// Validation : Read the Protein, Dna Gff file to which the sequence 
         /// was formatted and validate Features, Sequence, Sequence Count
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void GffFormatterValidateFormatStringDnaProtein()
         {
             ValidateFormatStringTestCases(Constants.MultiSeqDnaProGffNodeName);
@@ -557,9 +526,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         /// Validation : Read the Protein, Rna, Dna Gff file to which the sequence 
         /// was formatted and validate Features, Sequence, Sequence Count
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void GffFormatterValidateFormatStringDnaRnaProtein()
         {
             ValidateFormatStringTestCases(Constants.MultiSeqDnaRnaProGffNodeName);

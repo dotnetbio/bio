@@ -2,20 +2,20 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bio.Tests.Framework
 {
     /// <summary>
     ///  Tests AATree class.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class AATreeTests
     {
         /// <summary>
         /// Test AATree by adding values order by ascending order.
         /// </summary>
-        [TestMethod]
+        [Test]
         public void TestByAddingValuesSortedByAscOrder()
         {
             AATree<int> aatree = new AATree<int>();
@@ -37,7 +37,7 @@ namespace Bio.Tests.Framework
         /// <summary>
         /// Test AATree by adding values sorder by descending order.
         /// </summary>
-        [TestMethod]
+        [Test]
         public void TestByAddingValuesSortedByDescOrder()
         {
             AATree<int> aatree = new AATree<int>();
@@ -61,7 +61,7 @@ namespace Bio.Tests.Framework
         /// <summary>
         /// Test AATree by adding random values.
         /// </summary>
-        [TestMethod]
+        [Test]
         public void TestByAddingRandomValues()
         {
             Random rnd = new Random();
@@ -92,7 +92,7 @@ namespace Bio.Tests.Framework
         /// <summary>
         /// Test Remove method.
         /// </summary>
-        [TestMethod]
+        [Test]
         public void TestRemoveMethodWithValuesSortByAscOrder()
         {
             IComparer<int> comparer = Comparer<int>.Default;
@@ -155,7 +155,7 @@ namespace Bio.Tests.Framework
         /// <summary>
         /// Test Remove method.
         /// </summary>
-        [TestMethod]
+        [Test]
         public void TestRemoveMethodWithValuesSortByDescOrder()
         {
             IComparer<int> comparer = Comparer<int>.Default;
@@ -216,7 +216,7 @@ namespace Bio.Tests.Framework
         /// <summary>
         /// Test Remove method.
         /// </summary>
-        [TestMethod]
+        [Test]
         public void TestRemoveMethodWithRandomValues()
         {
             Random rnd = new Random();

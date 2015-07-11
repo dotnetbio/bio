@@ -2,7 +2,7 @@
 using System.Text;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using Bio;
 
 namespace Bio.Tests
@@ -10,13 +10,13 @@ namespace Bio.Tests
     /// <summary>
     /// Tests the AmbiguousRnaAlphabet class.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class AmbiguousAmbiguousRnaAlphabetTests
     {
         /// <summary>
         /// Tests the AmbiguousRNAAlphabet class.
         /// </summary>
-        [TestMethod]
+        [Test]
         public void TestAmbiguousRnaAlphabetCompareSymbols()
         {
             AmbiguousRnaAlphabet ambiguousRnaAlphabet = AmbiguousRnaAlphabet.Instance;

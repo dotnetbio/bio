@@ -5,14 +5,14 @@ using Bio.Algorithms.StringSearch;
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bio.Tests.Algorithms.StringSearch
 {
     /// <summary>
     ///     Boyer Moore BVT Test case implementation.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class BoyerMooreBvtTestCases
     {
         private readonly Utility utilityObj = new Utility(@"TestUtils\BoyerMooreTestConfig.xml");
@@ -25,9 +25,8 @@ namespace Bio.Tests.Algorithms.StringSearch
         ///     Input : Dna sequence with 1000 BP.
         ///     Validation : Validate the matches.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void BoyerMooreAlignDnaSequenceWith1000BP()
         {
             var boyerMoore = new BoyerMoore();
@@ -51,9 +50,8 @@ namespace Bio.Tests.Algorithms.StringSearch
         ///     Input : Dna sequence with 1000 BP.
         ///     Validation : Validate the matches.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void BoyerMooreAlignDnaSequenceListWith1000BP()
         {
             var boyerMoore = new BoyerMoore();

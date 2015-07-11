@@ -3,14 +3,14 @@ using System.Globalization;
 using System.Linq;
 using Bio.IO.AppliedBiosystems;
 using Bio.IO.AppliedBiosystems.DataParsers;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bio.Tests.Framework.IO.AppliedBiosystems
 {
     /// <summary>
     /// Validate abi parsing.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class AbiTests
     {
         private static void ValidateDataItems(AB_Root xmlData, IParserContext rawData)
@@ -38,9 +38,8 @@ namespace Bio.Tests.Framework.IO.AppliedBiosystems
         /// <summary>
         /// Verifies the parser can read abi file.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void TestParser()
         {
             Ab1Examples.GetRawData(Ab1Examples.Ab1SampleBinaryFileName);
@@ -50,9 +49,8 @@ namespace Bio.Tests.Framework.IO.AppliedBiosystems
         /// The xml document representing the binary ab1 file was generated using the applied biosystems data file
         /// converter.  We user this to verify that our binary parsing is accurate.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateBinaryParserVsXml()
         {
             IParserContext rawData = Ab1Examples.GetRawData(Ab1Examples.Ab1SampleBinaryFileName);
@@ -65,9 +63,8 @@ namespace Bio.Tests.Framework.IO.AppliedBiosystems
         /// <summary>
         /// Test converting abi context to sequence.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void TestAb1ToSequence()
         {
             var parser = new Ab1Parser();

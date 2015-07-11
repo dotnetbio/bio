@@ -6,20 +6,20 @@ using Bio.IO.GenBank;
 using Bio.IO.Gff;
 using Bio.IO.SFF;
 using Bio.IO.Text;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bio.Tests.IO
 {
     /// <summary>
     /// Unit tests for the SequenceParser class
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class SequenceParserTests
     {
         /// <summary>
         /// Tests a normal .FASTA file extension.
         /// </summary>
-        [TestMethod]
+        [Test]
         public void TestFastAFileExtension()
         {
             string[] extensions = {".fa", ".fas", ".fasta", ".fna", ".fsa", ".mpfa"};
@@ -29,14 +29,14 @@ namespace Bio.Tests.IO
             {
                 ISequenceParser foundParser = SequenceParsers.FindParserByFileName(filepath + ext);
                 Assert.IsNotNull(foundParser);
-                Assert.IsInstanceOfType(foundParser, typeof(FastAParser));
+                Assert.IsInstanceOf<FastAParser>(foundParser);
             }
         }
 
         /// <summary>
         /// Tests a normal .fastq file extension.
         /// </summary>
-        [TestMethod]
+        [Test]
         public void TestFastQFileExtension()
         {
             string[] extensions = { ".fq", ".fastq" };
@@ -53,7 +53,7 @@ namespace Bio.Tests.IO
         /// <summary>
         /// Tests a normal .genbank file extension.
         /// </summary>
-        [TestMethod]
+        [Test]
         public void TestGenBankFileExtension()
         {
             string[] extensions = { ".gbk", ".genbank" };
@@ -63,27 +63,27 @@ namespace Bio.Tests.IO
             {
                 ISequenceParser foundParser = SequenceParsers.FindParserByFileName(filepath + ext);
                 Assert.IsNotNull(foundParser);
-                Assert.IsInstanceOfType(foundParser, typeof(GenBankParser));
+                Assert.IsInstanceOf<GenBankParser>(foundParser);
             }
         }
 
         /// <summary>
         /// Tests a normal .gff file extension.
         /// </summary>
-        [TestMethod]
+        [Test]
         public void TestGffFileExtension()
         {
             string filepath = @"TestUtils\Simple_Gff_Dna.gff";
 
             ISequenceParser foundParser = SequenceParsers.FindParserByFileName(filepath);
             Assert.IsNotNull(foundParser);
-            Assert.IsInstanceOfType(foundParser, typeof(GffParser));
+            Assert.IsInstanceOf<GffParser>(foundParser);
         }
 
         /// <summary>
         /// Test an unknown parser type
         /// </summary>
-        [TestMethod]
+        [Test]
         public void TestUnknownFileExtension()
         {
             string filepath = @"Test.ukn";
@@ -95,7 +95,7 @@ namespace Bio.Tests.IO
         /// <summary>
         /// Identify parser when no file exists.
         /// </summary>
-        [TestMethod]
+        [Test]
         public void TestMissingFile()
         {
             string filepath = @"TestUtils\NoFileHere.fa";
@@ -106,7 +106,7 @@ namespace Bio.Tests.IO
         /// <summary>
         /// Identify parser when part of path does not exist.
         /// </summary>
-        [TestMethod]
+        [Test]
         public void TestMissingDirectory()
         {
             string filepath = @"NoDirectoryHere\NoFileHere.fa";
@@ -117,7 +117,7 @@ namespace Bio.Tests.IO
         /// <summary>
         /// Tests the .txt extension
         /// </summary>
-        [TestMethod]
+        [Test]
         public void TestTxtFileExtension()
         {
             string filepath = @"TestUtils\BLOSUM50.txt";
@@ -130,14 +130,14 @@ namespace Bio.Tests.IO
         /// <summary>
         /// Tests the .sff extension from Bio.IO.dll
         /// </summary>
-        [TestMethod]
+        [Test]
         public void TestSffFileExtension()
         {
             string filepath = @"TestUtils\dummy.sff";
 
             ISequenceParser foundParser = SequenceParsers.FindParserByFileName(filepath);
             Assert.IsNotNull(foundParser);
-            Assert.IsInstanceOfType(foundParser, typeof(SFFParser));
+            Assert.IsInstanceOf<SFFParser>(foundParser);
         }
     }
 }

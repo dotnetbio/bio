@@ -5,14 +5,14 @@ using System.Linq;
 using Bio.Core.Extensions;
 using Bio.IO.AppliedBiosystems.Model;
 using Bio.Util;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bio.Tests.Framework.IO.AppliedBiosystems
 {
     /// <summary>
     /// Validates operations on ab1 sepecified data / metadata.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class TestAb1Data
     {
         private static List<short> GetTestData(int count)
@@ -41,9 +41,8 @@ namespace Bio.Tests.Framework.IO.AppliedBiosystems
         /// Tests operations to trim color data and ensure that peak locationg and other
         /// indicies are properly trimmed.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void TestColorDataTrim()
         {
             const int dataCount = 40;

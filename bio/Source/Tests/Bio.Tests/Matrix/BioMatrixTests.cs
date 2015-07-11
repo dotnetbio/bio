@@ -4,20 +4,20 @@ using System.IO;
 using System.Threading.Tasks;
 using Bio.Matrix;
 using Bio.Util;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bio.Tests.Matrix
 {
     /// <summary>
     /// Unit tests on many kinds of matrices.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class MatrixUnitTests
     {
         /// <summary>
         /// Unit tests on matrices.
         /// </summary>
-        [TestMethod]
+        [Test]
         public void MatrixTest()
         {
             MainTest(true, new ParallelOptions());

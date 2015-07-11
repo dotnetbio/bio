@@ -8,14 +8,14 @@ using Bio.Extensions;
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bio.Tests.Algorithms.Alignment.NUCmer
 {
     /// <summary>
     ///     NUCmer P2 Test case implementation.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class NUCmerP2TestCases
     {
         private readonly Utility utilityObj = new Utility(@"TestUtils\NUCmerTestsConfig.xml");
@@ -28,9 +28,8 @@ namespace Bio.Tests.Algorithms.Alignment.NUCmer
         ///     Input : Empty QueryList sequences
         ///     Validation : Validate the Exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void NUCmerAlignEmptyQueryList()
         {
             ValidateNUCmerEmptyAlignGeneralTestCases(null);
@@ -42,9 +41,8 @@ namespace Bio.Tests.Algorithms.Alignment.NUCmer
         ///     Input : Empty Reference Sequence
         ///     Validation : Validate the Exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void NUCmerAlignEmptyReferenceList()
         {
             ValidateNUCmerEmptyAlignGeneralTestCases(null);
@@ -56,9 +54,8 @@ namespace Bio.Tests.Algorithms.Alignment.NUCmer
         ///     Input : Zero MUMLength
         ///     Validation : Validate the Exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void NUCmerAlignInvalidMumLength()
         {
             this.ValidateNUCmerAlignGeneralTestCases(Constants.InvalidMumLengthSequence);
@@ -71,9 +68,8 @@ namespace Bio.Tests.Algorithms.Alignment.NUCmer
         ///     Input : MUMLength Greater than Sequences
         ///     Validation : Validate the Exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void NUCmerAlignGreaterMumLength()
         {
             // Gets the reference & search sequences from the configuration file
@@ -108,9 +104,8 @@ namespace Bio.Tests.Algorithms.Alignment.NUCmer
         ///     Input : One line Dna sequence
         ///     Validation : Validate the aligned sequences
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void NUCmerAlignSimple1000BPDnaSequence()
         {
             this.ValidateNUCmerAlignSimpleGeneralTestCases(Constants.SingleDna1000BPSequence);

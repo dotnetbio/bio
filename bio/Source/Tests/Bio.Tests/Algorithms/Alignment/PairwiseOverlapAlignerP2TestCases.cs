@@ -11,14 +11,14 @@ using Bio.TestAutomation.Util;
 using Bio.Tests.Framework;
 using Bio.Util.Logging;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bio.Tests.Algorithms.Alignment
 {
     /// <summary>
     ///     PairwiseOverlapAlignment algorithm P2 test cases
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class PairwiseOverlapAlignerP2TestCases
     {
         #region Enums
@@ -115,9 +115,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA File
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void PairwiseOverlapSimpleAlignTwoLowerCaseSequencesFromTextFile()
         {
             this.ValidatePairwiseOverlapAlignment(
@@ -135,9 +134,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA File
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void PairwiseOverlapSimpleAlignTwoUpperCaseSequencesFromTextFile()
         {
             this.ValidatePairwiseOverlapAlignment(
@@ -155,9 +153,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA File
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void PairwiseOverlapSimpleAlignTwoLowerUpperCaseSequencesFromTextFile()
         {
             this.ValidatePairwiseOverlapAlignment(
@@ -175,9 +172,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA File
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void PairwiseOverlapSimpleAlignTwoLowerCaseSequencesFromCode()
         {
             this.ValidatePairwiseOverlapAlignment(
@@ -195,9 +191,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA File
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void PairwiseOverlapSimpleAlignTwoUpperCaseSequencesFromCode()
         {
             this.ValidatePairwiseOverlapAlignment(
@@ -215,9 +210,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA File
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void PairwiseOverlapSimpleAlignTwoLowerUpperCaseSequencesFromCode()
         {
             this.ValidatePairwiseOverlapAlignment(
@@ -235,9 +229,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA File
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void PairwiseOverlapSimpleAlignListLowerCaseSequencesFromTextFile()
         {
             this.ValidatePairwiseOverlapAlignment(
@@ -255,9 +248,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA File
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void PairwiseOverlapSimpleAlignListUpperCaseSequencesFromTextFile()
         {
             this.ValidatePairwiseOverlapAlignment(
@@ -275,9 +267,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA File
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void PairwiseOverlapSimpleAlignListLowerUpperCaseSequencesFromTextFile()
         {
             this.ValidatePairwiseOverlapAlignment(Constants.PairwiseOverlapAlignAlgorithmNodeName, true,
@@ -293,9 +284,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA File
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void PairwiseOverlapSimpleAlignAllParamsLowerCaseSequencesFromTextFile()
         {
             this.ValidatePairwiseOverlapAlignment(Constants.PairwiseOverlapAlignAlgorithmNodeName, true,
@@ -311,9 +301,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA File
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void PairwiseOverlapSimpleAlignAllParamsUpperCaseSequencesFromTextFile()
         {
             this.ValidatePairwiseOverlapAlignment(Constants.PairwiseOverlapAlignAlgorithmNodeName, true,
@@ -329,9 +318,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA File
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void PairwiseOverlapSimpleAlignAllParamsLowerUpperCaseSequencesFromTextFile()
         {
             this.ValidatePairwiseOverlapAlignment(Constants.PairwiseOverlapAlignAlgorithmNodeName, true,
@@ -344,9 +332,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Two Input sequence and Non Matching similarity matrix
         ///     Validation : Exception should be thrown
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidatePOSimpleAlignTwoSequencesWithNonMatchingSimilarityMatrix()
         {
             this.InValidatePairwiseOverlapAlignmentWithInvalidSimilarityMatrix(
@@ -361,9 +348,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Input sequence List and Non Matching similarity matrix
         ///     Validation : Exception should be thrown
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidatePOSimpleAlignListSequencesWithNonMatchingSimilarityMatrix()
         {
             this.InValidatePairwiseOverlapAlignmentWithInvalidSimilarityMatrix(
@@ -378,9 +364,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Input sequence and Non Matching similarity matrix
         ///     Validation : Exception should be thrown
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidatePOSimpleAlignAllParamsSequencesWithNonMatchingSimilarityMatrix()
         {
             this.InValidatePairwiseOverlapAlignmentWithInvalidSimilarityMatrix(
@@ -395,9 +380,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Two Input sequence and Empty similarity matrix
         ///     Validation : Exception should be thrown
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidatePOSimpleAlignTwoSequencesWithEmptySimilarityMatrix()
         {
             this.InValidatePairwiseOverlapAlignmentWithInvalidSimilarityMatrix(
@@ -412,9 +396,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Input sequence List and Empty similarity matrix
         ///     Validation : Exception should be thrown
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidatePOSimpleAlignListSequencesWithEmptySimilarityMatrix()
         {
             this.InValidatePairwiseOverlapAlignmentWithInvalidSimilarityMatrix(
@@ -430,9 +413,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Input sequence and Empty similarity matrix
         ///     Validation : Exception should be thrown
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidatePOSimpleAlignAllParamsSequencesWithEmptySimilarityMatrix()
         {
             this.InValidatePairwiseOverlapAlignmentWithInvalidSimilarityMatrix(
@@ -449,9 +431,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Two Input sequence and Only Alphabet similarity matrix
         ///     Validation : Exception should be thrown
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidatePOSimpleAlignTwoSequencesWithOnlyAlphabetSimilarityMatrix()
         {
             this.InValidatePairwiseOverlapAlignmentWithInvalidSimilarityMatrix(
@@ -467,9 +448,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Input sequence List and Only Alphabet similarity matrix
         ///     Validation : Exception should be thrown
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidatePOSimpleAlignListSequencesWithOnlyAlphabetSimilarityMatrix()
         {
             this.InValidatePairwiseOverlapAlignmentWithInvalidSimilarityMatrix(
@@ -486,9 +466,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Input sequence and Only Alphabet similarity matrix
         ///     Validation : Exception should be thrown
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidatePOSimpleAlignAllParamsSequencesWithOnlyAlphabetSimilarityMatrix()
         {
             this.InValidatePairwiseOverlapAlignmentWithInvalidSimilarityMatrix(
@@ -505,9 +484,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Two Input sequence and Modified similarity matrix
         ///     Validation : Exception should be thrown
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidatePOSimpleAlignTwoSequencesWithModifiedSimilarityMatrix()
         {
             this.InValidatePairwiseOverlapAlignmentWithInvalidSimilarityMatrix(
@@ -524,9 +502,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Input sequence list and Modified similarity matrix
         ///     Validation : Exception should be thrown
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidatePOSimpleAlignListSequencesWithModifiedSimilarityMatrix()
         {
             this.InValidatePairwiseOverlapAlignmentWithInvalidSimilarityMatrix(
@@ -543,9 +520,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Input sequence and Modified similarity matrix
         ///     Validation : Exception should be thrown
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidatePOSimpleAlignAllParamsSequencesWithModifiedSimilarityMatrix()
         {
             this.InValidatePairwiseOverlapAlignmentWithInvalidSimilarityMatrix(
@@ -562,9 +538,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Two Input sequence and Few Alphabet similarity matrix
         ///     Validation : Exception should be thrown
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidatePOSimpleAlignTwoSequencesWithFewAlphabetSimilarityMatrix()
         {
             this.InValidatePairwiseOverlapAlignmentWithInvalidSimilarityMatrix(
@@ -581,9 +556,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Input sequence list and Few Alphabet similarity matrix
         ///     Validation : Exception should be thrown
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidatePOSimpleAlignListSequencesWithFewAlphabetSimilarityMatrix()
         {
             this.InValidatePairwiseOverlapAlignmentWithInvalidSimilarityMatrix(
@@ -600,9 +574,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Input sequence and Few Alphabet similarity matrix
         ///     Validation : Exception should be thrown
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidatePOSimpleAlignAllParamsSequencesWithFewAlphabetSimilarityMatrix()
         {
             this.InValidatePairwiseOverlapAlignmentWithInvalidSimilarityMatrix(
@@ -619,9 +592,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Two Input sequence and Empty similarity matrix
         ///     Validation : Exception should be thrown
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidatePOSimpleAlignTwoSequencesFromCodeWithEmptySimilarityMatrix()
         {
             this.InValidatePairwiseOverlapAlignmentWithInvalidSimilarityMatrix(
@@ -638,9 +610,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Input sequence List and Empty similarity matrix
         ///     Validation : Exception should be thrown
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidatePOSimpleAlignListSequencesFromCodeWithEmptySimilarityMatrix()
         {
             this.InValidatePairwiseOverlapAlignmentWithInvalidSimilarityMatrix(
@@ -657,9 +628,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Input sequence List and Empty similarity matrix
         ///     Validation : Exception should be thrown
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidatePOSimpleAlignAllParamsSequencesFromCodeWithEmptySimilarityMatrix()
         {
             this.InValidatePairwiseOverlapAlignmentWithInvalidSimilarityMatrix(
@@ -676,9 +646,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Input sequence List and Only Alphabet similarity matrix
         ///     Validation : Exception should be thrown
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidatePOSimpleAlignTwoSequencesFromCodeWithOnlyAlphabetSimilarityMatrix()
         {
             this.InValidatePairwiseOverlapAlignmentWithInvalidSimilarityMatrix(
@@ -695,9 +664,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Input sequence List and Only Alphabet similarity matrix
         ///     Validation : Exception should be thrown
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidatePOSimpleAlignListSequencesFromCodeWithOnlyAlphabetSimilarityMatrix()
         {
             this.InValidatePairwiseOverlapAlignmentWithInvalidSimilarityMatrix(
@@ -714,9 +682,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Input sequence List and Only Alphabet similarity matrix
         ///     Validation : Exception should be thrown
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidatePOSimpleAlignAllParamsSequencesFromCodeWithOnlyAlphabetSimilarityMatrix()
         {
             this.InValidatePairwiseOverlapAlignmentWithInvalidSimilarityMatrix(
@@ -733,9 +700,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Input sequence and Few Alphabet similarity matrix
         ///     Validation : Exception should be thrown
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidatePOSimpleAlignTwoSequencesFromCodeWithNullSimilarityMatrix()
         {
             this.InValidatePairwiseOverlapAlignmentWithInvalidSimilarityMatrix(
@@ -752,9 +718,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Input sequence and Few Alphabet similarity matrix
         ///     Validation : Exception should be thrown
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidatePOSimpleAlignListSequencesFromCodeWithNullSimilarityMatrix()
         {
             this.InValidatePairwiseOverlapAlignmentWithInvalidSimilarityMatrix(
@@ -771,9 +736,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Input sequence and Few Alphabet similarity matrix
         ///     Validation : Exception should be thrown
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidatePOSimpleAlignAllParamsSequencesFromCodeWithNullSimilarityMatrix()
         {
             this.InValidatePairwiseOverlapAlignmentWithInvalidSimilarityMatrix(
@@ -790,9 +754,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Input sequence and Few Alphabet similarity matrix
         ///     Validation : Exception should be thrown
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidatePOSimpleAlignTwoSequencesWithInvalidDiagonalSimilarityMatrix()
         {
             this.InValidatePairwiseOverlapAlignmentWithInvalidSimilarityMatrix(
@@ -809,9 +772,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Input sequence and Invalid DiagonalSimilarityMatrix
         ///     Validation : Exception should be thrown
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidatePOSimpleAlignListSequencesWithInvalidDiagonalSimilarityMatrix()
         {
             this.InValidatePairwiseOverlapAlignmentWithInvalidSimilarityMatrix(
@@ -828,9 +790,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Input sequence and Invalid DiagonalSimilarityMatrix
         ///     Validation : Exception should be thrown
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidatePOSimpleAlignAllParamsSequencesWithInvalidDiagonalSimilarityMatrix()
         {
             this.InValidatePairwiseOverlapAlignmentWithInvalidSimilarityMatrix(
@@ -847,9 +808,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Input sequence List and Only Alphabet similarity matrix
         ///     Validation : Exception should be thrown
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidatePOSimpleAlignTwoWithInvalidSequencesFromTextFile()
         {
             this.InValidatePairwiseOverlapAlignmentWithInvalidSequence(
@@ -867,9 +827,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Input sequence List and Only Alphabet similarity matrix
         ///     Validation : Exception should be thrown
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidatePOSimpleAlignListWithInvalidSequencesFromTextFile()
         {
             this.InValidatePairwiseOverlapAlignmentWithInvalidSequence(
@@ -887,9 +846,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Input sequence List and Only Alphabet similarity matrix
         ///     Validation : Exception should be thrown
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidatePOSimpleAlignAllParamsWithInvalidSequencesFromTextFile()
         {
             this.InValidatePairwiseOverlapAlignmentWithInvalidSequence(
@@ -907,9 +865,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Input sequence List and Only Alphabet similarity matrix
         ///     Validation : Exception should be thrown
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidatePOSimpleAlignTwoWithEmptySequencesFromTextFile()
         {
             this.InValidatePairwiseOverlapAlignmentWithInvalidSequence(
@@ -927,9 +884,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Input sequence List and Only Alphabet similarity matrix
         ///     Validation : Exception should be thrown
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidatePOSimpleAlignListWithEmptySequencesFromTextFile()
         {
             this.InValidatePairwiseOverlapAlignmentWithInvalidSequence(
@@ -947,9 +903,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Input sequence List and Only Alphabet similarity matrix
         ///     Validation : Exception should be thrown
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidatePOSimpleAlignAllParamsWithEmptySequencesFromTextFile()
         {
             this.InValidatePairwiseOverlapAlignmentWithInvalidSequence(
@@ -967,9 +922,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Input sequence List and Only Alphabet similarity matrix
         ///     Validation : Exception should be thrown
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidatePOSimpleAlignTwoWithGapSequencesFromTextFile()
         {
             this.InValidatePairwiseOverlapAlignmentWithInvalidSequence(
@@ -987,9 +941,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Input sequence List and Only Alphabet similarity matrix
         ///     Validation : Exception should be thrown
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidatePOSimpleAlignListWithGapSequencesFromTextFile()
         {
             this.InValidatePairwiseOverlapAlignmentWithInvalidSequence(
@@ -1007,9 +960,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Input sequence List and Only Alphabet similarity matrix
         ///     Validation : Exception should be thrown
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidatePOSimpleAlignAllParamsWithGapSequencesFromTextFile()
         {
             this.InValidatePairwiseOverlapAlignmentWithInvalidSequence(
@@ -1027,9 +979,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Input sequence List and Only Alphabet similarity matrix
         ///     Validation : Exception should be thrown
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidatePOSimpleAlignTwoWithUnicodeSequencesFromTextFile()
         {
             this.InValidatePairwiseOverlapAlignmentWithInvalidSequence(
@@ -1047,9 +998,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Input sequence List and Only Alphabet similarity matrix
         ///     Validation : Exception should be thrown
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidatePOSimpleAlignListWithUnicodeSequencesFromTextFile()
         {
             this.InValidatePairwiseOverlapAlignmentWithInvalidSequence(
@@ -1067,9 +1017,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Input sequence List and Only Alphabet similarity matrix
         ///     Validation : Exception should be thrown
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidatePOSimpleAlignAllParamsWithUnicodeSequencesFromTextFile()
         {
             this.InValidatePairwiseOverlapAlignmentWithInvalidSequence(
@@ -1087,9 +1036,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Input sequence List and Only Alphabet similarity matrix
         ///     Validation : Exception should be thrown
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidatePOSimpleAlignTwoSequencesWithSpacesFromTextFile()
         {
             this.InValidatePairwiseOverlapAlignmentWithInvalidSequence(
@@ -1107,9 +1055,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Input sequence List and Only Alphabet similarity matrix
         ///     Validation : Exception should be thrown
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidatePOSimpleAlignListSequencesWithSpacesFromTextFile()
         {
             this.InValidatePairwiseOverlapAlignmentWithInvalidSequence(
@@ -1127,9 +1074,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Input sequence List and Only Alphabet similarity matrix
         ///     Validation : Exception should be thrown
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidatePOSimpleAlignParamsSequencesWithSpacesFromTextFile()
         {
             this.InValidatePairwiseOverlapAlignmentWithInvalidSequence(
@@ -1147,9 +1093,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Input sequence List and Only Alphabet similarity matrix
         ///     Validation : Exception should be thrown
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidatePOSimpleAlignTwoWithInvalidSequencesFromCode()
         {
             this.InValidatePairwiseOverlapAlignmentWithInvalidSequence(
@@ -1169,9 +1114,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA DNA File
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void ValidatePairwiseOverlapAlignTwoDnaSequences()
         {
             this.ValidatePairwiseOverlapAlignment(
@@ -1190,9 +1134,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA DNA File
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void ValidatePairwiseOverlapAlignTwoRnaSequences()
         {
             this.ValidatePairwiseOverlapAlignment(
@@ -1211,9 +1154,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA DNA File
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void ValidatePairwiseOverlapAlignTwoProteinSequences()
         {
             this.ValidatePairwiseOverlapAlignment(
@@ -1232,9 +1174,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA Protein File with Max Gap Cost
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void ValidatePairwiseOverlapAlignTwoSequencesGapCostMax()
         {
             this.ValidatePairwiseOverlapAlignment(
@@ -1253,9 +1194,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA Protein File with Max Gap Cost
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void ValidatePairwiseOverlapAlignTwoSequencesGapCostMin()
         {
             this.ValidatePairwiseOverlapAlignment(
@@ -1274,9 +1214,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA Protein File with Max Gap Cost
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void ValidatePairwiseOverlapAlignTwoSequencesWithBlosomSimilarityMatrix()
         {
             this.ValidatePairwiseOverlapAlignment(
@@ -1295,9 +1234,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA Protein File with Max Gap Cost
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void ValidatePairwiseOverlapAlignTwoSequencesWithPamSimilarityMatrix()
         {
             this.ValidatePairwiseOverlapAlignment(
@@ -1316,9 +1254,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA Protein File with Max Gap Cost
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void ValidatePairwiseOverlapAlignTwoSequencesWithTextReaderSimilarityMatrix()
         {
             this.ValidatePairwiseOverlapAlignment(
@@ -1338,9 +1275,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA Protein File with Max Gap Cost
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void ValidatePairwiseOverlapAlignTwoSequencesWithDiagonalSimilarityMatrix()
         {
             this.ValidatePairwiseOverlapAlignment(
@@ -1359,9 +1295,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA Protein File with Max Gap Cost
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void ValidatePairwiseOverlapAlignTwoSequencesWithEqualGapOpenAndExtensionCost()
         {
             this.ValidatePairwiseOverlapAlignment(

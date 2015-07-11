@@ -4,14 +4,14 @@ using System.Linq;
 
 using Bio.Extensions;
 using Bio.IO.SFF;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bio.Tests.IO.SFF
 {
     /// <summary>
     /// This tests the SFF parser (454)
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class SFFParserTests
     {
         private const string filePath = @"TestUtils\SFF\E3MFGYR02_random_10_reads.sff";
@@ -20,9 +20,8 @@ namespace Bio.Tests.IO.SFF
         /// Verifies that the parser doesn't throw an exception when calling Parse on a file
         /// containing more than one sequence.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void TestSffWhenParsingOneOfMany()
         {
             SFFParser parser = new SFFParser();
@@ -37,9 +36,8 @@ namespace Bio.Tests.IO.SFF
         /// <summary>
         /// Parse sample .SFF file and verify we read all the sequences.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void TestSffForOneSequence()
         {
             const string ExpectedSequence = "TCAGGGTCTACATGTTGGTTAACCCGTACTGATTTGAATTGGCTCTTTGTCTTTCCAAAGGGAATTCATCTTCTTATGGC" +
@@ -52,7 +50,7 @@ namespace Bio.Tests.IO.SFF
             {
                 var sequence = parser.Parse().FirstOrDefault();
                 Assert.IsNotNull(sequence);
-                Assert.IsInstanceOfType(sequence, typeof(QualitativeSequence));
+                Assert.IsInstanceOf<QualitativeSequence>(sequence);
                 Assert.AreEqual(265, sequence.Count);
 
                 var actualSequence = sequence.ConvertToString();
@@ -65,9 +63,8 @@ namespace Bio.Tests.IO.SFF
         /// <summary>
         /// Verifies that the parser throws an exception when Parsing a sequence which contains valid id but no sequence data
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void TestMultipleSequencesInFile()
         {
             var expectedData = new[]

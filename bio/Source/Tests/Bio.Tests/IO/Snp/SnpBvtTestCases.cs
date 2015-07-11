@@ -14,14 +14,14 @@ using System.Text;
 using Bio.IO.Snp;
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bio.TestAutomation.IO.Snp
 {
     /// <summary>
     /// Snp Bvt parser Test case implementation.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class SnpBvtTestCases
     {
         #region Enums
@@ -54,9 +54,8 @@ namespace Bio.TestAutomation.IO.Snp
         /// Input : Snp File
         /// Validation : Expected sequence, Chromosome position, Sequence Alphabet, Sequence ID.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void SnpBvtParserValidateParseFilePath()
         {
             SnpParserGeneralTestCases(Constants.SimpleSnpNodeName,
@@ -68,9 +67,8 @@ namespace Bio.TestAutomation.IO.Snp
         /// Input : One line sequence and update all properties
         /// Validation : Validate the properties
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void SnpBvtParserProperties()
         {
             string filepath = utilityObj.xmlUtil.GetTextValue(Constants.SimpleSnpNodeName,
@@ -93,9 +91,8 @@ namespace Bio.TestAutomation.IO.Snp
         /// Input : Snp File
         /// Validation : Expected sequence, Chromosome position, Sequence Alphabet, Sequence ID.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void SnpBvtParserValidateParseAlleleTwo()
         {
             SnpParserGeneralTestCases(Constants.SimpleSnpNodeName,
@@ -109,9 +106,8 @@ namespace Bio.TestAutomation.IO.Snp
         /// Input : Snp File
         /// Validation : Expected sequence, Chromosome position, Sequence Alphabet, Sequence ID.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void SnpBvtParserValidateParseFilePathOneLine()
         {
             SnpParserGeneralTestCases(Constants.OneLineSnpNode,
@@ -121,9 +117,8 @@ namespace Bio.TestAutomation.IO.Snp
         /// <summary>
         /// Validate Equals(snpItem) method with valid values.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void SnpItemBvtValidateEqualsSnpItem()
         {
             SnpItem snpItem1 = new SnpItem();
@@ -141,9 +136,8 @@ namespace Bio.TestAutomation.IO.Snp
         /// <summary>
         /// Validate Equals(object) method with valid values.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void SnpItemBvtValidateEqualsObject()
         {
             SnpItem snpItem1 = new SnpItem();
@@ -161,9 +155,8 @@ namespace Bio.TestAutomation.IO.Snp
         /// <summary>
         /// Validate GetHashCode() method with valid values.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void SnpItemBvtValidateGetHashCode()
         {
             SnpItem snpItem1 = new SnpItem();

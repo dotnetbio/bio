@@ -1,21 +1,20 @@
 ﻿using System.Collections.Generic;
 using Bio.Algorithms.Alignment;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bio.Tests.Algorithms.Alignment.NUCmer
 {
     /// <summary>
     /// Test Automation code for Bio Sequences and BVT level validations.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class NUCmerAttributesBvtTestCases
     {
         /// <summary>
         /// Validate the attributes in NUCmerAttributes.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateNUCmerAttributes()
         {
             NUCmerAttributes nucAttrib = new NUCmerAttributes();

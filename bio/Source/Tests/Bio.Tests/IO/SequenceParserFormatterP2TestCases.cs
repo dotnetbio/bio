@@ -4,7 +4,7 @@ using Bio.IO;
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bio.Tests.IO
 {
@@ -12,39 +12,35 @@ namespace Bio.Tests.IO
     /// SequenceParserFormatter P2 parser Test cases implementation.
     /// </summary>
 
-    [TestClass]
+    [TestFixture]
     public class SequenceParserFormatterP2TestCases
     {
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void ValidateFindFormatterByFileName()
         {
             ISequenceFormatter formatter=SequenceFormatters.FindFormatterByFileName(Constants.InvalidFileName);
             this.ValidateFormatterExceptions(formatter);
         }
 
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void ValidateFindFormatterByName()
         {
             ISequenceFormatter formatter = SequenceFormatters.FindFormatterByName(Constants.FastaTempFileName, Constants.InvalidFileName);
             this.ValidateFormatterExceptions(formatter);            
         }
 
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void ValidateFindParserByFileName()
         {
             ISequenceParser parser = SequenceParsers.FindParserByFileName(Constants.InvalidFileName);
             this.ValidateParserExceptions(parser);           
         }
 
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void ValidateFindParserByName()
         {
             ISequenceParser parser = SequenceParsers.FindParserByName(Constants.FastaTempFileName, Constants.InvalidFileName);

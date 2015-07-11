@@ -2,20 +2,20 @@
 using System.Text;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bio.Tests
 {
     /// <summary>
     /// Summary description for TestSequencesCopyToForBio
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class TestSequencesCopyToForBio
     {
         /// <summary>
         /// Test for Sequence CopyTo method.
         /// </summary>
-        [TestMethod]
+        [Test]
         public void TestSequenceCopyTo()
         {
             Sequence seq = new Sequence(Alphabets.DNA, "ATCG");
@@ -32,7 +32,7 @@ namespace Bio.Tests
         /// <summary>
         /// Test for DeriveSequence CopyTo method.
         /// </summary>
-        [TestMethod]
+        [Test]
         public void TestDeriveSequenceCopyTo()
         {
             ISequence seq = new Sequence(Alphabets.DNA, "ATCG");
@@ -50,7 +50,7 @@ namespace Bio.Tests
         /// <summary>
         /// Test for DeriveSequence CopyTo method.
         /// </summary>
-        [TestMethod]
+        [Test]
         public void TestSparseSequenceCopyTo()
         {
             IEnumerable<byte> seqItems = new List<Byte>() { 65, 65, 67, 67 };
@@ -68,7 +68,7 @@ namespace Bio.Tests
         /// <summary>
         /// Test for Sequence ConstructorWithISequenceArgument method.
         /// </summary>
-        [TestMethod]
+        [Test]
         public void TestSequenceConstructorWithISequenceArgument()
         {
             ISequence seq = new Sequence(Alphabets.DNA, "ATCG");
@@ -81,7 +81,7 @@ namespace Bio.Tests
         /// <summary>
         /// Test for DeriveSequence ConstructorWithSequenceArgument method.
         /// </summary>
-        [TestMethod]
+        [Test]
         public void TestSparseSequenceConstructorWithSequenceArgument()
         {
             IEnumerable<byte> seqItems = new List<Byte>() { 65, 65, 67, 67 };

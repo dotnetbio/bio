@@ -17,14 +17,14 @@ using Bio.IO.FastA;
 using Bio.IO.SAM;
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bio.TestAutomation.IO.SAM
 {
     /// <summary>
     /// SAM Bvt parser and formatter Test case implementation.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class SAMBvtTestCases
     {
         #region Enums
@@ -51,9 +51,8 @@ namespace Bio.TestAutomation.IO.SAM
         /// Input : sam file
         /// Output: alignments
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateSAMParserWithTextReader()
         {
             ValidateSAMParser(Constants.SmallSAMFileNode, ParseOrFormatTypes.ParseOrFormatText);
@@ -64,9 +63,8 @@ namespace Bio.TestAutomation.IO.SAM
         /// Input : sam file
         /// Output: alignments
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateSAMParserWithFileName()
         {
             ValidateSAMParser(Constants.SmallSAMFileNode,
@@ -78,9 +76,8 @@ namespace Bio.TestAutomation.IO.SAM
         /// Input : sam file
         /// Output: alignments
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateSAMParserParseOneWithTextReader()
         {
             ValidateSAMParserWithParseOne(Constants.SmallSAMFileNode,
@@ -92,9 +89,8 @@ namespace Bio.TestAutomation.IO.SAM
         /// Input : sam file
         /// Output: alignments
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateSAMParserParseOneWithFileName()
         {
             ValidateSAMParserWithParseOne(Constants.SmallSAMFileNode,
@@ -106,9 +102,8 @@ namespace Bio.TestAutomation.IO.SAM
         /// Input : Create a SAM Parser object.
         /// Validation : Validate the properties
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateSAMProperties()
         {
             SAMParser parser = new SAMParser();
@@ -125,9 +120,8 @@ namespace Bio.TestAutomation.IO.SAM
         /// Input : sam file
         /// Output: Validation of Sequence Alignment Map 
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateSAMParserWithReader()
         {
             ValidateSAMParserSeqAlign(Constants.SmallSAMFileNode,
@@ -139,9 +133,8 @@ namespace Bio.TestAutomation.IO.SAM
         /// Input : SAM file
         /// Output: Validation of Sequence Alignment Header
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateSAMParserHeader()
         {
             string filePath = utilityObj.xmlUtil.GetTextValue(
@@ -181,9 +174,8 @@ namespace Bio.TestAutomation.IO.SAM
         /// Input : sam file
         /// Output: Validation of Sequence Alignment Map 
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateSAMParserQualityNSeq()
         {
             // Gets the expected sequence from the Xml
@@ -216,9 +208,8 @@ namespace Bio.TestAutomation.IO.SAM
         /// Input : alignment
         /// Output: sam file
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateSAMFormatterWithFileName()
         {
             ValidateSAMFormatter(Constants.SmallSAMFileNode,
@@ -231,9 +222,8 @@ namespace Bio.TestAutomation.IO.SAM
         /// Input : alignment
         /// Output: sam file
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateSAMFormatterWithFileNameAndAlignments()
         {
             // Gets the expected sequence from the Xml
@@ -259,9 +249,8 @@ namespace Bio.TestAutomation.IO.SAM
         /// Input : alignment
         /// Output: sam file
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateSAMFormatterWithTextWriterAndAlignments()
         {
             // Gets the expected sequence from the Xml
@@ -290,9 +279,8 @@ namespace Bio.TestAutomation.IO.SAM
         /// Input : alignment
         /// Output: sam file
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateSAMFormatterWithTextWriter()
         {
             ValidateSAMFormatter(Constants.SmallSAMFileNode,
@@ -304,9 +292,8 @@ namespace Bio.TestAutomation.IO.SAM
         /// Input : sam file with quality values
         /// Output: alignment contains qualitative sequences
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateSAMParseAndFormatWithQualityValues()
         {
             ValidateSAMParseAndFormatWithQualityValues(
@@ -320,9 +307,8 @@ namespace Bio.TestAutomation.IO.SAM
         /// Input : sam file with CIGAR format
         /// Output: alignment
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateSAMParseAndFormatWithCIGAR()
         {
             ValidateSAMParseAndFormatWithCIGARFormat(
@@ -334,9 +320,8 @@ namespace Bio.TestAutomation.IO.SAM
         /// Input : Create a SAM Formatter object.
         /// Validation : Validate the properties
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateSAMFormatterProperties()
         {
             SAMFormatter parser = new SAMFormatter();
@@ -353,9 +338,8 @@ namespace Bio.TestAutomation.IO.SAM
         /// Input : alignment
         /// Output: sam file
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateSAMFormatterSeqAlignMap()
         {
             ValidateSAMFormatterSeqAlign(Constants.SmallSAMFileNode,
@@ -368,9 +352,8 @@ namespace Bio.TestAutomation.IO.SAM
         /// Input : alignment
         /// Output: sam file
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateSAMFormatterFormatString()
         {
             string filePath = utilityObj.xmlUtil.GetTextValue(
@@ -584,8 +567,7 @@ namespace Bio.TestAutomation.IO.SAM
                             for (int iseq = 0; iseq <
                                 alignments[index].AlignedSequences[ialigned].Sequences.Count; iseq++)
                             {
-                                Assert.IsInstanceOfType(alignments[index].AlignedSequences[ialigned].Sequences[iseq],
-                                    typeof(QualitativeSequence));
+                                Assert.IsInstanceOf<QualitativeSequence>(alignments[index].AlignedSequences[ialigned].Sequences[iseq]);
                                 QualitativeSequence qualSequence =
                                  (QualitativeSequence)alignments[index].AlignedSequences[ialigned].Sequences[iseq];
                                 Assert.AreEqual(

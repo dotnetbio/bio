@@ -4,14 +4,14 @@ using System.Text;
 
 using Bio.Util.Logging;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bio.Tests
 {
     /// <summary>
     ///     Test Automation code for Bio Sparse Sequence P1 level validations
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class SparseSequenceP1TestCases
     {
         #region Test Cases
@@ -20,9 +20,8 @@ namespace Bio.Tests
         ///     Creates sparse sequence object and validates the constructor.
         ///     Validates if all items are present in sparse sequence instance.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateRnaSparseSequenceConstAlp()
         {
             var sparseSeq = new SparseSequence(Alphabets.RNA);
@@ -37,9 +36,8 @@ namespace Bio.Tests
         ///     Creates sparse sequence object and validates the constructor with Index.
         ///     Validates if all items are present in sparse sequence instance.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateRnaSparseSequenceConstAlpIndex()
         {
             var sparseSeq = new SparseSequence(Alphabets.RNA, 0);
@@ -54,9 +52,8 @@ namespace Bio.Tests
         ///     Creates sparse sequence object and validates the constructor with Index, byte.
         ///     Validates if all items are present in sparse sequence instance.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateRnaSparseSequenceConstAlpIndexByte()
         {
             byte[] byteArrayObj = Encoding.ASCII.GetBytes("AGCU");
@@ -73,9 +70,8 @@ namespace Bio.Tests
         ///     Creates sparse sequence object and validates the constructor with Index, byte.
         ///     Validates if all items are present in sparse sequence instance.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateRnaSparseSequenceConstAlpIndexByteList()
         {
             byte[] byteArrayObj = Encoding.ASCII.GetBytes("AGCU");
@@ -100,9 +96,8 @@ namespace Bio.Tests
         ///     Creates sparse sequence object and validates the constructor.
         ///     Validates if all items are present in sparse sequence instance.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateProteinSparseSequenceConstAlp()
         {
             var sparseSeq = new SparseSequence(Alphabets.Protein);
@@ -117,9 +112,8 @@ namespace Bio.Tests
         ///     Creates sparse sequence object and validates the constructor with Index.
         ///     Validates if all items are present in sparse sequence instance.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateProteinSparseSequenceConstAlpIndex()
         {
             var sparseSeq = new SparseSequence(Alphabets.Protein, 0);
@@ -134,9 +128,8 @@ namespace Bio.Tests
         ///     Creates sparse sequence object and validates the constructor with Index, byte.
         ///     Validates if all items are present in sparse sequence instance.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateProteinSparseSequenceConstAlpIndexByte()
         {
             byte[] byteArrayObj = Encoding.ASCII.GetBytes("KIEG");
@@ -153,9 +146,8 @@ namespace Bio.Tests
         ///     Creates sparse sequence object and validates the constructor with Index, byte.
         ///     Validates if all items are present in sparse sequence instance.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateProteinSparseSequenceConstAlpIndexByteList()
         {
             byte[] byteArrayObj = Encoding.ASCII.GetBytes("KIEG");

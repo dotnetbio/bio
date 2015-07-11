@@ -3,23 +3,22 @@ using System.Linq;
 using Bio.Algorithms.Alignment;
 using Bio.SimilarityMatrices;
 using Bio.Tests.Framework;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bio.Tests.Algorithms.Alignment
 {
     /// <summary>
     /// Tests for the Aligner classes.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class AlignerTests
     {
         #region Smith-Waterman Aligner
         /// <summary>
         /// Test SmithWatermanAligner using Protein Sequence and Simple Gap Penalty Function.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void SmithWatermanProteinSeqSimpleGap()
         {
             IPairwiseSequenceAligner sw = new SmithWatermanAligner
@@ -52,9 +51,8 @@ namespace Bio.Tests.Algorithms.Alignment
         /// <summary>
         /// Test SmithWatermanAligner using Protein sequence and Affine Gap Penalty Function.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void SmithWatermanProteinSeqAffineGap()
         {
             IPairwiseSequenceAligner sw = new SmithWatermanAligner
@@ -89,9 +87,8 @@ namespace Bio.Tests.Algorithms.Alignment
         /// <summary>
         /// Test SmithWatermanAligner for cases where it returns multiple alignments
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void SmithWatermanAlignerMultipleAlignments1()
         {
             IPairwiseSequenceAligner sw = new SmithWatermanAligner
@@ -137,9 +134,8 @@ namespace Bio.Tests.Algorithms.Alignment
         /// <summary>
         /// Test SmithWatermanAligner for cases where it returns multiple alignments
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void SmithWatermanAlignerMultipleAlignments2()
         {
             IPairwiseSequenceAligner sw = new SmithWatermanAligner
@@ -189,9 +185,8 @@ namespace Bio.Tests.Algorithms.Alignment
         /// <summary>
         /// Test NeedlemanWunschAligner using Protein sequence and Simple Gap Penalty Function.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void NeedlemanWunschProteinSeqSimpleGap()
         {
             IPairwiseSequenceAligner nw = new NeedlemanWunschAligner
@@ -224,9 +219,8 @@ namespace Bio.Tests.Algorithms.Alignment
         /// <summary>
         /// Test NeedlemanWunschAligner using Protein sequence and Affine Gap Penalty Function.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void NeedlemanWunschProteinSeqAffineGap()
         {
             IPairwiseSequenceAligner nw = new NeedlemanWunschAligner
@@ -260,9 +254,8 @@ namespace Bio.Tests.Algorithms.Alignment
         /// <summary>
         /// Test NeedlemanWunschAligner using DNA sequence and Simple Gap Penalty Function.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void NeedlemanWunschDnaSeqSimpleGap()
         {
             IPairwiseSequenceAligner nw = new NeedlemanWunschAligner
@@ -301,9 +294,8 @@ namespace Bio.Tests.Algorithms.Alignment
         /// clusters and single reference sequence.
         /// Also covers extend backward start 
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void TestNUCmer3SingleCluster()
         {
             string reference = "AGAAAAGTTTTCA";
@@ -363,9 +355,8 @@ namespace Bio.Tests.Algorithms.Alignment
         /// Test NUCmer3 with multiple valid extendable clusters and single
         /// reference sequences
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void TestNUCmer3MultipleClusters()
         {
             string reference = "ATGCGCATCCCCTAGCT";
@@ -416,9 +407,8 @@ namespace Bio.Tests.Algorithms.Alignment
         /// <summary>
         /// Test NUCmer3 with multiple reference sequences
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void TestNUCmer3MultipleReferences()
         {
             Sequence referenceSeq = null;
@@ -480,9 +470,8 @@ namespace Bio.Tests.Algorithms.Alignment
         /// <summary>
         /// Test NUCmer3 with multiple reference sequences
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void TestNUCmer3MultipleReferencesAndQueries()
         {
             Sequence referenceSeq = null;
@@ -553,9 +542,8 @@ namespace Bio.Tests.Algorithms.Alignment
         /// <summary>
         /// Test NUCmer3 with multiple reference sequences
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void TestNUCmer3CustomBreakLength()
         {
             var referenceSeqs = new List<ISequence>

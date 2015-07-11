@@ -16,7 +16,7 @@ using Bio.IO;
 using Bio.IO.GenBank;
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 #if (SILVERLIGHT == false)
 namespace Bio.TestAutomation.IO.GenBank
@@ -27,7 +27,7 @@ namespace Bio.Silverlight.TestAutomation.IO.GenBank
     /// <summary>
     ///     GenBank Bvt parser and formatter Test case implementation.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class GenBankBvtTestCases
     {
         #region Global Variables
@@ -63,9 +63,8 @@ namespace Bio.Silverlight.TestAutomation.IO.GenBank
         ///     Validation: Properties like StrandType, StrandTopology, Division, Date,
         ///     Version, PrimaryID, Sequence, Metadata Count and Sequence ID
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void GenBankParserValidateParseFileName()
         {
             InitializeXmlVariables();
@@ -113,9 +112,8 @@ namespace Bio.Silverlight.TestAutomation.IO.GenBank
         ///     Validation: Properties like StrandType, StrandTopology, Division, Date,
         ///     Version, PrimaryID, Sequence, Metadata Count and Sequence ID
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void GenBankParserValidateParseFileNameWithStream()
         {
             InitializeXmlVariables();
@@ -171,9 +169,8 @@ namespace Bio.Silverlight.TestAutomation.IO.GenBank
         ///     Output : Properties like StrandType, StrandTopology, Division, Date,
         ///     Version, PrimaryID, Sequence, Metadata Count and Sequence ID
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void GenBankParserValidateParseOneWithSpecificFormats()
         {
             InitializeXmlVariables();
@@ -260,9 +257,8 @@ namespace Bio.Silverlight.TestAutomation.IO.GenBank
         ///     using File-Info and Validate Properties like StrandType, StrandTopology,
         ///     Division, Date, Version, PrimaryID, Sequence, Metadata Count and Sequence ID
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void GenBankFormatterValidateWrite()
         {
             InitializeXmlVariables();
@@ -330,9 +326,8 @@ namespace Bio.Silverlight.TestAutomation.IO.GenBank
         ///     using File-Path and Validate Properties like StrandType, StrandTopology,
         ///     Division, Date, Version, PrimaryID, Sequence, Metadata Count and Sequence ID
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void GenBankFormatterValidateWriteWithFilePath()
         {
             InitializeXmlVariables();
@@ -395,9 +390,8 @@ namespace Bio.Silverlight.TestAutomation.IO.GenBank
         ///     using File-Info and Validate Properties like StrandType, StrandTopology,
         ///     Division, Date, Version, PrimaryID, Sequence, Metadata Count and Sequence ID
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void GenBankFormatterWithParseValidateWrite()
         {
             InitializeXmlVariables();
@@ -456,9 +450,8 @@ namespace Bio.Silverlight.TestAutomation.IO.GenBank
         ///     using File-Path and Validate Properties like StrandType, StrandTopology,
         ///     Division, Date, Version, PrimaryID, Sequence, Metadata Count and Sequence ID
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void GenBankFormatterWithParseValidateWriteFilePath()
         {
             InitializeXmlVariables();
@@ -519,9 +512,8 @@ namespace Bio.Silverlight.TestAutomation.IO.GenBank
         ///     using File-Info and Validate Properties like StrandType, StrandTopology,
         ///     Division, Date, Version, PrimaryID, Sequence, Metadata Count and Sequence ID
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void GenBankFormatterValidateWriteUsingStream()
         {
             InitializeXmlVariables();

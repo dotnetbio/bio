@@ -8,14 +8,14 @@ using Bio.IO.Gff;
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bio.Tests
 {
     /// <summary>
     ///     SequenceParser P1 Test case implementation.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class SequenceParserP1TestCases
     {
         private readonly Utility utilityObj = new Utility(@"TestUtils\SequenceParser.xml");
@@ -27,9 +27,8 @@ namespace Bio.Tests
         ///     Input : FastA Files
         ///     Validation : Expected parser, parser type and description.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateFastAFileParser()
         {
             this.ValidateSequenceFileParser(Constants.FastAFileParserNode, true);
@@ -40,9 +39,8 @@ namespace Bio.Tests
         ///     Input : GenBank Files
         ///     Validation : Expected parser, parser type and description.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateGenBankFileParser()
         {
             this.ValidateSequenceFileParser(Constants.GenBankFileParserNode, true);
@@ -53,9 +51,8 @@ namespace Bio.Tests
         ///     Input : FastQ Files
         ///     Validation : Expected parser, parser type and description.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateFastQFileParser()
         {
             this.ValidateSequenceFileParser(Constants.FastQFileParserNode, true);
@@ -66,9 +63,8 @@ namespace Bio.Tests
         ///     Input : GFF Files
         ///     Validation : Expected parser, parser type and description.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateGffFileParser()
         {
             this.ValidateSequenceFileParser(Constants.GffFileParserNode, true);
@@ -79,9 +75,8 @@ namespace Bio.Tests
         ///     Input : FastA Files
         ///     Validation : Expected formatter, formatter type and description.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateFastAFileFormatter()
         {
             this.ValidateSequenceFileParser(Constants.FastAFileFormatterNode, false);
@@ -92,9 +87,8 @@ namespace Bio.Tests
         ///     Input : GenBank Files
         ///     Validation : Expected formatter, formatter type and description.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateGenBankFileFormatter()
         {
             this.ValidateSequenceFileParser(Constants.GenBankFileFormatterNode, false);
@@ -105,9 +99,8 @@ namespace Bio.Tests
         ///     Input : Gff Files
         ///     Validation : Expected formatter, formatter type and description.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateGffFileFormatter()
         {
             this.ValidateSequenceFileParser(Constants.GffFileFormatterNode, false);
@@ -118,9 +111,8 @@ namespace Bio.Tests
         ///     Input : FastQ Files
         ///     Validation : Expected formatter, formatter type and description.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateFastQFileFormatter()
         {
             this.ValidateSequenceFileParser(Constants.FastQFileFormatterNode, false);
@@ -130,9 +122,8 @@ namespace Bio.Tests
         ///     Valildate SequenceParser class properties.
         ///     Validation : Expected parser, parser type and description.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateSeqParserProperties()
         {
             // Gets the expected sequence from the Xml
@@ -165,9 +156,8 @@ namespace Bio.Tests
         /// Validate SequenceFormatter class properties.
         /// Validation : Expected parser, parser type and description.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateSeqFormatterProperties()
         {
             // Gets the expected sequence from the Xml

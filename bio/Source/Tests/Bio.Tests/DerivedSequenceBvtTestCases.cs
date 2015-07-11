@@ -5,14 +5,14 @@ using System.Text;
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bio.Tests
 {
     /// <summary>
     /// Bvt test cases to confirm the features of Derived Sequence
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class DerivedSequenceBvtTestCases
     {
         readonly Utility utilityObj = new Utility(@"TestUtils\TestsConfig.xml");
@@ -23,9 +23,8 @@ namespace Bio.Tests
         /// Creates a dna derived sequence after adding and removing few items from original sequence.
         /// Validates it against expected sequence. 
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateDnaDerivedSequence()
         {
             // Get input and expected values from xml
@@ -49,9 +48,8 @@ namespace Bio.Tests
         /// <summary>
         /// Creates a dna derived sequence using IndexOfNonGap() method.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateDnaDerivedSequenceIndexOfNonGap()
         {
             // Get input and expected values from xml
@@ -80,9 +78,8 @@ namespace Bio.Tests
         /// <summary>
         /// Creates a dna derived sequence using IndexOfNonGap(int) method.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateDnaDerivedSequenceIndexOfNonGapInt()
         {
             // Get input and expected values from xml
@@ -111,9 +108,8 @@ namespace Bio.Tests
         /// <summary>
         /// Creates a dna derived sequence using LastIndexOfNonGap() method.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateDnaDerivedSequenceLastIndexOfNonGap()
         {
             // Get input and expected values from xml
@@ -142,9 +138,8 @@ namespace Bio.Tests
         /// <summary>
         /// Creates a dna derived sequence using LastIndexOfNonGap(int) method.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateDnaDerivedSequenceLastIndexOfNonGapInt()
         {
             // Get input and expected values from xml
@@ -173,9 +168,8 @@ namespace Bio.Tests
         /// <summary>
         /// Creates a dna derived sequence and validates GetReverseComplementedSequence() method.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateDnaDerivedSequenceGetReverseComplemented()
         {
             // Get input and expected values from xml
@@ -204,9 +198,8 @@ namespace Bio.Tests
         /// <summary>
         /// Creates a dna derived sequence and validates GetReversedSequence() method.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateDnaDerivedSequenceGetReversed()
         {
             // Get input and expected values from xml
@@ -235,9 +228,8 @@ namespace Bio.Tests
         /// <summary>
         /// Creates a dna derived sequence and validates GetComplementedSequence() method.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateDnaDerivedSequenceGetComplemented()
         {
             // Get input and expected values from xml
@@ -266,9 +258,8 @@ namespace Bio.Tests
         /// <summary>
         /// Creates a dna derived sequence and validates GetSubSequence() method.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateDnaDerivedSequenceGetSubSequence()
         {
             // Get input and expected values from xml
@@ -302,9 +293,8 @@ namespace Bio.Tests
         /// Creates a dna derived sequence after adding and removing few items from original sequence.
         /// Validates properties of derived sequence.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateDnaDerivedSequenceProperties()
         {
             // Get input and expected values from xml
@@ -332,9 +322,8 @@ namespace Bio.Tests
         /// <summary>
         /// Validates CopyTo
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateCopyTo()
         {
             // Get input and expected values from xml

@@ -12,14 +12,14 @@ using Bio.TestAutomation.Util;
 using Bio.Tests.Framework;
 using Bio.Util.Logging;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bio.Tests.Algorithms.Alignment
 {
     /// <summary>
     ///     Alignment BVT test cases implementation.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class AlignmentBvtTestCases
     {
         #region Enums
@@ -63,9 +63,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA File
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void NeedlemanWunschSimpleAlignTwoSequencesFromTextFile()
         {
             this.ValidateNeedlemanWunschAlignment(true, AlignmentParamType.AlignTwo);
@@ -79,9 +78,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : sequence in xml
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void NeedlemanWunschSimpleAlignTwoSequencesFromXml()
         {
             this.ValidateNeedlemanWunschAlignment(false, AlignmentParamType.AlignTwo);
@@ -95,9 +93,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA File
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void NeedlemanWunschSimpleAlignListSequencesFromTextFile()
         {
             this.ValidateNeedlemanWunschAlignment(true, AlignmentParamType.AlignList);
@@ -111,9 +108,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : sequence in xml
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void NeedlemanWunschSimpleAlignListSequencesFromXml()
         {
             this.ValidateNeedlemanWunschAlignment(false, AlignmentParamType.AlignList);
@@ -127,9 +123,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Text File i.e., Fasta
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void NeedlemanWunschSimpleAlignAllParamsFromTextFile()
         {
             this.ValidateNeedlemanWunschAlignment(true, AlignmentParamType.AllParam);
@@ -143,9 +138,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : sequence in xml
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void NeedlemanWunschSimpleAlignAllParamsFromXml()
         {
             this.ValidateNeedlemanWunschAlignment(false, AlignmentParamType.AllParam);
@@ -161,9 +155,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA File
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void NeedlemanWunschAlignTwoSequencesFromTextFile()
         {
             this.ValidateNeedlemanWunschAlignment(true, AlignmentParamType.AlignTwo,
@@ -178,9 +171,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA File
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void NeedlemanWunschAlignListSequencesFromTextFile()
         {
             this.ValidateNeedlemanWunschAlignment(true, AlignmentParamType.AlignList, AlignmentType.Align);
@@ -194,9 +186,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Text File i.e., Fasta
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void NeedlemanWunschAlignAllParamsFromTextFile()
         {
             this.ValidateNeedlemanWunschAlignment(true, AlignmentParamType.AllParam, AlignmentType.Align);
@@ -216,9 +207,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA File
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void SmithWatermanSimpleAlignTwoSequencesFromTextFile()
         {
             this.ValidateSmithWatermanAlignment(true, AlignmentParamType.AlignTwo);
@@ -232,9 +222,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : sequence in xml
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void SmithWatermanSimpleAlignTwoSequencesFromXml()
         {
             this.ValidateSmithWatermanAlignment(false, AlignmentParamType.AlignTwo);
@@ -248,9 +237,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA File
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void SmithWatermanSimpleAlignListSequencesFromTextFile()
         {
             this.ValidateSmithWatermanAlignment(true, AlignmentParamType.AlignList);
@@ -265,9 +253,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : sequence in xml
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void SmithWatermanSimpleAlignListSequencesFromXml()
         {
             this.ValidateSmithWatermanAlignment(false, AlignmentParamType.AlignList);
@@ -281,9 +268,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Text File i.e., Fasta
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void SmithWatermanSimpleAlignAllParamsFromTextFile()
         {
             this.ValidateSmithWatermanAlignment(true, AlignmentParamType.AllParam);
@@ -297,9 +283,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : sequence in xml
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void SmithWatermanSimpleAlignAllParamsFromXml()
         {
             this.ValidateSmithWatermanAlignment(false, AlignmentParamType.AllParam);
@@ -315,9 +300,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA File
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void SmithWatermanAlignTwoSequencesFromTextFile()
         {
             this.ValidateSmithWatermanAlignment(true, AlignmentParamType.AlignTwo, AlignmentType.Align);
@@ -331,9 +315,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA File
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void SmithWatermanAlignListSequencesFromTextFile()
         {
             this.ValidateSmithWatermanAlignment(true, AlignmentParamType.AlignList, AlignmentType.Align);
@@ -347,9 +330,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : Text File i.e., Fasta
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void SmithWatermanAlignAllParamsFromTextFile()
         {
             this.ValidateSmithWatermanAlignment(true, AlignmentParamType.AllParam, AlignmentType.Align);
@@ -367,9 +349,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Validation : Added sequences are got back and validated.
         /// </summary>
         [SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope")] 
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void SequenceAlignmentAddSequence()
         {
             // Read the xml file for getting both the files for aligning.
@@ -414,9 +395,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : dna aligned sequence
         ///     Output : dna aligned sequence instance
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateAlignedSequenceCtor()
         {
             this.ValidateAlignedSequenceCtor(Constants.SmithWatermanAlignAlgorithmNodeName,
@@ -431,9 +411,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : dna sequence
         ///     Output : dna aligned sequence instance
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateAlignedSequenceWithSmithWatermanAligner()
         {
             this.ValidateAlignedSequence(Constants.SmithWatermanAlignAlgorithmNodeName,
@@ -446,9 +425,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : dna sequence
         ///     Output : dna aligned sequence instance
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateAlignedSequenceWithNeedlemanWunschAligner()
         {
             this.ValidateAlignedSequence(Constants.NeedlemanWunschAlignAlgorithmNodeName,
@@ -465,9 +443,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : dna sequence
         ///     Output : dna sequence alignment instance
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateSequenceAlignmentCtorWithSmithWatermanAligner()
         {
             this.ValidateSequenceAlignmentCtor(Constants.SmithWatermanAlignAlgorithmNodeName,
@@ -480,9 +457,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : dna sequence
         ///     Output : dna sequence alignment instance
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateSequenceAlignmentCtorWithNeedlemanWunschAligner()
         {
             this.ValidateSequenceAlignmentCtor(Constants.NeedlemanWunschAlignAlgorithmNodeName,
@@ -496,9 +472,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : dna sequence
         ///     Output : dna sequence alignment instance
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateSequenceAlignmentWithSmithWatermanAligner()
         {
             this.ValidateSequenceAlignment(Constants.SmithWatermanAlignAlgorithmNodeName,
@@ -511,9 +486,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : dna sequence
         ///     Output : dna sequence alignment instance
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateSequenceAlignmentWithNeedlemanWunschAligner()
         {
             this.ValidateSequenceAlignment(Constants.NeedlemanWunschAlignAlgorithmNodeName,

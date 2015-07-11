@@ -13,7 +13,7 @@ using System.Linq;
 using Bio.IO.FastQ;
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 #if (SILVERLIGHT == false)
 namespace Bio.TestAutomation.IO.FastQ
@@ -24,7 +24,7 @@ namespace Bio.Silverlight.TestAutomation.IO.FastQ
     /// <summary>
     ///     FASTQ parser and formatter P2 Test cases implementation.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class FastQP2TestCases
     {
         #region Enums
@@ -54,13 +54,11 @@ namespace Bio.Silverlight.TestAutomation.IO.FastQ
         ///     Input : Qualitative sequence without @ at first line
         ///     Output : Validate Exception.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
-        [ExpectedException(typeof(Exception))]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateFastQParserWithInvalidSeqId()
         {
-            InValidateFastQParser(Constants.FastQSequenceWithInvalidSeqIdNode);
+           Assert.Throws<Exception> ( () =>  InValidateFastQParser(Constants.FastQSequenceWithInvalidSeqIdNode));
         }
 
         /// <summary>
@@ -68,13 +66,11 @@ namespace Bio.Silverlight.TestAutomation.IO.FastQ
         ///     Input : FastQ empty sequence.
         ///     Output : Validate Exception.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
-        [ExpectedException(typeof(Exception))]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateFastQParserWithEmptySequence()
         {
-            InValidateFastQParser(Constants.FastQParserEmptySequenceNode);
+            Assert.Throws<Exception>(() => InValidateFastQParser(Constants.FastQParserEmptySequenceNode));
         }
 
         /// <summary>
@@ -82,13 +78,11 @@ namespace Bio.Silverlight.TestAutomation.IO.FastQ
         ///     Input : FastQ file with invalid qual score.
         ///     Output : Validate Exception.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
-        [ExpectedException(typeof(Exception))]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateFastQParserWithInvalidQualScore()
         {
-            InValidateFastQParser(Constants.FastQParserWithInvalidQualScoreNode);
+            Assert.Throws<Exception>(() => InValidateFastQParser(Constants.FastQParserWithInvalidQualScoreNode));
         }
 
         /// <summary>
@@ -96,13 +90,11 @@ namespace Bio.Silverlight.TestAutomation.IO.FastQ
         ///     Input : FastQ file with empty qual score.
         ///     Output : Validate Exception.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
-        [ExpectedException(typeof(Exception))]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateFastQParserWithEmptyQualScore()
         {
-            InValidateFastQParser(Constants.FastQParserWithEmptyQualScoreNode);
+            Assert.Throws<Exception> ( ()=> InValidateFastQParser(Constants.FastQParserWithEmptyQualScoreNode));
         }
 
         /// <summary>
@@ -110,13 +102,11 @@ namespace Bio.Silverlight.TestAutomation.IO.FastQ
         ///     Input : FastQ file with empty qual score and Id.
         ///     Output : Validate Exception.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
-        [ExpectedException(typeof(Exception))]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateFastQParserWithEmptyQualScoreAndQualId()
         {
-            InValidateFastQParser(Constants.FastQParserWithEmptyQualScoreAndQualID);
+            Assert.Throws<Exception>(() => InValidateFastQParser(Constants.FastQParserWithEmptyQualScoreAndQualID));
         }
 
         /// <summary>
@@ -124,13 +114,11 @@ namespace Bio.Silverlight.TestAutomation.IO.FastQ
         ///     Input : Invalid alphabet.
         ///     Output : Validate Exception.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
-        [ExpectedException(typeof(Exception))]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateFastQParserWithInvalidAlphabet()
         {
-            InValidateFastQParser(Constants.FastQParserWithInvalidAlphabet);
+            Assert.Throws<Exception>(() => InValidateFastQParser(Constants.FastQParserWithInvalidAlphabet));
         }
 
       
@@ -140,9 +128,8 @@ namespace Bio.Silverlight.TestAutomation.IO.FastQ
         ///     Input : Invalid sequence.
         ///     Output : Validate Exception.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateFastQFormatterWithInvalidSequence()
         {
             InValidateFastQFormatter(FastQFormatParameters.Sequence);
@@ -154,9 +141,8 @@ namespace Bio.Silverlight.TestAutomation.IO.FastQ
         ///     Input : Invalid Qualitative sequence.
         ///     Output : Validate Exception.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateFastQFormatterWithInvalidQualSequenceAndTextWriter()
         {
             InValidateFastQFormatter(FastQFormatParameters.Default);
@@ -167,14 +153,12 @@ namespace Bio.Silverlight.TestAutomation.IO.FastQ
         ///     Input : Invalid file-name.
         ///     Output : Validate Exception.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateFastQParseNoFileName()
         {
             var fqParserObj = new FastQParser();
-            fqParserObj.Parse(null).ToList();
+            Assert.Throws<ArgumentNullException>( () => fqParserObj.Parse(null).ToList());
         }
 
         #endregion FastQ Parser P2 Test cases

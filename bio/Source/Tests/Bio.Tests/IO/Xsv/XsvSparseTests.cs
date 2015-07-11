@@ -7,14 +7,14 @@ using Bio.Algorithms.Assembly;
 using Bio.IO.Xsv;
 
 using Microsoft.SqlServer.Server;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bio.Tests.IO.Xsv
 {
     /// <summary>
     /// Tests for the XsvSparse classes.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class XsvSparseTests
     {
         private const string XsvFilename = @"\TestUtils\SampleSparseSeq.csv";
@@ -24,9 +24,8 @@ namespace Bio.Tests.IO.Xsv
         /// Input : XsvSparse File
         /// Validation : Expected sequence, Sequence Alphabet, Sequence ID.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void XsvSparserParserValidateParseFilePath()
         {
             XsvSparseParserGeneralTestCases();
@@ -37,9 +36,8 @@ namespace Bio.Tests.IO.Xsv
         /// Input : XsvSparse File
         /// Validation : Format is successful.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void XsvSparseFormatterValidateFilePath()
         {
             XsvSparseFormatterGeneralTestCases("FormatFilePath");
@@ -50,9 +48,8 @@ namespace Bio.Tests.IO.Xsv
         /// Input : XsvSparse File
         /// Validation : Format is successful.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void XsvSparseFormatterValidateFilePathWithSeqList()
         {
             XsvSparseFormatterGeneralTestCases("ForamtListWithFilePath");
@@ -63,9 +60,8 @@ namespace Bio.Tests.IO.Xsv
         /// Input : One line sequence and update all properties
         /// Validation : Validate the properties
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void XsvSparseFormatterProperties()
         {
             string XsvTempFileName = Path.GetTempFileName();
@@ -88,9 +84,8 @@ namespace Bio.Tests.IO.Xsv
         /// Input : Xsv file.
         /// Validation : Validation of Format() method.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void XsvContigFormatter()
         {
             // Gets the expected sequence from the Xml

@@ -4,22 +4,21 @@ using System.IO;
 using System.Linq;
 
 using Bio.IO.Wiggle;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bio.Tests.IO.Wiggle
 {
     /// <summary>
     /// Wiggle format parser and formatter.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class WiggleTests
     {
         /// <summary>
         /// Tests creating an annotation object from scratch.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void TestAnnotationObject()
         {
             WiggleAnnotation an = CreateDummyAnnotation();
@@ -68,9 +67,8 @@ namespace Bio.Tests.IO.Wiggle
         /// <summary>
         /// Verifies the parser.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void TestWiggleParser()
         {
             string assemblypath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase).Substring(6);
@@ -86,9 +84,8 @@ namespace Bio.Tests.IO.Wiggle
         /// <summary>
         /// Verifies the formatter.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void TestWiggleFormatter()
         {
             string filepathTmp = Path.GetTempFileName();

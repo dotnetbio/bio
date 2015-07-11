@@ -7,14 +7,14 @@ using Bio.IO.Bed;
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bio.Tests
 {
     /// <summary>
     ///     Test Automation code for Bio SequenceRange BVT level validations.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class SequenceRangeAndSequenceRangeGroupingBvtTestCases
     {
         private readonly Utility utilityObj = new Utility(@"TestUtils\BedTestsConfig.xml");
@@ -26,9 +26,8 @@ namespace Bio.Tests
         ///     Input Data : Valid Range ID,Start and End.
         ///     Output Data : Validation of created SequenceRange.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateSequenceRange()
         {
             // Get values from xml.
@@ -52,9 +51,8 @@ namespace Bio.Tests
         ///     Input Data : Valid Range ID,Start and End.
         ///     Output Data : Validation of cmompareTo.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateCompareTwoSequenceRanges()
         {
             // Get values from xml.
@@ -84,9 +82,8 @@ namespace Bio.Tests
         ///     Input Data : Valid Range ID,Start and End.
         ///     Output Data : Validation of created SequenceRangeGrouping.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateSequenceRangeGrouping()
         {
             this.CreateSequenceRangeGrouping(Constants.SmallSizeBedNodeName);
@@ -97,9 +94,8 @@ namespace Bio.Tests
         ///     Input Data : Valid Range ID,Start and End.
         ///     Output Data : Validation of adding SequenceRange to SequenceRangeGrouping.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateAdditionOfSequenceRange()
         {
             this.CreateSequenceRangeGrouping(Constants.LongStartEndBedNodeName);
@@ -110,9 +106,8 @@ namespace Bio.Tests
         ///     Input Data : Valid Range ID,Start and End.
         ///     Output Data : Validation of getGroup() method.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateSequenceRangeGetGroup()
         {
             this.CreateSequenceRangeGrouping(Constants.SequenceRangeNode);
@@ -123,9 +118,8 @@ namespace Bio.Tests
         ///     Input Data : Valid small size BED file.
         ///     Output Data : Validation of SequenceRange MergeOveralp.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateSequenceRangeMergeOverlaps()
         {
             this.MergeSequenceRange(Constants.MergeBedFileNode, false, false);
@@ -136,9 +130,8 @@ namespace Bio.Tests
         ///     Input Data : Valid small size BED file.
         ///     Output Data : Validation of Merge two bed files.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateMergeTwoBedFiles()
         {
             this.MergeSequenceRange(Constants.MergeTwoFiles, true, true);
@@ -149,9 +142,8 @@ namespace Bio.Tests
         ///     Input Data : Two bed files..
         ///     Output Data : Validate Intersect sequence range grouping.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateIntersectSequenceRangeGroupingWithoutPiecesOfIntervals()
         {
             this.IntersectSequenceRange(Constants.IntersectResultsWithoutPiecesOfIntervals, false, true);
@@ -162,9 +154,8 @@ namespace Bio.Tests
         ///     Input Data : Two bed files..
         ///     Output Data : Validate Intersect sequence range grouping.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateIntersectSequenceRangeGroupingWithPiecesOfIntervals()
         {
             this.IntersectSequenceRange(Constants.IntersectResultsWithPiecesOfIntervals, true, true);
@@ -176,9 +167,8 @@ namespace Bio.Tests
         ///     Input Data : Two small size bed files..
         ///     Output Data : Validate Intersect sequence range grouping.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateIntersectSequenceRangeGroupingForSmallSizeBedFiles()
         {
             this.IntersectSequenceRange(Constants.IntersectWithoutPiecesOfIntervalsForSmallSizeFile,
@@ -191,9 +181,8 @@ namespace Bio.Tests
         ///     Input Data : Two small size bed files..
         ///     Output Data : Validate Intersect sequence range grouping.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateIntersectSequenceRangeGroupingWithPiecesOfIntervalsForSmallSizeBedFiles()
         {
             this.IntersectSequenceRange(Constants.IntersectWithPiecesOfIntervalsForSmallSizeFile,
@@ -205,9 +194,8 @@ namespace Bio.Tests
         ///     Input Data : SequenceRangeGroup
         ///     Output Data : SequenceRangeList.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateFlatten()
         {
             // Get values from xml.
@@ -259,9 +247,8 @@ namespace Bio.Tests
         ///     Input Data : Valid BED file.
         ///     Output Data : Validation of subtract operation.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateSubtractTwoBedFilesWithMinimalandNonOverlap()
         {
             this.SubtractSequenceRange(Constants.SubtractSmallBedFilesWithMinimalOverlapNodeName,
@@ -274,9 +261,8 @@ namespace Bio.Tests
         ///     Input Data : Valid BED file.
         ///     Output Data : Validation of subtract operation.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateSubtractTwoBedFilesWithNonOverlapIntervals()
         {
             this.SubtractSequenceRange(Constants.SubtractSmallBedFilesNodeName,
@@ -289,9 +275,8 @@ namespace Bio.Tests
         ///     Input Data : Valid BED file.
         ///     Output Data : Validation of subtract operation.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateSubtractTwoBedFilesUsingIntervalsWithNoOverlap()
         {
             this.SubtractSequenceRange(Constants.SubtractSmallBedFilesWithIntervalsNodeName,
@@ -305,9 +290,8 @@ namespace Bio.Tests
         /// <summary>
         ///     Validates public properties of SequenceRangeParsers class.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateSequenceRangeParsers()
         {
             IReadOnlyList<ISequenceRangeParser> parserRange = null;
@@ -329,9 +313,8 @@ namespace Bio.Tests
         /// <summary>
         ///     Validates public properties of SequenceRangeFormatters class.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateSequenceRangeFormatters()
         {
             IReadOnlyList<ISequenceRangeFormatter> formatterRange = null;

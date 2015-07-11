@@ -4,7 +4,7 @@ using System.Globalization;
 using System.Linq;
 using Bio.IO.AppliedBiosystems.DataParsers;
 using Bio.IO.AppliedBiosystems.DataTypes;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bio.Tests.Framework.IO.AppliedBiosystems
 {

@@ -2,20 +2,20 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bio.Tests.Framework
 {
     /// <summary>
     /// Tests the AmbiguousRnaAlphabet class.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class AlphabetsFriendlyNameTest
     {
         /// <summary>
         /// Tests the AmbiguousRNAAlphabet class.
         /// </summary>
-        [TestMethod]
+        [Test]
         public void TestFriendlyNames()
         {
             // DNA

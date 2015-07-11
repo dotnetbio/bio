@@ -18,7 +18,7 @@ using Bio.IO.Nexus;
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using Bio;
 
 namespace Bio.TestAutomation.IO.Nexus
@@ -26,7 +26,7 @@ namespace Bio.TestAutomation.IO.Nexus
     /// <summary>
     /// Nexus Bvt parser and formatter Test case implementation.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class NexusBvtTestCases
     {
 
@@ -60,9 +60,8 @@ namespace Bio.TestAutomation.IO.Nexus
         /// Input : Nexus File
         /// Validation: Sequence Alignment list
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void NexusParserValidateParseFileName()
         {
             ParserGeneralTestCases(Constants.SmallSizeNexusNodeName,
@@ -76,9 +75,8 @@ namespace Bio.TestAutomation.IO.Nexus
         /// Input : Nexus File
         /// Validation: Sequence Alignment list
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void NexusParserValidateParseOneFileName()
         {
             ParserGeneralTestCases(Constants.SmallSizeNexusNodeName,
@@ -92,9 +90,8 @@ namespace Bio.TestAutomation.IO.Nexus
         /// Input : Nexus File
         /// Validation: Sequence Alignment list
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void NexusParserValidateParseOneTextReader()
         {
             ParserGeneralTestCases(Constants.SmallSizeNexusNodeName,
@@ -108,9 +105,8 @@ namespace Bio.TestAutomation.IO.Nexus
         /// Input : Nexus File
         /// Validation: Sequence Alignment list
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void NexusParserValidateParseTextReader()
         {
             ParserGeneralTestCases(Constants.SmallSizeNexusNodeName,
@@ -122,9 +118,8 @@ namespace Bio.TestAutomation.IO.Nexus
         /// Input : Valide Object
         /// Output : Validatation of properties
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateNexusParserProperties()
         {
             NexusParser parser = new NexusParser();
@@ -144,9 +139,8 @@ namespace Bio.TestAutomation.IO.Nexus
         /// Input : Valid File
         /// Output: Expected sequence alignment count
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void NexusParserValidateCharBlock()
         {
             string filePath = utilityObj.xmlUtil.GetTextValue(

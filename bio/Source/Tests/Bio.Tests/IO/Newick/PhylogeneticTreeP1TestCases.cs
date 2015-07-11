@@ -14,14 +14,14 @@ using Bio.IO.Newick;
 using Bio.Phylogenetics;
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bio.TestAutomation.IO.Newick
 {
     /// <summary>
     /// Phylogenetic Tree P1 parser and formatter Test case implementation.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class PhylogeneticTreeP1TestCases
     {
         #region Enums
@@ -68,9 +68,8 @@ namespace Bio.TestAutomation.IO.Newick
         /// Input : Phylogenetic Tree
         /// Validation : Root Branch Count, Node Name and Edge Distance.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void PhylogeneticTreeP1ParserValidateMultipleNode()
         {
             PhylogeneticTreeParserGeneralTests(Constants.SmallSizePhyloTreeNodeName,
@@ -82,9 +81,8 @@ namespace Bio.TestAutomation.IO.Newick
         /// Input : Phylogenetic Tree
         /// Validation : Root Branch Count, Node Name and Edge Distance.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void PhylogeneticTreeP1ParserValidateOneNodeAndNode()
         {
             PhylogeneticTreeParserGeneralTests(Constants.OneNodePhyloTreeNodeName,
@@ -96,9 +94,8 @@ namespace Bio.TestAutomation.IO.Newick
         /// Input : Phylogenetic Tree
         /// Validation : All properties.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void PhylogeneticTreeP1ParserValidateAllProperties()
         {
             NewickParser parser = new NewickParser();
@@ -121,9 +118,8 @@ namespace Bio.TestAutomation.IO.Newick
         /// Input : Phylogenetic Tree
         /// Validation : Root Branch Count, Node Name and Edge Distance.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void PhylogeneticTreeP1ParserValidateDistanceGreaterThanOne()
         {
             PhylogeneticTreeParserGeneralTests(Constants.OneLineGreaterThanOnePhyloTreeNodeName,
@@ -136,9 +132,8 @@ namespace Bio.TestAutomation.IO.Newick
         /// Input : Phylogenetic Tree
         /// Validation : Root Branch Count, Node Name and Edge Distance.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void PhylogeneticTreeP1ParserValidateDecimalDistance()
         {
             PhylogeneticTreeParserGeneralTests(Constants.SmallSizePhyloTreeNodeName,
@@ -154,9 +149,8 @@ namespace Bio.TestAutomation.IO.Newick
         /// Input : Phylogenetic Tree
         /// Validation : All properties.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void PhylogeneticTreeP1FormatterValidateAllProperties()
         {
             NewickFormatter formatter = new NewickFormatter();
@@ -176,9 +170,8 @@ namespace Bio.TestAutomation.IO.Newick
         /// Input : Phylogenetic Tree Object
         /// Validation : Root Branch Count, Node Name and Edge Distance.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void PhylogeneticTreeP1FormatterValidateObjectSingleNode()
         {
             PhylogeneticTreeFormatterGeneralTests(Constants.OneNodePhyloTreeObjectNodeName,
@@ -190,9 +183,8 @@ namespace Bio.TestAutomation.IO.Newick
         /// Input : Phylogenetic Tree Object
         /// Validation : Root Branch Count, Node Name and Edge Distance.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void PhylogeneticTreeP1FormatterValidateObjectMultipleNode()
         {
             PhylogeneticTreeFormatterGeneralTests(Constants.OneLinePhyloTreeObjectNodeName,
@@ -205,9 +197,8 @@ namespace Bio.TestAutomation.IO.Newick
         /// Input : Phylogenetic Tree, one line
         /// Validation : Root Branch Count, Node Name and Edge Distance.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void PhylogeneticTreeP1FormatterValidateFormatStringMultipleNodes()
         {
             PhylogeneticTreeFormatterGeneralTests(Constants.SmallSizePhyloTreeNodeName,
@@ -220,9 +211,8 @@ namespace Bio.TestAutomation.IO.Newick
         /// Input : Phylogenetic Tree, one line
         /// Validation : Root Branch Count, Node Name and Edge Distance.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void PhylogeneticTreeP1FormatterValidateFormatStringSingleNode()
         {
             PhylogeneticTreeFormatterGeneralTests(Constants.OneNodePhyloTreeNodeName,
@@ -235,9 +225,8 @@ namespace Bio.TestAutomation.IO.Newick
         /// Input : Phylogenetic Tree Object
         /// Validation : Root Branch Count, Node Name and Edge Distance.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void PhylogeneticTreeP1FormatterValidateParseTextReader()
         {
             PhylogeneticTreeFormatterGeneralTests(Constants.SmallSizePhyloTreeNodeName,
@@ -250,9 +239,8 @@ namespace Bio.TestAutomation.IO.Newick
         /// Input : Phylogenetic Tree Object
         /// Validation : Root Branch Count, Node Name and Edge Distance.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void PhylogeneticTreeP1FormatterValidateParseStringBuilder()
         {
             PhylogeneticTreeFormatterGeneralTests(Constants.SmallSizePhyloTreeNodeName,
@@ -265,9 +253,8 @@ namespace Bio.TestAutomation.IO.Newick
         /// Input : Phylogenetic Tree Object
         /// Validation : Root Branch Count, Node Name and Edge Distance.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void PhylogeneticTreeP1FormatterValidateParseFileName()
         {
             PhylogeneticTreeFormatterGeneralTests(Constants.SmallSizePhyloTreeNodeName,
@@ -280,9 +267,8 @@ namespace Bio.TestAutomation.IO.Newick
         /// Input : Phylogenetic Tree Object
         /// Validation : Root Branch Count, Node Name and Edge Distance.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void PhylogeneticTreeP1FormatterValidateDistanceGreaterThanOne()
         {
             PhylogeneticTreeFormatterGeneralTests(Constants.OneLineGreaterThanOnePhyloTreeNodeName,
@@ -295,9 +281,8 @@ namespace Bio.TestAutomation.IO.Newick
         /// Input : Phylogenetic Tree Object
         /// Validation : Root Branch Count, Node Name and Edge Distance.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void PhylogeneticTreeP1FormatterValidateDistanceInDecimal()
         {
             PhylogeneticTreeFormatterGeneralTests(Constants.SmallSizePhyloTreeNodeName,

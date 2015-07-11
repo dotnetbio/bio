@@ -10,14 +10,14 @@ using Bio.TestAutomation.Util;
 using Bio.Tests.Framework;
 using Bio.Util.Logging;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bio.Tests.Algorithms.Alignment
 {
     /// <summary>
     ///     Pairwise Overlap Aligner algorithm Bvt test cases
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class PairwiseOverlapAlignerP1TestCases
     {
         #region Enums
@@ -75,9 +75,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA DNA File
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void PairwiseOverlapSimpleAlignListSequencesDna()
         {
             this.ValidatePairwiseOverlapAlignment(Constants.PairwiseOverlapDnaAlignAlgorithmNodeName,
@@ -92,9 +91,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA DNA File
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void PairwiseOverlapSimpleAlignAllParamDna()
         {
             this.ValidatePairwiseOverlapAlignment(Constants.PairwiseOverlapDnaAlignAlgorithmNodeName,
@@ -109,9 +107,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA Protein File
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void PairwiseOverlapSimpleAlignListSequencesPro()
         {
             this.ValidatePairwiseOverlapAlignment(Constants.PairwiseOverlapProAlignAlgorithmNodeName,
@@ -126,9 +123,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA Protein File
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void PairwiseOverlapSimpleAlignAllParamPro()
         {
             this.ValidatePairwiseOverlapAlignment(Constants.PairwiseOverlapProAlignAlgorithmNodeName,
@@ -143,9 +139,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA Rna File
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void PairwiseOverlapSimpleAlignListSequencesRna()
         {
             this.ValidatePairwiseOverlapAlignment(Constants.PairwiseOverlapRnaAlignAlgorithmNodeName,
@@ -160,9 +155,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA Rna File
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void PairwiseOverlapSimpleAlignAllParamRna()
         {
             this.ValidatePairwiseOverlapAlignment(Constants.PairwiseOverlapRnaAlignAlgorithmNodeName,
@@ -177,9 +171,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA Protein File with Max Gap Cost
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void PairwiseOverlapSimpleAlignListSequencesGapCostMax()
         {
             this.ValidatePairwiseOverlapAlignment(Constants.PairwiseOverlapGapCostMaxAlignAlgorithmNodeName,
@@ -194,9 +187,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA Protein File with Max Gap Cost
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void PairwiseOverlapSimpleAlignAllParamGapCostMax()
         {
             this.ValidatePairwiseOverlapAlignment(Constants.PairwiseOverlapGapCostMaxAlignAlgorithmNodeName,
@@ -211,9 +203,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA Protein File with Min Gap Cost
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void PairwiseOverlapSimpleAlignListSequencesGapCostMin()
         {
             this.ValidatePairwiseOverlapAlignment(Constants.PairwiseOverlapGapCostMinAlignAlgorithmNodeName,
@@ -228,9 +219,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA Protein File with Min Gap Cost
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void PairwiseOverlapSimpleAlignAllParamGapCostMin()
         {
             this.ValidatePairwiseOverlapAlignment(Constants.PairwiseOverlapGapCostMinAlignAlgorithmNodeName,
@@ -245,9 +235,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA Protein File with blosum SM
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void PairwiseOverlapSimpleAlignListSequencesBlosum()
         {
             this.ValidatePairwiseOverlapAlignment(Constants.PairwiseOverlapBlosumAlignAlgorithmNodeName,
@@ -262,9 +251,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA Protein File with blosum SM
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void PairwiseOverlapSimpleAlignAllParamBlosum()
         {
             this.ValidatePairwiseOverlapAlignment(Constants.PairwiseOverlapBlosumAlignAlgorithmNodeName,
@@ -279,9 +267,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA Protein File with Pam SM
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void PairwiseOverlapSimpleAlignListSequencesPam()
         {
             this.ValidatePairwiseOverlapAlignment(Constants.PairwiseOverlapPamAlignAlgorithmNodeName,
@@ -296,9 +283,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA Protein File with Pam SM
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void PairwiseOverlapSimpleAlignAllParamPam()
         {
             this.ValidatePairwiseOverlapAlignment(Constants.PairwiseOverlapPamAlignAlgorithmNodeName,
@@ -313,9 +299,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA Protein File with Similarity Matrix passed as Text reader
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void PairwiseOverlapSimpleAlignListSequencesSimMatTextRead()
         {
             this.ValidatePairwiseOverlapAlignment(Constants.PairwiseOverlapProAlignAlgorithmNodeName,
@@ -331,9 +316,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA Protein File with Similarity Matrix passed as Text Reader
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void PairwiseOverlapSimpleAlignAllParamSimMatTextRead()
         {
             this.ValidatePairwiseOverlapAlignment(Constants.PairwiseOverlapProAlignAlgorithmNodeName,
@@ -349,9 +333,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA Dna File Diagonal Matrix
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void PairwiseOverlapSimpleAlignListSequencesDiagonalSimMat()
         {
             this.ValidatePairwiseOverlapAlignment(Constants.PairwiseOverlapDiagonalSimMatAlignAlgorithmNodeName,
@@ -367,9 +350,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA Dna File Diagonal Matrix
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void PairwiseOverlapSimpleAlignAllParamDiagonalSimMat()
         {
             this.ValidatePairwiseOverlapAlignment(Constants.PairwiseOverlapDiagonalSimMatAlignAlgorithmNodeName,
@@ -385,9 +367,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA DNA File
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void PairwiseOverlapSimpleAlignTwoDnaSequences()
         {
             this.ValidatePairwiseOverlapAlignment(Constants.PairwiseOverlapDnaAlignAlgorithmNodeName,
@@ -402,9 +383,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA DNA sequence
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void PairwiseOverlapSimpleAlignTwoDnaSequencesFromXml()
         {
             this.ValidatePairwiseOverlapAlignment(Constants.PairwiseOverlapDnaAlignAlgorithmNodeName,
@@ -419,9 +399,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA DNA sequence
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void PairwiseOverlapSimpleAlignListDnaSequencesFromXml()
         {
             this.ValidatePairwiseOverlapAlignment(Constants.PairwiseOverlapDnaAlignAlgorithmNodeName,
@@ -436,9 +415,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA DNA sequence
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void PairwiseOverlapSimpleAlignAllParamDnaFromXml()
         {
             this.ValidatePairwiseOverlapAlignment(Constants.PairwiseOverlapDnaAlignAlgorithmNodeName,
@@ -453,9 +431,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA RNA File
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void PairwiseOverlapSimpleAlignTwoRnaSequences()
         {
             this.ValidatePairwiseOverlapAlignment(Constants.PairwiseOverlapRnaAlignAlgorithmNodeName,
@@ -470,9 +447,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA RNA sequence
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void PairwiseOverlapSimpleAlignTwoRnaSequencesFromXml()
         {
             this.ValidatePairwiseOverlapAlignment(Constants.PairwiseOverlapRnaAlignAlgorithmNodeName,
@@ -487,9 +463,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA RNA sequence
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void PairwiseOverlapSimpleAlignListRnaSequencesFromXml()
         {
             this.ValidatePairwiseOverlapAlignment(Constants.PairwiseOverlapRnaAlignAlgorithmNodeName,
@@ -504,9 +479,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA RNA sequence
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void PairwiseOverlapSimpleAlignAllParamRnaFromXml()
         {
             this.ValidatePairwiseOverlapAlignment(Constants.PairwiseOverlapRnaAlignAlgorithmNodeName,
@@ -521,9 +495,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA Protein File
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void PairwiseOverlapSimpleAlignTwoProSequences()
         {
             this.ValidatePairwiseOverlapAlignment(Constants.PairwiseOverlapProAlignAlgorithmNodeName,
@@ -538,9 +511,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA Protein sequence
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void PairwiseOverlapSimpleAlignTwoProSequencesFromXml()
         {
             this.ValidatePairwiseOverlapAlignment(Constants.PairwiseOverlapProAlignAlgorithmNodeName,
@@ -555,9 +527,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA Protein sequence
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void PairwiseOverlapSimpleAlignListProSequencesFromXml()
         {
             this.ValidatePairwiseOverlapAlignment(Constants.PairwiseOverlapProAlignAlgorithmNodeName,
@@ -572,9 +543,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA Protein sequence
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void PairwiseOverlapSimpleAlignAllParamProFromXml()
         {
             this.ValidatePairwiseOverlapAlignment(Constants.PairwiseOverlapProAlignAlgorithmNodeName,
@@ -589,9 +559,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA Protein File with Max Gap Cost
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void PairwiseOverlapSimpleAlignTwoSequencesGapCostMax()
         {
             this.ValidatePairwiseOverlapAlignment(Constants.PairwiseOverlapGapCostMaxAlignAlgorithmNodeName,
@@ -606,9 +575,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA Protein Sequence with Max Gap Cost
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void PairwiseOverlapSimpleAlignTwoSequencesGapCostMaxFromXml()
         {
             this.ValidatePairwiseOverlapAlignment(Constants.PairwiseOverlapGapCostMaxAlignAlgorithmNodeName,
@@ -623,9 +591,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA Protein Sequence with Max Gap Cost
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void PairwiseOverlapSimpleAlignSequenceListGapCostMaxFromXml()
         {
             this.ValidatePairwiseOverlapAlignment(Constants.PairwiseOverlapGapCostMaxAlignAlgorithmNodeName,
@@ -640,9 +607,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA Protein Sequence with Max Gap Cost
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void PairwiseOverlapSimpleAlignAllParamGapCostMaxFromXml()
         {
             this.ValidatePairwiseOverlapAlignment(Constants.PairwiseOverlapGapCostMaxAlignAlgorithmNodeName,
@@ -657,9 +623,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA Protein File with Min Gap Cost
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void PairwiseOverlapSimpleAlignTwoSequencesGapCostMin()
         {
             this.ValidatePairwiseOverlapAlignment(Constants.PairwiseOverlapGapCostMinAlignAlgorithmNodeName,
@@ -674,9 +639,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA Protein Sequence with Min Gap Cost
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void PairwiseOverlapSimpleAlignTwoSequencesGapCostMinFromXml()
         {
             this.ValidatePairwiseOverlapAlignment(Constants.PairwiseOverlapGapCostMinAlignAlgorithmNodeName,
@@ -691,9 +655,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA Protein Sequence with Min Gap Cost
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void PairwiseOverlapSimpleAlignAllParamGapCostMinFromXml()
         {
             this.ValidatePairwiseOverlapAlignment(Constants.PairwiseOverlapGapCostMinAlignAlgorithmNodeName,
@@ -708,9 +671,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA Protein File with blosum SM
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void PairwiseOverlapSimpleAlignTwoSequencesBlosum()
         {
             this.ValidatePairwiseOverlapAlignment(Constants.PairwiseOverlapBlosumAlignAlgorithmNodeName,
@@ -725,9 +687,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA Protein File with Pam SM
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void PairwiseOverlapSimpleAlignTwoSequencesPam()
         {
             this.ValidatePairwiseOverlapAlignment(Constants.PairwiseOverlapPamAlignAlgorithmNodeName,
@@ -742,9 +703,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA Protein File with Similarity Matrix passed as Text reader
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void PairwiseOverlapSimpleAlignTwoSequencesSimMatTextRead()
         {
             this.ValidatePairwiseOverlapAlignment(Constants.PairwiseOverlapProAlignAlgorithmNodeName,
@@ -760,9 +720,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA Dna File Diagonal Matrix
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void PairwiseOverlapSimpleAlignTwoSequencesDiagonalSimMat()
         {
             this.ValidatePairwiseOverlapAlignment(Constants.PairwiseOverlapDiagonalSimMatAlignAlgorithmNodeName,
@@ -780,9 +739,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA DNA File
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void PairwiseOverlapAlignListSequencesDna()
         {
             this.ValidatePairwiseOverlapAlignment(Constants.PairwiseOverlapDnaAlignAlgorithmNodeName,
@@ -798,9 +756,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA DNA File
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void PairwiseOverlapAlignAllParamDna()
         {
             this.ValidatePairwiseOverlapAlignment(Constants.PairwiseOverlapDnaAlignAlgorithmNodeName,
@@ -816,9 +773,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA Protein File
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void PairwiseOverlapAlignListSequencesPro()
         {
             this.ValidatePairwiseOverlapAlignment(Constants.PairwiseOverlapProAlignAlgorithmNodeName,
@@ -834,9 +790,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA Protein File
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void PairwiseOverlapAlignAllParamPro()
         {
             this.ValidatePairwiseOverlapAlignment(Constants.PairwiseOverlapProAlignAlgorithmNodeName,
@@ -852,9 +807,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA Rna File
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void PairwiseOverlapAlignListSequencesRna()
         {
             this.ValidatePairwiseOverlapAlignment(Constants.PairwiseOverlapRnaAlignAlgorithmNodeName,
@@ -870,9 +824,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA Rna File
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void PairwiseOverlapAlignAllParamRna()
         {
             this.ValidatePairwiseOverlapAlignment(Constants.PairwiseOverlapRnaAlignAlgorithmNodeName,
@@ -888,9 +841,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA Protein File with Max Gap Cost
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void PairwiseOverlapAlignListSequencesGapCostMax()
         {
             this.ValidatePairwiseOverlapAlignment(Constants.PairwiseOverlapGapCostMaxAlignAlgorithmNodeName,
@@ -906,9 +858,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA Protein File with Max Gap Cost
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void PairwiseOverlapAlignAllParamGapCostMax()
         {
             this.ValidatePairwiseOverlapAlignment(Constants.PairwiseOverlapGapCostMaxAlignAlgorithmNodeName,
@@ -924,9 +875,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA Protein File with Min Gap Cost
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void PairwiseOverlapAlignListSequencesGapCostMin()
         {
             this.ValidatePairwiseOverlapAlignment(Constants.PairwiseOverlapGapCostMinAlignAlgorithmNodeName,
@@ -942,9 +892,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA Protein File with Min Gap Cost
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void PairwiseOverlapAlignAllParamGapCostMin()
         {
             this.ValidatePairwiseOverlapAlignment(Constants.PairwiseOverlapGapCostMinAlignAlgorithmNodeName,
@@ -960,9 +909,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA Protein File with blosum SM
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void PairwiseOverlapAlignListSequencesBlosum()
         {
             this.ValidatePairwiseOverlapAlignment(Constants.PairwiseOverlapBlosumAlignAlgorithmNodeName,
@@ -978,9 +926,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA Protein File with blosum SM
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void PairwiseOverlapAlignAllParamBlosum()
         {
             this.ValidatePairwiseOverlapAlignment(Constants.PairwiseOverlapBlosumAlignAlgorithmNodeName,
@@ -996,9 +943,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA Protein File with Pam SM
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void PairwiseOverlapAlignListSequencesPam()
         {
             this.ValidatePairwiseOverlapAlignment(Constants.PairwiseOverlapPamAlignAlgorithmNodeName,
@@ -1014,9 +960,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA Protein File with Pam SM
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void PairwiseOverlapAlignAllParamPam()
         {
             this.ValidatePairwiseOverlapAlignment(Constants.PairwiseOverlapPamAlignAlgorithmNodeName,
@@ -1032,9 +977,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA Protein File with Similarity Matrix passed as Text reader
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void PairwiseOverlapAlignListSequencesSimMatTextRead()
         {
             this.ValidatePairwiseOverlapAlignment(Constants.PairwiseOverlapProAlignAlgorithmNodeName,
@@ -1050,9 +994,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA Protein File with Similarity Matrix passed as Text Reader
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void PairwiseOverlapAlignAllParamSimMatTextRead()
         {
             this.ValidatePairwiseOverlapAlignment(Constants.PairwiseOverlapProAlignAlgorithmNodeName,
@@ -1068,9 +1011,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA Dna File Diagonal Matrix
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void PairwiseOverlapAlignListSequencesDiagonalSimMat()
         {
             this.ValidatePairwiseOverlapAlignment(Constants.PairwiseOverlapDiagonalSimMatAlignAlgorithmNodeName,
@@ -1086,9 +1028,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA Dna File Diagonal Matrix
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void PairwiseOverlapAlignAllParamDiagonalSimMat()
         {
             this.ValidatePairwiseOverlapAlignment(Constants.PairwiseOverlapDiagonalSimMatAlignAlgorithmNodeName,
@@ -1104,9 +1045,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA Dna File
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void PairwiseOverlapAlignListSequencesGapCostGapExtensionEqual()
         {
             this.ValidatePairwiseOverlapAlignment(Constants.PairwiseOverlapEqualAlignAlgorithmNodeName,
@@ -1122,9 +1062,8 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Input : FastA Dna File
         ///     Validation : Aligned sequence and score.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void PairwiseOverlapAlignAllParamGapCostGapExtensionEqual()
         {
             this.ValidatePairwiseOverlapAlignment(Constants.PairwiseOverlapEqualAlignAlgorithmNodeName,

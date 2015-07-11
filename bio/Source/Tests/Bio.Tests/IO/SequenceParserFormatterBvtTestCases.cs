@@ -2,14 +2,14 @@
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bio.Tests.IO
 {
     /// <summary>
     /// SequenceParserFormatter Bvt parser Test case implementation.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class SequenceParserFormatterBvtTestCases
     {
         #region enum
@@ -29,9 +29,8 @@ namespace Bio.Tests.IO
         /// <summary>
         /// Validate FindParserByFileName() method
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateSequenceParserFindParserByFileName()
         {
             ISequenceParser fastAObj = SequenceParsers.FindParserByFileName(@"TestUtils\Small_Size.fasta");
@@ -52,9 +51,8 @@ namespace Bio.Tests.IO
         /// <summary>
         /// Validate FindParserByName() method with Fasta format
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateSequenceParserFindParserByNameForFastA()
         {
             this.ValidateFindParserByName(SequenceType.FastA);
@@ -63,9 +61,8 @@ namespace Bio.Tests.IO
         /// <summary>
         /// Validate FindParserByName() method with FastQ format
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateSequenceParserFindParserByNameForFastQ()
         {
             this.ValidateFindParserByName(SequenceType.FastQ);
@@ -74,9 +71,8 @@ namespace Bio.Tests.IO
         /// <summary>
         /// Validate FindParserByName() method with GFF format
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateSequenceParserFindParserByNameForGFF()
         {
             this.ValidateFindParserByName(SequenceType.GFF);
@@ -85,9 +81,8 @@ namespace Bio.Tests.IO
         /// <summary>
         /// Validate FindParserByName() method with Genbank format
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateSequenceParserFindParserByNameForGenbank()
         {
             this.ValidateFindParserByName(SequenceType.GenBank);
@@ -100,9 +95,8 @@ namespace Bio.Tests.IO
         /// <summary>
         /// Validate FindFormatterByFileName() method
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateSequenceFormatterFindFormatterByFileName()
         {
             IFormatter fastAObj = SequenceFormatters.FindFormatterByFileName("test.fasta");
@@ -124,9 +118,8 @@ namespace Bio.Tests.IO
         /// <summary>
         /// Validate FindFormatterByName() method with Fasta format
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateSequenceFormatterFindFormatterByNameForFastA()
         {
             this.ValidateFindFormatterByName(SequenceType.FastA);
@@ -135,9 +128,8 @@ namespace Bio.Tests.IO
         /// <summary>
         /// Validate FindFormatterByName() method with FastQ format
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateSequenceFormatterFindFormatterByNameForFastQ()
         {
             this.ValidateFindFormatterByName(SequenceType.FastQ);
@@ -146,9 +138,8 @@ namespace Bio.Tests.IO
         /// <summary>
         /// Validate FindFormatterByName() method with GFF format
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateSequenceFormatterFindFormatterByNameForGFF()
         {
             this.ValidateFindFormatterByName(SequenceType.GFF);
@@ -157,9 +148,8 @@ namespace Bio.Tests.IO
         /// <summary>
         /// Validate FindFormatterByName() method with Genbank format
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateSequenceFormatterFindFormatterByNameForGenbank()
         {
             this.ValidateFindFormatterByName(SequenceType.GenBank);

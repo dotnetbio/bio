@@ -5,14 +5,14 @@ using Bio.Extensions;
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bio.Tests
 {
     /// <summary>
     /// Test Automation code for Bio Qualitative sequence validations.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class QualitativeSequenceP1TestCases
     {
         #region Enums
@@ -49,9 +49,8 @@ namespace Bio.Tests
         /// and Score "120" 
         /// Output Data : Validation of Created Qualitative sequence.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateSangerFormatTypeRnaQualitativeSequenceWithScore()
         {
             this.GeneralQualitativeSequence(Constants.SimpleRnaSangerNode,
@@ -65,9 +64,8 @@ namespace Bio.Tests
         /// and Score "104" 
         /// Output Data : Validation of Created Qualitative sequence.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateSolexaFormatTypeRnaQualitativeSequenceWithScore()
         {
             this.GeneralQualitativeSequence(Constants.SimpleRnaSolexaNode,
@@ -81,9 +79,8 @@ namespace Bio.Tests
         /// and Score "104" 
         /// Output Data : Validation of Created Qualitative sequence.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateIlluminaFormatTypeRnaQualitativeSequenceWithScore()
         {
             this.GeneralQualitativeSequence(Constants.SimpleRnaIlluminaNode,
@@ -97,9 +94,8 @@ namespace Bio.Tests
         /// and Score "120" 
         /// Output Data : Validation of Created Qualitative sequence.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateSangerFormatTypeProteinQualitativeSequenceWithScore()
         {
             this.GeneralQualitativeSequence(Constants.SimpleProteinSangerNode,
@@ -113,9 +109,8 @@ namespace Bio.Tests
         /// and Score "104" 
         /// Output Data : Validation of Created Qualitative sequence.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateSolexaFormatTypeProteinQualitativeSequenceWithScore()
         {
             this.GeneralQualitativeSequence(Constants.SimpleProteinSolexaNode,
@@ -129,9 +124,8 @@ namespace Bio.Tests
         /// and Score "104" 
         /// Output Data : Validation of Created Qualitative sequence.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateIlluminaFormatTypeProteinQualitativeSequenceWithScore()
         {
             this.GeneralQualitativeSequence(Constants.SimpleProteinIlluminaNode,
@@ -144,9 +138,8 @@ namespace Bio.Tests
         /// Input Data : Dna Alphabet,Dna Sequence,"Illumina" FastQFormat.
         /// Output Data : Validation of Created Qualitative sequence with score.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateIlluminaFormatTypeDnaQualitativeSequenceWithByteArray()
         {
             this.GeneralQualitativeSequence(Constants.SimpleDNAIlluminaByteArrayNode,
@@ -158,9 +151,8 @@ namespace Bio.Tests
         /// Input Data : Dna Sequence and score.
         /// Output Data : Validate qualitative sequence item indices.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateQualitativeSeqItemIndexes()
         {
             this.ValidateGeneralQualitativeSeqItemIndices(
@@ -172,9 +164,8 @@ namespace Bio.Tests
         /// Input Data : Dna Sequence and score.
         /// Output Data : Validate IndexOf Non Gap characters present in Qualitative Sequence Items.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateQualitativeSeqItemIndexOfNonGapChars()
         {
             this.ValidateGeneralQualitativeSeqItemIndices(
@@ -187,9 +178,8 @@ namespace Bio.Tests
         /// Input Data : Dna Sequence and score.
         /// Output Data : Validate IndexOf Non Gap characters present in Qualitative Sequence Items.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateQualitativeSeqItemIndexOfNonGapCharsUsingPam()
         {
             this.ValidateGeneralQualitativeSeqItemIndices(
@@ -201,9 +191,8 @@ namespace Bio.Tests
         /// Input Data : Dna Sequence and score.
         /// Output Data : Validate Last IndexOf Non Gap characters present in Qualitative Sequence Items.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateQualitativeSeqItemLastIndexOfNonGapChars()
         {
             this.ValidateGeneralQualitativeSeqItemIndices(
@@ -216,9 +205,8 @@ namespace Bio.Tests
         /// Input Data : Dna Sequence and score.
         /// Output Data : Validate IndexOf Non Gap characters present in Qualitative Sequence Items.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateQualitativeSeqItemLastIndexOfNonGapCharsUsingPam()
         {
             this.ValidateGeneralQualitativeSeqItemIndices(
@@ -230,9 +218,8 @@ namespace Bio.Tests
         /// Input Data :Dna Alphabet,Solexa FastQ format.
         /// Output Data : Validate FastQ Sanger format type default score.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateDefaultQualScoreForDnaSolexa()
         {
             this.ValidateFastQDefaultScores(
@@ -244,9 +231,8 @@ namespace Bio.Tests
         /// Input Data :Dna Alphabet, Sanger FastQ format.
         /// Output Data : Validate FastQ Sanger format type default score.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateDefaultQualScoreForDnaSanger()
         {
             this.ValidateFastQDefaultScores(
@@ -258,9 +244,8 @@ namespace Bio.Tests
         /// Input Data :Protein Alphabet, Sanger FastQ format.
         /// Output Data : Validate FastQ Sanger format type default score.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateDefaultQualScoreForProteinSanger()
         {
             this.ValidateFastQDefaultScores(
@@ -272,9 +257,8 @@ namespace Bio.Tests
         /// Input Data :Dna Alphabet, Illumina FastQ format.
         /// Output Data : Validate FastQ Illumina format type default score.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateDefaultQualScoreForDnaIllumina()
         {
             this.ValidateFastQDefaultScores(
@@ -286,9 +270,8 @@ namespace Bio.Tests
         /// Input Data :Rna Alphabet, Illumina FastQ format.
         /// Output Data : Validate FastQ Illumina format type default score.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateDefaultQualScoreForRnaIllumina()
         {
             this.ValidateFastQDefaultScores(
@@ -300,9 +283,8 @@ namespace Bio.Tests
         /// Input Data :Protein Alphabet, Illumina FastQ format.
         /// Output Data : Validate FastQ Illumina format type default score.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateDefaultQualScoreForProteinIllumina()
         {
             this.ValidateFastQDefaultScores(
@@ -314,9 +296,8 @@ namespace Bio.Tests
         /// Input Data :Protein Sequence, Solexa FastQ format.
         /// Output Data : Validate FastQ Solexa format type default score.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateDefaultQualScoreForProteinSequenceSolexa()
         {
             this.ValidateFastQDefaultScores(
@@ -328,9 +309,8 @@ namespace Bio.Tests
         /// Input Data :Dna Sequence, Solexa FastQ format.
         /// Output Data : Validate FastQ Solexa format type default score.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateDefaultQualScoreForDnaSequenceSolexa()
         {
             this.ValidateFastQDefaultScores(
@@ -342,9 +322,8 @@ namespace Bio.Tests
         /// Input Data :Rna Sequence, Solexa FastQ format.
         /// Output Data : Validate FastQ Solexa format type default score.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateDefaultQualScoreForRnaSequenceSolexa()
         {
             this.ValidateFastQDefaultScores(
@@ -356,9 +335,8 @@ namespace Bio.Tests
         /// Input Data :Dna Sequence, Sanger FastQ format.
         /// Output Data : Validate Maximum score for Dna Sanger FastQ.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateMaxQualScoreForDnaSanger()
         {
             this.ValidateFastQDefaultScores(
@@ -370,9 +348,8 @@ namespace Bio.Tests
         /// Input Data :Rna Sequence, Sanger FastQ format.
         /// Output Data : Validate Maximum score for Rna Sanger FastQ.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateMaxQualScoreForRnaSanger()
         {
             this.ValidateFastQDefaultScores(
@@ -384,9 +361,8 @@ namespace Bio.Tests
         /// Input Data :Protein Sequence,Sanger FastQ format.
         /// Output Data : Validate Maximum score for Protein Sanger FastQ.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateMaxQualScoreForProteinSanger()
         {
             this.ValidateFastQDefaultScores(
@@ -398,9 +374,8 @@ namespace Bio.Tests
         /// Input Data :Dna Sequence,Illumina FastQ format.
         /// Output Data : Validate Maximum score for Dna Illumina FastQ.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateMaxQualScoreForDnaIllumina()
         {
             this.ValidateFastQDefaultScores(
@@ -412,9 +387,8 @@ namespace Bio.Tests
         /// Input Data :Rna Sequence,Illumina FastQ format.
         /// Output Data : Validate Maximum score for Rna Illumina FastQ.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateMaxQualScoreForRnaIllumina()
         {
             this.ValidateFastQDefaultScores(
@@ -426,9 +400,8 @@ namespace Bio.Tests
         /// Input Data :Protein Sequence,Illumina FastQ format.
         /// Output Data : Validate Maximum score for Protein Illumina FastQ.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateMaxQualScoreForProteinIllumina()
         {
             this.ValidateFastQDefaultScores(
@@ -440,9 +413,8 @@ namespace Bio.Tests
         /// Input Data :Dna Sequence,Solexa FastQ format.
         /// Output Data : Validate Maximum score for Dna Solexa FastQ.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateMaxQualScoreForDnaSolexa()
         {
             this.ValidateFastQDefaultScores(
@@ -454,9 +426,8 @@ namespace Bio.Tests
         /// Input Data :Rna Sequence,Solexa FastQ format.
         /// Output Data : Validate Maximum score for Rna Solexa FastQ.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateMaxQualScoreForRnaSolexa()
         {
             this.ValidateFastQDefaultScores(
@@ -468,9 +439,8 @@ namespace Bio.Tests
         /// Input Data :Protein Sequence,Solexa FastQ format.
         /// Output Data : Validate Maximum score for Protein Solexa FastQ.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateMaxQualScoreForProteinSolexa()
         {
             this.ValidateFastQDefaultScores(
@@ -482,9 +452,8 @@ namespace Bio.Tests
         /// Input Data :Dna Sequence, Sanger FastQ format.
         /// Output Data : Validate Minimum score for Dna Sanger FastQ.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateMinimumQualScoreForDnaSanger()
         {
             this.ValidateFastQDefaultScores(
@@ -496,9 +465,8 @@ namespace Bio.Tests
         /// Input Data :Rna Sequence, Sanger FastQ format.
         /// Output Data : Validate Minimum score for Rna Sanger FastQ.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateMinimumQualScoreForRnaSanger()
         {
             this.ValidateFastQDefaultScores(
@@ -510,9 +478,8 @@ namespace Bio.Tests
         /// Input Data :Protein Sequence,Sanger FastQ format.
         /// Output Data : Validate Minimum score for Protein Sanger FastQ.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateMinimumQualScoreForProteinSanger()
         {
             this.ValidateFastQDefaultScores(
@@ -524,9 +491,8 @@ namespace Bio.Tests
         /// Input Data :Dna Sequence,Illumina FastQ format.
         /// Output Data : Validate Minimum score for Dna Illumina FastQ.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateMinimumQualScoreForDnaIllumina()
         {
             this.ValidateFastQDefaultScores(
@@ -538,9 +504,8 @@ namespace Bio.Tests
         /// Input Data :Rna Sequence,Illumina FastQ format.
         /// Output Data : Validate Minimum score for Rna Illumina FastQ.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateMinimumQualScoreForRnaIllumina()
         {
             this.ValidateFastQDefaultScores(
@@ -552,9 +517,8 @@ namespace Bio.Tests
         /// Input Data :Protein Sequence,Illumina FastQ format.
         /// Output Data : Validate Minimum score for Protein Illumina FastQ.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateMinimumQualScoreForProteinIllumina()
         {
             this.ValidateFastQDefaultScores(
@@ -566,9 +530,8 @@ namespace Bio.Tests
         /// Input Data :Dna Sequence,Solexa FastQ format.
         /// Output Data : Validate Minimum score for Dna Solexa FastQ.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateMinimumQualScoreForDnaSolexa()
         {
             this.ValidateFastQDefaultScores(
@@ -580,9 +543,8 @@ namespace Bio.Tests
         /// Input Data :Rna Sequence,Solexa FastQ format.
         /// Output Data : Validate Minimum score for Rna Solexa FastQ.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateMinimumQualScoreForRnaSolexa()
         {
             this.ValidateFastQDefaultScores(
@@ -594,9 +556,8 @@ namespace Bio.Tests
         /// Input Data :Protein Sequence,Solexa FastQ format.
         /// Output Data : Validate Minimum score for Protein Solexa FastQ.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateMinimumQualScoreForProteinSolexa()
         {
             this.ValidateFastQDefaultScores(

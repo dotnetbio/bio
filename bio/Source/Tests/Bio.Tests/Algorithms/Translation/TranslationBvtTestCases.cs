@@ -5,14 +5,14 @@ using Bio.Algorithms.Translation;
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bio.Tests.Algorithms.Translation
 {
     /// <summary>
     ///     Test Automation code for Bio Translation and BVT level validations.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class TranslationBvtTestCases
     {
         private readonly Utility utilityObj = new Utility(@"TestUtils\TestsConfig.xml");
@@ -24,9 +24,8 @@ namespace Bio.Tests.Algorithms.Translation
         ///     Input Data : Valid Sequence - 'GAUUCAAGGGCU'
         ///     Output Data : Corresponding amino acid 'Serine'.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateAminoAcidForSequence()
         {
             // Get Node values from XML.
@@ -57,9 +56,8 @@ namespace Bio.Tests.Algorithms.Translation
         ///     Input Data : Valid Sequence - 'AUUG'
         ///     Output Data : Corresponding amino acid 'I'.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateProteinTranslation()
         {
             // Get Node values from XML.
@@ -87,9 +85,8 @@ namespace Bio.Tests.Algorithms.Translation
         ///     Input Data : Valid Sequence - 'AUUG'
         ///     Output Data : Corresponding amino acid 'I'.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateProteinTranslationWithOffset()
         {
             // Get Node values from XML.
@@ -117,9 +114,8 @@ namespace Bio.Tests.Algorithms.Translation
         ///     Input Data : Valid Sequence - 'AGGTCCGATA'
         ///     Output Data : Complement of DNA - 'TCCATGGGCTAT'
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateDnaComplementation()
         {
             // Get Node values from XML.
@@ -148,9 +144,8 @@ namespace Bio.Tests.Algorithms.Translation
         ///     Input Data : Valid Sequence - 'AGGTCCGATA'
         ///     Output Data : Reverse Complement of DNA - 'TATCGGGTACCT'
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateDnaRevComplementation()
         {
             // Get Node values from XML.
@@ -179,9 +174,8 @@ namespace Bio.Tests.Algorithms.Translation
         ///     Input Data : Valid Sequence - 'ATGGCG'
         ///     Output Data : Transcription - 'AUGGCG'
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateTranscribe()
         {
             // Get Node values from XML.
@@ -209,9 +203,8 @@ namespace Bio.Tests.Algorithms.Translation
         ///     Input Data : Valid Sequence - 'UACCGC'
         ///     Output Data : Reverse Transcription - 'TACCGC'
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateRevTranscribe()
         {
             // Get Node values from XML.

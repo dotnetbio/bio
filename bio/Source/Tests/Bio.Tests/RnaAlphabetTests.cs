@@ -1,18 +1,18 @@
 ﻿using Bio;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bio.Tests
 {
     /// <summary>
     /// Tests for the RNA alphabet class.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class RnaAlphabetTests
     {
         /// <summary>
         /// Test TryGetComplementSymbol of RnaAlphabet
         /// </summary>
-        [TestMethod]
+        [Test]
         public void TestRnaAlphabetTryGetComplementSymbol()
         {
             byte basicSymbols;
@@ -34,7 +34,7 @@ namespace Bio.Tests
         /// <summary>
         /// Test CompareSymbols method of RnaAlphabet
         /// </summary>
-        [TestMethod]
+        [Test]
         public void TestRnaAlphabetCompareSymbols()
         {
             RnaAlphabet rnaAlphabet = RnaAlphabet.Instance;

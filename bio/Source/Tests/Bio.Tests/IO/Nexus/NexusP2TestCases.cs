@@ -17,14 +17,14 @@ using Bio.IO.Nexus;
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bio.TestAutomation.IO.Nexus
 {
     /// <summary>
     /// Nexus P2 parser and formatter Test case implementation.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class NexusP2TestCases
     {
 
@@ -54,9 +54,8 @@ namespace Bio.TestAutomation.IO.Nexus
         /// Input : Invalid File
         /// Output: Validation of exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateReadOnlyNexusParserParseReader()
         {
             InvalidateNexusParserTestCases(Constants.EmptyNexusFileNode,
@@ -68,9 +67,8 @@ namespace Bio.TestAutomation.IO.Nexus
         /// Input : Invalid File
         /// Output: Validation of exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateNexusParserSeqCount()
         {
             InvalidateNexusParserTestCases(
@@ -83,9 +81,8 @@ namespace Bio.TestAutomation.IO.Nexus
         /// Input : Invalid File
         /// Output: Validation of exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateNexusParserHeader()
         {
             InvalidateNexusParserTestCases(
@@ -98,9 +95,8 @@ namespace Bio.TestAutomation.IO.Nexus
         /// Input : Invalid File
         /// Output: Validation of exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateReadOnlyNexusParserOneReader()
         {
             InvalidateNexusParserTestCases(Constants.EmptyNexusFileNode,
@@ -112,9 +108,8 @@ namespace Bio.TestAutomation.IO.Nexus
         /// Input : Invalid File
         /// Output: Validation of exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateNexusParserAlphabet()
         {
             InvalidateNexusParserTestCases(
@@ -127,9 +122,8 @@ namespace Bio.TestAutomation.IO.Nexus
         /// Input : Invalid File
         /// Output: Validation of exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateNexusParserAlignAlphabet()
         {
             InvalidateNexusParserTestCases(
@@ -142,9 +136,8 @@ namespace Bio.TestAutomation.IO.Nexus
         /// Input : Invalid File
         /// Output: Validation of exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateNexusParserSeqLength()
         {
             InvalidateNexusParserTestCases(

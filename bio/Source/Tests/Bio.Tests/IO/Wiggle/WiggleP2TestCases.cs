@@ -5,14 +5,14 @@ using Bio.IO.Wiggle;
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bio.Tests.IO.Wiggle
 {
     /// <summary>
     /// Wiggle P2 test cases implementation.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class WiggleP2TestCases
     {
         Utility utilityObj = new Utility(@"TestUtils\WiggleTestConfig.xml");
@@ -37,9 +37,8 @@ namespace Bio.Tests.IO.Wiggle
         /// <summary>
         /// Invalidate Parser by passing null to Parse method.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidateWiggleParser()
         {
             this.ValidateArgumentNullException(ExceptionType.NullParser);            
@@ -48,9 +47,8 @@ namespace Bio.Tests.IO.Wiggle
         /// <summary>
         /// Invalidate Formatter by passing null to Write method.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidateWiggleFormatter()
         {
             this.ValidateArgumentNullException(ExceptionType.NullFormatter);            
@@ -59,9 +57,8 @@ namespace Bio.Tests.IO.Wiggle
         /// <summary>
         /// Invalidate Annotations by passing null Data.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidateWiggleAnnotation()
         {
             this.ValidateArgumentNullException(ExceptionType.NullAnnotationWithData);
@@ -70,9 +67,8 @@ namespace Bio.Tests.IO.Wiggle
         /// <summary>
         /// Invalidate Annotations by passing null as Chromosome Name..
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidateWiggleAnnotationWithoutChromosomeName()
         {
             this.ValidateArgumentNullException(ExceptionType.NullAnnotationWithChromosomeName);
@@ -81,9 +77,8 @@ namespace Bio.Tests.IO.Wiggle
         /// <summary>
         /// Invalidate Wiggle Parser by passing Invalid Track.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidateWiggleParserWithInvalidTrack()
         {
             this.ValidateFormatException(Constants.InvalidTrackNode);
@@ -92,9 +87,8 @@ namespace Bio.Tests.IO.Wiggle
         /// <summary>
         /// Invalidate Wiggle Parser by passing Invalid AutoScale.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidateWiggleParserWithInvalidAutoScale()
         {
             this.ValidateFormatException(Constants.InvalidAutoScaleNode);

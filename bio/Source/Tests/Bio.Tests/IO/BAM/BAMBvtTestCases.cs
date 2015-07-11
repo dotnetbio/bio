@@ -12,14 +12,14 @@ using Bio.IO.SAM;
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bio.Tests.Framework.IO.BAM
 {
     /// <summary>
     ///     BAM Bvt parser and formatter Test case implementation.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class BAMBvtTestCases
     {
         #region Enums
@@ -84,9 +84,8 @@ namespace Bio.Tests.Framework.IO.BAM
         ///     Input : Small size BAM file.
         ///     Output : Validation of aligned sequence.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0"), TestCategory("BAM")]
+        [Test]
+        [Category("Priority0"), Category("BAM")]
         public void ValidateBAMParserWithStreamReader()
         {
             this.ValidateBAMParser(Constants.SmallSizeBAMFileNode,
@@ -98,9 +97,8 @@ namespace Bio.Tests.Framework.IO.BAM
         ///     Input : Small size BAM file.
         ///     Output : Validation of aligned sequence.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0"), TestCategory("BAM")]
+        [Test]
+        [Category("Priority0"), Category("BAM")]
         public void ValidateBAMParserWithFilePath()
         {
             this.ValidateBAMParser(Constants.SmallSizeBAMFileNode,
@@ -113,9 +111,8 @@ namespace Bio.Tests.Framework.IO.BAM
         ///     Input : Small size BAM file.
         ///     Output : Validation of aligned sequence.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0"), TestCategory("BAM")]
+        [Test]
+        [Category("Priority0"), Category("BAM")]
         public void ValidateBAMParserWithDummyReads()
         {
             
@@ -126,14 +123,14 @@ namespace Bio.Tests.Framework.IO.BAM
             bamParser = new BAMParser();
             seqAlignment = bamParser.ParseOne<SequenceAlignmentMap>(bamFilePath);
             var seq = seqAlignment.QuerySequences.First();
-            Assert.AreEqual<string>("fakeref", seq.RName);
-            Assert.AreEqual<string>("1M", seq.CIGAR);
-            Assert.AreEqual<int>(10, seq.Pos);
+            Assert.AreEqual("fakeref", seq.RName);
+            Assert.AreEqual("1M", seq.CIGAR);
+            Assert.AreEqual(10, seq.Pos);
             Assert.IsNull(seq.QuerySequence);
             var optField = seq.OptionalFields.First();
-            Assert.AreEqual<string>("CT", optField.Tag);
-            Assert.AreEqual<string>("Z", optField.VType);
-            Assert.AreEqual<string>(".;ESDN;", optField.Value);
+            Assert.AreEqual("CT", optField.Tag);
+            Assert.AreEqual("Z", optField.VType);
+            Assert.AreEqual(".;ESDN;", optField.Value);
             Assert.IsTrue(seq.IsDummyRead);
         }
 
@@ -144,9 +141,8 @@ namespace Bio.Tests.Framework.IO.BAM
         ///     Input : Small size BAM file.
         ///     Output : Validation of aligned sequence.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0"), TestCategory("BAM")]
+        [Test]
+        [Category("Priority0"), Category("BAM")]
         public void ValidateBAMParserRangeWithFilePath()
         {
             this.ValidateBAMParser(Constants.SmallSizeBAMFileNode,
@@ -159,9 +155,8 @@ namespace Bio.Tests.Framework.IO.BAM
         ///     Input : Small size BAM file.
         ///     Output : Validation of aligned sequence.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0"), TestCategory("BAM")]
+        [Test]
+        [Category("Priority0"), Category("BAM")]
         public void ValidateBAMParseRangeUsingRefSeqName()
         {
             this.ValidateBAMParser(Constants.BAMFileWithSequenceRangeRefSeqsNode,
@@ -174,9 +169,8 @@ namespace Bio.Tests.Framework.IO.BAM
         ///     Input : Small size BAM file.
         ///     Output : Validation of aligned sequence.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0"), TestCategory("BAM")]
+        [Test]
+        [Category("Priority0"), Category("BAM")]
         public void ValidateBAMParseRangeUsingRefSeqNameAndFlag()
         {
             this.ValidateBAMParser(Constants.BAMFileWithSequenceRangeRefSeqsNode,
@@ -189,9 +183,8 @@ namespace Bio.Tests.Framework.IO.BAM
         ///     Input : Small size BAM file.
         ///     Output : Validation of aligned sequence.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0"), TestCategory("BAM")]
+        [Test]
+        [Category("Priority0"), Category("BAM")]
         public void ValidateBAMParseRangeUsingStartAndEndIndex()
         {
             this.ValidateBAMParser(Constants.SeqRangeBAMFileNode,
@@ -204,9 +197,8 @@ namespace Bio.Tests.Framework.IO.BAM
         ///     Input : Small size BAM file.
         ///     Output : Validation of aligned sequence.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0"), TestCategory("BAM")]
+        [Test]
+        [Category("Priority0"), Category("BAM")]
         public void ValidateBAMParseRangeUsingStartAndEndIndexWithFlag()
         {
             this.ValidateBAMParser(Constants.SeqRangeBAMFileNode,
@@ -219,9 +211,8 @@ namespace Bio.Tests.Framework.IO.BAM
         ///     Input : Small size BAM file.
         ///     Output : Validation of aligned sequence.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0"), TestCategory("BAM")]
+        [Test]
+        [Category("Priority0"), Category("BAM")]
         public void ValidatePairedReadUsingMeanAndDeviation()
         {
             this.ValidatePairedReads(Constants.PairedReadForSmallFileNodeName,
@@ -234,9 +225,8 @@ namespace Bio.Tests.Framework.IO.BAM
         ///     Input : Small size BAM file.
         ///     Output : Validation of aligned sequence.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0"), TestCategory("BAM")]
+        [Test]
+        [Category("Priority0"), Category("BAM")]
         public void ValidatePairedReads()
         {
             this.ValidatePairedReads(Constants.PairedReadForSmallFileNodeName,
@@ -249,9 +239,8 @@ namespace Bio.Tests.Framework.IO.BAM
         ///     Input : Small size BAM file.
         ///     Output : Validation of aligned sequence.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0"), TestCategory("BAM")]
+        [Test]
+        [Category("Priority0"), Category("BAM")]
         public void ValidatePairedReadUsingLibraryName()
         {
             this.ValidatePairedReads(Constants.PairedReadForSmallFileNodeName,
@@ -264,9 +253,8 @@ namespace Bio.Tests.Framework.IO.BAM
         ///     Input : Small size BAM file.
         ///     Output : Validation of aligned sequence.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0"), TestCategory("BAM")]
+        [Test]
+        [Category("Priority0"), Category("BAM")]
         public void ValidatePairedReadUsingCloneLibraryInfo()
         {
             this.ValidatePairedReads(Constants.PairedReadForSmallFileNodeName,
@@ -279,9 +267,8 @@ namespace Bio.Tests.Framework.IO.BAM
         ///     Input : Small size BAM file.
         ///     Output : Validation of aligned sequence.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0"), TestCategory("BAM")]
+        [Test]
+        [Category("Priority0"), Category("BAM")]
         public void ValidatePairedReadTypeUsingCloneLibraryInfo()
         {
             this.ValidatePairedReadTypes(Constants.PairedReadTypesNode,
@@ -295,9 +282,8 @@ namespace Bio.Tests.Framework.IO.BAM
         ///     Input : Small size BAM file.
         ///     Output : Validation of aligned sequence.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0"), TestCategory("BAM")]
+        [Test]
+        [Category("Priority0"), Category("BAM")]
         public void ValidatePairedReadTypeUsingLibrary()
         {
             this.ValidatePairedReadTypes(Constants.PairedReadTypesNode,
@@ -310,9 +296,8 @@ namespace Bio.Tests.Framework.IO.BAM
         ///     Input : Small size BAM file.
         ///     Output : Validation of aligned sequence.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0"), TestCategory("BAM")]
+        [Test]
+        [Category("Priority0"), Category("BAM")]
         public void ValidatePairedReadTypeUsingMeanAndDeviation()
         {
             this.ValidatePairedReadTypes(Constants.PairedReadTypesForMeanAndDeviationNode,
@@ -325,9 +310,8 @@ namespace Bio.Tests.Framework.IO.BAM
         ///     Input : Small size BAM file.
         ///     Output : Validation of aligned sequence.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0"), TestCategory("BAM")]
+        [Test]
+        [Category("Priority0"), Category("BAM")]
         public void ValidatePairedReadTypeUsingReadsAndLibrary()
         {
             this.ValidatePairedReadTypes(Constants.PairedReadTypesForLibraryInfoNode,
@@ -340,9 +324,8 @@ namespace Bio.Tests.Framework.IO.BAM
         ///     Input : Small size BAM file.
         ///     Output : Validation of aligned sequence.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0"), TestCategory("BAM")]
+        [Test]
+        [Category("Priority0"), Category("BAM")]
         public void ValidatePairedReadTypeUsingReadsAndCloneLibraryInfo()
         {
             this.ValidatePairedReadTypes(Constants.PairedReadTypesForLibraryInfoNode,
@@ -355,9 +338,8 @@ namespace Bio.Tests.Framework.IO.BAM
         ///     Input : Small size BAM file.
         ///     Output : Validation of aligned sequence.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0"), TestCategory("BAM")]
+        [Test]
+        [Category("Priority0"), Category("BAM")]
         public void ValidateInsertLengthForPairedReads()
         {
             this.ValidatePairedReadTypes(Constants.PairedReadTypesForLibraryInfoNode,
@@ -370,11 +352,7 @@ namespace Bio.Tests.Framework.IO.BAM
         ///     Output : Validation of aligned sequence.
         /// </summary>
         /// </summary>
-        [SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times"),
-         SuppressMessage("Microsoft.Usage", "CA1806:DoNotIgnoreMethodResults",
-             MessageId = "System.String.Split(System.Char[])"), TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0"), TestCategory("BAM")]
+        [Category("Priority0"), Category("BAM")]
         public void ValidateGetInsertLengthWithValidate()
         {
             // Get input and output values from xml node.
@@ -422,9 +400,8 @@ namespace Bio.Tests.Framework.IO.BAM
         ///     Input : Small size BAM file and index file.
         ///     Output : Validation of aligned sequence.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0"), TestCategory("BAM")]
+        [Test]
+        [Category("Priority0"), Category("BAM")]
         public void ValidateBAMFormatterWithIndexFile()
         {
             this.ValidateBAMFormatter(Constants.SmallSizeBAMFileNode,
@@ -437,9 +414,8 @@ namespace Bio.Tests.Framework.IO.BAM
         ///     Input : Small size BAM file.
         ///     Output : Validation of aligned sequence.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0"), TestCategory("BAM")]
+        [Test]
+        [Category("Priority0"), Category("BAM")]
         public void ValidateBAMFormatterWithStreamWriter()
         {
             this.ValidateBAMFormatter(Constants.SmallSizeBAMFileNode,
@@ -452,9 +428,8 @@ namespace Bio.Tests.Framework.IO.BAM
         ///     Input : Small size BAM file.
         ///     Output : Validation of aligned sequence.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0"), TestCategory("BAM")]
+        [Test]
+        [Category("Priority0"), Category("BAM")]
         public void ValidateBAMFormatterWithFilename()
         {
             this.ValidateBAMFormatter(Constants.SmallSizeBAMFileNode,
@@ -468,9 +443,8 @@ namespace Bio.Tests.Framework.IO.BAM
         /// <summary>
         ///     Validates BAM Sort on ReadNames
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0"), TestCategory("BAM")]
+        [Test]
+        [Category("Priority0"), Category("BAM")]
         public void ValidateSortByReadNames()
         {
             using (var parser = new BAMParser())
@@ -485,9 +459,8 @@ namespace Bio.Tests.Framework.IO.BAM
         /// <summary>
         ///     Validates BAM Sort by ChromosomeCoordinates
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0"), TestCategory("BAM")]
+        [Test]
+        [Category("Priority0"), Category("BAM")]
         public void ValidateSortByChromosomeCoordinates()
         {
             using (var parser = new BAMParser())
@@ -504,9 +477,8 @@ namespace Bio.Tests.Framework.IO.BAM
         /// <summary>
         ///     Validates BAM Sort by ChromosomeNameAndCoordinates
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0"), TestCategory("BAM")]
+        [Test]
+        [Category("Priority0"), Category("BAM")]
         public void ValidateSortByChromosomeNameAndCoordinates()
         {
             using (var parser = new BAMParser())
@@ -529,9 +501,8 @@ namespace Bio.Tests.Framework.IO.BAM
         ///     Input : BAM file.
         ///     Output : SAM file.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0"), TestCategory("BAM")]
+        [Test]
+        [Category("Priority0"), Category("BAM")]
         public void ValidateBAMToSAMConversion()
         {
             // Get values from xml config file.
@@ -568,9 +539,8 @@ namespace Bio.Tests.Framework.IO.BAM
         ///     Input : SAM file.
         ///     Output : BAM file.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0"), TestCategory("BAM")]
+        [Test]
+        [Category("Priority0"), Category("BAM")]
         public void ValidateSAMToBAMConversion()
         {
             // Get values from xml config file.
@@ -614,9 +584,8 @@ namespace Bio.Tests.Framework.IO.BAM
         ///     Input : SAM file sorted by name instead of alignment location.
         ///     Output: Should throw an error.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0"), TestCategory("BAM")]
+        [Test]
+        [Category("Priority0"), Category("BAM")]
         public void ValidateErrorIndexingUnsortedBAM()
         {
             //samtools throws the following error, we should do the same

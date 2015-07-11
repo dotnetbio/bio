@@ -11,14 +11,14 @@ using Bio.SimilarityMatrices;
 using Bio.TestAutomation.Util;
 using Bio.Util;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bio.Tests
 {
     /// <summary>
     ///     Bvt Test cases for ToString and ConvertToString of all classes
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class ToStringBvtTestCases
     {
         private readonly Utility utilityObj = new Utility(@"TestUtils\TestsConfig.xml");
@@ -28,9 +28,8 @@ namespace Bio.Tests
         /// <summary>
         ///     Validates Sequence ToString()
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateSequenceToString()
         {
             ISequence seqSmall = new Sequence(Alphabets.DNA, "ATCG");
@@ -77,9 +76,8 @@ namespace Bio.Tests
         /// <summary>
         ///     Validates DerivedSequence ToString()
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateDerivedSequenceToString()
         {
             ISequence seqSmall = new Sequence(Alphabets.DNA, "ATCG");
@@ -130,9 +128,8 @@ namespace Bio.Tests
         /// <summary>
         ///     Validates QualitativeSequence ToString
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateQualitativeSequenceToString()
         {
             var seqData = new byte[4];
@@ -155,9 +152,8 @@ namespace Bio.Tests
         /// <summary>
         ///     Validates All Alphabets ToString
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateAllAlphabetsToString()
         {
             DnaAlphabet dna = DnaAlphabet.Instance;
@@ -185,9 +181,8 @@ namespace Bio.Tests
         /// <summary>
         ///     Validates SequenceRange ToString
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateSequenceRangeToString()
         {
             var range = new SequenceRange("chr20", 0, 3);
@@ -198,9 +193,8 @@ namespace Bio.Tests
         /// <summary>
         ///     Validates SequenceRangeGrouping ToString
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateSequenceRangeGroupingToString()
         {
             ISequenceRange range1 = new SequenceRange("chr20", 0, 3);
@@ -219,9 +213,8 @@ namespace Bio.Tests
         /// <summary>
         ///     Validates SequenceStatistics ToString
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateSequenceStatisticsToString()
         {
             ISequence seq = new Sequence(Alphabets.DNA, "ATCGATCG");
@@ -258,9 +251,8 @@ namespace Bio.Tests
         /// <summary>
         ///     Validates AlignedSequence ToString
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateAlignedSequenceToString()
         {
             IList<ISequence> seqList = new List<ISequence>();
@@ -291,9 +283,8 @@ namespace Bio.Tests
         /// <summary>
         ///     Validates Cluster ToString
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateClusterToString()
         {
             var match = new Match();
@@ -318,9 +309,8 @@ namespace Bio.Tests
         /// <summary>
         ///     Validates DeltaAlignment ToString
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateDeltaAlignmentToString()
         {
             ISequence refSeq = new Sequence(Alphabets.DNA, "ATCGGGGGGGGAAAAAAATTTTCCCCGGGGG");
@@ -352,9 +342,8 @@ namespace Bio.Tests
         /// <summary>
         ///     Validates PairwiseAlignedSequence ToString
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidatePairwiseAlignedSequenceToString()
         {
             var alignedSeq = new PairwiseAlignedSequence();
@@ -373,9 +362,8 @@ namespace Bio.Tests
         /// <summary>
         ///     Validates PairwiseSequenceAlignment ToString
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidatePairwiseSequenceAlignmentToString()
         {
             IPairwiseSequenceAlignment align = new PairwiseSequenceAlignment();
@@ -396,9 +384,8 @@ namespace Bio.Tests
         /// <summary>
         ///     Validates Match And MatchExtension ToString
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateMatchAndMatchExtensionToString()
         {
             var match = new Match();
@@ -423,9 +410,8 @@ namespace Bio.Tests
         /// <summary>
         ///     Validates SequenceAlignment ToString
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateSequenceAlignmentToString()
         {
             ISequenceAligner aligner = SequenceAligners.NeedlemanWunsch;
@@ -463,9 +449,8 @@ namespace Bio.Tests
         /// <summary>
         ///     Validates Contig ToString
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateContigToString()
         {
             const int matchScore = 5;
@@ -560,9 +545,8 @@ namespace Bio.Tests
         /// <summary>
         ///     Validates MatePair ToString
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateMatePairToString()
         {
             var p = new MatePair("2K") {ForwardReadID = "F", ReverseReadID = "R"};
@@ -575,9 +559,8 @@ namespace Bio.Tests
         /// <summary>
         ///     Validates OverlapDenovoAssembly ToString
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateOverlapDenovoAssemblyToString()
         {
             const int matchScore = 5;
@@ -693,9 +676,8 @@ namespace Bio.Tests
         /// <summary>
         ///     Validates PadenaAssembly ToString
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidatePadenaAssemblyToString()
         {
             ISequence seq2 = new Sequence(Alphabets.DNA, "ACAAAAGCAAC");
@@ -736,9 +718,8 @@ namespace Bio.Tests
         /// <summary>
         ///     Validates Sequence ConvertToString()
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateSequenceConvertToString()
         {
             string seqLargeString = this.utilityObj.xmlUtil.GetTextValue(Constants.ToStringNodeName,
@@ -770,9 +751,8 @@ namespace Bio.Tests
         /// <summary>
         ///     Validates DerivedSequence ConvertToString()
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateDerivedSequenceConvertToString()
         {
             string seqLargeStr = this.utilityObj.xmlUtil.GetTextValue(Constants.ToStringNodeName,

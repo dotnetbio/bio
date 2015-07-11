@@ -3,20 +3,19 @@
     using System;
     using System.Collections.Generic;
     using Bio;
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using NUnit.Framework;
 
     /// <summary>
     /// Class to test SparseSequence.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class SparseSequenceTests
     {
         /// <summary>
         /// Test sparse sequence class Constructors.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void TestSparseSequenceConstructor()
         {
             // Send invalid parameters to the constructors.
@@ -29,9 +28,8 @@
         /// <summary>
         /// Test sparse sequence class Enumerator.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void TestSparseSequenceEnumerator()
         {
             int i = 0;
@@ -46,9 +44,8 @@
         /// <summary>
         /// Test sparse sequence class indexers.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void TestSparseSequenceIndexers()
         {
             SparseSequence sparseSeq = null;
@@ -125,9 +122,8 @@
         /// <summary>
         /// Test sparse sequence class GetKnownSequenceItems method.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void TestSparseSequenceGetKnownSequenceItems()
         {
             ISequence seq = new Sequence(Alphabets.DNA, "ATGC");
@@ -148,9 +144,8 @@
         /// <summary>
         /// Test sparse sequence class GetKnownSequenceItems method.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void TestSparseSequenceComplementMethods()
         {
             ISequence seq = new Sequence(Alphabets.DNA, "ATGC");
@@ -185,9 +180,8 @@
          /// <summary>
         /// Test sparse sequence class Constructors.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void TestSparseSequenceIndexOfNonGap()
         {
             List<byte> byteList = new List<byte>();
@@ -288,9 +282,8 @@
         /// <summary>
         /// Test sparse sequence class Constructors.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void TestSparseSequenceGetSubsequence()
         {
             List<byte> byteList = new List<byte>();

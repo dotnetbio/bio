@@ -14,14 +14,14 @@ using Bio.Algorithms.Alignment;
 using Bio.IO.ClustalW;
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bio.TestAutomation.IO.ClustalW
 {
     /// <summary>
     ///     ClustalW Bvt parser Test case implementation.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class ClustalWBvtTestCases
     {
         #region Enums
@@ -55,9 +55,8 @@ namespace Bio.TestAutomation.IO.ClustalW
         ///     Input : ClustalW File
         ///     Validation: Sequence Alignment list
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ClustalWParserValidateParseFileName()
         {
             ParserGeneralTestCases(Constants.SmallSizeClustalWNodeName,
@@ -71,9 +70,8 @@ namespace Bio.TestAutomation.IO.ClustalW
         ///     Input : ClustalW File
         ///     Validation: Sequence Alignment list
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ClustalWParserValidateParseOneFileName()
         {
             ParserGeneralTestCases(Constants.SmallSizeClustalWNodeName,
@@ -88,9 +86,8 @@ namespace Bio.TestAutomation.IO.ClustalW
         ///     Input : ClustalW File
         ///     Validation: Sequence Alignment list
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ClustalWParserValidateParseOneTextReader()
         {
             ParserGeneralTestCases(Constants.SmallSizeClustalWNodeName,
@@ -104,9 +101,8 @@ namespace Bio.TestAutomation.IO.ClustalW
         ///     Input : ClustalW File
         ///     Validation: Sequence Alignment list
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ClustalWParserValidateParseTextReader()
         {
             ParserGeneralTestCases(Constants.SmallSizeClustalWNodeName,
@@ -116,9 +112,8 @@ namespace Bio.TestAutomation.IO.ClustalW
         /// <summary>
         ///     Validate Description,Name and Supported file types for ClustalW Parsers.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ClustalWParserValidatePublicProperties()
         {
             string description = utilityObj.xmlUtil.GetTextValue(

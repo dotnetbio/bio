@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Bio;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bio.Tests
 {
     /// <summary>
     /// Tests DnaAlphabet class.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class DnaAlphabetTests
     {
         #region DnaAlphabet Test Cases
@@ -16,7 +16,7 @@ namespace Bio.Tests
         /// <summary>
         /// Test TryGetComplementSymbol method
         /// </summary>
-        [TestMethod]
+        [Test]
         public void TestDnaAlphabetTryGetComplementSymbol()
         {
             byte basicSymbols;
@@ -42,7 +42,7 @@ namespace Bio.Tests
         /// <summary>
         /// Test TryGetBasicSymbols method
         /// </summary>
-        [TestMethod]
+        [Test]
         public void TestDnaAlphabetTryGetBasicSymbols()
         {
             HashSet<byte> basicSymbols;

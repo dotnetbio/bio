@@ -15,7 +15,7 @@ using Bio.Extensions;
 using Bio.IO.FastQ;
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 #if (SILVERLIGHT == false)
 namespace Bio.TestAutomation.IO.FastQ
@@ -26,7 +26,7 @@ namespace Bio.Silverlight.TestAutomation.IO.FastQ
     /// <summary>
     ///     FASTQ Bvt parser and formatter Test cases implementation.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class FastQBvtTestCases
     {
         #region Enums
@@ -58,9 +58,8 @@ namespace Bio.Silverlight.TestAutomation.IO.FastQ
         ///     Input : FastQ file with Illumina format.
         ///     Output : Validation of Expected sequence, Sequence Id,Sequence Type.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateFastQParserWithIlluminaUsingFastQFile()
         {
             ValidateFastQParser(Constants.SimpleIlluminaFastQNode);
@@ -73,9 +72,8 @@ namespace Bio.Silverlight.TestAutomation.IO.FastQ
         ///     Input : FastQ file with Illumina format.
         ///     Output : Validation of Expected sequence, Sequence Id,Sequence Type.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateFastQParserWithIlluminaUsingFastQFileOnAStream()
         {
             ValidateFastQParserOnAStream(Constants.SimpleIlluminaFastQNode);
@@ -88,9 +86,8 @@ namespace Bio.Silverlight.TestAutomation.IO.FastQ
         ///     Input : FastQ fq file extension with Solexa format.
         ///     Output : Validation of Expected sequence, Sequence Id,Sequence Type.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateFastQParserWithSolexaUsingFastQFqFileOnAStream()
         {
             ValidateFastQParserOnAStream(Constants.SimpleSolexaFqFastQNode);
@@ -103,9 +100,8 @@ namespace Bio.Silverlight.TestAutomation.IO.FastQ
         ///     Input : FastQ fq file extension with Illumina format.
         ///     Output : Validation of Expected sequence, Sequence Id,Sequence Type.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateFastQParserWithIlluminaUsingFastQFqFile()
         {
             ValidateFastQParser(Constants.SimpleIlluminaFqFastQNode);
@@ -118,9 +114,8 @@ namespace Bio.Silverlight.TestAutomation.IO.FastQ
         ///     Input : FastQ fq file extension with Solexa format.
         ///     Output : Validation of Expected sequence, Sequence Id,Sequence Type.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateFastQParserWithSolexaUsingFastQFqFile()
         {
             ValidateFastQParser(Constants.SimpleSolexaFqFastQNode);
@@ -133,9 +128,8 @@ namespace Bio.Silverlight.TestAutomation.IO.FastQ
         ///     Input : FastQ file with Sanger format.
         ///     Output : Validation of Expected sequence, Sequence Id,Sequence Type.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateFastQParserWithSangerUsingFastQFile()
         {
             ValidateFastQParser(Constants.SimpleSangerFastQNode);
@@ -148,9 +142,8 @@ namespace Bio.Silverlight.TestAutomation.IO.FastQ
         ///     Input : FastQ fq file extension with Illumina format.
         ///     Output : Validation of Expected sequence, Sequence Id,Sequence Type.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateFastQParserReadOnlyWithIlluminaUsingFastQFqFile()
         {
             ValidateFastQParser(Constants.SimpleIlluminaFqFastQNode);
@@ -163,9 +156,8 @@ namespace Bio.Silverlight.TestAutomation.IO.FastQ
         ///     Input : FastQ fq file extension with Solexa format.
         ///     Output : Validation of Expected sequence, Sequence Id,Sequence Type.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateFastQParserReadOnlyWithSolexaUsingFastQFqFile()
         {
             ValidateFastQParser(Constants.SimpleSolexaFqFastQNode);
@@ -178,9 +170,8 @@ namespace Bio.Silverlight.TestAutomation.IO.FastQ
         ///     Input : FastQ file with Sanger format.
         ///     Output : Validation of Expected sequence, Sequence Id,Sequence Type.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateFastQParserReadOnlyWithSangerUsingFastQFile()
         {
             ValidateFastQParser(Constants.SimpleSangerFastQNode);
@@ -192,9 +183,8 @@ namespace Bio.Silverlight.TestAutomation.IO.FastQ
         ///     Input : Solexa format FastQ Sequence
         ///     Output : Validation of Expected sequence, Sequence Id,Sequence Type.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateFastQParseForSolexa()
         {
             ValidateFastQParser(Constants.SimpleSolexaFqFastQNode);
@@ -206,9 +196,8 @@ namespace Bio.Silverlight.TestAutomation.IO.FastQ
         ///     Input : Solexa format FastQ Sequence
         ///     Output : Validation of Expected sequence, Sequence Id,Sequence Type.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateFastQParseReadOnlyForSolexa()
         {
             ValidateFastQParser(Constants.SimpleSolexaFqFastQNode);
@@ -220,9 +209,8 @@ namespace Bio.Silverlight.TestAutomation.IO.FastQ
         ///     Input : Sanger format FastQ Sequence
         ///     Output : Validation of Expected sequence, Sequence Id,Sequence Type.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateFastQParseForSanger()
         {
             ValidateFastQParser(Constants.SimpleSangerFastQNode);
@@ -234,9 +222,8 @@ namespace Bio.Silverlight.TestAutomation.IO.FastQ
         ///     Input : Sanger format FastQ Sequence
         ///     Output : Validation of Expected sequence, Sequence Id,Sequence Type.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateFastQParseReadOnlyForSanger()
         {
             ValidateFastQParser(Constants.SimpleSangerFastQNode);
@@ -248,9 +235,8 @@ namespace Bio.Silverlight.TestAutomation.IO.FastQ
         ///     Input : Illumina format FastQ Sequence
         ///     Output : Validation of Expected sequence, Sequence Id,Sequence Type.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateFastQParseForIllumina()
         {
             ValidateFastQParser(Constants.SimpleIlluminaFqFastQNode);
@@ -262,9 +248,8 @@ namespace Bio.Silverlight.TestAutomation.IO.FastQ
         ///     Input : Illumina format FastQ Sequence
         ///     Output : Validation of Expected sequence, Sequence Id,Sequence Type.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateFastQParseReadOnlyForIllumina()
         {
             ValidateFastQParser(Constants.SimpleIlluminaFqFastQNode);
@@ -277,9 +262,8 @@ namespace Bio.Silverlight.TestAutomation.IO.FastQ
         ///     Input : FastQ file with Sanger format.
         ///     Output : Validation of formatting sequence to temporary FastQ file.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void FastQFormatterValidateFastQFileFormat()
         {
             ValidateFastQFormatter(Constants.SimpleSangerFastQNode,
@@ -293,9 +277,8 @@ namespace Bio.Silverlight.TestAutomation.IO.FastQ
         ///     Input : FastQ file with Sanger format.
         ///     Output : Validation of formatting sequence to temporary FastQ file.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void FastQFormatterValidateFastQFileFormatOnStream()
         {
             ValidateFastQFormatterOnAStream(Constants.SimpleSangerFastQNode);
@@ -309,9 +292,8 @@ namespace Bio.Silverlight.TestAutomation.IO.FastQ
         ///     Input : FastQ file with Sanger format.
         ///     Output : Validation of formatting sequence to temporary FastQ Fq file.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void FastQFormatterValidateFastQFqFileFormat()
         {
             ValidateFastQFormatter(Constants.SimpleSangerFastQNode,

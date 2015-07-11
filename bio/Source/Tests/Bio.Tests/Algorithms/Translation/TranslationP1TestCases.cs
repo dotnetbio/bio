@@ -6,14 +6,14 @@ using Bio.Extensions;
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bio.Tests.Algorithms.Translation
 {
     /// <summary>
     ///     Test Automation code for bio Translation and P1 level validations.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class TranslationP1TestCases
     {
         private readonly Utility utilityObj = new Utility(@"TestUtils\TestsConfig.xml");
@@ -25,9 +25,8 @@ namespace Bio.Tests.Algorithms.Translation
         ///     Input Data :Sequence - 'AUGCCUGUUUGA'.
         ///     Output Data : Corresponding amino acid 'Aspartic Acid'.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateLookupWithRnaSequence()
         {
             string alphabetName = this.utilityObj.xmlUtil.GetTextValue(
@@ -57,9 +56,8 @@ namespace Bio.Tests.Algorithms.Translation
         ///     Input Data : Valid Sequence - 'AUGCCUGUUUGA'.
         ///     Output Data : Corresponding amino acid 'Arginine'.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateLookupWithOffsetValueSix()
         {
             string alphabetName = this.utilityObj.xmlUtil.GetTextValue(
@@ -88,9 +86,8 @@ namespace Bio.Tests.Algorithms.Translation
         ///     Input Data : Valid Sequence - 'GUUUGA'.
         ///     Output Data : Corresponding amino acid 'Arginine'.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateLookupWithSixChars()
         {
             string alphabetName = this.utilityObj.xmlUtil.GetTextValue(
@@ -119,9 +116,8 @@ namespace Bio.Tests.Algorithms.Translation
         ///     Input Data : Valid Sequence - 'ATGGCG'.
         ///     Output Data : Corresponding amino acid 'Tyrosine'.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateLookupWithDnaSequence()
         {
             string alphabetName = this.utilityObj.xmlUtil.GetTextValue(
@@ -153,9 +149,8 @@ namespace Bio.Tests.Algorithms.Translation
         ///     Input Data : Valid Sequence - 'AUG'.
         ///     Output Data : Corresponding amino acid ''Methionine'.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateRnaCodonsTraslationWithOffset()
         {
             this.ValidateCodonsTranslationWithOffset(Constants.RnaSequenceWithThreeChars,
@@ -167,9 +162,8 @@ namespace Bio.Tests.Algorithms.Translation
         ///     Input Data : Valid Sequence - 'AUGCGCCCGAUG'.
         ///     Output Data : Corresponding amino acid 'Arginine'.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateRnaCodonsTraslationWithThreeOffset()
         {
             this.ValidateCodonsTranslationWithOffset(Constants.RnaSequenceWithTwelveChars,
@@ -185,9 +179,8 @@ namespace Bio.Tests.Algorithms.Translation
         ///     Input Data : Valid DNA Symbol - 'A'
         ///     Output Data : Complement of DNA Symbol - 'T'
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateSingleDnaSymbolComplementation()
         {
             // Get Node values from XML.
@@ -213,9 +206,8 @@ namespace Bio.Tests.Algorithms.Translation
         ///     Input Data : Valid DNA Symbol - 'ATATGTAGGTACCCGATA'
         ///     Output Data : Complement of DNA Symbol - 'TATACATCCATGGGCTAT'
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateMoreThanTwelveCharsDnaComplementation()
         {
             // Get Node values from XML.
@@ -244,9 +236,8 @@ namespace Bio.Tests.Algorithms.Translation
         ///     Input Data : Valid DNA Symbol - 'A'
         ///     Output Data : Reverse Complement of DNA Symbol - 'T'
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateSingleSymbolDnaRevComplementation()
         {
             // Get Node values from XML.
@@ -276,9 +267,8 @@ namespace Bio.Tests.Algorithms.Translation
         ///     Input Data : Valid DNA Sequence - 'ATATGTAGGTACCCGATA'
         ///     Output Data : Reverse Complement of DNA Sequence - 'TATACATCCATGGGCTAT'
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateMoreThanTwelveCharsDnaRevComplementation()
         {
             // Get Node values from XML.
@@ -307,9 +297,8 @@ namespace Bio.Tests.Algorithms.Translation
         ///     Input Data : Valid DNA Sequence - 'AGGTACCCGATA'
         ///     Output Data : Complement of DNA Sequence - 'TCCATGGGCTAT'
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateDnaComplementationWithTweleveChars()
         {
             // Get Node values from XML.
@@ -338,9 +327,8 @@ namespace Bio.Tests.Algorithms.Translation
         ///     Input Data : Valid DNA Sequence - 'AGGTACCCGATA'
         ///     Output Data : Reverse Complement of DNA Sequence - 'TATCGGGTACCT'
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateDnaReverseComplementationWithTweleveChars()
         {
             // Get Node values from XML.
@@ -373,9 +361,8 @@ namespace Bio.Tests.Algorithms.Translation
         ///     Input Data : Valid DNA Symbol - 'G'
         ///     Output Data : Transcribe - 'G'
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateSingleSymbolTranscribe()
         {
             // Get Node values from XML.
@@ -405,9 +392,8 @@ namespace Bio.Tests.Algorithms.Translation
         ///     Input Data : Valid DNA Sequence - 'ATATGTAGGTACCCGATA'
         ///     Output Data : Transcribe Seqeunce - 'AUAUGUAGGUACCCGAUA'
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateMoreThanTwelveCharsDnaTranscribe()
         {
             // Get Node values from XML.
@@ -436,9 +422,8 @@ namespace Bio.Tests.Algorithms.Translation
         ///     Input Data : Valid DNA Symbol - 'G'
         ///     Output Data : Transcribe Symbol - 'G'
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateSingleSymbolDnaReverseTranscribe()
         {
             // Get Node values from XML.
@@ -469,9 +454,8 @@ namespace Bio.Tests.Algorithms.Translation
         ///     Input Data : Valid DNA Sequence - 'ATATGTAGGTACCCGATA'
         ///     Output Data : Reverse Transcribe Seqeunce - 'AUAUGUAGGUACCCGAUA'
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateMoreThanTwelveCharsDnaReverseTranscribe()
         {
             // Get Node values from XML.
@@ -501,9 +485,8 @@ namespace Bio.Tests.Algorithms.Translation
         ///     Input Data : Valid DNA Sequence - 'ACG'
         ///     Output Data : Transcribe Seqeunce - 'ACG'
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateDnaToRnaTranscribeWithThreeChars()
         {
             this.ValidateDnaToRnaTranscribe(Constants.DnaSequenceWithThreeChars,
@@ -515,9 +498,8 @@ namespace Bio.Tests.Algorithms.Translation
         ///     Input Data : Valid DNA Sequence - 'ATATGTAGGTAC'
         ///     Output Data : Transcribe Seqeunce - 'AUAUGUAGGUAC'
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateDnaToRnaTranscribeWithTwelveChars()
         {
             this.ValidateDnaToRnaTranscribe(Constants.DnaSequenceWithTweleveChars,
@@ -529,9 +511,8 @@ namespace Bio.Tests.Algorithms.Translation
         ///     Input Data : Valid RNA Sequence - 'UGC'
         ///     Output Data : Reverse Transcribe Seqeunce - 'TGC'
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateRnaToDnaReverseTranscribeWithThreeChars()
         {
             this.ValidateRnaToDnaReverseTranscribe(Constants.TranscribeForThreeChars,
@@ -543,9 +524,8 @@ namespace Bio.Tests.Algorithms.Translation
         ///     Input Data : Valid RNA Sequence - 'UAUACAUCCAUG'
         ///     Output Data : Reverse Transcribe Seqeunce - 'TATACATCCATG'
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateRnaToDnaReverseTranscribeWithTwelveChars()
         {
             this.ValidateRnaToDnaReverseTranscribe(Constants.TranscribeForTweleveChars,
@@ -561,9 +541,8 @@ namespace Bio.Tests.Algorithms.Translation
         ///     Input Data : Seqeunce - 'CGCAUGCCGAUG'
         ///     Output Data : "RMPM".
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateTwelveCharsProteinTranslation()
         {
             // Get Node values from XML.
@@ -588,9 +567,8 @@ namespace Bio.Tests.Algorithms.Translation
         ///     Input Data : Valid Symbol - 'A'
         ///     Output Data : "Null"
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateSingleSymbolTranslation()
         {
             // Get Node values from XML.
@@ -614,9 +592,8 @@ namespace Bio.Tests.Algorithms.Translation
         ///     Input Data : Sequence - 'AUGCGCCCGAUGCGC'
         ///     Output Data : "Methionine,Arginine,Proline,Methionine,Arginine".
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateMoreThanTwelveCharsProteinTranslation()
         {
             // Get Node values from XML.
@@ -641,9 +618,8 @@ namespace Bio.Tests.Algorithms.Translation
         ///     Input Data : Sequence - 'UACCGC'
         ///     Output Data : "Tyrosine,Arginine".
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateSixCharsProteinTranslation()
         {
             // Get Node values from XML.
@@ -672,9 +648,8 @@ namespace Bio.Tests.Algorithms.Translation
         ///     Input Data : Sequence - 'GUNAACAGAAANUGU'
         ///     Output Data : "XNRXC".
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateProteinTranslationForAmbiguousRna()
         {
             // Get Node values from XML.
@@ -699,9 +674,8 @@ namespace Bio.Tests.Algorithms.Translation
         ///     Input Data : Sequence - 'CGCAUGCCGAUG'
         ///     Output Data : "Arginine,Methionine,Proline,Methionine".
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateTwelveCharsProteinTranslationWithOffset()
         {
             // Get Node values from XML.
@@ -729,9 +703,8 @@ namespace Bio.Tests.Algorithms.Translation
         ///     Input Data : Sequence - 'ATGGCG'
         ///     Output Data : "Tyrosine,Arginine".
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateDnaProteinTranslation()
         {
             // Get Node values from XML.
@@ -763,9 +736,8 @@ namespace Bio.Tests.Algorithms.Translation
         ///     Input Data : Sequence - 'CGCAUGCCGAUG'
         ///     Output Data : "PM".
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateTwelveCharsProteinTranslationWithOffsetSix()
         {
             // Get Node values from XML.
@@ -793,9 +765,8 @@ namespace Bio.Tests.Algorithms.Translation
         ///     Input Data : Sequence - 'CGCAUGCCGAUG'
         ///     Output Data : Empty string.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateTwelveCharsProteinTranslationWithOffsetTwelve()
         {
             // Get Node values from XML.
@@ -821,9 +792,8 @@ namespace Bio.Tests.Algorithms.Translation
         ///     Input Data : Sequence - 'AUGCGCCCGAUGCGC'
         ///     Output Data : "Arginine".
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateMoreThanTwelveCharsProteinTranslationWithOffsetTwelve()
         {
             // Get Node values from XML.
@@ -851,9 +821,8 @@ namespace Bio.Tests.Algorithms.Translation
         ///     Input Data : Sequence - 'ATGGCG'
         ///     Output Data : "Arginine".
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateDnaProteinTranslationWithOffset()
         {
             // Get Node values from XML.
@@ -888,9 +857,8 @@ namespace Bio.Tests.Algorithms.Translation
         ///     Input Data : Sequence - 'AUGCGCCCGAUG'
         ///     Output Data : "RPM".
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateRnaProteinTranslationWithThreeOffset()
         {
             // Get Node values from XML.

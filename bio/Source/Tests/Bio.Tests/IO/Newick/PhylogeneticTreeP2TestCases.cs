@@ -12,14 +12,14 @@ using Bio.IO.Newick;
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bio.TestAutomation.IO.Newick
 {
     /// <summary>
     /// Phylogenetic Tree P2 parser and formatter Test case implementation.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class PhylogeneticTreeP2TestCases
     {
         #region Enums
@@ -50,9 +50,8 @@ namespace Bio.TestAutomation.IO.Newick
         /// Input : Phylogenetic Tree
         /// Output : Expected Exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void PhylogeneticTreeP2ParserInvalidateParse()
         {
             PhylogeneticTreeParserGeneralTests(
@@ -66,9 +65,8 @@ namespace Bio.TestAutomation.IO.Newick
         /// Input : Phylogenetic Tree
         /// Output : Expected Exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void PhylogeneticTreeP2ParserInvalidateParsePeek()
         {
             PhylogeneticTreeParserGeneralTests(
@@ -82,9 +80,8 @@ namespace Bio.TestAutomation.IO.Newick
         /// Input : null as treeBuilder
         /// Output : Expected Exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void PhylogeneticTreeP2ParserInvalidateParseBuilder()
         {
             try
@@ -108,9 +105,8 @@ namespace Bio.TestAutomation.IO.Newick
         /// Input : Phylogenetic Tree
         /// Output : Expected Exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void PhylogeneticTreeP2ParserInvalidateLeaf()
         {
             PhylogeneticTreeParserGeneralTests(
@@ -124,9 +120,8 @@ namespace Bio.TestAutomation.IO.Newick
         /// Input : Phylogenetic Tree
         /// Output : Expected Exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void PhylogeneticTreeP2ParserInvalidateBranch()
         {
             PhylogeneticTreeParserGeneralTests(

@@ -14,7 +14,7 @@ using Bio.IO.GenBank;
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using System.Runtime.Serialization;
 using Bio;
 
@@ -27,7 +27,7 @@ using Bio;
     /// <summary>
     /// GenBank Features P2 test case implementation.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class GenBankFeaturesP2TestCases
     {
 
@@ -45,9 +45,8 @@ using Bio;
         /// Input : GenBank sequence,location.
         /// Output : Validation of expected sub sequence.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidateSubSequenceWithComplimentOperator()
         {
             // Get Values from XML node.
@@ -145,9 +144,8 @@ using Bio;
         /// Input : GenBank sequence,location.
         /// Output : Validation of expected sub sequence.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidateSubSequenceWithInvalidAccessionID()
         {
             // Get Values from XML node.
@@ -203,9 +201,8 @@ using Bio;
         /// Input : GenBank sequence,location.
         /// Output : Validation of location end data exception.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidateGenBankLocationEndData()
         {
             // Get Values from XML node.
@@ -257,9 +254,8 @@ using Bio;
         /// Input : GenBank sequence,location.
         /// Output : Validation of location end data.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidateGenBankLocationGetStart()
         {
             // Build a location.
@@ -293,9 +289,8 @@ using Bio;
         /// Input :Invalid location data.
         /// Output : Validation of location end data.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidateGenBankLocationIsInStart()
         {
             string startData = ".";
@@ -335,9 +330,8 @@ using Bio;
         /// Input :Invalid location data.
         /// Output : Validation of location end data.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidateGenBankLocationEndDataWithInvalidValues()
         {
             // Invalidate location with end data ".";
@@ -378,9 +372,8 @@ using Bio;
         /// Input : GenBank File
         /// Output : Validation of GenBank GetLocation.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidateGenBankLocations()
         {
             // Build a location with invalid values
@@ -416,9 +409,8 @@ using Bio;
         /// Input : GenBank File
         /// Output : Validation of GenBank leaf locations.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InValidateGenBankLocationPositions()
         {
             // Get Values from XML node.

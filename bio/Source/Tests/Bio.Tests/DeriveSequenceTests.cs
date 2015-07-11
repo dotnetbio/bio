@@ -1,20 +1,19 @@
 ﻿using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bio.Tests
 {
     /// <summary>
     /// Tests for derived sequences.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class DeriveSequenceTests
     {
         /// <summary>
         /// Get Reversed Sequence.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void TestGetReversedSequence()
         {
             const string sequence = "ATGCC";
@@ -28,9 +27,8 @@ namespace Bio.Tests
         /// <summary>
         /// Get Complemented Sequence.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void TestGetComplementedSequence()
         {
             const string sequence = "ATGCC";
@@ -44,9 +42,8 @@ namespace Bio.Tests
         /// <summary>
         /// Get Reverse Complemented Sequence.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void TestGetReverseComplementedSequence()
         {
             const string sequence = "ATGCC";

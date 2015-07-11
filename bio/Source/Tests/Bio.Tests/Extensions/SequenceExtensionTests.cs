@@ -1,6 +1,6 @@
 ﻿using System;
 using Bio.Extensions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bio.Tests.Extensions
 {
@@ -8,7 +8,7 @@ namespace Bio.Tests.Extensions
     /// This class is used to test various extensions on the
     /// Sequence and ISequence types.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class SequenceExtensionTests
     {
         private const string SmallSequence = "AAAA----CCCC----GGGG----TTTT";
@@ -53,7 +53,7 @@ namespace Bio.Tests.Extensions
         /// This method retrieves the string for a valid sequence
         /// with no options.
         /// </summary>
-        [TestMethod]
+        [Test]
         public void TryToGetDefaultValidSequence()
         {
             ISequence sequence = new Sequence(DnaAlphabet.Instance, SmallSequence);
@@ -65,7 +65,7 @@ namespace Bio.Tests.Extensions
         /// This method retrieves the string for a valid sequence
         /// with no options.
         /// </summary>
-        [TestMethod]
+        [Test]
         public void TryToGetSubstringValidSequence()
         {
             ISequence sequence = new Sequence(DnaAlphabet.Instance, SmallSequence);
@@ -77,7 +77,7 @@ namespace Bio.Tests.Extensions
         /// This method retrieves the string for a valid sequence
         /// with no options.
         /// </summary>
-        [TestMethod]
+        [Test]
         public void TryToGetEndValidSequence()
         {
             ISequence sequence = new Sequence(DnaAlphabet.Instance, SmallSequence);
@@ -89,36 +89,33 @@ namespace Bio.Tests.Extensions
         /// This method retrieves the string for a valid sequence
         /// with no options.
         /// </summary>
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Test]
         public void CheckForNullException()
         {
             ISequence sequence = null;
-            string theString = sequence.ConvertToString();
+            Assert.Throws<ArgumentNullException>( () => sequence.ConvertToString());
         }
 
         /// <summary>
         /// This method retrieves the string for a valid sequence
         /// with no options.
         /// </summary>
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentOutOfRangeException))]
+        [Test]
         public void CheckForOutOfRangeExceptionOnInvalidStartIndex()
         {
             ISequence sequence = new Sequence(DnaAlphabet.Instance, "-");
-            string theString = sequence.ConvertToString(2,10);
+            Assert.Throws<ArgumentOutOfRangeException> ( () =>  sequence.ConvertToString(2,10));
         }
 
         /// <summary>
         /// This method retrieves the string for a valid sequence
         /// with no options.
         /// </summary>
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentOutOfRangeException))]
+        [Test]
         public void CheckForOutOfRangeExceptionOnInvalidLength()
         {
             ISequence sequence = new Sequence(DnaAlphabet.Instance, "-");
-            string theString = sequence.ConvertToString(0, 10);
+            Assert.Throws<ArgumentOutOfRangeException> ( () =>  sequence.ConvertToString(0, 10));
         }
 
     }

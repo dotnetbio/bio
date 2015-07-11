@@ -14,7 +14,7 @@ using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
 using System.Collections.Generic;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 #if (SILVERLIGHT == false)
     namespace Bio.TestAutomation.IO.GFF
@@ -25,7 +25,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
     /// <summary>
     /// Gff P2 parser and formatter Test case implementation.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class GffP2TestCases
     {
 
@@ -63,9 +63,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         /// Input : Invalid Gff File
         /// Output: Expected Exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateGffParserFeatureLength()
         {
             InvalidateGffParserFeatures(
@@ -78,9 +77,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         /// Input : Invalid Gff File
         /// Output: Expected Exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateGffParserFeatureStart()
         {
             InvalidateGffParserFeatures(
@@ -93,9 +91,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         /// Input : Invalid Gff File
         /// Output: Expected Exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateGffParserFeatureEnd()
         {
             InvalidateGffParserFeatures(
@@ -108,9 +105,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         /// Input : Invalid Gff File
         /// Output: Expected Exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateGffParserFeatureScore()
         {
             InvalidateGffParserFeatures(
@@ -123,9 +119,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         /// Input : Invalid Gff File
         /// Output: Expected Exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateGffParserFeatureStrand()
         {
             InvalidateGffParserFeatures(
@@ -138,9 +133,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         /// Input : Invalid Gff File
         /// Output: Expected Exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateGffParserFeatureFrame()
         {
             InvalidateGffParserFeatures(
@@ -153,9 +147,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         /// Input : Invalid Gff File
         /// Output: Expected Exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateGffParserNullFeatures()
         {
             InvalidateGffParserFeatures(
@@ -168,9 +161,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         /// Input : Invalid Gff File
         /// Output: Expected Exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateGffParserHeaderVersion()
         {
             InvalidateGffParserFeatures(
@@ -183,9 +175,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         /// Input : Invalid Gff File
         /// Output: Expected Exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateGffParserHeaderDateFormat()
         {
             InvalidateGffParserFeatures(
@@ -198,9 +189,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         /// Input : Invalid Gff File
         /// Output: Expected Exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateGffParserHeaderFieldLen()
         {
             InvalidateGffParserFeatures(
@@ -213,9 +203,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         /// Input : Invalid Gff File
         /// Output: Expected Exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateGffParserHeaderProtein()
         {
             InvalidateGffParserFeatures(
@@ -228,9 +217,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         /// Input : Sequence with null value
         /// Output: Argument Null Exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateWriteWithNullSequence()
         {
             InvalidateGffWriteMethod(ArgumentNullExceptions.writeWithEmptySequence);
@@ -241,9 +229,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         /// Input : Sequence without specifying the file to be written .
         /// Output: Argument Null Exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateWriteWithoutFileName()
         {
             InvalidateGffWriteMethod(ArgumentNullExceptions.writeWithEmptyFile);
@@ -254,9 +241,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         /// Input : Empty sequence without specifying the file to be written .
         /// Output: Argument Null Exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateFormatStringWithNullSequence()
         {
             InvalidateGffWriteMethod(ArgumentNullExceptions.FormatString);
@@ -267,9 +253,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         /// Input : Sequence with null value
         /// Output: Argument Null Exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateWriteWithNullSequenceInACollection()
         {
             InvalidateGffWriteMethod(ArgumentNullExceptions.writeCollectionWithEmptySequence);
@@ -280,9 +265,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         /// Input : Sequence without specifying the file to be written .
         /// Output: Argument Null Exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateWriteWithoutFileNameInACollection()
         {
             InvalidateGffWriteMethod(ArgumentNullExceptions.writeCollectionWithEmptyFile);

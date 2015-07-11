@@ -17,14 +17,14 @@ using Bio.IO;
 using Bio.IO.FastQ;
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bio.TestAutomation.IO.FastQ
 {
     /// <summary>
     ///     FASTQ P1 parser and formatter Test cases implementation.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class FastQP1TestCases
     {
         private readonly Utility utilityObj = new Utility(@"TestUtils\FastQTestsConfig.xml");
@@ -38,9 +38,8 @@ namespace Bio.TestAutomation.IO.FastQ
         ///     Input : FastQ file with Sanger format.
         ///     Output : Validation of Expected sequence, Sequence Id,Sequence Type.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateFastQParserWithSangerUsingFastQExtensionFile()
         {
             ValidateFastQParser(Constants.SimpleSangerFastQNode);
@@ -53,9 +52,8 @@ namespace Bio.TestAutomation.IO.FastQ
         ///     Input : Rna FastQ file with Sanger format.
         ///     Output : Validation of Expected sequence, Sequence Id,Sequence Type.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateFastQParserWithRnaSanger()
         {
             ValidateFastQParser(Constants.SimpleRnaSangerFastQNode);
@@ -68,9 +66,8 @@ namespace Bio.TestAutomation.IO.FastQ
         ///     Input : Rna FastQ file with Illumina format.
         ///     Output : Validation of Expected sequence, Sequence Id,Sequence Type.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateFastQParserWithRnaIllumina()
         {
             ValidateFastQParser(Constants.SimpleRnaIlluminaFastQNode);
@@ -83,9 +80,8 @@ namespace Bio.TestAutomation.IO.FastQ
         ///     Input : Rna FastQ file with Solexa format.
         ///     Output : Validation of Expected sequence, Sequence Id,Sequence Type.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateFastQParserWithRnaSolexa()
         {
             ValidateFastQParser(Constants.SimpleRnaSolexaFastQNode);
@@ -98,9 +94,8 @@ namespace Bio.TestAutomation.IO.FastQ
         ///     Input : Dna FastQ file with Sanger format.
         ///     Output : Validation of Expected sequence, Sequence Id,Sequence Type.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateFastQParserWithDnaSanger()
         {
             ValidateFastQParser(Constants.SimpleSangerFastQNode);
@@ -113,9 +108,8 @@ namespace Bio.TestAutomation.IO.FastQ
         ///     Input : Rna FastQ file with Illumina format.
         ///     Output : Validation of Expected sequence, Sequence Id,Sequence Type.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateFastQParserWithDnaIllumina()
         {
             ValidateFastQParser(Constants.SimpleIlluminaFastQNode);
@@ -128,9 +122,8 @@ namespace Bio.TestAutomation.IO.FastQ
         ///     Input : Rna FastQ file with Solexa format.
         ///     Output : Validation of Expected sequence, Sequence Id,Sequence Type.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateFastQParserWithDnaSolexa()
         {
             ValidateFastQParser(Constants.SimpleSolexaFqFastQNode);
@@ -143,9 +136,8 @@ namespace Bio.TestAutomation.IO.FastQ
         ///     Input : Protein FastQ file with Sanger format.
         ///     Output : Validation of Expected sequence, Sequence Id,Sequence Type.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateFastQParserWithProteinSanger()
         {
             ValidateFastQParser(Constants.SimpleProteinSangerFastQNode);
@@ -158,9 +150,8 @@ namespace Bio.TestAutomation.IO.FastQ
         ///     Input : Protein FastQ file with Illumina format.
         ///     Output : Validation of Expected sequence, Sequence Id,Sequence Type.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateFastQParserWithProteinIllumina()
         {
             ValidateFastQParser(Constants.SimpleProteinIlluminaFastQNode);
@@ -173,9 +164,8 @@ namespace Bio.TestAutomation.IO.FastQ
         ///     Input : Protein FastQ file with Solexa format.
         ///     Output : Validation of Expected sequence, Sequence Id,Sequence Type.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateFastQParserWithProteinSolexa()
         {
             ValidateFastQParser(Constants.SimpleProteinSolexaFastQNode);
@@ -188,9 +178,8 @@ namespace Bio.TestAutomation.IO.FastQ
         ///     Input : Medium size FastQ file with Sanger format.
         ///     Output : Validation of Expected sequence, Sequence Id,Sequence Type.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void FastQParserValidateParseWithMediumSizeSangerDnaSequence()
         {
             ValidateFastQParser(Constants.MediumSizeDnaSangerFastQNode);
@@ -203,9 +192,8 @@ namespace Bio.TestAutomation.IO.FastQ
         ///     Input : Medium size FastQ file with Illumina format.
         ///     Output : Validation of Expected sequence, Sequence Id,Sequence Type.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void FastQParserValidateParseWithMediumSizeIlluminaDnaSequence()
         {
             ValidateFastQParser(Constants.MediumSizeDnaIlluminaFastQNode);
@@ -218,9 +206,8 @@ namespace Bio.TestAutomation.IO.FastQ
         ///     Input : Medium size FastQ file with Solexa format.
         ///     Output : Validation of Expected sequence, Sequence Id,Sequence Type.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void FastQParserValidateParseWithMediumSizeSolexaDnaSequence()
         {
             ValidateFastQParser(Constants.MediumSizeDnaSolexaFastQNode);
@@ -233,9 +220,8 @@ namespace Bio.TestAutomation.IO.FastQ
         ///     Input : Large size FastQ file with Sanger format.
         ///     Output : Validation of Expected sequence, Sequence Id,Sequence Type.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void FastQParserValidateParseWithLargeSizeSangerDnaSequence()
         {
             ValidateFastQParser(Constants.LargeSizeDnaSangerFastQNode);
@@ -248,9 +234,8 @@ namespace Bio.TestAutomation.IO.FastQ
         ///     Input : Large size FastQ file with Illumina format.
         ///     Output : Validation of Expected sequence, Sequence Id,Sequence Type.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void FastQParserValidateParseWithLargeSizeIlluminaDnaSequence()
         {
             ValidateFastQParser(Constants.LargeSizeDnaIlluminaFastQNode);
@@ -263,9 +248,8 @@ namespace Bio.TestAutomation.IO.FastQ
         ///     Input : Large size FastQ file with Solexa format.
         ///     Output : Validation of Expected sequence, Sequence Id,Sequence Type.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void FastQParserValidateParseWithLargeSizeSolexaDnaSequence()
         {
             ValidateFastQParser(Constants.LargeSizeDnaSolexaFastQNode);
@@ -278,9 +262,8 @@ namespace Bio.TestAutomation.IO.FastQ
         ///     Input : One line Dna sequence Illumina FastQ file with Solexa format.
         ///     Output : Validation of Expected sequence, Sequence Id,Sequence Type.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void FastQParserValidateParseWithOneLineIluminaDnaSequence()
         {
             ValidateFastQParser(Constants.SingleSequenceIlluminaFastQNode);
@@ -293,9 +276,8 @@ namespace Bio.TestAutomation.IO.FastQ
         ///     Input : One line Dna sequence Sanger FastQ file with Solexa format.
         ///     Output : Validation of Expected sequence, Sequence Id,Sequence Type.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void FastQParserValidateParseWithOneLineSangerDnaSequence()
         {
             ValidateFastQParser(Constants.SingleSequenceSangerFastQNode);
@@ -308,9 +290,8 @@ namespace Bio.TestAutomation.IO.FastQ
         ///     Input : One line Dna sequence Solexa FastQ file with Solexa format.
         ///     Output : Validation of Expected sequence, Sequence Id,Sequence Type.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void FastQParserValidateParseWithOneLineSolexaDnaSequence()
         {
             ValidateFastQParser(Constants.SingleSequenceSolexaFastQNode);
@@ -323,9 +304,8 @@ namespace Bio.TestAutomation.IO.FastQ
         ///     Input : Two line medium size Dna sequence Sanger FastQ file with Solexa format.
         ///     Output : Validation of Expected sequence, Sequence Id,Sequence Type.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void FastQParserValidateParseWithTwoLineMediumSizeSangerDnaSequence()
         {
             ValidateFastQParser(Constants.TwoLineDnaSangerFastQNode);
@@ -338,9 +318,8 @@ namespace Bio.TestAutomation.IO.FastQ
         ///     Input : Two line medium size Dna sequence Sanger FastQ file with Illumina format.
         ///     Output : Validation of Expected sequence, Sequence Id,Sequence Type.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void FastQParserValidateParseWithTwoLineMediumSizeIlluminaDnaSequence()
         {
             ValidateFastQParser(Constants.TwoLineDnaIlluminaFastQNode);
@@ -353,9 +332,8 @@ namespace Bio.TestAutomation.IO.FastQ
         ///     Input : Two line medium size Dna sequence Solexa FastQ file with Illumina format.
         ///     Output : Validation of Expected sequence, Sequence Id,Sequence Type.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void FastQParserValidateParseWithTwoLineMediumSizeSolexaDnaSequence()
         {
             ValidateFastQParser(Constants.TwoLineDnaSolexaFastQNode);
@@ -368,9 +346,8 @@ namespace Bio.TestAutomation.IO.FastQ
         ///     Input : Multiple sequence FastQ file with Solexa format.
         ///     Output : Validation of Expected sequence, Sequence Id,Sequence Type.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateDnaRnaMultipleSeqFastQParserWithSolexa()
         {
             ValidateMulitpleSequenceFastQParser(Constants.MultiSeqSolexaDnaRnaNode, null);
@@ -383,9 +360,8 @@ namespace Bio.TestAutomation.IO.FastQ
         ///     Input : Multiple sequence FastQ file with Sanger format.
         ///     Output : Validation of Expected sequence, Sequence Id,Sequence Type.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateRnaProteinMultipleSeqFastQParserWithSanger()
         {
             ValidateMulitpleSequenceFastQParser(Constants.MultiSeqSangerRnaProNode, null);
@@ -398,9 +374,8 @@ namespace Bio.TestAutomation.IO.FastQ
         ///     Input : Multiple sequence FastQ file with Illumina format.
         ///     Output : Validation of Expected sequence, Sequence Id,Sequence Type.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateRnaProteinMultipleSeqFastQParserWithIllumina()
         {
             ValidateMulitpleSequenceFastQParser(Constants.MultiSeqIlluminaRnaProNode, null);
@@ -413,9 +388,8 @@ namespace Bio.TestAutomation.IO.FastQ
         ///     Input : Multiple sequence FastQ file with Solexa format.
         ///     Output : Validation of Expected sequence, Sequence Id,Sequence Type.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateRnaProteinMultipleSeqFastQParserWithSolexa()
         {
             ValidateMulitpleSequenceFastQParser(Constants.MultiSeqSolexaRnaProNode, null);
@@ -428,9 +402,8 @@ namespace Bio.TestAutomation.IO.FastQ
         ///     Input : Multiple sequence FastQ file with Sanger format.
         ///     Output : Validation of Expected sequence, Sequence Id,Sequence Type.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateDnaProteinMultipleSeqFastQParserWithSanger()
         {
             ValidateMulitpleSequenceFastQParser(Constants.MultiSeqSangerDnaProNode, null);
@@ -443,9 +416,8 @@ namespace Bio.TestAutomation.IO.FastQ
         ///     Input : Multiple sequence FastQ file with Illumina format.
         ///     Output : Validation of Expected sequence, Sequence Id,Sequence Type.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateDnaProteinMultipleSeqFastQParserWithIllumina()
         {
             ValidateMulitpleSequenceFastQParser(Constants.MultiSeqIlluminaDnaProNode, null);
@@ -458,9 +430,8 @@ namespace Bio.TestAutomation.IO.FastQ
         ///     Input : Multiple sequence FastQ file with Solexa format.
         ///     Output : Validation of Expected sequence, Sequence Id,Sequence Type.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateDnaProteinMultipleSeqFastQParserWithSolexa()
         {
             ValidateMulitpleSequenceFastQParser(Constants.MultiSeqSolexaDnaProNode, null);
@@ -473,9 +444,8 @@ namespace Bio.TestAutomation.IO.FastQ
         ///     Input : Multiple sequence FastQ file with Sanger format.
         ///     Output : Validation of Expected sequence, Sequence Id,Sequence Type.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateDnaRnaProteinMultipleSeqFastQParserWithSanger()
         {
             ValidateMulitpleSequenceFastQParser(Constants.MultiSeqSangerDnaRnaProNode,
@@ -489,9 +459,8 @@ namespace Bio.TestAutomation.IO.FastQ
         ///     Input : Multiple sequence FastQ file with Illumina format.
         ///     Output : Validation of Expected sequence, Sequence Id,Sequence Type.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateDnaRnaProteinMultipleSeqFastQParserWithIllumina()
         {
             ValidateMulitpleSequenceFastQParser(Constants.MultiSeqIlluminaDnaRnaProNode,
@@ -505,9 +474,8 @@ namespace Bio.TestAutomation.IO.FastQ
         ///     Input : Multiple sequence FastQ file with Solexa format.
         ///     Output : Validation of Expected sequence, Sequence Id,Sequence Type.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateDnaRnaProteinMultipleSeqFastQParserWithSolexa()
         {
             ValidateMulitpleSequenceFastQParser(Constants.MultiSeqSolexaDnaRnaProNode,
@@ -520,9 +488,8 @@ namespace Bio.TestAutomation.IO.FastQ
         ///     Input : Sanger FastQ file
         ///     Output : Validate format Sanger FastQ file to temp file.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void FastQFormatValidateFormatSangerFastQ()
         {
             ValidateFastQFormatter(Constants.SimpleSangerFastQNode, true);
@@ -534,9 +501,8 @@ namespace Bio.TestAutomation.IO.FastQ
         ///     Input :Dna Sanger FastQ file
         ///     Output : Validate format Sanger FastQ file to temp file.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void FastQFormatValidateFormatIlluminaFastQ()
         {
             ValidateFastQFormatter(Constants.SimpleIlluminaFastQNode, true);
@@ -548,9 +514,8 @@ namespace Bio.TestAutomation.IO.FastQ
         ///     Input : Sanger FastQ file
         ///     Output : Validate format Sanger FastQ file to temp file.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void FastQFormatFastQFileWithDnaSanger()
         {
             ValidateFastQFormatByFormattingQualSeqeunce(Constants.SimpleSangerFastQNode);
@@ -562,9 +527,8 @@ namespace Bio.TestAutomation.IO.FastQ
         ///     Input :Dna Illumina FastQ file
         ///     Output : Validate format Illumina FastQ file to temp file.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void FastQFormatFastQFileWithDnaIllumina()
         {
             ValidateFastQFormatByFormattingQualSeqeunce(Constants.SimpleIlluminaFastQNode);
@@ -576,9 +540,8 @@ namespace Bio.TestAutomation.IO.FastQ
         ///     Input :Dna Solexa FastQ file
         ///     Output : Validate format Solexa FastQ file to temp file.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void FastQFormatFastQFileWithDnaSolexa()
         {
             ValidateFastQFormatByFormattingQualSeqeunce(Constants.SimpleSolexaFqFastQNode);
@@ -590,9 +553,8 @@ namespace Bio.TestAutomation.IO.FastQ
         ///     Input : Rna Sanger FastQ file
         ///     Output : Validate format Sanger FastQ file to temp file.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void FastQFormatFastQFileWithRnaSanger()
         {
             ValidateFastQFormatByFormattingQualSeqeunce(Constants.SimpleRnaSangerFastQNode);
@@ -604,9 +566,8 @@ namespace Bio.TestAutomation.IO.FastQ
         ///     Input : Rna Illumina FastQ file
         ///     Output : Validate format Illumina FastQ file to temp file.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void FastQFormatFastQFileWithRnaIllumina()
         {
             ValidateFastQFormatByFormattingQualSeqeunce(Constants.SimpleRnaIlluminaFastQNode);
@@ -618,9 +579,8 @@ namespace Bio.TestAutomation.IO.FastQ
         ///     Input : Rna Solexa FastQ file
         ///     Output : Validate format Solexa FastQ file to temp file.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void FastQFormatFastQFileWithRnaSolexa()
         {
             ValidateFastQFormatByFormattingQualSeqeunce(Constants.SimpleRnaSolexaFastQNode);
@@ -632,9 +592,8 @@ namespace Bio.TestAutomation.IO.FastQ
         ///     Input : Protein Sanger FastQ file
         ///     Output : Validate format Sanger FastQ file to temp file.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void FastQFormatFastQFileWithProteinSanger()
         {
             ValidateFastQFormatByFormattingQualSeqeunce(Constants.SimpleProteinSangerFastQNode);
@@ -646,9 +605,8 @@ namespace Bio.TestAutomation.IO.FastQ
         ///     Input : Protein Illumina FastQ file
         ///     Output : Validate format Illumina FastQ file to temp file.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void FastQFormatFastQFileWithProteinIllumina()
         {
             ValidateFastQFormatByFormattingQualSeqeunce(Constants.SimpleProteinIlluminaFastQNode);
@@ -660,9 +618,8 @@ namespace Bio.TestAutomation.IO.FastQ
         ///     Input : Protein Solexa FastQ file
         ///     Output : Validate format Solexa FastQ file to temp file.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void FastQFormatFastQFileWithProteinSolexa()
         {
             ValidateFastQFormatByFormattingQualSeqeunce(Constants.SimpleProteinSolexaFastQNode);
@@ -674,9 +631,8 @@ namespace Bio.TestAutomation.IO.FastQ
         ///     Input :Dna Sanger FastQ file
         ///     Output : Validate format Sanger FastQ file to temp file.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void FastQFormatValidateFormatDnaSangerFastQUsingTextWriter()
         {
             ValidateFastQFormatter(Constants.SimpleSangerFastQNode, true);
@@ -688,9 +644,8 @@ namespace Bio.TestAutomation.IO.FastQ
         ///     Input :Dna Illumina FastQ file
         ///     Output : Validate format Illumina FastQ file to temp file.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void FastQFormatValidateFormatDnaIlluminaFastQUsingTextWriter()
         {
             ValidateFastQFormatter(Constants.SimpleIlluminaFastQNode, true);
@@ -702,9 +657,8 @@ namespace Bio.TestAutomation.IO.FastQ
         ///     Input :Dna Solexa FastQ file
         ///     Output : Validate format Solexa FastQ file to temp file.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void FastQFormatValidateFormatDnaSolexaFastQUsingTextWriter()
         {
             ValidateFastQFormatter(Constants.SimpleSolexaFqFastQNode, true);
@@ -716,9 +670,8 @@ namespace Bio.TestAutomation.IO.FastQ
         ///     Input :Rna Sanger FastQ file
         ///     Output : Validate format Sanger FastQ file to temp file.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void FastQFormatValidateFormatRnaSangerFastQUsingTextWriter()
         {
             ValidateFastQFormatter(Constants.SimpleRnaSangerFastQNode, true);
@@ -730,9 +683,8 @@ namespace Bio.TestAutomation.IO.FastQ
         ///     Input :Rna Illumina FastQ file
         ///     Output : Validate format Illumina FastQ file to temp file.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void FastQFormatValidateFormatRnaIlluminaFastQUsingTextWriter()
         {
             ValidateFastQFormatter(Constants.SimpleRnaIlluminaFastQNode, true);
@@ -744,9 +696,8 @@ namespace Bio.TestAutomation.IO.FastQ
         ///     Input :Rna Solexa FastQ file
         ///     Output : Validate format Solexa FastQ file to temp file.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void FastQFormatValidateFormatRnaSolexaFastQUsingTextWriter()
         {
             ValidateFastQFormatter(Constants.SimpleRnaSolexaFastQNode, true);
@@ -758,9 +709,8 @@ namespace Bio.TestAutomation.IO.FastQ
         ///     Input :Protein Sanger FastQ file
         ///     Output : Validate format Sanger FastQ file to temp file.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void FastQFormatValidateFormatProteinSangerFastQUsingTextWriter()
         {
             ValidateFastQFormatter(Constants.SimpleProteinSangerFastQNode, true);
@@ -772,9 +722,8 @@ namespace Bio.TestAutomation.IO.FastQ
         ///     Input :Protein Illumina FastQ file
         ///     Output : Validate format Illumina FastQ file to temp file.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void FastQFormatValidateFormatProteinIlluminaFastQUsingTextWriter()
         {
             ValidateFastQFormatter(Constants.SimpleProteinIlluminaFastQNode, true);
@@ -786,9 +735,8 @@ namespace Bio.TestAutomation.IO.FastQ
         ///     Input :Protein Solexa FastQ file
         ///     Output : Validate format Solexa FastQ file to temp file.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void FastQFormatValidateFormatProteinSolexaFastQUsingTextWriter()
         {
             ValidateFastQFormatter(Constants.SimpleProteinSolexaFastQNode, true);
@@ -801,9 +749,8 @@ namespace Bio.TestAutomation.IO.FastQ
         ///     Output Data : Validation of fromatting medium size Solexa
         ///     qualitative sequence to valid FastQ file.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void FastQFormatMediumSizeDnaSolexaUsingTextWriter()
         {
             ValidateFastQFormatter(Constants.MediumSizeDnaSolexaFastQNode, true);
@@ -816,9 +763,8 @@ namespace Bio.TestAutomation.IO.FastQ
         ///     Output Data : Validation of fromatting medium size Illumina
         ///     qualitative sequence to valid FastQ file.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void FastQFormatMediumSizeDnaIlluminaUsingTextWriter()
         {
             ValidateFastQFormatter(Constants.MediumSizeDnaIlluminaFastQNode, true);
@@ -831,9 +777,8 @@ namespace Bio.TestAutomation.IO.FastQ
         ///     Output Data : Validation of fromatting medium size sanger
         ///     qualitative sequence to valid FastQ file.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void FastQFormatMediumSizeDnaSangerUsingTextWriter()
         {
             ValidateFastQFormatter(Constants.MediumSizeDnaSangerFastQNode, true);
@@ -846,9 +791,8 @@ namespace Bio.TestAutomation.IO.FastQ
         ///     Output Data : Validation of fromatting medium size Solexa
         ///     qualitative sequence to valid FastQ file.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void FastQFormatMediumSizeDnaSolexaUsingFile()
         {
             ValidateFastQFormatter(Constants.MediumSizeDnaSolexaFastQNode, false);
@@ -861,9 +805,8 @@ namespace Bio.TestAutomation.IO.FastQ
         ///     Output Data : Validation of fromatting medium size Illumina
         ///     qualitative sequence to valid FastQ file.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void FastQFormatMediumSizeDnaIlluminaUsingFile()
         {
             ValidateFastQFormatter(Constants.MediumSizeDnaIlluminaFastQNode, false);
@@ -876,9 +819,8 @@ namespace Bio.TestAutomation.IO.FastQ
         ///     Output Data : Validation of fromatting medium size sanger
         ///     qualitative sequence to valid FastQ file.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void FastQFormatMediumSizeDnaSangerUsingFile()
         {
             ValidateFastQFormatter(Constants.MediumSizeDnaSangerFastQNode, false);
@@ -891,9 +833,8 @@ namespace Bio.TestAutomation.IO.FastQ
         ///     Output Data : Validation of fromatting Large size Sanger
         ///     qualitative sequence to valid FastQ file.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void FastQFormatLargeSizeDnaSangerSeq()
         {
             ValidateFastQFormatByFormattingQualSeqeunce(
@@ -907,9 +848,8 @@ namespace Bio.TestAutomation.IO.FastQ
         ///     Output Data : Validation of fromatting Large size Illumina
         ///     qualitative sequence to valid FastQ file.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void FastQFormatLargeSizeDnaIlluminaSeq()
         {
             ValidateFastQFormatByFormattingQualSeqeunce(
@@ -923,9 +863,8 @@ namespace Bio.TestAutomation.IO.FastQ
         ///     Output Data : Validation of fromatting Large size Solexa
         ///     qualitative sequence to valid FastQ file.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void FastQFormatLargeSizeDnaSolexaSeq()
         {
             ValidateFastQFormatByFormattingQualSeqeunce(
@@ -939,9 +878,8 @@ namespace Bio.TestAutomation.IO.FastQ
         ///     Output Data : Validation of fromatting Large size Sanger
         ///     qualitative sequence to valid FastQ file.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void FastQFormatLargeSizeDnaSangerFile()
         {
             ValidateFastQFormatter(Constants.LargeSizeDnaSangerFastQNode, false);
@@ -954,9 +892,8 @@ namespace Bio.TestAutomation.IO.FastQ
         ///     Output Data : Validation of fromatting Large size Illumina
         ///     qualitative sequence to valid FastQ file.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void FastQFormatLargeSizeDnaIlluminaFile()
         {
             ValidateFastQFormatter(Constants.LargeSizeDnaIlluminaFastQNode, false);
@@ -969,9 +906,8 @@ namespace Bio.TestAutomation.IO.FastQ
         ///     Output Data : Validation of fromatting Large size Solexa
         ///     qualitative sequence to valid FastQ file.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void FastQFormatLargeSizeDnaSolexaFile()
         {
             ValidateFastQFormatter(Constants.LargeSizeDnaSolexaFastQNode, false);
@@ -983,9 +919,8 @@ namespace Bio.TestAutomation.IO.FastQ
         ///     Input Data : Sanger Dna Rna multi sequence file.
         ///     Output Data : Validation of Multi sequence FastQ format.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void FastQFormatDnaRnaSangerFile()
         {
             ValidateMultiSeqFastQFormatter(Constants.MultiSeqSangerDnaRnaNode);
@@ -997,9 +932,8 @@ namespace Bio.TestAutomation.IO.FastQ
         ///     Input Data : Illumina Dna Rna multi sequence file.
         ///     Output Data : Validation of Multi sequence FastQ format.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void FastQFormatDnaRnaIlluminaFile()
         {
             ValidateMultiSeqFastQFormatter(Constants.MultiSeqIlluminaDnaRnaNode);
@@ -1011,9 +945,8 @@ namespace Bio.TestAutomation.IO.FastQ
         ///     Input Data : Solexa Dna Rna multi sequence file.
         ///     Output Data : Validation of Multi sequence FastQ format.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void FastQFormatDnaRnaSolexaFile()
         {
             ValidateMultiSeqFastQFormatter(Constants.MultiSeqSolexaDnaRnaNode);
@@ -1025,9 +958,8 @@ namespace Bio.TestAutomation.IO.FastQ
         ///     Input Data : Sanger Rna Protein multi sequence file.
         ///     Output Data : Validation of Multi sequence FastQ format.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void FastQFormatRnaProteinSangerFile()
         {
             ValidateMultiSeqFastQFormatter(Constants.MultiSeqSangerRnaProNode);
@@ -1039,9 +971,8 @@ namespace Bio.TestAutomation.IO.FastQ
         ///     Input Data : Illumina Rna Protein multi sequence file.
         ///     Output Data : Validation of Multi sequence FastQ format.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void FastQFormatRnaProteinIlluminaFile()
         {
             ValidateMultiSeqFastQFormatter(Constants.MultiSeqIlluminaRnaProNode);
@@ -1053,9 +984,8 @@ namespace Bio.TestAutomation.IO.FastQ
         ///     Input Data : Solexa Rna Protein multi sequence file.
         ///     Output Data : Validation of Multi sequence FastQ format.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void FastQFormatRnaProteinSolexaFile()
         {
             ValidateMultiSeqFastQFormatter(Constants.MultiSeqSolexaRnaProNode);
@@ -1067,9 +997,8 @@ namespace Bio.TestAutomation.IO.FastQ
         ///     Input Data : Sanger Dna Protein multi sequence file.
         ///     Output Data : Validation of Multi sequence FastQ format.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void FastQFormatDnaProteinSangerFile()
         {
             ValidateMultiSeqFastQFormatter(Constants.MultiSeqSangerDnaProNode);
@@ -1081,9 +1010,8 @@ namespace Bio.TestAutomation.IO.FastQ
         ///     Input Data : Illumina Dna Protein multi sequence file.
         ///     Output Data : Validation of Multi sequence FastQ format.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void FastQFormatDnaProteinIlluminaFile()
         {
             ValidateMultiSeqFastQFormatter(Constants.MultiSeqIlluminaDnaProNode);
@@ -1095,9 +1023,8 @@ namespace Bio.TestAutomation.IO.FastQ
         ///     Input Data : Solexa Dna Protein multi sequence file.
         ///     Output Data : Validation of Multi sequence FastQ format.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void FastQFormatDnaProteinSolexaFile()
         {
             ValidateMultiSeqFastQFormatter(Constants.MultiSeqSolexaDnaProNode);
@@ -1109,9 +1036,8 @@ namespace Bio.TestAutomation.IO.FastQ
         ///     Input Data : Sanger Dna Rna Protein multi sequence file.
         ///     Output Data : Validation of Multi sequence FastQ format.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void FastQFormatDnaRnaProteinSangerFile()
         {
             ValidateMultiSeqFastQFormatter(Constants.MultiSeqSangerDnaRnaProNode);
@@ -1123,9 +1049,8 @@ namespace Bio.TestAutomation.IO.FastQ
         ///     Input Data : Illumina Dna Rna Protein multi sequence file.
         ///     Output Data : Validation of Multi sequence FastQ format.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void FastQFormatDnaRnaProteinIlluminaFile()
         {
             ValidateMultiSeqFastQFormatter(Constants.MultiSeqIlluminaDnaRnaProNode);
@@ -1137,9 +1062,8 @@ namespace Bio.TestAutomation.IO.FastQ
         ///     Input Data : Solexa Dna Rna Protein multi sequence file.
         ///     Output Data : Validation of Multi sequence FastQ format.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void FastQFormatDnaRnaProteinSolexaFile()
         {
             ValidateMultiSeqFastQFormatter(Constants.MultiSeqSolexaDnaRnaProNode);
@@ -1152,9 +1076,8 @@ namespace Bio.TestAutomation.IO.FastQ
         ///     Input : Dna FastQ file with Sanger format.
         ///     Output : Validation of Expected sequence.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateFastQParserBasicSequenceWithDnaSanger()
         {
             ValidateBasicSequenceParser(

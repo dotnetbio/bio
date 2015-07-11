@@ -5,7 +5,7 @@ using System.Text;
 using Bio;
 using Bio.IO;
 using Bio.IO.FastQ;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using Bio.Tests.Properties;
 
 namespace Bio.Tests.IO.FastQ
@@ -13,7 +13,7 @@ namespace Bio.Tests.IO.FastQ
     /// <summary>
     /// FASTQ format parser and formatter.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class FastQTests
     {
 
@@ -21,9 +21,8 @@ namespace Bio.Tests.IO.FastQ
         /// Verifies that the parser doesn't throw an exception when Parsing first sequence on a file
         /// containing more than one sequence.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void TestFastQWhenParsingOneOfMany()
         {
             string filepath = @"TestUtils\FASTQ\SRR002012_5.fastq";
@@ -49,9 +48,8 @@ namespace Bio.Tests.IO.FastQ
         /// writing it back to disk using the formatter, then reading the new file
         /// and confirming that the data has been written correctly.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void FastQFormatter()
         {
             const string FilepathOriginal = @"TestUtils\FASTQ\SRR002012_5.fastq";
@@ -110,9 +108,8 @@ namespace Bio.Tests.IO.FastQ
         /// writing it back to disk using the ISequenceFormatter interface, then reading the new file
         /// and confirming that the data has been written correctly.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void FastQFormatterUsingInterface()
         {
             const string FilepathOriginal = @"TestUtils\FASTQ\SRR002012_5.fastq";
@@ -160,9 +157,8 @@ namespace Bio.Tests.IO.FastQ
         /// <summary>
         /// Verify that the parser can read many files without exceptions.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void FastQParserForManyFiles()
         {
             const string Path = @"TestUtils\FASTQ";
@@ -188,9 +184,8 @@ namespace Bio.Tests.IO.FastQ
         /// Tests the name,description and file extension property of 
         /// Fasta formatter and parser.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void FastQProperties()
         {
             FastQParser parser = new FastQParser();
@@ -207,9 +202,8 @@ namespace Bio.Tests.IO.FastQ
         /// <summary>
         /// Tests the default FastQ format type.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void TestDefaultFastQFormatType()
         {
             FastQParser parser = new FastQParser();

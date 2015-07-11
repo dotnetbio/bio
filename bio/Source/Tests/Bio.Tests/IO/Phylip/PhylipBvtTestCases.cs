@@ -19,7 +19,7 @@ using Bio.IO.Phylip;
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using Bio;
 
 namespace Bio.TestAutomation.IO.Phylip
@@ -27,7 +27,7 @@ namespace Bio.TestAutomation.IO.Phylip
     /// <summary>
     /// Phylip Bvt parser and formatter Test case implementation.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class PhylipBvtTestCases
     {
 
@@ -70,9 +70,8 @@ namespace Bio.TestAutomation.IO.Phylip
         /// Input : Phylip File
         /// Validation: Sequence Alignment list
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void PhylipParserValidateParseFileName()
         {
             ParserGeneralTestCases(Constants.SmallSizePhylipNodeName,
@@ -86,9 +85,8 @@ namespace Bio.TestAutomation.IO.Phylip
         /// Input : Phylip File
         /// Validation: Sequence Alignment list
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void PhylipParserValidateParseOneFileName()
         {
             ParserGeneralTestCases(Constants.SmallSizePhylipNodeName,
@@ -102,9 +100,8 @@ namespace Bio.TestAutomation.IO.Phylip
         /// Input : Phylip File
         /// Validation: Sequence Alignment list
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void PhylipParserValidateParseOneTextReader()
         {
             ParserGeneralTestCases(Constants.SmallSizePhylipNodeName,
@@ -118,9 +115,8 @@ namespace Bio.TestAutomation.IO.Phylip
         /// Input : Phylip File
         /// Validation: Sequence Alignment list
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void PhylipParserValidateParseTextReader()
         {
             ParserGeneralTestCases(Constants.SmallSizePhylipNodeName,
@@ -132,9 +128,8 @@ namespace Bio.TestAutomation.IO.Phylip
         /// Input : Valide Object
         /// Output : Validatation of properties
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidatePhylipParserProperties()
         {
             PhylipParser parser = new PhylipParser();

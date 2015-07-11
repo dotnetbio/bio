@@ -1,29 +1,27 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bio.Tests
 {
     /// <summary>
     /// Sequence statistics tests
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class SequenceStatisticsTests
     {
         /// <summary>
         /// Create a SequenceStatistics object with no Sequence.
         /// </summary>
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Test]
         public void CreateStatsWithNullSequence()
         {
-            var stats = new SequenceStatistics(null);
-            Assert.IsNotNull(stats);
+            Assert.Throws<ArgumentNullException>( ()=> new SequenceStatistics(null));
         }
 
         /// <summary>
         /// Create a SequenceStatistics object with a single-letter sequence
         /// </summary>
-        [TestMethod]
+        [Test]
         public void CreateSimpleStatsWithSingleLetterSequence()
         {
             ISequence sequence = new Sequence(Alphabets.DNA, "A");
@@ -42,7 +40,7 @@ namespace Bio.Tests
         /// <summary>
         /// Create a SequenceStatistics object with a single-letter sequence
         /// </summary>
-        [TestMethod]
+        [Test]
         public void CreateSimpleStatsAndVerifyAlphabetIsReturned()
         {
             ISequence sequence = new Sequence(Alphabets.DNA, "A");
@@ -54,7 +52,7 @@ namespace Bio.Tests
         /// <summary>
         /// Create a SequenceStatistics object with a single-letter sequence
         /// </summary>
-        [TestMethod]
+        [Test]
         public void CreateSimpleStatsAndVerifyCount()
         {
             ISequence sequence = new Sequence(Alphabets.DNA, "ACGT--ACGT--ACGT--");
@@ -66,7 +64,7 @@ namespace Bio.Tests
         /// <summary>
         /// Create a SequenceStatistics object with a single-letter sequence
         /// </summary>
-        [TestMethod]
+        [Test]
         public void CreateSimpleStatsWithSingleLowercaseLetterSequence()
         {
             ISequence sequence = new Sequence(Alphabets.DNA, "a");
@@ -87,7 +85,7 @@ namespace Bio.Tests
         /// <summary>
         /// Create a SequenceStatistics object with a single-letter sequence
         /// </summary>
-        [TestMethod]
+        [Test]
         public void CreateStatsWithMixedcaseLetterSequence()
         {
             ISequence sequence = new Sequence(Alphabets.DNA, "aAaAaAaA");
@@ -105,7 +103,7 @@ namespace Bio.Tests
         /// <summary>
         /// Create a SequenceStatistics object with all four primary values
         /// </summary>
-        [TestMethod]
+        [Test]
         public void CreateStatsWithSeveralMixedcaseLetterSequence()
         {
             ISequence sequence = new Sequence(Alphabets.DNA, "a-c-g-t-A-C-G-T-");
@@ -132,7 +130,7 @@ namespace Bio.Tests
         /// <summary>
         /// Create a SequenceStatistics object with a single-letter sequence
         /// </summary>
-        [TestMethod]
+        [Test]
         public void CreateStatsAndConsumeEnumerable()
         {
             ISequence sequence = new Sequence(Alphabets.DNA, "ACGT--ACGT--ACGT--");
@@ -151,7 +149,7 @@ namespace Bio.Tests
         /// <summary>
         /// Create a SequenceStatistics object with a single-letter sequence
         /// </summary>
-        [TestMethod]
+        [Test]
         public void CreateStatsAndCheckToString()
         {
             ISequence sequence = new Sequence(Alphabets.DNA, "ACGT--ACGT--ACGT--");

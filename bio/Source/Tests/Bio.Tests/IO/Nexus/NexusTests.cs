@@ -6,22 +6,21 @@ using Bio;
 using Bio.Algorithms.Alignment;
 using Bio.IO;
 using Bio.IO.Nexus;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bio.Tests.IO.Nexus
 {
     /// <summary>
     /// Nexus format parser.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class NexusTests
     {
         /// <summary>
         /// Parse sample Nexus file primate-mtDNA-interleaved.nex and verify that it is read correctly.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void NexusParse()
         {
             string filepath = @"TestUtils\Nexus\primate-mtDNA-interleaved.nex";
@@ -238,9 +237,8 @@ namespace Bio.Tests.IO.Nexus
         /// <summary>
         /// Parse sample Nexus file primate-mtDNA-interleaved.nex and verify that it is read correctly.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void NexusParseOne()
         {
             string filepath = @"TestUtils\Nexus\primate-mtDNA-interleaved.nex";

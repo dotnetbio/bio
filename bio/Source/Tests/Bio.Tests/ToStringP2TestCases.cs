@@ -2,22 +2,21 @@
 
 using Bio.Util.Logging;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bio.Tests
 {
     /// <summary>
     ///     P2 Test cases for ToString and ConvertToString of all classes
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class ToStringP2TestCases
     {
         /// <summary>
         ///     Invalidates ConvertToString for class Sequence
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateSequenceConvertToString()
         {
             try
@@ -96,9 +95,8 @@ namespace Bio.Tests
         /// <summary>
         ///     Invalidates ConvertToString for class DerivedSequence
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateDerivedSequenceConvertToString()
         {
             try

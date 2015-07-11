@@ -13,7 +13,7 @@ using System.Linq;
 using Bio.IO.Gff;
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 #if (SILVERLIGHT == false)
    namespace Bio.TestAutomation.IO.GFF
@@ -24,7 +24,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
     /// <summary>
     /// Gff Bvt parser and formatter Test case implementation.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class GffBvtTestCases
     {
 
@@ -45,9 +45,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         /// Validation : Features, Expected sequence, Sequence Length, 
         /// Sequence Alphabet, Sequence ID.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void GffParserValidateParseFileName()
         {
             ValidateParseGeneralTestCases(Constants.SimpleGffNodeName, true);
@@ -61,9 +60,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         /// Validation : Features, Expected sequence, Sequence Length, 
         /// Sequence Alphabet, Sequence ID.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void GffParserValidateParseFileNameWithStreams()
         {
             ValidateParseWithStreams(Constants.SimpleGffNodeName);
@@ -76,9 +74,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         /// Validation : Read the Gff file to which the sequence was formatted and 
         /// validate Features, Sequence, Sequence Count
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void GffParserValidateParseWithOneLineSequenceWithStreams()
         {
             ValidateParseWithStreams(Constants.OneLineSeqGffNodeName);
@@ -92,9 +89,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         /// Validation : Features, Expected sequence, Sequence Length, 
         /// Sequence Alphabet, Sequence ID.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void GffParserValidateParseTextReader()
         {
             ValidateParseGeneralTestCases(Constants.SimpleGffNodeName, false);
@@ -108,9 +104,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         /// Validation : Features, Expected sequence, Sequence Length, 
         /// Sequence Alphabet, Sequence ID.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void GffParserValidateParseOneFileName()
         {
             ValidateParseOneGeneralTestCases(Constants.SimpleGffNodeName, true);
@@ -124,9 +119,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         /// Validation : Features, Expected sequence, Sequence Length, 
         /// Sequence Alphabet, Sequence ID.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void GffParserValidateParseOneTextReader()
         {
             ValidateParseOneGeneralTestCases(Constants.SimpleGffNodeName, false);
@@ -139,9 +133,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         /// Validation : Read the Gff file to which the sequence was formatted and 
         /// validate Features, Sequence, Sequence Count
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void GffParserValidateParseWithOneLineSequence()
         {
             ValidateParseGeneralTestCases(Constants.OneLineSeqGffNodeName, true);
@@ -154,9 +147,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         /// Validation : Read the Gff file to which the sequence was formatted
         /// and validate Features, Sequence, Sequence Count
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void GffParserValidateParseWithOneLineFeatures()
         {
             // Gets the expected sequence from the Xml
@@ -188,9 +180,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         /// Input : File containing Gff Sequence.
         /// Validation : Validated successful opening of Gff file .
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void GffParserValidateOpen()
         {
             string filename = utilityObj.xmlUtil.GetTextValue(Constants.OneLineSeqGffNodeName,
@@ -224,9 +215,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         /// Validation : Read the Gff file to which the sequence was formatted and 
         /// validate Features, Sequence, Sequence Count
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void GffFormatterValidateFormatFileName()
         {
             ValidateFormatGeneralTestCases(Constants.SimpleGffNodeName, true, false);
@@ -240,9 +230,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         /// Validation : Read the Gff file to which the sequence was formatted and 
         /// validate Features, Sequence, Sequence Count
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void GffFormatterValidateFormatSequenceListFileName()
         {
             ValidateFormatGeneralTestCases(Constants.SimpleGffNodeName, true, true);
@@ -256,9 +245,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         /// Validation : Read the Gff file to which the sequence was formatted and 
         /// validate Features, Sequence, Sequence Count
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void GffFormatterValidateFormatString()
         {
             // Gets the expected sequence from the Xml
@@ -305,9 +293,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         /// Input : File containing Gff Sequence.
         /// Validation : Validated successfull opening of Gff file .
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void GffFormatterValidateOpen()
         {
             GffFormatter formatter = new GffFormatter();
@@ -330,9 +317,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
         /// <summary>
         /// Validates the Write method in Gff Formatter based on the parameters and using an Input stream.
         /// </summary>                
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void GffFormatterValidateStreams()            
         {
             // Gets the expected sequence from the Xml

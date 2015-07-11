@@ -13,7 +13,7 @@ using Bio.Algorithms.Alignment;
 using Bio.IO.SAM;
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using Bio.IO;
 using System;
 
@@ -22,7 +22,7 @@ namespace Bio.TestAutomation.IO.SAM
     /// <summary>
     /// SAM P2 parser and formatter Test case implementation.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class SAMP2TestCases
     {
         #region Enums
@@ -78,9 +78,8 @@ namespace Bio.TestAutomation.IO.SAM
         /// Input : Invalid value
         /// Output: Expected Exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateSAMISeqAlignParserReader()
         {
             ValidateISeqAlignParser(ParseOrFormatTypes.ParseOrFormatText);
@@ -92,9 +91,8 @@ namespace Bio.TestAutomation.IO.SAM
         /// Input : Invalid value
         /// Output: Expected Exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateSAMISeqAlignParserFileName()
         {
             ValidateISeqAlignParser(ParseOrFormatTypes.ParseOrFormatFileName);
@@ -105,9 +103,8 @@ namespace Bio.TestAutomation.IO.SAM
         /// Input : Invalid value
         /// Output: Expected Exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateSAMParserReader()
         {
             ValidateSAMParser(ParseOrFormatTypes.ParseOrFormatText);
@@ -119,9 +116,8 @@ namespace Bio.TestAutomation.IO.SAM
         /// Input : Null file-name
         /// Output: Expected Exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateSAMParserfileName()
         {
             ValidateSAMParser(ParseOrFormatTypes.ParseOrFormatFileName);
@@ -132,9 +128,8 @@ namespace Bio.TestAutomation.IO.SAM
         /// Input : Invalid value
         /// Output: Expected Exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateSAMParseOneReader()
         {
             ValidateSAMParser(ParseOrFormatTypes.ParseOneOrFormatText);
@@ -146,9 +141,8 @@ namespace Bio.TestAutomation.IO.SAM
         /// Input : Null file-name
         /// Output: Expected Exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateSAMParseOnefileName()
         {
             ValidateSAMParser(ParseOrFormatTypes.ParseOneOrFormatFileName);
@@ -160,9 +154,8 @@ namespace Bio.TestAutomation.IO.SAM
         /// Input : Null file-name
         /// Output: Expected Exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateSAMParseQualiNSeq()
         {
             ValidateQualitySeqLength(ParseOrFormatQualLength.AlignedSeq);
@@ -176,9 +169,8 @@ namespace Bio.TestAutomation.IO.SAM
         /// Input : Null file-name
         /// Output: Expected Exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateSAMParseQualiNSeqLength()
         {
             ValidateQualitySeqLength(ParseOrFormatQualLength.QualityLength);
@@ -190,9 +182,8 @@ namespace Bio.TestAutomation.IO.SAM
         /// Input : Null file-name
         /// Output: Expected Exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateSAMParseHeaderFileName()
         {
             ValidateISeqAlignParser(ParseOrFormatTypes.ParseOneOrFormatHeaderFn);
@@ -204,9 +195,8 @@ namespace Bio.TestAutomation.IO.SAM
         /// Input : Null file-name
         /// Output: Expected Exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateSAMParseHeaderTextReader()
         {
             ValidateISeqAlignParser(ParseOrFormatTypes.ParseOneOrFormatHeader);
@@ -218,9 +208,8 @@ namespace Bio.TestAutomation.IO.SAM
         /// Input : Null file-name
         /// Output: Expected Exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateSAMParseHeaderBioReader()
         {
             string filePath = utilityObj.xmlUtil.GetTextValue(
@@ -248,9 +237,8 @@ namespace Bio.TestAutomation.IO.SAM
         /// Input : Alphabet
         /// Output: Expected Exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateSAMParseAlhabetProp()
         {
             try
@@ -278,9 +266,8 @@ namespace Bio.TestAutomation.IO.SAM
         /// Input : Invalid value
         /// Output: Expected Exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateSAMWriteTextWriter()
         {
             SAMAlignmentHeader header = new SAMAlignmentHeader();
@@ -303,9 +290,8 @@ namespace Bio.TestAutomation.IO.SAM
         /// Input : Null ISequenceAlignment
         /// Output: Expected Exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateSAMFormatWriter()
         {
             ValidateSamFormatter(ParseOrFormatTypes.ParseOrFormatIseqT);
@@ -318,9 +304,8 @@ namespace Bio.TestAutomation.IO.SAM
         /// Input : Invalid value
         /// Output: Expected Exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateSAMFormatSeq()
         {
             ValidateSamFormatter(ParseOrFormatTypes.ParseOrFormatIseq);
@@ -333,9 +318,8 @@ namespace Bio.TestAutomation.IO.SAM
         /// Input : Invalid value
         /// Output: Expected Exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateSAMFormatSeqFileName()
         {
             ValidateSamFormatter(ParseOrFormatTypes.ParseOneOrFormatSeq);
@@ -348,9 +332,8 @@ namespace Bio.TestAutomation.IO.SAM
         /// Input : Invalid value
         /// Output: Expected Exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateSAMFormatISeqWriter()
         {
             ValidateSamFormatter(ParseOrFormatTypes.ParseOrFormatSeqText);
@@ -363,9 +346,8 @@ namespace Bio.TestAutomation.IO.SAM
         /// Input : Invalid value
         /// Output: Expected Exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateSAMFormatCollSeqFileName()
         {
             ValidateSamFormatter(ParseOrFormatTypes.ParseOrFormatCollString);
@@ -377,9 +359,8 @@ namespace Bio.TestAutomation.IO.SAM
         /// Input : Invalid value
         /// Output: Expected Exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateSAMFormatCollSeqWriter()
         {
             ValidateSamFormatter(ParseOrFormatTypes.ParseOrFormatCollection);
@@ -391,9 +372,8 @@ namespace Bio.TestAutomation.IO.SAM
         /// Input : Null SequenceAlignment
         /// Output: Expected Exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateSAMFormatString()
         {
             ValidateSamFormatter(ParseOrFormatTypes.ParseOrFormatFormatString);

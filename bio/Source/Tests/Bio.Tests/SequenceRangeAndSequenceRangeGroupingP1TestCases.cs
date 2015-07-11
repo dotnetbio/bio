@@ -6,14 +6,14 @@ using Bio.IO.Bed;
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bio.Tests
 {
     /// <summary>
     ///     Test Automation code for BIO SequenceRange operations P1 level validations.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class SequenceRangeAndSequenceRangeGroupingP1TestCases
     {
         #region Enums
@@ -41,9 +41,8 @@ namespace Bio.Tests
         ///     Input Data : Valid Range ID,Start and End.
         ///     Output Data : Validation of comparing two sequences.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateCompareSequenceRangeWithIdenticalStartIndex()
         {
             this.ValidateCompareTwoSequenceRanges(Constants.CompareSequenceRangeWithIdenticalStartNode);
@@ -54,9 +53,8 @@ namespace Bio.Tests
         ///     Input Data : Valid Range ID,Start and End.
         ///     Output Data : Validation of comparing two sequences.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateCompareSequenceRangeWithIdenticalENDIndex()
         {
             this.ValidateCompareTwoSequenceRanges(Constants.CompareSequenceRangeWithIdenticalENDNode);
@@ -67,9 +65,8 @@ namespace Bio.Tests
         ///     Input Data : Valid BED file.
         ///     Output Data : Validation of Merge operation.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateMergeWithIdenticalChromoEntries()
         {
             this.ValidateBedOperations(Constants.MergesmallFilewithIdenticalChromosomesNode,
@@ -81,9 +78,8 @@ namespace Bio.Tests
         ///     Input Data : Valid BED file.
         ///     Output Data : Validation of Merge operation.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateMergeWithAllIdenticalChromoEntries()
         {
             this.ValidateBedOperations(Constants.MergeFilewithAllIdenticalChromosomesNode,
@@ -95,9 +91,8 @@ namespace Bio.Tests
         ///     Input Data : Valid BED file.
         ///     Output Data : Validation of Merge operation.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateMergeTwoBedFiles()
         {
             this.ValidateBedOperations(Constants.MergeTwosmallFilesNode,
@@ -109,9 +104,8 @@ namespace Bio.Tests
         ///     Input Data : Valid BED file.
         ///     Output Data : Validation of Merge operation.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateMergeTwoBedFilesWithTwoIdenticalChromo()
         {
             this.ValidateBedOperations(Constants.MergeTwoFileswithAllIdenticalChromosomesNode,
@@ -123,9 +117,8 @@ namespace Bio.Tests
         ///     Input Data : Valid BED file.
         ///     Output Data : Validation of Merge operation.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateIntersectTwoBedFilesWithoutIntervals()
         {
             this.ValidateBedOperations(Constants.IntersectWithIdenticalChromoWithoutIntervals,
@@ -138,9 +131,8 @@ namespace Bio.Tests
         ///     Input Data : Valid BED file.
         ///     Output Data : Validation of Merge operation.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateIntersectTwoBedFilesWithoutIntervalsForIdenticalEntries()
         {
             this.ValidateBedOperations(Constants.IntersectWithAllIdenticalChromoWithoutIntervals,
@@ -152,9 +144,8 @@ namespace Bio.Tests
         ///     Input Data : Valid BED file.
         ///     Output Data : Validation of Merge operation.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateIntersectTwoBedFilesWithPiecesIntervals()
         {
             this.ValidateBedOperations(Constants.IntersectWithIdenticalChromoWithoutIntervals,
@@ -167,9 +158,8 @@ namespace Bio.Tests
         ///     Input Data : Valid BED file.
         ///     Output Data : Validation of Merge operation.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateIntersectTwoBedFilesWithIntervalsForIdenticalEntries()
         {
             this.ValidateBedOperations(Constants.IntersectWithAllIdenticalChromoWithoutIntervals,
@@ -181,9 +171,8 @@ namespace Bio.Tests
         ///     Input Data : Valid BED file.
         ///     Output Data : Validation of Merge operation.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateIntersectTenChromoWithoutPiecesIntervals()
         {
             this.ValidateBedOperations(Constants.IntersectBedFilesWithTenChromo,
@@ -195,9 +184,8 @@ namespace Bio.Tests
         ///     Input Data : Valid BED file.
         ///     Output Data : Validation of Merge operation.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateIntersectTenChromoWithPiecesIntervals()
         {
             this.ValidateBedOperations(Constants.IntersectBedFilesWithTenChromo,
@@ -209,9 +197,8 @@ namespace Bio.Tests
         ///     Input Data : Valid BED file and minimal overlap
         ///     Output Data : Validation of Merge operation.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateIntersectBedFilesWithMinimalOverlap()
         {
             this.ValidateBedOperations(Constants.IntersectBedFilesWithTenChromoWithMinimalOverlap,
@@ -224,9 +211,8 @@ namespace Bio.Tests
         ///     Input Data : Valid BED file.
         ///     Output Data : Validation of subtract operation.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateSubtractTwoBedFilesWithMinimalandNonOverlap()
         {
             this.ValidateBedOperations(Constants.SubtractBedFilesWithMinimalOverlapNodeName,
@@ -239,9 +225,8 @@ namespace Bio.Tests
         ///     Input Data : Valid BED file.
         ///     Output Data : Validation of subtract operation.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateSubtractTwoBedFilesWithNonOverlapIntervals()
         {
             this.ValidateBedOperations(Constants.SubtractBedFilesNodeName,
@@ -254,9 +239,8 @@ namespace Bio.Tests
         ///     Input Data : Valid BED file.
         ///     Output Data : Validation of subtract operation.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateSubtractMultipleChromosomesWithNonOverlapIntervals()
         {
             this.ValidateBedOperations(Constants.SubtractMultipleChromosomesBedFilesNodeName,
@@ -269,9 +253,8 @@ namespace Bio.Tests
         ///     Input Data : Valid BED file.
         ///     Output Data : Validation of subtract operation.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateSubtractMultipleChromosomesUsingIntervalsWithNoOverlap()
         {
             this.ValidateBedOperations(Constants.SubtractMultipleChromosomesWithIntervalsNodeName,
@@ -284,9 +267,8 @@ namespace Bio.Tests
         ///     Input Data : Valid BED file.
         ///     Output Data : Validation of subtract operation.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        [Category("Priority1")]
         public void ValidateSubtractTwoBedFilesWithNonOverlappingIntervals()
         {
             this.ValidateBedOperations(Constants.SubtractBedFilesWithIntervalsNodeName,

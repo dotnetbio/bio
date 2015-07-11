@@ -13,14 +13,14 @@ using Bio.IO.FastA;
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bio.Tests.Algorithms.Alignment.NUCmer
 {
     /// <summary>
     /// NUCmer Bvt Test case implementation.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class NUCmerBvtTestCases
     {
         /// <summary>
@@ -45,9 +45,8 @@ namespace Bio.Tests.Algorithms.Alignment.NUCmer
         /// Input : One line sequence for both reference and query parameter
         /// Validation : Validate the unique matches
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void SuffixTreeFindMatchesOneLineSequence()
         {
             this.ValidateFindMatchSuffixGeneralTestCases(Constants.OneLineSequenceNodeName,
@@ -61,9 +60,8 @@ namespace Bio.Tests.Algorithms.Alignment.NUCmer
         /// Input : Small size sequence for both reference and query parameter
         /// Validation : Validate the unique matches
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void SuffixTreeFindMatchesSmallSizeSequence()
         {
             this.ValidateFindMatchSuffixGeneralTestCases(Constants.SmallSizeSequenceNodeName, true,
@@ -76,9 +74,8 @@ namespace Bio.Tests.Algorithms.Alignment.NUCmer
         /// Input : one unique matches
         /// Validation : Validate the unique matches
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ClusterBuilderOneUniqueMatches()
         {
             this.ValidateFindMatchSuffixGeneralTestCases(Constants.OneUniqueMatchSequenceNodeName,
@@ -91,9 +88,8 @@ namespace Bio.Tests.Algorithms.Alignment.NUCmer
         /// Input : two unique matches with out cross overlap
         /// Validation : Validate the unique matches
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ClusterBuilderTwoUniqueMatchesWithoutCrossOverlap()
         {
             this.ValidateFindMatchSuffixGeneralTestCases(
@@ -107,9 +103,8 @@ namespace Bio.Tests.Algorithms.Alignment.NUCmer
         /// Input : two unique matches with cross overlap
         /// Validation : Validate the unique matches
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ClusterBuilderTwoUniqueMatchesWithCrossOverlap()
         {
             this.ValidateFindMatchSuffixGeneralTestCases(
@@ -127,9 +122,8 @@ namespace Bio.Tests.Algorithms.Alignment.NUCmer
         /// Input : One line sequence
         /// Validation : Validate the aligned sequences.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void NUCmerAlignOneLineSequence()
         {
             this.ValidateNUCmerAlignGeneralTestCases(Constants.OneLineSequenceNodeName, false);
@@ -141,9 +135,8 @@ namespace Bio.Tests.Algorithms.Alignment.NUCmer
         /// Input : small size sequence file
         /// Validation : Validate the aligned sequences.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void NUCmerAlignSmallSizeSequence()
         {
             this.ValidateNUCmerAlignGeneralTestCases(Constants.SmallSizeSequenceNodeName, true);
@@ -155,9 +148,8 @@ namespace Bio.Tests.Algorithms.Alignment.NUCmer
         /// Input : small size sequence file
         /// Validation : Validate the aligned sequences.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void NUCmerAlignSmallSizeAlignSequence()
         {
             // Gets the reference sequence from the FastA file
@@ -217,9 +209,8 @@ namespace Bio.Tests.Algorithms.Alignment.NUCmer
         /// Input : One line sequence
         /// Validation : Validate the aligned sequences.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void NUCmerAlignSequenceWithCrossOverlap()
         {
             this.ValidateNUCmerAlignGeneralTestCases(
@@ -231,8 +222,7 @@ namespace Bio.Tests.Algorithms.Alignment.NUCmer
         /// Input : Create a NUCmer object.
         /// Validation : Validate the properties
         /// </summary>
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Category("Priority0")]
         public void NUCmerAlignerProperties()
         {
             NucmerPairwiseAligner nucmerObj = new NucmerPairwiseAligner();
@@ -249,9 +239,8 @@ namespace Bio.Tests.Algorithms.Alignment.NUCmer
         /// <summary>
         /// Validate GetClusters() method by passing valid values.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateNUCmerGetClusters()
         {
             // NOTE: Nigel ran this test with the same data through mmummer and mgaps and got the same result.
@@ -288,9 +277,8 @@ namespace Bio.Tests.Algorithms.Alignment.NUCmer
         /// Input : One line Dna list of sequence
         /// Validation : Validate the aligned sequences
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void NUCmerAlignSimpleOneLineDnaListOfSequence()
         {
             this.ValidateNUCmerAlignSimpleGeneralTestCases(Constants.SingleDnaNucmerSequenceNodeName, true);
@@ -302,9 +290,8 @@ namespace Bio.Tests.Algorithms.Alignment.NUCmer
         /// Input : One line Rna list of sequence
         /// Validation : Validate the aligned sequences
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void NUCmerAlignSimpleOneLineRnaListOfSequence()
         {
             this.ValidateNUCmerAlignSimpleGeneralTestCases(Constants.SingleRnaNucmerSequenceNodeName, true);

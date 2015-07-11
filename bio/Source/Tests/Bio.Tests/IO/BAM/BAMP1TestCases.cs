@@ -11,14 +11,14 @@ using Bio.IO.SAM;
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bio.Tests.IO.BAM
 {
     /// <summary>
     /// BAM P1 parser and formatter Test case implementation.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class BAMP1TestCases
     {
         #region Enums
@@ -51,9 +51,8 @@ namespace Bio.Tests.IO.BAM
         /// Validate that a sequence query of a file over several ranges
         /// returns the same number of hits as samtools. (e.g. samtools view BAMStorage "MT:1-100" | wc -l )
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1"), TestCategory("BAM")]
+        [Test]
+        [Category("Priority1"), Category("BAM")]
         public void ValidateBAMRangeQuery()
         {
              // Get input and output values from xml node.
@@ -91,9 +90,8 @@ namespace Bio.Tests.IO.BAM
         /// Validate that a sequence produces the same index file as samtools
         /// Note that the ordering of bins/chunks does not appear to be guaranteed.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1"), TestCategory("BAM")]
+        [Test]
+        [Category("Priority1"), Category("BAM")]
         public void ValidateBAMIndexMatchesExpectation()
         {
             // Get input and output values from xml node.
@@ -160,9 +158,8 @@ namespace Bio.Tests.IO.BAM
         /// Input : Multiple aligned seq BAM file.
         /// Output : Validation of aligned sequence.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1"), TestCategory("BAM")]
+        [Test]
+        [Category("Priority1"), Category("BAM")]
         public void ValidateBAMParserWithMultipleAlignedSeqUsingStream()
         {
             this.ValidateBAMParser(Constants.BAMFileWithMultipleAlignedSeqsNode,
@@ -175,9 +172,8 @@ namespace Bio.Tests.IO.BAM
         /// Input : Multiple aligned seq BAM file.
         /// Output : Validation of aligned sequence.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1"), TestCategory("BAM")]
+        [Test]
+        [Category("Priority1"), Category("BAM")]
         public void ValidateBAMParserWithMultipleAlignedSeq()
         {
             this.ValidateBAMParser(Constants.BAMFileWithMultipleAlignedSeqsNode,
@@ -190,9 +186,8 @@ namespace Bio.Tests.IO.BAM
         /// Input : Aligned sequence with quality values BAM file.
         /// Output : Validation of aligned sequence.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1"), TestCategory("BAM")]
+        [Test]
+        [Category("Priority1"), Category("BAM")]
         public void ValidateBAMParserByPassingSeqsWithQualityUsingStreamReader()
         {
             this.ValidateBAMParserForQualitySequences(
@@ -206,9 +201,8 @@ namespace Bio.Tests.IO.BAM
         /// Input : BAM file with Aligned sequence and quality values
         /// Output : Validation of aligned sequence.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1"), TestCategory("BAM")]
+        [Test]
+        [Category("Priority1"), Category("BAM")]
         public void ValidateBAMParserAlignedSeqsWithQualityValues()
         {
             this.ValidateBAMParserForQualitySequences(
@@ -222,9 +216,8 @@ namespace Bio.Tests.IO.BAM
         /// Input : BAM file and sequenceRange.
         /// Output : Validation of aligned sequence.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1"), TestCategory("BAM")]
+        [Test]
+        [Category("Priority1"), Category("BAM")]
         public void ValidateBAMParserWithSequenceRange()
         {
             this.ValidateBAMParser(Constants.BAMFileWithSequenceRangeSeqsNode,
@@ -237,9 +230,8 @@ namespace Bio.Tests.IO.BAM
         /// Input : BAM file and sequenceRange.
         /// Output : Validation of aligned sequence.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1"), TestCategory("BAM")]
+        [Test]
+        [Category("Priority1"), Category("BAM")]
         public void ValidateBAMParserSequenceRangeWithRefIndexForMediumSizeBAM()
         {
             this.ValidateBAMParser(Constants.MediumSizeBAMFileNode,
@@ -252,9 +244,8 @@ namespace Bio.Tests.IO.BAM
         /// Input : BAM file and sequenceRange
         /// Output : Validation of aligned sequence.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1"), TestCategory("BAM")]
+        [Test]
+        [Category("Priority1"), Category("BAM")]
         public void ValidateBAMParserSequenceRangeWithRefIndexForSmallerEndIndex()
         {
             this.ValidateBAMParser(Constants.MediumSizeBAMFileWithSmallerEndIndexNode,
@@ -267,9 +258,8 @@ namespace Bio.Tests.IO.BAM
         /// Input : BAM file.
         /// Output : Aligned sequences.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1"), TestCategory("BAM")]
+        [Test]
+        [Category("Priority1"), Category("BAM")]
         public void ValidateParseRangeSequenceWithMaxValue()
         {
             this.ValidateBAMParser(Constants.SmallSizeBAMFileNode,
@@ -281,9 +271,8 @@ namespace Bio.Tests.IO.BAM
         /// Input : BAM file.
         /// Output : Validation of aligned seq using ParseOne() method.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1"), TestCategory("BAM")]
+        [Test]
+        [Category("Priority1"), Category("BAM")]
         public void ValidateBAMParserParseOneForBAMStorage()
         {
             this.ValidateISequenceAlignmentBAMParser(Constants.SmallSizeBAMFileNode,
@@ -295,9 +284,8 @@ namespace Bio.Tests.IO.BAM
         /// Input : Valid BAM file.
         /// Output : Validation of aligned seq properties.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1"), TestCategory("BAM")]
+        [Test]
+        [Category("Priority1"), Category("BAM")]
         public void ValidateAlignedSeqProperties()
         {
             // Get input and output values from xml node.
@@ -375,9 +363,8 @@ namespace Bio.Tests.IO.BAM
         /// Input : Multiple aligned SAM file.
         /// Output : BAM file.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1"), TestCategory("BAM")]
+        [Test]
+        [Category("Priority1"), Category("BAM")]
         public void ValidateSAMToBAMConversionForMultipleAlignedSeq()
         {
             this.ValidateSAMToBAMConversion(
@@ -390,9 +377,8 @@ namespace Bio.Tests.IO.BAM
         /// Input : Multiple aligned SAM file.
         /// Output : BAM file.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1"), TestCategory("BAM")]
+        [Test]
+        [Category("Priority1"), Category("BAM")]
         public void ValidateSAMToBAMConversionForAlignedSeqWithQuality()
         {
             this.ValidateSAMToBAMConversion(
@@ -405,9 +391,8 @@ namespace Bio.Tests.IO.BAM
         /// Input : Single aligned seq BAM file.
         /// Output : SAM file.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1"), TestCategory("BAM")]
+        [Test]
+        [Category("Priority1"), Category("BAM")]
         public void ValidateBAMToSAMConversion()
         {
             this.ValidateBAMToSAMConversion(
@@ -420,9 +405,8 @@ namespace Bio.Tests.IO.BAM
         /// Input : Multiple aligned seq BAM file.
         /// Output : SAM file.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1"), TestCategory("BAM")]
+        [Test]
+        [Category("Priority1"), Category("BAM")]
         public void ValidateBAMToSAMConversionForMultipleAlignedSeq()
         {
             this.ValidateBAMToSAMConversion(
@@ -439,9 +423,8 @@ namespace Bio.Tests.IO.BAM
         /// Input : List of sequence alignments
         /// Output : BAM file.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1"), TestCategory("BAM")]
+        [Test]
+        [Category("Priority1"), Category("BAM")]
         public void ValidateFormatSeqLignmentToBAMStorageUsingFilename()
         {
             this.ValidateBAMFormatterWithSequenceAlignment(
@@ -459,9 +442,8 @@ namespace Bio.Tests.IO.BAM
         /// Input : List of sequence alignments.
         /// Output : BAM file.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1"), TestCategory("BAM")]
+        [Test]
+        [Category("Priority1"), Category("BAM")]
         public void ValidateFormatMultipleAlignedSeqToBAMStorageUsingFilename()
         {
             this.ValidateBAMFormatterWithSequenceAlignment(
@@ -475,9 +457,8 @@ namespace Bio.Tests.IO.BAM
         /// Input : List of sequence alignments.
         /// Output : BAM file.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1"), TestCategory("BAM")]
+        [Test]
+        [Category("Priority1"), Category("BAM")]
         public void ValidateFormatSeqsWithQualityToBAMStorageUsingFilename()
         {
             this.ValidateBAMFormatterWithSequenceAlignment(
@@ -491,9 +472,8 @@ namespace Bio.Tests.IO.BAM
         /// Input : List of sequence alignments.
         /// Output : BAM file.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1"), TestCategory("BAM")]
+        [Test]
+        [Category("Priority1"), Category("BAM")]
         public void ValidateFormatSeqLignmentToBAMStorageUsingBAMIndexStorage()
         {
             this.ValidateBAMFormatterWithSequenceAlignment(
@@ -507,9 +487,8 @@ namespace Bio.Tests.IO.BAM
         /// Input : List of sequence alignments.
         /// Output : BAM file.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1"), TestCategory("BAM")]
+        [Test]
+        [Category("Priority1"), Category("BAM")]
         public void ValidateFormatSeqLignmentMapToBAMStorageUsingBAMIndexStorage()
         {
             this.ValidateBAMFormatter(Constants.SmallSizeBAMFileNode,
@@ -522,9 +501,8 @@ namespace Bio.Tests.IO.BAM
         /// Input : List of sequence alignments.
         /// Output : BAM file.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1"), TestCategory("BAM")]
+        [Test]
+        [Category("Priority1"), Category("BAM")]
         public void ValidateFormatSeqLignmentToBAMStorageUsingBAMStorage()
         {
             this.ValidateBAMFormatterWithSequenceAlignment(
@@ -538,9 +516,8 @@ namespace Bio.Tests.IO.BAM
         /// Input : List of sequence alignments.
         /// Output : BAM file.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1"), TestCategory("BAM")]
+        [Test]
+        [Category("Priority1"), Category("BAM")]
         public void ValidateFormatSeqLignmentToBAMStorageUsingStream()
         {
             this.ValidateBAMFormatterWithSequenceAlignment(
@@ -554,9 +531,8 @@ namespace Bio.Tests.IO.BAM
         /// Input : List of sequence alignments.
         /// Output : BAM file.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1"), TestCategory("BAM")]
+        [Test]
+        [Category("Priority1"), Category("BAM")]
         public void ValidateFormatMulitpleSeqLignmentToBAMStorageUsingStream()
         {
             this.ValidateBAMFormatterWithSequenceAlignment(
@@ -570,9 +546,8 @@ namespace Bio.Tests.IO.BAM
         /// Input : List of sequence alignments.
         /// Output : BAM file.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1"), TestCategory("BAM")]
+        [Test]
+        [Category("Priority1"), Category("BAM")]
         public void ValidateFormatQualitySeqLignmentToBAMStorageUsingStream()
         {
             this.ValidateBAMFormatterWithSequenceAlignment(
@@ -585,10 +560,9 @@ namespace Bio.Tests.IO.BAM
         /// Input : List of sequence alignments.
         /// Output : Validate an exception.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [Ignore]
-        [TestCategory("Priority1"), TestCategory("BAM")]
+        [Test]
+        [Ignore("Not sure why")]
+        [Category("Priority1"), Category("BAM")]
         public void ValidateFormatBAMStorageWithTextWriter()
         {
             this.ValidateBAMFormatterWithSequenceAlignment(

@@ -1,14 +1,14 @@
 ﻿using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bio.Tests
 {
     /// <summary>
     /// Test Automation code for Clone Library Information Bvt level validations.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class CloneLibraryInformationBvtTestCases
     {
         readonly Utility utilityObj = new Utility(@"TestUtils\TestsConfig.xml");        
@@ -20,9 +20,8 @@ namespace Bio.Tests
         /// Input Data : Value for properties from XML.
         /// Output Data : Validate the values set for properties.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateLibraryName()
         {            
             CloneLibraryInformation cloneLibrary = new CloneLibraryInformation();
@@ -42,9 +41,8 @@ namespace Bio.Tests
         /// Input Data : Value for Library Name from XML.
         /// Output Data : Both clones should be equal.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateEqualityOfTwoClones()
         {
             CloneLibraryInformation cloneLibrary1 = new CloneLibraryInformation();
@@ -66,9 +64,8 @@ namespace Bio.Tests
         /// Input Data : Value for Library Name from XML.
         /// Output Data : Both clones shouldn't be equal.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateInEqualityOfTwoClones()
         {
             CloneLibraryInformation cloneLibrary1 = new CloneLibraryInformation();

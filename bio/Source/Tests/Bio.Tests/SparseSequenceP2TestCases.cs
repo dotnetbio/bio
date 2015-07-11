@@ -6,14 +6,14 @@ using System.Text.RegularExpressions;
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bio.Tests
 {
     /// <summary>
     ///     Test Automation code for Bio Sparse Sequence P2 level validations..
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class SparseSequenceP2TestCases
     {
         private readonly Utility _utilityObj = new Utility(@"TestUtils\TestsConfig.xml");
@@ -25,9 +25,8 @@ namespace Bio.Tests
         ///     Input Data : Valid Alphabet
         ///     Output Data : Validation of Null Exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void ValidateSparseSequenceNullException()
         {
             string expectedErrorMessage = this.GetErrorMessage(Constants.SparseNullExceptionMessage);
@@ -61,9 +60,8 @@ namespace Bio.Tests
         ///     Input Data : Valid Alphabet
         ///     Output Data : Validation of Exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void ValidateSparseSeqNegativeIndexException()
         {
             string expectedErrorMessage = this.GetErrorMessage(Constants.NegativeIndexErrorMessage);
@@ -95,9 +93,8 @@ namespace Bio.Tests
         ///     Input Data : Valid Alphabet
         ///     Output Data : Validation of Null Exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void ValidateSparseSequenceAlphabetNullException()
         {
             string expectedErrorMessage = this.GetErrorMessage(Constants.SparseNullExceptionMessage);
@@ -130,9 +127,8 @@ namespace Bio.Tests
         ///     Input Data : Valid Alphabet
         ///     Output Data : Validation of Exception error.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void ValidateSparseSequenceInvalidSymbolException()
         {
             // Try Creating sparse sequence by passing null value as alphabet.
@@ -152,9 +148,8 @@ namespace Bio.Tests
         ///         Input Data : Valid Alphabet
         ///         Output Data : Validation of Exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void ValidateSparseIListSeqNegativeIndexException()
         {
             string expectedErrorMessage = this.GetErrorMessage(Constants.NegativeIndexErrorMessage);
@@ -188,9 +183,8 @@ namespace Bio.Tests
         ///         Input Data : Valid Alphabet.
         ///         Output Data : Validate an exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void ValidateSparseListSeqItemsAlphabetNullException()
         {
             string expectedErrorMessage = this.GetErrorMessage(Constants.SparseNullExceptionMessage);
@@ -224,9 +218,8 @@ namespace Bio.Tests
         ///         Input Data: Valid Alphabet.
         ///         Output Data : Validate Exception.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void ValidateSparseIListSeqAlphabetException()
         {
             IEnumerable<byte> byteArray = new List<byte> {Alphabets.RNA.U, Alphabets.RNA.U};
@@ -248,9 +241,8 @@ namespace Bio.Tests
         ///     Input Data : Valid Alphabet.
         ///     Output Data : Validation of Exception.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void ValidateExceptionByPassingInvalidStartIndex()
         {
             //Create a sparse sequence.
@@ -274,9 +266,8 @@ namespace Bio.Tests
         ///     Input Data : Valid Alphabet.
         ///     Output Data : Validation of Exception.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void ValidateExceptionByPassingInvalidLength()
         {
             //Create a sparse sequence.
@@ -300,9 +291,8 @@ namespace Bio.Tests
         ///     Input Data : Valid Dna Alphabet
         ///     Output Data : Validation of invalid Sequence item in Sparse sequence.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void ValidateSeqItemByPassingInvalidItem()
         {
             var sparseSeq = new SparseSequence(Alphabets.DNA) {Count = 2000};
@@ -332,9 +322,8 @@ namespace Bio.Tests
         ///     Input Data : Dna Alphabet.
         ///     Output Data : Validation of Protein Sequence Item.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void ValidateSeqItemsByPassingProteinSeqItemToDnaSequence()
         {
             var sparseSeq = new SparseSequence(Alphabets.DNA) {Count = 2000};
@@ -364,9 +353,8 @@ namespace Bio.Tests
         ///     Input Data : Rna Alphabet.
         ///     Output Data : Validation of Protein Sequence Item.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void ValidateSeqItemsByPassingProteinSeqItemToRnaSequence()
         {
             var sparseSeq = new SparseSequence(Alphabets.RNA) {Count = 2000};
@@ -397,9 +385,8 @@ namespace Bio.Tests
         ///     Output Data : Validation of an exception by setting sparse
         ///     sequence items greater than sprase count.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void ValidateExceptionByPassingSeqItemToInvalidSequenceItemPostion()
         {
             string expectedErrorMessage = this.GetErrorMessage(Constants.InvalidSequenceCountError);
@@ -432,9 +419,8 @@ namespace Bio.Tests
         ///     Input Data : Valid Dna Alphabet,sequence count and IseqItem
         ///     Output Data : Validation of an expected output.
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void ValidateIndexValueOfDifferentSeqItemOtherThanSparseSeqItem()
         {
             // Create a sparse sequence.
@@ -463,9 +449,8 @@ namespace Bio.Tests
         ///     Input Data : Valid Alphabet
         ///     Output Data : Validation of Out of Range Exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void ValidateSparseSequenceInvalidSize()
         {
             SparseSequence sparseSeq = null;
@@ -489,9 +474,8 @@ namespace Bio.Tests
         ///     Input Data : Valid Alphabet
         ///     Output Data : Validation of Out of Range Exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void ValidateSparseSequenceInvalidIndex()
         {
             SparseSequence sparseSeq = null;
@@ -515,9 +499,8 @@ namespace Bio.Tests
         ///     Input Data : Valid Alphabet
         ///     Output Data : Validation of null Exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void ValidateSparseSequenceInvalidSeqItem()
         {
             SparseSequence sparseSeq = null;
@@ -541,9 +524,8 @@ namespace Bio.Tests
         ///     Input Data : Valid Alphabet
         ///     Output Data : Validation of null Exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void ValidateSparseSequenceInvalidAlphabet()
         {
             SparseSequence sparseSeq = null;
@@ -569,9 +551,8 @@ namespace Bio.Tests
         ///     Input Data : Valid Alphabet
         ///     Output Data : Validation of Out of Range Exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void ValidateSparseSequenceListInvalidIndex()
         {
             SparseSequence sparseSeq = null;
@@ -597,9 +578,8 @@ namespace Bio.Tests
         ///     Input Data : Valid Alphabet
         ///     Output Data : Validation of null Exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void ValidateSparseSequenceListInvalidAlphabet()
         {
             SparseSequence sparseSeq = null;
@@ -625,9 +605,8 @@ namespace Bio.Tests
         ///     Input Data : Valid Alphabet
         ///     Output Data : Validation of Out of Range Exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void ValidateSparseSequenceInvalidIndexer()
         {
             SparseSequence sparseSeq = CreateSparseSequence(Alphabets.DNA, 0);
@@ -648,9 +627,8 @@ namespace Bio.Tests
         ///     Input Data : Valid Alphabet
         ///     Output Data : Validation of Out of Range Exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void ValidateSparseSequenceSetInvalidIndexer()
         {
             SparseSequence sparseSeq = CreateSparseSequence(Alphabets.DNA, 0);
@@ -671,9 +649,8 @@ namespace Bio.Tests
         ///     Input Data : Valid Alphabet
         ///     Output Data : Validation of out of range Exception
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void ValidateSparseSequenceInvalidCount()
         {
             SparseSequence sparseSeq = CreateSparseSequence(Alphabets.DNA, 0);
@@ -692,9 +669,8 @@ namespace Bio.Tests
         /// <summary>
         ///     Invalidates CopyTo
         /// </summary>
-        [TestMethod]
-        [Priority(2)]
-        [TestCategory("Priority2")]
+        [Test]
+        [Category("Priority2")]
         public void InvalidateCopyTo()
         {
             var byteList = new List<byte>

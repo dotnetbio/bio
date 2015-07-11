@@ -8,14 +8,14 @@ using Bio.IO.FastA;
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bio.Tests
 {
     /// <summary>
     /// Test Automation code for Bio Sequences and BVT level validations.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class SequenceBvtTestCases
     {
         #region Enum
@@ -41,8 +41,7 @@ namespace Bio.Tests
         /// Input Data : Valid DNA Sequence with single character - "A".
         /// Output Data : Validation of created DNA Sequence.
         /// </summary>
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Category("Priority0")]
         public void ValidateSingleCharDnaSequence()
         {
             // Gets the actual sequence and the alphabet from the Xml
@@ -80,8 +79,7 @@ namespace Bio.Tests
         /// Input Data: Valid DNA sequence "ACGA".
         /// Output Data : Validation of created DNA Sequence.
         /// </summary>
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Category("Priority0")]
         public void ValidateDnaSequence()
         {
 
@@ -115,8 +113,7 @@ namespace Bio.Tests
         /// Input Data : Valid RNA Sequence "GAUUCAAGGGCU".
         /// Output Data : Validation of created RNA sequence.
         /// </summary>
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Category("Priority0")]
         public void ValidateRnaSequence()
         {
             // Gets the actual sequence and the alphabet from the Xml
@@ -151,9 +148,8 @@ namespace Bio.Tests
         /// Input Data : Valid Protein sequece "AGTN".
         /// Output Data : Validation of created Protein sequence.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateProteinSequence()
         {
             // Gets the actual sequence and the alphabet from the Xml
@@ -184,8 +180,7 @@ namespace Bio.Tests
         /// Input Data : Valid FastaA file sequence.
         /// Output Data : Validation of FastaA file sequence.
         /// </summary>
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Category("Priority0")]
         public void ValidateFastaAFileSequence()
         {
             // Gets the expected sequence from the Xml
@@ -244,9 +239,8 @@ namespace Bio.Tests
         /// Input Data: AGTACAGCTCCAGACGT
         /// Output Data : Reverse of Input Sequence.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateGetReversedSequence()
         {
             this.ValidateSequences(Constants.DnaDerivedSequenceNode, SequenceMethods.Reverse);
@@ -257,9 +251,8 @@ namespace Bio.Tests
         /// Input Data: AGTACAGCTCCAGACGT
         /// Output Data : Reverse complement of Input Sequence. 
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateGetReverseComplementedSequence()
         {
             this.ValidateSequences(Constants.DnaDerivedSequenceNode, SequenceMethods.ReverseComplement);
@@ -270,9 +263,8 @@ namespace Bio.Tests
         /// Input Data: AGTACAGCTCCAGACGT
         /// Output Data : Complement of Input Dna sequence.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateGetComplementSequence()
         {
             this.ValidateSequences(Constants.DnaDerivedSequenceNode, SequenceMethods.Complement);
@@ -283,9 +275,8 @@ namespace Bio.Tests
         /// Input Data: AGTACAGCTCCAGACGT
         /// Output Data : Validation of created Sequence.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateSequenceConstructor()
         {
             // Get input and expected values from xml
@@ -312,9 +303,8 @@ namespace Bio.Tests
         /// Validates Enumeration in a Sequence.
         /// Input Data: AGTACAGCTCCAGACGT
         /// Output Data : Validation of enumeration.
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateEnumerator()
         {
             string alphabetName = this.utilityObj.xmlUtil.GetTextValue(
@@ -346,9 +336,8 @@ namespace Bio.Tests
         /// Input data : Sequence.
         /// Output Data : Validation of LastIndexOfNonGap() method.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateSequenceLastIndexOfNonGap()
         {
             // Get input and expected values from xml
@@ -371,9 +360,8 @@ namespace Bio.Tests
         /// <summary>
         /// Validates CopyTo
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void ValidateCopyTo()
         {
             // Get input and expected values from xml

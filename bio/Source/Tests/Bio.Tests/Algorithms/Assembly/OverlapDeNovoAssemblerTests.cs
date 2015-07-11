@@ -6,7 +6,7 @@ using Bio.Algorithms.Assembly;
 using Bio.Algorithms.MUMmer;
 using Bio.SimilarityMatrices;
 using Bio.Util.Logging;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using Bio.Tests.MUMmer;
 using Bio.Extensions;
 
@@ -15,15 +15,14 @@ namespace Bio.Tests.Assembly
     /// <summary>
     /// Test the assembly algorithms.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class OverlapDeNovoAssemblerTests
     {
         /// <summary>
         /// Do an assembly using SimpleSequenceAssembler and verify results.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void TestSimpleSequenceAssembler()
         {
             Trace.Set(Trace.AssemblyDetails);   // turn on log dump
@@ -70,9 +69,8 @@ namespace Bio.Tests.Assembly
         /// <summary>
         /// Do an assembly using SimpleSequenceAssembler using Swine Flu DNA sequences
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void TestSimpleSequenceAssemblerWithSwineflu()
         {
             Trace.Set(Trace.AssemblyDetails);   // turn on log dump
@@ -145,9 +143,8 @@ namespace Bio.Tests.Assembly
         /// Do an assembly using SimpleSequenceAssembler and a short semi-random sequence.
         /// This is a regression test.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void TestSimpleSequenceAssemblerWithSemiRandomSequence()
         {
             // test parameters
@@ -248,9 +245,8 @@ namespace Bio.Tests.Assembly
         /// Do an assembly using SimpleSequenceAssembler and a long, random seqeunce
         /// with shorter reads randomly selected from it.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void TestSimpleSequenceAssemblerWithRandomSequence()
         {
             // Test parameters.
@@ -372,9 +368,8 @@ namespace Bio.Tests.Assembly
         /// <summary>
         /// Tests the name and description property of the assemblers.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void TestAssemblerProperties()
         {
             IDeNovoAssembler assembler = new OverlapDeNovoAssembler();

@@ -8,22 +8,21 @@ using Bio.IO;
 using Bio.IO.SAM;
 using Bio.Util.ArgumentParser;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bio.Tests.IO.SAM
 {
     /// <summary>
     /// Test SAM format parser and formatter.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class SAMTests
     {
         /// <summary>
         /// Test the SAM Parser.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void TestParser()
         {
             string filePath = @"TestUtils\SAM\SeqAlignment1.sam";
@@ -37,9 +36,8 @@ namespace Bio.Tests.IO.SAM
         /// <summary>
         /// Test the SAM Formatter.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void TestFormatter()
         {
             string filePath = @"TestUtils\SAM\SeqAlignment1.sam";
@@ -72,9 +70,8 @@ namespace Bio.Tests.IO.SAM
         /// Tests the name,description and file extension property of 
         /// SAM formatter and parser.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void SAMProperties()
         {
             ISequenceAlignmentParser parser = new SAMParser();

@@ -12,14 +12,14 @@ using System.Linq;
 using Bio.IO.FastA;
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bio.TestAutomation.IO.FastA
 {
     /// <summary>
     ///     FASTA Bvt parser and formatter Test case implementation.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class FastABvtTestCases
     {
         #region Global Variables
@@ -37,9 +37,8 @@ namespace Bio.TestAutomation.IO.FastA
         ///     Input : FastA File
         ///     Validation : Expected sequence, Sequence Length, Sequence Alphabet, Sequence ID.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void FastAParserValidateParse()
         {
             // Gets the expected sequence from the Xml
@@ -105,9 +104,8 @@ namespace Bio.TestAutomation.IO.FastA
         /// <summary>
         ///     Validates the movenext method
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void FastAParserValidateMoveNext()
         {
             string filePath = utilityObj.xmlUtil.GetTextValue(Constants.SimpleFastaNodeName,
@@ -140,9 +138,8 @@ namespace Bio.TestAutomation.IO.FastA
         ///     Input : FastA File
         ///     Validation : Expected sequence,Sequence Alphabet, Sequence ID.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void FastAParserValidateParseWithStream()
         {
             List<ISequence> seqsList;
@@ -212,9 +209,8 @@ namespace Bio.TestAutomation.IO.FastA
         ///     Validation : Read the FastA file to which the sequence was formatted and
         ///     validate Sequence, Sequence Count
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void FastAFormatterValidateWrite()
         {
             var formatter = new FastAFormatter();
@@ -272,9 +268,8 @@ namespace Bio.TestAutomation.IO.FastA
         /// <summary>
         ///     Validate the get for Name property
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void FastAFormatterValidateGetName()
         {
             var formatter = new FastAFormatter();
@@ -287,9 +282,8 @@ namespace Bio.TestAutomation.IO.FastA
         ///     Validate get for supported file types property
         ///     Should contain .fa,.mpfa,.fna,.faa,.fsa,.fas,.fasta
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void FastAFormatterValidateGetSupportedFileTypes()
         {
             var formatter = new FastAFormatter();
@@ -307,9 +301,8 @@ namespace Bio.TestAutomation.IO.FastA
         /// <summary>
         ///     validate get for the description property
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void FastAFormatterValidateGetDescription()
         {
             var formatter = new FastAFormatter();
@@ -320,9 +313,8 @@ namespace Bio.TestAutomation.IO.FastA
         /// <summary>
         ///     Validate the write method
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void FastAFormatterValidateWrite1()
         {
             var formatter = new FastAFormatter();
@@ -388,9 +380,8 @@ namespace Bio.TestAutomation.IO.FastA
         ///     Validation : Read the FastA file to which the sequence was formatted and
         ///     validate Sequence, Sequence Count
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void FastAFormatterValidateWriteWithStream()
         {
             string actualSequence = string.Empty;

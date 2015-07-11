@@ -4,22 +4,21 @@ using System.IO;
 using System.Linq;
 using Bio;
 using Bio.IO.Bed;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bio.Tests.IO.Bed
 {
     /// <summary>
     /// Class to test BED Operations like Merge, intersect etc.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class BEDOperationsTests
     {
         /// <summary>
         /// Method to test Merge operation.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void MergeOperationTest()
         {
             string filepath = @"TestUtils\BED\Merge\Merge_single.BED";
@@ -199,9 +198,8 @@ namespace Bio.Tests.IO.Bed
         /// <summary>
         /// Method to test Intersect operation.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void IntersectOperationTest()
         {
             string resultfilepath = "tmp_mergeresult.bed";
@@ -287,9 +285,8 @@ namespace Bio.Tests.IO.Bed
         /// <summary>
         /// Test Subtract operation.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void SubtractTest()
         {
             string refSeqRangefile = @"TestUtils\BED\Subtract\Subtract_ref.BED";
