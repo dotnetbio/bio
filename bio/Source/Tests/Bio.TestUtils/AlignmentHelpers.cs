@@ -3,7 +3,7 @@ using System.Linq;
 using Bio.Algorithms.Alignment;
 using Bio.Extensions;
 using Bio.Util.Logging;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using System;
 
 namespace Bio.Tests.Framework
