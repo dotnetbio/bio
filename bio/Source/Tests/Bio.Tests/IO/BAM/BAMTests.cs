@@ -48,7 +48,7 @@ namespace Bio.Tests.IO.BAM
         {
             const string filePath = @"TestUtils\BAM\SeqAlignment.bam";
             const string outputfilePath = "BAMTests123.bam";
-            
+            string outputIndexFile = outputfilePath + ".bai";
             BAMParser parser = new BAMParser();
             SequenceAlignmentMap alignmentMap = parser.ParseOne<SequenceAlignmentMap>(filePath);
 
@@ -87,6 +87,9 @@ namespace Bio.Tests.IO.BAM
             Assert.AreEqual(alignmentMap.Header.GetReferenceSequencesInfoFromSQHeader().Count, 1);
             Assert.AreEqual(alignmentMap.Header.ReferenceSequences.Count, 1);
             Assert.AreEqual(alignmentMap.QuerySequences.Count, 1);
+
+            File.Delete(outputfilePath);
+            File.Delete(outputIndexFile);
         }
 
         /// <summary>
@@ -149,6 +152,8 @@ namespace Bio.Tests.IO.BAM
             {
                 if (parser != null)
                     parser.Dispose();
+                File.Delete(outputFilePath1);
+                File.Delete(outputFilePath2);
             }
         }
 

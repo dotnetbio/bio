@@ -433,7 +433,7 @@ namespace Bio.Tests.IO.Wiggle
                             CultureInfo.InvariantCulture), keyvaluePair.Value);
                 index++;
             }
-
+            File.Delete(Constants.WiggleTempFileName);
             ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                "Wiggle Formatter BVT: Successfully validated the written file"));
         }

@@ -194,6 +194,7 @@ namespace Bio.Tests.IO.Bed
             Assert.IsTrue(resultvalue);
             resultvalue = ValidateParentSeqRange(result, refSeqRange, querySeqRange, true);
             Assert.IsTrue(resultvalue);
+            File.Delete(resultfilepath);
         }
 
         /// <summary>

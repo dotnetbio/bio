@@ -752,6 +752,7 @@ namespace Bio.TestAutomation.IO.BAM
             finally
             {
                 (bamParserObj as BAMParser).Dispose();
+                File.Delete(Constants.BAMTempIndexFileForInvalidData);
             }
         }
 

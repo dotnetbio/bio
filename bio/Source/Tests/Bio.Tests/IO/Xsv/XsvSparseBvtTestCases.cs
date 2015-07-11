@@ -202,7 +202,7 @@ namespace Bio.Tests.IO.Xsv
             Assert.AreEqual(contig.Sequences.Count, expectedContig.Sequences.Count);
             Assert.AreEqual(seqId.Length, expectedseqId.Length);
             Assert.AreEqual(seqId, expectedseqId);
-
+            File.Delete(Constants.XsvTempFileName);
             ApplicationLog.WriteLine("Successfully validated the Write Xsv file");
         }
 
