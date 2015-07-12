@@ -1,17 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Bio.Tests.Framework;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using Bio.Algorithms.MUMmer;
 using Bio.Algorithms.Alignment;
 using Bio.SimilarityMatrices;
 
-namespace Bio.Tests.MUMmer
+namespace Bio.Tests.Algorithms.MUMmer
 {
     /// <summary>
     /// Tests for the MummerAligner class.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class MUMmerAlignerTests
     {
         #region MUMmer Test Cases
@@ -19,9 +19,8 @@ namespace Bio.Tests.MUMmer
         /// <summary>
         /// Test MUMmer Aligner with extension penalty.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void TestMUMmerAlignerSingleMum()
         {
             const string reference = "TTAATTTTAG";
@@ -63,9 +62,8 @@ namespace Bio.Tests.MUMmer
         /// <summary>
         /// MUMmer 3 test where we get multiple MUMs.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void TestMUMmerAlignerMultipleMum()
         {
             string reference = "ATGCGCATCCCCTT";
@@ -105,9 +103,8 @@ namespace Bio.Tests.MUMmer
         /// <summary>
         /// MUMmer 3 test where we get multiple MUMs.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void TestMUMmer3MultipleMumWithCustomMatrix()
         {
             string reference = "ATGCGCATCCCCTT";
@@ -177,9 +174,8 @@ namespace Bio.Tests.MUMmer
         /// <summary>
         /// Test MUMmer 3 Align with RNA.
         /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [TestCategory("Priority0")]
+        [Test]
+        [Category("Priority0")]
         public void TestMUMmerAlignerSingleMumRNA()
         {
             const string reference = "AUGCUUUUCCCCCCC";

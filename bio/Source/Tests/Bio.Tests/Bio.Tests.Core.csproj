@@ -212,6 +212,7 @@
     </Compile>
     <Compile Include="IO\SAM\SAMTests.cs" />
     <Compile Include="IO\Xsv\XsvSparseTests.cs" />
+    <Compile Include="Algorithms\MUMmer\MUMmerAlignerTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="..\TestData\Testcases.xml">
