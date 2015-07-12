@@ -175,7 +175,7 @@ namespace Bio.Tests.IO.Xsv
                 actualOutput = readerDest.ReadToEnd();
             }
            
-            Assert.AreEqual(expectedOutput, actualOutput);
+            Assert.AreEqual(expectedOutput.Replace("\r\n", System.Environment.NewLine), actualOutput);
 
 
             Assert.IsNotNull(sparseSeq.Alphabet);

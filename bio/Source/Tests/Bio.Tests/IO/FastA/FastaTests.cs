@@ -23,9 +23,8 @@ namespace Bio.Tests.IO.FastA
         public void TestFastaWhenParsingOneOfMany()
         {
             // parse
-            string relativepath = @"\TestUtils\Fasta\5_sequences.fasta";
-            string assemblypath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase).Substring(6);
-            string filepath = assemblypath + relativepath;
+
+            string filepath = System.IO.Path.Combine("TestUtils","Fasta","5_sequences.fasta");
             FastAParser parser = new FastAParser { Alphabet = Alphabets.Protein };
             using (parser.Open(filepath))
             {
@@ -59,9 +58,7 @@ namespace Bio.Tests.IO.FastA
                 "LGSGFLEEFFLEEE";
 
             // parse
-            string relativepath = @"\TestUtils\Fasta\186972391.fasta";
-            string assemblypath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase).Substring(6);
-            string filepath = assemblypath + relativepath;
+            string filepath = System.IO.Path.Combine("TestUtils","Fasta", "186972391.fasta");
 
 
             Assert.IsTrue(File.Exists(filepath));

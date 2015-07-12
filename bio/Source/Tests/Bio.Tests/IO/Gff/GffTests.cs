@@ -222,7 +222,7 @@ NC_001143.7	RefSeq	CDS	49010	49810	.	-	0	ID=NC_001143.7:ADD66:unknown_transcript
             // just test the formatting; if that's good, the parsing was good
             GffFormatter formatter = new GffFormatter();
             string actual = formatter.FormatString(seq);
-            Assert.AreEqual(_singleSeqGffFileExpectedOutput, actual);
+            Assert.AreEqual(_singleSeqGffFileExpectedOutput.Replace("\r\n", Environment.NewLine), actual);
         }
 
         /// <summary>
@@ -262,7 +262,7 @@ NC_001143.7	RefSeq	CDS	49010	49810	.	-	0	ID=NC_001143.7:ADD66:unknown_transcript
             }
             
             File.Delete(TempGFFFileName);
-            Assert.AreEqual(_multipleSeqGffFileExpectedOutput, actual);
+            Assert.AreEqual(_multipleSeqGffFileExpectedOutput.Replace("\r\n", Environment.NewLine), actual);
             
         }
 

@@ -1095,6 +1095,7 @@ namespace Bio.Tests.Algorithms.Alignment
         /// </summary>
         [Test]
         [Category("Priority2")]
+        [Ignore("The underlying exception messages differ between mono and .NET")]
         public void InValidatePOSimpleAlignTwoWithInvalidSequencesFromCode()
         {
             this.InValidatePairwiseOverlapAlignmentWithInvalidSequence(

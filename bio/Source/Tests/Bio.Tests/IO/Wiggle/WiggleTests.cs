@@ -71,12 +71,11 @@ namespace Bio.Tests.IO.Wiggle
         [Category("Priority0")]
         public void TestWiggleParser()
         {
-            string assemblypath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase).Substring(6);
-            string filepath = assemblypath + @"\TestUtils\Wiggle\variable.wig";
+            string filepath = Path.Combine("TestUtils", "Wiggle", "variable.wig");
 
             TestParserVariableStep(filepath);
 
-            filepath = assemblypath + @"\TestUtils\Wiggle\fixed.wig";
+            filepath = Path.Combine("TestUtils", "Wiggle", "fixed.wig");
 
             TestParserFixedStep(filepath);
         }

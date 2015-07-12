@@ -392,7 +392,7 @@ ORIGIN
             File.Delete(TempGenBankFileName);
 
             // test the formatting
-            Assert.AreEqual(_singleProteinSeqGenBankFileExpectedOutput.Replace(" ", ""), actual.Replace(" ", ""));
+            Assert.AreEqual(_singleProteinSeqGenBankFileExpectedOutput.Replace(" ", "").Replace("\r\n", Environment.NewLine), actual.Replace(" ", ""));
         }
 
         /// <summary>
@@ -440,7 +440,7 @@ ORIGIN
 
             File.Delete(TempGenBankFileName);
             // test the formatting
-            Assert.AreEqual(_singleProteinSeqGenBankFileExpectedOutput.Replace(" ", ""), actual.Replace(" ", ""));
+            Assert.AreEqual(_singleProteinSeqGenBankFileExpectedOutput.Replace(" ", "").Replace("\r\n", Environment.NewLine), actual.Replace(" ", ""));
         }
 
         /// <summary>
@@ -468,7 +468,7 @@ ORIGIN
             File.Delete(TempGenBankFileName);
 
             // test the formatting
-            Assert.AreEqual(_singleDnaSeqGenBankFileExpectedOutput.Replace(" ", ""), actual.Replace(" ", ""));
+            Assert.AreEqual(_singleDnaSeqGenBankFileExpectedOutput.Replace(" ", "").Replace("\r\n", Environment.NewLine), actual.Replace(" ", ""));
         }
 
         /// <summary>
@@ -666,32 +666,48 @@ ORIGIN
             ApplicationLog.WriteLine("GenBank Formatter: Successful read->write loop");
         }
 
+
+
         /// <summary>
         /// Compare the results/output file
+        /// 
+        /// Checks that only differences are \r\n versus \n
         /// </summary>
         /// <param name="file1">File 1 to compare</param>
         /// <param name="file2">File 2 to compare with</param>
         /// <returns>True, if both files are the same.</returns>
-        internal static bool CompareFiles(string file1, string file2)
+        internal static bool CompareFiles(string observed, string expected)
         {
-            FileInfo fileInfoObj1 = new FileInfo(file1);
-            FileInfo fileInfoObj2 = new FileInfo(file2);
+            
+            FileInfo fileInfoObj1 = new FileInfo(observed);
+            FileInfo fileInfoObj2 = new FileInfo(expected);
 
-            if (fileInfoObj1.Length != fileInfoObj2.Length)
+            if (fileInfoObj1.Length > fileInfoObj2.Length)
                 return false;
 
-            byte[] bytesFile1 = File.ReadAllBytes(file1);
-            byte[] bytesFile2 = File.ReadAllBytes(file2);
+            byte[] bytesO = File.ReadAllBytes(observed);
+            byte[] bytesE = File.ReadAllBytes(expected);
 
-            if (bytesFile1.Length != bytesFile2.Length)
+            if (bytesO.Length > bytesE.Length)
                 return false;
-
-            for (int i = 0; i <= bytesFile2.Length - 1; i++)
+            int j = 0;
+            for (int i = 0; i < bytesE.Length; i++)
             {
-                if (bytesFile1[i] != bytesFile2[i])
-                    return false;
+                if (bytesO [j] != bytesE [i]) {
+                    if (i + 1 < bytesE.Length) {
+                        if (bytesO [j] == '\n' &&
+                            bytesE [i] == '\r' &&
+                            bytesE [i + 1] == '\n') {
+                            i++;
+                        } else {
+                            return false;
+                        }
+                    } else {
+                        return false;
+                    }
+                }
+                j++;
             }
-
             return true;
         }
 

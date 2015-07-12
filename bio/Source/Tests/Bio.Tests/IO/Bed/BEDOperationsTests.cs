@@ -21,16 +21,17 @@ namespace Bio.Tests.IO.Bed
         [Category("Priority0")]
         public void MergeOperationTest()
         {
-            string filepath = @"TestUtils\BED\Merge\Merge_single.BED";
+            string direc = Path.Combine ("TestUtils", "BED", "Merge");
+            string filepath = Path.Combine(direc, "Merge_single.BED");
             string resultfilepath = "tmp_mergeresult.bed";
-            string expectedresultpath = @"TestUtils\BED\Merge\Result_Merge_Single_MinLength0.BED";
+            string expectedresultpath = Path.Combine(direc, "Result_Merge_Single_MinLength0.BED");
             BedParser parser = new BedParser();
             BedFormatter formatter = new BedFormatter();
             SequenceRangeGrouping seqGrouping = null;
             SequenceRangeGrouping result = null;
             bool resultvalue = false;
             resultfilepath = "tmp_mergeresult.bed";
-            expectedresultpath = @"TestUtils\BED\Merge\Result_Merge_Single_MinLength0.BED";
+            expectedresultpath = Path.Combine(direc, "Result_Merge_Single_MinLength0.BED");
             seqGrouping = parser.ParseRangeGrouping(filepath);
 
             result = seqGrouping.MergeOverlaps();
@@ -40,7 +41,7 @@ namespace Bio.Tests.IO.Bed
             resultvalue = ValidateParentSeqRange(result, seqGrouping, null, false);
             Assert.IsTrue(resultvalue);
 
-            expectedresultpath = @"TestUtils\BED\Merge\Result_Merge_Single_MinLength0.BED";
+            expectedresultpath = Path.Combine(direc, "Result_Merge_Single_MinLength0.BED");
             result = seqGrouping.MergeOverlaps(0, true);
             formatter.Format(result, resultfilepath);
             resultvalue = CompareBEDOutput(resultfilepath, expectedresultpath);
@@ -48,7 +49,7 @@ namespace Bio.Tests.IO.Bed
             resultvalue = ValidateParentSeqRange(result, seqGrouping, null, true);
             Assert.IsTrue(resultvalue);
 
-            expectedresultpath = @"TestUtils\BED\Merge\Result_Merge_Single_MinLength0.BED";
+            expectedresultpath = Path.Combine(direc, "Result_Merge_Single_MinLength0.BED");
             result = seqGrouping.MergeOverlaps(0, false);
             formatter.Format(result, resultfilepath);
             resultvalue = CompareBEDOutput(resultfilepath, expectedresultpath);
@@ -56,7 +57,7 @@ namespace Bio.Tests.IO.Bed
             resultvalue = ValidateParentSeqRange(result, seqGrouping, null, false);
             Assert.IsTrue(resultvalue);
 
-            expectedresultpath = @"TestUtils\BED\Merge\Result_Merge_Single_MinLength0.BED";
+            expectedresultpath = Path.Combine(direc, "Result_Merge_Single_MinLength0.BED");
             result = seqGrouping.MergeOverlaps(0);
             formatter.Format(result, resultfilepath);
             resultvalue = CompareBEDOutput(resultfilepath, expectedresultpath);
@@ -64,7 +65,7 @@ namespace Bio.Tests.IO.Bed
             resultvalue = ValidateParentSeqRange(result, seqGrouping, null, false);
             Assert.IsTrue(resultvalue);
 
-            expectedresultpath = @"TestUtils\BED\Merge\Result_Merge_Single_MinLength0.BED";
+            expectedresultpath = Path.Combine(direc, "Result_Merge_Single_MinLength0.BED");
             result = seqGrouping.MergeOverlaps(0, true);
             formatter.Format(result, resultfilepath);
             resultvalue = CompareBEDOutput(resultfilepath, expectedresultpath);
@@ -72,7 +73,7 @@ namespace Bio.Tests.IO.Bed
             resultvalue = ValidateParentSeqRange(result, seqGrouping, null, true);
             Assert.IsTrue(resultvalue);
 
-            expectedresultpath = @"TestUtils\BED\Merge\Result_Merge_Single_MinLength0.BED";
+            expectedresultpath = Path.Combine(direc, "Result_Merge_Single_MinLength0.BED");
             result = seqGrouping.MergeOverlaps(0, false);
             formatter.Format(result, resultfilepath);
             resultvalue = CompareBEDOutput(resultfilepath, expectedresultpath);
@@ -80,7 +81,7 @@ namespace Bio.Tests.IO.Bed
             resultvalue = ValidateParentSeqRange(result, seqGrouping, null, false);
             Assert.IsTrue(resultvalue);
 
-            expectedresultpath = @"TestUtils\BED\Merge\Result_Merge_Single_MinLength1.BED";
+            expectedresultpath = Path.Combine(direc, "Result_Merge_Single_MinLength1.BED");
             result = seqGrouping.MergeOverlaps(1);
             formatter.Format(result, resultfilepath);
             resultvalue = CompareBEDOutput(resultfilepath, expectedresultpath);
@@ -89,7 +90,7 @@ namespace Bio.Tests.IO.Bed
             Assert.IsTrue(resultvalue);
 
 
-            expectedresultpath = @"TestUtils\BED\Merge\Result_Merge_Single_MinLength-1.BED";
+            expectedresultpath = Path.Combine(direc, "Result_Merge_Single_MinLength-1.BED");
             result = seqGrouping.MergeOverlaps(-1);
             formatter.Format(result, resultfilepath);
             resultvalue = CompareBEDOutput(resultfilepath, expectedresultpath);
@@ -98,7 +99,7 @@ namespace Bio.Tests.IO.Bed
             Assert.IsTrue(resultvalue);
 
 
-            expectedresultpath = @"TestUtils\BED\Merge\Result_Merge_Single_MinLength-3.BED";
+            expectedresultpath = Path.Combine(direc, "Result_Merge_Single_MinLength-3.BED");
             result = seqGrouping.MergeOverlaps(-3);
             formatter.Format(result, resultfilepath);
             resultvalue = CompareBEDOutput(resultfilepath, expectedresultpath);
@@ -106,12 +107,12 @@ namespace Bio.Tests.IO.Bed
             resultvalue = ValidateParentSeqRange(result, seqGrouping, null, false);
             Assert.IsTrue(resultvalue);
 
-            string firstFile = @"TestUtils\BED\Merge\Merge_twofiles_1.BED";
-            string secondFile = @"TestUtils\BED\Merge\Merge_twofiles_2.BED";
+            string firstFile = Path.Combine(direc, "Merge_twofiles_1.BED");
+            string secondFile = Path.Combine(direc, "Merge_twofiles_2.BED");
             SequenceRangeGrouping refSeqRange = parser.ParseRangeGrouping(firstFile);
             SequenceRangeGrouping querySeqRange = parser.ParseRangeGrouping(secondFile);
 
-            expectedresultpath = @"TestUtils\BED\Merge\Result_Merge_Two_MinLength0.BED";
+            expectedresultpath = Path.Combine(direc, "Result_Merge_Two_MinLength0.BED");
             result = refSeqRange.MergeOverlaps(querySeqRange);
             formatter.Format(result, resultfilepath);
             resultvalue = CompareBEDOutput(resultfilepath, expectedresultpath);
@@ -154,7 +155,7 @@ namespace Bio.Tests.IO.Bed
             resultvalue = ValidateParentSeqRange(result, refSeqRange, querySeqRange, false);
             Assert.IsTrue(resultvalue);
 
-            expectedresultpath = @"TestUtils\BED\Merge\Result_Merge_Two_MinLength1.BED";
+            expectedresultpath = Path.Combine(direc, "Result_Merge_Two_MinLength1.BED");
             result = refSeqRange.MergeOverlaps(querySeqRange, 1, true);
             formatter.Format(result, resultfilepath);
             resultvalue = CompareBEDOutput(resultfilepath, expectedresultpath);
@@ -162,7 +163,7 @@ namespace Bio.Tests.IO.Bed
             resultvalue = ValidateParentSeqRange(result, refSeqRange, querySeqRange, true);
             Assert.IsTrue(resultvalue);
 
-            expectedresultpath = @"TestUtils\BED\Merge\Result_Merge_Two_MinLength-1.BED";
+            expectedresultpath = Path.Combine(direc, "Result_Merge_Two_MinLength-1.BED");
             result = refSeqRange.MergeOverlaps(querySeqRange, -1, true);
             formatter.Format(result, resultfilepath);
             resultvalue = CompareBEDOutput(resultfilepath, expectedresultpath);
@@ -170,7 +171,7 @@ namespace Bio.Tests.IO.Bed
             resultvalue = ValidateParentSeqRange(result, refSeqRange, querySeqRange, true);
             Assert.IsTrue(resultvalue);
 
-            expectedresultpath = @"TestUtils\BED\Merge\Result_Merge_Two_MinLength-3.BED";
+            expectedresultpath = Path.Combine(direc, "Result_Merge_Two_MinLength-3.BED");
             result = refSeqRange.MergeOverlaps(querySeqRange, -3, true);
             formatter.Format(result, resultfilepath);
             resultvalue = CompareBEDOutput(resultfilepath, expectedresultpath);
@@ -178,7 +179,7 @@ namespace Bio.Tests.IO.Bed
             resultvalue = ValidateParentSeqRange(result, refSeqRange, querySeqRange, true);
             Assert.IsTrue(resultvalue);
 
-            expectedresultpath = @"TestUtils\BED\Merge\Result_Merge_Two_MinLength2.BED";
+            expectedresultpath = Path.Combine(direc, "Result_Merge_Two_MinLength2.BED");
             result = refSeqRange.MergeOverlaps(querySeqRange, 2, true);
             formatter.Format(result, resultfilepath);
             resultvalue = CompareBEDOutput(resultfilepath, expectedresultpath);
@@ -186,7 +187,7 @@ namespace Bio.Tests.IO.Bed
             resultvalue = ValidateParentSeqRange(result, refSeqRange, querySeqRange, true);
             Assert.IsTrue(resultvalue);
 
-            expectedresultpath = @"TestUtils\BED\Merge\Result_Merge_Two_MinLength6.BED";
+            expectedresultpath = Path.Combine(direc, "Result_Merge_Two_MinLength6.BED");
             result = refSeqRange.MergeOverlaps(querySeqRange, 6, true);
             formatter.Format(result, resultfilepath);
             resultvalue = CompareBEDOutput(resultfilepath, expectedresultpath);
@@ -210,13 +211,14 @@ namespace Bio.Tests.IO.Bed
             SequenceRangeGrouping result = null;
             bool resultvalue = false;
             resultfilepath = "tmp_mergeresult.bed";
+            string direc = Path.Combine("TestUtils", "BED", "Intersect");
 
-            string reffile = @"TestUtils\BED\Intersect\Intersect_ref.BED";
-            string queryFile = @"TestUtils\BED\Intersect\Intersect_query.BED";
+            string reffile = @"Intersect_ref.BED";
+            string queryFile = Path.Combine(direc, "Intersect_query.BED");
             SequenceRangeGrouping refSeqRange = parser.ParseRangeGrouping(reffile);
             SequenceRangeGrouping querySeqRange = parser.ParseRangeGrouping(queryFile);
 
-            expectedresultpath = @"TestUtils\BED\Intersect\Result_Intersect_MinOverlap1_OverLappingBases.BED";
+            expectedresultpath = Path.Combine(direc, "Result_Intersect_MinOverlap1_OverLappingBases.BED");
             result = refSeqRange.Intersect(querySeqRange, 1, IntersectOutputType.OverlappingPiecesOfIntervals);
             formatter.Format(result, resultfilepath);
             resultvalue = CompareBEDOutput(resultfilepath, expectedresultpath);
@@ -224,7 +226,7 @@ namespace Bio.Tests.IO.Bed
             resultvalue = ValidateParentSeqRange(result, refSeqRange, querySeqRange, true);
             Assert.IsTrue(resultvalue);
 
-            expectedresultpath = @"TestUtils\BED\Intersect\Result_Intersect_MinOverlap1.BED";
+            expectedresultpath = Path.Combine(direc, "Result_Intersect_MinOverlap1.BED");
             result = refSeqRange.Intersect(querySeqRange, 1, IntersectOutputType.OverlappingIntervals);
             formatter.Format(result, resultfilepath);
             resultvalue = CompareBEDOutput(resultfilepath, expectedresultpath);
@@ -232,7 +234,7 @@ namespace Bio.Tests.IO.Bed
             resultvalue = ValidateParentSeqRange(result, refSeqRange, querySeqRange, false);
             Assert.IsTrue(resultvalue);
 
-            expectedresultpath = @"TestUtils\BED\Intersect\Result_Intersect_MinOverlap0_OverLappingBases.BED";
+            expectedresultpath = Path.Combine(direc, "Result_Intersect_MinOverlap0_OverLappingBases.BED");
             result = refSeqRange.Intersect(querySeqRange, 0, IntersectOutputType.OverlappingPiecesOfIntervals);
             formatter.Format(result, resultfilepath);
             resultvalue = CompareBEDOutput(resultfilepath, expectedresultpath);
@@ -240,7 +242,7 @@ namespace Bio.Tests.IO.Bed
             resultvalue = ValidateParentSeqRange(result, refSeqRange, querySeqRange, true);
             Assert.IsTrue(resultvalue);
 
-            expectedresultpath = @"TestUtils\BED\Intersect\Result_Intersect_MinOverlap0.BED";
+            expectedresultpath = Path.Combine(direc, "Result_Intersect_MinOverlap0.BED");
             result = refSeqRange.Intersect(querySeqRange, 0, IntersectOutputType.OverlappingIntervals);
             formatter.Format(result, resultfilepath);
             resultvalue = CompareBEDOutput(resultfilepath, expectedresultpath);
@@ -248,7 +250,7 @@ namespace Bio.Tests.IO.Bed
             resultvalue = ValidateParentSeqRange(result, refSeqRange, querySeqRange, false);
             Assert.IsTrue(resultvalue);
 
-            expectedresultpath = @"TestUtils\BED\Intersect\Result_Intersect_MinOverlap1_OverLappingBases.BED";
+            expectedresultpath = Path.Combine(direc, "Result_Intersect_MinOverlap1_OverLappingBases.BED");
             result = refSeqRange.Intersect(querySeqRange, 1, IntersectOutputType.OverlappingPiecesOfIntervals, true);
             formatter.Format(result, resultfilepath);
             resultvalue = CompareBEDOutput(resultfilepath, expectedresultpath);
@@ -256,7 +258,7 @@ namespace Bio.Tests.IO.Bed
             resultvalue = ValidateParentSeqRange(result, refSeqRange, querySeqRange, true);
             Assert.IsTrue(resultvalue);
 
-            expectedresultpath = @"TestUtils\BED\Intersect\Result_Intersect_MinOverlap1.BED";
+            expectedresultpath = Path.Combine(direc, "Result_Intersect_MinOverlap1.BED");
             result = refSeqRange.Intersect(querySeqRange, 1, IntersectOutputType.OverlappingIntervals, true);
             formatter.Format(result, resultfilepath);
             resultvalue = CompareBEDOutput(resultfilepath, expectedresultpath);
@@ -264,7 +266,7 @@ namespace Bio.Tests.IO.Bed
             resultvalue = ValidateParentSeqRange(result, refSeqRange, querySeqRange, true);
             Assert.IsTrue(resultvalue);
 
-            expectedresultpath = @"TestUtils\BED\Intersect\Result_Intersect_MinOverlap0_OverLappingBases.BED";
+            expectedresultpath = Path.Combine(direc, "Result_Intersect_MinOverlap0_OverLappingBases.BED");
             result = refSeqRange.Intersect(querySeqRange, 0, IntersectOutputType.OverlappingPiecesOfIntervals, true);
             formatter.Format(result, resultfilepath);
             resultvalue = CompareBEDOutput(resultfilepath, expectedresultpath);
@@ -273,7 +275,7 @@ namespace Bio.Tests.IO.Bed
             Assert.IsTrue(resultvalue);
 
 
-            expectedresultpath = @"TestUtils\BED\Intersect\Result_Intersect_MinOverlap0.BED";
+            expectedresultpath = Path.Combine(direc, "Result_Intersect_MinOverlap0.BED");
             result = refSeqRange.Intersect(querySeqRange, 0, IntersectOutputType.OverlappingIntervals, true);
             formatter.Format(result, resultfilepath);
             resultvalue = CompareBEDOutput(resultfilepath, expectedresultpath);
@@ -289,8 +291,9 @@ namespace Bio.Tests.IO.Bed
         [Category("Priority0")]
         public void SubtractTest()
         {
-            string refSeqRangefile = @"TestUtils\BED\Subtract\Subtract_ref.BED";
-            string querySeqRangefile = @"TestUtils\BED\Subtract\Subtract_query.BED";
+            var direc = System.IO.Path.Combine ("TestUtils", "BED", "Subtract");
+            string refSeqRangefile = System.IO.Path.Combine (direc, "Subtract_ref.BED");
+            string querySeqRangefile = System.IO.Path.Combine (direc, "Subtract_query.BED");
             string resultfilepath = "tmp_mergeresult.bed";
             BedParser parser = new BedParser();
             BedFormatter formatter = new BedFormatter();
@@ -300,7 +303,7 @@ namespace Bio.Tests.IO.Bed
             SequenceRangeGrouping refSeqRange = parser.ParseRangeGrouping(refSeqRangefile);
             SequenceRangeGrouping querySeqRange = parser.ParseRangeGrouping(querySeqRangefile);
 
-            string expectedresultpath = @"TestUtils\BED\Subtract\Result_Subtract_minoverlap1.BED";
+            string expectedresultpath = System.IO.Path.Combine (direc, "Result_Subtract_minoverlap1.BED");
             result = refSeqRange.Subtract(querySeqRange, 1, SubtractOutputType.IntervalsWithNoOverlap);
             formatter.Format(result, resultfilepath);
             resultvalue = CompareBEDOutput(resultfilepath, expectedresultpath);
@@ -308,7 +311,7 @@ namespace Bio.Tests.IO.Bed
             resultvalue = ValidateParentSeqRange(result, refSeqRange, querySeqRange, true);
             Assert.IsTrue(resultvalue);
 
-            expectedresultpath = @"TestUtils\BED\Subtract\Result_Subtract_minoverlap0.BED";
+            expectedresultpath = System.IO.Path.Combine (direc, "Result_Subtract_minoverlap0.BED");
             result = refSeqRange.Subtract(querySeqRange, 0, SubtractOutputType.IntervalsWithNoOverlap);
             formatter.Format(result, resultfilepath);
             resultvalue = CompareBEDOutput(resultfilepath, expectedresultpath);
@@ -316,7 +319,7 @@ namespace Bio.Tests.IO.Bed
             resultvalue = ValidateParentSeqRange(result, refSeqRange, querySeqRange, true);
             Assert.IsTrue(resultvalue);
 
-            expectedresultpath = @"TestUtils\BED\Subtract\Result_Subtract_minoverlap1.BED";
+            expectedresultpath = System.IO.Path.Combine (direc, "Result_Subtract_minoverlap1.BED");
             result = refSeqRange.Subtract(querySeqRange, 1, SubtractOutputType.IntervalsWithNoOverlap, true);
             formatter.Format(result, resultfilepath);
             resultvalue = CompareBEDOutput(resultfilepath, expectedresultpath);
@@ -324,7 +327,7 @@ namespace Bio.Tests.IO.Bed
             resultvalue = ValidateParentSeqRange(result, refSeqRange, querySeqRange, true);
             Assert.IsTrue(resultvalue);
 
-            expectedresultpath = @"TestUtils\BED\Subtract\Result_Subtract_minoverlap0.BED";
+            expectedresultpath = System.IO.Path.Combine (direc, "Result_Subtract_minoverlap0.BED");
             result = refSeqRange.Subtract(querySeqRange, 0, SubtractOutputType.IntervalsWithNoOverlap, true);
             formatter.Format(result, resultfilepath);
             resultvalue = CompareBEDOutput(resultfilepath, expectedresultpath);
@@ -333,7 +336,7 @@ namespace Bio.Tests.IO.Bed
             Assert.IsTrue(resultvalue);
 
 
-            expectedresultpath = @"TestUtils\BED\Subtract\Result_Subtract_minoverlap1.BED";
+            expectedresultpath = System.IO.Path.Combine (direc, "Result_Subtract_minoverlap1.BED");
             result = refSeqRange.Subtract(querySeqRange, 1, SubtractOutputType.IntervalsWithNoOverlap, false);
             formatter.Format(result, resultfilepath);
             resultvalue = CompareBEDOutput(resultfilepath, expectedresultpath);
@@ -341,7 +344,7 @@ namespace Bio.Tests.IO.Bed
             resultvalue = ValidateParentSeqRange(result, refSeqRange, querySeqRange, false);
             Assert.IsTrue(resultvalue);
 
-            expectedresultpath = @"TestUtils\BED\Subtract\Result_Subtract_minoverlap0.BED";
+            expectedresultpath = System.IO.Path.Combine (direc, "Result_Subtract_minoverlap0.BED");
             result = refSeqRange.Subtract(querySeqRange, 0, SubtractOutputType.IntervalsWithNoOverlap, false);
             formatter.Format(result, resultfilepath);
             resultvalue = CompareBEDOutput(resultfilepath, expectedresultpath);
@@ -349,7 +352,7 @@ namespace Bio.Tests.IO.Bed
             resultvalue = ValidateParentSeqRange(result, refSeqRange, querySeqRange, false);
             Assert.IsTrue(resultvalue);
 
-            expectedresultpath = @"TestUtils\BED\Subtract\Result_Subtract_minoverlap0_NOnOverlappingPieces.BED";
+            expectedresultpath = System.IO.Path.Combine (direc, "Result_Subtract_minoverlap0_NOnOverlappingPieces.BED");
             result = refSeqRange.Subtract(querySeqRange, 0, SubtractOutputType.NonOverlappingPiecesOfIntervals, true);
             formatter.Format(result, resultfilepath);
             resultvalue = CompareBEDOutput(resultfilepath, expectedresultpath);
@@ -357,7 +360,7 @@ namespace Bio.Tests.IO.Bed
             resultvalue = ValidateParentSeqRange(result, refSeqRange, querySeqRange, true);
             Assert.IsTrue(resultvalue);
 
-            expectedresultpath = @"TestUtils\BED\Subtract\Result_Subtract_minoverlap1_NOnOverlappingPieces.BED";
+            expectedresultpath = System.IO.Path.Combine (direc, "Result_Subtract_minoverlap1_NOnOverlappingPieces.BED");
             result = refSeqRange.Subtract(querySeqRange, 1, SubtractOutputType.NonOverlappingPiecesOfIntervals, true);
             formatter.Format(result, resultfilepath);
             resultvalue = CompareBEDOutput(resultfilepath, expectedresultpath);
@@ -381,7 +384,7 @@ namespace Bio.Tests.IO.Bed
                 using (StreamReader expectedResultReader = new StreamReader(expectedresultfile))
                 {
                     string result = resultReader.ReadToEnd();
-                    string expectedResult = expectedResultReader.ReadToEnd();
+                    string expectedResult = expectedResultReader.ReadToEnd().Replace("\r\n", System.Environment.NewLine);
                     int resultvalue = string.Compare(result, expectedResult, true,
                         CultureInfo.CurrentCulture);
                     return resultvalue == 0;

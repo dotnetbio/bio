@@ -145,8 +145,8 @@ namespace Bio.Tests
             var seq = new QualitativeSequence(Alphabets.DNA,
                                               FastQFormatType.Illumina_v1_3, seqData, qualityScores);
             string actualString = seq.ToString();
-            string expectedString = "ATCG\r\nAAAB";
-            Assert.AreEqual(actualString, expectedString);
+            string expectedString = "ATCG\r\nAAAB"; // This is dangerously platform specific
+            Assert.AreEqual(expectedString, actualString);
         }
 
         /// <summary>
@@ -207,7 +207,7 @@ namespace Bio.Tests
             string actualString = rangegrouping.ToString();
             string expectedStr = this.utilityObj.xmlUtil.GetTextValue(Constants.ToStringNodeName,
                                                                  Constants.SequenceRangeGroupingExpectedNode);
-            Assert.AreEqual(expectedStr.Replace("\\r\\n", ""), actualString.Replace("\r\n", ""));
+            Assert.AreEqual(expectedStr.Replace("\\r\\n", ""), actualString.Replace(System.Environment.NewLine, ""));
         }
 
         /// <summary>
@@ -220,7 +220,7 @@ namespace Bio.Tests
             ISequence seq = new Sequence(Alphabets.DNA, "ATCGATCG");
             var seqStats = new SequenceStatistics(seq);
             string actualString = seqStats.ToString();
-            string expectedString = "A - 2\r\nC - 2\r\nG - 2\r\nT - 2\r\n";
+            string expectedString = "A - 2\r\nC - 2\r\nG - 2\r\nT - 2\r\n".Replace("\r\n", System.Environment.NewLine);
             Assert.AreEqual(actualString, expectedString);
 
             // Gets the expected sequence from the Xml
@@ -277,7 +277,7 @@ namespace Bio.Tests
             string actualString = alignedSeqs.ToString();
             string expectedString = this.utilityObj.xmlUtil.GetTextValue(Constants.ToStringNodeName,
                                                                     Constants.AlignedSeqExpectedNode);
-            Assert.AreEqual(actualString.Replace("\r\n", ""), expectedString.Replace("\\r\\n", ""));
+            Assert.AreEqual(actualString, expectedString.Replace("\\r\\n", System.Environment.NewLine));
         }
 
         /// <summary>
@@ -303,7 +303,7 @@ namespace Bio.Tests
             string actualString = clust.ToString();
             string expectedString = this.utilityObj.xmlUtil.GetTextValue(Constants.ToStringNodeName,
                                                                     Constants.ClusterExpectedNode);
-            Assert.AreEqual(actualString.Replace("\r\n", ""), expectedString.Replace("\\r\\n", ""));
+            Assert.AreEqual(actualString, expectedString.Replace("\\r\\n", System.Environment.NewLine));
         }
 
         /// <summary>
@@ -355,7 +355,7 @@ namespace Bio.Tests
             alignedSeq.SecondOffset = 3;
 
             string actualString = alignedSeq.ToString();
-            string expectedString = "AWGHE\r\nAWGHE\r\nAW-HE\r\n";
+            string expectedString = "AWGHE\r\nAWGHE\r\nAW-HE\r\n".Replace("\r\n", System.Environment.NewLine);
             Assert.AreEqual(actualString, expectedString);
         }
 
@@ -377,7 +377,7 @@ namespace Bio.Tests
             align.PairwiseAlignedSequences.Add(alignedSeq);
 
             string actualString = align.ToString();
-            string expectedString = "AWGHE\r\nAWGHE\r\nAW-HE\r\n\r\n";
+            string expectedString = "AWGHE\r\nAWGHE\r\nAW-HE\r\n\r\n".Replace("\r\n", System.Environment.NewLine);
             Assert.AreEqual(actualString, expectedString);
         }
 
@@ -443,7 +443,7 @@ namespace Bio.Tests
                                                                                          .SequenceAlignmentExpectedNode);
 
             Assert.AreEqual(ExpectedSequenceAlignmentString.Replace("\\r\\n", ""),
-                            actualSequenceAlignmentString.Replace("\r\n", ""));
+                actualSequenceAlignmentString.Replace(System.Environment.NewLine, ""));
         }
 
         /// <summary>
@@ -606,7 +606,7 @@ namespace Bio.Tests
 
             string actualString = seqAssembly.ToString();
             const string expectedString = "ACAAAAGCAACAAAAATGAAGGCAATACTAGTAGTTCTGCTATATACATTTGCAACCGCAAATG... +[1678]";
-            Assert.AreEqual(expectedString, actualString.Replace("\r\n", ""));
+            Assert.AreEqual(expectedString, actualString.Replace(System.Environment.NewLine, ""));
 
             // Get the parameters from Xml
             int matchScore1 =
@@ -667,7 +667,7 @@ namespace Bio.Tests
             assembler1.OverlapAlgorithm = new SmithWatermanAligner();
             seqAssembly = (OverlapDeNovoAssembly) assembler1.Assemble(inputs1);
 
-            const string expectedString1 = "TYMKWRRGCGCCAAAATTTAGGC\r\n";
+            string expectedString1 = "TYMKWRRGCGCCAAAATTTAGGC" + System.Environment.NewLine;
             actualString = seqAssembly.ToString();
             Assert.AreEqual(expectedString1, actualString);
         }

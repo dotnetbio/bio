@@ -114,8 +114,8 @@ namespace Bio.Tests
             qualityScores[2] = (byte)'A';
             qualityScores[3] = (byte)'B';
             QualitativeSequence seq = new QualitativeSequence(Alphabets.DNA, FastQFormatType.Illumina_v1_3, seqData, qualityScores);
-            string actualString = seq.ToString();
-            string expectedString = "ATCG\r\nAAAB";
+            string actualString = seq.ToString().Replace("\r\n", Environment.NewLine);
+            string expectedString = "ATCG\r\nAAAB".Replace("\r\n", Environment.NewLine);
             Assert.AreEqual(actualString, expectedString);
         }
 
@@ -181,7 +181,7 @@ namespace Bio.Tests
             SequenceRangeGrouping rangegrouping = new SequenceRangeGrouping(ranges);
             string actualString = rangegrouping.ToString();
 
-            string expectedString = "ID=chr20 Start=0 End=3\r\nID=chr21 Start=0 End=4\r\n";
+            string expectedString = "ID=chr20 Start=0 End=3\r\nID=chr21 Start=0 End=4\r\n".Replace("\r\n", Environment.NewLine);
             Assert.AreEqual(actualString, expectedString);
         }
 
@@ -194,7 +194,7 @@ namespace Bio.Tests
             ISequence seq = new Sequence(Alphabets.DNA, "ATCGATCG");
             SequenceStatistics seqStats = new SequenceStatistics(seq);
             string actualString = seqStats.ToString();
-            string expectedString = "A - 2\r\nC - 2\r\nG - 2\r\nT - 2\r\n";
+            string expectedString = "A - 2\r\nC - 2\r\nG - 2\r\nT - 2\r\n".Replace("\r\n", Environment.NewLine);
             Assert.AreEqual(actualString, expectedString);
         }
 
@@ -229,7 +229,7 @@ namespace Bio.Tests
             var alignedSeqs = (AlignedSequence) alignmentObj[0].AlignedSequences[0];
 
             string actualString = alignedSeqs.ToString();
-            const string ExpectedString = "CAAAAGGGATTGC---\r\nCAAAAGGGATTGC---\r\nCAAAAGGGATTGC---\r\n";
+            string ExpectedString = "CAAAAGGGATTGC---\r\nCAAAAGGGATTGC---\r\nCAAAAGGGATTGC---\r\n".Replace("\r\n", Environment.NewLine);
             Assert.AreEqual(ExpectedString, actualString);
         }
 
@@ -253,7 +253,7 @@ namespace Bio.Tests
 
             Cluster clust = new Cluster(extnList);
             string actualString = clust.ToString();
-            string expectedString = "RefStart=0 QueryStart=0 Length=20 Score=0 WrapScore=0 IsGood=False\r\nRefStart=0 QueryStart=0 Length=30 Score=0 WrapScore=0 IsGood=False\r\n";
+            string expectedString = "RefStart=0 QueryStart=0 Length=20 Score=0 WrapScore=0 IsGood=False\r\nRefStart=0 QueryStart=0 Length=30 Score=0 WrapScore=0 IsGood=False\r\n".Replace ("\r\n", Environment.NewLine);
             Assert.AreEqual(actualString, expectedString);
         }
 
@@ -288,7 +288,7 @@ namespace Bio.Tests
             alignedSeq.SecondOffset = 3;
 
             string actualString = alignedSeq.ToString();
-            string expectedString = "AWGHE\r\nAWGHE\r\nAW-HE\r\n";
+            string expectedString = "AWGHE\r\nAWGHE\r\nAW-HE\r\n".Replace("\r\n", Environment.NewLine);
             Assert.AreEqual(actualString, expectedString);
         }
 
@@ -309,7 +309,7 @@ namespace Bio.Tests
             align.PairwiseAlignedSequences.Add(alignedSeq);
 
             string actualString = align.ToString();
-            string expectedString = "AWGHE\r\nAWGHE\r\nAW-HE\r\n\r\n";
+            string expectedString = "AWGHE\r\nAWGHE\r\nAW-HE\r\n\r\n".Replace("\r\n", Environment.NewLine);
             Assert.AreEqual(actualString, expectedString); 
         }
 
@@ -363,7 +363,7 @@ namespace Bio.Tests
             const string expected = "XXIPXXXXLXXXXXXFXXXXXXLSXXLHN\r\n" +
                                     "KRIPKSQNLRSIHSIFPFLEDKLSHL--N\r\n" +
                                     "LNIPSLITLNKSIYVFSKRKKRLSGFLHN\r\n\r\n";
-            Assert.AreEqual(expected, alignment.ToString());
+            Assert.AreEqual(expected.Replace("\r\n", Environment.NewLine), alignment.ToString());
         }
 
         /// <summary>
@@ -450,7 +450,7 @@ namespace Bio.Tests
             assembler.OverlapAlgorithm = new SmithWatermanAligner();
             seqAssembly = (IOverlapDeNovoAssembly) assembler.Assemble(inputs);
 
-            const string expectedString = "ACAAAAGCAACAAAAATGAAGGCAATACTAGTAGTTCTGCTATATACATTTGCAACCGCAAATG... +[1678]\r\n";
+            string expectedString = "ACAAAAGCAACAAAAATGAAGGCAATACTAGTAGTTCTGCTATATACATTTGCAACCGCAAATG... +[1678]\r\n".Replace("\r\n",Environment.NewLine);
             string actualString = seqAssembly.ToString();
             Assert.AreEqual(expectedString, actualString);
         }

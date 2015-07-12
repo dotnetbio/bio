@@ -228,7 +228,7 @@ namespace Bio.TestAutomation.IO.SAM
         {
             // Gets the expected sequence from the Xml
             string filePath = utilityObj.xmlUtil.GetTextValue(
-                Constants.SmallSAMFileNode, Constants.FilePathNode);
+                Constants.SmallSAMFileNode.Replace("\r\n", System.Environment.NewLine), Constants.FilePathNode);
             ISequenceAlignmentParser parser = new SAMParser();
             IEnumerable<ISequenceAlignment> alignments = parser.Parse(filePath);
             SAMFormatter formatter = new SAMFormatter();
@@ -365,7 +365,7 @@ namespace Bio.TestAutomation.IO.SAM
             SAMFormatter formatter = new SAMFormatter();
             string writer = formatter.FormatString(alignment[0]);
 
-            Assert.AreEqual(writer, Constants.FormatterString);
+            Assert.AreEqual(writer, Constants.FormatterString.Replace("\r\n", Environment.NewLine));
         }
 
         #endregion

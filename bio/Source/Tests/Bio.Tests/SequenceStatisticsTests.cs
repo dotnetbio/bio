@@ -155,7 +155,7 @@ namespace Bio.Tests
             ISequence sequence = new Sequence(Alphabets.DNA, "ACGT--ACGT--ACGT--");
             SequenceStatistics stats = new SequenceStatistics(sequence);
 
-            const string expectedValue = "- - 6\r\nA - 3\r\nC - 3\r\nG - 3\r\nT - 3\r\n";
+            string expectedValue = "- - 6\r\nA - 3\r\nC - 3\r\nG - 3\r\nT - 3\r\n".Replace("\r\n", Environment.NewLine);
             string actualValue = stats.ToString();
 
             Assert.AreEqual(expectedValue, actualValue);
