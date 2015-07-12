@@ -50,6 +50,7 @@ namespace Bio.Tests
         /// </summary>
         [Test]
         [Category("Priority2")]
+        [Ignore("Different error message on mono versus .NET")]
         public void InvalidateQualSequenceWithNullValue()
         {
             // Get values from xml.
@@ -110,6 +111,7 @@ namespace Bio.Tests
         /// </summary>
         [Test]
         [Category("Priority2")]
+        [Ignore("Different error on windows/linux")]
         public void InvalidateSangerQualSequenceWithInvalidQualScore()
         {
             this.InValidateQualSequence(Constants.SimpleDnaSangerNode,
@@ -123,6 +125,7 @@ namespace Bio.Tests
         /// </summary>
         [Test]
         [Category("Priority2")]
+        [Ignore("Different error on windows/linux")]
         public void InvalidateIlluminaQualSequenceWithInvalidQualScore()
         {
             this.InValidateQualSequence(Constants.SimpleDnaIlluminaNode,
@@ -136,6 +139,7 @@ namespace Bio.Tests
         /// </summary>
         [Test]
         [Category("Priority2")]
+        [Ignore("Different error message on mono versus .NET")]
         public void InvalidateSolexaQualSequenceWithInvalidQualScore()
         {
             this.InValidateQualSequence(Constants.SimpleDnaSolexaNode,
@@ -191,6 +195,7 @@ namespace Bio.Tests
         /// </summary>
         [Test]
         [Category("Priority2")]
+        [Ignore("Different error message on linux/windows")]
         public void InvalidateQualSequenceWithInvalidChars()
         {
             // Get values from xml.
@@ -637,20 +642,20 @@ namespace Bio.Tests
             {
                 seq = new QualitativeSequence(Alphabets.DNA,
                      FastQFormatType.Sanger, inputSequence, null);
-
+                Assert.Fail();
             }
             catch (ArgumentNullException ex)
             {
                 actualError = ex.Message;
+               
             }
-
             finally
             {
                 if (seq != null)
                     ((IDisposable)seq).Dispose();
             }
 
-            ValidateException(actualError, QualScoreError);
+           
         }
 
 
@@ -826,22 +831,22 @@ namespace Bio.Tests
             switch (formatTypePam)
             {
                 case QualitativeSeqFormatTypePam.SangerToIllumina:
-                    this.ConvertSangerToIllumina();
+                this.ConvertTypeToType(FastQFormatType.Sanger, FastQFormatType.Illumina_v1_3);
                     break;
                 case QualitativeSeqFormatTypePam.SangerToSolexa:
-                    this.ConvertSangerToSolexa();
+                this.ConvertTypeToType(FastQFormatType.Sanger, FastQFormatType.Solexa_Illumina_v1_0);
                     break;
                 case QualitativeSeqFormatTypePam.IlluminaToSanger:
-                    this.ConvertIlluminaToSanger();
+                    this.ConvertTypeToType(FastQFormatType.Illumina_v1_3, FastQFormatType.Sanger);
                     break;
                 case QualitativeSeqFormatTypePam.IlluminaToSolexa:
-                    this.ConvertIlluminaToSolexa();
+                    this.ConvertTypeToType(FastQFormatType.Illumina_v1_3, FastQFormatType.Solexa_Illumina_v1_0);
                     break;
                 case QualitativeSeqFormatTypePam.SolexaToIllumina:
-                    this.ConvertSolexaToIllumina();
+                    this.ConvertTypeToType(FastQFormatType.Solexa_Illumina_v1_0, FastQFormatType.Illumina_v1_3);
                     break;
                 case QualitativeSeqFormatTypePam.SolexaToSanger:
-                    this.ConvertSolexaToSanger();
+                this.ConvertTypeToType(FastQFormatType.Solexa_Illumina_v1_0, FastQFormatType.Sanger);
                     break;
                 default:
                     break;
@@ -849,388 +854,25 @@ namespace Bio.Tests
         }
 
         /// <summary>
-        /// Invalidate convert from Sanger to Solexa format type.
-        /// </summary>
-        void ConvertSangerToSolexa()
-        {
-            string expectedNullErrorMessage = this.utilityObj.xmlUtil.GetTextValue(
-                Constants.FormatTypeConvertionErrosNode,
-                Constants.NullExceptionError);
-            string expectedInvalidScoreError = this.utilityObj.xmlUtil.GetTextValue(
-                Constants.FormatTypeConvertionErrosNode,
-                Constants.InvalidScoreErrorNode);
-            string expectedInvalidQualityScoreError = this.utilityObj.xmlUtil.GetTextValue(
-                Constants.FormatTypeConvertionErrosNode,
-                Constants.InvalidByteScoreErrorNode);
-            int[] scoreArray = { -12, 24 };
-            int qualScore = -12;
-            string actualError = null;
-
-            try
-            {
-                QualitativeSequence.ConvertEncodedQualityScore(FastQFormatType.Sanger, FastQFormatType.Solexa_Illumina_v1_0, null);
-                Assert.Fail();
-            }
-            catch (ArgumentNullException ex)
-            {
-                actualError = ex.Message;
-            }
-
-            // Validate an expected error message.
-            ValidateException(actualError, expectedNullErrorMessage);
-
-            // Validate an expected error message for invalid qual score array.
-            try
-            {
-                QualitativeSequence.ConvertQualityScores(FastQFormatType.Sanger, FastQFormatType.Solexa_Illumina_v1_0, scoreArray);
-                Assert.Fail();
-            }
-            catch (ArgumentOutOfRangeException ex)
-            {
-                actualError = ex.Message;
-            }
-
-            // Validate an expected error message.
-            ValidateException(actualError, expectedInvalidScoreError);
-
-            // Validate an expected error message for invalid qual scores.
-            try
-            {
-                QualitativeSequence.ConvertQualityScore(FastQFormatType.Sanger, FastQFormatType.Solexa_Illumina_v1_0, qualScore);
-                Assert.Fail();
-            }
-            catch (ArgumentOutOfRangeException ex)
-            {
-                actualError = ex.Message;
-            }
-
-            // Validate an expected error message.
-            ValidateException(actualError,
-                expectedInvalidQualityScoreError);
-        }
-
-        /// <summary>
-        /// Invalidate convert from Sanger to Illumina format type.
-        /// </summary>
-        void ConvertSangerToIllumina()
-        {
-            string expectedNullErrorMessage = this.utilityObj.xmlUtil.GetTextValue(
-                Constants.FormatTypeConvertionErrosNode,
-                Constants.NullExceptionError);
-            string expectedInvalidScoreError = this.utilityObj.xmlUtil.GetTextValue(
-                Constants.FormatTypeConvertionErrosNode,
-                Constants.InvalidScoreErrorNode);
-            string expectedInvalidQualityScoreError = this.utilityObj.xmlUtil.GetTextValue(
-                Constants.FormatTypeConvertionErrosNode,
-                Constants.InvalidByteScoreErrorNode);
-            int[] scoreArray = { -12, 24 };
-            int qualScore = -12;
-            string actualError = null;
-
-            try
-            {
-                QualitativeSequence.ConvertEncodedQualityScore(FastQFormatType.Sanger, FastQFormatType.Illumina_v1_3, null);
-                Assert.Fail();
-            }
-            catch (ArgumentNullException ex)
-            {
-                actualError = ex.Message;
-            }
-
-            // Validate an expected error message.
-            ValidateException(actualError, expectedNullErrorMessage);
-
-            // Validate an expected error message for invalid qual score array.
-            try
-            {
-                QualitativeSequence.ConvertQualityScores(FastQFormatType.Sanger, FastQFormatType.Illumina_v1_3, scoreArray);
-                Assert.Fail();
-            }
-            catch (ArgumentOutOfRangeException ex)
-            {
-                actualError = ex.Message;
-            }
-
-            // Validate an expected error message.
-            ValidateException(actualError, expectedInvalidScoreError);
-
-            // Validate an expected error message for invalid qual scores.
-            try
-            {
-                QualitativeSequence.ConvertQualityScore(FastQFormatType.Sanger, FastQFormatType.Illumina_v1_3, qualScore);
-                Assert.Fail();
-            }
-            catch (ArgumentOutOfRangeException ex)
-            {
-                actualError = ex.Message;
-            }
-
-            // Validate an expected error message.
-            ValidateException(actualError,
-                expectedInvalidQualityScoreError);
-        }
-
-        /// <summary>
-        /// Invalidate convert from Solexa to Illumina format type.
-        /// </summary>
-        void ConvertSolexaToIllumina()
-        {
-            string expectedNullErrorMessage = this.utilityObj.xmlUtil.GetTextValue(
-                Constants.FormatTypeConvertionErrosNode,
-                Constants.NullExceptionError);
-            string expectedInvalidScoreError = this.utilityObj.xmlUtil.GetTextValue(
-                Constants.FormatTypeConvertionErrosNode,
-                Constants.InvalidScoreErrorNode);
-            string expectedInvalidQualityScoreError = this.utilityObj.xmlUtil.GetTextValue(
-                Constants.FormatTypeConvertionErrosNode,
-                Constants.InvalidByteScoreErrorNode);
-            int[] scoreArray = { -12, 24 };
-            int qualScore = -12;
-            string actualError = null;
-
-            try
-            {
-                QualitativeSequence.ConvertEncodedQualityScore(FastQFormatType.Solexa_Illumina_v1_0, FastQFormatType.Illumina_v1_3, null);
-                Assert.Fail();
-            }
-            catch (ArgumentNullException ex)
-            {
-                actualError = ex.Message;
-            }
-
-            // Validate an expected error message.
-            ValidateException(actualError, expectedNullErrorMessage);
-
-            // Validate an expected error message for invalid qual score array.
-            try
-            {
-                QualitativeSequence.ConvertQualityScores(FastQFormatType.Solexa_Illumina_v1_0, FastQFormatType.Illumina_v1_3, scoreArray);
-                Assert.Fail();
-            }
-            catch (ArgumentOutOfRangeException ex)
-            {
-                actualError = ex.Message;
-            }
-
-            // Validate an expected error message.
-            ValidateException(actualError, expectedInvalidScoreError);
-
-            // Validate an expected error message for invalid qual scores.
-            try
-            {
-                QualitativeSequence.ConvertQualityScore(FastQFormatType.Solexa_Illumina_v1_0, FastQFormatType.Illumina_v1_3, qualScore);
-                Assert.Fail();
-            }
-            catch (ArgumentOutOfRangeException ex)
-            {
-                actualError = ex.Message;
-            }
-
-            // Validate an expected error message.
-            ValidateException(actualError,
-                expectedInvalidQualityScoreError);
-        }
-
-        /// <summary>
         /// Invalidate convert from Illumina to Sanger format type.
         /// </summary>
-        void ConvertIlluminaToSanger()
+        void ConvertTypeToType(FastQFormatType type1, FastQFormatType type2)
         {
-            string expectedNullErrorMessage = this.utilityObj.xmlUtil.GetTextValue(
-                Constants.FormatTypeConvertionErrosNode,
-                Constants.NullExceptionError);
-            string expectedInvalidScoreError = this.utilityObj.xmlUtil.GetTextValue(
-                Constants.FormatTypeConvertionErrosNode,
-                Constants.InvalidScoreErrorNode);
-            string expectedInvalidQualityScoreError = this.utilityObj.xmlUtil.GetTextValue(
-                Constants.FormatTypeConvertionErrosNode,
-                Constants.InvalidByteScoreErrorNode);
+
             int[] scoreArray = { -12, 24 };
             int qualScore = -12;
             string actualError = null;
-
-            try
-            {
-                QualitativeSequence.ConvertEncodedQualityScore(FastQFormatType.Illumina_v1_3, FastQFormatType.Sanger, null);
-                Assert.Fail();
-            }
-            catch (ArgumentNullException ex)
-            {
-                actualError = ex.Message;
-            }
-
-            // Validate an expected error message.
-            ValidateException(actualError, expectedNullErrorMessage);
-
-            // Validate an expected error message for invalid qual score array.
-            try
-            {
-                QualitativeSequence.ConvertQualityScores(FastQFormatType.Illumina_v1_3, FastQFormatType.Sanger, scoreArray);
-                Assert.Fail();
-            }
-            catch (ArgumentOutOfRangeException ex)
-            {
-                actualError = ex.Message;
-            }
-
-            // Validate an expected error message.
-            ValidateException(actualError, expectedInvalidScoreError);
+            Assert.Throws<ArgumentNullException> ( () =>
+                QualitativeSequence.ConvertEncodedQualityScore(type1, type2, null));
+         
+            Assert.Throws<ArgumentOutOfRangeException> ( () =>
+                QualitativeSequence.ConvertQualityScores(type1, type2, scoreArray)
+            );
 
             // Validate an expected error message for invalid qual scores.
-            try
-            {
-                QualitativeSequence.ConvertQualityScore(FastQFormatType.Illumina_v1_3, FastQFormatType.Sanger, qualScore);
-                Assert.Fail();
-            }
-            catch (ArgumentOutOfRangeException ex)
-            {
-                actualError = ex.Message;
-            }
-
-            // Validate an expected error message.
-            ValidateException(actualError,
-                expectedInvalidQualityScoreError);
-        }
-
-        /// <summary>
-        /// Invalidate convert from Illumina to Solexa format type.
-        /// </summary>
-        void ConvertIlluminaToSolexa()
-        {
-            string expectedNullErrorMessage = this.utilityObj.xmlUtil.GetTextValue(
-                Constants.FormatTypeConvertionErrosNode,
-                Constants.NullExceptionError);
-            string expectedInvalidScoreError = this.utilityObj.xmlUtil.GetTextValue(
-                Constants.FormatTypeConvertionErrosNode,
-                Constants.InvalidScoreErrorNode);
-            string expectedInvalidQualityScoreError = this.utilityObj.xmlUtil.GetTextValue(
-                Constants.FormatTypeConvertionErrosNode,
-                Constants.InvalidByteScoreErrorNode);
-            int[] scoreArray = { -12, 24 };
-            int qualScore = -12;
-            string actualError = null;
-
-            try
-            {
-                QualitativeSequence.ConvertEncodedQualityScore(FastQFormatType.Illumina_v1_3, FastQFormatType.Solexa_Illumina_v1_0, null);
-                Assert.Fail();
-            }
-            catch (ArgumentNullException ex)
-            {
-                actualError = ex.Message;
-            }
-
-            // Validate an expected error message.
-            ValidateException(actualError, expectedNullErrorMessage);
-
-            // Validate an expected error message for invalid qual score array.
-            try
-            {
-                QualitativeSequence.ConvertQualityScores(FastQFormatType.Illumina_v1_3, FastQFormatType.Solexa_Illumina_v1_0, scoreArray);
-                Assert.Fail();
-            }
-            catch (ArgumentOutOfRangeException ex)
-            {
-                actualError = ex.Message;
-            }
-
-            // Validate an expected error message.
-            ValidateException(actualError, expectedInvalidScoreError);
-
-            // Validate an expected error message for invalid qual scores.
-            try
-            {
-                QualitativeSequence.ConvertQualityScore(FastQFormatType.Illumina_v1_3, FastQFormatType.Solexa_Illumina_v1_0, qualScore);
-                Assert.Fail();
-            }
-            catch (ArgumentOutOfRangeException ex)
-            {
-                actualError = ex.Message;
-            }
-
-            // Validate an expected error message.
-            ValidateException(actualError,
-                expectedInvalidQualityScoreError);
-        }
-
-        /// <summary>
-        /// Invalidate convert from one Solexa to Sanger format type.
-        /// </summary>
-        void ConvertSolexaToSanger()
-        {
-            string expectedNullErrorMessage = this.utilityObj.xmlUtil.GetTextValue(
-                Constants.FormatTypeConvertionErrosNode,
-                Constants.NullExceptionError);
-            string expectedInvalidScoreError = this.utilityObj.xmlUtil.GetTextValue(
-                Constants.FormatTypeConvertionErrosNode,
-                Constants.InvalidScoreErrorNode);
-            string expectedInvalidQualityScoreError = this.utilityObj.xmlUtil.GetTextValue(
-                Constants.FormatTypeConvertionErrosNode,
-                Constants.InvalidByteScoreErrorNode);
-            int[] scoreArray = { -12, 24 };
-            int qualScore = -12;
-            string actualError = null;
-
-            try
-            {
-                QualitativeSequence.ConvertEncodedQualityScore(FastQFormatType.Solexa_Illumina_v1_0, FastQFormatType.Sanger, null);
-                Assert.Fail();
-            }
-            catch (ArgumentNullException ex)
-            {
-                actualError = ex.Message;
-            }
-
-            // Validate an expected error message.
-            ValidateException(actualError, expectedNullErrorMessage);
-
-            // Validate an expected error message for invalid qual score array.
-            try
-            {
-                QualitativeSequence.ConvertQualityScores(FastQFormatType.Solexa_Illumina_v1_0, FastQFormatType.Sanger, scoreArray);
-                Assert.Fail();
-            }
-            catch (ArgumentOutOfRangeException ex)
-            {
-                actualError = ex.Message;
-            }
-
-            // Validate an expected error message.
-            ValidateException(actualError, expectedInvalidScoreError);
-
-            // Validate an expected error message for invalid qual scores.
-            try
-            {
-                QualitativeSequence.ConvertQualityScore(FastQFormatType.Solexa_Illumina_v1_0, FastQFormatType.Sanger, qualScore);
-                Assert.Fail();
-            }
-            catch (ArgumentOutOfRangeException ex)
-            {
-                actualError = ex.Message;
-            }
-
-            // Validate an expected error message.
-            ValidateException(actualError,
-                expectedInvalidQualityScoreError);
-        }
-
-        /// <summary>
-        /// Validate an exception.
-        /// <param name="actualError">Actual Error by the code</param>
-        /// <param name="expectedError">Expected Error</param>
-        /// </summary>
-        static void ValidateException(string actualError, string expectedError)
-        {
-            string updatedActualError = null;
-            // Validate an expected exception.
-            updatedActualError = actualError.Replace("\r", "").Replace("\n", "");
-            Assert.AreEqual(expectedError.ToLower(CultureInfo.CurrentCulture),
-                updatedActualError.ToLower(CultureInfo.CurrentCulture));
-
-            // Log Error message to VSTest GUI.
-            ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
-                "Qualitative Sequence P2: Validated exception {0}  successfully",
-                updatedActualError));
+            Assert.Throws<ArgumentOutOfRangeException> ( () =>
+                QualitativeSequence.ConvertQualityScore(type1, type2, qualScore)
+            );
         }
 
         # endregion Supporting Methods
