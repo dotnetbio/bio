@@ -353,7 +353,8 @@ namespace Bio.Matrix
 
 
                 string colKeysLineOrNull = ThreadLocalTextReader.ReadLine();
-                position += colKeysLineOrNull.Length + 2; //!!!const assuming 2 char newslines
+                var newLineLength = Environment.NewLine.Length;
+                position += colKeysLineOrNull.Length + newLineLength;
                 string[] varAndColKeys = colKeysLineOrNull.Split('\t');
                 if (!varAndColKeys[0].Equals("var")) throw new MatrixFormatException("Expect first row's first value to be 'var'");
                 ColSerialNumbers = new SerialNumbers<string>(varAndColKeys.Skip(1));
@@ -389,7 +390,7 @@ namespace Bio.Matrix
                     _rowKeys.Add(rowKey);
                     position += rowKey.Length + 1;
                     RowKeyToFilePosition.Add(rowKey, position);
-                    position += ColCount * BytesPerValue + 2;//!!!assumes two char newlines
+                    position += ColCount * BytesPerValue + newLineLength;
                     if (position > ThreadLocalStream.Length)
                     {
                         throw new MatrixFormatException("File seems too short");
