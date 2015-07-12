@@ -21,11 +21,11 @@ using Bio.IO.FastA;
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using System.Globalization;
 using Bio.Tests.Framework;
 
-namespace Bio.TestAutomation.Algorithms.Assembly.Padena
+namespace Bio.Tests.Algorithms.Padena
 {
     /// <summary>
     /// The class contains P1 test cases to confirm Padena.
@@ -33,23 +33,12 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
     /// Note: Due to all the optimizations in PADENA, step 6 no longer works. 
     /// Skipping those tests pending a fix.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class PadenaP1TestCases
     {
 
         #region Constructor
 
-        /// <summary>
-        /// Static constructor to open log and make other settings needed for test
-        /// </summary>
-        static PadenaP1TestCases()
-        {
-            Trace.Set(Trace.SeqWarnings);
-            if (!ApplicationLog.Ready)
-            {
-                ApplicationLog.Open("bio.automation.log");
-            }
-        }
 
         #endregion
 
@@ -61,9 +50,9 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// Input : virul genome input reads and kmerLength 28
         /// Output : kmers sequence
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        
+        [Category("Padena")]
         public void ValidatePadenaStep1BuildKmersForViralGenomeReads()
         {
             using (PadenaP1Test testObj = new PadenaP1Test())
@@ -78,9 +67,9 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// Input : input reads with reverse complement and kmerLength 20
         /// Output : kmers sequence
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        
+        [Category("Padena")]
         public void ValidatePadenaStep1BuildKmersWithRCReads()
         {
             using (PadenaP1Test testObj = new PadenaP1Test())
@@ -95,9 +84,9 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// Input : input reads which will generate clusters and kmerLength 7
         /// Output : kmers sequence
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        
+        [Category("Padena")]
         public void ValidatePadenaStep1BuildKmersWithClusters()
         {
             using (PadenaP1Test testObj = new PadenaP1Test())
@@ -113,9 +102,9 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// chromosome sequence and kmerLength 4
         /// Output : kmers of sequence object with build kmers
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        
+        [Category("Padena")]
         public void ValidatePadenaStep1KmersOfSequenceCtorWithBuildKmers()
         {
             using (PadenaP1Test testObj = new PadenaP1Test())
@@ -132,9 +121,9 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// chromosome sequence and kmerLength 28
         /// Output : kmers of sequence object with build kmers
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        
+        [Category("Padena")]
         public void ValidatePadenaStep1KmersOfSequenceCtorWithBuildKmersForSmallSizeSequences()
         {
             using (PadenaP1Test testObj = new PadenaP1Test())
@@ -149,9 +138,9 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// chromosome sequence and kmerLength 4 
         /// Output : kmers sequence
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        
+        [Category("Padena")]
         public void ValidateKmersOfSequenceCtrproperties()
         {
             using (PadenaP1Test testObj = new PadenaP1Test())
@@ -166,9 +155,9 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// chromosome sequence and kmerLength 28 
         /// Output : kmers sequence
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        
+        [Category("Padena")]
         public void ValidatePadenaStep1KmersOfSequenceToSequencesUsingSmallSizeReads()
         {
             using (PadenaP1Test testObj = new PadenaP1Test())
@@ -189,9 +178,9 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// Input: kmers
         /// Output: Graph
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        
+        [Category("Padena")]
         public void ValidatePadenaStep2BuildGraphForVirulGenome()
         {
             using (PadenaP1Test testObj = new PadenaP1Test())
@@ -207,9 +196,9 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// Input: kmers
         /// Output: Graph
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        
+        [Category("Padena")]
         public void ValidatePadenaStep2BuildGraphWithRCReads()
         {
             using (PadenaP1Test testObj = new PadenaP1Test())
@@ -224,9 +213,9 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// Input: kmers
         /// Output: Graph
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        
+        [Category("Padena")]
         public void ValidatePadenaStep2BuildGraphWithClusters()
         {
             using (PadenaP1Test testObj = new PadenaP1Test())
@@ -241,9 +230,9 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// Input: kmers
         /// Output: Graph
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        
+        [Category("Padena")]
         public void ValidatePadenaStep2BuildGraphWithSmallSizeReads()
         {
             using (PadenaP1Test testObj = new PadenaP1Test())
@@ -257,9 +246,9 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// Input: kmers
         /// Output: Graph
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        
+        [Category("Padena")]
         public void ValidatePadenaStep2DeBruijinGraphProperties()
         {
             using (PadenaP1Test testObj = new PadenaP1Test())
@@ -273,9 +262,9 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// Input: kmers
         /// Output: Graph
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        
+        [Category("Padena")]
         public void ValidatePadenaStep2DeBruijinGraphPropertiesForSmallSizeRC()
         {
             using (PadenaP1Test testObj = new PadenaP1Test())
@@ -288,9 +277,9 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// Validate DeBruijinNode ctor by passing dna 
         /// kmersof sequence and graph object of chromosome
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        
+        [Category("Padena")]
         public void ValidatePadenaStep2DeBruijinCtrByPassingOneLineRC()
         {
             using (PadenaP1Test testObj = new PadenaP1Test())
@@ -304,9 +293,9 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// passing node object and orinetation 
         /// with chromosome read
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        
+        [Category("Padena")]
         public void ValidatePadenaStep2DeBruijnNodeAddLeftExtensionWithReads()
         {
             using (PadenaP1Test testObj = new PadenaP1Test())
@@ -320,9 +309,9 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// Add new node as leftendextension of first node. Validate the 
         /// AddRightEndExtension() method.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        
+        [Category("Padena")]
         public void ValidatePadenaStep2DeBruijnNodeAddRightExtensionWithRCReads()
         {
             using (PadenaP1Test testObj = new PadenaP1Test())
@@ -335,9 +324,9 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// Validate RemoveExtension() method by passing node 
         /// object and orientation with one line read
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        
+        [Category("Padena")]
         public void ValidatePadenaStep2DeBruijnNodeRemoveExtensionWithOneLineReads()
         {
             using (PadenaP1Test testObj = new PadenaP1Test())
@@ -356,9 +345,9 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// Input: Graph with dangling links
         /// Output: Graph without any dangling links
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        
+        [Category("Padena")]
         public void ValidatePadenaStep3UndangleGraphWithRCReads()
         {
             using (PadenaP1Test testObj = new PadenaP1Test())
@@ -373,9 +362,9 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// Input: Graph with dangling links
         /// Output: Graph without any dangling links
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        
+        [Category("Padena")]
         public void ValidatePadenaStep3UndangleGraphForViralGenomeReads()
         {
             using (PadenaP1Test testObj = new PadenaP1Test())
@@ -389,9 +378,9 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// Input: Graph with dangling links
         /// Output: Graph without any dangling links
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        
+        [Category("Padena")]
         public void ValidatePadenaStep3UndangleGraphWithClusters()
         {
             using (PadenaP1Test testObj = new PadenaP1Test())
@@ -405,9 +394,9 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// Input: Graph with 3 dangling links
         /// Output: Graph without any dangling links
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        
+        [Category("Padena")]
         public void ValidatePadenaStep3UndangleGraphWithDanglingLinks()
         {
             using (PadenaP1Test testObj = new PadenaP1Test())
@@ -421,9 +410,9 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// Input: Graph with 3 dangling links
         /// Output: Graph without any dangling links
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        
+        [Category("Padena")]
         public void ValidatePadenaStep3UndangleGraphWithMultipleDanglingLinks()
         {
             using (PadenaP1Test testObj = new PadenaP1Test())
@@ -439,9 +428,9 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// Input: Graph and dangling node
         /// Output: Graph without any dangling nodes
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        
+        [Category("Padena")]
         public void ValidatePadenaStep3RemoveErrorNodesForSmallSizeReads()
         {
             using (PadenaP1Test testObj = new PadenaP1Test())
@@ -460,9 +449,9 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// Input: Graph with bubbles
         /// Output: Graph without bubbles
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        
+        [Category("Padena")]
         public void ValidatePadenaStep4RemoveRedundancyForViralGenomeReads()
         {
             using (PadenaP1Test testObj = new PadenaP1Test())
@@ -477,9 +466,9 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// Input: Graph with bubbles
         /// Output: Graph without bubbles
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        
+        [Category("Padena")]
         public void ValidatePadenaStep4RemoveRedundancyWithRCReads()
         {
             using (PadenaP1Test testObj = new PadenaP1Test())
@@ -494,9 +483,9 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// Input: Graph with bubbles
         /// Output: Graph without bubbles
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        
+        [Category("Padena")]
         public void ValidatePadenaStep4RemoveRedundancyWithClusters()
         {
             using (PadenaP1Test testObj = new PadenaP1Test())
@@ -511,9 +500,9 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// Input: Graph with bubbles
         /// Output: Graph without bubbles
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        
+        [Category("Padena")]
         public void ValidatePadenaStep4RemoveRedundancyWithBubbles()
         {
             using (PadenaP1Test testObj = new PadenaP1Test())
@@ -528,9 +517,9 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// Input: Graph with bubbles
         /// Output: Graph without bubbles
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        
+        [Category("Padena")]
         public void ValidatePadenaStep4RemoveRedundancyWithMultipleBubbles()
         {
             using (PadenaP1Test testObj = new PadenaP1Test())
@@ -545,9 +534,9 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// Input: Graph with bubbles
         /// Output: Graph without bubbles
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        
+        [Category("Padena")]
         public void ValidatePadenaStep4RemoveRedundancyWithSmallSizeReads()
         {
             using (PadenaP1Test testObj = new PadenaP1Test())
@@ -562,9 +551,9 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// Input: One line graph
         /// Output: Graph without bubbles
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        
+        [Category("Padena")]
         public void ValidatePadenaStep4RedundantPathPurgerCtorWithOneLineReads()
         {
             using (PadenaP1Test testObj = new PadenaP1Test())
@@ -579,9 +568,9 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// Input: One line graph
         /// Output: Graph without bubbles
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        
+        [Category("Padena")]
         public void ValidatePadenaStep4DetectErrorNodesForOneLineReads()
         {
             using (PadenaP1Test testObj = new PadenaP1Test())
@@ -595,9 +584,9 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// Input : graph and redundant nodes list
         /// Output: Graph without bubbles
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        
+        [Category("Padena")]
         public void ValidatePadenaStep4RemoveErrorNodes()
         {
             using (PadenaP1Test testObj = new PadenaP1Test())
@@ -615,9 +604,9 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// Input : graph
         /// Output: Contigs
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        
+        [Category("Padena")]
         public void ValidatePadenaStep5BuildContigsForViralGenomeReads()
         {
             using (PadenaP1Test testObj = new PadenaP1Test())
@@ -631,9 +620,9 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// Input : graph
         /// Output: Contigs
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        
+        [Category("Padena")]
         public void ValidatePadenaStep5BuildContigsWithRCReads()
         {
             using (PadenaP1Test testObj = new PadenaP1Test())
@@ -647,9 +636,9 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// Input : graph
         /// Output: Contigs
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        
+        [Category("Padena")]
         public void ValidatePadenaStep5BuildContigsWithClusters()
         {
             using (PadenaP1Test testObj = new PadenaP1Test())
@@ -664,9 +653,9 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// Input : graph
         /// Output: Contigs
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        
+        [Category("Padena")]
         public void ValidatePadenaStep5BuildContigsForSmallSizeChromosomes()
         {
             using (PadenaP1Test testObj = new PadenaP1Test())
@@ -681,9 +670,9 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// Input : graph
         /// Output: Contigs
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        
+        [Category("Padena")]
         public void ValidatePadenaStep5SimpleContigBuilderBuildContigsForSmallSizeRC()
         {
             using (PadenaP1Test testObj = new PadenaP1Test())
@@ -701,9 +690,9 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// Input : X1,Y1 format map reads with sequence ID contains "..".
         /// Output : Validate forward and backward reads.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+
+        [Category("Padena")]
         public void ValidatePadenaStep6PairedReadsForSeqIDWithDots()
         {
             using (PadenaP1Test testObj = new PadenaP1Test())
@@ -717,9 +706,9 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// Input : X1,Y1 format map reads with sequence ID contains ".." between.
         /// Output : Validate forward and backward reads.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        
+        [Category("Padena")]
         public void ValidatePadenaStep6PairedReadsForSeqIDWithDotsBetween()
         {
             using (PadenaP1Test testObj = new PadenaP1Test())
@@ -733,9 +722,9 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// Input : X1,Y1 format map reads with sequence ID contains "X1 and Y1 letters" between.
         /// Output : Validate forward and backward reads.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        
+        [Category("Padena")]
         public void ValidatePadenaStep6PairedReadsForSeqIDContainsX1Y1()
         {
             using (PadenaP1Test testObj = new PadenaP1Test())
@@ -749,9 +738,9 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// Input : X1,Y1 format map reads with sequence ID contains "X1 and Y1 letters" between.
         /// Output : Validate forward and backward reads.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        
+        [Category("Padena")]
         public void ValidatePadenaStep6PairedReadsForSpecialCharsSeqId()
         {
             using (PadenaP1Test testObj = new PadenaP1Test())
@@ -765,9 +754,9 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// Input : X1,Y1,F,R,1,2 format map reads
         /// Output : Validate forward and backward reads.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        
+        [Category("Padena")]
         public void ValidatePadenaStep6PairedReadsForMixedFormatReads()
         {
             using (PadenaP1Test testObj = new PadenaP1Test())
@@ -781,9 +770,9 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// Input : X1,Y1,F,R,1,2 format map reads
         /// Output : Validate forward and backward reads.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        
+        [Category("Padena")]
         public void ValidatePadenaStep6PairedReadsForDifferentLibrary()
         {
             using (PadenaP1Test testObj = new PadenaP1Test())
@@ -797,9 +786,9 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// Input : X1,Y1,F,R,1,2 format map reads
         /// Output : Validate forward and backward reads.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        
+        [Category("Padena")]
         public void ValidatePadenaStep6PairedReadsFor100kLibrary()
         {
             using (PadenaP1Test testObj = new PadenaP1Test())
@@ -813,9 +802,9 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// Input : X1,Y1,F,R,1,2 format map reads
         /// Output : Validate forward and backward reads.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        
+        [Category("Padena")]
         public void ValidatePadenaStep6PairedReadsForSeqsWithoutAnyID()
         {
             using (PadenaP1Test testObj = new PadenaP1Test())
@@ -829,9 +818,9 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// Input : X1,Y1,F,R,1,2 format map reads
         /// Output : Validate forward and backward reads.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        
+        [Category("Padena")]
         public void ValidatePadenaStep6PairedReadsForNumericLibraryName()
         {
             using (PadenaP1Test testObj = new PadenaP1Test())
@@ -845,9 +834,9 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// Input : Library name,Standard deviation and mean length.
         /// Output : Validate forward and backward reads.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        
+        [Category("Padena")]
         public void ValidatePadenaStep6Libraryinformation()
         {
             using (PadenaP1Test testObj = new PadenaP1Test())
@@ -861,9 +850,9 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// Input : 1 and 2 format paired reads.
         /// Output : Validate library information.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        
+        [Category("Padena")]
         public void ValidatePadenaStep6GetLibraryinformation()
         {
             using (PadenaP1Test testObj = new PadenaP1Test())
@@ -882,10 +871,10 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// Input : Reads,KmerLength,dangling threshold.
         /// Output : Validate MapReads to contigs.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
-        [Ignore]
+        [Test]
+        
+        [Category("Padena")]
+        [Ignore("Broken padena test")]
         public void ValidatePadenaStep6MapReadsToContigForClustalW()
         {
             using (PadenaP1Test testObj = new PadenaP1Test())
@@ -900,10 +889,10 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// Input : Reads,KmerLength,dangling threshold.
         /// Output : Validate MapReads to contigs.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
-        [Ignore]
+        [Test]
+        
+        [Category("Padena")]
+        [Ignore("Broken PADENA Test")]
         public void ValidatePadenaStep6MapReadsToContigForUsingReverseComplementContig()
         {
             using (PadenaP1Test testObj = new PadenaP1Test())
@@ -918,9 +907,9 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// Input : Reads,KmerLength,dangling threshold.
         /// Output : Validate MapReads to contigs.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        
+        [Category("Padena")]
         public void ValidatePadenaStep6MapReadsToContigForLeftSideContigGenerator()
         {
             using (PadenaP1Test testObj = new PadenaP1Test())
@@ -937,9 +926,9 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// Input : Reads,KmerLength,dangling threshold.
         /// Output : Validate MapReads to contigs.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        
+        [Category("Padena")]
         public void ValidatePadenaStep6MapReadsToContigForOneSeqReadAndOtherRevComp()
         {
             using (PadenaP1Test testObj = new PadenaP1Test())
@@ -954,9 +943,9 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// Input : Reads,KmerLength,dangling threshold.
         /// Output : Validate MapReads to contigs.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        
+        [Category("Padena")]
         public void ValidatePadenaStep6MapReadsToContigForRightSideGenerator()
         {
             using (PadenaP1Test testObj = new PadenaP1Test())
@@ -976,9 +965,9 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// Input : Reads,KmerLength,dangling threshold.
         /// Output : Validate filter contig pairs.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        
+        [Category("Padena")]
         public void ValidatePadenaStep6FilterPairedReadsWithFWReadsNotSupportOrientation()
         {
             using (PadenaP1Test testObj = new PadenaP1Test())
@@ -993,9 +982,9 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// Input : Reads,KmerLength,dangling threshold.
         /// Output : Validate filter contig pairs.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        
+        [Category("Padena")]
         public void ValidatePadenaStep6FilterPairedReadsWithRevReadsNotSupportOrientation()
         {
             using (PadenaP1Test testObj = new PadenaP1Test())
@@ -1010,9 +999,9 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// Input : Reads,KmerLength,dangling threshold.
         /// Output : Validate filter contig pairs.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        
+        [Category("Padena")]
         public void ValidatePadenaStep6FilterPairedsForContigRevComplement()
         {
             using (PadenaP1Test testObj = new PadenaP1Test())
@@ -1028,9 +1017,9 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// Input : Reads,KmerLength,dangling threshold.
         /// Output : Validate filter contig pairs.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        
+        [Category("Padena")]
         public void ValidatePadenaStep6FilterPairedsForReverseReadAndRevComplement()
         {
             using (PadenaP1Test testObj = new PadenaP1Test())
@@ -1051,9 +1040,9 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// Input : 3-4 Line sequence reads.
         /// Output : Filtered contigs.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        
+        [Category("Padena")]
         public void ValidatePadenaStep6CalculateDistanceForForwardPairedReads()
         {
             using (PadenaP1Test testObj = new PadenaP1Test())
@@ -1068,10 +1057,10 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// Input : 3-4 Line sequence reads.
         /// Output : Filtered contigs.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
-        [Ignore]
+        [Test]
+        
+        [Category("Padena")]
+        [Ignore("Broken PADENA Test")]
         public void ValidatePadenaStep6CalculateDistanceForReversePairedReads()
         {
             using (PadenaP1Test testObj = new PadenaP1Test())
@@ -1086,10 +1075,10 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// Input : 3-4 Line sequence reads.
         /// Output : Filtered contigs.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
-        [Ignore]
+        [Test]
+        
+        [Category("Padena")]
+        [Ignore("Broken PADENA Test")]
         public void ValidatePadenaStep6CalculateDistanceForForwardPairedReadsWithRevCompl()
         {
             using (PadenaP1Test testObj = new PadenaP1Test())
@@ -1105,9 +1094,9 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// Input : 3-4 Line sequence reads.
         /// Output : Standard deviation and distance between contigs.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        
+        [Category("Padena")]
         public void ValidatePadenaStep6CalculateDistanceForReversePairedReadsWithRevCompl()
         {
             using (PadenaP1Test testObj = new PadenaP1Test())
@@ -1129,10 +1118,10 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// Input : 3-4 Line sequence reads.
         /// Output : Validation of scaffold paths.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
-        [Ignore]
+        [Test]
+        
+        [Category("Padena")]
+        [Ignore("Broken PADENA Test")]
         public void ValidatePadenaStep6ScaffoldPathsForForwardOrientation()
         {
             using (PadenaP1Test testObj = new PadenaP1Test())
@@ -1149,9 +1138,9 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// Input : 3-4 Line sequence reads.
         /// Output : Validation of scaffold paths.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        
+        [Category("Padena")]
         public void ValidatePadenaStep6ScaffoldPathsForReverseOrientation()
         {
             using (PadenaP1Test testObj = new PadenaP1Test())
@@ -1168,9 +1157,9 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// Input : Forward read orientation and rev complement.
         /// Output : Validation of scaffold paths.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        
+        [Category("Padena")]
         public void ValidatePadenaStep6ScaffoldPathsForForwardDirectionAndRevComp()
         {
             using (PadenaP1Test testObj = new PadenaP1Test())
@@ -1187,9 +1176,9 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// Input : Reverse read orientation and rev complement.
         /// Output : Validation of scaffold paths.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        
+        [Category("Padena")]
         public void ValidatePadenaStep6ScaffoldPathsForReverseDirectionAndRevComp()
         {
             using (PadenaP1Test testObj = new PadenaP1Test())
@@ -1206,9 +1195,9 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// Input : Forward read orientation and palindrome of contig.
         /// Output : Validation of scaffold paths.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        
+        [Category("Padena")]
         public void ValidatePadenaStep6ScaffoldPathsForForwardDirectionAndPalContig()
         {
             using (PadenaP1Test testObj = new PadenaP1Test())
@@ -1225,9 +1214,9 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// Input : Reverse read orientation and palindrome of contig.
         /// Output : Validation of scaffold paths.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        
+        [Category("Padena")]
         public void ValidatePadenaStep6ScaffoldPathsForReverseDirectionAndPalContig()
         {
             using (PadenaP1Test testObj = new PadenaP1Test())
@@ -1249,9 +1238,9 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// Input : 3-4 Line sequence reads.
         /// Output : Assembled paths 
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        
+        [Category("Padena")]
         public void ValidatePadenaStep6AssembledPathForForwardAndRevComplContig()
         {
             using (PadenaP1Test testObj = new PadenaP1Test())
@@ -1268,10 +1257,10 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// Input : 3-4 Line sequence reads.
         /// Output : Assembled paths 
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
-        [Ignore]
+        [Test]
+        
+        [Category("Padena")]
+        [Ignore("Broken PADENA Test")]
         public void ValidatePadenaStep6AssembledPathForReverseAndRevComplContig()
         {
             using (PadenaP1Test testObj = new PadenaP1Test())
@@ -1287,9 +1276,9 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// Input : Sequence reads with Palindrome contigs.
         /// Output : Assembled paths 
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        
+        [Category("Padena")]
         public void ValidatePadenaStep6AssembledPathForForwardAndPalContig()
         {
             using (PadenaP1Test testObj = new PadenaP1Test())
@@ -1305,9 +1294,9 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// Input : Sequence reads with Palindrome contigs.
         /// Output : Assembled paths 
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        
+        [Category("Padena")]
         public void ValidatePadenaStep6AssembledPathForReverseAndPalContig()
         {
             using (PadenaP1Test testObj = new PadenaP1Test())
@@ -1322,9 +1311,9 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         /// Input : small size sequence reads.
         /// Output : Validation of Scaffold sequence.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        
+        [Category("Padena")]
         public void ValidatePadenaStep6ScaffoldSequenceForSmallReads()
         {
             using (PadenaP1Test testObj = new PadenaP1Test())
@@ -1338,9 +1327,9 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         ///  Input : Euler testObj data seq reads.
         ///  output : Aligned sequences.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        
+        [Category("Padena")]
         public void ValidatePadenaStep6AssembledSequenceWithEulerData()
         {
             using (PadenaP1Test testObj = new PadenaP1Test())
@@ -1356,9 +1345,9 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         ///  Input : Viral Genome reads.
         ///  output : Aligned sequences.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        
+        [Category("Padena")]
         public void ValidatePadenaStep6AssembledSequenceForOverlappingScaffoldPaths()
         {
             using (PadenaP1Test testObj = new PadenaP1Test())
@@ -1374,9 +1363,9 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         ///  Input : Sequence reads.
         ///  output : Aligned sequences.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        
+        [Category("Padena")]
         public void ValidatePadenaStep6AssembledSequenceForForwardAndRevCompl()
         {
             using (PadenaP1Test testObj = new PadenaP1Test())
@@ -1392,9 +1381,9 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
         ///  Input : Sequence reads.
         ///  output : Aligned sequences.
         /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        [TestCategory("Priority1")]
+        [Test]
+        
+        [Category("Padena")]
         public void ValidatePadenaStep6AssembledSequenceForForwardAndPalContig()
         {
             using (PadenaP1Test testObj = new PadenaP1Test())
@@ -1435,10 +1424,10 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
             // Set kmerLength
             this.KmerLength = int.Parse(kmerLength, (IFormatProvider)null);
             IEnumerable<ISequence> sequenceReads = null;
-            using (FastAParser parser = new FastAParser(filePath))
-            {
-                sequenceReads = parser.Parse();
-
+            FastAParser parser = new FastAParser();
+parser.Open(filePath);
+                sequenceReads = parser.Parse().ToList();
+            parser.Close ();
                 // Set all the input reads and execute build kmers
                 this.SequenceReads.Clear();
 
@@ -1454,7 +1443,7 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
                 {
                     ValidateKmersList(new List<KmersOfSequence>(lstKmers), sequenceReads.ToList(), nodeName);
                 }
-            }
+
 
             ApplicationLog.WriteLine(@"Padena P1 : Validation of Build with all input reads using ParallelDeNovothis sequence completed successfully");
         }
@@ -1523,10 +1512,10 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
             string expectedGraphsNodeCount = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.GraphNodesCountNode);
 
             // Get the input reads and build kmers
-            using (FastAParser parser = new FastAParser(filePath))
-            {
-                IEnumerable<ISequence> sequenceReads = parser.Parse();
-
+            FastAParser parser = new FastAParser();
+parser.Open(filePath);
+                IEnumerable<ISequence> sequenceReads = parser.Parse().ToList();
+            parser.Close ();
                 this.KmerLength = int.Parse(kmerLength, null);
                 this.SequenceReads.Clear();
 
@@ -1540,7 +1529,7 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
                     Assert.AreEqual(Int32.Parse(expectedGraphsNodeCount, null), graph.GetNodes().Count());
                 else
                     ValidateGraph(graph, nodeName);
-            }
+            
             ApplicationLog.WriteLine(@"Padena P1 : ParallelDeNovothis CreateGraph() validation for Padena step2 completed successfully");
         }
 
@@ -1623,10 +1612,10 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
 
             // Get the input reads and build kmers
             IEnumerable<ISequence> sequenceReads = null;
-            using (FastAParser parser = new FastAParser(filePath))
-            {
-                sequenceReads = parser.Parse();
-
+            FastAParser parser = new FastAParser();
+parser.Open(filePath);
+                sequenceReads = parser.Parse().ToList();
+            parser.Close ();
                 // Build kmers from step1,graph in step2 
                 // Remove the dangling links from graph in step3
                 // Remove bubbles from graph in step4
@@ -1669,7 +1658,7 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
                 {
                     ValidateGraph(graph, nodeName);
                 }
-            }
+
             ApplicationLog.WriteLine(@"Padena P1 :ParallelDeNovothis.RemoveRedundancy() validation for Padena step4 completed successfully");
         }
 
@@ -1691,9 +1680,10 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
 
             // Get the input reads and build kmers
             IEnumerable<ISequence> sequenceReads = null;
-            using (FastAParser parser = new FastAParser(filePath))
-            {
-                sequenceReads = parser.Parse();
+            FastAParser parser = new FastAParser();
+parser.Open(filePath);
+                sequenceReads = parser.Parse().ToList();
+            parser.Close ();
 
                 // Build kmers from step1,graph in step2 
                 this.KmerLength = int.Parse(kmerLength, null);
@@ -1724,7 +1714,7 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
                 {
                     ValidateGraph(graph, nodeName);
                 }
-            }
+
             ApplicationLog.WriteLine(@"Padena P1 :ParallelDeNovothis.UndangleGraph() validation for Padena step3 completed successfully");
         }
 
@@ -1740,10 +1730,10 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
 
             // Get the input reads
             IEnumerable<ISequence> sequenceReads = null;
-            using (FastAParser parser = new FastAParser(filePath))
-            {
-                sequenceReads = parser.Parse();
-
+            FastAParser parser = new FastAParser();
+parser.Open(filePath);
+                sequenceReads = parser.Parse().ToList();
+            parser.Close ();
                 SequenceToKmerBuilder builder = new SequenceToKmerBuilder();
                 IList<KmersOfSequence> lstKmers = new List<KmersOfSequence>();
 
@@ -1757,7 +1747,7 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
                 }
 
                 ValidateKmersList(lstKmers, sequenceReads.ToList(), nodeName);
-            }
+
             ApplicationLog.WriteLine(@"Padena P1 : KmersOfSequence ctor with build kmers method validation completed successfully");
         }
 
@@ -1779,10 +1769,10 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
 
             // Get the input reads
             IEnumerable<ISequence> sequenceReads = null;
-            using (FastAParser parser = new FastAParser(filePath))
-            {
-                sequenceReads = parser.Parse();
-
+            FastAParser parser = new FastAParser();
+parser.Open(filePath);
+                sequenceReads = parser.Parse().ToList();
+            parser.Close ();
                 SequenceToKmerBuilder builder = new SequenceToKmerBuilder();
 
                 KmersOfSequence kmer = builder.Build(sequenceReads.ToList()[0],
@@ -1793,7 +1783,7 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
                 // Validate KmerOfSequence properties.
                 Assert.AreEqual(expectedSeq, new string(kmerSequence.BaseSequence.Select(a => (char)a).ToArray()));
                 Assert.AreEqual(expectedKmers, kmerSequence.Kmers.Count.ToString((IFormatProvider)null));
-            }
+
 
             ApplicationLog.WriteLine(@"Padena P1 : KmersOfSequence ctor with build kmers method validation completed successfully");
         }
@@ -1812,10 +1802,10 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
 
             // Get the input reads and build kmers
             IEnumerable<ISequence> sequenceReads = null;
-            using (FastAParser parser = new FastAParser(filePath))
-            {
-                sequenceReads = parser.Parse();
-
+            FastAParser parser = new FastAParser();
+parser.Open(filePath);
+                sequenceReads = parser.Parse().ToList();
+            parser.Close ();
                 this.KmerLength = int.Parse(kmerLength, (IFormatProvider)null);
                 this.SequenceReads.Clear();
 
@@ -1851,7 +1841,7 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
                         index++;
                     }
                 }
-            }
+
 
             ApplicationLog.WriteLine(@"Padena P1 : KmersOfSequence ToSequences() method validation completed successfully");
         }
@@ -1871,9 +1861,10 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
 
             // Get the input reads and build kmers
             IEnumerable<ISequence> sequenceReads = null;
-            using (FastAParser parser = new FastAParser(filePath))
-            {
-                sequenceReads = parser.Parse();
+            FastAParser parser = new FastAParser();
+parser.Open(filePath);
+                sequenceReads = parser.Parse().ToList();
+            parser.Close ();
 
 
                 this.KmerLength = int.Parse(kmerLength, (IFormatProvider)null);
@@ -1887,7 +1878,7 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
 
                 // Validate DeBruijnGraph Properties.
                 Assert.AreEqual(ExpectedNodesCount, graph.GetNodes().Count().ToString((IFormatProvider)null));
-            }
+
 
             ApplicationLog.WriteLine(@"Padena P1 : ParallelDeNovothis CreateGraph() validation for Padena step2 completed successfully");
         }
@@ -1903,10 +1894,10 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
 
             // Get the input reads and build kmers
             IEnumerable<ISequence> sequenceReads = null;
-            using (FastAParser parser = new FastAParser(filePath))
-            {
-                sequenceReads = parser.Parse();
-
+            FastAParser parser = new FastAParser();
+parser.Open(filePath);
+                sequenceReads = parser.Parse().ToList();
+            parser.Close ();
                 // Build kmers from step1
                 this.KmerLength = int.Parse(kmerLength, null);
                 this.SequenceReads.Clear();
@@ -1927,7 +1918,7 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
                 DeBruijnNode leftnode = new DeBruijnNode(kmerData, 1);
                 node.SetExtensionNode(false, true, leftnode);
                 Assert.AreEqual(lstKmers[1].Kmers.First().Count, node.LeftExtensionNodesCount);
-            }
+            
             ApplicationLog.WriteLine(@"Padena P1 :DeBruijnNode AddLeftExtension() validation for Padena step2 completed successfully");
         }
 
@@ -1944,10 +1935,10 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
 
             // Get the input reads and build kmers
             IEnumerable<ISequence> sequenceReads = null;
-            using (FastAParser parser = new FastAParser(filePath))
-            {
-                sequenceReads = parser.Parse();
-
+            FastAParser parser = new FastAParser();
+parser.Open(filePath);
+                sequenceReads = parser.Parse().ToList();
+            parser.Close ();
                 // Build kmers from step1
                 this.KmerLength = int.Parse(kmerLength, (IFormatProvider)null);
                 this.SequenceReads.Clear();
@@ -1972,10 +1963,10 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
 
                 Assert.AreEqual(lstKmers[1].Kmers.First().Count,
                   node.RightExtensionNodesCount);
-            }
+            
             ApplicationLog.WriteLine(@"Padena P1 :DeBruijnNode AddRightExtension() validation for Padena step2 completed successfully");
-        }
 
+        }
         /// <summary>
         /// Validate RemoveExtension() method of DeBruijnNode 
         /// </summary>
@@ -1989,9 +1980,10 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
 
             // Get the input reads and build kmers
             IEnumerable<ISequence> sequenceReads = null;
-            using (FastAParser parser = new FastAParser(filePath))
-            {
-                sequenceReads = parser.Parse();
+            FastAParser parser = new FastAParser();
+parser.Open(filePath);
+                sequenceReads = parser.Parse().ToList();
+            parser.Close ();
 
                 // Build kmers from step1
                 this.KmerLength = int.Parse(kmerLength, (IFormatProvider)null);
@@ -2030,7 +2022,7 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
                 // Validate node after removing right and left extensions.
                 Assert.AreEqual(0, node.RightExtensionNodesCount);
                 Assert.AreEqual(0, node.LeftExtensionNodesCount);
-            }
+
             ApplicationLog.WriteLine(@"Padena P1 :DeBruijnNode AddRightExtension() validation for Padena step2 completed successfully");
         }
 
@@ -2056,10 +2048,10 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
 
             // Get the input reads and build kmers
             IEnumerable<ISequence> sequenceReads = null;
-            using (FastAParser parser = new FastAParser(filePath))
-            {
-                sequenceReads = parser.Parse();
-
+            FastAParser parser = new FastAParser();
+parser.Open(filePath);
+                sequenceReads = parser.Parse().ToList();
+            parser.Close ();
                 // Build the kmers using this
                 this.KmerLength = int.Parse(kmerLength, (IFormatProvider)null);
                 this.SequenceReads.Clear();
@@ -2090,7 +2082,7 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
                 Assert.AreEqual(rightNodeExtensionCount, node.RightExtensionNodesCount.ToString((IFormatProvider)null));
                 Assert.AreEqual(leftNodeExtensionCount, node.LeftExtensionNodesCount.ToString((IFormatProvider)null));
                 Assert.AreEqual(rightNodeExtensionCount, node.RightExtensionNodesCount.ToString((IFormatProvider)null));
-            }
+
 
             ApplicationLog.WriteLine("Padena P1 : DeBruijnNode ctor() validation for Padena step2 completed successfully");
         }
@@ -2108,10 +2100,10 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
 
             // Get the input reads and build kmers
             IEnumerable<ISequence> sequenceReads = null;
-            using (FastAParser parser = new FastAParser(filePath))
-            {
-                sequenceReads = parser.Parse();
-
+            FastAParser parser = new FastAParser();
+parser.Open(filePath);
+                sequenceReads = parser.Parse().ToList();
+            parser.Close ();
                 // Build kmers from step1,graph in step2 
                 // and remove the dangling links from graph in step3
                 // Validate the graph
@@ -2127,7 +2119,7 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
                 DeBruijnPathList danglingnodes = danglingLinksPurger.DetectErroneousNodes(graph);
                 danglingLinksPurger.RemoveErroneousNodes(graph, danglingnodes);
                 Assert.IsFalse(graph.GetNodes().Contains(danglingnodes.Paths[0].PathNodes[0]));
-            }
+
             ApplicationLog.WriteLine(@"Padena P1 :DeBruijnGraph.RemoveErrorNodes() validation for Padena step3 completed successfully");
         }
 
@@ -2146,9 +2138,10 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
 
             // Get the input reads and build kmers
             IEnumerable<ISequence> sequenceReads = null;
-            using (FastAParser parser = new FastAParser(filePath))
-            {
-                sequenceReads = parser.Parse();
+            FastAParser parser = new FastAParser();
+parser.Open(filePath);
+                sequenceReads = parser.Parse().ToList();
+            parser.Close ();
 
                 // Build kmers from step1,graph in step2 
                 // Remove the dangling links from graph in step3
@@ -2171,7 +2164,7 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
                     Assert.AreEqual(expectedNodesCount, graph.GetNodes().Count());
                 else
                     ValidateGraph(graph, nodeName);
-            }
+            
             ApplicationLog.WriteLine(@"Padena P1 :RedundantPathsPurger ctor and methods validation for Padena step4 completed successfully");
         }
 
@@ -2199,10 +2192,10 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
 
             // Get the input reads and build kmers
             IEnumerable<ISequence> sequenceReads = null;
-            using (FastAParser parser = new FastAParser(filePath))
-            {
-                sequenceReads = parser.Parse();
-
+            FastAParser parser = new FastAParser();
+parser.Open(filePath);
+                sequenceReads = parser.Parse().ToList();
+            parser.Close ();
                 // Build kmers from step1,graph in step2 
                 // Remove the dangling links from graph in step3
                 // Remove bubbles form the graph in step4 
@@ -2233,7 +2226,7 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
                           expectedContigs.Contains(new string(contigs[index].GetReverseComplementedSequence().Select(a => (char)a).ToArray())));
                     }
                 }
-            }
+
 
             ApplicationLog.WriteLine(@"Padena P1 :ParallelDeNovothis.BuildContigs() validation for Padena step5 completed successfully");
         }
@@ -2257,9 +2250,10 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
 
             // Get the input reads and build kmers
             IEnumerable<ISequence> sequenceReads = null;
-            using (FastAParser parser = new FastAParser(filePath))
-            {
-                sequenceReads = parser.Parse();
+            FastAParser parser = new FastAParser();
+parser.Open(filePath);
+                sequenceReads = parser.Parse().ToList();
+            parser.Close ();
 
                 // Build kmers from step1,graph in step2 
                 // Remove the dangling links from graph in step3
@@ -2289,7 +2283,7 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
                         Assert.IsTrue(expectedContigs.Contains(new string(contigs[index].Select(a => (char)a).ToArray())));
                     }
                 }
-            }
+
             ApplicationLog.WriteLine(@"Padena P1 :SimpleContigBuilder.BuildContigs() validation for Padena step5 completed successfully");
         }
 
@@ -2319,10 +2313,10 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
 
             // Get the input reads 
             IEnumerable<ISequence> sequences = null;
-            using (FastAParser parser = new FastAParser(filePath))
-            {
-                sequences = parser.Parse();
-
+            FastAParser parser = new FastAParser();
+parser.Open(filePath);
+                sequences = parser.Parse().ToList();
+            parser.Close ();
                 foreach (ISequence seq in sequences)
                 {
                     sequenceReads.Add(seq);
@@ -2344,7 +2338,7 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
                     Assert.IsTrue(expectedMean.Contains(pairedreads[index].MeanLengthOfLibrary.ToString((IFormatProvider)null)));
                     Assert.IsTrue(expectedLibrary.Contains(pairedreads[index].Library.ToString((IFormatProvider)null)));
                 }
-            }
+
             ApplicationLog.WriteLine(@"Padena P1 : Map paired reads has been verified successfully");
         }
 
@@ -2369,10 +2363,10 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
 
             // Get the input reads 
             IEnumerable<ISequence> sequences = null;
-            using (FastAParser parser = new FastAParser(filePath))
-            {
-                sequences = parser.Parse();
-
+            FastAParser parser = new FastAParser();
+parser.Open(filePath);
+                sequences = parser.Parse().ToList();
+            parser.Close ();
                 // Convert reads to map paired reads.
                 MatePairMapper pair = new MatePairMapper();
                 pairedreads = pair.Map(new List<ISequence>(sequences));
@@ -2389,7 +2383,7 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
                 Assert.AreEqual(expectedStdDeviation, libraryInfo.StandardDeviationOfInsert.ToString((IFormatProvider)null));
                 Assert.AreEqual(expectedLibraray, libraryInfo.LibraryName.ToString((IFormatProvider)null));
                 Assert.AreEqual(mean, libraryInfo.MeanLengthOfInsert.ToString((IFormatProvider)null));
-            }
+
             ApplicationLog.WriteLine(@"Padena P1 : Map paired reads has been verified successfully");
         }
 
@@ -2420,10 +2414,10 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
 
             // Get the input reads 
             IEnumerable<ISequence> sequences = null;
-            using (FastAParser parser = new FastAParser(filePath))
-            {
-                sequences = parser.Parse();
-
+            FastAParser parser = new FastAParser();
+parser.Open(filePath);
+                sequences = parser.Parse().ToList();
+            parser.Close ();
                 foreach (ISequence seq in sequences)
                 {
                     sequenceReads.Add(seq);
@@ -2461,7 +2455,7 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
                     Assert.AreEqual(expectedLibraray, pairedreads[index].Library.ToString((IFormatProvider)null));
                     Assert.AreEqual(mean, pairedreads[index].MeanLengthOfLibrary.ToString((IFormatProvider)null));
                 }
-            }
+
 
             ApplicationLog.WriteLine(@"Padena P1 : Map paired reads has been verified successfully");
         }
@@ -2486,10 +2480,10 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
             string[] expectedContigStartPos = contigStartPosString.Split(',');
 
             // Get the input reads and build kmers
-            using (FastAParser parser = new FastAParser(filePath))
-            {
-                IEnumerable<ISequence> sequenceReads = parser.Parse();
-
+            FastAParser parser = new FastAParser();
+parser.Open(filePath);
+                IEnumerable<ISequence> sequenceReads = parser.Parse().ToList();
+            parser.Close ();
                 // Build kmers from step1,graph in step2 
                 // Remove the dangling links from graph in step3
                 // Remove bubbles form the graph in step4 
@@ -2534,7 +2528,7 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
                         break;
                     }
                 }
-            }
+
 
             ApplicationLog.WriteLine("PADENA P1 :ReadContigMapper.Map() validation for Padena step6:step2 completed successfully");
         }
@@ -2568,10 +2562,10 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
 
             // Get the input reads and build kmers
             IEnumerable<ISequence> sequenceReads = null;
-            using (FastAParser parser = new FastAParser(filePath))
-            {
-                sequenceReads = parser.Parse();
-
+            FastAParser parser = new FastAParser();
+parser.Open(filePath);
+                sequenceReads = parser.Parse().ToList();
+            parser.Close ();
                 // Build kmers from step1,graph in step2 
                 // Remove the dangling links from graph in step3
                 // Remove bubbles form the graph in step4 
@@ -2652,7 +2646,7 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
                           valid[index].ReverseReadStartPosition[1].ToString((IFormatProvider)null))));
                     }
                 }
-            }
+
             ApplicationLog.WriteLine("PADENA P1 : FilterPairedReads() validation for Padena step6:step4 completed successfully");
         }
 
@@ -2683,10 +2677,10 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
 
             // Get the input reads and build kmers
             IEnumerable<ISequence> sequenceReads = null;
-            using (FastAParser parser = new FastAParser(filePath))
-            {
-                sequenceReads = parser.Parse();
-
+            FastAParser parser = new FastAParser();
+parser.Open(filePath);
+                sequenceReads = parser.Parse().ToList();
+            parser.Close ();
                 // Build kmers from step1,graph in step2 
                 // Remove the dangling links from graph in step3
                 // Remove bubbles form the graph in step4 
@@ -2760,7 +2754,7 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
                   valid.First().StandardDeviation[0]);
                 Assert.AreEqual(float.Parse(secondStandardDeviation, (IFormatProvider)null),
                   valid.First().StandardDeviation[1]);
-            }
+            
 
             ApplicationLog.WriteLine("PADENA P1 : DistanceCalculator() validation for Padena step6:step5 completed successfully");
         }
@@ -2782,10 +2776,10 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
             string[] assembledPath = utilityObj.xmlUtil.GetTextValues(nodeName, Constants.SequencePathNode);
 
             // Get the input reads and build kmers
-            using (FastAParser parser = new FastAParser(filePath))
-            {
-                IEnumerable<ISequence> sequenceReads = parser.Parse();
-
+            FastAParser parser = new FastAParser();
+parser.Open(filePath);
+                IEnumerable<ISequence> sequenceReads = parser.Parse().ToList();
+            parser.Close ();
                 // Build kmers from step1,graph in step2 
                 // Remove the dangling links from graph in step3
                 // Remove bubbles form the graph in step4 
@@ -2844,7 +2838,7 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
                 {
                     Assert.IsTrue(assembledPath.Contains(sequence), "Failed to locate " + sequence);
                 }
-            }
+
 
             ApplicationLog.WriteLine("PADENA P1 : AssemblePath() validation for Padena step6:step7 completed successfully");
         }
@@ -2892,10 +2886,10 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
             string expectedDepth = utilityObj.xmlUtil.GetTextValue(nodeName,Constants.DepthNode);
 
             // Get the input reads and build kmers
-            using (FastAParser parser = new FastAParser(filePath))
-            {
-                IEnumerable<ISequence> sequenceReads = parser.Parse();
-
+            FastAParser parser = new FastAParser();
+parser.Open(filePath);
+                IEnumerable<ISequence> sequenceReads = parser.Parse().ToList();
+            parser.Close ();
                 // Build kmers from step1,graph in step2 
                 // Remove the dangling links from graph in step3
                 // Remove bubbles form the graph in step4 
@@ -2954,7 +2948,7 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
                                || expectedScaffoldNodes.Contains(reversedSequence),
                                "Failed to find " + sequence + ", or " + reversedSequence);
                 }
-            }
+
 
             ApplicationLog.WriteLine("PADENA P1 : FindPaths() validation for Padena step6:step6 completed successfully");
         }
@@ -2977,10 +2971,10 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
             string[] scaffoldSeqNodes = expectedSeq.Split(',');
 
             // Get the input reads and build kmers
-            using (FastAParser parser = new FastAParser(filePath))
-            {
-                IEnumerable<ISequence> sequenceReads = parser.Parse();
-
+            FastAParser parser = new FastAParser();
+parser.Open(filePath);
+                IEnumerable<ISequence> sequenceReads = parser.Parse().ToList();
+            parser.Close ();
                 // Build kmers from step1,graph in step2 
                 // Remove the dangling links from graph in step3
                 // Remove bubbles form the graph in step4 
@@ -3013,7 +3007,7 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
                 }
 
                 AlignmentHelpers.CompareSequenceLists(new HashSet<string>(scaffoldSeqNodes), scaffoldSeq.ToList());
-            }
+
 
             ApplicationLog.WriteLine("PADENA P1 : Scaffold sequence : validation for Padena step6:step8 completed successfully");
         }
@@ -3047,10 +3041,10 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
 
             // Get the input reads and build kmers
             IEnumerable<ISequence> sequenceReads = null;
-            using (FastAParser parser = new FastAParser(filePath))
-            {
-                sequenceReads = parser.Parse();
-
+            FastAParser parser = new FastAParser();
+parser.Open(filePath);
+                sequenceReads = parser.Parse().ToList();
+            parser.Close ();
                 // Create a ParallelDeNovoAssembler instance.
                 ParallelDeNovoAssembler denovoObj = null;
                 try
@@ -3087,7 +3081,7 @@ namespace Bio.TestAutomation.Algorithms.Assembly.Padena
                     if (denovoObj != null)
                         denovoObj.Dispose();
                 }
-            }
+
 
             ApplicationLog.WriteLine("Padena P1 : Assemble() validation for Padena step6:step7 completed successfully");
         }

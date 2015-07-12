@@ -15,14 +15,14 @@ namespace Bio.Tests.Framework
     {
         public static void CompareSequenceLists(HashSet<string> expected, IEnumerable<ISequence> result, bool checkReversedComplement = true)
         {
-            Console.WriteLine();
-            Console.Write("Expected (Possible): ");
-            foreach (var value in expected)
-                Console.Write(value + ",");
-            Console.WriteLine();
-            Console.Write("Actual:" );
-            foreach (var value in result)
-                Console.Write(value + ",");
+            //Console.WriteLine();
+            //Console.Write("Expected (Possible): ");
+            //foreach (var value in expected)
+           //     Console.Write(value + ",");
+            //Console.WriteLine();
+            //Console.Write("Actual:" );
+            //foreach (var value in result)
+            //    Console.Write(value + ",");
 
             HashSet<string> actual = new HashSet<string>();
             Assert.AreEqual(expected.Count, result.Count(), "Different sequence counts.");

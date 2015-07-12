@@ -213,6 +213,8 @@
     <Compile Include="IO\SAM\SAMTests.cs" />
     <Compile Include="IO\Xsv\XsvSparseTests.cs" />
     <Compile Include="Algorithms\MUMmer\MUMmerAlignerTests.cs" />
+    <Compile Include="Algorithms\Padena\PadenaBvtTestCases.cs" />
+    <Compile Include="Algorithms\Padena\PadenaP1TestCases.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="..\TestData\Testcases.xml">
@@ -236,6 +238,14 @@
     <ProjectReference Include="..\Bio.TestUtils\Bio.TestUtils.csproj">
       <Project>{FC09FA89-39A2-4DB7-BB26-4DF616918506}</Project>
       <Name>Bio.TestUtils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Add-in\Bio.Padena\Bio.Padena.csproj">
+      <Project>{1CFF1C79-1E34-4411-97E0-0FB02F4865C3}</Project>
+      <Name>Bio.Padena</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Add-in\Bio.Pamsam\Bio.Pamsam.csproj">
+      <Project>{0416DD4D-DA84-4BBF-B698-892CF04D3DFB}</Project>
+      <Name>Bio.Pamsam</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -267,4 +277,7 @@
   </Target>
  
   -->
+  <ItemGroup>
+    <Folder Include="Algorithms\Padena\" />
+  </ItemGroup>
 </Project>
