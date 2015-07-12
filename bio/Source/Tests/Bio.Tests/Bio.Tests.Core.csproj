@@ -3,9 +3,6 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>
-    </ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{B58E121A-3D49-472F-A20A-72EC35575E53}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -13,7 +10,6 @@
     <AssemblyName>Bio.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <SccProjectName>SAK</SccProjectName>
     <SccLocalPath>SAK</SccLocalPath>
     <SccAuxPath>SAK</SccAuxPath>
@@ -21,6 +17,16 @@
     <TargetFrameworkProfile />
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
+    <CustomCommands>
+      <CustomCommands>
+        <Command type="AfterBuild" Condition=" '$(OS)' == 'Unix' " command="cp -r ${ProjectDir}/../TestData/TestUtils ${TargetDir}/" />
+      </CustomCommands>
+    </CustomCommands>
+    <EnvironmentVariables>
+      <EnvironmentVariables>
+        <Variable name="MONO_IOMAP" value="all" />
+      </EnvironmentVariables>
+    </EnvironmentVariables>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -32,12 +38,14 @@
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>false</RunCodeAnalysis>
-    <DocumentationFile>
-    </DocumentationFile>
     <CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
-    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
     <Prefer32Bit>false</Prefer32Bit>
     <CodeAnalysisIgnoreGeneratedCode>false</CodeAnalysisIgnoreGeneratedCode>
+    <CustomCommands>
+      <CustomCommands>
+        <Command type="AfterBuild" command="cp -r ${ProjectDir}/../TestData/TestUtils ${TargetDir}/" />
+      </CustomCommands>
+    </CustomCommands>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -52,31 +60,30 @@
     <Prefer32Bit>false</Prefer32Bit>
     <CodeAnalysisIgnoreGeneratedCode>false</CodeAnalysisIgnoreGeneratedCode>
     <PlatformTarget>AnyCPU</PlatformTarget>
+    <CustomCommands>
+      <CustomCommands>
+        <Command type="AfterBuild" command="cp -r ${ProjectDir}/../TestData/TestUtils ${TargetDir}/" />
+      </CustomCommands>
+    </CustomCommands>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="nunit.framework, Version=3.0.5610.33194, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\NUnit.3.0.0-beta-2\lib\net45\nunit.framework.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
-    <Reference Include="System.Core">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
+    <Reference Include="System.Core" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.Services" />
-    <Reference Include="System.XML" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="WindowsBase" />
+    <Reference Include="nunit.framework, Version=3.0.5610.33194, Culture=neutral, PublicKeyToken=2638cd05610744eb">
+      <HintPath>..\..\..\packages\NUnit.3.0.0-beta-2\lib\net45\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <CodeAnalysisDependentAssemblyPaths Condition=" '$(VS100COMNTOOLS)' != '' " Include="$(VS100COMNTOOLS)..\IDE\PrivateAssemblies">
-      <Visible>False</Visible>
-    </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AATreeTests.cs" />
@@ -214,19 +221,19 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Framework\Bio.Core\Bio.Core.csproj">
-      <Project>{dfb9c4e2-c98c-4401-a650-756abab52663}</Project>
+      <Project>{DFB9C4E2-C98C-4401-A650-756ABAB52663}</Project>
       <Name>Bio.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Framework\Bio.Desktop\Bio.Desktop.csproj">
-      <Project>{a482be8f-67d5-4991-84bd-da3bf6ed84fa}</Project>
+      <Project>{A482BE8F-67D5-4991-84BD-DA3BF6ED84FA}</Project>
       <Name>Bio.Desktop</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Framework\Shims\Bio.Platform.Helpers.Desktop\Bio.Platform.Helpers.Desktop.csproj">
-      <Project>{2a6bb04d-047f-4f04-9afb-9bf8941a292a}</Project>
+      <Project>{2A6BB04D-047F-4F04-9AFB-9BF8941A292A}</Project>
       <Name>Bio.Platform.Helpers.Desktop</Name>
     </ProjectReference>
     <ProjectReference Include="..\Bio.TestUtils\Bio.TestUtils.csproj">
-      <Project>{fc09fa89-39a2-4db7-bb26-4df616918506}</Project>
+      <Project>{FC09FA89-39A2-4DB7-BB26-4DF616918506}</Project>
       <Name>Bio.TestUtils</Name>
     </ProjectReference>
   </ItemGroup>
@@ -255,8 +262,8 @@
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
+
   </Target>
-  <Target Name="AfterBuild">
-  </Target>
+ 
   -->
 </Project>
