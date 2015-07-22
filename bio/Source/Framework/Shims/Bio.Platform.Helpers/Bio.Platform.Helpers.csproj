@@ -46,12 +46,15 @@
   <PropertyGroup>
     <PostBuildEvent Condition=" '$(OS)' != 'Unix' ">copy "$(TargetPath)" "$(SolutionDir)\bin\$(TargetName).PCL.dll"
 copy "$(TargetDir)\$(TargetName).xml" "$(SolutionDir)\bin\$(TargetName).PCL.xml"</PostBuildEvent>
-<PostBuildEvent Condition=" '$(OS)' != 'Unix' ">copy "$(TargetPath)" "$(SolutionDir)\bin\$(TargetName).PCL.dll"
+    <PostBuildEvent Condition=" '$(OS)' != 'Unix' ">copy "$(TargetPath)" "$(SolutionDir)\bin\$(TargetName).PCL.dll"
 copy "$(TargetDir)\$(TargetName).xml" "$(SolutionDir)\bin\$(TargetName).PCL.xml"</PostBuildEvent>
     <PostBuildEvent Condition=" '$(OS)' == 'Unix' ">cp "$(TargetPath)" "$(SolutionDir)\bin\$(TargetName).PCL.dll"
 cp "$(TargetDir)\$(TargetName).xml" "$(SolutionDir)\bin\$(TargetName).PCL.xml"</PostBuildEvent>
-<PostBuildEvent Condition=" '$(OS)' == 'Unix' ">cp "$(TargetPath)" "$(SolutionDir)\bin\$(TargetName).PCL.dll"
+    <PostBuildEvent Condition=" '$(OS)' == 'Unix' ">cp "$(TargetPath)" "$(SolutionDir)\bin\$(TargetName).PCL.dll"
 cp "$(TargetDir)\$(TargetName).xml" "$(SolutionDir)\bin\$(TargetName).PCL.xml"</PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PostBuildEvent />
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

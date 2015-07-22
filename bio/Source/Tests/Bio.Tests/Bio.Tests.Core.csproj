@@ -68,6 +68,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="nunit.framework, Version=3.0.5674.19278, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\NUnit.3.0.0-beta-3\lib\net45\nunit.framework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
@@ -77,13 +81,12 @@
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
     <Reference Include="WindowsBase" />
-    <Reference Include="nunit.framework, Version=3.0.5610.33194, Culture=neutral, PublicKeyToken=2638cd05610744eb">
-      <HintPath>..\..\..\packages\NUnit.3.0.0-beta-2\lib\net45\nunit.framework.dll</HintPath>
-    </Reference>
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AATreeTests.cs" />
@@ -239,14 +242,6 @@
       <Project>{FC09FA89-39A2-4DB7-BB26-4DF616918506}</Project>
       <Name>Bio.TestUtils</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Add-in\Bio.Padena\Bio.Padena.csproj">
-      <Project>{1CFF1C79-1E34-4411-97E0-0FB02F4865C3}</Project>
-      <Name>Bio.Padena</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Add-in\Bio.Pamsam\Bio.Pamsam.csproj">
-      <Project>{0416DD4D-DA84-4BBF-B698-892CF04D3DFB}</Project>
-      <Name>Bio.Pamsam</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resource.resx">
@@ -255,21 +250,11 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>
     </PostBuildEvent>
   </PropertyGroup>
-  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
-  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
@@ -277,7 +262,5 @@
   </Target>
  
   -->
-  <ItemGroup>
-    <Folder Include="Algorithms\Padena\" />
-  </ItemGroup>
+  <ItemGroup />
 </Project>

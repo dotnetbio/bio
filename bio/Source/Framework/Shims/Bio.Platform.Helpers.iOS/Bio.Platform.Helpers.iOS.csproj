@@ -17,7 +17,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\iPhone\Debug</OutputPath>
-    <DefineConstants>DEBUG</DefineConstants>
+    <DefineConstants>DEBUG;__MOBILE__;__IOS__;CLASSIC</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
@@ -34,6 +34,7 @@
     <ConsolePause>false</ConsolePause>
     <CodesignKey>iPhone Developer</CodesignKey>
     <DocumentationFile>bin\iPhone\Release\Bio.Platform.Helpers.xml</DocumentationFile>
+    <DefineConstants>__MOBILE__;__IOS__;CLASSIC</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="..\Bio.Platform.Helpers.Desktop\TemporaryStream.cs">
@@ -54,7 +55,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.MonoTouch.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy "$(TargetPath)" "$(SolutionDir)\bin\$(TargetName).ios.dll"
-copy "$(TargetDir)\$(TargetName).xml" "$(SolutionDir)\bin\$(TargetName).ios.xml"</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
 </Project>
