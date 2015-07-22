@@ -68,10 +68,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="nunit.framework, Version=3.0.5674.19278, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\NUnit.3.0.0-beta-3\lib\net45\nunit.framework.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
@@ -84,6 +80,9 @@
     <Reference Include="System.Web" />
     <Reference Include="WindowsBase" />
     <Reference Include="System.Xml" />
+    <Reference Include="nunit.framework, Version=3.0.5674.19278, Culture=neutral, PublicKeyToken=2638cd05610744eb">
+      <HintPath>..\..\..\packages\NUnit.3.0.0-beta-3\lib\net45\nunit.framework.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -241,6 +240,10 @@
     <ProjectReference Include="..\Bio.TestUtils\Bio.TestUtils.csproj">
       <Project>{FC09FA89-39A2-4DB7-BB26-4DF616918506}</Project>
       <Name>Bio.TestUtils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Add-in\Bio.Padena\Bio.Padena.csproj">
+      <Project>{1CFF1C79-1E34-4411-97E0-0FB02F4865C3}</Project>
+      <Name>Bio.Padena</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

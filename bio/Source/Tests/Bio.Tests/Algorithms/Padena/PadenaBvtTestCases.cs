@@ -9,7 +9,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Bio.Extensions;
 using Bio.TestAutomation.Util;
 using Bio.Algorithms.Assembly;
 using Bio.Algorithms.Assembly.Graph;
