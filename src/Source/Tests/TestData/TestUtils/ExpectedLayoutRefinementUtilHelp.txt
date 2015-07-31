@@ -1,0 +1,10 @@
+LayoutRefinement Utility v1.1
+Copyright (c) 2011-2013, The Outercurve Foundation.
+
+Usage:	   LayoutRefinementUtil.exe [options] <input delta alignment file> <input query file>
+
+LayoutRefinement: Refines alignment layout by taking in consideration indels (insertions and deletions) and rearrangements between two genomes. Requires mate-pair information to resolve ambiguity.
+
+Options:
+
+-o:<file> Output file.

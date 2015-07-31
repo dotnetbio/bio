@@ -1,0 +1,11 @@
+
+Usage:      SAMUtils.exe Merge [options] in1.bam in2.bam [..]
+Description: Helps in merging. 
+
+Options:
+-n          sort by read names
+-o:OutFile Output file name  (out.bam)
+-h:FILE     copy the header in FILE(SAM/BAM format) to out.bam [in1.bam]
+
+Note: Samtool merge does not reconstruct the @RG dictionary in the header.
+      Users must provide the correct header with -h

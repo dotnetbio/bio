@@ -1,0 +1,6 @@
+
+Usage:     SAMUtils.exe sort [options] in.bam
+Description: It sort reads by name.
+Options:
+-n         sort by read names
+-o:OutFile Output file name, by default .sort is concatenated to input filename

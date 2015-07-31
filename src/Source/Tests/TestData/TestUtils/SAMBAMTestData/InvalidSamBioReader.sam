@@ -1,0 +1,4 @@
+﻿@HD	oo:1.0	SO:unsorted
+@SQ	SN:gi|110640213|ref|NC_008253.1|	LN:4938920
+@PG	ID=Bowtie	VN=0.11.3	CL="bowtie -S e_coli reads/e_coli_10000snp.fq ec_snp.sam"
+r0	16	gi|110640213|ref|NC_008253.1|	5212	255	35M	*	0	0	GCAATGATAAAAGGAGTAACCTGTGAAAAAGATGC	EDCCCBAAAA@@@@?>===<;;9:99987776554 XA:i:0	MD:Z:35	NM:i:0

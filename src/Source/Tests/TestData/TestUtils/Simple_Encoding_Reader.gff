@@ -1,0 +1,20 @@
+﻿##gff-version 2
+##type DNA Hsap_BTK
+##DNA Hsap_BTK
+##acggctcggattggcgctggatgatagatcagacgac
+##end-DNA
+##DNA Hsap_BTK
+##acggctcggattggcgctggatgatagatcagacgac
+##end-DNA
+
+Hsap_BTK	annotation	Single	14065	14214	.	-	0	LOC82570
+Hsap_BTK	annotation	First	75039	75170	.	-	0	TIMM8A
+Hsap_BTK	annotation	Terminal	73005	73166	.	-	0	TIMM8A
+Hsap_BTK	annotation	First	101650	101790	.	-	0	BTK
+Hsap_BTK	annotation	Internal	101042	101140	.	-	0	BTK
+Hsap_BTK	annotation	Internal	98139	98207	.	-	0	BTK
+Hsap_BTK	annotation	Internal	96504	96585	.	-	0	BTK
+Hsap_BTK	annotation	Internal	89067	89195	.	-	1	BTK
+Hsap_BTK	annotation	Internal	88679	88746	.	-	1	BTK
+Hsap_BTK	annotation	Internal	87074	87261	.	-	0	BTK
+##Hsap_BTK	annotation	Single	14065	14214	.	-	0	LOC82570

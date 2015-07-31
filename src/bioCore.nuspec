@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata minClientVersion="2.7.2">
+    <id>NetBioCore.PCL</id>
+    <version>2.0.150722</version>
+    <authors>Various authors</authors>
+    <owners>The Outercurve Foundation</owners>
+    <licenseUrl>http://bio.codeplex.com/license</licenseUrl>
+    <projectUrl>http://bio.codeplex.com/</projectUrl>
+    <iconUrl>http://research.microsoft.com/en-us/projects/bio/appicon_90x114.jpg</iconUrl>
+    <title>.NET Bio Core</title>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>.NET Bio is an open source bioinformatics/genomics library for .NET, WinRT, WinPRT and Xamarin that is designed to enable simple loading, saving and analysis of biological data. It includes several common parsers as well as a variety of algorithms for pairwise/multiple alignment and assembly operations.</description>
+    <summary>Bioinformatics analysis toolkit for .NET</summary>
+    <releaseNotes>Initial release of 2.0</releaseNotes>
+    <copyright>(C) 2014 Outercurve</copyright>
+    <language>en-US</language>
+    <tags>bioinformatics biology FASTA FASTQ GenBank nucleotides genomics .NET</tags>
+    <dependencies>
+      <group targetFramework="net45" />
+      <group targetFramework="wpa81" />
+      <group targetFramework="win8" />
+      <group targetFramework="monoandroid" />
+      <group targetFramework="monotouch" />
+      <group targetFramework="portable-net45+netcore45+wpa81+monotouch+monoandroid" />
+      <!-- Can have dependencies for a specific target -->
+      <!--<group targetFramework="...">
+        <dependency id="Microsoft.Bcl.Async" version="1.0.168" />
+        <dependency id="Microsoft.Bcl" version="1.1.9" />
+        <dependency id="Microsoft.Bcl.Build" version="1.0.14" />
+        <dependency id="Microsoft.Net.Http" version="2.2.22" />
+      </group>-->
+    </dependencies>
+  </metadata>
+  <files>
+    <!-- PCL (used for PCL library projects) -->
+    <file src="bin\Bio.Core.dll" target="lib\portable-net45+netcore45+wpa81+monotouch+monoandroid\Bio.Core.dll" />
+    <file src="bin\Bio.Core.xml" target="lib\portable-net45+netcore45+wpa81+monotouch+monoandroid\Bio.Core.xml" />
+    <file src="bin\Bio.Platform.Helpers.PCL.dll" target="lib\portable-net45+netcore45+wpa81+monotouch+monoandroid\Bio.Platform.Helpers.dll" />
+    <file src="bin\Bio.WebServices.dll" target="lib\portable-net45+netcore45+wpa81+monotouch+monoandroid\Bio.WebServices.dll" />
+    <file src="bin\Bio.WebServices.xml" target="lib\portable-net45+netcore45+wpa81+monotouch+monoandroid\Bio.WebServices.xml" />
+
+    <!-- Desktop (.NET 4.5) -->
+    <file src="bin\Bio.Core.dll" target="lib\net45\Bio.Core.dll" />
+    <file src="bin\Bio.Core.xml" target="lib\net45\Bio.Core.xml" />
+    <file src="bin\Bio.Platform.Helpers.Desktop.dll" target="lib\net45\Bio.Platform.Helpers.dll" />
+    <file src="bin\Bio.Desktop.dll" target="lib\net45\Bio.Desktop.dll" />
+    <file src="bin\Bio.Desktop.xml" target="lib\net45\Bio.Desktop.xml" />
+
+    <!-- Android -->
+    <file src="bin\Bio.Core.dll" target="lib\monoandroid\Bio.Core.dll" />
+    <file src="bin\Bio.Core.xml" target="lib\monoandroid\Bio.Core.xml" />
+    <file src="bin\Bio.Platform.Helpers.Droid.dll" target="lib\monoandroid\Bio.Platform.Helpers.dll" />
+    <file src="bin\Bio.Android.dll" target="lib\monoandroid\Bio.Android.dll" />
+    <file src="bin\Bio.Android.xml" target="lib\monoandroid\Bio.Android.xml" />
+
+    <!-- iOS -->
+    <file src="bin\Bio.Core.dll" target="lib\monotouch\Bio.Core.dll" />
+    <file src="bin\Bio.Core.xml" target="lib\monotouch\Bio.Core.xml" />
+    <file src="bin\Bio.Platform.Helpers.iOS.dll" target="lib\monotouch\Bio.Platform.Helpers.dll" />
+    <file src="bin\Bio.iOS.dll" target="lib\monotouch\Bio.iOS.dll" />
+    <file src="bin\Bio.iOS.xml" target="lib\monotouch\Bio.iOS.xml" />
+
+    <!-- WinRT -->
+    <file src="bin\Bio.Core.dll" target="lib\win8\Bio.Core.dll" />
+    <file src="bin\Bio.Core.xml" target="lib\win8\Bio.Core.xml" />
+    <file src="bin\Bio.Platform.Helpers.WinRT.dll" target="lib\win8\Bio.Platform.Helpers.dll" />
+
+    <!-- WinPRT -->
+    <file src="bin\Bio.Core.dll" target="lib\wpa81\Bio.Core.dll" />
+    <file src="bin\Bio.Core.xml" target="lib\wpa81\Bio.Core.xml" />
+    <file src="bin\Bio.Platform.Helpers.WinPRT.dll" target="lib\wpa81\Bio.Platform.Helpers.dll" />
+
+  </files>
+</package>

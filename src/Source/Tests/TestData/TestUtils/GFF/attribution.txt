@@ -1,0 +1,3 @@
+﻿The Gff files are downloaded from the location below, and modified to support multiple sequences
+ftp://ftp.ncbi.nih.gov/genomes/Saccharomyces_cerevisiae/CHR_I/
+ftp://ftp.ncbi.nih.gov/genomes/Saccharomyces_cerevisiae/CHR_XI/

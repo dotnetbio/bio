@@ -1,0 +1,26 @@
+This directory contains the data for the BLOSUM series of similarity matrices which are downloaded from NCBI Site and modified the same for the testing purposes.
+http://www.ncbi.nlm.nih.gov/IEB/ToolBox/C_DOC/lxr/source/data/BLOSUM50 - BLOSUM50.txt, BLOSUM50_Dna.txt, BLOSUM50_Rna.txt, BLOSUMEmpty50.txt, BLOSUMFewAlphabets50.txt, BLOSUMInvalid50.txt, BLOSUMInvalidDiagnol50.txt, BLOSUMModified50.txt, BLOSUMOnlyAlphabet50.txt
+
+This directory contains files which are downloaded from NCBI site and modified the same for the testing purposes.
+Custom created - InvalidGenBankWithPrimary.gbk
+http://www.ncbi.nlm.nih.gov/nuccore/195052 - DnaGenBank_MiscRecombination.gbk
+http://www.ncbi.nlm.nih.gov/nuccore/303649 & http://www.ncbi.nlm.nih.gov/protein/CAA89576 - DNAGenBank_Variation.gbk
+http://www.ncbi.nlm.nih.gov/nuccore/3264957 - EmptySeq.gbk & GenBank_Features.gbk
+http://www.ncbi.nlm.nih.gov/nuccore/CP000896 - GenBankRepeatRegion.gbk
+http://www.ncbi.nlm.nih.gov/protein/CAA89576 - Invalid_GenBank_ParseReference.gbk, MultiSequences_GenBank_Protein.gbk, MultipleReference_GenBank_Protein.gbk, MediumSize_GenBankFile.gbk, InvalidGenBankWithoutLocus.gbk, Invalid_GenBank_ParseSequence_Default.gbk, Invalid_GenBank_ParseSource.gbk, Invalid_GenBank_Unknown_Locus.gbk, Invalid_GenBank_Unknown_MoleculeType.gbk, Invalid_GenBank_Unknown_RawDate.gbk, Invalid_GenBank_Unknown_StrandTopology.gbk, Invalid_GenBank_Unknown_StrandType.gbk, InvalidateGenBankParseFeaturesHasReader.gbk, InvalideGenBank.gbk, Invalid_GenBank_ParseReference_Default.gbk & Invalid_GenBank_ParseSequence.gbk 
+http://www.ncbi.nlm.nih.gov/nuccore/3264957 - InvalidGenBankSegment.gbk
+http://www.ncbi.nlm.nih.gov/nuccore/NT_009775 - LargeSize.gbk
+http://www.ncbi.nlm.nih.gov/nuccore/AL391144 - MediumSize.gbk
+http://www.ncbi.nlm.nih.gov/nuccore/NC_001284 - MediumSizeDNAGenBank.gbk, MediumSizeRNAGenBank.gbk
+http://www.ncbi.nlm.nih.gov/nuccore/3264957 - Mandatory_GenBank_Headers.gbk, Metadata_GenBank_DNA.gbk, Metadata_GenBank_Protein.gbk, Metadata_GenBank_RNA.gbk
+http://www.ncbi.nlm.nih.gov/nuccore/AF518003 - MiscRNAGenBank.gbk
+http://www.ncbi.nlm.nih.gov/nuccore/AL391144 - MultiGene_CDS_DNA.gbk
+http://www.ncbi.nlm.nih.gov/nuccore/NC_001284 - MultiSequence_GenBank_RNA.gbk, RNA-Medium.gbk
+http://www.ncbi.nlm.nih.gov/nuccore/AF032047 - MultiSequenceDNA_GenBank.gbk, Small_Size.gbk, Nucmer_Query_Seq.gbk, Nucmer_Reference_Seq.gbk, OneLineSeq.gbk, Search_Dna.gbk, Simple_GenBank_DNA.gbk, 
+http://www.ncbi.nlm.nih.gov/protein/XP_002597967 - PROTEIN-Medium.gbk
+http://www.ncbi.nlm.nih.gov/protein/AAA40590 - ProteinGenBank_MaturePeptide.gbk
+http://www.ncbi.nlm.nih.gov/nuccore/303649 - ProteinGenBank_Variation.gbk
+http://www.ncbi.nlm.nih.gov/nuccore/D12555 - RNAGenBank_Variation.gbk
+http://www.ncbi.nlm.nih.gov/protein/CAA89576 - Simple_GenBank_Primary.gbk, Simple_GenBank_Protein.gbk
+http://www.ncbi.nlm.nih.gov/pubmed - Simple_GenBank_RNA.gbk
+

@@ -1,0 +1,16 @@
+﻿<!--
+<summary>
+// ColorScheme class is a user control class which stores the
+// molecule type, the color corresponding to molecule type
+// and a button to change the color scheme.
+</summary>
+-->
+    <UserControl x:Class="BiodexExcel.Visualizations.Common.ColorScheme"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:my="clr-namespace:BiodexExcel.Visualizations.Common"
+    Margin="5">
+    <StackPanel Orientation="Horizontal">
+        <my:OfficeColorPicker x:Name="colorDropDown" Width="80" Height="28" />
+    </StackPanel>
+</UserControl>

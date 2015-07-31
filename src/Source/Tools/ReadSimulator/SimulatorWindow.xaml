@@ -1,0 +1,115 @@
+﻿<Window x:Class="ReadSimulator.SimulatorWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:app="clr-namespace:ReadSimulator" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" d:DesignHeight="460" SizeToContent="Height"
+    Title="Sequence Read Simulator 2.0" Height="Auto" Width="684">
+    
+    <Window.Resources>
+        <!-- Converter for a true/false radio button group -->
+        <app:SuccessConverter x:Key="rbConverter"/>
+    </Window.Resources>
+    
+    <DockPanel>
+        <GroupBox DockPanel.Dock="Top" Header="File Selection">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="100"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Row="0" Grid.Column="0" Content="{StaticResource InputFileLabel}" ToolTip="{StaticResource InputFileTip}"/>
+                <Label Grid.Row="1" Grid.Column="0" Content="{StaticResource OutputFileLabel}" ToolTip="{StaticResource OutputFileTip}"/>
+                <TextBox x:Name="InputFileBox" Grid.Row="0" Grid.Column="1" Text="{Binding Settings.InputFile, UpdateSourceTrigger=LostFocus, NotifyOnSourceUpdated=True}" SourceUpdated="InputFileBox_Changed" />
+                <TextBox x:Name="OutputFileBox" Grid.Row="1" Grid.Column="1" Text="{Binding Settings.OutputFile, UpdateSourceTrigger=LostFocus,NotifyOnSourceUpdated=True}" SourceUpdated="OutputFileBox_Changed" />
+                <Button x:Name="InputBrowseButton" Grid.Row="0" Grid.Column="2" Click="InputBrowseButton_Click" Content="{StaticResource BrowseButton}"/>
+                <Button x:Name="OutputBrowseButton" Grid.Row="1" Grid.Column="2" Click="OutputBrowseButton_Click" Content="{StaticResource BrowseButton}"/>
+            </Grid>
+        </GroupBox>
+
+        <Button Width="160" x:Name="SimulationButton" DockPanel.Dock="Bottom" HorizontalAlignment="Right" IsEnabled="False"
+                Click="SimulationButton_Click" Content="{StaticResource PerformSimulationButton}" Margin="10,5,10,5" />
+        
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="300" MaxWidth="500"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <GridSplitter ResizeDirection="Columns" Width="2" />
+            <GroupBox Grid.Row="0" Grid.Column="0" Header="Options" Margin="0,0,2,0">
+                <DockPanel>
+                    <Grid DockPanel.Dock="Top">
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <!-- Settings Labels -->
+                        <Label Grid.Row="0" Grid.Column="0" Content="{StaticResource DepthOfCoverageLabel}"  ToolTip="{StaticResource DepthOfCoverageTip}"/>
+                        <Label Grid.Row="1" Grid.Column="0" Content="{StaticResource OutputLengthLabel}" ToolTip="{StaticResource OutputLengthTip}"/>
+                        <Label Grid.Row="2" Grid.Column="0" Content="{StaticResource LengthVariationLabel}"  ToolTip="{StaticResource LengthVariationTip}"/>
+                        <Label Grid.Row="3" Grid.Column="0" Content="{StaticResource DistributionLabel}"  ToolTip="{StaticResource DistributionTip}"/>
+                        <Label Grid.Row="4" Grid.Column="0" Content="{StaticResource ErrorFrequencyLabel}"  ToolTip="{StaticResource ErrorFrequencyTip}"/>
+                        <Label Grid.Row="5" Grid.Column="0" Content="{StaticResource AllowAmbiguitiesLabel}" ToolTip="{StaticResource AllowAmbiguitiesTip}"/>
+                        <Label Grid.Row="6" Grid.Column="0" Content="{StaticResource ReverseHalfLabel}"  ToolTip="{StaticResource ReverseHalfTip}"/>
+                        <Label Grid.Row="7" Grid.Column="0" Content="{StaticResource OutputCountLabel}"  ToolTip="{StaticResource OutputCountTip}"/>
+                        <!-- Settings user controls -->
+                        <TextBox Grid.Row="0" Grid.Column="1" x:Name="DepthOfCoverage" Text="{Binding Settings.DepthOfCoverage}" TextAlignment="Right"/>
+                        <TextBox Grid.Row="1" Grid.Column="1" x:Name="OutputLength" Text="{Binding Settings.SequenceLength}" TextAlignment="Right"/>
+                        <TextBox Grid.Row="2" Grid.Column="1" x:Name="LengthVariation" Text="{Binding Settings.LengthVariation}" TextAlignment="Right" />
+                        <ComboBox Grid.Row="3" Grid.Column="1" x:Name="Distribution" SelectedIndex="{Binding Settings.DistributionType, Mode=TwoWay}">
+                            <TextBlock Text="{StaticResource Uniform}"/>                            
+                            <TextBlock Text="{StaticResource Normal}"/>
+                        </ComboBox>
+                        <TextBox Grid.Row="4" Grid.Column="1" x:Name="ErrorFrequency" Text="{Binding Settings.ErrorFrequency, StringFormat=\{0:F5\}}" TextAlignment="Right" TextWrapping="NoWrap"></TextBox>
+                        <StackPanel Orientation="Horizontal" Grid.Row="5" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <RadioButton Content="{StaticResource Yes}"  IsChecked="{Binding Settings.AllowAmbiguities, Mode=TwoWay, Converter={StaticResource rbConverter}, ConverterParameter=true}" GroupName="AmbigYes"/>
+                            <RadioButton Content="{StaticResource No}" Margin="10,0,0,0" IsChecked="{Binding Settings.AllowAmbiguities, Mode=TwoWay, Converter={StaticResource rbConverter}, ConverterParameter=false}" GroupName="AmbigNo"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Grid.Row="6" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <RadioButton Content="{StaticResource Yes}"  IsChecked="{Binding Settings.ReverseHalf, Mode=TwoWay, Converter={StaticResource rbConverter}, ConverterParameter=true}" GroupName="ReverseYes"/>
+                            <RadioButton Content="{StaticResource No}" Margin="10,0,0,0" IsChecked="{Binding Settings.ReverseHalf, Mode=TwoWay, Converter={StaticResource rbConverter}, ConverterParameter=false}" GroupName="ReverseNo"/>
+                        </StackPanel>
+                        <TextBox Grid.Row="7" Grid.Column="1" x:Name="OutputSequenceCount" Text="{Binding Settings.OutputSequenceCount}" TextAlignment="Right" />
+                    </Grid>
+                    <Grid DockPanel.Dock="Bottom">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="SettingDefaultSanger" Grid.Column="0" Click="DefaultsButton_Click" Content="{StaticResource SangerDefaultButton}"/>
+                        <Button x:Name="SettingDefaultPyro" Grid.Column="1" Click="DefaultsButton_Click" Content="{StaticResource PyroDefaultButton}"/>
+                        <Button x:Name="SettingDefaultShort" Grid.Column="2" Click="DefaultsButton_Click" Content="{StaticResource ShortReadDefaultButton}"/>
+                    </Grid>
+                    <Label DockPanel.Dock="Bottom" Content="{StaticResource DefaultSettingsLabel}" ToolTip="{StaticResource DefaultSetting}" />
+                    <Label/>
+                  
+                </DockPanel>
+            </GroupBox>
+            <GroupBox Grid.Row="0" Grid.Column="1" Header="Results">
+                <StackPanel>
+                    <Label Content="{StaticResource InputStatus}" FontWeight="Bold"/>
+                    <TextBlock x:Name="InputSequenceStatus" Margin="15,0,0,0" Text="{StaticResource NotLoaded}" TextWrapping="Wrap"/>
+                    <TextBlock x:Name="InputSequenceSize" Margin="15,0,0,0" Text="{StaticResource NoBasePairCount}" TextWrapping="Wrap"/>
+                    <Label Content="{StaticResource OutputStatus}" FontWeight="Bold" />
+                    <TextBlock x:Name="OutputSequenceStatus1" Margin="15,0,0,0" TextWrapping="Wrap" />
+                    <TextBlock x:Name="OutputSequenceStatus2" Margin="15,0,0,0" TextWrapping="Wrap"/>
+                </StackPanel>
+            </GroupBox>
+        </Grid>
+    </DockPanel>
+</Window>

@@ -1,0 +1,269 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B58E121A-3D49-472F-A20A-72EC35575E53}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Bio.Tests</RootNamespace>
+    <AssemblyName>Bio.Tests</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+    <CustomCommands>
+      <CustomCommands>
+        <Command type="AfterBuild" Condition=" '$(OS)' == 'Unix' " command="cp -r ${ProjectDir}/../TestData/TestUtils ${TargetDir}/" />
+      </CustomCommands>
+    </CustomCommands>
+    <EnvironmentVariables>
+      <EnvironmentVariables>
+        <Variable name="MONO_IOMAP" value="all" />
+      </EnvironmentVariables>
+    </EnvironmentVariables>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
+    <Prefer32Bit>false</Prefer32Bit>
+    <CodeAnalysisIgnoreGeneratedCode>false</CodeAnalysisIgnoreGeneratedCode>
+    <CustomCommands>
+      <CustomCommands>
+        <Command type="AfterBuild" command="cp -r ${ProjectDir}/../TestData/TestUtils ${TargetDir}/" />
+      </CustomCommands>
+    </CustomCommands>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>1</WarningLevel>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+    <CodeAnalysisIgnoreGeneratedCode>false</CodeAnalysisIgnoreGeneratedCode>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CustomCommands>
+      <CustomCommands>
+        <Command type="AfterBuild" command="cp -r ${ProjectDir}/../TestData/TestUtils ${TargetDir}/" />
+      </CustomCommands>
+    </CustomCommands>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="System.Xml" />
+    <Reference Include="nunit.framework, Version=3.0.5674.19278, Culture=neutral, PublicKeyToken=2638cd05610744eb">
+      <HintPath>..\..\..\packages\NUnit.3.0.0-beta-3\lib\net45\nunit.framework.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AATreeTests.cs" />
+    <Compile Include="Algorithms\Alignment\AlignmentBvtTestCases.cs" />
+    <Compile Include="Algorithms\Alignment\AlignmentP1TestCases.cs" />
+    <Compile Include="Algorithms\Alignment\NeedlemanWunschP2TestCases.cs" />
+    <Compile Include="Algorithms\Alignment\NUCmer\NUCmerAttributesBvtTestCases.cs" />
+    <Compile Include="Algorithms\Alignment\NUCmer\NUCmerBvtTestCases.cs" />
+    <Compile Include="Algorithms\Alignment\NUCmer\NUCmerP1TestCases.cs" />
+    <Compile Include="Algorithms\Alignment\NUCmer\NUCmerP2TestCases.cs" />
+    <Compile Include="Algorithms\Alignment\PairwiseAlignedSequenceP1TestCases.cs" />
+    <Compile Include="Algorithms\Alignment\PairwiseAlignmentAttributesBvtTestCases.cs" />
+    <Compile Include="Algorithms\Alignment\PairwiseOverlapAlignerBvtTestCases.cs" />
+    <Compile Include="Algorithms\Alignment\PairwiseOverlapAlignerP1TestCases.cs" />
+    <Compile Include="Algorithms\Alignment\PairwiseOverlapAlignerP2TestCases.cs" />
+    <Compile Include="Algorithms\Alignment\SmithWatermanP2TestCases.cs" />
+    <Compile Include="Algorithms\Assembly\AssemblyBvtTestCases.cs" />
+    <Compile Include="Algorithms\Assembly\AssemblyP1TestCases.cs" />
+    <Compile Include="Algorithms\MUMmer\MUMmerBvtTestCases.cs" />
+    <Compile Include="Algorithms\MUMmer\MUMmerP1TestCases.cs" />
+    <Compile Include="Algorithms\MUMmer\MUMmerP2TestCases.cs" />
+    <Compile Include="Algorithms\StringSearch\BoyerMooreBvtTestCases.cs" />
+    <Compile Include="Algorithms\Translation\TranslationBvtTestCases.cs" />
+    <Compile Include="Algorithms\Translation\TranslationP1TestCases.cs" />
+    <Compile Include="Algorithms\Translation\TranslationP2TestCases.cs" />
+    <Compile Include="AlphabetsBvtTestCases.cs" />
+    <Compile Include="BigArrayTests.cs" />
+    <Compile Include="CloneLibraryInformationBvtTestCases.cs" />
+    <Compile Include="DerivedSequenceBvtTestCases.cs" />
+    <Compile Include="DerivedSequenceP1TestCases.cs" />
+    <Compile Include="DerivedSequenceP2TestCases.cs" />
+    <Compile Include="Extensions\AlphabetExtensionsTest.cs" />
+    <Compile Include="AlphabetsFriendlyNameTest.cs" />
+    <Compile Include="DeriveSequenceTests.cs" />
+    <Compile Include="Extensions\SequenceExtensionTests.cs" />
+    <Compile Include="IndexedItemBvtTestCases.cs" />
+    <Compile Include="IO\AppliedBiosystems\Ab1DataValidator.cs" />
+    <Compile Include="IO\AppliedBiosystems\Ab1Examples.cs" />
+    <Compile Include="IO\AppliedBiosystems\AbiTests.cs" />
+    <Compile Include="IO\AppliedBiosystems\TestAb1Data.cs" />
+    <Compile Include="IO\BAM\BAMBvtTestCases.cs" />
+    <Compile Include="IO\BAM\BAMP1TestCases.cs" />
+    <Compile Include="IO\BAM\BAMP2TestCases.cs" />
+    <Compile Include="IO\BAM\BAMTests.cs" />
+    <Compile Include="IO\Bed\BedBvtTestCases.cs" />
+    <Compile Include="IO\Bed\BedP1TestCases.cs" />
+    <Compile Include="IO\ClustalW\ClustalWBvtTestCases.cs" />
+    <Compile Include="IO\FastA\FastABvtTestCases.cs" />
+    <Compile Include="IO\FastA\FastAP1TestCases.cs" />
+    <Compile Include="IO\FastA\FastAP2TestCases.cs" />
+    <Compile Include="IO\FastQ\FastQBvtTestCases.cs" />
+    <Compile Include="IO\FastQ\FastQP1TestCases.cs" />
+    <Compile Include="IO\FastQ\FastQP2TestCases.cs" />
+    <Compile Include="IO\GenBank\GenBankBvtTestCases.cs" />
+    <Compile Include="IO\GenBank\GenBankFeaturesBvtTestCases.cs" />
+    <Compile Include="IO\GenBank\GenBankFeaturesP1TestCases.cs" />
+    <Compile Include="IO\GenBank\GenBankFeaturesP2TestCases.cs" />
+    <Compile Include="IO\GenBank\GenBankP1TestCases.cs" />
+    <Compile Include="IO\GenBank\GenBankP2TestCases.cs" />
+    <Compile Include="IO\Gff\GffBvtTestCases.cs" />
+    <Compile Include="IO\Gff\GffP1TestCases.cs" />
+    <Compile Include="IO\Gff\GffP2TestCases.cs" />
+    <Compile Include="IO\Newick\PhylogeneticTreeBvtTestCases.cs" />
+    <Compile Include="IO\Newick\PhylogeneticTreeP1TestCases.cs" />
+    <Compile Include="IO\Newick\PhylogeneticTreeP2TestCases.cs" />
+    <Compile Include="IO\Nexus\NexusBvtTestCases.cs" />
+    <Compile Include="IO\Nexus\NexusP2TestCases.cs" />
+    <Compile Include="IO\Phylip\PhylipBvtTestCases.cs" />
+    <Compile Include="IO\Phylip\PhylipP2TestCases.cs" />
+    <Compile Include="IO\SAM\SAMBvtTestCases.cs" />
+    <Compile Include="IO\SAM\SAMP1TestCases.cs" />
+    <Compile Include="IO\SAM\SAMP2TestCases.cs" />
+    <Compile Include="IO\SequenceParserFormatterBvtTestCases.cs" />
+    <Compile Include="IO\SequenceParserFormatterP2TestCases.cs" />
+    <Compile Include="IO\SFF\SFFParserTests.cs" />
+    <Compile Include="IO\Snp\SnpBvtTestCases.cs" />
+    <Compile Include="IO\Snp\SnpP1TestCases.cs" />
+    <Compile Include="IO\Snp\SnpParserTests.cs" />
+    <Compile Include="IO\SequenceParserTests.cs" />
+    <Compile Include="IO\Wiggle\WiggleBvtTestCases.cs" />
+    <Compile Include="IO\Wiggle\WiggleP2TestCases.cs" />
+    <Compile Include="IO\Wiggle\WiggleTests.cs" />
+    <Compile Include="IO\Xsv\XsvSparseBvtTestCases.cs" />
+    <Compile Include="Matrix\BioMatrixTests.cs" />
+    <Compile Include="Algorithms\StringSearch\BoyerMooreTests.cs" />
+    <Compile Include="IO\Bed\BEDOperationsTests.cs" />
+    <Compile Include="Algorithms\Alignment\AlignerTests.cs" />
+    <Compile Include="Algorithms\Alignment\PairwiseOverlapAlignerTests.cs" />
+    <Compile Include="Algorithms\Translation\TranslationTests.cs" />
+    <Compile Include="AmbiguousRnaAlphabetTests.cs" />
+    <Compile Include="Algorithms\Assembly\OverlapDeNovoAssemblerTests.cs" />
+    <Compile Include="DnaAlphabetTests.cs" />
+    <Compile Include="IO\ClustalW\ClustalWTests.cs" />
+    <Compile Include="IO\FastA\FastaTests.cs" />
+    <Compile Include="IO\FastQ\FastQTests.cs" />
+    <Compile Include="IO\GenBank\GenBankTests.cs" />
+    <Compile Include="IO\Gff\GffTests.cs" />
+    <Compile Include="IO\Nexus\NexusTests.cs" />
+    <Compile Include="IO\Phylip\PhylipTests.cs" />
+    <Compile Include="Algorithms\MUMmer\LongestIncreasingSubsequenceTests.cs" />
+    <Compile Include="QualitativeSequenceBvtTestCases.cs" />
+    <Compile Include="QualitativeSequenceP1TestCases.cs" />
+    <Compile Include="QualitativeSequenceP2TestCases.cs" />
+    <Compile Include="QualitativeSequenceTest.cs" />
+    <Compile Include="RnaAlphabetTests.cs" />
+    <Compile Include="SequenceBvtTestCases.cs" />
+    <Compile Include="SequenceP2TestCases.cs" />
+    <Compile Include="IO\SequenceParserP1TestCases.cs" />
+    <Compile Include="SequenceRangeAndSequenceRangeGroupingBvtTestCases.cs" />
+    <Compile Include="SequenceRangeAndSequenceRangeGroupingP1TestCases.cs" />
+    <Compile Include="SequenceStatisticsTests.cs" />
+    <Compile Include="SequenceTests.cs" />
+    <Compile Include="SparseSequenceBvtTestCases.cs" />
+    <Compile Include="SparseSequenceP1TestCases.cs" />
+    <Compile Include="SparseSequenceP2TestCases.cs" />
+    <Compile Include="SparseSequenceTests.cs" />
+    <Compile Include="TestSequencesCopyToForBio.cs" />
+    <Compile Include="TestToStringForBio.cs" />
+    <Compile Include="ToStringBvtTestCases.cs" />
+    <Compile Include="ToStringP2TestCases.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="IO\SAM\SAMTests.cs" />
+    <Compile Include="IO\Xsv\XsvSparseTests.cs" />
+    <Compile Include="Algorithms\MUMmer\MUMmerAlignerTests.cs" />
+    <Compile Include="Algorithms\Padena\PadenaBvtTestCases.cs" />
+    <Compile Include="Algorithms\Padena\PadenaP1TestCases.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\TestData\Testcases.xml">
+      <Link>Testcases</Link>
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Framework\Bio.Core\Bio.Core.csproj">
+      <Project>{DFB9C4E2-C98C-4401-A650-756ABAB52663}</Project>
+      <Name>Bio.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Framework\Bio.Desktop\Bio.Desktop.csproj">
+      <Project>{A482BE8F-67D5-4991-84BD-DA3BF6ED84FA}</Project>
+      <Name>Bio.Desktop</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Framework\Shims\Bio.Platform.Helpers.Desktop\Bio.Platform.Helpers.Desktop.csproj">
+      <Project>{2A6BB04D-047F-4F04-9AFB-9BF8941A292A}</Project>
+      <Name>Bio.Platform.Helpers.Desktop</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bio.TestUtils\Bio.TestUtils.csproj">
+      <Project>{FC09FA89-39A2-4DB7-BB26-4DF616918506}</Project>
+      <Name>Bio.TestUtils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Add-in\Bio.Padena\Bio.Padena.csproj">
+      <Project>{1CFF1C79-1E34-4411-97E0-0FB02F4865C3}</Project>
+      <Name>Bio.Padena</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+
+  </Target>
+ 
+  -->
+  <ItemGroup />
+</Project>

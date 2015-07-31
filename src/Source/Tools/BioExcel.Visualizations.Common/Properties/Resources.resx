@@ -1,0 +1,243 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="about" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\about.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CAPTION" xml:space="preserve">
+    <value>.NET Bio Extension for Excel</value>
+  </data>
+  <data name="INVALID_TEXT" xml:space="preserve">
+    <value>Invalid </value>
+  </data>
+  <data name="MIN_OVERLAP_ERROR" xml:space="preserve">
+    <value>Invalid Minimum overlap value.</value>
+  </data>
+  <data name="VALUE_TEXT" xml:space="preserve">
+    <value> value</value>
+  </data>
+  <data name="EM_REL" xml:space="preserve">
+    <value>em_rel</value>
+  </data>
+  <data name="NR_25" xml:space="preserve">
+    <value>nr.25</value>
+  </data>
+  <data name="SELECT_SHEET_MESSAGE" xml:space="preserve">
+    <value>Please select atleast {0} or more sheets.</value>
+  </data>
+  <data name="MAX_COLUMN_ERROR" xml:space="preserve">
+    <value>Please enter only positive values.</value>
+  </data>
+  <data name="DATABASE_NR" xml:space="preserve">
+    <value>nr</value>
+  </data>
+  <data name="DATABASE_NT" xml:space="preserve">
+    <value>nt</value>
+  </data>
+  <data name="SHEET_SELECT_LIMIT" xml:space="preserve">
+    <value>Maximum number of sheets allowed to be selected: {0}</value>
+  </data>
+  <data name="INTERSECT_INPUT" xml:space="preserve">
+    <value>Intersect Inputs</value>
+  </data>
+  <data name="INTERVAL_NO_OVERLAP" xml:space="preserve">
+    <value>Intervals with No overlap</value>
+  </data>
+  <data name="INTERVAL_OVERLAP" xml:space="preserve">
+    <value>Non-overlapping pieces of intervals</value>
+  </data>
+  <data name="OVERLAPPING_INTERVALS" xml:space="preserve">
+    <value>Overlapping Intervals</value>
+  </data>
+  <data name="OVERLAPPING_PIECES_OF_INTERVALS" xml:space="preserve">
+    <value>Overlapping pieces of  Intervals</value>
+  </data>
+  <data name="SUBTRACT_INPUT" xml:space="preserve">
+    <value>Subtract Inputs</value>
+  </data>
+  <data name="MINIMUM_SELECT_HEADER" xml:space="preserve">
+    <value>Select atleast {0} sheet(s) for alignment</value>
+  </data>
+  <data name="HEADER_SUBTEXT" xml:space="preserve">
+    <value>The worksheet {0} is missing certain header information. Please select the genomic attributes and their corresponding columns in your selected worksheet</value>
+  </data>
+  <data name="MANDATORY_COLUMNS" xml:space="preserve">
+    <value>Please choose Chromsome ID, Start and Stop columns</value>
+  </data>
+  <data name="ONE_COLUMN" xml:space="preserve">
+    <value>Please choose one value per column</value>
+  </data>
+  <data name="AZURE_URI" xml:space="preserve">
+    <value>http://blast2.cloudapp.net/BlastService.svc</value>
+  </data>
+  <data name="AutoDetectString" xml:space="preserve">
+    <value>Auto Detect</value>
+  </data>
+  <data name="CodeplexURL" xml:space="preserve">
+    <value>http://bio.codeplex.com</value>
+  </data>
+  <data name="CONSENSUS_THRESHOLD" xml:space="preserve">
+    <value>Consensus Threshold</value>
+  </data>
+  <data name="MATCH_SCORE" xml:space="preserve">
+    <value>Match Score</value>
+  </data>
+  <data name="MERGE_THRESHOLD" xml:space="preserve">
+    <value>Merge Threshold</value>
+  </data>
+  <data name="MISMATCH_SCORE" xml:space="preserve">
+    <value>Mismatch Score</value>
+  </data>
+  <data name="Intersect_OverlappingIntervals" xml:space="preserve">
+    <value>Returns entire intervals from the first query that overlap the second query. 
+The returned intervals are completely unchanged, and this option only filters 
+out intervals that do not overlap with the second query.</value>
+  </data>
+  <data name="Intersect_OverlappingPiecesofIntervals" xml:space="preserve">
+    <value>Returns intervals that indicate the exact base pair overlap between the first 
+query and the second query. The intervals returned are from the first query, 
+and all fields besides start and end are guaranteed to remain unchanged.</value>
+  </data>
+  <data name="Subtract_WithNonOverlappingPiecesofInterval" xml:space="preserve">
+    <value>Returns intervals from the first query that have the intervals from the second 
+query removed. Any overlapping base pairs are removed from the range of the interval. 
+All fields besides start and end are guaranteed to remain unchanged.</value>
+  </data>
+  <data name="Subtract_WithNoOverlap" xml:space="preserve">
+    <value>Returns entire intervals from the first query that do not overlap the second query. 
+The returned intervals are completely unchanged, and this option only filters out 
+intervals that overlap with the second query.</value>
+  </data>
+  <data name="Intersect_img1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\intersect_img1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Intersect_Img2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\intersect_img2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Subtract_img1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\subtract_img1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Subtrtact_img2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\subtrtact_img2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="INVALID_SEQ_PER_SHEET" xml:space="preserve">
+    <value>The number of sequences per sheet must be numeric.</value>
+  </data>
+</root>

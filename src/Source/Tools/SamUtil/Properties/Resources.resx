@@ -1,0 +1,255 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AttributionText" xml:space="preserve">
+    <value>SAMUtils are a re-implemenation of SAM Tools as referenced here: 
+
+Li H.*, Handsaker B.*, Wysoker A., Fennell T., Ruan J., Homer N., Marth G., Abecasis G., Durbin R. and 1000 Genome Project Data Processing Subgroup (2009) The Sequence alignment/map (SAM) format and SAMtools. Bioinformatics, 25, 2078-9. [PMID: 19505943]</value>
+  </data>
+  <data name="BAM_INDEXFILEEXTENSION" xml:space="preserve">
+    <value>.bai</value>
+  </data>
+  <data name="ChimericRegionsHelp" xml:space="preserve">
+    <value>Usage:   SAMUtils.exe Chimera [options] in.bam MeanValue StdDeviationValue
+Description: Process Chimeric regions in the parsed file.</value>
+  </data>
+  <data name="DNACoverageHelp" xml:space="preserve">
+    <value>Usage:    SAMUtils.exe CoverageProfile [options] in.bam
+Description: Gets coverage Profile.</value>
+  </data>
+  <data name="DNAPossibleOccurenceHelp" xml:space="preserve">
+    <value>Usage:   SAMUtils.exe NucleotideDistribution[options] in.bam 
+Description: DNA Possible Occurence Help</value>
+  </data>
+  <data name="EmptyFile" xml:space="preserve">
+    <value>Input File is empty.</value>
+  </data>
+  <data name="HeaderAbsent" xml:space="preserve">
+    <value>Header Absent, Please reference list file</value>
+  </data>
+  <data name="HeaderMissing" xml:space="preserve">
+    <value>Header Missing</value>
+  </data>
+  <data name="ImportHelp" xml:space="preserve">
+    <value>Usage:  SAMUtils.exe import [options] in.sam|in.bam
+Description:  Import converts SAM &lt;=&gt; BAM file formats.
+
+Options:
+-o:OutFile Output file name, by default .bam|.sam is concatenated to input filename
+-r:FILE  File path of TAB delimited file.(in.ref_list)</value>
+  </data>
+  <data name="IncorrectHeaderFile" xml:space="preserve">
+    <value>Incorrect Header file format</value>
+  </data>
+  <data name="IndexHelp" xml:space="preserve">
+    <value>Usage:	SAMUtils.exe index [options] in.bam
+Description: Generates Index file for given BAM file.
+
+Options:
+-o:OutFile Output file name, by default .bai is concatenated to input filename</value>
+  </data>
+  <data name="InvalidBAMFile" xml:space="preserve">
+    <value>Invalid BAM file.</value>
+  </data>
+  <data name="InvalidSAMFile" xml:space="preserve">
+    <value>Invalid SAM File.</value>
+  </data>
+  <data name="LengthAnomalyHelp" xml:space="preserve">
+    <value>Usage:    SAMUtils.exe LengthAnomaly [options] in.bam MeanValue StdDeviationValue
+Description: Process chromosomes for length anamoly</value>
+  </data>
+  <data name="MergeHelp" xml:space="preserve">
+    <value>Usage:      SAMUtils.exe Merge [options] in1.bam in2.bam [..]
+Description: Helps in merging. 
+
+Options:
+-n          sort by read names
+-o:OutFile Output file name  (out.bam)
+-h:FILE     copy the header in FILE(SAM/BAM format) to out.bam [in1.bam]
+
+Note: Samtool merge does not reconstruct the @RG dictionary in the header.
+      Users must provide the correct header with -h</value>
+  </data>
+  <data name="OrphanRegionsHelp" xml:space="preserve">
+    <value>Usage: SAMUtils.exe orphan [options] in.bam MeanValue StdDeviationValue
+Description: Process Chromosomes with orphan regions.</value>
+  </data>
+  <data name="ReferenceFile" xml:space="preserve">
+    <value>Reference File not in correct format</value>
+  </data>
+  <data name="SAMUtilHelp" xml:space="preserve">
+    <value>Usage:	   SAMUtils.exe command [options]
+Description: Utility to convert SAM to BAM and vice versa.
+
+Command:   Import  SAM &lt;=&gt; BAM conversion
+           Sort    Sort alignment file
+           Index   Index alignment
+           Merge   Merge sorted alignments
+           View    View output on console</value>
+  </data>
+  <data name="SamUtilSplashScreen" xml:space="preserve">
+    <value>Sam Utility v2.0
+Copyright (c) 2011-2014, The Outercurve Foundation.
+</value>
+  </data>
+  <data name="SortHelp" xml:space="preserve">
+    <value>Usage:     SAMUtils.exe sort [options] in.bam
+Description: It sort reads by name.
+Options:
+-n         sort by read names
+-o:OutFile Output file name, by default .sort is concatenated to input filename</value>
+  </data>
+  <data name="SuccessMessageWithOutputFileName" xml:space="preserve">
+    <value>Output is successfully written to the file: {0}</value>
+  </data>
+  <data name="ViewHelp" xml:space="preserve">
+    <value>Usage:    SAMUtils.exe view [options] in.bam|in.sam
+
+Description:  This command assumes the file on the command line is
+          in the BAM format and it prints the alignments in SAM.
+
+Options:
+
+-b       Output BAM
+-h       Print header for the SAM output
+-H       Print header only (no alignments)
+-S       Input is SAM format
+-u       Uncompressed BAM output
+-x       Output flag in HEX
+-X       Output flag in string
+-o:FILE  Output file name
+-f:INT   Required flag
+-F:INT   Filtering flag
+-q:INT   Minimum mapping quality
+-l:STR   Only output reads in library
+-r:STR   Only output reads in read group STR
+-R:STR   A region can be presented, for example, in the following format:
+         `chr2' (the whole chr2),
+         `chr2:1000000' (region starting from 1,000,000bp)
+         or `chr2:1000000-2000000'
+         (region between 1000000 and 2000000bp including the end points).
+         The coordinate is 1-based.</value>
+  </data>
+  <data name="WriteBAM" xml:space="preserve">
+    <value>Cannot write BAM output</value>
+  </data>
+  <data name="WriteSAM" xml:space="preserve">
+    <value>Cannot write SAM output</value>
+  </data>
+</root>

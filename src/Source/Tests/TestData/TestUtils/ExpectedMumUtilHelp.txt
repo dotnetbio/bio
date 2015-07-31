@@ -1,0 +1,30 @@
+
+Usage: MumUtil.exe [options] <reference file> <query file>
+Description: MumUtil calls the MUMmer algorithm which rapidly aligning 
+entire genomes or very large protein sequences.
+
+-help[+|-]                Show the help information with program options and a
+                          description of program operation. (short form -h)
+-verbose[+|-]             Display Verbose logging during processing (short form
+                          -v)
+-mumreference[+|-]        Compute all MUM candidates in reference [default]
+                          (short form -m)
+-mum[+|-]                 Compute Maximal Unique Matches, strings that are
+                          unique in both the reference and query sets
+-maxmatch[+|-]            Compute all maximal matches ignoring uniqueness
+-noAmbiguity[+|-]         Disallow ambiguity character matches and only match
+                          A, T, C, or G (case insensitive) (short form -n)
+-length:<int>             Minimium match length [20] (short form -l)
+-both[+|-]                Compute forward and reverse complement matches (short
+                          form -b)
+-reverseOnly[+|-]         Compute only reverse complement matches (short form
+                          -r)
+-displayQueryLength[+|-]  Show the length of the query sequence (short form -d)
+-showMatchingString[+|-]  Show the matching substring in the output (short form
+                          -s)
+-c[+|-]                   Report the query position of a reverse complement
+                          match relative to the forward strand of the query
+                          sequence
+-outputFile:<string>      Output file (short form -o)
+@<file>                   Read response file for more options
+<fileList>                Query file(s) containing the query strings

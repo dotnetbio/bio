@@ -1,0 +1,4 @@
+SampleCustomMatrix.txt, file present in this folder is downloaded from NCBI site http://www.ncbi.nlm.nih.gov/IEB/ToolBox/C_DOC/lxr/source/data/BLOSUM50 and modified accordingly for testing purpose
+
+TestIupacNA.txt and TestNcbiStdAA.txt were manually created and has no references
+

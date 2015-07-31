@@ -1,0 +1,86 @@
+LOCUS       NR_074233               1475 bp    DNA     linear   BCT 01-APR-2014
+DEFINITION  Methanocaldococcus jannaschii strain DSM 2661 16S ribosomal RNA
+            gene, complete sequence.
+ACCESSION   NR_074233
+VERSION     NR_074233.1  GI:444303811
+DBLINK      Project: 33317
+            BioProject: PRJNA33317
+KEYWORDS    RefSeq.
+SOURCE      Methanocaldococcus jannaschii DSM 2661
+  ORGANISM  Methanocaldococcus jannaschii DSM 2661
+            Archaea; Euryarchaeota; Methanococci; Methanococcales;
+            Methanocaldococcaceae; Methanocaldococcus.
+REFERENCE   1  (bases 1 to 1475)
+  AUTHORS   Bult,C.J., White,O., Olsen,G.J., Zhou,L., Fleischmann,R.D.,
+            Sutton,G.G., Blake,J.A., FitzGerald,L.M., Clayton,R.A.,
+            Gocayne,J.D., Kerlavage,A.R., Dougherty,B.A., Tomb,J., Adams,M.D.,
+            Reich,C.I., Overbeek,R., Kirkness,E.F., Weinstock,K.G.,
+            Merrick,J.M., Glodek,A., Scott,J.D., Geoghagen,N.S., Weidman,J.F.,
+            Fuhrmann,J.L., Nguyen,D.T., Utterback,T., Kelley,J.M.,
+            Peterson,J.D., Sadow,P.W., Hanna,M.C., Cotton,M.D., Hurst,M.A.,
+            Roberts,K.M., Kaine,B.B., Borodovsky,M., Klenk,H.P., Fraser,C.M.,
+            Smith,H.O., Woese,C.R. and Venter,J.C.
+  TITLE     Complete genome sequence of the methanogenic archaeon,
+            Methanococcus jannaschii
+  JOURNAL   Science 273 (5278), 1058-1073 (1996)
+  PUBMED    8688087
+REFERENCE   2  (bases 1 to 1475)
+  CONSRTM   NCBI RefSeq Targeted Loci Project
+  TITLE     Direct Submission
+  JOURNAL   Submitted (28-JAN-2013) National Center for Biotechnology
+            Information, NIH, Bethesda, MD 20894, USA
+REFERENCE   3  (bases 1 to 1475)
+  AUTHORS   Bult,C.J., White,O., Olsen,G.J., Zhou,L., Fleischmann,R.D.,
+            Sutton,G.G., Blake,J.A., FitzGerald,L.M., Clayton,R.A.,
+            Gocayne,J.D., Kerlavage,A.R., Dougherty,B.A., Tomb,J.-F.,
+            Adams,M.D., Reich,C.I., Overbeek,R., Kirkness,E.F., Weinstock,K.G.,
+            Merrick,J.M., Glodek,A., Scott,J.D., Geoghagen,N.S., Weidman,J.F.,
+            Fuhrmann,J.L., Nguyen,D.T., Utterback,T., Kelley,J.M.,
+            Peterson,J.D., Sadow,P.W., Hanna,M.C., Cotton,M.D., Hurst,M.A.,
+            Roberts,K.M., Kaine,B.B., Borodovsky,M., Klenk,H.P., Fraser,C.M.,
+            Smith,H.O., Woese,C.R. and Venter,J.C.
+  TITLE     Direct Submission
+  JOURNAL   Submitted (27-AUG-1996) The Institute for Genomic Research, 9712
+            Medical Center Dr, Rockville, MD 20850, USA
+COMMENT     REVIEWED REFSEQ: This record has been curated by NCBI staff. The
+            reference sequence is identical to L77117:157985-159459.
+            This record has been curated by collaboration with an international
+            consortium of ribosomal RNA databases.
+PRIMARY     REFSEQ_SPAN         PRIMARY_IDENTIFIER PRIMARY_SPAN        COMP
+            1-1475              L77117.1           157985-159459       c
+FEATURES             Location/Qualifiers
+     source          1..1475
+                     /organism="Methanocaldococcus jannaschii DSM 2661"
+                     /mol_type="genomic DNA"
+                     /strain="DSM 2661"
+                     /culture_collection="DSM:2661"
+                     /db_xref="taxon:243232"
+     rRNA            1..1475
+                     /product="16S ribosomal RNA"
+ORIGIN
+        1 attccggttg atcctgccgg aggccactgc tatcggggtc cgactaagcc atgcgagtca
+       61 aggggctccc ttcggggagc accggcgcac ggctcagtaa cacgtggcta acctaccctc
+      121 gggtggggga taacctcggg aaactgaggc taatccccca taggggagga ggtctggaat
+      181 gatccctccc cgaaaggcgt aagctgcccg aggatggggc tgcggcggat taggtagttg
+      241 gtggggtaac ggcccaccaa gcctacgatc cgtacgggcc ctgagagggg gagcccggag
+      301 atggacactg agacacgggt ccaggcctac ggggcgcagc aggcgcgaaa cctccgcaat
+      361 gcgcgaaagc gcgacggggg gaccccgagt gcccacgccc tgcgtgggct tttccggagt
+      421 gtaaacagct ccgggaataa gggctgggca agtccggtgc cagcagccgc ggtaataccg
+      481 gcggcccaag tggtggccac tgttattggg cctaaagcgt ccgtagccgg cccggtaagt
+      541 ctctgcttaa atctgcggct caaccgcagg gctggcagag atactgccgg gcttgggacc
+      601 gggagaggcc gggggtaccc caggggtagc ggtgaaatgc gttgatccct gggggaccac
+      661 ctgtggcgaa ggcgcccggc tggaacgggt ccgacggtga gggacgaagg ccaggggagc
+      721 aaaccggatt agatacccgg gtagtcctgg ctgtaaactc tgcggactag gtgtcgcgtc
+      781 ggcttcgggc cgacgcggtg ccgaagggaa gccgttaagt ccgccgcctg gggagtacgg
+      841 tcgcaagact gaaacttaaa ggaattggcg ggggagcact acaacgggtg gagcctgcgg
+      901 tttaattgga ttcaacgccg ggcatcttac caggggcgac ggcaggatga aggccaggtt
+      961 gacgaccttg ccagacgcgc cgagaggtgg tgcatggccg tcgtcagctc gtaccgtgag
+     1021 gcgtcctgtt aagtcaggta acgagcgaga cccgtgcccc atgttgctac ctcctcctcc
+     1081 gggaggaggg cactcatggg ggaccgccgg cgctaagccg gaggaaggtg cgggcaacga
+     1141 caggtccgca tgccccgaat cccctgggct acacgcgggc tacaatggcc gggacaatgg
+     1201 gacgcgaccc cgaaaggggg agcgaatccc ctaaacccgg tcgtagtccg gatcgagggc
+     1261 tgtaactcgc cctcgtgaag ccggaatccg tagtaatcgc gcctcaccat ggcgcggtga
+     1321 atgcgtccct gctccttgca cacaccgccc gtcacgccac ccgagttgag cccaagtgag
+     1381 gccctgtccg caagggcagg gtcgaacttg ggttcagcga ggggggcgaa gtcgtaacaa
+     1441 ggtagccgta ggggaactgc ggctggatca cctcc
+//

@@ -1,0 +1,27 @@
+
+Usage:    SAMUtils.exe view [options] in.bam|in.sam
+
+Description:  This command assumes the file on the command line is
+          in the BAM format and it prints the alignments in SAM.
+
+Options:
+
+-b       Output BAM
+-h       Print header for the SAM output
+-H       Print header only (no alignments)
+-S       Input is SAM format
+-u       Uncompressed BAM output
+-x       Output flag in HEX
+-X       Output flag in string
+-o:FILE  Output file name
+-f:INT   Required flag
+-F:INT   Filtering flag
+-q:INT   Minimum mapping quality
+-l:STR   Only output reads in library
+-r:STR   Only output reads in read group STR
+-R:STR   A region can be presented, for example, in the following format:
+         `chr2' (the whole chr2),
+         `chr2:1000000' (region starting from 1,000,000bp)
+         or `chr2:1000000-2000000'
+         (region between 1000000 and 2000000bp including the end points).
+         The coordinate is 1-based.

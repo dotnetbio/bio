@@ -1,0 +1,281 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AmbiguousReadsNotSupported" xml:space="preserve">
+    <value>Reads containing ambiguous symbols are not supported.</value>
+  </data>
+  <data name="AssembleHelp" xml:space="preserve">
+    <value>Usage:	 PadenaUtil.exe assemble [options] &lt;Read File&gt; 		
+Description: Assemble reads into contigs (No matepair information required.) 
+
+Optional Parameters:
+
+-h                 Help
+
+-q                 Display minimal output during processing.
+
+-k:&lt;int&gt;           Length of k-mer.
+
+-d:&lt;int&gt;           Threshold for removing 
+                   dangling ends in graph.
+
+-r:&lt;int&gt;    	   Length Threshold for 
+                   removing redundant paths in graph.
+-e:&lt;int&gt;           Threshold for eroding low coverage ends.
+
+-i                 Bool to do erosion or not. 
+
+-a                 Whether to estimate kmer length.
+
+-c:&lt;int&gt;           Threshold used for removing 
+                   low-coverage contigs.
+
+-o:&lt;string&gt;        Output file
+
+-v                 Displays verbose logging during processing.</value>
+  </data>
+  <data name="AssembleWithScaffoldHelp" xml:space="preserve">
+    <value>Usage:	 PadenaUtil.exe assemblewithscaffold [options] &lt;Read File&gt; 		
+Description: Assemblewithscaffolds merges reads into scaffolds using matepair information.
+
+Optional Parameters:
+
+-h             Help
+
+-q             Display minimal output during processing.
+
+-n:&lt;string&gt;    Clone Library Name.
+
+-m:&lt;double&gt;    Mean Length of clone library. 
+
+-s:&lt;double&gt;    Standard Deviation of Clone Library.
+
+-b:&lt;int&gt;       Number of paired read required to 
+	       connect two contigs.
+
+-f:&lt;int&gt;       Depth for graph traversal.
+
+-k:&lt;int&gt;       Length of k-mer.
+
+-d:&lt;int&gt;       Threshold for removing dangling
+               ends in graph.
+
+-r:&lt;int&gt;       Length Threshold for removing 
+               redundant paths in graph.
+
+-e:&lt;int&gt;       Threshold for eroding low coverage ends.
+
+-i             Bool to do erosion or not.
+
+-a 	       Whether to estimate kmer length.
+
+-c:&lt;int&gt;       Threshold used for removing 
+               low-coverage contigs.
+
+-o:&lt;string&gt;    Output file
+
+-v             Displays verbose logging during processing.</value>
+  </data>
+  <data name="AssemblyScaffoldStarting" xml:space="preserve">
+    <value>Beginning assembly and scaffold processing.</value>
+  </data>
+  <data name="AssemblyStarting" xml:space="preserve">
+    <value>Beginning assembly processing.</value>
+  </data>
+  <data name="BadKmerLength" xml:space="preserve">
+    <value>WARNING: kmerLength is set to an even value ({0}) which can lead to infinite loops when building the graphs.
+It is recommended that you use odd numbers to ensure palindrome sequences do not lead to infinite recursion.
+    </value>
+  </data>
+  <data name="ContinuePrompt" xml:space="preserve">
+    <value>Are you sure you want to continue (Y/N)?</value>
+  </data>
+  <data name="PadenaSplashScreen" xml:space="preserve">
+    <value>Padena Utility v2.0
+Copyright (c) 2011-2014, The Outercurve Foundation.
+</value>
+  </data>
+  <data name="PadenaUtilHelp" xml:space="preserve">
+    <value>Usage:	   PadenaUtil.exe command [options]
+Description: Assembles reads into Contigs or scaffold 
+using mate pair information.
+
+Command:   
+
+Assemble:              Assemble reads into contigs 
+		       (No matepair information required.) 
+
+Scaffold:     	       Scaffold uses mate pair information 
+		       to merge contigs into scaffolds.
+
+AssembleWithScaffold:  Assemble reads into scaffolds using 
+                       matepair information.</value>
+  </data>
+  <data name="PeakPagedMemorySize64" xml:space="preserve">
+    <value>Peak memory in the virtual memory paging file used: {0}</value>
+  </data>
+  <data name="PeakVirtualMemorySize64" xml:space="preserve">
+    <value>Peak virtual memory used: {0}</value>
+  </data>
+  <data name="PeakWorkingSet64" xml:space="preserve">
+    <value>Peak physical memory used: {0}</value>
+  </data>
+  <data name="ReferenceFile" xml:space="preserve">
+    <value>Reference File not in correct format</value>
+  </data>
+  <data name="ScaffoldHelp" xml:space="preserve">
+    <value>Usage:	 PADENAUtil.exe scaffold [options] &lt;Contig file&gt; &lt;Read File&gt; 		
+Description: Scaffold uses mate pair information to merge contigs into scaffolds.
+
+Required Parameters:
+
+-k:&lt;int&gt;           Length of k-mer.
+
+Optional Parameters:
+
+-h                 Help.
+
+-q                 Display minimal output during processing.
+
+-o:&lt;string&gt;        Output file.
+
+-n:&lt;string&gt;        Clone Library Name.
+
+-m:&lt;double&gt;        Mean Length of clone library.
+
+-s:&lt;double&gt;  	   Standard Deviation of Clone Library.
+
+-r:&lt;int&gt;           Number of paired read required to 
+                   connect two contigs.
+
+-d:&lt;int&gt;           Depth for graph traversal.
+
+-v                 Displays verbose logging during processing.</value>
+  </data>
+  <data name="ScaffoldStarting" xml:space="preserve">
+    <value>Beginning scaffold processing.</value>
+  </data>
+  <data name="TotalProcessorTime" xml:space="preserve">
+    <value>Total CPU time taken: {0}</value>
+  </data>
+  <data name="UnknownCommand" xml:space="preserve">
+    <value>Unknown command: {0}
+</value>
+  </data>
+</root>

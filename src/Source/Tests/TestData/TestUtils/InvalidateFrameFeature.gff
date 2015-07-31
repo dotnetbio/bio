@@ -1,0 +1,11 @@
+﻿##gff-version 2
+##type DNA Hsap_BTK
+##DNA Hsap_BTK
+##acggctcggattggcgctggatgatagatcagacgac
+##end-DNA
+##DNA Hsap_BTK
+##acggctcggattggcgctggatgatagatcagacgac
+##end-DNA
+
+Hsap_BTK	annotation	Single	14065	14214	.	-	a	LOC82570
+Hsap_BTK	annotation	First	75039	75170	.	-	0	TIMM8A

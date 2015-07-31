@@ -1,0 +1,3 @@
+﻿Added this file to update the download link and terms of usage for ref_list.fna
+
+Currently the genome for ref_list.fna is referred from http://www.ncbi.nlm.nih.gov/nuccore/110640213

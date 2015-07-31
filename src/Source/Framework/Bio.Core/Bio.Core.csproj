@@ -1,0 +1,477 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <MinimumVisualStudioVersion>10.0</MinimumVisualStudioVersion>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{DFB9C4E2-C98C-4401-A650-756ABAB52663}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Bio</RootNamespace>
+    <AssemblyName>Bio.Core</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Profile111</TargetFrameworkProfile>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\Bio.Core.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\Bio.Core.XML</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- A reference to the entire .NET Framework is automatically included -->
+    <EmbeddedResource Include="Properties\Resource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+      <CustomToolNamespace>Bio.Properties</CustomToolNamespace>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AATree.cs" />
+    <Compile Include="Algorithms\Alignment\AlignedSequence.cs" />
+    <Compile Include="Algorithms\Alignment\AlignmentInfo.cs" />
+    <Compile Include="Algorithms\Alignment\DynamicProgrammingPairwiseAligner.cs" />
+    <Compile Include="Algorithms\Alignment\DynamicProgrammingPairwiseAlignerJob.cs" />
+    <Compile Include="Algorithms\Alignment\IAlignedSequence.cs" />
+    <Compile Include="Algorithms\Alignment\IAlignmentAttributes.cs" />
+    <Compile Include="Algorithms\Alignment\IPairwiseSequenceAligner.cs" />
+    <Compile Include="Algorithms\Alignment\IPairwiseSequenceAlignment.cs" />
+    <Compile Include="Algorithms\Alignment\ISequenceAligner.cs" />
+    <Compile Include="Algorithms\Alignment\ISequenceAlignment.cs" />
+    <Compile Include="Algorithms\Alignment\IMultipleSequenceAligner.cs" />
+    <Compile Include="Algorithms\Alignment\MultiSequenceAlignment.cs" />
+    <Compile Include="Algorithms\Alignment\NeedlemanWunschAligner.cs" />
+    <Compile Include="Algorithms\Alignment\NucmerPairwiseAligner.cs" />
+    <Compile Include="Algorithms\Alignment\NUCmer\Cluster.cs" />
+    <Compile Include="Algorithms\Alignment\NUCmer\ClusterBuilder.cs" />
+    <Compile Include="Algorithms\Alignment\NUCmer\ClusterScoreMethod.cs" />
+    <Compile Include="Algorithms\Alignment\NUCmer\DeltaAlignment.cs" />
+    <Compile Include="Algorithms\Alignment\NUCmer\IClusterBuilder.cs" />
+    <Compile Include="Algorithms\Alignment\NUCmer\ModifiedSmithWaterman.cs" />
+    <Compile Include="Algorithms\Alignment\NUCmer\NUCmer.cs" />
+    <Compile Include="Algorithms\Alignment\NUCmer\NUCmerAttributes.cs" />
+    <Compile Include="Algorithms\Alignment\NUCmer\Synteny.cs" />
+    <Compile Include="Algorithms\Alignment\PairwiseAlignedSequence.cs" />
+    <Compile Include="Algorithms\Alignment\PairwiseAlignmentAttributes.cs" />
+    <Compile Include="Algorithms\Alignment\PairwiseOverlapAffineAlignmentJob.cs" />
+    <Compile Include="Algorithms\Alignment\PairwiseOverlapAligner.cs" />
+    <Compile Include="Algorithms\Alignment\PairwiseOverlapSimpleAlignmentJob.cs" />
+    <Compile Include="Algorithms\Alignment\PairwiseSequenceAligner.cs" />
+    <Compile Include="Algorithms\Alignment\PairwiseSequenceAlignment.cs" />
+    <Compile Include="Algorithms\Alignment\SequenceAligners.cs" />
+    <Compile Include="Algorithms\Alignment\SequenceAlignment.cs" />
+    <Compile Include="Algorithms\Alignment\SmithWatermanAligner.cs" />
+    <Compile Include="Algorithms\Alignment\SourceDirection.cs" />
+    <Compile Include="Algorithms\Assembly\Padena\Scaffold\DistanceCalculator.cs" />
+    <Compile Include="Algorithms\Assembly\Padena\Scaffold\GraphScaffoldBuilder.cs" />
+    <Compile Include="Algorithms\Assembly\Padena\Scaffold\OrientationBasedMatePairFilter.cs" />
+    <Compile Include="Algorithms\Assembly\Padena\Scaffold\PathPurger.cs" />
+    <Compile Include="Algorithms\Assembly\Padena\Scaffold\ReadContigMapper.cs" />
+    <Compile Include="Algorithms\Assembly\Padena\Scaffold\TracePath.cs" />
+    <Compile Include="Algorithms\MUMmer\LongestIncreasingSubsequence\ILongestIncreasingSubsequence.cs" />
+    <Compile Include="Algorithms\MUMmer\LongestIncreasingSubsequence\LongestIncreasingSubsequence.cs" />
+    <Compile Include="Algorithms\MUMmer\MUMmer.cs" />
+    <Compile Include="Algorithms\MUMmer\MUMmerAligner.cs" />
+    <Compile Include="Algorithms\MUMmer\MummerAlphabetExtensions.cs" />
+    <Compile Include="Algorithms\MUMmer\MUMmerAttributes.cs" />
+    <Compile Include="Algorithms\MUMmer\MummerDnaAlphabet.cs" />
+    <Compile Include="Algorithms\MUMmer\MummerProteinAlphabet.cs" />
+    <Compile Include="Algorithms\MUMmer\MummerRnaAlphabet.cs" />
+    <Compile Include="Algorithms\StringSearch\BoyerMoore.cs" />
+    <Compile Include="Algorithms\StringSearch\IPatternFinder.cs" />
+    <Compile Include="Algorithms\SuffixTree\ISuffixTree.cs" />
+    <Compile Include="Algorithms\SuffixTree\Match.cs" />
+    <Compile Include="Algorithms\SuffixTree\MatchExtension.cs" />
+    <Compile Include="Algorithms\SuffixTree\MultiWaySuffixEdge.cs" />
+    <Compile Include="Algorithms\SuffixTree\MultiWaySuffixTree.cs" />
+    <Compile Include="Algorithms\Translation\Codons.cs" />
+    <Compile Include="Algorithms\Translation\ProteinTranslation.cs" />
+    <Compile Include="Algorithms\Translation\Transcription.cs" />
+    <Compile Include="Alphabets.cs" />
+    <Compile Include="AmbiguousDnaAlphabet.cs" />
+    <Compile Include="AmbiguousProteinAlphabet.cs" />
+    <Compile Include="AmbiguousRnaAlphabet.cs" />
+    <Compile Include="Algorithms\Assembly\Comparative\ComparativeGenomeAssembler.cs" />
+    <Compile Include="Algorithms\Assembly\Comparative\ConsensusGeneration.cs" />
+    <Compile Include="Algorithms\Assembly\Comparative\LayoutRefiner.cs" />
+    <Compile Include="Algorithms\Assembly\Comparative\RepeatResolver.cs" />
+    <Compile Include="Algorithms\Assembly\Contig.cs" />
+    <Compile Include="Algorithms\Assembly\Graph\BinaryTreeOfDebrujinNodes.cs" />
+    <Compile Include="Algorithms\Assembly\Graph\DeBruijnEdge.cs" />
+    <Compile Include="Algorithms\Assembly\Graph\DeBruijnGraph.cs" />
+    <Compile Include="Algorithms\Assembly\Graph\DeBruijnNode.cs" />
+    <Compile Include="Algorithms\Assembly\Graph\DeBruijnPath.cs" />
+    <Compile Include="Algorithms\Assembly\Graph\DeBruijnPathList.cs" />
+    <Compile Include="Algorithms\Assembly\Graph\Edge.cs" />
+    <Compile Include="Algorithms\Assembly\Graph\Graph.cs" />
+    <Compile Include="Algorithms\Assembly\Graph\KmerDictionary.cs" />
+    <Compile Include="Algorithms\Assembly\Graph\Vertex.cs" />
+    <Compile Include="Algorithms\Assembly\IDeBruijnDeNovoAssembler.cs" />
+    <Compile Include="Algorithms\Assembly\IDeBruijnDeNovoAssembly.cs" />
+    <Compile Include="Algorithms\Assembly\IDeNovoAssembler.cs" />
+    <Compile Include="Algorithms\Assembly\IDeNovoAssembly.cs" />
+    <Compile Include="Algorithms\Assembly\IMatePairMapper.cs" />
+    <Compile Include="Algorithms\Assembly\IOverlapDeNovoAssembler.cs" />
+    <Compile Include="Algorithms\Assembly\IOverlapDeNovoAssembly.cs" />
+    <Compile Include="Algorithms\Assembly\MatePair.cs" />
+    <Compile Include="Algorithms\Assembly\MatePairMapper.cs" />
+    <Compile Include="Algorithms\Assembly\OverlapDeNovoAssembler.cs" />
+    <Compile Include="Algorithms\Assembly\OverlapDeNovoAssembly.cs" />
+    <Compile Include="Algorithms\Assembly\Padena\IContigBuilder.cs" />
+    <Compile Include="Algorithms\Assembly\Padena\IGraphErrorPurger.cs" />
+    <Compile Include="Algorithms\Assembly\Padena\IGraphNodesEroder.cs" />
+    <Compile Include="Algorithms\Assembly\Padena\ILowCoverageContigPurger.cs" />
+    <Compile Include="Algorithms\Assembly\Padena\Scaffold\ContigMatePairs.cs" />
+    <Compile Include="Algorithms\Assembly\Padena\Scaffold\ContigOverlapGraph\ContigGraph.cs" />
+    <Compile Include="Algorithms\Assembly\Padena\Scaffold\ContigOverlapGraph\Edge.cs" />
+    <Compile Include="Algorithms\Assembly\Padena\Scaffold\ContigOverlapGraph\Node.cs" />
+    <Compile Include="Algorithms\Assembly\Padena\Scaffold\ContigReadOverlapType.cs" />
+    <Compile Include="Algorithms\Assembly\Padena\Scaffold\IDistanceCalculator.cs" />
+    <Compile Include="Algorithms\Assembly\Padena\Scaffold\IGraphScaffoldBuilder.cs" />
+    <Compile Include="Algorithms\Assembly\Padena\Scaffold\IOrientationBasedMatePairFilter.cs" />
+    <Compile Include="Algorithms\Assembly\Padena\Scaffold\IPathPurger.cs" />
+    <Compile Include="Algorithms\Assembly\Padena\Scaffold\IReadContigMapper.cs" />
+    <Compile Include="Algorithms\Assembly\Padena\Scaffold\ITracePath.cs" />
+    <Compile Include="Algorithms\Assembly\Padena\Scaffold\ReadContigMap.cs" />
+    <Compile Include="Algorithms\Assembly\Padena\Scaffold\ReadMap.cs" />
+    <Compile Include="Algorithms\Assembly\Padena\Scaffold\ScaffoldPath.cs" />
+    <Compile Include="Algorithms\Assembly\Padena\Scaffold\ValidMatePair.cs" />
+    <Compile Include="BigArray.cs" />
+    <Compile Include="BigList.cs" />
+    <Compile Include="CloneLibrary\CloneLibrary.cs" />
+    <Compile Include="CloneLibrary\CloneLibraryInformation.cs" />
+    <Compile Include="DerivedSequence.cs" />
+    <Compile Include="DifferenceNode.cs" />
+    <Compile Include="Distributions\BooleanStatistics.cs" />
+    <Compile Include="Distributions\Classification.cs" />
+    <Compile Include="Distributions\ContinuousStatistics.cs" />
+    <Compile Include="Distributions\Converters\CharToSufficientStatisticsConverter.cs" />
+    <Compile Include="Distributions\Converters\IntToSufficientStatisticsConverter.cs" />
+    <Compile Include="Distributions\Converters\StringToDoubleConverter.cs" />
+    <Compile Include="Distributions\Converters\ValueConverters.cs" />
+    <Compile Include="Distributions\DiscreteStatistics.cs" />
+    <Compile Include="Distributions\GaussianStatistics.cs" />
+    <Compile Include="Distributions\MissingStatistics.cs" />
+    <Compile Include="Distributions\MixtureSemantics.cs" />
+    <Compile Include="Distributions\StatisticsList.cs" />
+    <Compile Include="Distributions\SufficientStatistics.cs" />
+    <Compile Include="Distributions\WriteType.cs" />
+    <Compile Include="DnaAlphabet.cs" />
+    <Compile Include="Extensions\AlphabetExtensions.cs" />
+    <Compile Include="Extensions\ArrayExtensions.cs" />
+    <Compile Include="AsciiEncoding.cs" />
+    <Compile Include="Extensions\DictionaryExtensions.cs" />
+    <Compile Include="Extensions\HashSetExtensions.cs" />
+    <Compile Include="Extensions\IEnumerableExtensions.cs" />
+    <Compile Include="Extensions\ListExtensions.cs" />
+    <Compile Include="Extensions\PrimitiveExtensions.cs" />
+    <Compile Include="Extensions\ReflectionExtensions.cs" />
+    <Compile Include="Extensions\SequenceExtensions.cs" />
+    <Compile Include="Extensions\StreamExtensions.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="FastQFormatType.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="IConsensusResolver.cs" />
+    <Compile Include="IndexedItem.cs" />
+    <Compile Include="IO\AppliedBiosystems\Ab1DirectoryEntry.cs" />
+    <Compile Include="IO\AppliedBiosystems\Ab1Header.cs" />
+    <Compile Include="IO\AppliedBiosystems\Ab1Parser.cs" />
+    <Compile Include="IO\AppliedBiosystems\DataParsers\DataParserFactory.cs" />
+    <Compile Include="IO\AppliedBiosystems\DataParsers\IAb1DataVisitor.cs" />
+    <Compile Include="IO\AppliedBiosystems\DataParsers\IParserContext.cs" />
+    <Compile Include="IO\AppliedBiosystems\DataParsers\IVersionedDataParser.cs" />
+    <Compile Include="IO\AppliedBiosystems\DataParsers\ParserContext.cs" />
+    <Compile Include="IO\AppliedBiosystems\DataParsers\ParserHelper.cs" />
+    <Compile Include="IO\AppliedBiosystems\DataParsers\V1DataParser.cs" />
+    <Compile Include="IO\AppliedBiosystems\DataTypes\BoolDataItem.cs" />
+    <Compile Include="IO\AppliedBiosystems\DataTypes\ByteDataItem.cs" />
+    <Compile Include="IO\AppliedBiosystems\DataTypes\CharDataItem.cs" />
+    <Compile Include="IO\AppliedBiosystems\DataTypes\CStringDataItem.cs" />
+    <Compile Include="IO\AppliedBiosystems\DataTypes\DataItem.cs" />
+    <Compile Include="IO\AppliedBiosystems\DataTypes\DataItemFactory.cs" />
+    <Compile Include="IO\AppliedBiosystems\DataTypes\DateDataItem.cs" />
+    <Compile Include="IO\AppliedBiosystems\DataTypes\DoubleDataItem.cs" />
+    <Compile Include="IO\AppliedBiosystems\DataTypes\FloatDataItem.cs" />
+    <Compile Include="IO\AppliedBiosystems\DataTypes\IAb1DataItem.cs" />
+    <Compile Include="IO\AppliedBiosystems\DataTypes\LongDataItem.cs" />
+    <Compile Include="IO\AppliedBiosystems\DataTypes\PStringDataItem.cs" />
+    <Compile Include="IO\AppliedBiosystems\DataTypes\ShortDataItem.cs" />
+    <Compile Include="IO\AppliedBiosystems\DataTypes\ThumbDataItem.cs" />
+    <Compile Include="IO\AppliedBiosystems\DataTypes\TimeDataItem.cs" />
+    <Compile Include="IO\AppliedBiosystems\DataTypes\UserDataItem.cs" />
+    <Compile Include="IO\AppliedBiosystems\DataTypes\WordDataItem.cs" />
+    <Compile Include="IO\AppliedBiosystems\Exceptions\InvalidFileSignatureException.cs" />
+    <Compile Include="IO\AppliedBiosystems\Exceptions\InvalidFileVersionException.cs" />
+    <Compile Include="IO\AppliedBiosystems\Exceptions\InvalidItemSizeException.cs" />
+    <Compile Include="IO\AppliedBiosystems\Model\Ab1ColorData.cs" />
+    <Compile Include="IO\AppliedBiosystems\Model\Ab1ContextToSequenceConverter.cs" />
+    <Compile Include="IO\AppliedBiosystems\Model\Ab1Metadata.cs" />
+    <Compile Include="IO\AppliedBiosystems\Model\Ab1ResidueColorData.cs" />
+    <Compile Include="IO\AppliedBiosystems\Model\AB_Root.cs" />
+    <Compile Include="IO\BAM\BAMFormatter.cs" />
+    <Compile Include="IO\BAM\BAMIndex.cs" />
+    <Compile Include="IO\BAM\BAMIndexStorage.cs" />
+    <Compile Include="IO\BAM\BAMParser.cs" />
+    <Compile Include="IO\BAM\BAMReferenceIndexes.cs" />
+    <Compile Include="IO\BAM\BAMSortByFields.cs" />
+    <Compile Include="IO\BAM\Bin.cs" />
+    <Compile Include="IO\BAM\Chunk.cs" />
+    <Compile Include="IO\BAM\FileOffset.cs" />
+    <Compile Include="IO\BAM\RegexValidatedStringList.cs" />
+    <Compile Include="IO\Bed\BedFormatter.cs" />
+    <Compile Include="IO\Bed\BedParser.cs" />
+    <Compile Include="IO\ClustalW\ClustalWParser.cs" />
+    <Compile Include="IO\SequenceParserDecorator.cs" />
+    <Compile Include="IQualitativeSequence.cs" />
+    <Compile Include="Util\DeltaAlignmentCollection.cs" />
+    <Compile Include="Util\DeltaAlignmentParser.cs" />
+    <Compile Include="IO\FastA\FastAFormatter.cs" />
+    <Compile Include="IO\FastA\FastAParser.cs" />
+    <Compile Include="Util\FastASequencePositionParser.cs" />
+    <Compile Include="IO\FastQ\FastQFormatter.cs" />
+    <Compile Include="IO\FastQ\FastQParser.cs" />
+    <Compile Include="IO\GenBank\Attenuator.cs" />
+    <Compile Include="IO\GenBank\CaatSignal.cs" />
+    <Compile Include="IO\GenBank\CitationReference.cs" />
+    <Compile Include="IO\GenBank\CodingSequence.cs" />
+    <Compile Include="IO\GenBank\CrossReferenceLink.cs" />
+    <Compile Include="IO\GenBank\CrossReferenceType.cs" />
+    <Compile Include="IO\GenBank\DisplacementLoop.cs" />
+    <Compile Include="IO\GenBank\Enhancer.cs" />
+    <Compile Include="IO\GenBank\Exon.cs" />
+    <Compile Include="IO\GenBank\FeatureItem.cs" />
+    <Compile Include="IO\GenBank\FivePrimeUTR.cs" />
+    <Compile Include="IO\GenBank\GcSingal.cs" />
+    <Compile Include="IO\GenBank\GenBankAccession.cs" />
+    <Compile Include="IO\GenBank\GenBankFormatter.cs" />
+    <Compile Include="IO\GenBank\GenBankLocusInfo.cs" />
+    <Compile Include="IO\GenBank\GenBankLocusTokenParser.cs" />
+    <Compile Include="IO\GenBank\GenBankMetadata.cs" />
+    <Compile Include="IO\GenBank\GenBankParser.cs" />
+    <Compile Include="IO\GenBank\GenBankVersion.cs" />
+    <Compile Include="IO\GenBank\Gene.cs" />
+    <Compile Include="IO\GenBank\ILocation.cs" />
+    <Compile Include="IO\GenBank\ILocationBuilder.cs" />
+    <Compile Include="IO\GenBank\ILocationResolver.cs" />
+    <Compile Include="IO\GenBank\InterveningDna.cs" />
+    <Compile Include="IO\GenBank\Intron.cs" />
+    <Compile Include="IO\GenBank\Location.cs" />
+    <Compile Include="IO\GenBank\LocationBuilder.cs" />
+    <Compile Include="IO\GenBank\LocationOperator.cs" />
+    <Compile Include="IO\GenBank\LocationRange.cs" />
+    <Compile Include="IO\GenBank\LocationResolver.cs" />
+    <Compile Include="IO\GenBank\LongTerminalRepeat.cs" />
+    <Compile Include="IO\GenBank\MaturePeptide.cs" />
+    <Compile Include="IO\GenBank\MessengerRna.cs" />
+    <Compile Include="IO\GenBank\Minus10Signal.cs" />
+    <Compile Include="IO\GenBank\Minus35Signal.cs" />
+    <Compile Include="IO\GenBank\MiscBinding.cs" />
+    <Compile Include="IO\GenBank\MiscDifference.cs" />
+    <Compile Include="IO\GenBank\MiscFeature.cs" />
+    <Compile Include="IO\GenBank\MiscRecombination.cs" />
+    <Compile Include="IO\GenBank\MiscRna.cs" />
+    <Compile Include="IO\GenBank\MiscSignal.cs" />
+    <Compile Include="IO\GenBank\MiscStructure.cs" />
+    <Compile Include="IO\GenBank\ModifiedBase.cs" />
+    <Compile Include="IO\GenBank\MoleculeType.cs" />
+    <Compile Include="IO\GenBank\NonCodingRna.cs" />
+    <Compile Include="IO\GenBank\OperonRegion.cs" />
+    <Compile Include="IO\GenBank\OrganismInfo.cs" />
+    <Compile Include="IO\GenBank\PolyASignal.cs" />
+    <Compile Include="IO\GenBank\PolyASite.cs" />
+    <Compile Include="IO\GenBank\PrecursorRna.cs" />
+    <Compile Include="IO\GenBank\ProjectIdentifier.cs" />
+    <Compile Include="IO\GenBank\Promoter.cs" />
+    <Compile Include="IO\GenBank\ProteinBindingSite.cs" />
+    <Compile Include="IO\GenBank\RepeatRegion.cs" />
+    <Compile Include="IO\GenBank\ReplicationOrigin.cs" />
+    <Compile Include="IO\GenBank\RibosomalRna.cs" />
+    <Compile Include="IO\GenBank\RibosomeBindingSite.cs" />
+    <Compile Include="IO\GenBank\SequenceDivisionCode.cs" />
+    <Compile Include="IO\GenBank\SequenceFeatures.cs" />
+    <Compile Include="IO\GenBank\SequenceSegment.cs" />
+    <Compile Include="IO\GenBank\SequenceSource.cs" />
+    <Compile Include="IO\GenBank\SequenceStrandTopology.cs" />
+    <Compile Include="IO\GenBank\SequenceStrandType.cs" />
+    <Compile Include="IO\GenBank\SignalPeptide.cs" />
+    <Compile Include="IO\GenBank\StandardFeatureKeys.cs" />
+    <Compile Include="IO\GenBank\StandardFeatureMap.cs" />
+    <Compile Include="IO\GenBank\StandardQualifierNames.cs" />
+    <Compile Include="IO\GenBank\StemLoop.cs" />
+    <Compile Include="IO\GenBank\TataSignal.cs" />
+    <Compile Include="IO\GenBank\Terminator.cs" />
+    <Compile Include="IO\GenBank\ThreePrimeUtr.cs" />
+    <Compile Include="IO\GenBank\TransferMessengerRna.cs" />
+    <Compile Include="IO\GenBank\TransferRna.cs" />
+    <Compile Include="IO\GenBank\TransitPeptide.cs" />
+    <Compile Include="IO\GenBank\UnsureSequenceRegion.cs" />
+    <Compile Include="IO\GenBank\Variation.cs" />
+    <Compile Include="IO\Gff\GffFormatter.cs" />
+    <Compile Include="IO\Gff\GffParser.cs" />
+    <Compile Include="IO\GZipParser.cs" />
+    <Compile Include="IO\IFormatter.cs" />
+    <Compile Include="IO\INamedStreamCreator.cs" />
+    <Compile Include="IO\IParser.cs" />
+    <Compile Include="IO\IPhylogeneticTreeFormatter.cs" />
+    <Compile Include="IO\IPhylogeneticTreeParser.cs" />
+    <Compile Include="IO\ISequenceAlignmentFormatter.cs" />
+    <Compile Include="IO\ISequenceAlignmentParser.cs" />
+    <Compile Include="IO\ISequenceFormatter.cs" />
+    <Compile Include="IO\ISequenceParser.cs" />
+    <Compile Include="IO\ISequenceRangeFormatter.cs" />
+    <Compile Include="IO\ISequenceRangeParser.cs" />
+    <Compile Include="IO\ISnpReader.cs" />
+    <Compile Include="IO\NamedStreamCreator.cs" />
+    <Compile Include="IO\Newick\NewickFormatter.cs" />
+    <Compile Include="IO\Newick\NewickParser.cs" />
+    <Compile Include="IO\Nexus\NexusParser.cs" />
+    <Compile Include="IO\Phylip\PhylipParser.cs" />
+    <Compile Include="IO\SAM\PairedRead.cs" />
+    <Compile Include="IO\SAM\PairedReadType.cs" />
+    <Compile Include="IO\SAM\ReferenceSequenceInfo.cs" />
+    <Compile Include="IO\SAM\SAMAlignedSequence.cs" />
+    <Compile Include="IO\SAM\SAMAlignedSequenceHeader.cs" />
+    <Compile Include="IO\SAM\SAMAlignmentHeader.cs" />
+    <Compile Include="IO\SAM\SAMAlphabet.cs" />
+    <Compile Include="IO\SAM\SAMFlags.cs" />
+    <Compile Include="IO\SAM\SAMFormatter.cs" />
+    <Compile Include="IO\SAM\SAMOptionalField.cs" />
+    <Compile Include="IO\SAM\SAMParser.cs" />
+    <Compile Include="IO\SAM\SAMRecordField.cs" />
+    <Compile Include="IO\SAM\SAMRecordFieldTag.cs" />
+    <Compile Include="IO\SAM\SequenceAlignmentMap.cs" />
+    <Compile Include="IO\SequenceFormatters.cs" />
+    <Compile Include="IO\SequenceParsers.cs" />
+    <Compile Include="IO\SequenceRangeFormatters.cs" />
+    <Compile Include="IO\SequenceRangeParsers.cs" />
+    <Compile Include="IO\SFF\SFFParser.cs" />
+    <Compile Include="IO\Snp\SimpleSnpParser.cs" />
+    <Compile Include="IO\Snp\SnpParser.cs" />
+    <Compile Include="IO\Text\FieldTextFileParser.cs" />
+    <Compile Include="IO\Wiggle\WiggleAnnotation.cs" />
+    <Compile Include="IO\Wiggle\WiggleFormatter.cs" />
+    <Compile Include="IO\Wiggle\WiggleParser.cs" />
+    <Compile Include="IO\Wiggle\WiggleSchema.cs" />
+    <Compile Include="IO\Xsv\XsvContigFormatter.cs" />
+    <Compile Include="IO\Xsv\XsvContigParser.cs" />
+    <Compile Include="IO\Xsv\XsvSnpReader.cs" />
+    <Compile Include="IO\Xsv\XsvSparseFormatter.cs" />
+    <Compile Include="IO\Xsv\XsvSparseParser.cs" />
+    <Compile Include="IO\Xsv\XsvSparseReader.cs" />
+    <Compile Include="IO\Xsv\XsvTextReader.cs" />
+    <Compile Include="IParameterValidator.cs" />
+    <Compile Include="PlatformManager.cs" />
+    <Compile Include="ISequenceRange.cs" />
+    <Compile Include="MetadataListItem.cs" />
+    <Compile Include="Phylogenetics\Edge.cs" />
+    <Compile Include="Phylogenetics\Node.cs" />
+    <Compile Include="Phylogenetics\Tree.cs" />
+    <Compile Include="QualitativeSequence.cs" />
+    <Compile Include="Registration\BioRegisterAttribute.cs" />
+    <Compile Include="RestrictedAccessDictionary.cs" />
+    <Compile Include="SequenceRange.cs" />
+    <Compile Include="SequenceRangeGrouping.cs" />
+    <Compile Include="SequenceStatistics.cs" />
+    <Compile Include="SimilarityMatrices\DiagonalSimilarityMatrix.cs" />
+    <Compile Include="SimilarityMatrices\SimilarityMatrix.cs" />
+    <Compile Include="SimpleConsensusResolver.cs" />
+    <Compile Include="SnpItem.cs" />
+    <Compile Include="SparseSequence.cs" />
+    <Compile Include="StringListValidator.cs" />
+    <Compile Include="Util\ComparisonWrapper.cs" />
+    <Compile Include="Util\DeltaAlignmentSorter.cs" />
+    <Compile Include="Util\HashSetComparer.cs" />
+    <Compile Include="IAlphabet.cs" />
+    <Compile Include="ISequence.cs" />
+    <Compile Include="Algorithms\Kmer\IKmerBuilder.cs" />
+    <Compile Include="Algorithms\Kmer\KmerData32.cs" />
+    <Compile Include="Algorithms\Kmer\KmerIndexer.cs" />
+    <Compile Include="Algorithms\Kmer\KmerIndexerDictionary.cs" />
+    <Compile Include="Algorithms\Kmer\KmerPositionDictionary.cs" />
+    <Compile Include="Algorithms\Kmer\KmersOfSequence.cs" />
+    <Compile Include="Algorithms\Kmer\SequenceToKmerBuilder.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="ProteinAlphabet.cs" />
+    <Compile Include="RnaAlphabet.cs" />
+    <Compile Include="Sequence.cs" />
+    <Compile Include="SequenceEqualityComparer.cs" />
+    <Compile Include="Util\Helper.cs" />
+    <Compile Include="Util\HttpUtility.cs" />
+    <Compile Include="Util\Logging\ApplicationLog.cs" />
+    <Compile Include="Util\Logging\Trace.cs" />
+    <Compile Include="Util\Logging\TraceMessage.cs" />
+    <Compile Include="Util\LongSerialNumbers.cs" />
+    <Compile Include="Util\Parser.cs" />
+    <Compile Include="Util\RangeCollection.cs" />
+    <Compile Include="Util\SerialNumbers.cs" />
+    <Compile Include="Util\SortedList.cs" />
+    <Compile Include="Util\UOPair.cs" />
+    <Compile Include="ValueConverter.cs" />
+    <Compile Include="WordMatch.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CloneLibrary\Resources\Library.txt" />
+    <EmbeddedResource Include="SimilarityMatrices\Resources\AmbiguousDNA.txt" />
+    <EmbeddedResource Include="SimilarityMatrices\Resources\AmbiguousRNA.txt" />
+    <EmbeddedResource Include="SimilarityMatrices\Resources\BLOSUM45.txt" />
+    <EmbeddedResource Include="SimilarityMatrices\Resources\BLOSUM50.txt" />
+    <EmbeddedResource Include="SimilarityMatrices\Resources\BLOSUM62.txt" />
+    <EmbeddedResource Include="SimilarityMatrices\Resources\BLOSUM80.txt" />
+    <EmbeddedResource Include="SimilarityMatrices\Resources\BLOSUM90.txt" />
+    <EmbeddedResource Include="SimilarityMatrices\Resources\DiagonalScoreMatrix.txt" />
+    <EmbeddedResource Include="SimilarityMatrices\Resources\EDNAFull.txt" />
+    <EmbeddedResource Include="SimilarityMatrices\Resources\PAM250.txt" />
+    <EmbeddedResource Include="SimilarityMatrices\Resources\PAM30.txt" />
+    <EmbeddedResource Include="SimilarityMatrices\Resources\PAM70.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Shims\Bio.Platform.Helpers\Bio.Platform.Helpers.csproj">
+      <Project>{83cbb611-4049-456a-b87b-0b2cfc4797fa}</Project>
+      <Name>Bio.Platform.Helpers</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent Condition=" '$(OS)' != 'Unix' ">copy "$(TargetPath)" "$(SolutionDir)\bin\$(TargetName).dll"
+copy "$(TargetDir)\$(TargetName).xml" "$(SolutionDir)\bin\$(TargetName).xml"</PostBuildEvent>
+    <PostBuildEvent Condition=" '$(OS)' == 'Unix' ">cp "$(TargetPath)" "$(SolutionDir)\bin\$(TargetName).dll"
+cp "$(TargetDir)\$(TargetName).xml" "$(SolutionDir)\bin\$(TargetName).xml"</PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent Condition=" '$(OS)' != 'Unix' ">if not exist "$(SolutionDir)\bin" mkdir "$(SolutionDir)\bin"</PreBuildEvent>
+    <PreBuildEvent Condition=" '$(OS)' == 'Unix' ">mkdir -p "$(SolutionDir)\bin"</PreBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PostBuildEvent />
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

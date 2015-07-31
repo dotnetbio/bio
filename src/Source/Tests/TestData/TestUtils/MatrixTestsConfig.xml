@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<AutomationTest>
+  <!-- This node contains the Fasta file information for running the BVT test cases.
+  Considering NaN as the missing value not in for row and first column -->
+  <SimpleMatrix>
+    <Rows>
+      <Row>1,2,3,4</Row>
+      <Row>5,6,7,8</Row>
+      <Row>4,5,NaN,6</Row>
+    </Rows>
+    <DenseAnsiString>varC0C1C2C3R01234R15678R245?6</DenseAnsiString>
+    <DenseMatrixString>varC0C1C2C3R01234R15678R245NaN6</DenseMatrixString>
+    <DenseConvertValueString>varC0C1C2C3R01234R15678R24521474836476</DenseConvertValueString>
+    <DenseStringJoin>R0,C0,1R0,C1,2R0,C2,3R0,C3,4R1,C0,5R1,C1,6R1,C2,7R1,C3,8R2,C0,4R2,C1,5R2,C3,6</DenseStringJoin>
+    <DenseStringJoinSeparator>R0,C0,1.R0,C1,2.R0,C2,3.R0,C3,4.R1,C0,5.R1,C1,6.R1,C2,7.R1,C3,8.R2,C0,4.R2,C1,5.R2,C3,6</DenseStringJoinSeparator>
+    <DenseTransposeString>varR0R1R2C0154C1265C237NaNC3486</DenseTransposeString>
+    <DenseStringJoinSeparatorEtc>R0,C0,1R0,C1,2.N</DenseStringJoinSeparatorEtc>
+    <SparseMatrixString>varcidvalR0C01R0C12R0C23R0C34R1C05R1C16R1C27R1C38R2C04R2C15R2C36</SparseMatrixString>
+    <ValueString>12345678456</ValueString>
+  </SimpleMatrix>
+</AutomationTest>

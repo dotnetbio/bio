@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{A482BE8F-67D5-4991-84BD-DA3BF6ED84FA}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Bio</RootNamespace>
+    <AssemblyName>Bio.Desktop</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\Bio.Desktop.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\Bio.Desktop.XML</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Matrix\AbstractMatrixView.cs" />
+    <Compile Include="Matrix\ConvertValueView.cs" />
+    <Compile Include="Matrix\DenseAnsi.cs" />
+    <Compile Include="Matrix\DenseMatrix.cs" />
+    <Compile Include="Matrix\DensePairAnsi.cs" />
+    <Compile Include="Matrix\DenseStructMatrix.cs" />
+    <Compile Include="Matrix\HashableView.cs" />
+    <Compile Include="Matrix\Matrix.cs" />
+    <Compile Include="Matrix\MatrixExtensions.cs" />
+    <Compile Include="Matrix\MatrixFactory.cs" />
+    <Compile Include="Matrix\MatrixRowAsIList.cs" />
+    <Compile Include="Matrix\MatrixViewExtensions.cs" />
+    <Compile Include="Matrix\MergeColsView.cs" />
+    <Compile Include="Matrix\MergeRowsView.cs" />
+    <Compile Include="Matrix\PaddedDouble.cs" />
+    <Compile Include="Matrix\PermuteValuesView.cs" />
+    <Compile Include="Matrix\RenameColsView.cs" />
+    <Compile Include="Matrix\RowKeysAnsi.cs" />
+    <Compile Include="Matrix\RowKeysPaddedDouble.cs" />
+    <Compile Include="Matrix\RowKeysPairAnsi.cs" />
+    <Compile Include="Matrix\RowKeysStructMatrix.cs" />
+    <Compile Include="Matrix\SelectRowsAndColsView.cs" />
+    <Compile Include="Matrix\SequenceToMatrixConversion.cs" />
+    <Compile Include="Matrix\SparseMatrix.cs" />
+    <Compile Include="Matrix\TransposeView.cs" />
+    <Compile Include="Matrix\VectorView.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Util\ArgumentParser\ArgumentCollection.cs" />
+    <Compile Include="Util\ArgumentParser\CmdLineArgumentParser.cs" />
+    <Compile Include="Util\ArgumentParser\CmdLineArgumentParserExceptions.cs" />
+    <Compile Include="Util\ArgumentParser\CommandArguments.cs" />
+    <Compile Include="Util\ArgumentParser\ConstructorArguments.cs" />
+    <Compile Include="Util\ArgumentParser\HelpException.cs" />
+    <Compile Include="Util\ArgumentParser\InputFile.cs" />
+    <Compile Include="Util\ArgumentParser\IParsable.cs" />
+    <Compile Include="Util\ArgumentParser\IRunnable.cs" />
+    <Compile Include="Util\ArgumentParser\OutputFile.cs" />
+    <Compile Include="Util\ArgumentParser\ParallelOptionsParser.cs" />
+    <Compile Include="Util\ArgumentParser\ParsableAttribute.cs" />
+    <Compile Include="Util\ArgumentParser\ParsableFile.cs" />
+    <Compile Include="Util\ArgumentParser\ParseException.cs" />
+    <Compile Include="Util\ArgumentParser\Parser.cs" />
+    <Compile Include="Util\ArgumentParser\TypeExtensions.cs" />
+    <Compile Include="Util\ArgumentParser\TypeFactory.cs" />
+    <Compile Include="Util\CounterWithMessages.cs" />
+    <Compile Include="Util\Distribute\CommandApp.cs" />
+    <Compile Include="Util\Distribute\IDistributable.cs" />
+    <Compile Include="Util\Distribute\IDistribute.cs" />
+    <Compile Include="Util\Distribute\Locally.cs" />
+    <Compile Include="Util\Distribute\RaiseError.cs" />
+    <Compile Include="Util\Distribute\SelfDistributable.cs" />
+    <Compile Include="Util\ParallelOptionsScope.cs" />
+    <Compile Include="Util\SpecialFunctions.cs" />
+    <Compile Include="Util\StatusChangedEventArgs.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Bio.Core\Bio.Core.csproj">
+      <Project>{dfb9c4e2-c98c-4401-a650-756abab52663}</Project>
+      <Name>Bio.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="..\Shared\Shared.projitems" Label="Shared" Condition="Exists('..\Shared\Shared.projitems')" />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent Condition=" '$(OS)' != 'Unix' ">copy "$(TargetPath)" "$(SolutionDir)\bin\$(TargetName).dll"
+copy "$(TargetDir)\$(TargetName).xml" "$(SolutionDir)\bin\$(TargetName).xml"</PostBuildEvent>
+<PostBuildEvent Condition=" '$(OS)' == 'Unix' ">cp "$(TargetPath)" "$(SolutionDir)\bin\$(TargetName).dll"
+cp "$(TargetDir)\$(TargetName).xml" "$(SolutionDir)\bin\$(TargetName).xml"</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

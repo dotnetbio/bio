@@ -1,0 +1,84 @@
+﻿<!--
+<summary>
+    // Resource dictionary for all strings displayed in the UI
+</summary> 
+    -->
+
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+
+    <system:String x:Uid="Visualizations:BioExcel_WindowTitle" x:Key="BioExcel_WindowTitle">.NET Bio Extension for Excel</system:String>
+
+    <system:String x:Uid="AboutDialog:Header" x:Key="AboutDialog_Header">.NET Bio Extension for Excel</system:String>
+    <system:String x:Uid="AboutDialog:Copyright" x:Key="AboutDialog_Copyright">Copyright © 2011-2014, The Outercurve Foundation.</system:String>
+    <system:String x:Uid="AboutDialog:Version" x:Key="AboutDialog_Version">Version:</system:String>
+    <system:String x:Uid="AboutDialog:Reserved" x:Key="AboutDialog_Reserved">All Rights Reserved.</system:String>
+    <system:String x:Uid="AboutDialog:Codeplex" x:Key="AboutDialog_Codeplex">Codeplex URL :</system:String>
+
+    <system:String x:Uid="AssemblyInputDialog:AlignInputParameters" x:Key="AssemblyInputDialog_AlignInputParameters">Align Input Parameters</system:String>
+    <system:String x:Uid="AssemblyInputDialog:AssembleInputParameters" x:Key="AssemblyInputDialog_AssembleInputParameters">Assemble Input Parameters</system:String>
+    <system:String x:Uid="AssemblyInputDialog:MatchScore" x:Key="AssemblyInputDialog_Match_Score">Match Score</system:String>
+    <system:String x:Uid="AssemblyInputDialog:MismatchScore" x:Key="AssemblyInputDialog_Mismatch_Score">Mismatch ScoreScore</system:String>
+    <system:String x:Uid="AssemblyInputDialog:MergeThreshold" x:Key="AssemblyInputDialog_Merge_Threshold">Merge Threshold</system:String>
+    <system:String x:Uid="AssemblyInputDialog:Consensus=Threshold" x:Key="AssemblyInputDialog_Consensus_Threshold">Consensus Threshold</system:String>
+
+    <system:String x:Uid="AssemblerDialog:MatchScoreToolTip" x:Key="AssemblerDialog_MatchScoreToolTip">Match reward score</system:String>
+    <system:String x:Uid="AssemblerDialog:MismatchScoreToolTip" x:Key="AssemblerDialog_MismatchScoreToolTip">Mismatch penalty score</system:String>
+    <system:String x:Uid="AssemblerDialog:MergeThresholdToolTip" x:Key="AssemblerDialog_MergeThresholdToolTip">Overlap required for two sequences to be merged during alignment</system:String>
+    <system:String x:Uid="AssemblerDialog:ConsensusThresholdToolTip" x:Key="AssemblerDialog_ConsensusThresholdToolTip">Threshold used when generating consensus symbols during alignment</system:String>
+    <system:String x:Uid="AssemblerDialog:AlignAlgorithmToolTip" x:Key="AssemblerDialog_AlignAlgorithmToolTip">Alignment algorithm to use</system:String>
+
+    <system:String x:Uid="BedWizardDialog:Header" x:Key="BedWizardDialog_Header">Genomic Data Identification Wizard</system:String>
+    <system:String x:Uid="BedWizardDialog:MandatoryAttributes" x:Key="BedWizardDialog_Mandatory_Attributes">Mandatory Attributes</system:String>
+    <system:String x:Uid="BedWizardDialog:OptionalAttributes" x:Key="BedWizardDialog_Optional_Attributes">Optional Attributes</system:String>
+    <system:String x:Uid="BedWizardDialog:Columns" x:Key="BedWizardDialog_Columns">Columns</system:String>
+    <system:String x:Uid="BedWizardDialog:FirstLine" x:Key="BedWizardDialog_First_Line">Treat first line as header</system:String>
+
+    <system:String x:Uid="BlastDialog:Header" x:Key="BlastDialog_Header">BLAST WebService</system:String>
+    <system:String x:Uid="BlastDialog:Parameters" x:Key="BlastDialog_Parameters">Please enter the general parameters information below</system:String>
+    <system:String x:Uid="BlastDialog:Program" x:Key="BlastDialog_Program">Program</system:String>
+    <system:String x:Uid="BlastDialog:Service" x:Key="BlastDialog_Service">Service</system:String>
+    <system:String x:Uid="BlastDialog:Database" x:Key="BlastDialog_Database">Database</system:String>
+    <system:String x:Uid="BlastDialog:GapCosts" x:Key="BlastDialog_Gap_Costs">Gap Costs</system:String>
+    <system:String x:Uid="BlastDialog:Proxy" x:Key="BlastDialog_Proxy">Use Browser Proxy</system:String>
+
+    <system:String x:Uid="ColorConfiguration:Header" x:Key="ColorConfiguration_Header">Configure Color</system:String>
+    <system:String x:Uid="ColorConfiguration:ChooseColors" x:Key="ColorConfiguration_Choose_Colors">Please choose colors for the molecules</system:String>
+
+    <system:String x:Uid="ExportSelectionDialog:Header" x:Key="ExportSelectionDialog_Header">Select Sequences to Export</system:String>
+    <system:String x:Uid="ExportSelectionDialog:SelectInputSequenceRanges" x:Key="ExportSelectionDialog_SelectInputSequenceRanges">Select Input Region</system:String>
+    <system:String x:Uid="ExportSelectionDialog:SelectInputSequences" x:Key="ExportSelectionDialog_SelectInputSequences">Select Input Sequences</system:String>
+    <system:String x:Uid="ExportSelectionDialog:MoleculeType" x:Key="ExportSelectionDialog_MoleculeType">Molecule Type</system:String>
+    <system:String x:Uid="ExportSelectionDialog:IgnoreBlankCells" x:Key="ExportSelectionDialog_IgnoreBlankCells">Ignore blank cells</system:String>
+    <system:String x:Uid="ExportSelectionDialog:TreatBlankCellsAsGaps" x:Key="ExportSelectionDialog_TreatBlankCellsAsGaps">Treat blank cells as gaps</system:String>
+
+    <system:String x:Uid="InputSequenceItem:Sequence" x:Key="InputSequenceItem_Sequence">Sequence</system:String>
+    <system:String x:Uid="InputSequenceItem:Name" x:Key="InputSequenceItem_Name">Name</system:String>
+    <system:String x:Uid="InputSequenceItem:Metadata" x:Key="InputSequenceItem_Metadata">Metadata</system:String>
+    <system:String x:Uid="InputSequenceItem:QualityValues" x:Key="InputSequenceItem_QualityValues">Quality Scores</system:String>
+    <system:String x:Uid="InputSequenceItem:UseMetadataCheckBoxlabel" x:Key="InputSequenceItem:UseMetadataCheckBoxlabel">Use as Metadata</system:String>
+    
+    <system:String x:Uid="InputSelectionDialog:SelectInputSequences" x:Key="InputSelectionDialog_SelectInputSequences">Select Input Sequences</system:String>
+    <system:String x:Uid="InputSelectionDialog:SelectInputSequenceRanges" x:Key="InputSelectionDialog_SelectInputSequenceRanges">Select Input Region</system:String>
+    <system:String x:Uid="InputSelectionDialog:Return" x:Key="InputSelectionDialog_Return">Return</system:String>
+    <system:String x:Uid="InputSelectionDialog:MinumumOverlap" x:Key="InputSelectionDialog_MinumumOverlap">Minimum Overlap</system:String>
+    <system:String x:Uid="InputSelectionDialog:MoleculeType" x:Key="InputSelectionDialog_MoleculeType">Molecule Type</system:String>
+    <system:String x:Uid="InputSelectionDialog:IgnoreBlankCells" x:Key="InputSelectionDialog_IgnoreBlankCells">Ignore blank cells</system:String>
+    <system:String x:Uid="InputSelectionDialog:TreatBlankCellsasGaps" x:Key="InputSelectionDialog_TreatBlankCellsAsGaps">Treat blank cells as gaps</system:String>
+    <system:String x:Uid="InputSelectionDialog:AddSequence" x:Key="InputSelectionDialog_AddSequence">Add Sequence</system:String>
+    <system:String x:Uid="InputSelectionDialog:OK" x:Key="InputSelectionDialog_OK">OK</system:String>
+    <system:String x:Uid="InputSelectionDialog:Cancel" x:Key="InputSelectionDialog_Cancel">Cancel</system:String>
+
+    <system:String x:Uid="MaxColumnsDialog:Header" x:Key="MaxColumnsDialog_Header">Max Columns</system:String>
+    <system:String x:Uid="MaxColumnsDialog:MaximumColumns" x:Key="MaxColumnsDialog_Maximum_Columns">Enter maximum number of columns:</system:String>
+    <system:String x:Uid="MaxColumnsDialog:AlignAllSheets" x:Key="MaxColumnsDialog_Align_All_Sheets">Align all Sequence data worksheets</system:String>
+
+    <system:String x:Key="ImportConfiguration_Header">Import Configuration</system:String>
+    <system:String x:Key="ImportConfiguration_SequencesPerRow">Sequences Per Row</system:String>
+    <system:String x:Key="ImportConfiguration_OnePerSheet">Create a new worksheet for each sequence</system:String>
+    <system:String x:Key="ImportConfiguration_MultiPerSheet">Include multiple sequences on a worksheet</system:String>
+    <system:String x:Key="ImportConfiguration_AllInOne">Include all sequences on one worksheet</system:String>
+    <system:String x:Key="ImportConfiguration_CountPerWorksheet"># of sequences per worksheet</system:String>
+    <system:String x:Key="ImportConfiguration_FutureImports">This setting will affect future imports</system:String>
+</ResourceDictionary>

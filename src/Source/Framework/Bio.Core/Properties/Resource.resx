@@ -1,0 +1,1561 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessionSequenceNotFound" xml:space="preserve">
+    <value>Sequence for the accession number {0} not found.</value>
+  </data>
+  <data name="AlphabetMisMatch" xml:space="preserve">
+    <value>Alphabet of Reference sequence is not matching with the alphabet of query sequence.</value>
+  </data>
+  <data name="ALPHABET_NULL" xml:space="preserve">
+    <value>SequenceAlphabet is null. Set it to correct alphabet!</value>
+  </data>
+  <data name="AmbiguousDnaAlphabetName" xml:space="preserve">
+    <value>AmbiguousDna</value>
+  </data>
+  <data name="AmbiguousProteinAlphabetName" xml:space="preserve">
+    <value>AmbiguousProtein</value>
+  </data>
+  <data name="AmbiguousRnaAlphabetName" xml:space="preserve">
+    <value>AmbiguousRna</value>
+  </data>
+  <data name="ARGUMENT_OUT_OF_RANGE" xml:space="preserve">
+    <value>Start of range must be smaller than end.</value>
+  </data>
+  <data name="AZURE_BLAST_NAME" xml:space="preserve">
+    <value>Azure BLAST</value>
+  </data>
+  <data name="BAMFORMATTER_DESCRIPTION" xml:space="preserve">
+    <value>Writes a SequenceAlignmentMap to a particular location, usually a file. 
+The output is formatted according to the BAM file format.</value>
+  </data>
+  <data name="BAMParserAlphabetCantBeSet" xml:space="preserve">
+    <value>Alphabet can't be set as BAM supports only SAMDNA alphabet.</value>
+  </data>
+  <data name="BAMPARSER_DESCRIPTION" xml:space="preserve">
+    <value>A BAMParser reads from a source of binary data that is formatted according to the BAM 
+file specification, and converts the data to in-memory SequenceAlignmentMap object.</value>
+  </data>
+  <data name="BAM_BAMFileNIndexFileContbeSame" xml:space="preserve">
+    <value>BAM filename and Index filename can't be same.</value>
+  </data>
+  <data name="BAM_CantUseBAMIndexStreamDisposed" xml:space="preserve">
+    <value>Can't use this instance anymore as underlying stream is already disposed.</value>
+  </data>
+  <data name="BAM_FILEEXTENSION" xml:space="preserve">
+    <value>.bam</value>
+  </data>
+  <data name="BAM_FormatMultipleAlignmentsNotSupported" xml:space="preserve">
+    <value>BAM format does not supports writing multiple ISequenceAlignment objects to a file.</value>
+  </data>
+  <data name="BAM_FormatStringNotSupported" xml:space="preserve">
+    <value>BAM formatter does not support formatting to string.</value>
+  </data>
+  <data name="BAM_INDEXFILEEXTENSION" xml:space="preserve">
+    <value>.bai</value>
+  </data>
+  <data name="BAM_InvalidBAMFile" xml:space="preserve">
+    <value>Invalid BAM file.</value>
+  </data>
+  <data name="BAM_InvalidCIGAR" xml:space="preserve">
+    <value>Invalid CIGAR found.</value>
+  </data>
+  <data name="BAM_InvalidEncodedSequenceValue" xml:space="preserve">
+    <value>Invalid encoded sequence value</value>
+  </data>
+  <data name="BAM_InvalidIndexFile" xml:space="preserve">
+    <value>Invalid BAM index file.</value>
+  </data>
+  <data name="BAM_InvalidIntValueInOptField" xml:space="preserve">
+    <value>Invalid integer value "{0}" found in optional field "{1}".</value>
+  </data>
+  <data name="BAM_InvalidIntValueInOptFieldOfAlignedSeq" xml:space="preserve">
+    <value>Invalid integer value "{0}" found in optional field "{1}" of the alingned seq "{2}".</value>
+  </data>
+  <data name="BAM_InvalidOptValType" xml:space="preserve">
+    <value>Invalid optional valuetype</value>
+  </data>
+  <data name="BAM_NAME" xml:space="preserve">
+    <value>BAM</value>
+  </data>
+  <data name="BAM_RefSeqNotFound" xml:space="preserve">
+    <value>Reference sequence name \"{0}\" not found.</value>
+  </data>
+  <data name="BAM_TextreaderNotSupportedMessage" xml:space="preserve">
+    <value>BAM parser does not supports reading from a text reader.</value>
+  </data>
+  <data name="BAM_TextWriterNotSupported" xml:space="preserve">
+    <value>BAM formatter does not support writing to text writer.</value>
+  </data>
+  <data name="BAM_UnableToReadCompressedBlock" xml:space="preserve">
+    <value>Unable to read compressed block</value>
+  </data>
+  <data name="BedDesc" xml:space="preserve">
+    <value>Chromosome sequence ranges format.</value>
+  </data>
+  <data name="BedFileFormats" xml:space="preserve">
+    <value>.bed</value>
+  </data>
+  <data name="BedName" xml:space="preserve">
+    <value>BED</value>
+  </data>
+  <data name="BIOHPC_BLAST_NAME" xml:space="preserve">
+    <value>BLAST @ BioHPC</value>
+  </data>
+  <data name="BlastNoRecords" xml:space="preserve">
+    <value>BlastXmlParser.Parse: No records were found in the input.</value>
+  </data>
+  <data name="BREAK_LENGTH_DESCRIPTION" xml:space="preserve">
+    <value>Number of bases to be extended before stopping alignment</value>
+  </data>
+  <data name="BREAK_LENGTH_NAME" xml:space="preserve">
+    <value>Break Length</value>
+  </data>
+  <data name="BuilderIncorrectLength" xml:space="preserve">
+    <value>Reverse Complement builder (char array) has incorrect length. Should be equal to sequence length</value>
+  </data>
+  <data name="Cannotaddmorethanchildnodestoedge" xml:space="preserve">
+    <value>Cannot add more than {0} child nodes to edge</value>
+  </data>
+  <data name="ClustalUnknownSequence" xml:space="preserve">
+    <value>Clustal file has unknown sequence {0}</value>
+  </data>
+  <data name="CLUSTALWPARSER_DESCRIPTION" xml:space="preserve">
+    <value>A ClustalWParser reads from a source of text that is formatted according to the ClustalW flat file specification, and converts the data to in-memory ISequenceAlignment objects.</value>
+  </data>
+  <data name="CLUSTALW_FILEEXTENSION" xml:space="preserve">
+    <value>.aln</value>
+  </data>
+  <data name="CLUSTALW_NAME" xml:space="preserve">
+    <value>ClustalW</value>
+  </data>
+  <data name="ComplementNotFound" xml:space="preserve">
+    <value>Could not find complement for one or more symbols.</value>
+  </data>
+  <data name="ComplementNotSupportedByalphabet" xml:space="preserve">
+    <value>Complement for the symbol {0} is not supported by {1} Alphabet.</value>
+  </data>
+  <data name="ComplementWithMorethanOneSubLocs" xml:space="preserve">
+    <value>Location with Complement operator cannot contain more than one sub locations.</value>
+  </data>
+  <data name="ContigLength" xml:space="preserve">
+    <value>Consensus has not been computed</value>
+  </data>
+  <data name="CouldNotIdentifyAlphabetType" xml:space="preserve">
+    <value>Could not identify alphabet type.</value>
+  </data>
+  <data name="CouldNotRecognizeAlphabet" xml:space="preserve">
+    <value>Could not recognize the specified alphabet type.</value>
+  </data>
+  <data name="CouldNotRecognizeSymbol" xml:space="preserve">
+    <value>Could not recognize the specified symbol.</value>
+  </data>
+  <data name="DataVirtualizationNeedsInputFile" xml:space="preserve">
+    <value>Data virtualization needs to be enabled with proper file name.</value>
+  </data>
+  <data name="DensePairAnsiMissingValueSignatureMustBe" xml:space="preserve">
+    <value>For DensePairAnsi the missingValue must be (UO '?', '?')</value>
+  </data>
+  <data name="DnaAlphabetName" xml:space="preserve">
+    <value>Dna</value>
+  </data>
+  <data name="DoubleRangeInvalidArgs" xml:space="preserve">
+    <value>DoubleRangeValidator: Invalid arguments.</value>
+  </data>
+  <data name="DuplicateSQHeader" xml:space="preserve">
+    <value>Duplicate SQ header found for {0}.</value>
+  </data>
+  <data name="DuplicatingReadIds" xml:space="preserve">
+    <value>Duplicate read found. Id:{0}</value>
+  </data>
+  <data name="EBIWUBLAST_NAME" xml:space="preserve">
+    <value>EBI WU-BLAST</value>
+  </data>
+  <data name="EndDataCannotBeNull" xml:space="preserve">
+    <value>EndData can not be null or empty.</value>
+  </data>
+  <data name="ErrorCheckConditionFailed" xml:space="preserve">
+    <value>A call to CheckCondition() failed</value>
+  </data>
+  <data name="ErrorCheckConditionFirstAndOnlyTooFew" xml:space="preserve">
+    <value>CheckCondition.FirstAndOnly() failed to Get the first item</value>
+  </data>
+  <data name="ErrorCheckConditionFirstAndOnlyTooMany" xml:space="preserve">
+    <value>CheckCondition.FirstAndOnly() found more than one item available</value>
+  </data>
+  <data name="ErrorConvertingCharacterNucleotideToDouble" xml:space="preserve">
+    <value>Error converting character nucleotide [{0}] to double.  Expected 'A', 'C', 'G', or 'T'</value>
+  </data>
+  <data name="ErrorConvertingDoubleToNucleotide" xml:space="preserve">
+    <value>Error converting double [{0}] to a character nucleotide.  Expected 0.0, 1.0, 2.0, or 3.0</value>
+  </data>
+  <data name="ErrorConvertingSparseValToStore" xml:space="preserve">
+    <value>Expected val length [{0}] to be 1</value>
+  </data>
+  <data name="ErrorConvertingValGaveMissingValue" xml:space="preserve">
+    <value>Error converting value [{0}] gave the special 'MissingValue '[{1}]</value>
+  </data>
+  <data name="ErrorInputDataShouldBeGroupedByVar" xml:space="preserve">
+    <value>The input data should be grouped by var</value>
+  </data>
+  <data name="ErrorNoFilesMatchSpecifiedName" xml:space="preserve">
+    <value>No files match the name given [{0}]</value>
+  </data>
+  <data name="ExpectDoubleToBeMinusOneOrOne" xml:space="preserve">
+    <value>Expected double [{0}] to be -1 or 1</value>
+  </data>
+  <data name="ExpectedAllMatricesToHaveSameMissingValue" xml:space="preserve">
+    <value>Expected all matrices to have the same 'MissingValue' value</value>
+  </data>
+  <data name="ExpectedArgCountOfThreeOrFour" xml:space="preserve">
+    <value>Expected argument count of 3 or 4</value>
+  </data>
+  <data name="ExpectedBoolToBeTrueOrFalse" xml:space="preserve">
+    <value>Expected bool? to be true or false</value>
+  </data>
+  <data name="ExpectedByteArrayLengthAndBytesPerValueToBeEqual" xml:space="preserve">
+    <value>Expected byteArray.Length [{0}] and BytesPerValue [{[1}] to be equal</value>
+  </data>
+  <data name="ExpectedCharToBeZeroOrOne" xml:space="preserve">
+    <value>Expected char [{0}] to be '0' or '1'</value>
+  </data>
+  <data name="ExpectedColumnKeysCountToEqualValueArrayCount" xml:space="preserve">
+    <value>Expected the number of columns in the input array [{0}] to match the number of items in varList [{1}]</value>
+  </data>
+  <data name="ExpectedColumnsToMatch" xml:space="preserve">
+    <value>Expected the columns of the two matrices to match</value>
+  </data>
+  <data name="ExpectedEveryColumnToBeAMemberOfThePermutation" xml:space="preserve">
+    <value>Expected every column to be a member of the permutation</value>
+  </data>
+  <data name="ExpectedEveryColumnToBeUsedOnceInThePermuation" xml:space="preserve">
+    <value>Expected every column to be used once and only once in a permutation</value>
+  </data>
+  <data name="ExpectedEveryRemappedColKeyToBeInOriginalMatrix" xml:space="preserve">
+    <value>Expected every re-mapped colKey to be in original matrix.  Unmatched keys include [{0}]</value>
+  </data>
+  <data name="ExpectedEveryVarLineToHaveOneTab" xml:space="preserve">
+    <value>Expected every 'var' line in file [{0}] to have exactly one tab, found [{1}]</value>
+  </data>
+  <data name="ExpectedFileToHaveData" xml:space="preserve">
+    <value>Expected file [{0}] to have data</value>
+  </data>
+  <data name="ExpectedFileToHaveHeader" xml:space="preserve">
+    <value>Expected file [{0}] to have header</value>
+  </data>
+  <data name="ExpectedHeaderAsFirstLineOfFile" xml:space="preserve">
+    <value>Expected header as first line of file [{0}]</value>
+  </data>
+  <data name="ExpectedHeaderToBe_var_cid_val" xml:space="preserve">
+    <value>Expected header to be 'var&lt;tab&gt;cid&lt;tab&gt;val', found [{0}]</value>
+  </data>
+  <data name="ExpectedItemToExist" xml:space="preserve">
+    <value>Expected item [{0}] to already exist.  Item not found</value>
+  </data>
+  <data name="ExpectedItemToNotExist" xml:space="preserve">
+    <value>Expected item [{0}] to not exist.  Found item more than once</value>
+  </data>
+  <data name="ExpectedMatrixViewColKeysToBeSubsetOfParentMatrix" xml:space="preserve">
+    <value>The colKeys of the MatrixView must be a subset the colKeys of the parentMatrix. The sets can also be equal</value>
+  </data>
+  <data name="ExpectedMatrixViewRowKeysToBeSubsetOfParentMatrix" xml:space="preserve">
+    <value>The rowKeys of the MatrixView must be a subset the rowKeys of the parentMatrix. The sets can also be equal</value>
+  </data>
+  <data name="ExpectedMaxLengthToGreaterThanOne" xml:space="preserve">
+    <value>Expected maxLength parameter to be greater than 1</value>
+  </data>
+  <data name="ExpectedNoCommentsInRowKeysAnsiFiles" xml:space="preserve">
+    <value>Expected no comments in RowKeysAnsi and related files.  File [{0}]</value>
+  </data>
+  <data name="ExpectedNonZeroLengthArrayOfMatrices" xml:space="preserve">
+    <value>Expected non-zero length for the array of matrices</value>
+  </data>
+  <data name="ExpectedNoOverlapBetweenRowKeys" xml:space="preserve">
+    <value>Expected no overlap between rowKeys</value>
+  </data>
+  <data name="ExpectedOneValueForEveryColKey" xml:space="preserve">
+    <value>Expected one value in the storeList for every colKey</value>
+  </data>
+  <data name="ExpectedRowKeyAndColKeyToBeInMatrix" xml:space="preserve">
+    <value>Expected rowKey and colKey to be in matrix.  rowKey [{0}] or colKey [{1}] not found.</value>
+  </data>
+  <data name="ExpectedRowKeysCountToEqualValueArrayCount" xml:space="preserve">
+    <value>Expected the number of rows in the input array [{0}] to match the number of items in varList [{1}]</value>
+  </data>
+  <data name="ExpectedRowsOfMatricesToMatch" xml:space="preserve">
+    <value>Expected rows of  matrices to match</value>
+  </data>
+  <data name="ExpectedStoreListCountToEqualColCount" xml:space="preserve">
+    <value>Expected storeList.Count [{0}] to equal colCount [{1}]</value>
+  </data>
+  <data name="ExpectedThreeFields" xml:space="preserve">
+    <value>Expected 3 fields on each line,  found {0} in [{1}]</value>
+  </data>
+  <data name="ExpectedToReadAllBytesOfValue" xml:space="preserve">
+    <value>Expected to read all the bytes of a value</value>
+  </data>
+  <data name="ExpectedTwoFieldsFoundN" xml:space="preserve">
+    <value>Expected two fields, found [{0}]</value>
+  </data>
+  <data name="ExpectedUniqueRowKeysInMatrix" xml:space="preserve">
+    <value>Expected unique rowkeys in the matrix</value>
+  </data>
+  <data name="ExpectedUoPairElementsToBeIComparable" xml:space="preserve">
+    <value>Expected UoPair's elements to be IComparable</value>
+  </data>
+  <data name="ExpectedValidRangeString" xml:space="preserve">
+    <value>Expected a valid Range string in the form m-n or m or 'empty' (or 'null').  Found [{0}]</value>
+  </data>
+  <data name="ExpectedValToBeSingleCharacter" xml:space="preserve">
+    <value>Expected the 'val' to be a single character.  Found [{0}]</value>
+  </data>
+  <data name="ExpectedValToContainTwoCharacters" xml:space="preserve">
+    <value>Expected 2 characters in val, found [{0}]</value>
+  </data>
+  <data name="Expected_var_AsFirstColumnOfHeader" xml:space="preserve">
+    <value>Expected 'var' as first column of header.  Found [{0}] in file [{1}]</value>
+  </data>
+  <data name="FASTAFORMATTER_DESCRIPTION" xml:space="preserve">
+    <value>Writes an ISequence to a particular location, usually a file. The output is formatted
+according to the FastA file format. </value>
+  </data>
+  <data name="FastAName" xml:space="preserve">
+    <value>FastA</value>
+  </data>
+  <data name="FASTAPARSER_DESCRIPTION" xml:space="preserve">
+    <value>A FastaParser reads from a source of text that is formatted according to the FASTA flat
+file specification, and converts the data to in-memory ISequence objects.  For advanced
+users, the ability to select an encoding for the internal memory representation is
+provided. There is also a default encoding for each alphabet that may be encountered.</value>
+  </data>
+  <data name="FASTA_FILEEXTENSION" xml:space="preserve">
+    <value>.fa,.mpfa,.fna,.faa,.fsa,.fas,.fasta</value>
+  </data>
+  <data name="FASTA_NAME" xml:space="preserve">
+    <value>Fasta</value>
+  </data>
+  <data name="FASTQFORMATTER_DESCRIPTION" xml:space="preserve">
+    <value>Writes an QualitativeSequence to a particular location, usually a file. The output is formatted according to the FASTQ file format.</value>
+  </data>
+  <data name="FastQName" xml:space="preserve">
+    <value>FastQ</value>
+  </data>
+  <data name="FASTQPARSER_DESCRIPTION" xml:space="preserve">
+    <value>A FastQParser reads from a source of text that is formatted according to the FASTQ file specification, and converts the data to in-memory QualitativeSequence objects.</value>
+  </data>
+  <data name="FastQ_EmptyQualityScoreLine" xml:space="preserve">
+    <value>Quality score line is empty for the sequence Id: {0}</value>
+  </data>
+  <data name="FASTQ_FILEEXTENSION" xml:space="preserve">
+    <value>.fq,.fastq</value>
+  </data>
+  <data name="FastQ_InvalidQualityScoreHeaderData" xml:space="preserve">
+    <value>Quality scores header does not match with sequence header for the sequence Id: {0}</value>
+  </data>
+  <data name="FastQ_InvalidQualityScoreHeaderLine" xml:space="preserve">
+    <value>Input file or data stream is missing "+" in the quality score header line for the sequence Id: {0}</value>
+  </data>
+  <data name="FastQ_InvalidQualityScoresLength" xml:space="preserve">
+    <value>Total number of quality scores and sequence symbols are not same for the sequence Id: {0}</value>
+  </data>
+  <data name="FastQ_InvalidSequenceLine" xml:space="preserve">
+    <value>Sequence data line is empty for the sequence Id: {0}</value>
+  </data>
+  <data name="FastQ_NotAQualitativeSequence" xml:space="preserve">
+    <value>Not a QualitativeSequence</value>
+  </data>
+  <data name="FileNameMustNotContainPathInformation" xml:space="preserve">
+    <value>The file name must not include any path information. It will be created in the other file's directory.</value>
+  </data>
+  <data name="FileNotClosed" xml:space="preserve">
+    <value>File is already open.</value>
+  </data>
+  <data name="FileNotOpened" xml:space="preserve">
+    <value>File is not opened. Please call Open method  to open the file.</value>
+  </data>
+  <data name="FirstInputSequenceMismatchSimilarityMatrix" xml:space="preserve">
+    <value>First input sequence alphabet does not match similarity matrix alphabet.</value>
+  </data>
+  <data name="FIXED_SEPARATION_DESCRIPTION" xml:space="preserve">
+    <value>Maximum fixed diagonal difference</value>
+  </data>
+  <data name="FIXED_SEPARATION_NAME" xml:space="preserve">
+    <value>Fixed Separation</value>
+  </data>
+  <data name="ForwardReadCount" xml:space="preserve">
+    <value>Forward Read is empty</value>
+  </data>
+  <data name="GAP_COST_DESCRIPTION" xml:space="preserve">
+    <value>Cost of inserting a gap character</value>
+  </data>
+  <data name="GAP_COST_NAME" xml:space="preserve">
+    <value>Gap Cost</value>
+  </data>
+  <data name="GAP_EXTENSION_COST_DESCRIPTION" xml:space="preserve">
+    <value>Cost of extending an already existing gap</value>
+  </data>
+  <data name="GAP_EXTENSION_COST_NAME" xml:space="preserve">
+    <value>Gap Extension Cost</value>
+  </data>
+  <data name="GenbankEmptyFeature" xml:space="preserve">
+    <value>Unexpected empty feature key.</value>
+  </data>
+  <data name="GenBankFailedToParseLocusTokenFormat" xml:space="preserve">
+    <value>Failed to parse locus token: {0}, Locus: {1}</value>
+  </data>
+  <data name="GENBANKFORMATTER_DESCRIPTION" xml:space="preserve">
+    <value>Writes an ISequence to a particular location, usually a file. The output is formatted
+according to the GenBank file format. A method is also provided for quickly accessing
+the content in string form for applications that do not need to first write to file.</value>
+  </data>
+  <data name="GenbankInvalidFeature" xml:space="preserve">
+    <value>Invalid feature line: {0}.</value>
+  </data>
+  <data name="GENBANKPARSER_DESCRIPTION" xml:space="preserve">
+    <value>A GenBankParser reads from a source of text that is formatted according to the GenBank flat
+file specification, and converts the data to in-memory ISequence objects.  For advanced
+users, the ability to select an encoding for the internal memory representation is
+provided. There is also a default encoding for each alphabet that may be encountered.</value>
+  </data>
+  <data name="GenBankUnknownLocusFormat" xml:space="preserve">
+    <value>Unknown LOCUS format: {0}.</value>
+  </data>
+  <data name="GENBANK_FILEEXTENSION" xml:space="preserve">
+    <value>.gb,.gbk,.genbank</value>
+  </data>
+  <data name="GENBANK_NAME" xml:space="preserve">
+    <value>GenBank</value>
+  </data>
+  <data name="GFFFORMATTER_DESCRIPTION" xml:space="preserve">
+    <value>Writes an ISequence to a particular location, usually a file. The output is formatted
+according to the GFF file format. A method is also provided for quickly accessing
+the content in string form for applications that do not need to first write to file.</value>
+  </data>
+  <data name="GffInvalidField" xml:space="preserve">
+    <value>Invalid {0} field: {1}.</value>
+  </data>
+  <data name="GffInvalidSequence" xml:space="preserve">
+    <value>Invalid sequence line: {0}.</value>
+  </data>
+  <data name="GFFNoFeatures" xml:space="preserve">
+    <value>GFF file contains no features.</value>
+  </data>
+  <data name="GFFPARSER_DESCRIPTION" xml:space="preserve">
+    <value>A GffParser reads from a source of text that is formatted according to the GFF flat
+file specification, and converts the data to in-memory ISequence objects.  For advanced
+users, the ability to select an encoding for the internal memory representation is
+provided. There is also a default encoding for each alphabet that may be encountered.</value>
+  </data>
+  <data name="GffUnsupportedVersion" xml:space="preserve">
+    <value>Unsupported GFF version: {0}.</value>
+  </data>
+  <data name="GFF_FILEEXTENSION" xml:space="preserve">
+    <value>.gff</value>
+  </data>
+  <data name="GFF_NAME" xml:space="preserve">
+    <value>GFF</value>
+  </data>
+  <data name="HeaderContainsNullValue" xml:space="preserve">
+    <value>Header should not contain null values.</value>
+  </data>
+  <data name="InputAlphabetsMismatch" xml:space="preserve">
+    <value>Input sequences use different alphabets.</value>
+  </data>
+  <data name="InputSequenceMustBeGreaterThanMUM" xml:space="preserve">
+    <value>Length of input sequence should be greater than Length of MUM [{0}].</value>
+  </data>
+  <data name="IntRangeInvalidArgs" xml:space="preserve">
+    <value>IntRangeValidator: Invalid arguments</value>
+  </data>
+  <data name="InvalidAlphabetType" xml:space="preserve">
+    <value>The alphabet type specified is invalid.</value>
+  </data>
+  <data name="InvalidEndData" xml:space="preserve">
+    <value>Invalid end data [{0}]</value>
+  </data>
+  <data name="InvalidLocationString" xml:space="preserve">
+    <value>Invalid location string [{0}]</value>
+  </data>
+  <data name="InvalidMinLengthOfMatch" xml:space="preserve">
+    <value>Invalid MinLengthOfMatch. It should be more than 0.</value>
+  </data>
+  <data name="InvalidOptionalField" xml:space="preserve">
+    <value>Invalid optional field [{0}]</value>
+  </data>
+  <data name="InvalidParameter" xml:space="preserve">
+    <value>The parameter is invalid.</value>
+  </data>
+  <data name="InvalidPatternMessage" xml:space="preserve">
+    <value>Invalid {0}: "{1}". The allowed pattern is: {2}.</value>
+  </data>
+  <data name="InvalidQNameLength" xml:space="preserve">
+    <value>Invalid QName value. Maximum allowed length for QName value is 255 characters.</value>
+  </data>
+  <data name="InvalidQualityScore" xml:space="preserve">
+    <value>Invalid quality score: [{0}]</value>
+  </data>
+  <data name="InvalidRangeBeginMustBeLessThanLast" xml:space="preserve">
+    <value>Invalid Range: 'begin' [{0}] must be less than 'last' [{1}]</value>
+  </data>
+  <data name="InvalidRangeMessage" xml:space="preserve">
+    <value>Invalid {0}: "{1}". The allowed range is {2} to {3}.</value>
+  </data>
+  <data name="InvalidRangeSizeOfRangeMustBeGreaterThanZero" xml:space="preserve">
+    <value>Invalid Range Size: Size of range must be greater than 0.  Found [{0}]</value>
+  </data>
+  <data name="InvalidRangeSizeOfRangeMustBeLessThanMaxValue" xml:space="preserve">
+    <value>Invalid Range Size: Size of range must be less than long.MaxValue.  Found [{0}]</value>
+  </data>
+  <data name="InvalidReferredAlphabet" xml:space="preserve">
+    <value>Alphabet of {0} sequence is invalid.</value>
+  </data>
+  <data name="InvalidRNASequenceInput" xml:space="preserve">
+    <value>Only RNA or AmbiguousRNA sequence is allowed as input.</value>
+  </data>
+  <data name="InvalidSearchParameter" xml:space="preserve">
+    <value>SearchParameter: Only int, float, and stringList supported.</value>
+  </data>
+  <data name="InvalidSeparator" xml:space="preserve">
+    <value>Invalid separator {0}</value>
+  </data>
+  <data name="InvalidStartData" xml:space="preserve">
+    <value>Invalid start data: {0}</value>
+  </data>
+  <data name="InvalidStartNEndPositions" xml:space="preserve">
+    <value>Start position must be less than or equal to the end position.</value>
+  </data>
+  <data name="InvalidSymbol" xml:space="preserve">
+    <value>Could not recognize symbol: {0}</value>
+  </data>
+  <data name="InvalidSymbolInString" xml:space="preserve">
+    <value>Could not recognize one or more symbol in the sequence: {0}</value>
+  </data>
+  <data name="InvalidType" xml:space="preserve">
+    <value>Unknown type format: {0}.</value>
+  </data>
+  <data name="INVALID_INPUT_FILE" xml:space="preserve">
+    <value>Bad input in file</value>
+  </data>
+  <data name="INVALID_SYMBOL" xml:space="preserve">
+    <value>Symbol {0} is not a valid {1} symbol</value>
+  </data>
+  <data name="IOFormatErrorMessage" xml:space="preserve">
+    <value>{0} Format error - {1}</value>
+  </data>
+  <data name="IONoTextToParse" xml:space="preserve">
+    <value>No text to parse in the specified input file or data stream.</value>
+  </data>
+  <data name="KmerIndexOutOfRange" xml:space="preserve">
+    <value>Kmer sequence index is out of range for node</value>
+  </data>
+  <data name="KmerLengthIsTooLong" xml:space="preserve">
+    <value>Kmer Length is larger than the sequence length</value>
+  </data>
+  <data name="KmerLengthShouldBeOver12" xml:space="preserve">
+    <value>Kmer Length should be greater than 12</value>
+    <comment>This is needed to ensure the buckets are sensible, less than 12 also makes no sense for assembly.</comment>
+  </data>
+  <data name="KmerPositionOutOfRange" xml:space="preserve">
+    <value>Kmer position or length is out of range for node</value>
+  </data>
+  <data name="KurtzSuffixTreeBuilderName" xml:space="preserve">
+    <value>SuffixTree builder using Dictionary</value>
+  </data>
+  <data name="LENGTH_OF_MUM_DESCRIPTION" xml:space="preserve">
+    <value>Minimum legnth of Maximal Unique Match</value>
+  </data>
+  <data name="LENGTH_OF_MUM_NAME" xml:space="preserve">
+    <value>Length of MUM</value>
+  </data>
+  <data name="LibraryExist" xml:space="preserve">
+    <value>Clone Library '{0}' doesn't exist</value>
+  </data>
+  <data name="LibraryInvalidParameters" xml:space="preserve">
+    <value>Clone Library - Invalid Parameters</value>
+  </data>
+  <data name="LIST_EMPTY" xml:space="preserve">
+    <value>List is empty. Should contain at least one element!</value>
+  </data>
+  <data name="LogFileName" xml:space="preserve">
+    <value>Bio.log</value>
+  </data>
+  <data name="MandatoryTagNotFound" xml:space="preserve">
+    <value>Mandatory tag {0} is not found for the record type {1}.</value>
+  </data>
+  <data name="MatrixSpecialValueUseError" xml:space="preserve">
+    <value>The value in the pair should not be the special 'missing value'.</value>
+  </data>
+  <data name="MAXIMUM_SEPARATION_DESCRIPTION" xml:space="preserve">
+    <value>Maximum separation between the adjacent matches in clusters</value>
+  </data>
+  <data name="MAXIMUM_SEPARATION_NAME" xml:space="preserve">
+    <value>Maximum Separation</value>
+  </data>
+  <data name="MinimumTwoSequences" xml:space="preserve">
+    <value>Minimum two sequences are required to run alignment.</value>
+  </data>
+  <data name="MINIMUM_SCORE_DESCRIPTION" xml:space="preserve">
+    <value>Minimum output score</value>
+  </data>
+  <data name="MINIMUM_SCORE_NAME" xml:space="preserve">
+    <value>Minimum Score</value>
+  </data>
+  <data name="MsgComplementOverlapItems" xml:space="preserve">
+    <value>Complement overlap of items</value>
+  </data>
+  <data name="MsgPlainOverlapItems" xml:space="preserve">
+    <value>plain overlap of items</value>
+  </data>
+  <data name="MsgReverseComplementOverlapItems" xml:space="preserve">
+    <value>ReverseComplement overlap of items</value>
+  </data>
+  <data name="MsgReverseOverlapItems" xml:space="preserve">
+    <value>Reverse overlap of items</value>
+  </data>
+  <data name="MultiWaySuffixTreeName" xml:space="preserve">
+    <value>MultiWaySuffixTree</value>
+  </data>
+  <data name="MUMLengthTooSmall" xml:space="preserve">
+    <value>Minimum length of MUM cannot be less than 1.</value>
+  </data>
+  <data name="MUMmerAlignerDescription" xml:space="preserve">
+    <value>Pairwise global alignment</value>
+  </data>
+  <data name="MUMmerAlignerName" xml:space="preserve">
+    <value>MUMmer</value>
+  </data>
+  <data name="MUMmerDescription" xml:space="preserve">
+    <value>MUMmer is a system for rapidly aligning entire genomes. Gets the exact matches between the reference and query sequences.</value>
+  </data>
+  <data name="MUMmerName" xml:space="preserve">
+    <value>MUMmer</value>
+  </data>
+  <data name="NcbiBlastInvalidValue" xml:space="preserve">
+    <value>NcbiBlastParameters: Invalid parameter value {0} for parameter {0}.</value>
+  </data>
+  <data name="NcbiBlastUnknownParam" xml:space="preserve">
+    <value>NcbiBlastParameters: Unknown parameter name {0}.</value>
+  </data>
+  <data name="NCBIQBLAST_NAME" xml:space="preserve">
+    <value>NCBI QBLAST</value>
+  </data>
+  <data name="NEEDLEMAN_DESCRIPTION" xml:space="preserve">
+    <value>Pairwise global alignment</value>
+  </data>
+  <data name="NEEDLEMAN_NAME" xml:space="preserve">
+    <value>Needleman-Wunsch</value>
+  </data>
+  <data name="NEXUSPARSER_DESCRIPTION" xml:space="preserve">
+    <value>A NexusParser reads from a source of text that is formatted according to the Nexus flat file specification, and converts the data to in-memory ISequenceAlignment objects.  For advanced users, the ability to select an encoding for the internal memory representation is provided. There is also a default encoding for each alphabet that may be encountered.</value>
+  </data>
+  <data name="NEXUS_FILEEXTENSION" xml:space="preserve">
+    <value>.nxs,.nex</value>
+  </data>
+  <data name="NEXUS_NAME" xml:space="preserve">
+    <value>Nexus</value>
+  </data>
+  <data name="NoneWithSubLocs" xml:space="preserve">
+    <value>Location with None operator can not contain sub locations.</value>
+  </data>
+  <data name="NotSupportedInVirtualSequence" xml:space="preserve">
+    <value>Not supported in VirtualSequence</value>
+  </data>
+  <data name="NotSupportedReadOnlyCollection" xml:space="preserve">
+    <value>Not supported in ReadOnlyCollection.</value>
+  </data>
+  <data name="NtaxMismatch" xml:space="preserve">
+    <value>ntax does not match the number of IDs.</value>
+  </data>
+  <data name="NUCMER" xml:space="preserve">
+    <value>NUCmer</value>
+  </data>
+  <data name="NUCMERDESC" xml:space="preserve">
+    <value>Pairwise local alignment</value>
+  </data>
+  <data name="NullLocationBuild" xml:space="preserve">
+    <value>LocationBuilder can not be null</value>
+  </data>
+  <data name="NullResolver" xml:space="preserve">
+    <value>Resolver can not be null</value>
+  </data>
+  <data name="OffsetInvalid" xml:space="preserve">
+    <value>Offset cannot be greater than the sequence count.</value>
+  </data>
+  <data name="OffsetOverflow" xml:space="preserve">
+    <value>Offset is greater than the number of elements in the sequence.</value>
+  </data>
+  <data name="OnlyDNAOrRNAInput" xml:space="preserve">
+    <value>Only DNA &amp; RNA sequences can be passed as input to {0}.</value>
+  </data>
+  <data name="OutOfSpec" xml:space="preserve">
+    <value>out-of-spec SOURCE</value>
+  </data>
+  <data name="PairwiseAlignerWrongArgumentCount" xml:space="preserve">
+    <value>Pairwise Alignment expected 2 input sequences, received {0}.</value>
+  </data>
+  <data name="PAIRWISE_DESCRIPTION" xml:space="preserve">
+    <value>Pairwise global alignment</value>
+  </data>
+  <data name="PAIRWISE_NAME" xml:space="preserve">
+    <value>Pairwise-Overlap</value>
+  </data>
+  <data name="ParamCHmustbeLessThan256" xml:space="preserve">
+    <value>ch must be less than 256</value>
+  </data>
+  <data name="ParameterMustLessThanCount" xml:space="preserve">
+    <value>Specified argument was out of the range it must be non negative and less than the count of this sequence.</value>
+  </data>
+  <data name="ParameterMustNonNegative" xml:space="preserve">
+    <value>Specified argument was out of the range it must be non negative.</value>
+  </data>
+  <data name="ParameterNameArray" xml:space="preserve">
+    <value>array</value>
+  </data>
+  <data name="ParameterNameEndPos" xml:space="preserve">
+    <value>endPos</value>
+  </data>
+  <data name="ParameterNameIndex" xml:space="preserve">
+    <value>index</value>
+  </data>
+  <data name="ParameterNameInputSequences" xml:space="preserve">
+    <value>inputSequences</value>
+  </data>
+  <data name="ParameterNameLocation" xml:space="preserve">
+    <value>location</value>
+  </data>
+  <data name="ParameterNamePosition" xml:space="preserve">
+    <value>position</value>
+  </data>
+  <data name="ParameterNameQuery" xml:space="preserve">
+    <value>query</value>
+  </data>
+  <data name="ParameterNameSequence" xml:space="preserve">
+    <value>sequence</value>
+  </data>
+  <data name="ParameterNameSequenceAlignment" xml:space="preserve">
+    <value>sequenceAlignment</value>
+  </data>
+  <data name="ParameterNameSequenceItems" xml:space="preserve">
+    <value>sequenceItems</value>
+  </data>
+  <data name="ParameterNameSequences" xml:space="preserve">
+    <value>sequences</value>
+  </data>
+  <data name="ParameterNameSize" xml:space="preserve">
+    <value>size</value>
+  </data>
+  <data name="ParameterNameSource" xml:space="preserve">
+    <value>source</value>
+  </data>
+  <data name="ParameterNameStart" xml:space="preserve">
+    <value>start</value>
+  </data>
+  <data name="ParameterNameStartPos" xml:space="preserve">
+    <value>startPos</value>
+  </data>
+  <data name="ParameterNameValue" xml:space="preserve">
+    <value>value</value>
+  </data>
+  <data name="ParameterNameWriter" xml:space="preserve">
+    <value>writer</value>
+  </data>
+  <data name="PARAMETER_UNKNOWN" xml:space="preserve">
+    <value>Unknown parameter name {0}.</value>
+  </data>
+  <data name="PARAMETER_VALUE_INVALID" xml:space="preserve">
+    <value>Invalid parameter value {0} for parameter {0}.</value>
+  </data>
+  <data name="ParseHeaderError" xml:space="preserve">
+    <value>'{0}' is not a valid header.</value>
+  </data>
+  <data name="ParserIncorrectAlphabet" xml:space="preserve">
+    <value>Incorrect alphabet set by user.</value>
+  </data>
+  <data name="ParserInvalidDate" xml:space="preserve">
+    <value>Invalid date format: {0}.</value>
+  </data>
+  <data name="ParserInvalidReferenceField" xml:space="preserve">
+    <value>Invalid reference field name: {0}.</value>
+  </data>
+  <data name="ParserInvalidSourceField" xml:space="preserve">
+    <value>Invalid source field name: {0}.</value>
+  </data>
+  <data name="ParserPrimaryLineError" xml:space="preserve">
+    <value>Error in PRIMARY line: {0}.</value>
+  </data>
+  <data name="ParserReferenceError" xml:space="preserve">
+    <value>Data after REFERENCE should start with reference number: {0}.</value>
+  </data>
+  <data name="ParserSecondLocus" xml:space="preserve">
+    <value>Second locus encountered {0}.</value>
+  </data>
+  <data name="ParserUnexpectedLineInSequence" xml:space="preserve">
+    <value>Unexpected line within sequence data: {0}.</value>
+  </data>
+  <data name="Parser_InvalidFileFormat" xml:space="preserve">
+    <value>Could not parse the specified file. File format is invalid.</value>
+  </data>
+  <data name="Parser_NoTextErrorMessage" xml:space="preserve">
+    <value>No text to parse.</value>
+  </data>
+  <data name="PHYLIPPARSER_DESCRIPTION" xml:space="preserve">
+    <value>A PhylipParser reads from a source of text that is formatted according to the Phylip flat file specification, and converts the data to in-memory ISequenceAlignment objects.</value>
+  </data>
+  <data name="PHYLIP_FILEEXTENSION" xml:space="preserve">
+    <value>.phy,.ph</value>
+  </data>
+  <data name="PHYLIP_NAME" xml:space="preserve">
+    <value>Phylip</value>
+  </data>
+  <data name="PoolItemNotContig" xml:space="preserve">
+    <value>PoolItem.Contig: Not a contig item.</value>
+  </data>
+  <data name="PoolItemNotSequence" xml:space="preserve">
+    <value>PoolItem.Contig: Item is contig, not sequence.</value>
+  </data>
+  <data name="ProgressStatus_Reading" xml:space="preserve">
+    <value>Reading {0}</value>
+  </data>
+  <data name="ProteinAlphabetName" xml:space="preserve">
+    <value>Protein</value>
+  </data>
+  <data name="QueryListCannotBeNull" xml:space="preserve">
+    <value>Query sequence list cannot be null</value>
+  </data>
+  <data name="QuerySequenceCannotBeNull" xml:space="preserve">
+    <value>Query sequence cannot be null.</value>
+  </data>
+  <data name="ReadCannotBeNull" xml:space="preserve">
+    <value>One of the reads in input list is null</value>
+  </data>
+  <data name="READ_ONLY_COLLECTION_MESSAGE" xml:space="preserve">
+    <value>Cannot modify a read-only collection.</value>
+  </data>
+  <data name="RealAssert" xml:space="preserve">
+    <value>real assert</value>
+  </data>
+  <data name="ReferenceListCannotBeNull" xml:space="preserve">
+    <value>Reference sequence list cannot be null.</value>
+  </data>
+  <data name="ReferenceSequenceCannotBeNull" xml:space="preserve">
+    <value>Reference sequence cannot be null</value>
+  </data>
+  <data name="RefSequenceNofFound" xml:space="preserve">
+    <value>Can't parse sequences which contains '=' symbol without the reference sequence.</value>
+  </data>
+  <data name="RegistrationLoadingError" xml:space="preserve">
+    <value>REGISTRATION_LOADING_ERROR</value>
+  </data>
+  <data name="ReverseReadCount" xml:space="preserve">
+    <value>Reverse Read is empty</value>
+  </data>
+  <data name="RnaAlphabetName" xml:space="preserve">
+    <value>Rna</value>
+  </data>
+  <data name="SAMAlignedSequenceHeaderNotFound" xml:space="preserve">
+    <value>SAMAlignedSequenceHeader not found</value>
+  </data>
+  <data name="SAMAlignmentHeaderNotFound" xml:space="preserve">
+    <value>SAMAlignmentHeader not found</value>
+  </data>
+  <data name="SAMFormatterSupportsDNAOnly" xml:space="preserve">
+    <value>SAM only supports DNA aplhabet.</value>
+  </data>
+  <data name="SAMFORMATTER_DESCRIPTION" xml:space="preserve">
+    <value>Writes a SequenceAlignmentMap to a particular location, usually a file. The output is formatted
+according to the SAM file format.</value>
+  </data>
+  <data name="SAMParserAlphabetCantBeSet" xml:space="preserve">
+    <value>Alphabet can't be set as SAM supports only SAMDNA alphabet.</value>
+  </data>
+  <data name="SAMPARSER_DESCRIPTION" xml:space="preserve">
+    <value>A SAMParser reads from a source of text that is formatted according to the SAM 
+file specification, and converts the data to in-memory SequenceAlignmentMap objects.</value>
+  </data>
+  <data name="SAM_AlignedSequenceHeaderMissing" xml:space="preserve">
+    <value>Header is missing in one of the aligned sequence in specified sequenceAlignment object.</value>
+  </data>
+  <data name="SAM_FILEEXTENSION" xml:space="preserve">
+    <value>.sam</value>
+  </data>
+  <data name="SAM_FormatMultipleAlignmentsNotSupported" xml:space="preserve">
+    <value>SAM format does not supports writing multiple ISequenceAlignment objects to a file.</value>
+  </data>
+  <data name="SAM_InvalidInputFile" xml:space="preserve">
+    <value>Invalid SAM File.</value>
+  </data>
+  <data name="SAM_NAME" xml:space="preserve">
+    <value>SAM</value>
+  </data>
+  <data name="SearchParamInvalidArgs" xml:space="preserve">
+    <value>SearchParameter: Only int, double, and string supported.</value>
+  </data>
+  <data name="SecondInputSequenceMismatchSimilarityMatrix" xml:space="preserve">
+    <value>Second input sequence alphabet does not match similarity matrix alphabet.</value>
+  </data>
+  <data name="SEPARATION_FACTOR_DESCRIPTION" xml:space="preserve">
+    <value>Separation factor</value>
+  </data>
+  <data name="SEPARATION_FACTOR_NAME" xml:space="preserve">
+    <value>Separation Factor</value>
+  </data>
+  <data name="SequenceAlphabetMismatch" xml:space="preserve">
+    <value>Sequences are of different alphabet type in the alignment.</value>
+  </data>
+  <data name="SequenceCannotBeNull" xml:space="preserve">
+    <value>Sequence should not be null</value>
+  </data>
+  <data name="SequenceCountMismatch" xml:space="preserve">
+    <value>Number of sequence in alignment do not match the actual count.</value>
+  </data>
+  <data name="SequenceLengthExceedsLimit" xml:space="preserve">
+    <value>Cross product of input sequences length ({0}, {1}) exceeds integer maximum value {2}.</value>
+  </data>
+  <data name="SequenceLengthMismatch" xml:space="preserve">
+    <value>Sequence length does not match.</value>
+  </data>
+  <data name="SequenceLengthsMismatch" xml:space="preserve">
+    <value>Sequence length in alignment do not match the actual length.</value>
+  </data>
+  <data name="SequenceRangeEndError" xml:space="preserve">
+    <value>End index of SequenceRange cannot be lesser than start index</value>
+  </data>
+  <data name="SequenceRangeNonNegative" xml:space="preserve">
+    <value>SequenceRange start and end cannot be set to negative numbers</value>
+  </data>
+  <data name="SequenceRangeStartError" xml:space="preserve">
+    <value>Start index of SequenceRange cannot be greater than end index</value>
+  </data>
+  <data name="SERVICE_HANDLER_ASSEMBLY" xml:space="preserve">
+    <value>Bio.WebServiceHandlers.dll</value>
+  </data>
+  <data name="SimilarityMatrixCannotBeNull" xml:space="preserve">
+    <value>Similarity Matrix cannot be null.</value>
+  </data>
+  <data name="SimilarityMatrix_BadOrMissingValue" xml:space="preserve">
+    <value>SimilarityMatrix from file or stream. Bad or missing value in line {0}, exception {1}.</value>
+  </data>
+  <data name="SimilarityMatrix_DiagonalSM" xml:space="preserve">
+    <value>Diagonal (Match x Mismatch)</value>
+  </data>
+  <data name="SimilarityMatrix_FewerMatrixLines" xml:space="preserve">
+    <value>SimilarityMatrix from file or stream. Fewer matrix line than needed.</value>
+  </data>
+  <data name="SimilarityMatrix_InvalidMoleculeType" xml:space="preserve">
+    <value>SimilarityMatrix from file or stream. Invalid molecule type {0} in similarity matrix file.</value>
+  </data>
+  <data name="SimilarityMatrix_NameMissing" xml:space="preserve">
+    <value>SimilarityMatrix from file or stream. Missing name (first line).</value>
+  </data>
+  <data name="SimilarityMatrix_SecondLineMissing" xml:space="preserve">
+    <value>SimilarityMatrix from file or stream. Missing second line.</value>
+  </data>
+  <data name="SIMILARITY_MATRIX_DESCRIPTION" xml:space="preserve">
+    <value>Describes matrix that determines the score for any possible pair of symbols</value>
+  </data>
+  <data name="SIMILARITY_MATRIX_NAME" xml:space="preserve">
+    <value>Similarity Matrix</value>
+  </data>
+  <data name="SIMPLE_DESCRIPTION" xml:space="preserve">
+    <value>Implements a simple greedy assembly algorithm for DNA.</value>
+  </data>
+  <data name="SIMPLE_NAME" xml:space="preserve">
+    <value>Simple-Sequence</value>
+  </data>
+  <data name="SIMPLE_SNP_DESCRIPTION" xml:space="preserve">
+    <value>Basic SNP Parser that uses XSV format</value>
+  </data>
+  <data name="SIMPLE_SNP_FILEEXTENSION" xml:space="preserve">
+    <value>.tsv</value>
+  </data>
+  <data name="SIMPLE_SNP_NAME" xml:space="preserve">
+    <value>Basic SNP</value>
+  </data>
+  <data name="SMITH_DESCRIPTION" xml:space="preserve">
+    <value>Pairwise local alignment</value>
+  </data>
+  <data name="SMITH_NAME" xml:space="preserve">
+    <value>Smith-Waterman</value>
+  </data>
+  <data name="snpTextReaderNull" xml:space="preserve">
+    <value>Text reader to read SNP sequences from cannot be null</value>
+  </data>
+  <data name="SparseSequenceConstructorIndexOutofRange" xml:space="preserve">
+    <value>Index was out of range. Must be non-negative and less than the maximum value of an integer.</value>
+  </data>
+  <data name="SQHeaderMissing" xml:space="preserve">
+    <value>SQ header is missing for {0}.</value>
+  </data>
+  <data name="StartDataCannotBeNull" xml:space="preserve">
+    <value>StartData can not be null or empty.</value>
+  </data>
+  <data name="SymbolCountZero" xml:space="preserve">
+    <value>Zero nucleotides in input.</value>
+  </data>
+  <data name="SymbolExistsInAlphabet" xml:space="preserve">
+    <value>Symbol already exists in alphabet.</value>
+  </data>
+  <data name="TracebackBadSource" xml:space="preserve">
+    <value>{0} : Bad source in Traceback.</value>
+  </data>
+  <data name="UnexpectedSecondSequenceName" xml:space="preserve">
+    <value>Unexpected second sequence name encountered: {0}.</value>
+  </data>
+  <data name="UnknownElement" xml:space="preserve">
+    <value>{0}: Don't know element '{1}'.</value>
+  </data>
+  <data name="XsvOffsetNotFound" xml:space="preserve">
+    <value>Could not find a comment line with the offset, sequence ID</value>
+  </data>
+  <data name="XsvSparseFormatterDesc" xml:space="preserve">
+    <value>Sparse Sequence formatter to character separated value file</value>
+  </data>
+  <data name="XsvSparseFormatterName" xml:space="preserve">
+    <value>XsvSparseFormatter</value>
+  </data>
+  <data name="XsvSparseParserDesc" xml:space="preserve">
+    <value>Parses sparse sequences from character separated value reader</value>
+  </data>
+  <data name="XsvSparseParserFileTypes" xml:space="preserve">
+    <value>csv,tsv</value>
+  </data>
+  <data name="XsvSparseParserName" xml:space="preserve">
+    <value>XsvSparseParser</value>
+  </data>
+  <data name="EmptySequence" xml:space="preserve">
+    <value>Empty sequence</value>
+  </data>
+  <data name="MinLengthMustBeGreaterThanZero" xml:space="preserve">
+    <value>MinLengthOfMatch should be greater than 0</value>
+  </data>
+  <data name="OnlySequenceClassSupported" xml:space="preserve">
+    <value>Only Sequence class is supported.</value>
+  </data>
+  <data name="SequenceDataGreaterthan2GB" xml:space="preserve">
+    <value>Sequence {0} contains more than 2GB data</value>
+  </data>
+  <data name="NEWICK_FILE_EXTENSION" xml:space="preserve">
+    <value>.txt, .tre, .newick</value>
+  </data>
+  <data name="NEWICK_FORMATTER_DESCRIPTION" xml:space="preserve">
+    <value>Writes a PhylogeneticTree to a particular location, usually a file. The output is formatted
+according to the Newick format.</value>
+  </data>
+  <data name="NEWICK_NAME" xml:space="preserve">
+    <value>Newick</value>
+  </data>
+  <data name="NEWICK_PARSER_DESCRIPTION" xml:space="preserve">
+    <value>Reads from a source of text that is formatted according to the Newick flat
+file specification, and converts the data to in-memory PhylogeneticTree object.</value>
+  </data>
+  <data name="FastAContainsMorethanOnebaseAlphabet" xml:space="preserve">
+    <value>FastA file should not contain sequences of more than one base alphabet type.</value>
+  </data>
+  <data name="FileAlreadyOpen" xml:space="preserve">
+    <value>{0} is already open. To open a new file please close the current file and try again.</value>
+  </data>
+  <data name="InvalidRefNumber" xml:space="preserve">
+    <value>Invalid reference number found: {0}</value>
+  </data>
+  <data name="MayNotConvert" xml:space="preserve">
+    <value>The Converter may not convert a non-missing value into the missing value.</value>
+  </data>
+  <data name="ShouldNotBeSmaller" xml:space="preserve">
+    <value>The complete size should not be smaller than the current size</value>
+  </data>
+  <data name="AlignedSequenceCount" xml:space="preserve">
+    <value>Aligned sequences count cannot be 0</value>
+  </data>
+  <data name="FIELDPARSER_DESCRIPTION" xml:space="preserve">
+    <value>Each line contains two columns and tab as delimiter.First column contain sequence id and second column contains the sequence.</value>
+  </data>
+  <data name="FIELDPARSER_FILEEXTENSION" xml:space="preserve">
+    <value>.txt</value>
+  </data>
+  <data name="FIELDPARSER_NAME" xml:space="preserve">
+    <value>Field Parser</value>
+  </data>
+  <data name="BatchCountCondition" xml:space="preserve">
+    <value>Batch count must be greater than zero.</value>
+  </data>
+  <data name="ConditionFailed" xml:space="preserve">
+    <value>A condition failed.</value>
+  </data>
+  <data name="ExpectedArguments" xml:space="preserve">
+    <value>{3} Expected {0} required argument(s) after parsing named arguments (which may include required), but found {1}. ({2})</value>
+  </data>
+  <data name="ParsingError" xml:space="preserve">
+    <value>Error parsing {0}:</value>
+  </data>
+  <data name="RepeatedFlags" xml:space="preserve">
+    <value>Flag {0} occurs multiple times.</value>
+  </data>
+  <data name="UnbalancedParanthesis" xml:space="preserve">
+    <value>Unbalanced paranthesis</value>
+  </data>
+  <data name="UnknownOption" xml:space="preserve">
+    <value>{1}Unknown option found: {0}</value>
+  </data>
+  <data name="CmdLineParserException" xml:space="preserve">
+    <value>Command Line Argument Error: </value>
+    <comment>End with space!</comment>
+  </data>
+  <data name="CmdLineParserExceptionInvalidValueFound" xml:space="preserve">
+    <value>Invalid value found. Parameter "</value>
+    <comment>End with quote!</comment>
+  </data>
+  <data name="CmdLineParserExceptionInvalidValueFoundBool" xml:space="preserve">
+    <value>" must not have a value</value>
+    <comment>Start with quote!</comment>
+  </data>
+  <data name="CmdLineParserExceptionInvalidValueFoundInt" xml:space="preserve">
+    <value>" does not have an numeric value</value>
+    <comment>Start with quote!</comment>
+  </data>
+  <data name="CmdLineParserExceptionInvalidValueFoundInts" xml:space="preserve">
+    <value>" does not have a series of numeric values</value>
+    <comment>Start with quote!</comment>
+  </data>
+  <data name="CmdLineParserExceptionInvalidValueFoundString" xml:space="preserve">
+    <value>" must have a string value</value>
+    <comment>Start with quote!</comment>
+  </data>
+  <data name="CmdLineParserExceptionRepeatedParameterFound" xml:space="preserve">
+    <value>Repeated parameter found! Parameter "</value>
+    <comment>End with quote!</comment>
+  </data>
+  <data name="CmdLineParserExceptionRepeatedParameterFoundOnce" xml:space="preserve">
+    <value>" must only be used once</value>
+    <comment>Start with quote!</comment>
+  </data>
+  <data name="CmdLineParserExceptionRequiredFirstParameterMissing" xml:space="preserve">
+    <value>The required first parameter is missing</value>
+  </data>
+  <data name="CmdLineParserExceptionRequiredParameterMissing" xml:space="preserve">
+    <value>A required parameter is missing. Parameter "</value>
+    <comment>End with quote!</comment>
+  </data>
+  <data name="CmdLineParserExceptionRequiredParameterMissing2" xml:space="preserve">
+    <value>" is required but missing</value>
+    <comment>Start with quote!</comment>
+  </data>
+  <data name="CmdLineParserExceptionSyntaxError" xml:space="preserve">
+    <value>Command arguments incorrect in "</value>
+    <comment>End with quote!</comment>
+  </data>
+  <data name="CmdLineParserExceptionSyntaxError2" xml:space="preserve">
+    <value>". Error near: "... </value>
+    <comment>Start with quote!</comment>
+  </data>
+  <data name="CmdLineParserExceptionSyntaxError3" xml:space="preserve">
+    <value>". Quote parameters containing spaces</value>
+    <comment>Start with quote!</comment>
+  </data>
+  <data name="CmdLineParserExceptionUnknownParameterFound" xml:space="preserve">
+    <value>Unknown parameter found: "</value>
+    <comment>End with quote!</comment>
+  </data>
+  <data name="CmdLineParserExceptionUnknownParameterFound2" xml:space="preserve">
+    <value>". Unknown parameters are not allowed</value>
+    <comment>Start with quote!</comment>
+  </data>
+  <data name="CmdLineParserExceptionValueWithoutParameterFound" xml:space="preserve">
+    <value>Value without parameter found: "</value>
+    <comment>End with quote!</comment>
+  </data>
+  <data name="CmdLineParserExceptionValueWithoutParameterFound2" xml:space="preserve">
+    <value>". Each value must be assigned to a parameter</value>
+    <comment>Start with quote!</comment>
+  </data>
+  <data name="CmdLineParserFirstParam" xml:space="preserve">
+    <value>first parameter</value>
+    <comment>Used by GetParameterInfo()</comment>
+  </data>
+  <data name="CmdLineParserInt" xml:space="preserve">
+    <value>int</value>
+    <comment>Used by GetUsage()/GetParameterInfo()</comment>
+  </data>
+  <data name="CmdLineParserOptional" xml:space="preserve">
+    <value>Optional:</value>
+    <comment>Used by GetUsage()/GetParameterInfo()</comment>
+  </data>
+  <data name="CmdLineParserParameters" xml:space="preserve">
+    <value>Parameters:</value>
+    <comment>Used by GetUsage()/GetParameterInfo()</comment>
+  </data>
+  <data name="CmdLineParserRegEx" xml:space="preserve">
+    <value>^([\\s]*)([/-](?&lt;name&gt;[^\\s-/:=]+)([:=]?)([\\s]*)(?&lt;value&gt;(\"[^\"]*\")|('[^']*')|([\\s]*[^/-][^\\s]+[\\s]*)|([^/-]+)|)?([\\s]*))*$</value>
+  </data>
+  <data name="CmdLineParserRequired" xml:space="preserve">
+    <value>Required:</value>
+    <comment>Used by GetUsage()/GetParameterInfo()</comment>
+  </data>
+  <data name="CmdLineParserString" xml:space="preserve">
+    <value>string</value>
+    <comment>Used by GetUsage()/GetParameterInfo()</comment>
+  </data>
+  <data name="CmdLineParserUsage" xml:space="preserve">
+    <value>Usage:</value>
+    <comment>Used by GetUsage()/GetParameterInfo()</comment>
+  </data>
+  <data name="ToStringFormat" xml:space="preserve">
+    <value>{0}... +[{1}]</value>
+  </data>
+  <data name="ClusterToStringFormat" xml:space="preserve">
+    <value>RefStart={0} QueryStart={1} Length={2} Score={3} WrapScore={4} IsGood={5}</value>
+  </data>
+  <data name="DeltaAlignmentToStringFormat" xml:space="preserve">
+    <value>Ref ID={0} Query Id={1} Ref start={2} Ref End={3} Query start={4} Query End={5}, Direction={6}</value>
+  </data>
+  <data name="MatchExtensionToStringFormat" xml:space="preserve">
+    <value>RefStart={0} QueryStart={1} Length={2} Score={3} WrapScore={4} IsGood={5}</value>
+  </data>
+  <data name="MatchToStringFormat" xml:space="preserve">
+    <value>RefStart={0} QueryStart={1} Length={2}</value>
+  </data>
+  <data name="MatePairToStringFormat" xml:space="preserve">
+    <value>ForwardReadID={0}, ReverseReadID={1}, MeanLength={2}, Standard Deviation={3}</value>
+  </data>
+  <data name="QualitativeSequenceToStringFormatForLongSequence" xml:space="preserve">
+    <value>{0}...[{1}]
+{2}...[{3}]</value>
+  </data>
+  <data name="QualitativeSequenceToStringFormatForSmallSequence" xml:space="preserve">
+    <value>{0}
+{1}</value>
+  </data>
+  <data name="SequenceRangeToStringFormat" xml:space="preserve">
+    <value>ID={0} Start={1} End={2}</value>
+  </data>
+  <data name="SequenceStatisticsToStringFormat" xml:space="preserve">
+    <value>{0} - {1}</value>
+  </data>
+  <data name="WiggleBadInputInFile" xml:space="preserve">
+    <value>Parsing failed. Bad input in file.</value>
+  </data>
+  <data name="WiggleFormatterDescription" xml:space="preserve">
+    <value>Writes a WiggleAnnotation to a particular location, usually a file. The output is formatted according to the Wiggle file format.</value>
+  </data>
+  <data name="WiggleInvalidHeader" xml:space="preserve">
+    <value>Failed to parse wiggle header.</value>
+  </data>
+  <data name="WiggleName" xml:space="preserve">
+    <value>Wiggle</value>
+  </data>
+  <data name="WiggleNotSupportedOnVariableStep" xml:space="preserve">
+    <value>This operation is not supported on variable step wiggle files.</value>
+  </data>
+  <data name="WiggleParserDescription" xml:space="preserve">
+    <value>A Wiggle parser reads from a source of text that is formatted according to the Wiggle file specification (only fixed and variable step files), and converts the data to in-memory WiggleAnnotation objects.</value>
+  </data>
+  <data name="Wiggle_FileExtension" xml:space="preserve">
+    <value>.wig</value>
+  </data>
+  <data name="DestArrayNotLargeEnough" xml:space="preserve">
+    <value>Destination Array Not Large Enough</value>
+  </data>
+  <data name="CountCannotBeLessThanZero" xml:space="preserve">
+    <value>Count cannot be less than zero</value>
+  </data>
+  <data name="StartCannotBeLessThanZero" xml:space="preserve">
+    <value>Start cannot be less than zero</value>
+  </data>
+  <data name="DeltaCollectionFileCorrupted" xml:space="preserve">
+    <value>Corrupted collection file.</value>
+  </data>
+  <data name="CorruptedDeltaAlignmentFile" xml:space="preserve">
+    <value>Could not find the DeltaAlignment at specified position {0} of the file.
+Delta alignment file is corrupted. </value>
+  </data>
+  <data name="DeltaAlignmentIDDoesnotMatch" xml:space="preserve">
+    <value>Delta alignment id {0} does not match the specified position {1} in the file.</value>
+  </data>
+  <data name="Ab1ColorDataFromByteArrayEvenNumberRequired" xml:space="preserve">
+    <value>Byte array must have an even number of values.</value>
+  </data>
+  <data name="Ab1InvalidFileSignatureExceptionFormat" xml:space="preserve">
+    <value>The file signature {0} does not match the expected signature of {1}.</value>
+  </data>
+  <data name="Ab1InvalidFileVersionExceptionFormat" xml:space="preserve">
+    <value>Invalid file version.  Expected version {0}, actual version was {1}.</value>
+  </data>
+  <data name="APPLIEDBIOSYSTEMS_DESCRIPTION" xml:space="preserve">
+    <value>Parse applied biosystems binary format as defined in http://www6.appliedbiosystems.com/support/software_community/ABIF_File_Format.pdf.</value>
+  </data>
+  <data name="APPLIEDBIOSYSTEMS_FILETYPES" xml:space="preserve">
+    <value>.abi,.ab1</value>
+  </data>
+  <data name="APPLIEDBIOSYSTEMS_NAME" xml:space="preserve">
+    <value>Applied Biosystems</value>
+  </data>
+  <data name="ColorDataTrimLengthArgumentException" xml:space="preserve">
+    <value>Trim length cannot exceed past the number of peak locations.</value>
+  </data>
+  <data name="ColorDataTrimStartIndexOutOfRange" xml:space="preserve">
+    <value>Color data start index must lie within the range of peak locations.</value>
+  </data>
+  <data name="DataParserFactoryNoParserExistsForVersionFormat" xml:space="preserve">
+    <value>No parser exists for the ab1 format version {0}</value>
+  </data>
+  <data name="InvalidItemSizeExceptionFormat" xml:space="preserve">
+    <value>Invalid item size.  Expected {0} bytes but found {1} for the item of type {2}.</value>
+  </data>
+  <data name="SegmentByteArrayInvalidCount" xml:space="preserve">
+    <value>The number of bytes must be evenly divisible by the count</value>
+  </data>
+  <data name="ExpectEachDataRowToHaveNCharacters" xml:space="preserve">
+    <value>Expect each data row to have {0} characters.</value>
+  </data>
+  <data name="ExpectFileToEndAfterLastValue" xml:space="preserve">
+    <value>Expect file to end after last value</value>
+  </data>
+  <data name="ExpectRowKeyFileAndMainFileToAgreeOnTheRowkeys" xml:space="preserve">
+    <value>Expect rowKey file and main file to agree on the rowkeys</value>
+  </data>
+  <data name="ExpectToReadRowKey" xml:space="preserve">
+    <value>Expect to read rowKey</value>
+  </data>
+  <data name="RangeCollectionIsEmpty" xml:space="preserve">
+    <value>RangeCollection is empty.</value>
+  </data>
+  <data name="RowKeyIndexSeemsToReferToAFileOfTheWrongFormat" xml:space="preserve">
+    <value>RowKeyIndex seems to refer to a file of the wrong format.</value>
+  </data>
+  <data name="ThereAreDuplicateRowsWhichDoNotHDupRowsNonIdenticalValues" xml:space="preserve">
+    <value>There are duplicate rows which do not have identical values.</value>
+  </data>
+  <data name="BAMFormatterSupportsDNAOnly" xml:space="preserve">
+    <value>BAM only supports SAMDNA aplhabet.</value>
+  </data>
+  <data name="DifferenceInSequenceAndQualityScoresLengthMessage" xml:space="preserve">
+    <value>Sequence and quality scores lengths are not same. Sequence length: {0}, Quality scores length: {1}</value>
+  </data>
+  <data name="InvalidEncodedQualityScoreFound" xml:space="preserve">
+    <value>Invalid encoded quality score found. {0} is not supported in {1} format.</value>
+  </data>
+  <data name="InvalidQualityScoreFound" xml:space="preserve">
+    <value>Invalid quality score found. {0} is not supported in {1} format.</value>
+  </data>
+  <data name="ParameterShouldBeofType" xml:space="preserve">
+    <value>{0} should be {1} type</value>
+  </data>
+  <data name="KmerLengthEven" xml:space="preserve">
+    <value>K-mers must be even to avoid palindromes</value>
+  </data>
+  <data name="KmerLengthGreaterThan31" xml:space="preserve">
+    <value>K-mer lengths greater than 31 are not supported.</value>
+  </data>
+  <data name="KmerLengthShouldBePositive" xml:space="preserve">
+    <value>Kmer length must be a positive number.</value>
+  </data>
+  <data name="InvalidQueryDirection" xml:space="preserve">
+    <value>Query direction must be Forward or Reverse</value>
+  </data>
+  <data name="OnlyAmbiguousRnaCanContainAmbiguousSymbolsOnTranslation" xml:space="preserve">
+    <value>Only ambiguous RNA can contain ambiguous symbols on translation.</value>
+  </data>
+  <data name="SAM_NO_REFERENCE_DEFINED_INDICATOR" xml:space="preserve">
+    <value>*</value>
+  </data>
+  <data name="ZippedFASTAName" xml:space="preserve">
+    <value>Zipped Fasta</value>
+  </data>
+  <data name="SFF_Description" xml:space="preserve">
+    <value>A SFFParser reads from a source of binary text that is formatted according to the Standard Flowgram Format binary
+file specification, and converts the data to in-memory ISequence objects.</value>
+  </data>
+  <data name="SFF_Extensions" xml:space="preserve">
+    <value>.sff</value>
+  </data>
+  <data name="SFF_Name" xml:space="preserve">
+    <value>Standard Flowgram Format</value>
+  </data>
+  <data name="ZippedFASTAParserDescription" xml:space="preserve">
+    <value>A FastaParser reads from a source of text that is formatted according to the FASTA flat
+file specification, and converts the data to in-memory ISequence objects.  For advanced
+users, the ability to select an encoding for the internal memory representation is
+provided. There is also a default encoding for each alphabet that may be encountered.</value>
+  </data>
+  <data name="ZippedFASTQDescription" xml:space="preserve">
+    <value>Writes an QualitativeSequence to a particular location, usually a file. The output is formatted according to the FASTQ file format.</value>
+  </data>
+  <data name="ZippedFASTQName" xml:space="preserve">
+    <value>Zipped Fastq</value>
+  </data>
+  <data name="SAMMultipleAlignmentsOutputNotSupported" xml:space="preserve">
+    <value>Cannot write multiple alignments.</value>
+  </data>
+  <data name="GapOpenGreaterThanGapExtension" xml:space="preserve">
+    <value>The Gap open penalty must be more severe than the gap extension penalty.</value>
+  </data>
+  <data name="ConsensusGenerationEnded" xml:space="preserve">
+    <value>Step 4: Consensus Generation - End time: {0:yyyy-MM-dd-HH:mm:ss.fff}</value>
+  </data>
+  <data name="ConsensusGenerationStarted" xml:space="preserve">
+    <value>Step 4: Consensus Generation - Start time: {0:yyyy-MM-dd-HH:mm:ss.fff}</value>
+  </data>
+  <data name="DefaultSubStatus" xml:space="preserve">
+    <value>.</value>
+  </data>
+  <data name="LayoutRefinementEnded" xml:space="preserve">
+    <value>Step 3: Layout Refinement - End time: {0:yyyy-MM-dd-HH:mm:ss.fff}</value>
+  </data>
+  <data name="LayoutRefinementStarted" xml:space="preserve">
+    <value>Step 3: Layout Refinement - Start time: {0:yyyy-MM-dd-HH:mm:ss.fff}</value>
+  </data>
+  <data name="PcaDescription" xml:space="preserve">
+    <value>A parallelized comparative genome assembler.</value>
+  </data>
+  <data name="PcaName" xml:space="preserve">
+    <value>Parallel Comparative Genome Assembler</value>
+  </data>
+  <data name="ReadAlignmentEnded" xml:space="preserve">
+    <value>Step 1: Read Alignment - End time: {0:yyyy-MM-dd-HH:mm:ss.fff}</value>
+  </data>
+  <data name="ReadAlignmentStarted" xml:space="preserve">
+    <value>Step 1: Read Alignment - Start time: {0:yyyy-MM-dd-HH:mm:ss.fff}</value>
+  </data>
+  <data name="RepeatResolutionEnded" xml:space="preserve">
+    <value>Step 2: Repeat Resolution - End time: {0:yyyy-MM-dd-HH:mm:ss.fff}</value>
+  </data>
+  <data name="RepeatResolutionStarted" xml:space="preserve">
+    <value>Step 2: Repeat Resolution - Start time: {0:yyyy-MM-dd-HH:mm:ss.fff}</value>
+  </data>
+  <data name="ScaffoldGenerationEnded" xml:space="preserve">
+    <value>Step 5: Scaffold Generation - End time: {0:yyyy-MM-dd-HH:mm:ss.fff}</value>
+  </data>
+  <data name="ScaffoldGenerationStarted" xml:space="preserve">
+    <value>Step 5: Scaffold Generation - Start time: {0:yyyy-MM-dd-HH:mm:ss.fff}</value>
+  </data>
+  <data name="SortingResolvedDeltasEnded" xml:space="preserve">
+    <value>Sorting Resolved Deltas - End time: {0:yyyy-MM-dd-HH:mm:ss.fff}</value>
+  </data>
+  <data name="SortingResolvedDeltasStarted" xml:space="preserve">
+    <value>Sorting Resolved Deltas - Start time: {0:yyyy-MM-dd-HH:mm:ss.fff}</value>
+  </data>
+  <data name="Depth" xml:space="preserve">
+    <value>Depth cannot be less than or equal to 0</value>
+  </data>
+  <data name="NegativeRedundancy" xml:space="preserve">
+    <value>Redundancy value cannot be negative</value>
+  </data>
+  <data name="KmerLength" xml:space="preserve">
+    <value>Kmer length cannot be less than or equal to 0</value>
+  </data>
+</root>

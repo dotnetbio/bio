@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata minClientVersion="2.7.2">
+	<id>NetBioAlgorithms.PCL</id>
+	<version>2.0.150722</version>
+	<authors>Various authors</authors>
+	<owners>The Outercurve Foundation</owners>
+	<licenseUrl>http://bio.codeplex.com/license</licenseUrl>
+	<projectUrl>http://bio.codeplex.com/</projectUrl>
+	<iconUrl>http://research.microsoft.com/en-us/projects/bio/appicon_90x114.jpg</iconUrl>
+	<title>.NET Bio Algorithms</title>
+	<requireLicenseAcceptance>true</requireLicenseAcceptance>
+	<description>Parallel Sequence Alignment (PAMSAM) and Parallel DeNovo Assembler (PaDena) support for .NET Bio</description>
+	<summary>Additional Algorithms for .NET Bio 2.0</summary>
+	<releaseNotes>Initial release of 2.0</releaseNotes>
+	<copyright>(C) 2014 Outercurve</copyright>
+	<language>en-US</language>
+	<tags>bioinformatics biology FASTA FASTQ GenBank nucleotides genomics .NET</tags>
+	<dependencies>
+		<group>
+			<dependency id="NetBioCore.PCL" version="2.0.150722" />
+		</group>
+	  <!--<group targetFramework="...">
+		<dependency id="Microsoft.Bcl.Async" version="1.0.168" />
+		<dependency id="Microsoft.Bcl" version="1.1.9" />
+		<dependency id="Microsoft.Bcl.Build" version="1.0.14" />
+		<dependency id="Microsoft.Net.Http" version="2.2.22" />
+	  </group>-->
+	</dependencies>
+  </metadata>
+
+  <files>
+	<file src="bin\Bio.Padena.dll" target="lib" />
+	<file src="bin\Bio.Padena.xml" target="lib" />
+	<file src="bin\Bio.Pamsam.dll" target="lib" />
+	<file src="bin\Bio.Pamsam.xml" target="lib" />
+  </files>
+</package>

@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<AutomationTest>
+  <FastAFileParser>
+    <FilePaths>
+      <FilePath>TestUtils\Simple_Fasta_DNA.fasta</FilePath>
+      <FilePath>TestUtils\Simple_Fasta_DNA.fa</FilePath>
+      <FilePath>TestUtils\Simple_Fasta_DNA.mpfa</FilePath>
+      <FilePath>TestUtils\Simple_Fasta_DNA.fna</FilePath>
+      <FilePath>TestUtils\Simple_Fasta_DNA.fsa</FilePath>
+      <FilePath>TestUtils\Simple_Fasta_DNA.fas</FilePath>
+    </FilePaths>
+    <ParserName>FastA</ParserName>
+    <FileTypes>.fa,.mpfa,.fna,.faa,.fsa,.fas,.fasta</FileTypes>
+    <Description>A FastaParser reads from a source of text that is formatted according to the FASTA flatfile specification, and converts the data to in-memory ISequence objects.  For advancedusers, the ability to select an encoding for the internal memory representation isprovided. There is also a default encoding for each alphabet that may be encountered.</Description>
+  </FastAFileParser>
+  <FastAFileFormatter>
+    <FilePaths>
+      <FilePath>TestUtils\Simple_Fasta_DNA.fasta</FilePath>
+      <FilePath>TestUtils\Simple_Fasta_DNA.fa</FilePath>
+      <FilePath>TestUtils\Simple_Fasta_DNA.mpfa</FilePath>
+      <FilePath>TestUtils\Simple_Fasta_DNA.fna</FilePath>
+      <FilePath>TestUtils\Simple_Fasta_DNA.fsa</FilePath>
+      <FilePath>TestUtils\Simple_Fasta_DNA.fas</FilePath>
+    </FilePaths>
+    <ParserName>FastA</ParserName>
+    <FileTypes>.fa,.mpfa,.fna,.faa,.fsa,.fas,.fasta</FileTypes>
+    <Description>Writes an ISequence to a particular location, usually a file. The output is formattedaccording to the FastA file format. </Description>
+  </FastAFileFormatter>
+  <GenBankFileParser>
+    <FilePaths>
+      <FilePath>TestUtils\DNAGenBank_Variation.gbk</FilePath>
+      <FilePath>TestUtils\LargeSize.gb</FilePath>
+      <FilePath>TestUtils\Simple_GenBank_DNA.genbank</FilePath>
+    </FilePaths>
+    <ParserName>GenBank</ParserName>
+    <FileTypes>.gb,.gbk,.genbank</FileTypes>
+    <Description>A GenBankParser reads from a source of text that is formatted according to the GenBank flatfile specification, and converts the data to in-memory ISequence objects.  For advancedusers, the ability to select an encoding for the internal memory representation isprovided. There is also a default encoding for each alphabet that may be encountered.</Description>
+  </GenBankFileParser>
+  <GenBankFileFormatter>
+    <FilePaths>
+      <FilePath>TestUtils\DNAGenBank_Variation.gbk</FilePath>
+      <FilePath>TestUtils\LargeSize.gb</FilePath>
+      <FilePath>TestUtils\Simple_GenBank_DNA.genbank</FilePath>
+    </FilePaths>
+    <ParserName>GenBank</ParserName>
+    <FileTypes>.gb,.gbk,.genbank</FileTypes>
+    <Description>Writes an ISequence to a particular location, usually a file. The output is formattedaccording to the GenBank file format. A method is also provided for quickly accessingthe content in string form for applications that do not need to first write to file.</Description>
+  </GenBankFileFormatter>
+  <FastQFileParser>
+    <FilePaths>
+      <FilePath>TestUtils\SimpleDnaIllumina.fq</FilePath>
+      <FilePath>TestUtils\SingleSequenceFastQSanger.fastq</FilePath>
+    </FilePaths>
+    <ParserName>FastQ</ParserName>
+    <FileTypes>.fq,.fastq</FileTypes>
+    <Description>A FastQParser reads from a source of text that is formatted according to the FASTQ file specification, and converts the data to in-memory QualitativeSequence objects.</Description>
+  </FastQFileParser>
+  <FastQFileFormatter>
+    <FilePaths>
+      <FilePath>TestUtils\SimpleDnaIllumina.fq</FilePath>
+      <FilePath>TestUtils\SingleSequenceFastQSanger.fastq</FilePath>
+    </FilePaths>
+    <ParserName>FastQ</ParserName>
+    <FileTypes>.fq,.fastq</FileTypes>
+    <Description>Writes an QualitativeSequence to a particular location, usually a file. The output is formatted according to the FASTQ file format.</Description>
+  </FastQFileFormatter>
+  <GffFileParser>
+    <FilePaths>
+      <FilePath>TestUtils\random.GFF</FilePath>
+    </FilePaths>
+    <ParserName>GFF</ParserName>
+    <FileTypes>.gff</FileTypes>
+    <Description>A GffParser reads from a source of text that is formatted according to the GFF flatfile specification, and converts the data to in-memory ISequence objects.  For advancedusers, the ability to select an encoding for the internal memory representation isprovided. There is also a default encoding for each alphabet that may be encountered.</Description>
+  </GffFileParser>
+  <GffFileFormatter>
+    <FilePaths>
+      <FilePath>TestUtils\random.GFF</FilePath>
+    </FilePaths>
+    <ParserName>GFF</ParserName>
+    <FileTypes>.gff</FileTypes>
+    <Description>Writes an ISequence to a particular location, usually a file. The output is formattedaccording to the GFF file format. A method is also provided for quickly accessingthe content in string form for applications that do not need to first write to file.</Description>
+  </GffFileFormatter>
+</AutomationTest>

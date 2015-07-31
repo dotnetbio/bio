@@ -1,0 +1,754 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="MENU_BLAST_TIP" xml:space="preserve">
+    <value>BLAST search</value>
+  </data>
+  <data name="SCREEN_TIP_IMPORT_MENU" xml:space="preserve">
+    <value>Imports one or more {0} files.</value>
+  </data>
+  <data name="FPATTERN" xml:space="preserve">
+    <value>F.Pattern</value>
+  </data>
+  <data name="INVALID_TEXT" xml:space="preserve">
+    <value>Invalid</value>
+  </data>
+  <data name="CHROM_END" xml:space="preserve">
+    <value>Stop</value>
+  </data>
+  <data name="InputSelection_SequenceLabel_Venn1" xml:space="preserve">
+    <value>Range A</value>
+  </data>
+  <data name="MENU_ALIGNERS_TIP" xml:space="preserve">
+    <value>Align two or more sequences</value>
+  </data>
+  <data name="InputSelection_InvalidRange" xml:space="preserve">
+    <value>The range address provided is not valid.</value>
+  </data>
+  <data name="ALIGNMENT_STATUS_BAR" xml:space="preserve">
+    <value>Alignment: {0}</value>
+  </data>
+  <data name="ALIGNMENT" xml:space="preserve">
+    <value>Alignment</value>
+  </data>
+  <data name="SEQUENCE_INFO" xml:space="preserve">
+    <value>Sequence Information</value>
+  </data>
+  <data name="EM_REL" xml:space="preserve">
+    <value>em_rel</value>
+  </data>
+  <data name="ALIGNING" xml:space="preserve">
+    <value>In Progress</value>
+  </data>
+  <data name="MENU_CANCELBLAST_TIP" xml:space="preserve">
+    <value>Cancel any running BLAST search operation.</value>
+  </data>
+  <data name="CONTEXTMENU_DELETE" xml:space="preserve">
+    <value>Delete Sequence Item</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="VennIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\VennIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SCREEN_TIP_EXPORT_MENU" xml:space="preserve">
+    <value>Export this sheet to a {0} file.</value>
+  </data>
+  <data name="SERVICE_LABEL" xml:space="preserve">
+    <value>Search {0} database</value>
+  </data>
+  <data name="BED_ITEM_RGB" xml:space="preserve">
+    <value>ItemRGB</value>
+  </data>
+  <data name="MENU_VENN_TIP" xml:space="preserve">
+    <value>Draw Venn diagrams</value>
+  </data>
+  <data name="STATUS_READY" xml:space="preserve">
+    <value>Ready</value>
+  </data>
+  <data name="IMPORT_LABEL" xml:space="preserve">
+    <value>Import From {0} files</value>
+  </data>
+  <data name="EXPORT_LABEL" xml:space="preserve">
+    <value>Export to {0}  files</value>
+  </data>
+  <data name="QSTART" xml:space="preserve">
+    <value>Q.Start</value>
+  </data>
+  <data name="MissingSeqDataInSelectedSheets" xml:space="preserve">
+    <value>Sequence data is missing in all selected sheets.</value>
+  </data>
+  <data name="BASE_PAIR_COUNT" xml:space="preserve">
+    <value>Base Pair Count</value>
+  </data>
+  <data name="INVALID_PARAMS" xml:space="preserve">
+    <value>Invalid params</value>
+  </data>
+  <data name="SUBTRACT_ATLEAST_2_SHEETS" xml:space="preserve">
+    <value>Subtract requires atleast 2 query regions.This workbook has less than 2 query regions. Please import another query region and then subtract them.</value>
+  </data>
+  <data name="CANCELLED" xml:space="preserve">
+    <value>Cancelled</value>
+  </data>
+  <data name="EXPORT_DESC" xml:space="preserve">
+    <value>Save worksheet contents as {0} file </value>
+  </data>
+  <data name="InputSelection_SequenceLabel_BED1" xml:space="preserve">
+    <value>Query Region</value>
+  </data>
+  <data name="SCREEN_TIP_ALIGNERS" xml:space="preserve">
+    <value>Align two or more sequences using {0} aligner.</value>
+  </data>
+  <data name="BED_STRAND" xml:space="preserve">
+    <value>Strand</value>
+  </data>
+  <data name="ERROR" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="UNMERGED_SEQUENCE" xml:space="preserve">
+    <value>Unmerged_Sequence</value>
+  </data>
+  <data name="GAP_OPENINGS" xml:space="preserve">
+    <value>Gap openings</value>
+  </data>
+  <data name="MIDLINE" xml:space="preserve">
+    <value>Midline</value>
+  </data>
+  <data name="MENU_MERGE_DESC" xml:space="preserve">
+    <value>Merge the overlapping intervals of a query</value>
+  </data>
+  <data name="about" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\about.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CHROM_ID" xml:space="preserve">
+    <value>Chromosome</value>
+  </data>
+  <data name="MAXCOLUMNS" xml:space="preserve">
+    <value>Max no. of columns : {0}</value>
+  </data>
+  <data name="MACRO_MISSING" xml:space="preserve">
+    <value>DisplayChart macro not found. Please import the macro.</value>
+  </data>
+  <data name="ExportFasQ_InvalidQualityScore" xml:space="preserve">
+    <value>One or more quality value provided is invalid.</value>
+  </data>
+  <data name="MENU_VENN_SUPERTIP" xml:space="preserve">
+    <value>Draw a Venn diagram using two/three sets of BED data.</value>
+  </data>
+  <data name="BED_BLOCK_COUNT" xml:space="preserve">
+    <value>BlockCount</value>
+  </data>
+  <data name="MENU_IMPORT_SUPERTIP" xml:space="preserve">
+    <value>Select a file format from this drop down and choose a file to import.</value>
+  </data>
+  <data name="GROUP_ID" xml:space="preserve">
+    <value>Group Id</value>
+  </data>
+  <data name="CONTIG_BLAST_ERROR" xml:space="preserve">
+    <value>Please choose an entire sequence to BLAST.</value>
+  </data>
+  <data name="CONTEXTMENU_TOGGLE_COLORS" xml:space="preserve">
+    <value>Toggle color scheme</value>
+  </data>
+  <data name="InputSelection_SequenceLabel_Venn2" xml:space="preserve">
+    <value>Range B</value>
+  </data>
+  <data name="InputSelection_SequenceLabel_Blast" xml:space="preserve">
+    <value>Query Sequence</value>
+  </data>
+  <data name="MENU_SUBTRACT_DESC" xml:space="preserve">
+    <value>Subtract the intervals of two queries</value>
+  </data>
+  <data name="MENU_IMPORT_TIP" xml:space="preserve">
+    <value>Import data</value>
+  </data>
+  <data name="WEBSERVICE_STATUS_BAR" xml:space="preserve">
+    <value>Web Service: {0}</value>
+  </data>
+  <data name="MENU_CHART_TIP" xml:space="preserve">
+    <value>Charts and Graphs.</value>
+  </data>
+  <data name="MENU_EXPORT_TIP" xml:space="preserve">
+    <value>Export data</value>
+  </data>
+  <data name="Sequence_ID" xml:space="preserve">
+    <value>Sequence ID</value>
+  </data>
+  <data name="MENU_CONF_COLWRAP_SUPERTIP" xml:space="preserve">
+    <value>Configure maximum number of cells to be added to a row when importing files.</value>
+  </data>
+  <data name="InputSelection_SequenceLabel_BED2" xml:space="preserve">
+    <value>Query Region</value>
+  </data>
+  <data name="SERVICE_DESC" xml:space="preserve">
+    <value>Search similar sequences using {0} webservice</value>
+  </data>
+  <data name="MENU_VENN_NodeXLmissing" xml:space="preserve">
+    <value>This feature requires NodeXL version 1.0.1.108 or later installed on your machine.</value>
+  </data>
+  <data name="MENU_ALIGNERS_SUPERTIP" xml:space="preserve">
+    <value>Select an aligner from this drop down and provide input sequences and alignment parameters to perform an alignment.</value>
+  </data>
+  <data name="MENU_CONF_SUPERTIP" xml:space="preserve">
+    <value>Different configuration options for customizing BioExcel.</value>
+  </data>
+  <data name="CONTEXTMENU_INSERT" xml:space="preserve">
+    <value>Insert Sequence Item</value>
+  </data>
+  <data name="TPATTERN" xml:space="preserve">
+    <value>T.Pattern</value>
+  </data>
+  <data name="MENU_BED_TIP" xml:space="preserve">
+    <value>Manipulate BED files</value>
+  </data>
+  <data name="SSTART" xml:space="preserve">
+    <value>S.Start</value>
+  </data>
+  <data name="MINIMUM_3_COLUMNS" xml:space="preserve">
+    <value>Minimum 3 columns are required in a BED sheet. {0} does not have 3 columns. Please add atleast 3 columns and try again.</value>
+  </data>
+  <data name="SELECT_SHEET_MESSAGE" xml:space="preserve">
+    <value>Please select atleast {0} or more sheets.</value>
+  </data>
+  <data name="DEFAULT_EMAIL" xml:space="preserve">
+    <value>msrerbio@microsoft.com</value>
+  </data>
+  <data name="IMPORT_DESC" xml:space="preserve">
+    <value>Map files which are in {0} to excel</value>
+  </data>
+  <data name="CONTIG" xml:space="preserve">
+    <value>Contig</value>
+  </data>
+  <data name="ID" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="FromWeb" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\FromWeb.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NO_RESULT" xml:space="preserve">
+    <value>Operation returned no result</value>
+  </data>
+  <data name="Charts" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Charts.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ExportFastQ_SequenceAndScoresNotMapping" xml:space="preserve">
+    <value>Selected sequence and its quality scores are not mapping properly.</value>
+  </data>
+  <data name="QUERY_ID" xml:space="preserve">
+    <value>QueryId</value>
+  </data>
+  <data name="SelectionModel_BED_ColumnMappedMoreThanOnce" xml:space="preserve">
+    <value>A column cannot be assigned to more than one header.</value>
+  </data>
+  <data name="COMMON" xml:space="preserve">
+    <value>Common</value>
+  </data>
+  <data name="BED_THICK_START" xml:space="preserve">
+    <value>ThickStart</value>
+  </data>
+  <data name="MENU_INTERSECT_DESC" xml:space="preserve">
+    <value>Intersect the intervals of two queries</value>
+  </data>
+  <data name="MENU_EXPORT_SUPERTIP" xml:space="preserve">
+    <value>Export the data in the current sheet to a file.</value>
+  </data>
+  <data name="BLAST_RESULTS" xml:space="preserve">
+    <value>BLAST_Results</value>
+  </data>
+  <data name="MENU_CANCELALIGN_TIP" xml:space="preserve">
+    <value>Cancel any running alignment process.</value>
+  </data>
+  <data name="FromText" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\FromText.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PARSE_ERROR" xml:space="preserve">
+    <value>Could not parse {0} : {1}</value>
+  </data>
+  <data name="MENU_CHART_SUPERTIP" xml:space="preserve">
+    <value>Display different types of charts and graphs depending on the sequence data.</value>
+  </data>
+  <data name="CAPTION" xml:space="preserve">
+    <value>.NET Bio Extension for Excel</value>
+  </data>
+  <data name="SUBTRACT_SHEET" xml:space="preserve">
+    <value>Subtract_Sheet</value>
+  </data>
+  <data name="BED_SCORE" xml:space="preserve">
+    <value>Score</value>
+  </data>
+  <data name="INTERSECT_SHEET" xml:space="preserve">
+    <value>Intersect_Sheet</value>
+  </data>
+  <data name="IDENTITY" xml:space="preserve">
+    <value>Identity</value>
+  </data>
+  <data name="SHEET_NAME" xml:space="preserve">
+    <value>Seq_</value>
+  </data>
+  <data name="NR_25" xml:space="preserve">
+    <value>nr.25</value>
+  </data>
+  <data name="Clustered_Chart" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Clustered Chart.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="BLAST_CANCEL_FAILED" xml:space="preserve">
+    <value>Failed to cancel the Blast request. {0}</value>
+  </data>
+  <data name="SEARCHING" xml:space="preserve">
+    <value>In Progress</value>
+  </data>
+  <data name="SUBJECT_ID" xml:space="preserve">
+    <value>SubjectId</value>
+  </data>
+  <data name="ALIGNMENT_ATLEAST_2_SHEETS" xml:space="preserve">
+    <value>Alignment requires atleast 2 sequences. This workbook has less than 2 sequence. Please import another sequence and then align.</value>
+  </data>
+  <data name="BED_BLOCK_SIZES" xml:space="preserve">
+    <value>BlockSizes</value>
+  </data>
+  <data name="BED_NAME" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="SEND" xml:space="preserve">
+    <value>S.End</value>
+  </data>
+  <data name="info" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\info.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SEQUENCEDATA_PRESELECTION" xml:space="preserve">
+    <value>DATA_</value>
+  </data>
+  <data name="SCORE" xml:space="preserve">
+    <value>Score</value>
+  </data>
+  <data name="SelectionModel_ParsingFailed" xml:space="preserve">
+    <value>Failed to parse one or more items. Please check the data and the range address provided.</value>
+  </data>
+  <data name="MIN_OVERLAP_ERROR" xml:space="preserve">
+    <value>Minumum Overlap value should be a number.</value>
+  </data>
+  <data name="ALL_SHEETS" xml:space="preserve">
+    <value>All Sheets</value>
+  </data>
+  <data name="MENU_ABOUT_TIP" xml:space="preserve">
+    <value>About Bio</value>
+  </data>
+  <data name="FromExcel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\FromExcel.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NUMBER_OF_RANGES" xml:space="preserve">
+    <value>No. of Ranges</value>
+  </data>
+  <data name="QEND" xml:space="preserve">
+    <value>Q.End</value>
+  </data>
+  <data name="VALUE_TEXT" xml:space="preserve">
+    <value> value</value>
+  </data>
+  <data name="MENU_BLAST_SUPERTIP" xml:space="preserve">
+    <value>Select a BLAST search provider from this drop down and follow further instructions to do a BLAST search.</value>
+  </data>
+  <data name="InputSelection_SequenceLabel_Venn3" xml:space="preserve">
+    <value>Range C</value>
+  </data>
+  <data name="BLAST_NO_RESULT" xml:space="preserve">
+    <value>No search results were found</value>
+  </data>
+  <data name="EVALUE" xml:space="preserve">
+    <value>E-Value</value>
+  </data>
+  <data name="BED_THICK_END" xml:space="preserve">
+    <value>ThickEnd</value>
+  </data>
+  <data name="MERGE_ATLEAST_1_SHEETS" xml:space="preserve">
+    <value>Merge requires atleast 1 query region.This workbook has less than 1 query region. Please import another query region and then merge them.</value>
+  </data>
+  <data name="SCREEN_TIP_BLAST_SEARCH" xml:space="preserve">
+    <value>Perform a BLAST search on {0} database.</value>
+  </data>
+  <data name="INVALID_SEQUENCE" xml:space="preserve">
+    <value>Invalid sequence in {0}</value>
+  </data>
+  <data name="MENU_ABOUT_SUPERTIP" xml:space="preserve">
+    <value>Shows an about dialog box.</value>
+  </data>
+  <data name="NUMBER" xml:space="preserve">
+    <value>Number</value>
+  </data>
+  <data name="MISMATCHES" xml:space="preserve">
+    <value>Mismatches</value>
+  </data>
+  <data name="DONE" xml:space="preserve">
+    <value>Completed</value>
+  </data>
+  <data name="CHROM_START" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="SEQUENCE_DATA" xml:space="preserve">
+    <value>Sequence Data</value>
+  </data>
+  <data name="CloseSelectionHelper" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CloseSelectionHelper.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="INTERSECT_ATLEAST_2_SHEETS" xml:space="preserve">
+    <value>Intersect requires atleast 2 query regions.This workbook has less than 2 query regions. Please import another query region and then intersect them.</value>
+  </data>
+  <data name="ALIGN_LABEL" xml:space="preserve">
+    <value>Align sequences using  {0} algo</value>
+  </data>
+  <data name="BED_BLOCK_STARTS" xml:space="preserve">
+    <value>BlockStarts</value>
+  </data>
+  <data name="MENU_CONF_TIP" xml:space="preserve">
+    <value>Configuration</value>
+  </data>
+  <data name="MENU_BED_SUPERTIP" xml:space="preserve">
+    <value>Select an operation from this drop down.</value>
+  </data>
+  <data name="MENU_CONF_COLOR_SUPERTIP" xml:space="preserve">
+    <value>Configure what color should be displayed for each cell depending on the DNA, RNA or Protein symbol in that cell.</value>
+  </data>
+  <data name="GAPS" xml:space="preserve">
+    <value>Gaps</value>
+  </data>
+  <data name="SEQUENCEDATA" xml:space="preserve">
+    <value>SequenceData</value>
+  </data>
+  <data name="MERGED_SHEET" xml:space="preserve">
+    <value>Merged_Sheet</value>
+  </data>
+  <data name="ABORT_BED_PARSING" xml:space="preserve">
+    <value>{0} could not be parsed. The current operation will be terminated.</value>
+  </data>
+  <data name="Sequence_QualityScores" xml:space="preserve">
+    <value>Quality Scores</value>
+  </data>
+  <data name="help" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\help.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SEQUENCE_COMPLEMENT" xml:space="preserve">
+    <value>Complement</value>
+  </data>
+  <data name="SEQUENCE_REVERSE" xml:space="preserve">
+    <value>Reverse</value>
+  </data>
+  <data name="SEQUENCE_REVERSECOMPLEMENT" xml:space="preserve">
+    <value>Reverse Complement</value>
+  </data>
+  <data name="Export_BED_SequenceRangeString" xml:space="preserve">
+    <value>Query Region</value>
+  </data>
+  <data name="MENU_ASSEMBLERS_SUPERTIP" xml:space="preserve">
+    <value>Brings up a window where you can select input sequences and assembly parameters and do an assembly.</value>
+  </data>
+  <data name="MENU_ASSEMBLERS_TIP" xml:space="preserve">
+    <value>Assemble two or more sequences</value>
+  </data>
+  <data name="ASSEMBLER_STATUS_BAR" xml:space="preserve">
+    <value>Assembling: {0}</value>
+  </data>
+  <data name="ASSEMBLING" xml:space="preserve">
+    <value>In Progress</value>
+  </data>
+  <data name="Alignment_AlignedSequencesHeading" xml:space="preserve">
+    <value>Aligned Sequence</value>
+  </data>
+  <data name="Alignment_EndOffsetString" xml:space="preserve">
+    <value>End Offset</value>
+  </data>
+  <data name="Alignment_StartOffsetString" xml:space="preserve">
+    <value>Start Offset</value>
+  </data>
+  <data name="EMPTY_SEQUENCE_RANGE" xml:space="preserve">
+    <value>No Query Region(s) found.</value>
+  </data>
+  <data name="GffColumnEnd" xml:space="preserve">
+    <value>End</value>
+  </data>
+  <data name="GffColumnFrame" xml:space="preserve">
+    <value>Frame</value>
+  </data>
+  <data name="GffColumnGroup" xml:space="preserve">
+    <value>Group</value>
+  </data>
+  <data name="GffColumnName" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="GffColumnScore" xml:space="preserve">
+    <value>Score</value>
+  </data>
+  <data name="GffColumnSource" xml:space="preserve">
+    <value>Source</value>
+  </data>
+  <data name="GffColumnStart" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="GffColumnStrand" xml:space="preserve">
+    <value>Strand</value>
+  </data>
+  <data name="GffColumnType" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="GenbankFeaturesHeader" xml:space="preserve">
+    <value>FEATURES</value>
+  </data>
+  <data name="GenbankMetadataAccession" xml:space="preserve">
+    <value>Accession</value>
+  </data>
+  <data name="GenbankMetadataAuthors" xml:space="preserve">
+    <value>Authors</value>
+  </data>
+  <data name="GenbankMetadataBaseCount" xml:space="preserve">
+    <value>Base Count</value>
+  </data>
+  <data name="GenbankMetadataClassLevels" xml:space="preserve">
+    <value>Class Levels</value>
+  </data>
+  <data name="GenbankMetadataConsortiums" xml:space="preserve">
+    <value>Consortiums</value>
+  </data>
+  <data name="GenbankMetadataDate" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="GenbankMetadataDBLink" xml:space="preserve">
+    <value>DBLink</value>
+  </data>
+  <data name="GenbankMetadataDBSource" xml:space="preserve">
+    <value>DBSource</value>
+  </data>
+  <data name="GenbankMetadataDefinition" xml:space="preserve">
+    <value>Definition</value>
+  </data>
+  <data name="GenbankMetadataDivisionCode" xml:space="preserve">
+    <value>Division Code</value>
+  </data>
+  <data name="GenbankMetadataGI" xml:space="preserve">
+    <value>GI:</value>
+  </data>
+  <data name="GenbankMetadataHeader" xml:space="preserve">
+    <value>METADATA</value>
+  </data>
+  <data name="GenbankMetadataJournal" xml:space="preserve">
+    <value>Journal</value>
+  </data>
+  <data name="GenbankMetadataKeywords" xml:space="preserve">
+    <value>Keywords</value>
+  </data>
+  <data name="GenbankMetadataLocus" xml:space="preserve">
+    <value>Locus</value>
+  </data>
+  <data name="GenbankMetadataMedLine" xml:space="preserve">
+    <value>MedLine</value>
+  </data>
+  <data name="GenbankMetadataMoleculeType" xml:space="preserve">
+    <value>Molecule Type</value>
+  </data>
+  <data name="GenbankMetadataName" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="GenbankMetadataOrganism" xml:space="preserve">
+    <value>Organism</value>
+  </data>
+  <data name="GenbankMetadataPrimary" xml:space="preserve">
+    <value>Primary</value>
+  </data>
+  <data name="GenbankMetadataPubMed" xml:space="preserve">
+    <value>PubMed</value>
+  </data>
+  <data name="GenbankMetadataReference" xml:space="preserve">
+    <value>Reference</value>
+  </data>
+  <data name="GenbankMetadataRemarks" xml:space="preserve">
+    <value>Remark</value>
+  </data>
+  <data name="GenbankMetadataSeqLength" xml:space="preserve">
+    <value>Seq Length</value>
+  </data>
+  <data name="GenbankMetadataSeqType" xml:space="preserve">
+    <value>Seq Type</value>
+  </data>
+  <data name="GenbankMetadataSource" xml:space="preserve">
+    <value>Source</value>
+  </data>
+  <data name="GenbankMetadataStrandTopology" xml:space="preserve">
+    <value>Strand Topology</value>
+  </data>
+  <data name="GenbankMetadataStrandType" xml:space="preserve">
+    <value>Strand Type</value>
+  </data>
+  <data name="GenbankMetadataTitle" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="GenbankMetadataVersion" xml:space="preserve">
+    <value>Version</value>
+  </data>
+  <data name="LENGTH" xml:space="preserve">
+    <value>Length</value>
+  </data>
+  <data name="MetadataFormatError" xml:space="preserve">
+    <value>Could not recognize metadata format. Metadata will not be displayed.</value>
+  </data>
+  <data name="UnrecognizedGenBankMetadataFormat" xml:space="preserve">
+    <value>Unrecognized GenBank Metadata format at {0}.</value>
+  </data>
+  <data name="GenbankMetadataComment" xml:space="preserve">
+    <value>COMMENT</value>
+  </data>
+  <data name="GenbankMetadataSegment" xml:space="preserve">
+    <value>Segment</value>
+  </data>
+  <data name="GffInvalidField" xml:space="preserve">
+    <value>Invalid {0} field: {1}.</value>
+  </data>
+  <data name="UnrecognizedGffMetadataFormat" xml:space="preserve">
+    <value>Unrecognized Gff Metadata format.</value>
+  </data>
+  <data name="NoUserGuidePresent" xml:space="preserve">
+    <value>Could not find user guide document.</value>
+  </data>
+  <data name="UserGuideRelativePath" xml:space="preserve">
+    <value>\Docs\.NET Bio_Extension_for_Excel_User_Guide.docx</value>
+  </data>
+  <data name="SEQUENCERANGEDATA_PRESELECTION" xml:space="preserve">
+    <value>RANGEDATA_</value>
+  </data>
+  <data name="SCREEN_TIP_INTERSECT" xml:space="preserve">
+    <value>Intersect overlapping intervals of two sets of genomic interval data.</value>
+  </data>
+  <data name="SCREEN_TIP_MERGE" xml:space="preserve">
+    <value>Merge overlapping intervals of one or more set(s) of genomic interval data.</value>
+  </data>
+  <data name="SCREEN_TIP_SUBTRACT" xml:space="preserve">
+    <value>Subtract overlapping intervals of two or more sets of genomic interval data.</value>
+  </data>
+  <data name="SCREEN_TIP_PAIRWISEALIGNERS" xml:space="preserve">
+    <value>Align two sequences using {0} aligner.</value>
+  </data>
+  <data name="GenbankMetadataParseError" xml:space="preserve">
+    <value>Could not parse the selected metadata.</value>
+  </data>
+  <data name="CannotFindMatchingAlphabet" xml:space="preserve">
+    <value>Could not detect alphabet type for the given sequence.</value>
+  </data>
+  <data name="PROTEIN_NOT_SUPPORTED" xml:space="preserve">
+    <value>Protein Sequences are not supported for this operation.</value>
+  </data>
+  <data name="EXCEL_CELL_LINK" xml:space="preserve">
+    <value>ExcelMetadata_CellLink</value>
+  </data>
+</root>

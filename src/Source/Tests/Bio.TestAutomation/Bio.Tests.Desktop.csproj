@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{226DB690-593B-4C28-B7BC-3CBEB16A072D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Bio.TestAutomation</RootNamespace>
+    <AssemblyName>Bio.TestAutomation</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\Build\Binaries\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;CODE_ANALYSIS</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <CodeAnalysisRuleSet>..\..\Source\BioFramework_Code_Rules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
+    <CodeAnalysisIgnoreGeneratedCode>false</CodeAnalysisIgnoreGeneratedCode>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\Build\Binaries\Release\</OutputPath>
+    <DefineConstants>TRACE;CODE_ANALYSIS</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <CodeAnalysisRuleSet>..\..\Source\BioFramework_Code_Rules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
+    <CodeAnalysisIgnoreGeneratedCode>false</CodeAnalysisIgnoreGeneratedCode>
+    <NoWarn>
+    </NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.XML" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <CodeAnalysisDependentAssemblyPaths Condition=" '$(VS100COMNTOOLS)' != '' " Include="$(VS100COMNTOOLS)..\IDE\PrivateAssemblies">
+      <Visible>False</Visible>
+    </CodeAnalysisDependentAssemblyPaths>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BioUtil\ArgumentParser\CmdLineArgumentParserBvtTestCases.cs" />
+    <Compile Include="BioUtil\ArgumentParser\CmdLineArgumentParserP2TestCases.cs" />
+    <Compile Include="Distributions\Converters\ConvertersBvtTestCases.cs" />
+    <Compile Include="Distributions\SufficientStatisticsBvtTestCases.cs" />
+    <Compile Include="BioUtil\ArgumentParser\ArgumentCollectionBvtTestCases.cs" />
+    <Compile Include="BioUtil\ArgumentParser\CommandArgumentsBvtTestCases.cs" />
+    <Compile Include="BioUtil\ArgumentParser\ConstructorArgumentsBvtTestCases.cs" />
+    <Compile Include="BioUtil\ArgumentParser\OutputFileBvtTestCases.cs" />
+    <Compile Include="BioUtil\ArgumentParser\ParserBvtTestCases.cs" />
+    <Compile Include="BioUtil\ArgumentParser\ParserP2TestCases.cs" />
+    <Compile Include="BioUtil\ArgumentParser\TypeExtensionsBvtTestCases.cs" />
+    <Compile Include="BioUtil\ArgumentParser\TypeExtensionsP2TestCases.cs" />
+    <Compile Include="BioUtil\ArgumentParser\TypeFactoryBvtTestCases.cs" />
+    <Compile Include="BioUtil\ArgumentParser\TypeFactoryP2TestCases.cs" />
+    <Compile Include="BioUtil\Distribute\CommandAppBvtTestCases.cs" />
+    <Compile Include="BioUtil\Distribute\LocallyBvtTestCases.cs" />
+    <Compile Include="BioUtil\Distribute\RaiseErrorBvtTestCases.cs" />
+    <Compile Include="Comparative\ComparativeBvtTestCases.cs" />
+    <Compile Include="Comparative\ComparativeP1TestCases.cs" />
+    <Compile Include="Comparative\ComparativeP2TestCases.cs" />
+    <Compile Include="Distributions\BooleanStatisticsBvtTestCases.cs" />
+    <Compile Include="Distributions\ContinousStatisticsBvtTestCases.cs" />
+    <Compile Include="Distributions\DiscreteStatisticsBvtTestCases.cs" />
+    <Compile Include="Distributions\GaussianStatisticsBvtTestCases.cs" />
+    <Compile Include="Distributions\MissingStatisticsBvtTestCases.cs" />
+    <Compile Include="Distributions\StatisticsListBvtTestCases.cs" />
+    <Compile Include="Matrix\DenseAnsiBvtTestCases.cs" />
+    <Compile Include="Matrix\DenseMatrixBvtTestCases.cs" />
+    <Compile Include="Matrix\DensePairAnsiBvtTestCases.cs" />
+    <Compile Include="Matrix\MatrixFactoryBvtTestCases.cs" />
+    <Compile Include="Matrix\PaddedDoubleBvtTestCases.cs" />
+    <Compile Include="Matrix\RowKeysAnsiBvtTestCases.cs" />
+    <Compile Include="Matrix\RowKeysPaddedDoubleBvtTestCases.cs" />
+    <Compile Include="Matrix\RowKeysPairAnsiBvtTestCases.cs" />
+    <Compile Include="Matrix\SparseMatrixBvtTestCases.cs" />
+    <Compile Include="Matrix\VectorViewBvtTestCases.cs" />
+    <Compile Include="Padena\PadenaBvtTestCases.cs" />
+    <Compile Include="Padena\PadenaP1TestCases.cs" />
+    <Compile Include="PAMSAM\PamSamBvtTestCases.cs" />
+    <Compile Include="PAMSAM\PamSamP1TestCases.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="BioUtil\FileAccessComparerBvtTestCases.cs" />
+    <Compile Include="BioUtil\FileUtilsBvtTestCases.cs" />
+    <Compile Include="BioUtil\HelperBvtTestCases.cs" />
+    <Compile Include="BioUtil\IEnumerableExtensionsTestCases.cs" />
+    <Compile Include="BioUtil\Logging\ApplicationLogBvtTestCases.cs" />
+    <Compile Include="BioUtil\Logging\TraceBvtTestCases.cs" />
+    <Compile Include="BioUtil\Logging\TraceP2TestCases.cs" />
+    <Compile Include="BioUtil\NamedStreamCreatorBvtTestCases.cs" />
+    <Compile Include="BioUtil\ParallelOptionsScopeTestCases.cs" />
+    <Compile Include="BioUtil\ParserBvtTestCases.cs" />
+    <Compile Include="BioUtil\ParserP2TestCases.cs" />
+    <Compile Include="BioUtil\PrimitiveExtensionsBvtTestCases.cs" />
+    <Compile Include="BioUtil\SpecialFunctionsBvtTestCases.cs" />
+    <Compile Include="BioUtil\StringExtensionsBvtTestCases.cs" />
+    <Compile Include="BioUtil\ValueConverterBvtTestCases.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>Xcopy /Y /S "$(ProjectDir)\..\TestData\TestUtils\*" "$(TargetDir)\TestUtils\*"</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

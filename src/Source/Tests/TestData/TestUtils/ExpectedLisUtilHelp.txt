@@ -1,0 +1,34 @@
+Usage: LISUtil.exe [options] <Source file> <Queryfile>
+
+<Source file> : 1. Mum File WITH /p(PerformLISOnly)
+	      : 2. Reference File WITHOUT /p(PerformLISOnly)
+
+Description: LISUtil calls the algorithm longest increasing subsequence to 
+find longest increasing subsequence from the list of MUMs.
+
+/Help[+|-]                Show the help information with program options and a
+                          description of program operation. (short form /h)
+/Verbose[+|-]             Display Verbose logging during processing (short form
+                          /v)
+/Mumreference[+|-]        Compute all MUM candidates in reference [default]
+                          (short form /M)
+/Mum[+|-]                 Compute Maximal Unique Matches, strings that are
+                          unique in both the reference and query sets
+/MaxMatch[+|-]            Compute all maximal matches ignoring uniqueness
+/NoAmbiguity[+|-]         Disallow ambiguity character matches and only match
+                          A, T, C, or G (case insensitive) (short form /n)
+/Length:<int>             Minimum match length [20] (short form /l)
+/Both[+|-]                Compute forward and reverse complement matches (short
+                          form /b)
+/ReverseOnly[+|-]         Compute only reverse complement matches (short form
+                          /r)
+/DisplayQueryLength[+|-]  Show the length of the query sequence (short form /d)
+/ShowMatchingString[+|-]  Show the matching substring in the output (short form
+                          /s)
+/C[+|-]                   Report the query position of a reverse complement
+                          match relative to the forward strand of the query
+                          sequence (short form /c)
+/OutputFile:<string>      Output file (short form /o)
+/PerformLISOnly[+|-]      Perform LIS only on input list of MUMs (short form /p)
+@<file>                   Read response file for more options
+<FileList>                Query file(s) containing the query strings

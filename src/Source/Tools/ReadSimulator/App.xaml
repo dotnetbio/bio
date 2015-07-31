@@ -1,0 +1,54 @@
+﻿<Application x:Class="ReadSimulator.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=mscorlib"
+             StartupUri="SimulatorWindow.xaml">
+    <Application.Resources>
+        <!-- Localization strings -->
+        <!-- Control Labels -->
+        <system:String x:Key="InputFileLabel">Input Sequence File:</system:String>
+        <system:String x:Key="OutputFileLabel">Output Sequence Files:</system:String>
+        <system:String x:Key="DepthOfCoverageLabel">Depth of Coverage:</system:String>
+        <system:String x:Key="OutputLengthLabel">Mean Output Length:</system:String>
+        <system:String x:Key="LengthVariationLabel">Output Length Variation:</system:String>
+        <system:String x:Key="ErrorFrequencyLabel">Error Frequency:</system:String>
+        <system:String x:Key="AllowAmbiguitiesLabel">Allow Ambiguities:</system:String>
+        <system:String x:Key="OutputCountLabel">Max Output Sequences Per File:</system:String>
+        <system:String x:Key="DefaultSettingsLabel">Select a default setting:</system:String>
+        <system:String x:Key="ReverseHalfLabel">Reverse half of output:</system:String>
+        <system:String x:Key="DistributionLabel">Random distribution type:</system:String>
+
+        <system:String x:Key="LoadInputButton">Load Input Sequence</system:String>
+        <system:String x:Key="PerformSimulationButton">Perform Simulation</system:String>
+        <system:String x:Key="BrowseButton">Browse...</system:String>
+        <system:String x:Key="SangerDefaultButton">Sanger dideoxy</system:String>
+        <system:String x:Key="PyroDefaultButton">Pyrosequencing</system:String>
+        <system:String x:Key="ShortReadDefaultButton">Short-read</system:String>
+
+        <system:String x:Key="Yes">Yes</system:String>
+        <system:String x:Key="No">No</system:String>
+        <system:String x:Key="Uniform">Uniform</system:String>
+        <system:String x:Key="Normal">Normal</system:String>
+        <system:String x:Key="InputStatus">Input Sequence:</system:String>
+        <system:String x:Key="OutputStatus">Output Sequences:</system:String>
+        <system:String x:Key="NotLoaded">No Input Sequence File Loaded</system:String>
+        <system:String x:Key="NoBasePairCount">0 Base Pairs</system:String>
+        <system:String x:Key="BasePairCount">{0} Base Pairs</system:String>
+        <system:String x:Key="OutputStats">Generating {0} Sequences over {1} Files</system:String>
+        <system:String x:Key="FinishedOutput">Simulation complete and output written in {0} format.</system:String>
+        <system:String x:Key="NoOutputCreated">No sequences could be generated with the given parameter values.</system:String>
+
+        <!-- Control Tooltips -->
+        <system:String x:Key="InputFileTip">The input sequence file in any supported format.</system:String>
+        <system:String x:Key="OutputFileTip">The output sequence file name where the generated reads will be written. If multiple output files are needed, the file names will be appended with a number indicating the order in which they were produced. The output files will be written in the FASTA format.</system:String>
+        <system:String x:Key="DepthOfCoverageTip">The number of times on average that each base in the input sequence is represented across all output sequences.</system:String>
+        <system:String x:Key="OutputLengthTip">The mean length of the output sequences (values are limited to a range of 30 to 2000).</system:String>
+        <system:String x:Key="LengthVariationTip">For uniform distributions this represents the range in which the output length may vary from the mean length. For normal distributions this represents the standard deviation from the average.</system:String>
+        <system:String x:Key="ErrorFrequencyTip">The likelihood that any given sequence base will be incorrectly copied (values range from 0.00001 to 1.0.)</system:String>
+        <system:String x:Key="AllowAmbiguitiesTip">Sets whether or not to include ambiguity characters when applying errors to base copying.</system:String>
+        <system:String x:Key="OutputCountTip">The maximum number of sequences to store in a single output file. When the output file reaches this maximum number, a new output file will be started for the remaining sequence outputs.</system:String>
+        <system:String x:Key="ReverseHalfTip">Indication as to whether or not to reverse approximately half of the generated subsequences.</system:String>
+        <system:String x:Key="DistributionTip">Select the random number distribution: uniform across the specified range, or normal picks from a Gaussian normal curve.</system:String>
+        <system:String x:Key="DefaultSetting">Predefined default values for the options to closely mimic different sequencing platforms .</system:String>
+
+    </Application.Resources>
+</Application>

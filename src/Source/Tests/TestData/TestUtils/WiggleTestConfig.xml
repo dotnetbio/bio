@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<AutomationTest>
+  <SimpleWiggleWithFixedStep>
+    <FilePath>TestUtils\WiggleWithFixedStep.wig</FilePath>    
+    <ExpectedValues>1000,900,800,700,600,500,400,300,200,100</ExpectedValues>
+    <ExpectedKeys>59307401,59307701,59308001,59308301,59308601,59308901,59309201,59309501,59309801,59310101</ExpectedKeys>
+    <ParserDescription>A Wiggle parser reads from a source of text that is formatted according to the Wiggle file specification (only fixed and variable step files), and converts the data to in-memory WiggleAnnotation objects.</ParserDescription>
+    <FormatterDescription>Writes a WiggleAnnotation to a particular location, usually a file. The output is formatted according to the Wiggle file format.</FormatterDescription>
+    <BasePosition>59307401</BasePosition>
+    <ExpectedSpan>200</ExpectedSpan>
+    <ExpectedStep>300</ExpectedStep>
+    <Chromosome>chr19</Chromosome>
+    <AnnotationCount>10</AnnotationCount>
+    <Name>Wiggle</Name>
+    <FileTypes>.wig</FileTypes>
+    <AnnotationType>FixedStep</AnnotationType>
+    <AnnotationMetadata>
+      <value>wiggle_0,ArrayExpt1,20 degrees 2 hr</value>
+      <key>type,name,description</key>
+    </AnnotationMetadata>
+   </SimpleWiggleWithFixedStep>
+  <SimpleWiggleWithVariableStep>
+     <FilePath>TestUtils\WiggleWithVariableStep.wig</FilePath>
+     <ExpectedKeys>59304701,59304901,59305401,59305601,59305901,59306081,59306301,59306691,59307871</ExpectedKeys>
+     <ExpectedValues>10.0,12.5,15.0,17.5,20.0,17.5,15.0,12.5,10.0</ExpectedValues>     
+   </SimpleWiggleWithVariableStep>
+  <AnnotationValues>
+    <ExpectedValues>1000,900,800,700,600,500,400,300,200,100</ExpectedValues>
+    <ExpectedKeys>59307401,59307701,59308001,59308301,59308601,59308901,59309201,59309501,59309801,59310101</ExpectedKeys>
+    <ExpectedStep>300</ExpectedStep>
+    <ExpectedStart>59307401</ExpectedStart>
+  </AnnotationValues>
+  <InValidFileNames>
+    <InvalidTrack>TestUtils\WiggleWithInvalidTrack.wig</InvalidTrack>
+    <InvalidAutoScale>TestUtils\WiggleWithInvalidAutoScale.wig</InvalidAutoScale>    
+  </InValidFileNames>
+</AutomationTest>

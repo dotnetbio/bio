@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <MinimumVisualStudioVersion>10.0</MinimumVisualStudioVersion>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{0416DD4D-DA84-4BBF-B698-892CF04D3DFB}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Bio.Algorithms.Alignment.MultipleSequenceAlignment</RootNamespace>
+    <AssemblyName>Bio.Pamsam</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Profile111</TargetFrameworkProfile>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\Bio.Pamsam.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\Bio.Pamsam.XML</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="AsymmetricDistanceMatrix.cs" />
+    <Compile Include="BinaryGuideTree.cs" />
+    <Compile Include="BinaryGuideTreeEdge.cs" />
+    <Compile Include="BinaryGuideTreeNode.cs" />
+    <Compile Include="DistanceMatrix.cs" />
+    <Compile Include="DynamicProgrammingProfileAlignerParallel.cs" />
+    <Compile Include="DynamicProgrammingProfileAlignerSerial.cs" />
+    <Compile Include="HierarchicalClustering.cs" />
+    <Compile Include="HierarchicalClusteringParallel.cs" />
+    <Compile Include="IDistanceMatrix.cs" />
+    <Compile Include="IDistanceMatrixGenerator.cs" />
+    <Compile Include="IHierarchicalClustering.cs" />
+    <Compile Include="IProfileAligner.cs" />
+    <Compile Include="IProfileAlignment.cs" />
+    <Compile Include="IProfiles.cs" />
+    <Compile Include="IProgressiveAligner.cs" />
+    <Compile Include="ISequenceAlignment.cs" />
+    <Compile Include="KimuraDistanceMatrixGenerator.cs" />
+    <Compile Include="KimuraDistanceScoreCalculator.cs" />
+    <Compile Include="KmerDistanceMatrixGenerator.cs" />
+    <Compile Include="KmerDistanceScoreCalculator.cs" />
+    <Compile Include="MsaUtils.cs" />
+    <Compile Include="NeedlemanWunschProfileAlignerParallel.cs" />
+    <Compile Include="NeedlemanWunschProfileAlignerSerial.cs" />
+    <Compile Include="PamsamAlignmentAttributes.cs" />
+    <Compile Include="PAMSAMMultipleSequenceAligner.cs" />
+    <Compile Include="ProfileAlignment.cs" />
+    <Compile Include="Profiles.cs" />
+    <Compile Include="ProfileScoreFunction.cs" />
+    <Compile Include="ProgressiveAligner.cs" />
+    <Compile Include="Resource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="SequenceAlignment.cs" />
+    <Compile Include="SequenceWeighting.cs" />
+    <Compile Include="SmithWatermanProfileAlignerParallel.cs" />
+    <Compile Include="SmithWatermanProfileAlignerSerial.cs" />
+    <Compile Include="SymmetricDistanceMatrix.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Framework\Bio.Core\Bio.Core.csproj">
+      <Project>{dfb9c4e2-c98c-4401-a650-756abab52663}</Project>
+      <Name>Bio.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Framework\Shims\Bio.Platform.Helpers\Bio.Platform.Helpers.csproj">
+      <Project>{83cbb611-4049-456a-b87b-0b2cfc4797fa}</Project>
+      <Name>Bio.Platform.Helpers</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PostBuildEvent Condition=" '$(OS)' != 'Unix' ">copy "$(TargetPath)" "$(SolutionDir)\bin\$(TargetName).dll"
+copy "$(TargetDir)\$(TargetName).xml" "$(SolutionDir)\bin\$(TargetName).xml"</PostBuildEvent>
+    <PostBuildEvent Condition=" '$(OS)' == 'Unix' ">cp "$(TargetPath)" "$(SolutionDir)\bin\$(TargetName).dll"
+cp "$(TargetDir)\$(TargetName).xml" "$(SolutionDir)\bin\$(TargetName).xml"</PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PostBuildEvent />
+  </PropertyGroup>
+</Project>

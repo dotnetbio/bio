@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestCases>
+  <!--<TestCase TestCaseID = "[TestCaseID Goes here...]">
+    <OutputPath>[Output path Goes here ... TestUtils\MockOutput\FetchResultsSyncTest.object]</OutputPath>
+  </TestCase>-->
+
+  <TestCase TestCaseID = "TestNcbiQBlast_Protein">
+    <OutputPath>TestUtils\MockOutput\TestNcbiQBlast_Protein.object</OutputPath>
+  </TestCase>
+  <TestCase TestCaseID = "TestNcbiQBlast_Protein_UserQuery">
+    <OutputPath>TestUtils\MockOutput\TestNcbiQBlast_Protein_UserQuery.object</OutputPath>
+  </TestCase>
+  <TestCase TestCaseID = "TestNcbiQBlast_Dna">
+    <OutputPath>TestUtils\MockOutput\TestNcbiQBlast_Dna.object</OutputPath>
+  </TestCase>
+  <TestCase TestCaseID = "TestNcbiQBlast_Casing">
+    <OutputPath>TestUtils\MockOutput\TestNcbiQBlast_Casing.object</OutputPath>
+  </TestCase>
+  <TestCase TestCaseID = "TestNcbiQBlast_BadDatabase">
+    <OutputPath>TestUtils\MockOutput\TestNcbiQBlast_BadDatabase.object</OutputPath>
+  </TestCase>
+  <TestCase TestCaseID = "TestEbiWuBlast_Protein">
+    <OutputPath>TestUtils\MockOutput\TestEbiWuBlast_Protein.object</OutputPath>
+  </TestCase>
+  <TestCase TestCaseID = "TestEBIWuBlast_Dna">
+    <OutputPath>TestUtils\MockOutput\TestEBIWuBlast_Dna.object</OutputPath>
+  </TestCase>
+  <TestCase TestCaseID = "TestEBIWuBlast_Casing">
+    <OutputPath>TestUtils\MockOutput\TestEBIWuBlast_Casing.object</OutputPath>
+  </TestCase>
+  <TestCase TestCaseID = "TestEBIWuBlast_GetServiceMetadataDatabases">
+    <OutputPath>TestUtils\MockOutput\TestEBIWuBlast_GetServiceMetadataDatabases.object</OutputPath>
+  </TestCase>
+  <TestCase TestCaseID = "TestEBIWuBlast_GetServiceMetadataFilters">
+    <OutputPath>TestUtils\MockOutput\TestEBIWuBlast_GetServiceMetadataFilters.object</OutputPath>
+  </TestCase>
+  <TestCase TestCaseID = "TestEBIWuBlast_GetServiceMetadataMatrices">
+    <OutputPath>TestUtils\MockOutput\TestEBIWuBlast_GetServiceMetadataMatrices.object</OutputPath>
+  </TestCase>
+  <TestCase TestCaseID = "TestEBIWuBlast_GetServiceMetadataPrograms">
+    <OutputPath>TestUtils\MockOutput\TestEBIWuBlast_GetServiceMetadataPrograms.object</OutputPath>
+  </TestCase>
+  <TestCase TestCaseID = "TestEBIWuBlast_GetServiceMetadataSensitivity">
+    <OutputPath>TestUtils\MockOutput\TestEBIWuBlast_GetServiceMetadataSensitivity.object</OutputPath>
+  </TestCase>
+  <TestCase TestCaseID = "TestEBIWuBlast_GetServiceMetadataSort">
+    <OutputPath>TestUtils\MockOutput\TestEBIWuBlast_GetServiceMetadataSort.object</OutputPath>
+  </TestCase>
+  <TestCase TestCaseID = "TestEBIWuBlast_GetServiceMetadataStats">
+    <OutputPath>TestUtils\MockOutput\TestEBIWuBlast_GetServiceMetadataStats.object</OutputPath>
+  </TestCase>
+  <TestCase TestCaseID = "TestEBIWuBlast_GetServiceMetadataXmlFormats">
+    <OutputPath>TestUtils\MockOutput\TestEBIWuBlast_GetServiceMetadataXmlFormats.object</OutputPath>
+  </TestCase>
+  <TestCase TestCaseID = "TestBioHPCBlast_Protein">
+    <OutputPath>TestUtils\MockOutput\TestBioHPCBlast_Protein.object</OutputPath>
+  </TestCase>
+  <TestCase TestCaseID = "TestBioHPCBlast_Dna">
+    <OutputPath>TestUtils\MockOutput\TestBioHPCBlast_Dna.object</OutputPath>
+  </TestCase>
+  <TestCase TestCaseID = "TestBioHPCBlast_GetServiceMetadataDatabasesDna">
+    <OutputPath>TestUtils\MockOutput\TestBioHPCBlast_GetServiceMetadataDatabasesDna.object</OutputPath>
+  </TestCase>
+  <TestCase TestCaseID = "TestBioHPCBlast_GetServiceMetadataDatabasesProt">
+    <OutputPath>TestUtils\MockOutput\TestBioHPCBlast_GetServiceMetadataDatabasesProt.object</OutputPath>
+  </TestCase>
+  <TestCase TestCaseID = "TestBioHPCBlast_GetServiceMetadataFilter">
+    <OutputPath>TestUtils\MockOutput\TestBioHPCBlast_GetServiceMetadataFilter.object</OutputPath>
+  </TestCase>
+  <TestCase TestCaseID = "TestBioHPCBlast_GetServiceMetadataFormats">
+    <OutputPath>TestUtils\MockOutput\TestBioHPCBlast_GetServiceMetadataFormats.object</OutputPath>
+  </TestCase>
+  <TestCase TestCaseID = "TestBioHPCBlast_GetServiceMetadataMatrixName">
+    <OutputPath>TestUtils\MockOutput\TestBioHPCBlast_GetServiceMetadataMatrixName.object</OutputPath>
+  </TestCase>
+  <TestCase TestCaseID = "TestBioHPCBlast_GetServiceMetadataProgram">
+    <OutputPath>TestUtils\MockOutput\TestBioHPCBlast_GetServiceMetadataProgram.object</OutputPath>
+  </TestCase>
+  <TestCase TestCaseID = "FetchResultASyncTest">
+    <OutputPath>TestUtils\MockOutputObjects\NCBIBlastFetchAsync.object</OutputPath>
+  </TestCase>
+  <TestCase TestCaseID = "FetchResultSyncTest">
+    <OutputPath>TestUtils\MockOutputObjects\NCBIBlastFetchAsync.object</OutputPath>
+  </TestCase>
+  <TestCase TestCaseID = "GetRequestStatusInfoForProteinSeq">
+    <OutputPath>TestUtils\MockOutputObjects\NCBIBlastRequestStatusForProtein.object</OutputPath>
+  </TestCase>
+  <TestCase TestCaseID = "GetRequestStatusInfoForDnaSeq">
+    <OutputPath>TestUtils\MockOutputObjects\NCBIBlastRequestStatusForDna.object</OutputPath>
+  </TestCase>
+  <TestCase TestCaseID = "EBiFetchResultASyncTest">
+    <OutputPath>TestUtils\MockOutputObjects\EBIBlastAsyncFetchResults.object</OutputPath>
+  </TestCase>
+  <TestCase TestCaseID = "EBiFetchResultSyncTest">
+    <OutputPath>TestUtils\MockOutputObjects\EBIBlastObjectsBvtSyc.object</OutputPath>
+  </TestCase>
+  <TestCase TestCaseID = "EbiGetRequestStatusInfoForProteinSeq">
+    <OutputPath>TestUtils\MockOutputObjects\EBIBlastRequestStatusForProteinSeq.object</OutputPath>
+  </TestCase>
+  <TestCase TestCaseID = "EbiGetRequestStatusInfoForDnaSeq">
+    <OutputPath>TestUtils\MockOutputObjects\EBIBlastRequestStatusForDnaSeq.object</OutputPath>
+  </TestCase>
+  <TestCase TestCaseID = "BioHPCGetRequestStatusInfoForProteinSeq">
+    <OutputPath>TestUtils\MockOutputObjects\BioHPCGetRequestStatusForProtein.object</OutputPath>
+  </TestCase>
+  <TestCase TestCaseID = "BioHPCGetRequestStatusInfoForDnaSeq">
+    <OutputPath>TestUtils\MockOutputObjects\BioHPCGetRequestStatusForDna.object</OutputPath>
+  </TestCase>
+  <TestCase TestCaseID = "BioHPCRequestIdentifierForDnaSeq">
+    <OutputPath>TestUtils\MockOutputObjects\BioHPCRequestIdentifierForDna.object</OutputPath>
+  </TestCase>
+  <TestCase TestCaseID = "BioHPCRequestIdentifierForProteinSeq">
+    <OutputPath>TestUtils\MockOutputObjects\BioHPCRequestIdentifierForProtein.object</OutputPath>
+  </TestCase>
+  <TestCase TestCaseID = "BioHPCFetchResultsSync">
+    <OutputPath>TestUtils\MockOutputObjects\BioHPCFetchResultsSync.object</OutputPath>
+  </TestCase>
+  <TestCase TestCaseID = "BioHPCFetchResultsASync">
+    <OutputPath>TestUtils\MockOutputObjects\BioHPCFetchResultsAsync.object</OutputPath>
+  </TestCase>
+  <TestCase TestCaseID = "BioHPCFetchResultsUsingProteinSeq">
+    <OutputPath>TestUtils\MockOutputObjects\BioHPCFetchResultsForProtein.object</OutputPath>
+  </TestCase>
+  <TestCase TestCaseID = "BioHPCFetchResultsSyncUsingProteinSeq">
+    <OutputPath>TestUtils\MockOutputObjects\BioHPCFetchResultsSyncForProtein.object</OutputPath>
+  </TestCase>
+  <TestCase TestCaseID = "BioHPCCancelRequestUsingProteinSeq">
+    <OutputPath>TestUtils\MockOutputObjects\BioHPCCancelRequestIdentifierForDna.object</OutputPath>
+  </TestCase>
+  <TestCase TestCaseID = "BioHPCCancelRequestUsingDnaSeq">
+    <OutputPath>TestUtils\MockOutputObjects\BioHPCCancelRequestIdentifierForProtein.object</OutputPath>
+  </TestCase>
+  <TestCase TestCaseID = "AzureWebServiceRequestStatusForDna">
+    <OutputPath>TestUtils\MockOutputObjects\AzureWebServiceRequestStatusForDnaSeq.object</OutputPath>
+  </TestCase>
+  <TestCase TestCaseID = "AzureWebServiceFetchResultsAsyncForDna">
+    <OutputPath>TestUtils\MockOutputObjects\AzureDnaResultsASync.object</OutputPath>
+  </TestCase>
+  <TestCase TestCaseID = "AzureWebServiceFetchResultsAsyncForProtein">
+    <OutputPath>TestUtils\MockOutputObjects\AzureProteinSeqResultsASync.object</OutputPath>
+  </TestCase>
+  <TestCase TestCaseID = "AzureWebServiceFetchResultsSyncForDna">
+    <OutputPath>TestUtils\MockOutputObjects\AzureWebserviceResultsSync.object</OutputPath>
+  </TestCase>
+  <TestCase TestCaseID = "AzureWebServiceCancelSubmitRequest">
+    <OutputPath>TestUtils\MockOutputObjects\AzureWebServiceCancelRequestIdentifier.object</OutputPath>
+  </TestCase>
+</TestCases>

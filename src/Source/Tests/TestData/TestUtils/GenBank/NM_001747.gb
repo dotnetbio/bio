@@ -1,0 +1,254 @@
+LOCUS       NM_001747               1460 bp    mRNA    linear   PRI 05-MAR-2010
+DEFINITION  Homo sapiens capping protein (actin filament), gelsolin-like
+            (CAPG), mRNA.
+ACCESSION   NM_001747
+VERSION     NM_001747.2  GI:63252912
+KEYWORDS    .
+SOURCE      Homo sapiens (human)
+  ORGANISM  Homo sapiens
+            Eukaryota; Metazoa; Chordata; Craniata; Vertebrata; Euteleostomi;
+            Mammalia; Eutheria; Euarchontoglires; Primates; Haplorrhini;
+            Catarrhini; Hominidae; Homo.
+REFERENCE   1  (bases 1 to 1460)
+  AUTHORS   Burillo,E., Recalde,D., Jarauta,E., Fiddyment,S., Garcia-Otin,A.L.,
+            Mateo-Gallego,R., Cenarro,A. and Civeira,F.
+  TITLE     Proteomic study of macrophages exposed to oxLDL identifies a CAPG
+            polymorphism associated with carotid atherosclerosis
+  JOURNAL   Atherosclerosis 207 (1), 32-37 (2009)
+   PUBMED   19439302
+  REMARK    GeneRIF: Proteomic study of macrophages exposed to oxLDL identifies
+            a CAPG polymorphism associated with carotid atherosclerosis.
+REFERENCE   2  (bases 1 to 1460)
+  AUTHORS   Zhang,R., Zhou,L., Li,Q., Liu,J., Yao,W. and Wan,H.
+  TITLE     Up-regulation of two actin-associated proteins prompts pulmonary
+            artery smooth muscle cell migration under hypoxia
+  JOURNAL   Am. J. Respir. Cell Mol. Biol. 41 (4), 467-475 (2009)
+   PUBMED   19188659
+  REMARK    GeneRIF: Hypoxia-inducible factor 1alpha up-regulated CapG protein
+            expression under normoxia. Knockdown of HIF-1alpha expression in
+            hPASMCs also inhibited hypoxia-induced CapG up-regulation.
+REFERENCE   3  (bases 1 to 1460)
+  AUTHORS   Hubert,T., Van Impe,K., Vandekerckhove,J. and Gettemans,J.
+  TITLE     The actin-capping protein CapG localizes to microtubule-dependent
+            organelles during the cell cycle
+  JOURNAL   Biochem. Biophys. Res. Commun. 380 (1), 166-170 (2009)
+   PUBMED   19166812
+  REMARK    GeneRIF: A role for the actin-binding protein CapG as a mediator of
+            cross-talk between the actin cytoskeleton and microtubule-based
+            organelles that regulate cell division was proposed.
+REFERENCE   4  (bases 1 to 1460)
+  AUTHORS   Chen,M., Sinha,M., Luxon,B.A., Bresnick,A.R. and O'Connor,K.L.
+  TITLE     Integrin alpha6beta4 controls the expression of genes associated
+            with cell motility, invasion, and metastasis, including
+            S100A4/metastasin
+  JOURNAL   J. Biol. Chem. 284 (3), 1484-1494 (2009)
+   PUBMED   19011242
+  REMARK    GeneRIF: several genes that are known to be regulated by DNA
+            methylation were up-regulated dramatically by integrin alpha6beta4
+            expression, including S100A4, FST, PDLIM4, CAPG, and Nkx2.2.
+REFERENCE   5  (bases 1 to 1460)
+  AUTHORS   Hubert,T., Van Impe,K., Vandekerckhove,J. and Gettemans,J.
+  TITLE     The F-actin filament capping protein CapG is a bona fide nucleolar
+            protein
+  JOURNAL   Biochem. Biophys. Res. Commun. 377 (2), 699-704 (2008)
+   PUBMED   18938132
+  REMARK    GeneRIF: These results suggest that filamentous actin in the
+            nucleolus might be regulated by actin binding proteins such as
+            CapG.
+REFERENCE   6  (bases 1 to 1460)
+  AUTHORS   Pellieux,C., Desgeorges,A., Pigeon,C.H., Chambaz,C., Yin,H.,
+            Hayoz,D. and Silacci,P.
+  TITLE     Cap G, a gelsolin family protein modulating protective effects of
+            unidirectional shear stress
+  JOURNAL   J. Biol. Chem. 278 (31), 29136-29144 (2003)
+   PUBMED   12754261
+REFERENCE   7  (bases 1 to 1460)
+  AUTHORS   Van Impe,K., De Corte,V., Eichinger,L., Bruyneel,E., Mareel,M.,
+            Vandekerckhove,J. and Gettemans,J.
+  TITLE     The Nucleo-cytoplasmic actin-binding protein CapG lacks a nuclear
+            export sequence present in structurally related proteins
+  JOURNAL   J. Biol. Chem. 278 (20), 17945-17952 (2003)
+   PUBMED   12637565
+  REMARK    GeneRIF: CapG lacks a nuclear export sequence present in
+            structurally related proteins
+REFERENCE   8  (bases 1 to 1460)
+  AUTHORS   Southwick,F.S.
+  TITLE     Gain-of-function mutations conferring actin-severing activity to
+            human macrophage cap G
+  JOURNAL   J. Biol. Chem. 270 (1), 45-48 (1995)
+   PUBMED   7814409
+REFERENCE   9  (bases 1 to 1460)
+  AUTHORS   Mishra,V.S., Henske,E.P., Kwiatkowski,D.J. and Southwick,F.S.
+  TITLE     The human actin-regulatory protein cap G: gene structure and
+            chromosome location
+  JOURNAL   Genomics 23 (3), 560-565 (1994)
+   PUBMED   7851883
+REFERENCE   10 (bases 1 to 1460)
+  AUTHORS   Dabiri,G.A., Young,C.L., Rosenbloom,J. and Southwick,F.S.
+  TITLE     Molecular cloning of human macrophage capping protein cDNA. A
+            unique member of the gelsolin/villin family expressed primarily in
+            macrophages
+  JOURNAL   J. Biol. Chem. 267 (23), 16545-16552 (1992)
+   PUBMED   1322908
+COMMENT     REVIEWED REFSEQ: This record has been curated by NCBI staff. The
+            reference sequence was derived from AK130130.1 and BU626913.1.
+            On May 11, 2005 this sequence version replaced gi:4502560.
+            
+            Summary: This gene encodes a member of the gelsolin/villin family
+            of actin-regulatory proteins. The encoded protein reversibly blocks
+            the barbed ends of F-actin filaments in a Ca2+ and
+            phosphoinositide-regulated manner, but does not sever preformed
+            actin filaments. By capping the barbed ends of actin filaments, the
+            encoded protein contributes to the control of actin-based motility
+            in non-muscle cells. Alternatively spliced transcript variants have
+            been observed, but have not been fully described. [provided by
+            RefSeq].
+            
+            Publication Note:  This RefSeq record includes a subset of the
+            publications that are available for this gene. Please see the
+            Entrez Gene record to access additional publications.
+            COMPLETENESS: complete on the 3' end.
+PRIMARY     REFSEQ_SPAN         PRIMARY_IDENTIFIER PRIMARY_SPAN        COMP
+            1-1422              AK130130.1         145-1566
+            1423-1460           BU626913.1         1-38                c
+FEATURES             Location/Qualifiers
+     source          1..1460
+                     /organism="Homo sapiens"
+                     /mol_type="mRNA"
+                     /db_xref="taxon:9606"
+                     /chromosome="2"
+                     /map="2p11.2"
+     gene            1..1460
+                     /gene="CAPG"
+                     /gene_synonym="AFCP; MCP"
+                     /note="capping protein (actin filament), gelsolin-like"
+                     /db_xref="GeneID:822"
+                     /db_xref="HGNC:1474"
+                     /db_xref="HPRD:01088"
+                     /db_xref="MIM:153615"
+     exon            1..237
+                     /gene="CAPG"
+                     /gene_synonym="AFCP; MCP"
+                     /inference="alignment:Splign"
+                     /number=1
+     exon            238..273
+                     /gene="CAPG"
+                     /gene_synonym="AFCP; MCP"
+                     /inference="alignment:Splign"
+                     /number=2
+     CDS             251..1297
+                     /gene="CAPG"
+                     /gene_synonym="AFCP; MCP"
+                     /note="gelsolin-like capping protein; macrophage capping
+                     protein; actin-regulatory protein CAP-G; actin regulatory
+                     protein CAP-G"
+                     /codon_start=1
+                     /product="macrophage-capping protein"
+                     /protein_id="NP_001738.2"
+                     /db_xref="GI:63252913"
+                     /db_xref="CCDS:CCDS1974.1"
+                     /db_xref="GeneID:822"
+                     /db_xref="HGNC:1474"
+                     /db_xref="HPRD:01088"
+                     /db_xref="MIM:153615"
+                     /translation="MYTAIPQSGSPFPGSVQDPGLHVWRVEKLKPVPVAQENQGVFFS
+                     GDSYLVLHNGPEEVSHLHLWIGQQSSRDEQGACAVLAVHLNTLLGERPVQHREVQGNE
+                     SDLFMSYFPRGLKYQEGGVESAFHKTSTGAPAAIKKLYQVKGKKNIRATERALNWDSF
+                     NTGDCFILDLGQNIFAWCGGKSNILERNKARDLALAIRDSERQGKAQVEIVTDGEEPA
+                     EMIQVLGPKPALKEGNPEEDLTADKANAQAAALYKVSDATGQMNLTKVADSSPFALEL
+                     LISDDCFVLDNGLCGKIYIWKGRKANEKERQAALQVAEGFISRMQYAPNTQVEILPQG
+                     HESPIFKQFFKDWK"
+     exon            274..446
+                     /gene="CAPG"
+                     /gene_synonym="AFCP; MCP"
+                     /inference="alignment:Splign"
+                     /number=3
+     exon            447..601
+                     /gene="CAPG"
+                     /gene_synonym="AFCP; MCP"
+                     /inference="alignment:Splign"
+                     /number=4
+     exon            602..766
+                     /gene="CAPG"
+                     /gene_synonym="AFCP; MCP"
+                     /inference="alignment:Splign"
+                     /number=5
+     exon            767..916
+                     /gene="CAPG"
+                     /gene_synonym="AFCP; MCP"
+                     /inference="alignment:Splign"
+                     /number=6
+     exon            917..1009
+                     /gene="CAPG"
+                     /gene_synonym="AFCP; MCP"
+                     /inference="alignment:Splign"
+                     /number=7
+     exon            1010..1142
+                     /gene="CAPG"
+                     /gene_synonym="AFCP; MCP"
+                     /inference="alignment:Splign"
+                     /number=8
+     exon            1143..1231
+                     /gene="CAPG"
+                     /gene_synonym="AFCP; MCP"
+                     /inference="alignment:Splign"
+                     /number=9
+     exon            1232..1442
+                     /gene="CAPG"
+                     /gene_synonym="AFCP; MCP"
+                     /inference="alignment:Splign"
+                     /number=10
+     STS             1254..1385
+                     /gene="CAPG"
+                     /gene_synonym="AFCP; MCP"
+                     /standard_name="WI-17489"
+                     /db_xref="UniSTS:54046"
+     polyA_signal    1399..1404
+                     /gene="CAPG"
+                     /gene_synonym="AFCP; MCP"
+     polyA_site      1417
+                     /gene="CAPG"
+                     /gene_synonym="AFCP; MCP"
+                     /experiment="experimental evidence, no additional details
+                     recorded"
+     polyA_site      1423
+                     /gene="CAPG"
+                     /gene_synonym="AFCP; MCP"
+                     /experiment="experimental evidence, no additional details
+                     recorded"
+     polyA_site      1437
+                     /gene="CAPG"
+                     /gene_synonym="AFCP; MCP"
+                     /experiment="experimental evidence, no additional details
+                     recorded"
+     polyA_site      1442
+                     /gene="CAPG"
+                     /gene_synonym="AFCP; MCP"
+ORIGIN      
+        1 gacggcctgg catacccact gcccacccca gtgactgctc ttctgcttca ggcctgctgg
+       61 cctcccagca ctgcctgccc ctccctgtcg ggggacatcg cctccacacc ggctggggaa
+      121 ggagcccagg ggtggggctg gtgggtgggg ctggtggttg gggcagccag agaagtaaga
+      181 gggaagtgag aagccgggtg gggcaggctg gaaggaagac gaacctacga agcagagatc
+      241 tgaagacagc atgtacacag ccattcccca gagtggctct ccattcccag gctcagtgca
+      301 ggatccaggc ctgcatgtgt ggcgggtgga gaagctgaag ccggtgcctg tggcgcaaga
+      361 gaaccagggc gtcttcttct cgggggactc ctacctagtg ctgcacaatg gcccagaaga
+      421 ggtttcccat ctgcacctgt ggataggcca gcagtcatcc cgggatgagc agggggcctg
+      481 tgccgtgctg gctgtgcacc tcaacacgct gctgggagag cggcctgtgc agcaccgcga
+      541 ggtgcagggc aatgagtctg acctcttcat gagctacttc ccacggggcc tcaagtacca
+      601 ggaaggtggt gtggagtcag catttcacaa gacctccaca ggagccccag ctgccatcaa
+      661 gaaactctac caggtgaagg ggaagaagaa catccgtgcc accgagcggg cactgaactg
+      721 ggacagcttc aacactgggg actgcttcat cctggacctg ggccagaaca tcttcgcctg
+      781 gtgtggtgga aagtccaaca tcctggaacg caacaaggcg agggacctgg ccctggccat
+      841 ccgggacagt gagcgacagg gcaaggccca ggtggagatt gtcactgatg gggaggagcc
+      901 tgctgagatg atccaggtcc tgggccccaa gcctgctctg aaggagggca accctgagga
+      961 agacctcaca gctgacaagg caaatgccca ggccgcagct ctgtataagg tctctgatgc
+     1021 cactggacag atgaacctga ccaaggtggc tgactccagc ccatttgccc ttgaactgct
+     1081 gatatctgat gactgctttg tgctggacaa cgggctctgt ggcaagatct atatctggaa
+     1141 ggggcgaaaa gcgaatgaga aggagcggca ggcagccctg caggtggccg agggcttcat
+     1201 ctcgcgcatg cagtacgccc cgaacactca ggtggagatt ctgcctcagg gccatgagag
+     1261 tcccatcttc aagcaatttt tcaaggactg gaaatgaggg tgggcgtctt cctgccccat
+     1321 gctcccctgc cccccaccac ctgcctgctt gcttctctgg ctgcctggtc agtgcagagg
+     1381 tgccccctgc agatgttcaa taaaggagac aagtgctttc ccagctcttt tcctgcacca
+     1441 ccaaaaaaaa aaaaaaaaaa
+//
+
