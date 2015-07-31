@@ -19,6 +19,9 @@ TestResults
 ## Mac OS network streams
 .DS_Store
 
+## VS2015 cache
+.vs/
+
 # Build results
 [Dd]ebug/
 [Rr]elease/
