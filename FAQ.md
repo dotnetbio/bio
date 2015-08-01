@@ -1,7 +1,12 @@
 **What are the prerequisites I need on my machine to build code in this project?**
 
+On Mac or Linux
+- Xamarin Studio with  [mono] (http://www.mono-project.com/) installed.
+
+On Windows
+
 - Microsoft Windows® (Windows 7 or better) x86 or x64 (preferred) versions 
-- Visual Studio 2015 (Community edition is fine)
+- Visual Studio 2015 ([Community edition](https://www.visualstudio.com/en-us/products/visual-studio-community-vs.aspx) is fine)
 - .NET Framework 4.5, which is included with Visual Studio 2015
 
 _Optional Components (required to build some of the additional tools)_
@@ -10,7 +15,7 @@ _Optional Components (required to build some of the additional tools)_
 - [Microsoft HPC Pack 2008 R2 Client Utilities Redistributable Package with Service Pack 1](http://www.microsoft.com/downloads/en/details.aspx?FamilyID=0a7ba619-fe0e-4e71-82c8-ab4f19c149ad)
 - [Microsoft HPC Pack 2008 R2 SDK](http://www.microsoft.com/downloads/en/details.aspx?FamilyID=BC671B22-F158-4A5F-828B-7A374B881172)
 
-** What platforms are supported? **
+**What platforms are supported?**
 
 .NET Bio 2.0 is entirely cross platform, and can be run on Linux, Mac, Windows and a variety of smartphones and tablets. In particular, it supports the following platforms:
 
@@ -78,22 +83,23 @@ Visual Studio is an Integrated Development Environment (IDE) on Windows, which p
 
 - Use the [Issues](https://github.com/dotnetbio/bio/issues) link.
 
-**Is .NET Bio compatible with [url:Mono|http://www.mono-project.com/Main_Page]?**
+**Is .NET Bio compatible with [Mono](http://www.mono-project.com/Main_Page)?**
+
 Yes, .NET Bio builds and runs under Mono for Linux and Mac OS X.
 
 **Why do I get the error message from PadenaUtil when doing an assembly “character not supported”?**
 
 - Gene sequence reads containing any characters other than ACGT are not compatible with the current version of the Padena algorithm. There are two approaches to dealing with this:
 
-	1. Filter the reads using the FilterReadsUtil utility, excluding those with ambiguous characters. This will work, but will lose a lot of data that could be valuable.
+	1. Filter the reads using the FilterReadsUtil utility, excluding those with ambiguous characters.
 
 	2. Write a script or program to split reads containing ambiguity characters (like N), so for example the string AAAAAAAAAANGGGGGGGGGG would become two ‘subreads’, AAAAAAAAAA and GGGGGGGGGG. Note that any ‘subread’ generated in this manner will need to be longer than the kmer size used in a subsequent sequence assembly step, or the subread will be ignored. This approach makes more of the data usable in assembly, at the cost of breaking up some of the reads. 
 	
 	Ambiguous characters are typically found at the beginning and ends of reads, usually associated with poor base qualities. If this is the case in your data (and you are using a data format that records quality information such as FASTQ), you can trim the start and ends of your reads using one of several applications. A .NET Bio application for this purpose will be available shortly.
 
-**What's the recommended [url:K-mer|http://en.wikipedia.org/wiki/K-mer] length when using Padenutil?**
-
-- K-mers can be any value from 2 to 32 in PadenaUtil
+**What's the recommended [K-mer](http://en.wikipedia.org/wiki/K-mer) length when using Padenutil?**
+- Short answer: 19
+- K-mers can be any odd value from 3 to 31 in PadenaUtil
 - If a short K-mer is used, then any error in the data will be represented in fewer K-mers, so shorter values are better for noisy data
 - If a longer K-mer length is used, there is a higher chance of K-mers being unique, so less ambiguity in assemblies
 - Since each dataset is different, the best approach is to evaluate the quality of an assembly using different K-mer lengths, to see what works best. If a run is likely to take a long time, do this on a subset of the data.
