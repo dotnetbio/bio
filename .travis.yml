@@ -9,4 +9,5 @@ script:
   - xbuild /p:Configuration=Release src/Bio.Mono.sln
   - mkdir TestUtils
   - cp ./src/Source/Tests/Bio.Tests/bin/Release/* TestUtils/
+  - cp -R ./src/Source/Tests/TestData/TestUtils/ ./TestUtils/
   - mono ./testrunner/NUnit.Console.3.0.0-beta-3/tools/nunit-console.exe ./TestUtils/Bio.Tests.dll
