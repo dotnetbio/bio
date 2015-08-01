@@ -1578,7 +1578,7 @@ namespace Bio.TestAutomation.Util
         public const string OutputFilePathNode = "OutputFilePath";
         public const string ParserFileTypes = ".txt, .tre, .newick";
         public const string ParserName = "Newick";
-        public const string ParserDescription = "Reads from a source of text that is formatted according to the Newick flat\r\nfile specification, and converts the data to in-memory PhylogeneticTree object.";
+        public const string ParserDescription = "Reads from a source of text that is formatted according to the Newick flat\nfile specification, and converts the data to in-memory PhylogeneticTree object.";
         public const string FormatDescription = "Writes a PhylogeneticTree to a particular location, usually a file. The output is formatted\naccording to the Newick format.";
         public const string SpecialCharSmallSizePhyloTreeNode =
             "SpecialCharSmallSizePhyloTree";
