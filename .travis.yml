@@ -7,4 +7,4 @@ install:
   - nuget install -Prerelease NUnit.Console -Version 3.0.0-beta-3 -OutputDirectory testrunner  
 script:
   - xbuild /p:Configuration=Release src/Bio.Mono.sln
-  - mono ./testrunner/NUnit.Console.3.0.0.0-beta-3/tools/nunit-console.exe ./src/Source/Tests/Bio.Tests/bin/Release/Bio.Tests.dll
+  - mono ./testrunner/NUnit.Console.3.0.0-beta-3/tools/nunit-console.exe ./src/Source/Tests/Bio.Tests/bin/Release/Bio.Tests.dll
