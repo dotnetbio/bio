@@ -15,8 +15,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bio.Desktop", "Source\Frame
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Shared", "Source\Framework\Shared\Shared.shproj", "{BDB423A3-D3B6-434C-96BA-102025E2EA3B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bio.Android", "Source\Framework\Bio.Android\Bio.Android.csproj", "{C1249952-18E4-4D6D-BD8D-32A51AF2D3F3}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bio.WebServices", "Source\Framework\Bio.WebServices\Bio.WebServices.csproj", "{3B79B074-0DF5-4FB5-89B7-6A8F4271A1A7}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{8E652F59-53FD-41B2-BA2E-6351AFA95422}"
