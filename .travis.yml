@@ -1,0 +1,10 @@
+language: csharp
+solution: src/Bio.Mono.sln
+env:
+    MONO_IOMAP=all
+install:
+  - nuget restore src/Bio.Mono.sln
+  - nuget install NUnit.Runners -Version 2.6.4 -OutputDirectory testrunner
+script:
+  - xbuild /p:Configuration=Release src/Bio.Mono.sln
+  - mono ./testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe ./src/Source/Tests/Bio.Tests/bin/Release/Bio.Tests.dll
