@@ -45,5 +45,6 @@ The original home for the project was [bio.codeplex.com](http://bio.codeplex.com
 
 - [FAQ](https://github.com/dotnetbio/bio/blob/master/FAQ.md)
 - [Testing](https://github.com/dotnetbio/bio/blob/master/TESTING.md)
+- [Class Library Documentation](http://dotnetbio.github.io/Help/index.html)
 
 
