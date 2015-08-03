@@ -2183,5 +2183,11 @@
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Wiggle\variable.wig">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="$(MSBuildThisFileDirectory)TestUtils\PacBio\ccs.bam">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)TestUtils\PacBio\" />
   </ItemGroup>
 </Project>
