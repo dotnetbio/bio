@@ -4,7 +4,14 @@
 
 The core library implements a range of file parsers and formatters for common file types, connectors to commonly-used web services such as NCBI BLAST, and standard algorithms for the comparison and assembly of DNA, RNA and protein sequences. Sample tools and code snippets are also included.
 
-[![Build Status](https://travis-ci.org/dotnetbio/bio.svg?branch=master)](https://travis-ci.org/dotnetbio/bio)
+
+Build Status
+------------
+
+|Linux   |Windows |Mac OS X |
+|:------:|:------:|:-------:|
+|[![Build Status](https://travis-ci.org/dotnetbio/bio.svg?branch=master)](https://travis-ci.org/dotnetbio/bio) | [![Build status](https://ci.appveyor.com/api/projects/status/ihru18bvx5d5yofm/branch/master?svg=true)](https://ci.appveyor.com/project/nigel-delaney/bio/branch/master) | [![Build Status](https://travis-ci.org/dotnetbio/bio.svg?branch=master)](https://travis-ci.org/dotnetbio/bio)|
+
 
 
 ## Using .NET Bio in your application
