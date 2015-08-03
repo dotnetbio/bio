@@ -30,5 +30,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Util\CommentedStreamReader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Util\FileAccessComparer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Util\FileUtils.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\PacBioParserExtensions.cs" />
   </ItemGroup>
 </Project>

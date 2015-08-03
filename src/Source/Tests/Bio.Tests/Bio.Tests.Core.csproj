@@ -217,6 +217,7 @@
     <Compile Include="Algorithms\MUMmer\MUMmerAlignerTests.cs" />
     <Compile Include="Algorithms\Padena\PadenaBvtTestCases.cs" />
     <Compile Include="Algorithms\Padena\PadenaP1TestCases.cs" />
+    <Compile Include="PacBio\ParserTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="..\TestData\Testcases.xml">
@@ -266,4 +267,7 @@
  
   -->
   <ItemGroup />
+  <ItemGroup>
+    <Folder Include="PacBio\" />
+  </ItemGroup>
 </Project>

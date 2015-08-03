@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <MinimumVisualStudioVersion>10.0</MinimumVisualStudioVersion>
@@ -431,6 +431,8 @@
     <Compile Include="Util\UOPair.cs" />
     <Compile Include="ValueConverter.cs" />
     <Compile Include="WordMatch.cs" />
+    <Compile Include="IO\PacBio\PacBioCCSRead.cs" />
+    <Compile Include="IO\PacBio\PacBioCCSBamReader.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="CloneLibrary\Resources\Library.txt" />
@@ -449,7 +451,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Shims\Bio.Platform.Helpers\Bio.Platform.Helpers.csproj">
-      <Project>{83cbb611-4049-456a-b87b-0b2cfc4797fa}</Project>
+      <Project>{83CBB611-4049-456A-B87B-0B2CFC4797FA}</Project>
       <Name>Bio.Platform.Helpers</Name>
     </ProjectReference>
   </ItemGroup>
@@ -474,4 +476,7 @@ cp "$(TargetDir)\$(TargetName).xml" "$(SolutionDir)\bin\$(TargetName).xml"</Post
   <Target Name="AfterBuild">
   </Target>
   -->
+  <ItemGroup>
+    <Folder Include="IO\PacBio\" />
+  </ItemGroup>
 </Project>
