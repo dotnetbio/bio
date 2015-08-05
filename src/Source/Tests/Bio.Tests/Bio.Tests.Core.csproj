@@ -218,6 +218,7 @@
     <Compile Include="Algorithms\Padena\PadenaBvtTestCases.cs" />
     <Compile Include="Algorithms\Padena\PadenaP1TestCases.cs" />
     <Compile Include="PacBio\ParserTests.cs" />
+    <Compile Include="Variant\VariantCallTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="..\TestData\Testcases.xml">
@@ -269,5 +270,6 @@
   <ItemGroup />
   <ItemGroup>
     <Folder Include="PacBio\" />
+    <Folder Include="Variant\" />
   </ItemGroup>
 </Project>
