@@ -433,6 +433,12 @@
     <Compile Include="WordMatch.cs" />
     <Compile Include="IO\PacBio\PacBioCCSRead.cs" />
     <Compile Include="IO\PacBio\PacBioCCSBamReader.cs" />
+    <Compile Include="Variant\AlignmentUtils.cs" />
+    <Compile Include="Variant\BPandQV.cs" />
+    <Compile Include="Variant\IndelVariant.cs" />
+    <Compile Include="Variant\SNPVariant.cs" />
+    <Compile Include="Variant\Variant.cs" />
+    <Compile Include="Variant\VariantCaller.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="CloneLibrary\Resources\Library.txt" />
@@ -478,5 +484,6 @@ cp "$(TargetDir)\$(TargetName).xml" "$(SolutionDir)\bin\$(TargetName).xml"</Post
   -->
   <ItemGroup>
     <Folder Include="IO\PacBio\" />
+    <Folder Include="Variant\" />
   </ItemGroup>
 </Project>
