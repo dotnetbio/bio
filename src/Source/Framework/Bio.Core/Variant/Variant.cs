@@ -74,6 +74,9 @@ namespace Bio.Variant
 
         /// <summary>
         /// The QV value for this call, if it exists. If not, this is set to 0.
+        /// 
+        /// For deletion mutations, the QV value is obtained from the next query
+        /// base in the alignment.
         /// </summary>
         /// <value>The QV value.</value>
         public byte QV {get; set;}
