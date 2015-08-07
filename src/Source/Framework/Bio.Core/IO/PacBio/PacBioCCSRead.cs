@@ -14,10 +14,10 @@ namespace Bio.IO.PacBio
     /// A class representing the consensus sequence generated from multiple subreads.  This is produced
     /// by the program pbccs and output to a BAM file. 
     /// </summary>
-    public class PacBioCCSRead
+    public class PacBioCCSRead : ISequence, IQualitativeSequence
     {
         /// <summary>
-        /// A measure of CCS read quality, currently capped at 99.9% (QV30)
+        /// A measure of CCS read quality
         /// </summary>
         public readonly float ReadQuality;
 
@@ -68,6 +68,10 @@ namespace Bio.IO.PacBio
         public int ReadCountBadZscore {
             get { return statusCounts [3]; }
         }
+        /// <summary>
+        /// Gets the read count other.
+        /// </summary>
+        /// <value>The read count other.</value>
         public int ReadCountOther {
             get{ return statusCounts [4]; }
         }
@@ -136,8 +140,8 @@ namespace Bio.IO.PacBio
                     SnrT = snrs [3];
                 } else if (v.Tag == "zm") {
                     HoleNumber = (int)Convert.ToInt32 (v.Value);
-                } else if (v.Tag == "rq") {
-                    ReadQuality = Convert.ToInt32 (v.Value) / 1000.0f;
+                } else if (v.Tag == "ps") {
+                    ReadQuality = Convert.ToSingle(v.Value);
                 } else if (v.Tag == "za") {
                     AvgZscore = (float)Convert.ToSingle (v.Value);
                 } else if (v.Tag == "rs") {
@@ -155,6 +159,117 @@ namespace Bio.IO.PacBio
             Movie = s.QuerySequence.ID.Split ('/') [0];
             Sequence = s.QuerySequence as QualitativeSequence;
         }
+
+        #region ISequence implementation
+
+        public ISequence GetReversedSequence ()
+        {
+            return Sequence.GetReversedSequence ();
+        }
+
+        public ISequence GetComplementedSequence ()
+        {
+            throw new NotImplementedException ();
+        }
+
+        public ISequence GetReverseComplementedSequence ()
+        {
+            return Sequence.GetReverseComplementedSequence ();
+        }
+
+        public ISequence GetSubSequence (long start, long length)
+        {
+            return Sequence.GetSubSequence (start, length);
+        }
+
+        public long IndexOfNonGap ()
+        {
+            return Sequence.IndexOfNonGap ();
+        }
+
+        public long IndexOfNonGap (long startPos)
+        {
+            return Sequence.IndexOfNonGap (startPos);
+        }
+
+        public long LastIndexOfNonGap ()
+        {
+            return Sequence.LastIndexOfNonGap ();
+        }
+
+        public long LastIndexOfNonGap (long endPos)
+        {
+            return Sequence.LastIndexOfNonGap (endPos);
+        }
+
+        public string ID {
+            get {
+                return Sequence.ID;
+            }
+            set {
+                throw new NotImplementedException ();
+            }
+        }
+
+        public IAlphabet Alphabet {
+            get {
+                return Sequence.Alphabet;
+            }
+        }
+
+        public long Count {
+            get {
+                return Sequence.Count;
+            }
+        }
+
+        public byte this [long index] {
+            get {
+                return Sequence [index];
+            }
+        }
+
+        public byte GetEncodedQualityScore (long index)
+        {
+            return Sequence.GetEncodedQualityScore (index);
+        }
+
+        public byte[] GetEncodedQualityScores ()
+        {
+            return Sequence.GetEncodedQualityScores ();
+        }
+
+        public FastQFormatType FormatType {
+            get {
+                return Sequence.FormatType;
+            }
+        }
+
+        public Dictionary<string, object> Metadata {
+            get {
+                return Sequence.Metadata;
+            }
+        }
+
+        #endregion
+
+        #region IEnumerable implementation
+
+        public IEnumerator<byte> GetEnumerator ()
+        {
+            return Sequence.GetEnumerator ();
+        }
+
+        #endregion
+
+        #region IEnumerable implementation
+
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator ()
+        {
+            return Sequence.GetEnumerator ();
+        }
+
+        #endregion
     }
 }
 
