@@ -31,9 +31,11 @@ namespace Bio.Variant
                 refseq [refseq.Length - 1] == gap ||
                 query [0].BP == gap ||
                 query [query.Length - 1].BP == gap) {
+                var refseqs = new string(refseq.Select(x=>(char)x).ToArray());
+                var qseqs = new string(query.Select(x=>(char)x.BP).ToArray());
                 throw new FormatException ("Alignment query and/or reference started with a gap character. " +
-                "Alignments must be hard-clipped to remove starting and trailing variants " +
-                "before variants can be called");
+                    "Alignments must be hard-clipped to remove starting and trailing variants " +
+                    "before variants can be called.  Alignment was:\n" + refseqs + "\n" + qseqs);
             }
         }
 
