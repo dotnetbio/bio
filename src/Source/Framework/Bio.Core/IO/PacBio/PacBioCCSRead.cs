@@ -140,7 +140,7 @@ namespace Bio.IO.PacBio
                     SnrT = snrs [3];
                 } else if (v.Tag == "zm") {
                     HoleNumber = (int)Convert.ToInt32 (v.Value);
-                } else if (v.Tag == "ps") {
+                } else if (v.Tag == "pq") {
                     ReadQuality = Convert.ToSingle(v.Value);
                 } else if (v.Tag == "za") {
                     AvgZscore = (float)Convert.ToSingle (v.Value);
