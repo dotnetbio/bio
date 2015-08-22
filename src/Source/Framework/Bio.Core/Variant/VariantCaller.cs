@@ -205,7 +205,7 @@ namespace Bio.Variant
                 {
                     if (querySeq[i].BP != refSeq[i])
                     {
-                        var newVariant = new SNPVariant(refPos, (char) querySeq[i].BP, (char)refSeq[i]);
+                        var newVariant = new SNPVariant(refPos, (char) querySeq[i].BP, (char)refSeq[i], (i ==0 || i == (refSeq.Length -1)));
                         newVariant.QV = querySeq [queryPos].QV;
                         variants.Add(newVariant);
                     }

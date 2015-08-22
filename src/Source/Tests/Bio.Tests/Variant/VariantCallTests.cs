@@ -116,6 +116,58 @@ namespace Bio.Tests
         } 
 
         [Test]
+        public static void TestSNPCallAtEnd()
+        {
+            string seq1seq = "ATCCCCCTC";
+            string seq2seq = "ATCCCCCTT";
+            int[] seq2qual = new int[] { 30, 30, 30, 30, 5, 3, 30, 30, 10 };
+            var refseq = new Sequence(DnaAlphabet.Instance, seq1seq);
+            var query = new Sequence (DnaAlphabet.Instance, seq2seq);
+
+            NeedlemanWunschAligner aligner = new NeedlemanWunschAligner ();
+            var aln = aligner.Align (refseq, query).First();
+            ConvertAlignedSequenceToQualSeq (aln, seq2qual);
+            var variants = VariantCaller.CallVariants (aln);
+            Assert.AreEqual (variants.Count, 1);
+            var variant = variants.First ();
+            Assert.AreEqual (10, variant.QV);
+            Assert.AreEqual (8, variant.StartPosition);
+            Assert.AreEqual (variant.Type, VariantType.SNP);
+            var vi = variant as SNPVariant;
+            Assert.AreEqual (1, vi.Length);
+            Assert.AreEqual ('T', vi.AltBP);
+            Assert.AreEqual ('C', vi.RefBP);
+            Assert.AreEqual (VariantType.SNP, vi.Type);
+            Assert.AreEqual (true, vi.AtEndOfAlignment);
+        } 
+
+        [Test]
+        public static void TestSNPCallAtStart()
+        {
+            string seq1seq = "CTCCCCCTT";
+            string seq2seq = "TTCCCCCTT";
+            int[] seq2qual = new int[] { 10, 30, 30, 30, 5, 3, 30, 30, 10 };
+            var refseq = new Sequence(DnaAlphabet.Instance, seq1seq);
+            var query = new Sequence (DnaAlphabet.Instance, seq2seq);
+
+            NeedlemanWunschAligner aligner = new NeedlemanWunschAligner ();
+            var aln = aligner.Align (refseq, query).First();
+            ConvertAlignedSequenceToQualSeq (aln, seq2qual);
+            var variants = VariantCaller.CallVariants (aln);
+            Assert.AreEqual (variants.Count, 1);
+            var variant = variants.First ();
+            Assert.AreEqual (10, variant.QV);
+            Assert.AreEqual (0, variant.StartPosition);
+            Assert.AreEqual (variant.Type, VariantType.SNP);
+            var vi = variant as SNPVariant;
+            Assert.AreEqual (1, vi.Length);
+            Assert.AreEqual ('T', vi.AltBP);
+            Assert.AreEqual ('C', vi.RefBP);
+            Assert.AreEqual (VariantType.SNP, vi.Type);
+            Assert.AreEqual (true, vi.AtEndOfAlignment);
+        } 
+
+        [Test]
         public static void TestLeftAlignmentStep() {
             var refseq =   "ACAATAAAAGCGCGCGCGCGTTACGTATAT--ATGGATAT";
             var queryseq = "ACAATAA-AGC--GCGC--GTTACGTATATATATGGATAT";

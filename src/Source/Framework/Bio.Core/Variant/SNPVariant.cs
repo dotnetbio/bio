@@ -31,8 +31,8 @@ namespace Bio.Variant
         /// <param name="position">0-based position on reference.</param>
         /// <param name="altAllele">The variant present (A, C, G, T)</param>
         /// <param name="refBP">The Reference sequence.</param>
-        public SNPVariant(int position, char altAllele, char refBP) :
-        base (position)
+        public SNPVariant(int position, char altAllele, char refBP, bool atEnd = false) :
+        base (position, atEnd)
         {
             AltBP = altAllele;
             Type = VariantType.SNP;
