@@ -19,7 +19,6 @@ namespace LisUtil
     {
         private static FileStream fileStreamConsoleOut;
         private static StreamWriter streamWriterConsoleOut;
-        private static TextWriter textWriterConsoleOutSave;
 
         private static CommandLineOptions ProcessCommandLine(string[] args)
         {
@@ -102,7 +101,6 @@ namespace LisUtil
 
             if (myArgs.OutputFile != null)
             {   // redirect stdout
-                textWriterConsoleOutSave = Console.Out;
                 fileStreamConsoleOut = new FileStream(myArgs.OutputFile, FileMode.Create);
                 streamWriterConsoleOut = new StreamWriter(fileStreamConsoleOut);
                 Console.SetOut(streamWriterConsoleOut);

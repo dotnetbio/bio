@@ -75,7 +75,6 @@ namespace MumUtil
         static TimeSpan writetime = new TimeSpan();
         static FileStream fsConsoleOut;
         static StreamWriter swConsoleOut;
-        static TextWriter twConsoleOutSave;
         static TimeSpan timeTakenToGetReverseComplement = new TimeSpan();
         static TimeSpan timeTakenToParseQuerySequences = new TimeSpan();
         static CommandLineOptions ProcessCommandLine(string[] args)
@@ -137,7 +136,6 @@ namespace MumUtil
             }
             if (myArgs.outputFile != null)
             {   // redirect stdout
-                twConsoleOutSave = Console.Out;
                 fsConsoleOut = new FileStream(myArgs.outputFile, FileMode.Create);
                 swConsoleOut = new StreamWriter(fsConsoleOut);
                 Console.SetOut(swConsoleOut);

@@ -3,8 +3,6 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{1F013A31-25C7-41D8-A617-C387B9985B81}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -47,18 +45,6 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Bio.Core, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\NetBioCore.PCL.2.0.140630\lib\net45\Bio.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Bio.Desktop, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\NetBioCore.PCL.2.0.140630\lib\net45\Bio.Desktop.dll</HintPath>
-    </Reference>
-    <Reference Include="Bio.Platform.Helpers, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\NetBioCore.PCL.2.0.140630\lib\net45\Bio.Platform.Helpers.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -66,6 +52,15 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="Bio.Core">
+      <HintPath>..\..\..\packages\NetBioCore.PCL.2.0.140630\lib\net45\Bio.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Bio.Desktop">
+      <HintPath>..\..\..\packages\NetBioCore.PCL.2.0.140630\lib\net45\Bio.Desktop.dll</HintPath>
+    </Reference>
+    <Reference Include="Bio.Platform.Helpers">
+      <HintPath>..\..\..\packages\NetBioCore.PCL.2.0.140630\lib\net45\Bio.Platform.Helpers.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="TestDataFilter.cs" />

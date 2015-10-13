@@ -79,7 +79,6 @@ namespace SamUtil
 
             IList<IList<BAMSortedIndex>> sortedIndexes = new List<IList<BAMSortedIndex>>();
             IList<SequenceAlignmentMap> sequenceAlignmentMaps = new List<SequenceAlignmentMap>();
-            IList<int> help = new List<int>();
             Parallel.For(0, FilePaths.Length, (int index) =>
             {
                 IList<BAMSortedIndex> sortedIndex;
@@ -170,7 +169,6 @@ namespace SamUtil
             {
                 BAMFormatter formatter = new BAMFormatter();
                 formatter.WriteHeader(header, fstemp);
-                int[] indexes = new int[sortedIndexes.Count];
 
                 if (SortByReadName)
                 {
