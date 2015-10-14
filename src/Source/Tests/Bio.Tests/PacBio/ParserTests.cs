@@ -16,7 +16,7 @@ namespace Bio.Tests.PacBio
         {
             string fname = System.IO.Path.Combine ("TestUtils", "PacBio", "ccs.bam");
             var csp = new PacBioCCSBamReader ();
-            var seqs = csp.Parse (fname).ToList();
+            var seqs = csp.Parse (fname).Select(z => z as PacBioCCSRead).ToList();
 
             var seq4 = seqs [4];
             Assert.AreEqual (146331, seq4.HoleNumber);

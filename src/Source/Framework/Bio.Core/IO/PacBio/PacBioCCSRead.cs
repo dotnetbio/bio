@@ -54,26 +54,18 @@ namespace Bio.IO.PacBio
         }
 
         /// <summary>
-        /// Count of subreads not added to consensus for allocating too much memory.
-        /// </summary>
-        /// <value>The ReadCount mem fail.</value>
-        public int ReadCountMemFail {
-            get { return statusCounts [2]; }
-        }
-
-        /// <summary>
         /// Count of subreads not added to consensus for having too low a Z-score.
         /// </summary>
         /// <value>The ReadCount bad zscore.</value>
         public int ReadCountBadZscore {
-            get { return statusCounts [3]; }
+            get { return statusCounts [2]; }
         }
         /// <summary>
         /// Gets the read count other.
         /// </summary>
         /// <value>The read count other.</value>
         public int ReadCountOther {
-            get{ return statusCounts [4]; }
+            get{ return statusCounts [3]; }
         }
 
         /// <summary>
@@ -141,8 +133,11 @@ namespace Bio.IO.PacBio
                 } else if (v.Tag == "zm") {
                     HoleNumber = (int)Convert.ToInt32 (v.Value);
                 } else if (v.Tag == "pq") {
-                    ReadQuality = Convert.ToSingle(v.Value);
-                } else if (v.Tag == "za") {
+                    // This tag is now deprecated by the rq tag
+                    ReadQuality = Convert.ToSingle (v.Value);
+                } else if (v.Tag == "rq") {
+                    ReadQuality = Convert.ToSingle (v.Value);
+                }else if (v.Tag == "za") {
                     AvgZscore = (float)Convert.ToSingle (v.Value);
                 } else if (v.Tag == "rs") {
                     statusCounts = v.Value.Split (',').Skip (1).Select (x => Convert.ToInt32 (x)).ToArray ();
