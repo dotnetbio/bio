@@ -11,7 +11,7 @@ namespace Bio.IO.PacBio
     /// <summary>
     /// Reads the data from a PacBio BAM file produced by the pbccs program. 
     /// </summary>
-    public class PacBioCCSBamReader
+    public class PacBioCCSBamReader : ISequenceParser
     {
         /// <summary>
         /// Parse the CCS reads in a PacBio CCS BAM File.
@@ -51,6 +51,43 @@ namespace Bio.IO.PacBio
             }
         }
 
+        #region IParser implementation
+        IEnumerable<ISequence> IParser<ISequence>.Parse (Stream stream)
+        {
+            return PacBioCCSBamReader.Parse (stream);
+        }
+        public ISequence ParseOne (Stream stream)
+        {
+            return PacBioCCSBamReader.Parse (stream).First();
+        }
+        #endregion
+        #region IParserWithAlphabet implementation
+        public IAlphabet Alphabet {
+            get {
+                return DnaAlphabet.Instance;
+            }
+            set {
+                throw new NotImplementedException ();
+            }
+        }
+        #endregion
+        #region IParser implementation
+        public string Name {
+            get {
+                return "CCS-BAM-Parser";
+            }
+        }
+        public string Description {
+            get {
+                return "Parses BAM Files output by the PacBio CCS Program";
+            }
+        }
+        public string SupportedFileTypes {
+            get {
+                return Properties.Resource.BAM_FILEEXTENSION;
+            }
+        }
+        #endregion
     }
 }
 
