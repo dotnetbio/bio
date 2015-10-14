@@ -21,8 +21,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NucmerUtil", "Source\Tools\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PadenaUtil", "Source\Tools\PadenaUtil\PadenaUtil.csproj", "{971B6AD2-05BE-4912-A62E-3E838117AD1C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReadSimulator", "Source\Tools\ReadSimulator\ReadSimulator.csproj", "{1CEA873B-6050-42C9-845F-13B694504BCA}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepeatResolutionUtil", "Source\Tools\RepeatResolutionUtil\RepeatResolutionUtil.csproj", "{B6602193-FB0D-4756-B2B7-4F954AE969DD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleClusterApp", "Source\Tools\SampleClusterApp\SampleClusterApp.csproj", "{8E5EDEE9-6475-483E-91DE-C9AA9C442599}"
@@ -30,8 +28,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SamUtil", "Source\Tools\SamUtil\SamUtil.csproj", "{438E5AEB-2B46-491A-9173-A46780DFC282}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScaffoldUtil", "Source\Tools\ScaffoldUtil\ScaffoldUtil.csproj", "{0BE8D839-1086-483A-9842-DACA834DF273}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestDataFilter", "Source\Tools\TestDataFilter\TestDataFilter.csproj", "{1F013A31-25C7-41D8-A617-C387B9985B81}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,26 +59,6 @@ Global
 		{0BE8D839-1086-483A-9842-DACA834DF273}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{0BE8D839-1086-483A-9842-DACA834DF273}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{0BE8D839-1086-483A-9842-DACA834DF273}.Release|x86.ActiveCfg = Release|Any CPU
-		{1CEA873B-6050-42C9-845F-13B694504BCA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1CEA873B-6050-42C9-845F-13B694504BCA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1CEA873B-6050-42C9-845F-13B694504BCA}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{1CEA873B-6050-42C9-845F-13B694504BCA}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{1CEA873B-6050-42C9-845F-13B694504BCA}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{1CEA873B-6050-42C9-845F-13B694504BCA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1CEA873B-6050-42C9-845F-13B694504BCA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1CEA873B-6050-42C9-845F-13B694504BCA}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{1CEA873B-6050-42C9-845F-13B694504BCA}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{1CEA873B-6050-42C9-845F-13B694504BCA}.Release|x86.ActiveCfg = Release|Any CPU
-		{1F013A31-25C7-41D8-A617-C387B9985B81}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{1F013A31-25C7-41D8-A617-C387B9985B81}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{1F013A31-25C7-41D8-A617-C387B9985B81}.Debug|Mixed Platforms.Build.0 = Debug|x86
-		{1F013A31-25C7-41D8-A617-C387B9985B81}.Debug|x86.ActiveCfg = Debug|x86
-		{1F013A31-25C7-41D8-A617-C387B9985B81}.Debug|x86.Build.0 = Debug|x86
-		{1F013A31-25C7-41D8-A617-C387B9985B81}.Release|Any CPU.ActiveCfg = Release|x86
-		{1F013A31-25C7-41D8-A617-C387B9985B81}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{1F013A31-25C7-41D8-A617-C387B9985B81}.Release|Mixed Platforms.Build.0 = Release|x86
-		{1F013A31-25C7-41D8-A617-C387B9985B81}.Release|x86.ActiveCfg = Release|x86
-		{1F013A31-25C7-41D8-A617-C387B9985B81}.Release|x86.Build.0 = Release|x86
 		{26651789-21CE-47DA-99C3-F88379D5BAA4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{26651789-21CE-47DA-99C3-F88379D5BAA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{26651789-21CE-47DA-99C3-F88379D5BAA4}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
