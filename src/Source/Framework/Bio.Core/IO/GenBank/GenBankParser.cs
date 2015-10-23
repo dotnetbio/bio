@@ -1042,7 +1042,11 @@ namespace Bio.IO.GenBank
             {
                 // Using a regex is too slow.
                 int len = line.Length;
-                int k = line.Length > 8 && line[8] == ' ' ? 9 : 10;
+
+                int k = 0;
+                while (k < len && (line[k] == ' ' || Char.IsNumber(line[k])))
+                    k++;
+
                 while (k < len)
                 {
                     string seqData = line.Substring(k, Math.Min(10, len - k));
