@@ -19,7 +19,7 @@ namespace Bio.IO.PacBio
         /// <summary>
         /// A measure of CCS read quality
         /// </summary>
-        public readonly float ReadQuality;
+        public readonly float ReadQuality = -1.0f;
 
         /// <summary>
         /// The read group.
@@ -135,7 +135,7 @@ namespace Bio.IO.PacBio
                 } else if (v.Tag == "pq") {
                     // This tag is now deprecated by the rq tag
                     ReadQuality = Convert.ToSingle (v.Value);
-                } else if (v.Tag == "rq") {
+                } else if (v.Tag == "rq" && ReadQuality < 0) {
                     ReadQuality = Convert.ToSingle (v.Value);
                 }else if (v.Tag == "za") {
                     AvgZscore = (float)Convert.ToSingle (v.Value);
