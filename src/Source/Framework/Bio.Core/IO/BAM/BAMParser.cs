@@ -13,13 +13,22 @@ using Bio.Util;
 
 namespace Bio.IO.BAM
 {
+	/// <summary>
+	/// Default BAM parser with template parameter set to SAMAlignedSequence for general use inside the .NET Bio libraries
+	/// </summary>
+	public partial class BAMParser : BAMParser<SAMAlignedSequence>
+	{
+
+
+	}
+
     /// <summary>
     /// A BAMParser reads from a source of binary data that is formatted according to the BAM
     /// file specification, and converts the data to in-memory SequenceAlignmentMap object.
     /// Documentation for the latest BAM file format can be found at
     /// http://samtools.sourceforge.net/SAM1.pdf
     /// </summary>
-    public partial class BAMParser : IDisposable, ISequenceAlignmentParser
+	public partial class BAMParser<T> : IDisposable, ISequenceAlignmentParser where T : SAMAlignedSequence, new()
     {
         /// <summary>
         /// Symbols supported by BAM.
@@ -405,7 +414,7 @@ namespace Bio.IO.BAM
         /// </summary>
         /// <param name="stream">Stream to read</param>
         /// <returns>IEnumerable SAMAlignedSequence object.</returns>
-        public IEnumerable<SAMAlignedSequence> Parse(Stream stream)
+        public virtual IEnumerable<T> Parse(Stream stream)
         {
             if (stream == null)
             {
@@ -487,7 +496,7 @@ namespace Bio.IO.BAM
             return GetAlignmentMap(reader);
         }
 
-        internal IEnumerable<SAMAlignedSequence> GetAlignmentMapIterator(Stream reader, BAMIndexStorage bamIndexStorage = null,
+        internal IEnumerable<T> GetAlignmentMapIterator(Stream reader, BAMIndexStorage bamIndexStorage = null,
                 string refSeqName = null, int? refSeq = null, int start = 0, int end = int.MaxValue)
         {
             if (reader == null || reader.Length == 0)
@@ -524,7 +533,7 @@ namespace Bio.IO.BAM
             {
                 if (bamIndexStorage != null)
                 {
-                    foreach (SAMAlignedSequence seq in GetAlignmentWithIndexYield(bamIndexStorage, (int)refSeq, start, end))
+                    foreach (T seq in GetAlignmentWithIndexYield(bamIndexStorage, (int)refSeq, start, end))
                     {
                         yield return seq;
                     }
@@ -536,14 +545,14 @@ namespace Bio.IO.BAM
             }
             else
             {
-                foreach (SAMAlignedSequence seq in GetAlignmentWithoutIndexYield())
+                foreach (T seq in GetAlignmentWithoutIndexYield())
                 {
                     yield return seq;
                 }
             }
         }
 
-        internal IEnumerable<SAMAlignedSequence> GetAlignmentWithIndexYield(BAMIndexStorage bamIndexStorage, int refSeqIndex, int start, int end)
+        internal IEnumerable<T> GetAlignmentWithIndexYield(BAMIndexStorage bamIndexStorage, int refSeqIndex, int start, int end)
         {
             IList<Chunk> chunks;
 
@@ -565,8 +574,8 @@ namespace Bio.IO.BAM
                 chunks = GetChunks(refIndex, start, end);
             }
 
-            IList<SAMAlignedSequence> alignedSeqs = GetAlignedSequences(chunks, start, end);
-            foreach (SAMAlignedSequence alignedSeq in alignedSeqs)
+            IList<T> alignedSeqs = GetAlignedSequences(chunks, start, end);
+            foreach (T alignedSeq in alignedSeqs)
             {
                 yield return alignedSeq;
             }
@@ -598,8 +607,8 @@ namespace Bio.IO.BAM
                 chunks = GetChunks(refIndex, start, end);
             }
 
-            IList<SAMAlignedSequence> alignedSeqs = GetAlignedSequences(chunks, start, end);
-            foreach (SAMAlignedSequence alignedSeq in alignedSeqs)
+            IList<T> alignedSeqs = GetAlignedSequences(chunks, start, end);
+            foreach (T alignedSeq in alignedSeqs)
             {
                 seqMap.QuerySequences.Add(alignedSeq);
             }
@@ -637,7 +646,7 @@ namespace Bio.IO.BAM
                 {
                     lastOffSet=new FileOffset((ulong)currentCompressedBlockStartPos,(ushort)deCompressedStream.Position);
                 }
-                SAMAlignedSequence alignedSeq = GetAlignedSequence(0, int.MaxValue);
+                T alignedSeq = GetAlignedSequence(0, int.MaxValue);
 
                 // BAM indexing
                 if (createBamIndex)
@@ -715,7 +724,7 @@ namespace Bio.IO.BAM
 
         }
 
-        private IEnumerable<SAMAlignedSequence> GetAlignmentWithoutIndexYield()
+        private IEnumerable<T> GetAlignmentWithoutIndexYield()
         {
             if (createBamIndex)
             {
@@ -724,7 +733,7 @@ namespace Bio.IO.BAM
 
             while (!IsEOF())
             {
-                SAMAlignedSequence alignedSeq = GetAlignedSequence(0, int.MaxValue);
+                T alignedSeq = GetAlignedSequence(0, int.MaxValue);
                 yield return alignedSeq;
             }
         }
@@ -779,7 +788,7 @@ namespace Bio.IO.BAM
         /// readonly mode or not. If this flag is set to true then the resulting sequence's 
         /// isReadOnly property will be set to true, otherwise it will be set to false.
         /// </param>
-        public SAMAlignedSequence GetAlignedSequence(bool isReadOnly)
+        public T GetAlignedSequence(bool isReadOnly)
         {
             return GetAlignedSequence(0, int.MaxValue);
         }
@@ -942,11 +951,19 @@ namespace Bio.IO.BAM
             }
         }
 
-     
+     	/// <summary>
+     	/// Isolates the creation of aligned sequence objects so that subclasses can return other types of sequences
+     	/// </summary>
+     	/// <returns>The new aligned sequence.</returns>
+		protected virtual T GetNewAlignedSequence()
+		{
+			return new T();
+		}
+
         /// <summary>
         /// Returns an aligned sequence by parses the BAM file.
         /// </summary>
-        private SAMAlignedSequence GetAlignedSequence(int start, int end)
+        private T GetAlignedSequence(int start, int end)
         {
             byte[] array = new byte[4];
 
@@ -954,7 +971,8 @@ namespace Bio.IO.BAM
             int blockLen = Helper.GetInt32(array, 0);
             byte[] alignmentBlock = new byte[blockLen];
             ReadUnCompressedData(alignmentBlock, 0, blockLen);
-            SAMAlignedSequence alignedSeq = new SAMAlignedSequence();
+			T alignedSeq = GetNewAlignedSequence();
+
             int value;
             UInt32 UnsignedValue;
             // 0-4 bytes
@@ -1310,7 +1328,7 @@ namespace Bio.IO.BAM
             return GetAlignmentMap(bamStream, bamIndexStorage, null, refSeqIndex);
         }
 
-        internal IEnumerable<SAMAlignedSequence> GetAlignmentYield(Stream bamStream, BAMIndexStorage bamIndexStorage, int refSeqIndex)
+        internal IEnumerable<T> GetAlignmentYield(Stream bamStream, BAMIndexStorage bamIndexStorage, int refSeqIndex)
         {
             return this.GetAlignmentMapIterator(bamStream, bamIndexStorage, null, refSeqIndex);
         }
@@ -1321,7 +1339,7 @@ namespace Bio.IO.BAM
             return GetAlignmentMap(bamStream, bamIndexStorage, refSeqName);
         }
 
-        internal IEnumerable<SAMAlignedSequence> GetAlignmentYield(Stream bamStream, BAMIndexStorage bamIndexStorage, string refSeqName)
+        internal IEnumerable<T> GetAlignmentYield(Stream bamStream, BAMIndexStorage bamIndexStorage, string refSeqName)
         {
             return this.GetAlignmentMapIterator(bamStream, bamIndexStorage, refSeqName);
         }
@@ -1333,7 +1351,7 @@ namespace Bio.IO.BAM
             return GetAlignmentMap(bamStream, bamIndexStorage, refSeqName, null, start, end);
         }
 
-        internal IEnumerable<SAMAlignedSequence> GetAlignmentYield(Stream bamStream, BAMIndexStorage bamIndexStorage, string refSeqName, int start, int end)
+        internal IEnumerable<T> GetAlignmentYield(Stream bamStream, BAMIndexStorage bamIndexStorage, string refSeqName, int start, int end)
         {
             return this.GetAlignmentMapIterator(bamStream, bamIndexStorage, refSeqName, -1, start, end);
         }
@@ -1345,15 +1363,15 @@ namespace Bio.IO.BAM
             return GetAlignmentMap(bamStream, bamIndexStorage, null, refSeqIndex, start, end);
         }
 
-        internal IEnumerable<SAMAlignedSequence> GetAlignmentYield(Stream bamStream, BAMIndexStorage bamIndexStorage, int refSeqIndex, int start, int end)
+        internal IEnumerable<T> GetAlignmentYield(Stream bamStream, BAMIndexStorage bamIndexStorage, int refSeqIndex, int start, int end)
         {
             return this.GetAlignmentMapIterator(bamStream, bamIndexStorage, null, refSeqIndex, start, end);
         }
 
         // Gets aligned sequence from the specified chunks of the BAM file which overlaps with the specified start and end co-ordinates.
-        internal IList<SAMAlignedSequence> GetAlignedSequences(IList<Chunk> chunks, int start, int end)
+        internal IList<T> GetAlignedSequences(IList<Chunk> chunks, int start, int end)
         {
-            List<SAMAlignedSequence> alignedSeqs = new List<SAMAlignedSequence>();
+            List<T> alignedSeqs = new List<T>();
             foreach (Chunk chunk in chunks)
             {
                 readStream.Seek((long)chunk.ChunkStart.CompressedBlockOffset, SeekOrigin.Begin);
@@ -1365,7 +1383,7 @@ namespace Bio.IO.BAM
                     // read until eof or end of the chunck is reached.
                     while (!IsEOF() && (currentCompressedBlockStartPos < (long)chunk.ChunkEnd.CompressedBlockOffset || deCompressedStream.Position < chunk.ChunkEnd.UncompressedBlockOffset))
                     {
-                        SAMAlignedSequence alignedSeq = GetAlignedSequence(start, end);
+                        T alignedSeq = GetAlignedSequence(start, end);
                         if (alignedSeq != null)
                         {
                             alignedSeqs.Add(alignedSeq);
