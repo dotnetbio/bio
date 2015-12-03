@@ -409,7 +409,11 @@ namespace Bio
                 throw new ArgumentNullException("symbols");
             }
 
-            for (long i = offset; i < length; i++)
+            if (symbols.Length < offset + length) {
+                throw new ArgumentOutOfRangeException("length");
+            }
+
+            for (long i = offset; i < (length + offset); i++)
             {
                 if (!this.nucleotideValueMap.ContainsKey(symbols[i]))
                 {
