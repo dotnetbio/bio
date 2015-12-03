@@ -195,7 +195,7 @@ namespace Bio.IO.FastA
                     // If we have a base alphabet we detected earlier, 
                     // then try that first.
                     if (this.baseAlphabet != null &&
-                        this.baseAlphabet.ValidateSequence(buffer, bufferPosition, bufferPosition + line.Length))
+                        this.baseAlphabet.ValidateSequence(buffer, bufferPosition, line.Length))
                     {
                         alphabet = this.baseAlphabet;
                     }
@@ -238,7 +238,7 @@ namespace Bio.IO.FastA
                 else
                 {
                     // Validate against supplied alphabet.
-                    if (!alphabet.ValidateSequence(buffer, bufferPosition, bufferPosition + line.Length))
+                    if (!alphabet.ValidateSequence(buffer, bufferPosition, line.Length))
                     {
                         throw new Exception(string.Format(CultureInfo.InvariantCulture, Properties.Resource.InvalidSymbolInString, line));
                     }
