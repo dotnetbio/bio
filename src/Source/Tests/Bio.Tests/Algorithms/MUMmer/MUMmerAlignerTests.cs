@@ -201,11 +201,11 @@ namespace Bio.Tests.Algorithms.MUMmer
             IPairwiseSequenceAlignment align = new PairwiseSequenceAlignment();
             align.PairwiseAlignedSequences.Add(new PairwiseAlignedSequence
             {
-                FirstSequence = new Sequence(Alphabets.RNA,  "AUGCUUUUCCCCCCC"),
-                SecondSequence = new Sequence(Alphabets.RNA, "AUA-UUUUGG-----"),
-                Consensus = new Sequence(AmbiguousRnaAlphabet.Instance, "AURCUUUUSSCCCCC"),
+                FirstSequence = new Sequence(Alphabets.RNA,  "-AUGCUUUUCCCCCCC"),
+                SecondSequence = new Sequence(Alphabets.RNA, "UAUA-UUUUGG-----"),
+                Consensus = new Sequence(AmbiguousRnaAlphabet.Instance, "UAURCUUUUSSCCCCC"),
                 Score = -14,
-                FirstOffset = 0,
+                FirstOffset = 1,
                 SecondOffset = 0
             });
             expectedOutput.Add(align);
