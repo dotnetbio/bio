@@ -1285,6 +1285,46 @@ namespace Bio.Tests.Algorithms.Alignment
                 AlignmentType.Align);
         }
 
+
+        /// <summary>
+        /// Validate that sequences with gaps on the ends are handled appropriately 
+        /// by both the simple and affine aligners.
+        /// 
+        /// This test exists because the aligner did not tack on the ends of query sequences before.
+        ///     Validation : Aligned sequence and score.
+        /// </summary>
+        [Test]
+        [Category("Priority2")]
+        public void ValidateNeedlemanWunschAlignTwoSequencesWithEndGaps()
+        {
+            var exp_ref = "-ATTGTATGGCCAACAA-";
+            var refseq= new Sequence (DnaAlphabet.Instance, exp_ref.Replace("-", ""));
+            var query = new Sequence (DnaAlphabet.Instance, "CATTGTATGGCCAACAAG");
+            NeedlemanWunschAligner alner = new NeedlemanWunschAligner();
+
+            var res_affine = alner.Align (refseq, query).First().PairwiseAlignedSequences.First();
+            Assert.AreEqual (query.Count, res_affine.FirstSequence.Count);
+            Assert.AreEqual (query.Count, res_affine.SecondSequence.Count);
+            Assert.AreEqual (exp_ref, res_affine.FirstSequence.ConvertToString ());
+
+            var res_simple = alner.AlignSimple (refseq, query).First ().PairwiseAlignedSequences.First ();
+            Assert.AreEqual (query.Count, res_simple.FirstSequence.Count);
+            Assert.AreEqual (query.Count, res_simple.SecondSequence.Count);
+            Assert.AreEqual (exp_ref, res_simple.FirstSequence.ConvertToString ());
+
+            // now to flip sequence 1 and 2, try it again.
+            res_affine = alner.Align (query, refseq).First().PairwiseAlignedSequences.First();
+            Assert.AreEqual (query.Count, res_affine.FirstSequence.Count);
+            Assert.AreEqual (query.Count, res_affine.SecondSequence.Count);
+            Assert.AreEqual (exp_ref, res_affine.SecondSequence.ConvertToString ());
+
+            res_simple = alner.AlignSimple (query, refseq).First ().PairwiseAlignedSequences.First ();
+            Assert.AreEqual (query.Count, res_simple.FirstSequence.Count);
+            Assert.AreEqual (query.Count, res_simple.SecondSequence.Count);
+            Assert.AreEqual (exp_ref, res_simple.SecondSequence.ConvertToString ());
+
+                
+        }
         #endregion
 
         #region Helper Methods

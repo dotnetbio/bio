@@ -158,6 +158,9 @@ namespace Bio.Algorithms.Alignment
             {
                 //can't move horizontally at this stage, set to value 
                 //where gap open is destined to be better.
+                sbyte[] traceback = new sbyte[Cols];
+                traceback [0] = SourceDirection.Up;
+                Traceback [i] = traceback;
                 hgapCost[i * gapStride] = 2*GapOpenCost*i;
                 v_Gap_Length[i * gapStride] = i;
                 int initialScore = (i - 1) * GapExtensionCost + GapOpenCost;
@@ -182,10 +185,9 @@ namespace Bio.Algorithms.Alignment
             for (int i = 1; i < Rows; i++)
             {
                 // Create the next TB row
-                sbyte[] traceback = new sbyte[Cols];
+                sbyte[] traceback = Traceback[i];
                 if (i > 1)
                 {
-                    traceback[0] = SourceDirection.Up;
                     // Move current row to last row, Array.Copy(scoreRow, scoreLastRow, Cols);
                     var tmp = scoreLastRow;
                     scoreLastRow = scoreRow;
@@ -252,9 +254,6 @@ namespace Bio.Algorithms.Alignment
                         traceback[j] = SourceDirection.Up;
                     }
                 }
-
-                // Save off the TB row
-                Traceback[i] = traceback;
 
                 if (IncludeScoreTable)
                 {
