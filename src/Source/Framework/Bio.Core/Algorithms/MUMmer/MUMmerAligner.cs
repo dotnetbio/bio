@@ -883,9 +883,9 @@ namespace Bio.Algorithms.MUMmer
                     referenceGapStartIndex,
                     mum2ReferenceStartIndex - referenceGapStartIndex);
 
-                sequenceResult1.InsertRange(sequenceResult1.Count, sequence1);
-                sequenceResult2.InsertRange(sequenceResult2.Count, CreateDefaultGap(sequence1.Count));
-                consensusResult.InsertRange(consensusResult.Count, sequence1);
+                sequenceResult1.AddRange(sequence1);
+                sequenceResult2.AddRange(CreateDefaultGap(sequence1.Count));
+                consensusResult.AddRange(sequence1);
 
                 insertions[1] += sequence1.Count;
 
@@ -904,9 +904,9 @@ namespace Bio.Algorithms.MUMmer
                     queryGapStartIndex,
                     mum2QueryStartIndex - queryGapStartIndex);
 
-                sequenceResult1.InsertRange(sequenceResult1.Count, CreateDefaultGap(sequence2.Count));
-                sequenceResult2.InsertRange(sequenceResult2.Count, sequence2);
-                consensusResult.InsertRange(consensusResult.Count, sequence2);
+                sequenceResult1.AddRange(CreateDefaultGap(sequence2.Count));
+                sequenceResult2.AddRange(sequence2);
+                consensusResult.AddRange(sequence2);
 
                 insertions[0] += sequence2.Count;
 
@@ -926,13 +926,13 @@ namespace Bio.Algorithms.MUMmer
                 mum1String = referenceSequence.GetSubSequence(
                         mum2ReferenceStartIndex,
                         mum2Length).ToArray();
-                sequenceResult1.InsertRange(sequenceResult1.Count, mum1String);
+                sequenceResult1.AddRange(mum1String);
 
                 mum2String = querySequence.GetSubSequence(
                         mum2QueryStartIndex,
                         mum2Length).ToArray();
-                sequenceResult2.InsertRange(sequenceResult2.Count, mum2String);
-                consensusResult.InsertRange(consensusResult.Count, mum1String);
+                sequenceResult2.AddRange(mum2String);
+                consensusResult.AddRange(mum1String);
 
                 foreach (byte index in mum1String)
                 {
