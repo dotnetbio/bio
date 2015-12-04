@@ -13,6 +13,15 @@ namespace Bio.Algorithms.MUMmer
 {
     /// <summary>
     /// This class is used for Align MUMs.
+    /// 
+    /// 
+    /// This is a 'quasi' global aligner in that the alignment is guaranteed to span the entire 
+    /// reference and read.  Only 1 alignment will be returned per query sequence.  The 
+    /// aligner uses a collection of exact match seeds and "stitches" these seeds together 
+    /// by using a NeedlemanWunsch global aligner to get the areas in the middle as well as the
+    /// ends.  In the event no matches are found, a full global alignment will be done, which will
+    /// be very slow for large sequences.
+    /// 
     /// </summary>
     public class MUMmerAligner : ISequenceAligner
     {
@@ -107,10 +116,11 @@ namespace Bio.Algorithms.MUMmer
         public IConsensusResolver ConsensusResolver { get; set; }
 
         /// <summary>
-        /// Gets or sets the pair wise aligner which will be executed 
-        /// by end of Mummer.
+        /// Gets or sets the NeedlemanWunschAligner which will be executed 
+        /// to stitch gaps between seeds as well as the ends.  Note this algorithm
+        /// must be a global one.
         /// </summary>
-        public IPairwiseSequenceAligner PairWiseAlgorithm { get; set; }
+        public NeedlemanWunschAligner PairWiseAlgorithm { get; set; }
 
         /// <summary>
         /// Gets the name of the Aligner. Intended to be filled in 
@@ -502,19 +512,14 @@ namespace Bio.Algorithms.MUMmer
                             alignment.PairwiseAlignedSequences.Add(
                                 this.ProcessGaps(referenceSequence, sequence, finalMumList));
                         }
-
                         results.Add(alignment);
                     }
-                    else
+                    else // Default to a full global alignment - very expensive for large sequences.
                     {
-                        IList<IPairwiseSequenceAlignment> sequenceAlignment = this.RunPairWise(
+                        IPairwiseSequenceAlignment pairwiseAlignment = this.RunPairWise(
                                 referenceSequence,
                                 sequence);
-
-                        foreach (IPairwiseSequenceAlignment pairwiseAlignment in sequenceAlignment)
-                        {
-                            results.Add(pairwiseAlignment);
-                        }
+                        results.Add(pairwiseAlignment);
                     }
                 }
             }
@@ -584,35 +589,25 @@ namespace Bio.Algorithms.MUMmer
                     LongestIncreasingSubsequence lis = new LongestIncreasingSubsequence();
                     IList<Match> sortedMumList = lis.SortMum(GetMumsForLIS(mum));
 
-                    if (sortedMumList.Count > 0)
-                    {
+                    if (sortedMumList.Count > 0) {
                         // Step3(b) : LIS using greedy cover algorithm
                         IList<Match> finalMumList = lis.GetLongestSequence(sortedMumList);
 
-                        if (finalMumList.Count > 0)
-                        {
+                        if (finalMumList.Count > 0) {
                             // Step 4 : get all the gaps in each sequence and call 
                             // pairwise alignment
-                            alignment.PairwiseAlignedSequences.Add(
-                                this.ProcessGaps(referenceSequence, sequence, finalMumList));
+                            alignment.PairwiseAlignedSequences.Add (
+                                this.ProcessGaps (referenceSequence, sequence, finalMumList));
                         }
-
-                        results.Add(alignment);
-                    }
-                    else
-                    {
-                        IList<IPairwiseSequenceAlignment> sequenceAlignment = this.RunPairWise(
-                                referenceSequence,
-                                sequence);
-
-                        foreach (IPairwiseSequenceAlignment pairwiseAlignment in sequenceAlignment)
-                        {
-                            results.Add(pairwiseAlignment);
-                        }
+                        results.Add (alignment);
+                    } else {
+                        IPairwiseSequenceAlignment pairwiseAlignment = this.RunPairWise (
+                                                                           referenceSequence,
+                                                                           sequence);
+                        results.Add (pairwiseAlignment);
                     }
                 }
             }
-
             return results;
         }
 
@@ -622,14 +617,13 @@ namespace Bio.Algorithms.MUMmer
         /// <param name="seq1">Sequence 1.</param>
         /// <param name="seq2">Sequence 2.</param>
         /// <returns>A list of sequence alignments.</returns>
-        private IList<IPairwiseSequenceAlignment> RunPairWise(ISequence seq1, ISequence seq2)
+        private IPairwiseSequenceAlignment RunPairWise(ISequence seq1, ISequence seq2)
         {
-            IList<IPairwiseSequenceAlignment> sequenceAlignment = null;
+            IPairwiseSequenceAlignment sequenceAlignment = null;
 
-            if (this.PairWiseAlgorithm == null)
-            {
-                this.PairWiseAlgorithm = new NeedlemanWunschAligner();
-            }
+            if (this.PairWiseAlgorithm == null) {
+                this.PairWiseAlgorithm = new NeedlemanWunschAligner ();
+            } 
 
             this.PairWiseAlgorithm.SimilarityMatrix = SimilarityMatrix;
             this.PairWiseAlgorithm.GapOpenCost = this.GapOpenCost;
@@ -638,15 +632,30 @@ namespace Bio.Algorithms.MUMmer
             if (this.UseGapExtensionCost)
             {
                 this.PairWiseAlgorithm.GapExtensionCost = this.GapExtensionCost;
-                sequenceAlignment = this.PairWiseAlgorithm.Align(seq1, seq2);
+                sequenceAlignment = this.PairWiseAlgorithm.Align(seq1, seq2).FirstOrDefault();
             }
             else
             {
-                sequenceAlignment = this.PairWiseAlgorithm.AlignSimple(seq1, seq2);
+                sequenceAlignment = this.PairWiseAlgorithm.AlignSimple(seq1, seq2).FirstOrDefault();
             }
-
-            // MUMmer does not support other aligners. Throw exception.
+            // NeedlemanWunsch is a global aligner that should always return exactly one alignment
+            if (sequenceAlignment == null || sequenceAlignment.PairwiseAlignedSequences.Count != 1 || sequenceAlignment.PairwiseAlignedSequences[0] == null) {
+                throw new Exception ("NeedlemanWunsch failed to return an alignment when gaps in mummer were being processed");
+            }
             return sequenceAlignment;
+        }
+
+        /// <summary>
+        /// Convenience method to get the needlemanWunsch global alignment, 
+        /// but return only the aligned sequences, not the larger
+        /// IPairwiseSequenceAlignment object with both.
+        /// </summary>
+        /// <returns>The pair wise return just alignment.</returns>
+        /// <param name="seq1">Seq1.</param>
+        /// <param name="seq2">Seq2.</param>
+        private PairwiseAlignedSequence RunPairWiseReturnJustAlignment(ISequence seq1, ISequence seq2) {
+            var aln = RunPairWise (seq1, seq2);
+            return aln.PairwiseAlignedSequences.First ();
         }
 
         /// <summary>
@@ -752,16 +761,10 @@ namespace Bio.Algorithms.MUMmer
                 alphabet,
                 consensus);
 
-            // Offset is not required as Smith Waterman will  fragmented alignment. 
-            // Offset is the starting position of alignment of sequence1 with respect to sequence2.
-            if (this.PairWiseAlgorithm is NeedlemanWunschAligner)
-            {
-                alignedSequence.FirstOffset = alignedSequence.FirstSequence.IndexOfNonGap() -
-                    referenceSequence.IndexOfNonGap();
-                alignedSequence.SecondOffset = alignedSequence.SecondSequence.IndexOfNonGap() -
-                    sequence.IndexOfNonGap();
-            }
-
+            alignedSequence.FirstOffset = alignedSequence.FirstSequence.IndexOfNonGap() - referenceSequence.IndexOfNonGap();
+            alignedSequence.SecondOffset = alignedSequence.SecondSequence.IndexOfNonGap() - sequence.IndexOfNonGap();
+                    
+            
             List<long> startOffsets = new List<long>(2);
             List<long> endOffsets = new List<long>(2);
             startOffsets.Add(0);
@@ -803,7 +806,6 @@ namespace Bio.Algorithms.MUMmer
             long score = 0;
             ISequence sequence1 = null;
             ISequence sequence2 = null;
-            IList<IPairwiseSequenceAlignment> sequenceAlignment = null;
             byte[] mum1String;
             byte[] mum2String;
 
@@ -840,57 +842,42 @@ namespace Bio.Algorithms.MUMmer
             long referenceGapStartIndex = mum1ReferenceStartIndex + mum1Length;
             long queryGapStartIndex = mum1QueryStartIndex + mum1Length;
 
+            /* Stich the exact matches together according to if both sequences have data
+             * in the gap (in which case use a global alignment) or if only one does 
+             * (in which case just insert gaps).
+             */
             if (mum2ReferenceStartIndex > referenceGapStartIndex
-                && mum2QueryStartIndex > queryGapStartIndex)
-            {
+                && mum2QueryStartIndex > queryGapStartIndex) // Both sequences have data in the gap.
+            {                
+                // Get the sequences in between
                 sequence1 = referenceSequence.GetSubSequence(
                     referenceGapStartIndex,
                     mum2ReferenceStartIndex - referenceGapStartIndex);
                 sequence2 = querySequence.GetSubSequence(
                     queryGapStartIndex,
                     mum2QueryStartIndex - queryGapStartIndex);
+                
+                // Do a pairwise alignment (must be needleman wunsh)
+                var alignment = this.RunPairWiseReturnJustAlignment(sequence1, sequence2);
+                sequenceResult1.AddRange(alignment.FirstSequence);
+                sequenceResult2.AddRange(alignment.SecondSequence);
+                consensusResult.AddRange(alignment.Consensus);
 
-                sequenceAlignment = this.RunPairWise(sequence1, sequence2);
+                score += alignment.Score;
 
-                if (sequenceAlignment != null)
-                {
-                    foreach (IPairwiseSequenceAlignment pairwiseAlignment in sequenceAlignment)
-                    {
-                        foreach (PairwiseAlignedSequence alignment in pairwiseAlignment.PairwiseAlignedSequences)
-                        {
-                            sequenceResult1.InsertRange(
-                                    sequenceResult1.Count,
-                                    alignment.FirstSequence);
-                            sequenceResult2.InsertRange(
-                                    sequenceResult2.Count,
-                                    alignment.SecondSequence);
-                            consensusResult.InsertRange(
-                                consensusResult.Count,
-                                    alignment.Consensus);
-
-                            score += alignment.Score;
-
-                            if (alignment.Metadata.ContainsKey("Insertions"))
-                            {
-                                List<int> gapinsertions = alignment.Metadata["Insertions"] as List<int>;
-                                if (gapinsertions != null)
-                                {
-                                    if (gapinsertions.Count > 0)
-                                    {
-                                        insertions[0] += gapinsertions[0];
-                                    }
-
-                                    if (gapinsertions.Count > 1)
-                                    {
-                                        insertions[1] += gapinsertions[1];
-                                    }
-                                }
-                            }
-                        }
-                    }
+                if (!alignment.Metadata.ContainsKey ("Insertions")) {
+                    // Should never happen - can remove later.
+                    throw new Exception ("NeedlemanWunsch alignment did not have an insertion entry");
                 }
+                List<long> gapinsertions = alignment.Metadata ["Insertions"] as List<long>;
+                if (gapinsertions == null || gapinsertions.Count != 2) {
+                    // Should never happen - can remove later
+                    throw new Exception("Alignment Insertions were not available as a size 2 list");
+                }
+                insertions [0] += gapinsertions [0];
+                insertions [1] += gapinsertions [1];               
             }
-            else if (mum2ReferenceStartIndex > referenceGapStartIndex)
+            else if (mum2ReferenceStartIndex > referenceGapStartIndex) // Only the reference has data, insert gaps for the query
             {
                 sequence1 = referenceSequence.GetSubSequence(
                     referenceGapStartIndex,
@@ -911,7 +898,7 @@ namespace Bio.Algorithms.MUMmer
                     score = sequence1.Count * this.GapOpenCost;
                 }
             }
-            else if (mum2QueryStartIndex > queryGapStartIndex)
+            else if (mum2QueryStartIndex > queryGapStartIndex) // Only the query has data, insert gaps for the reference
             {
                 sequence2 = querySequence.GetSubSequence(
                     queryGapStartIndex,
