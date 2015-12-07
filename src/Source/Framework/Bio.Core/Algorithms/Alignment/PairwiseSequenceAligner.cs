@@ -418,23 +418,25 @@ namespace Bio.Algorithms.Alignment
 
             // Attempt to keep the scoring table if requested. For performance/memory we use a single
             // array here, but it limits the size dramatically so see if we can actually hold it.
-            if (IncludeScoreTable)
+            if (IncludeScoreTable || usingAffineGapModel)
             {
-                long maxIndex = (long) Rows*Cols;
+                long maxIndex = checked((long) Rows * (long)Cols);
                 if (maxIndex > Int32.MaxValue)
                 {
+                    if (usingAffineGapModel) {
+                        throw new ArgumentOutOfRangeException (GenerateSizeTooLargeErrorMessage());
+                    }
                     IncludeScoreTable = false;
                 }
                 else
                 {
-                    try
-                    {
-                        ScoreTable = new int[maxIndex];
-                    }
-                    catch (OutOfMemoryException)
-                    {
-                        ScoreTable = null;
-                        IncludeScoreTable = false;
+                    if (IncludeScoreTable) {
+                        try {
+                            ScoreTable = new int[maxIndex];
+                        } catch (OutOfMemoryException) {
+                            ScoreTable = null;
+                            IncludeScoreTable = false;
+                        }
                     }
                 }
             }
@@ -686,6 +688,33 @@ namespace Bio.Algorithms.Alignment
                 sb.AppendLine();
             }
             return sb.ToString();
+        }
+
+        /// <summary>
+        /// Generates the size too large error message.
+        /// 
+        /// If Rows x Cols greater than Int32.Max, create an error message to inform the user.
+        /// </summary>
+        /// <returns>The size too large error message.</returns>
+        protected string GenerateSizeTooLargeErrorMessage() {
+            return "Sequences too large for pairwise alignment.  Size attempted was " +
+                Rows + " x " + Cols + " but maximum allowable size is: " + Int32.MaxValue +
+                ".  If your sequences are large, a seed-and-extend algorithm (like NUCMER) " +
+                "is likely more appropriate as it will use far less memory."; 
+        }
+
+        /// <summary>
+        /// Generates the OOM error message when allocating gap tracebacks.
+        /// 
+        /// This message should be produced when an error occurs when allocating the traceback matrices
+        /// for the gap states.
+        /// </summary>
+        /// <returns>The OOM error message when allocating gap tracebacks.</returns>
+        protected string GenerateOOMErrorMessageWhenAllocatingGapTracebacks() {
+            return "Note enough memory for pairwise alignment.  An error was thrown when" +
+                "allocating the gap matrices of size " +
+                Rows + " x " + Cols + ".  If your sequences are large, a seed-and-extend algorithm (like NUCMER) " +
+                "is likely more appropriate as it will use far less memory."; 
         }
 
         /// <summary>
