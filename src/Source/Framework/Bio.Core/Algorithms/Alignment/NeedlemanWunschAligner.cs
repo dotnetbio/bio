@@ -261,7 +261,7 @@ namespace Bio.Algorithms.Alignment
 
                     // Gap in reference sequence
                     int scoreAbove;
-                    int scoreAboveOpen = cellAbove.BestScore + GapOpenCost;
+                    int scoreAboveOpen = Math.Max(cellAbove.HorizontalGapScore, cellAbove.MatchScore) + GapOpenCost;
                     int scoreAboveExtend = cellAbove.VerticalGapScore + GapExtensionCost;
                     if (scoreAboveOpen > scoreAboveExtend)
                     {
@@ -276,7 +276,7 @@ namespace Bio.Algorithms.Alignment
 
                     // Gap in query sequence
                     int scoreLeft;
-                    int scoreLeftOpen = cellLeft.MatchScore + GapOpenCost;
+                    int scoreLeftOpen = Math.Max(cellLeft.MatchScore, cellLeft.VerticalGapScore) + GapOpenCost;
                     int scoreLeftExtend = cellLeft.HorizontalGapScore + GapExtensionCost;
                     if (scoreLeftOpen > scoreLeftExtend)
                     {
