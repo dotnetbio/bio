@@ -114,7 +114,7 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Validation : Aligned sequence and score.
         /// </summary>
         [Test]
-        [Category("Priority2")]
+        [Category("NeedlemanWunschAligner")]
         public void NeedlemanWunschSimpleAlignTwoLowerCaseSequencesFromTextFile()
         {
             this.ValidateNeedlemanWunschAlignment(
@@ -133,7 +133,7 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Validation : Aligned sequence and score.
         /// </summary>
         [Test]
-        [Category("Priority2")]
+        [Category("NeedlemanWunschAligner")]
         public void NeedlemanWunschSimpleAlignTwoUpperCaseSequencesFromTextFile()
         {
             this.ValidateNeedlemanWunschAlignment(
@@ -152,7 +152,7 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Validation : Aligned sequence and score.
         /// </summary>
         [Test]
-        [Category("Priority2")]
+        [Category("NeedlemanWunschAligner")]
         public void NeedlemanWunschSimpleAlignWith1000BP()
         {
             this.ValidateNeedlemanWunschAlignment(
@@ -171,7 +171,7 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Validation : Aligned sequence and score.
         /// </summary>
         [Test]
-        [Category("Priority2")]
+        [Category("NeedlemanWunschAligner")]
         public void NeedlemanWunschSimpleAlignTwoLowerUpperCaseSequencesFromTextFile()
         {
             this.ValidateNeedlemanWunschAlignment(
@@ -190,7 +190,7 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Validation : Aligned sequence and score.
         /// </summary>
         [Test]
-        [Category("Priority2")]
+        [Category("NeedlemanWunschAligner")]
         public void NeedlemanWunschSimpleAlignTwoLowerCaseSequencesFromCode()
         {
             this.ValidateNeedlemanWunschAlignment(
@@ -209,7 +209,7 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Validation : Aligned sequence and score.
         /// </summary>
         [Test]
-        [Category("Priority2")]
+        [Category("NeedlemanWunschAligner")]
         public void NeedlemanWunschSimpleAlignTwoUpperCaseSequencesFromCode()
         {
             this.ValidateNeedlemanWunschAlignment(
@@ -228,7 +228,7 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Validation : Aligned sequence and score.
         /// </summary>
         [Test]
-        [Category("Priority2")]
+        [Category("NeedlemanWunschAligner")]
         public void NeedlemanWunschSimpleAlignTwoLowerUpperCaseSequencesFromCode()
         {
             this.ValidateNeedlemanWunschAlignment(
@@ -247,7 +247,7 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Validation : Aligned sequence and score.
         /// </summary>
         [Test]
-        [Category("Priority2")]
+        [Category("NeedlemanWunschAligner")]
         public void NeedlemanWunschSimpleAlignListLowerCaseSequencesFromTextFile()
         {
             this.ValidateNeedlemanWunschAlignment(
@@ -266,7 +266,7 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Validation : Aligned sequence and score.
         /// </summary>
         [Test]
-        [Category("Priority2")]
+        [Category("NeedlemanWunschAligner")]
         public void NeedlemanWunschSimpleAlignListUpperCaseSequencesFromTextFile()
         {
             this.ValidateNeedlemanWunschAlignment(
@@ -285,7 +285,7 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Validation : Aligned sequence and score.
         /// </summary>
         [Test]
-        [Category("Priority2")]
+        [Category("NeedlemanWunschAligner")]
         public void NeedlemanWunschSimpleAlignListLowerUpperCaseSequencesFromTextFile()
         {
             this.ValidateNeedlemanWunschAlignment(Constants.NeedlemanWunschAlignAlgorithmNodeName, true,
@@ -302,7 +302,7 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Validation : Aligned sequence and score.
         /// </summary>
         [Test]
-        [Category("Priority2")]
+        [Category("NeedlemanWunschAligner")]
         public void NeedlemanWunschSimpleAlignAllParamsLowerCaseSequencesFromTextFile()
         {
             this.ValidateNeedlemanWunschAlignment(Constants.NeedlemanWunschAlignAlgorithmNodeName, true,
@@ -319,7 +319,7 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Validation : Aligned sequence and score.
         /// </summary>
         [Test]
-        [Category("Priority2")]
+        [Category("NeedlemanWunschAligner")]
         public void NeedlemanWunschSimpleAlignAllParamsUpperCaseSequencesFromTextFile()
         {
             this.ValidateNeedlemanWunschAlignment(Constants.NeedlemanWunschAlignAlgorithmNodeName, true,
@@ -336,7 +336,7 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Validation : Aligned sequence and score.
         /// </summary>
         [Test]
-        [Category("Priority2")]
+        [Category("NeedlemanWunschAligner")]
         public void NeedlemanWunschSimpleAlignAllParamsLowerUpperCaseSequencesFromTextFile()
         {
             this.ValidateNeedlemanWunschAlignment(Constants.NeedlemanWunschAlignAlgorithmNodeName, true,
@@ -350,7 +350,7 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Validation : Exception should be thrown
         /// </summary>
         [Test]
-        [Category("Priority2")]
+        [Category("NeedlemanWunschAligner")]
         public void InValidateNWSimpleAlignTwoSequencesWithNonMatchingSimilarityMatrix()
         {
             this.InValidateNeedlemanWunschAlignmentWithInvalidSimilarityMatrix(
@@ -366,7 +366,7 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Validation : Exception should be thrown
         /// </summary>
         [Test]
-        [Category("Priority2")]
+        [Category("NeedlemanWunschAligner")]
         public void InValidateNWSimpleAlignListSequencesWithNonMatchingSimilarityMatrix()
         {
             this.InValidateNeedlemanWunschAlignmentWithInvalidSimilarityMatrix(
@@ -382,7 +382,7 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Validation : Exception should be thrown
         /// </summary>
         [Test]
-        [Category("Priority2")]
+        [Category("NeedlemanWunschAligner")]
         public void InValidateNWSimpleAlignAllParamsSequencesWithNonMatchingSimilarityMatrix()
         {
             this.InValidateNeedlemanWunschAlignmentWithInvalidSimilarityMatrix(
@@ -398,7 +398,7 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Validation : Exception should be thrown
         /// </summary>
         [Test]
-        [Category("Priority2")]
+        [Category("NeedlemanWunschAligner")]
         public void InValidateNWSimpleAlignTwoSequencesWithEmptySimilarityMatrix()
         {
             this.InValidateNeedlemanWunschAlignmentWithInvalidSimilarityMatrix(
@@ -414,7 +414,7 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Validation : Exception should be thrown
         /// </summary>
         [Test]
-        [Category("Priority2")]
+        [Category("NeedlemanWunschAligner")]
         public void InValidateNWSimpleAlignListSequencesWithEmptySimilarityMatrix()
         {
             this.InValidateNeedlemanWunschAlignmentWithInvalidSimilarityMatrix(
@@ -431,7 +431,7 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Validation : Exception should be thrown
         /// </summary>
         [Test]
-        [Category("Priority2")]
+        [Category("NeedlemanWunschAligner")]
         public void InValidateNWSimpleAlignAllParamsSequencesWithEmptySimilarityMatrix()
         {
             this.InValidateNeedlemanWunschAlignmentWithInvalidSimilarityMatrix(
@@ -449,7 +449,7 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Validation : Exception should be thrown
         /// </summary>
         [Test]
-        [Category("Priority2")]
+        [Category("NeedlemanWunschAligner")]
         public void InValidateNWSimpleAlignTwoSequencesWithOnlyAlphabetSimilarityMatrix()
         {
             this.InValidateNeedlemanWunschAlignmentWithInvalidSimilarityMatrix(
@@ -466,7 +466,7 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Validation : Exception should be thrown
         /// </summary>
         [Test]
-        [Category("Priority2")]
+        [Category("NeedlemanWunschAligner")]
         public void InValidateNWSimpleAlignListSequencesWithOnlyAlphabetSimilarityMatrix()
         {
             this.InValidateNeedlemanWunschAlignmentWithInvalidSimilarityMatrix(
@@ -484,7 +484,7 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Validation : Exception should be thrown
         /// </summary>
         [Test]
-        [Category("Priority2")]
+        [Category("NeedlemanWunschAligner")]
         public void InValidateNWSimpleAlignAllParamsSequencesWithOnlyAlphabetSimilarityMatrix()
         {
             this.InValidateNeedlemanWunschAlignmentWithInvalidSimilarityMatrix(
@@ -502,7 +502,7 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Validation : Exception should be thrown
         /// </summary>
         [Test]
-        [Category("Priority2")]
+        [Category("NeedlemanWunschAligner")]
         public void InValidateNWSimpleAlignTwoSequencesWithModifiedSimilarityMatrix()
         {
             this.InValidateNeedlemanWunschAlignmentWithInvalidSimilarityMatrix(
@@ -520,7 +520,7 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Validation : Exception should be thrown
         /// </summary>
         [Test]
-        [Category("Priority2")]
+        [Category("NeedlemanWunschAligner")]
         public void InValidateNWSimpleAlignListSequencesWithModifiedSimilarityMatrix()
         {
             this.InValidateNeedlemanWunschAlignmentWithInvalidSimilarityMatrix(
@@ -538,7 +538,7 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Validation : Exception should be thrown
         /// </summary>
         [Test]
-        [Category("Priority2")]
+        [Category("NeedlemanWunschAligner")]
         public void InValidateNWSimpleAlignAllParamsSequencesWithModifiedSimilarityMatrix()
         {
             this.InValidateNeedlemanWunschAlignmentWithInvalidSimilarityMatrix(
@@ -556,7 +556,7 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Validation : Exception should be thrown
         /// </summary>
         [Test]
-        [Category("Priority2")]
+        [Category("NeedlemanWunschAligner")]
         public void InValidateNWSimpleAlignTwoSequencesWithFewAlphabetSimilarityMatrix()
         {
             this.InValidateNeedlemanWunschAlignmentWithInvalidSimilarityMatrix(
@@ -574,7 +574,7 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Validation : Exception should be thrown
         /// </summary>
         [Test]
-        [Category("Priority2")]
+        [Category("NeedlemanWunschAligner")]
         public void InValidateNWSimpleAlignListSequencesWithFewAlphabetSimilarityMatrix()
         {
             this.InValidateNeedlemanWunschAlignmentWithInvalidSimilarityMatrix(
@@ -592,7 +592,7 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Validation : Exception should be thrown
         /// </summary>
         [Test]
-        [Category("Priority2")]
+        [Category("NeedlemanWunschAligner")]
         public void InValidateNWSimpleAlignAllParamsSequencesWithFewAlphabetSimilarityMatrix()
         {
             this.InValidateNeedlemanWunschAlignmentWithInvalidSimilarityMatrix(
@@ -610,7 +610,7 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Validation : Exception should be thrown
         /// </summary>
         [Test]
-        [Category("Priority2")]
+        [Category("NeedlemanWunschAligner")]
         public void InValidateNWSimpleAlignTwoSequencesFromCodeWithEmptySimilarityMatrix()
         {
             this.InValidateNeedlemanWunschAlignmentWithInvalidSimilarityMatrix(
@@ -628,7 +628,7 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Validation : Exception should be thrown
         /// </summary>
         [Test]
-        [Category("Priority2")]
+        [Category("NeedlemanWunschAligner")]
         public void InValidateNWSimpleAlignListSequencesFromCodeWithEmptySimilarityMatrix()
         {
             this.InValidateNeedlemanWunschAlignmentWithInvalidSimilarityMatrix(
@@ -646,7 +646,7 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Validation : Exception should be thrown
         /// </summary>
         [Test]
-        [Category("Priority2")]
+        [Category("NeedlemanWunschAligner")]
         public void InValidateNWSimpleAlignAllParamsSequencesFromCodeWithEmptySimilarityMatrix()
         {
             this.InValidateNeedlemanWunschAlignmentWithInvalidSimilarityMatrix(
@@ -664,7 +664,7 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Validation : Exception should be thrown
         /// </summary>
         [Test]
-        [Category("Priority2")]
+        [Category("NeedlemanWunschAligner")]
         public void InValidateNWSimpleAlignTwoSequencesFromCodeWithOnlyAlphabetSimilarityMatrix()
         {
             this.InValidateNeedlemanWunschAlignmentWithInvalidSimilarityMatrix(
@@ -682,7 +682,7 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Validation : Exception should be thrown
         /// </summary>
         [Test]
-        [Category("Priority2")]
+        [Category("NeedlemanWunschAligner")]
         public void InValidateNWSimpleAlignListSequencesFromCodeWithOnlyAlphabetSimilarityMatrix()
         {
             this.InValidateNeedlemanWunschAlignmentWithInvalidSimilarityMatrix(
@@ -700,7 +700,7 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Validation : Exception should be thrown
         /// </summary>
         [Test]
-        [Category("Priority2")]
+        [Category("NeedlemanWunschAligner")]
         public void InValidateNWSimpleAlignAllParamsSequencesFromCodeWithOnlyAlphabetSimilarityMatrix()
         {
             this.InValidateNeedlemanWunschAlignmentWithInvalidSimilarityMatrix(
@@ -718,7 +718,7 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Validation : Exception should be thrown
         /// </summary>
         [Test]
-        [Category("Priority2")]
+        [Category("NeedlemanWunschAligner")]
         public void InValidateNWSimpleAlignTwoSequencesFromCodeWithNullSimilarityMatrix()
         {
             this.InValidateNeedlemanWunschAlignmentWithInvalidSimilarityMatrix(
@@ -736,7 +736,7 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Validation : Exception should be thrown
         /// </summary>
         [Test]
-        [Category("Priority2")]
+        [Category("NeedlemanWunschAligner")]
         public void InValidateNWSimpleAlignListSequencesFromCodeWithNullSimilarityMatrix()
         {
             this.InValidateNeedlemanWunschAlignmentWithInvalidSimilarityMatrix(
@@ -754,7 +754,7 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Validation : Exception should be thrown
         /// </summary>
         [Test]
-        [Category("Priority2")]
+        [Category("NeedlemanWunschAligner")]
         public void InValidateNWSimpleAlignAllParamsSequencesFromCodeWithNullSimilarityMatrix()
         {
             this.InValidateNeedlemanWunschAlignmentWithInvalidSimilarityMatrix(
@@ -772,7 +772,7 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Validation : Exception should be thrown
         /// </summary>
         [Test]
-        [Category("Priority2")]
+        [Category("NeedlemanWunschAligner")]
         public void InValidateNWSimpleAlignTwoSequencesWithInvalidDiagonalSimilarityMatrix()
         {
             this.InValidateNeedlemanWunschAlignmentWithInvalidSimilarityMatrix(
@@ -790,7 +790,7 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Validation : Exception should be thrown
         /// </summary>
         [Test]
-        [Category("Priority2")]
+        [Category("NeedlemanWunschAligner")]
         public void InValidateNWSimpleAlignListSequencesWithInvalidDiagonalSimilarityMatrix()
         {
             this.InValidateNeedlemanWunschAlignmentWithInvalidSimilarityMatrix(
@@ -808,7 +808,7 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Validation : Exception should be thrown
         /// </summary>
         [Test]
-        [Category("Priority2")]
+        [Category("NeedlemanWunschAligner")]
         public void InValidateNWSimpleAlignAllParamsSequencesWithInvalidDiagonalSimilarityMatrix()
         {
             this.InValidateNeedlemanWunschAlignmentWithInvalidSimilarityMatrix(
@@ -826,7 +826,7 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Validation : Exception should be thrown
         /// </summary>
         [Test]
-        [Category("Priority2")]
+        [Category("NeedlemanWunschAligner")]
         public void InValidateNWSimpleAlignTwoWithInvalidSequencesFromTextFile()
         {
             this.InValidateNeedlemanWunschAlignmentWithInvalidSequence(
@@ -845,7 +845,7 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Validation : Exception should be thrown
         /// </summary>
         [Test]
-        [Category("Priority2")]
+        [Category("NeedlemanWunschAligner")]
         public void InValidateNWSimpleAlignListWithInvalidSequencesFromTextFile()
         {
             this.InValidateNeedlemanWunschAlignmentWithInvalidSequence(
@@ -864,7 +864,7 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Validation : Exception should be thrown
         /// </summary>
         [Test]
-        [Category("Priority2")]
+        [Category("NeedlemanWunschAligner")]
         public void InValidateNWSimpleAlignAllParamsWithInvalidSequencesFromTextFile()
         {
             this.InValidateNeedlemanWunschAlignmentWithInvalidSequence(
@@ -883,7 +883,7 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Validation : Exception should be thrown
         /// </summary>
         [Test]
-        [Category("Priority2")]
+        [Category("NeedlemanWunschAligner")]
         public void InValidateNWSimpleAlignTwoWithEmptySequencesFromTextFile()
         {
             this.InValidateNeedlemanWunschAlignmentWithInvalidSequence(
@@ -902,7 +902,7 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Validation : Exception should be thrown
         /// </summary>
         [Test]
-        [Category("Priority2")]
+        [Category("NeedlemanWunschAligner")]
         public void InValidateNWSimpleAlignListWithEmptySequencesFromTextFile()
         {
             this.InValidateNeedlemanWunschAlignmentWithInvalidSequence(
@@ -921,7 +921,7 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Validation : Exception should be thrown
         /// </summary>
         [Test]
-        [Category("Priority2")]
+        [Category("NeedlemanWunschAligner")]
         public void InValidateNWSimpleAlignAllParamsWithEmptySequencesFromTextFile()
         {
             this.InValidateNeedlemanWunschAlignmentWithInvalidSequence(
@@ -940,7 +940,7 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Validation : Exception should be thrown
         /// </summary>
         [Test]
-        [Category("Priority2")]
+        [Category("NeedlemanWunschAligner")]
         public void InValidateNWSimpleAlignTwoWithGapSequencesFromTextFile()
         {
             this.InValidateNeedlemanWunschAlignmentWithInvalidSequence(
@@ -959,7 +959,7 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Validation : Exception should be thrown
         /// </summary>
         [Test]
-        [Category("Priority2")]
+        [Category("NeedlemanWunschAligner")]
         public void InValidateNWSimpleAlignListWithGapSequencesFromTextFile()
         {
             this.InValidateNeedlemanWunschAlignmentWithInvalidSequence(
@@ -978,7 +978,7 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Validation : Exception should be thrown
         /// </summary>
         [Test]
-        [Category("Priority2")]
+        [Category("NeedlemanWunschAligner")]
         public void InValidateNWSimpleAlignAllParamsWithGapSequencesFromTextFile()
         {
             this.InValidateNeedlemanWunschAlignmentWithInvalidSequence(
@@ -997,7 +997,7 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Validation : Exception should be thrown
         /// </summary>
         [Test]
-        [Category("Priority2")]
+        [Category("NeedlemanWunschAligner")]
         public void InValidateNWSimpleAlignTwoWithUnicodeSequencesFromTextFile()
         {
             this.InValidateNeedlemanWunschAlignmentWithInvalidSequence(
@@ -1016,7 +1016,7 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Validation : Exception should be thrown
         /// </summary>
         [Test]
-        [Category("Priority2")]
+        [Category("NeedlemanWunschAligner")]
         public void InValidateNWSimpleAlignListWithUnicodeSequencesFromTextFile()
         {
             this.InValidateNeedlemanWunschAlignmentWithInvalidSequence(
@@ -1035,7 +1035,7 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Validation : Exception should be thrown
         /// </summary>
         [Test]
-        [Category("Priority2")]
+        [Category("NeedlemanWunschAligner")]
         public void InValidateNWSimpleAlignAllParamsWithUnicodeSequencesFromTextFile()
         {
             this.InValidateNeedlemanWunschAlignmentWithInvalidSequence(
@@ -1054,7 +1054,7 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Validation : Exception should be thrown
         /// </summary>
         [Test]
-        [Category("Priority2")]
+        [Category("NeedlemanWunschAligner")]
         public void InValidateNWSimpleAlignTwoSequencesWithSpacesFromTextFile()
         {
             this.InValidateNeedlemanWunschAlignmentWithInvalidSequence(
@@ -1073,7 +1073,7 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Validation : Exception should be thrown
         /// </summary>
         [Test]
-        [Category("Priority2")]
+        [Category("NeedlemanWunschAligner")]
         public void InValidateNWSimpleAlignListSequencesWithSpacesFromTextFile()
         {
             this.InValidateNeedlemanWunschAlignmentWithInvalidSequence(
@@ -1092,7 +1092,7 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Validation : Exception should be thrown
         /// </summary>
         [Test]
-        [Category("Priority2")]
+        [Category("NeedlemanWunschAligner")]
         public void InValidateNWSimpleAlignParamsSequencesWithSpacesFromTextFile()
         {
             this.InValidateNeedlemanWunschAlignmentWithInvalidSequence(
@@ -1113,7 +1113,7 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Validation : Aligned sequence and score.
         /// </summary>
         [Test]
-        [Category("Priority2")]
+        [Category("NeedlemanWunschAligner")]
         public void ValidateNeedlemanWunschAlignTwoDnaSequences()
         {
             this.ValidateNeedlemanWunschAlignment(
@@ -1133,7 +1133,7 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Validation : Aligned sequence and score.
         /// </summary>
         [Test]
-        [Category("Priority2")]
+        [Category("NeedlemanWunschAligner")]
         public void ValidateNeedlemanWunschAlignTwoRnaSequences()
         {
             this.ValidateNeedlemanWunschAlignment(
@@ -1153,7 +1153,7 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Validation : Aligned sequence and score.
         /// </summary>
         [Test]
-        [Category("Priority2")]
+        [Category("NeedlemanWunschAligner")]
         public void ValidateNeedlemanWunschAlignTwoProteinSequences()
         {
             this.ValidateNeedlemanWunschAlignment(
@@ -1174,7 +1174,7 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Validation : Aligned sequence and score.
         /// </summary>
         [Test]
-        [Category("Priority2")]
+        [Category("NeedlemanWunschAligner")]
         public void ValidateNeedlemanWunschAlignTwoSequencesGapCostMin()
         {
             this.ValidateNeedlemanWunschAlignment(
@@ -1194,7 +1194,7 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Validation : Aligned sequence and score.
         /// </summary>
         [Test]
-        [Category("Priority2")]
+        [Category("NeedlemanWunschAligner")]
         public void ValidateNeedlemanWunschAlignTwoSequencesWithBlosomSimilarityMatrix()
         {
             this.ValidateNeedlemanWunschAlignment(
@@ -1214,7 +1214,7 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Validation : Aligned sequence and score.
         /// </summary>
         [Test]
-        [Category("Priority2")]
+        [Category("NeedlemanWunschAligner")]
         public void ValidateNeedlemanWunschAlignTwoSequencesWithPamSimilarityMatrix()
         {
             this.ValidateNeedlemanWunschAlignment(
@@ -1225,6 +1225,130 @@ namespace Bio.Tests.Algorithms.Alignment
                 AlignmentType.Align);
         }
 
+
+        [Test]
+        [Category("NeedlemanWunschAligner")]
+        public void ValidateNeedlemanWunschAlignTwoSequencesWithAffineGap()
+        {
+            /* These tests are designed to verify the NeedlemanWunsh aligner behaves as expected, in particular
+             * that it matches the EMBOSS Needle program.  
+             * 
+             * http://www.ebi.ac.uk/Tools/psa/emboss_needle/nucleotide.html
+             * 
+             * To run these tests, we can insert the sequences there and select options to set the "more options" to match
+             * the options shown below.  Note that you need to set teh "EndGapPenalty" box to TRUE or the gaps at the 
+             * end will not be scored appropriately
+             */
+            var seq1 = new Sequence (DnaAlphabet.Instance, "CAAAAGGGATTGCAAATGTTGGAGTGAATGCCATTACCTACCGGCTAGGAGGAGTAGTACAAAGGAGCTATTATCATATATTT");
+            var seq2 = new Sequence (DnaAlphabet.Instance, "CATTATGTATAGGTTATCATGCGAACAATTCAACAGACACTGTAGACACAGTACTAGAAAAGAATGTAAC");
+            var na = new NeedlemanWunschAligner ();
+            na.GapOpenCost = -10;
+            na.GapExtensionCost = -1;
+            na.SimilarityMatrix = new SimilarityMatrix (SimilarityMatrix.StandardSimilarityMatrix.EDnaFull);
+
+            var aln = na.Align (seq1, seq2).First ().PairwiseAlignedSequences.First ();
+            Assert.AreEqual (32, aln.Score);
+            Assert.AreEqual ("CAAAAGGGATTGCAAATGTTGGAGTGAATGCCATTACCTACCGGC----TAGGAGGAGTAGTACAAAGGAGCTAT-TATCATATATTT", aln.FirstSequence.ConvertToString ());
+            // Note that EMBOSS puts the "GC" neighboring the first gap after but not before, but these are equivalent
+            // from a scoring perspective.
+            Assert.AreEqual ("CATTATGTATAGGTTATCATGC---GAA--CAATT--CAACAGACACTGTAGACACAGTACTAGAAAAGA---ATGTAAC--------", aln.SecondSequence.ConvertToString ());
+            Assert.AreEqual (42, aln.Metadata ["SimilarityCount"]);
+
+
+            // Now let's verify the simple alignment is different from the affine alignment and is optima.
+            na.GapOpenCost = -1;
+            aln = na.AlignSimple (seq1, seq2).First().PairwiseAlignedSequences.First();
+            Assert.AreEqual (183, aln.Score); // Needle reports a score of 181
+
+            /* Again, we don't have an exact match here.  Part of this is due to
+            the placement of equivalent scores .NET Bio tends to not left align,
+            but part is also due to the end state.  NEEDLE appears to prevent a
+            insertion followed by a deletion at the very end but this is actually
+            favorable.  It allows insertions to follow deletions earlier in the
+            alignment, so I am not sure what the problem here is, likely a bug in
+            NEEDLE.  As a result .NET Bio has a score of 183 to Needles score of
+            181 due to the end change.
+
+            This bug in the Needle program was reported to
+            emboss-bug@emboss.open-bio.org on 12/6/2015 with the email below.
+
+                    Hi,
+
+                    There appears to be a bug in the needle program where it does not
+                    always return the globally best alignment as it should.
+
+                    This can be easily replicated using the web portal:
+
+                    http://www.ebi.ac.uk/Tools/psa/emboss_needle/nucleotide.html
+
+                    And entering the following options
+
+                    Seq1 = CAAAAGGGATTGCAAATGTTGGAGTGAATGCCATTACCTACCGGCTAGGAGGAGTAGTACAA
+                    AGGAGCTATTATCATATATTT
+                    Seq2 = CATTATGTATAGGTTATCATGCGAACAATTCAACAGACACTGTAGACACAGTACTAGAAAAG
+                    AATGTAAC
+                    Matrix: DNAfull
+                    GapOpen: 1
+                    GapExtend: 1
+                    EndGapPenalty: True
+                    EndGapOpen: 1
+                    EndGapExtend: 1
+
+                    Which produces the following alignment with a score of 181
+
+                    CAAAAGGGATTGCAAATGT-T GGAGTG--A--ATGC---C-ATT--ACCT--AC-C-GGCTAGGAGG-
+                    |       |||    |||| |   || |  |  ||||   | |||  ||    || | |  || ||
+                    C-------ATT----ATGTAT --AG-GTTATCATGCGAACAATTCAAC--AGACACTG--TA-GA--C
+
+                    AGT-AGTAC-A-AAGG-AGCTATTATCA-TATATTT
+                    |   ||||| | ||   ||  |  ||   || |  .
+                    A--CAGTACTAGAA--AAG--A--AT--GTA-A——C
+
+                    However, the optimal alignment has a score of 183.  The problem here
+                    being that with this particular scoring, a mismatch should never
+                    occur as the mismatch penalty (-4 in the matrix), is less than 2
+                    times the gap open/extend penalty (-2).  This means that you should
+                    always have a deletion followed by an insertion rather than a
+                    mismatch.  Needle follows this rule for every position except the
+                    last one, where for some reason it tacks on a mismatch at the end.
+                    The alignment should have been:
+
+                    CAAAAGGGATTGCAAATGT-T GGAGTG--A--ATGC---C-ATT--ACCT--AC-C-GGCTAGGAGG-
+                    |       |||    |||| |   || |  |  ||||   | |||  ||    || | |  || ||
+                    C-------ATT----ATGTAT --AG-GTTATCATGCGAACAATTCAAC--AGACACTG--TA-GA--C
+
+                    AGT-AGTAC-A-AAGG-AGCTATTATCA-TATATTT-
+                    |   ||||| | ||   ||  |  ||   || |
+                    A--CAGTACTAGAA--AAG--A--AT--GTA-A——-C
+
+                    Which gives the correct score of 183.  Note that by default needle
+                    does not score end gaps at all, but with the —endweight option
+                    enabled, it should have returned the alignment with a score of 183.
+
+                    I don’t suppose anyone is able to fix this?
+
+                    Warm wishes, Nigel
+
+
+            I placed the sequences returned by either program here to show the
+            difference explicitly. */
+            //var needleExpect1 = "CAAAAGGGATTGCAAATGT-TGGAGTG--A--ATGC---C-ATT--ACCT--AC-C-GGCTAGGAGG-AGT-AGTAC-A-AAGG-AGCTATTATCA-TATATTT";
+            //var needleExpect2 = "C-------ATT----ATGTAT--AG-GTTATCATGCGAACAATTCAAC--AGACACTG--TA-GA--CA--CAGTACTAGAA--AAG--A--AT--GTA-A--C";
+            var netBioExpect1 = "CAAAAGGGATTGCAAATGT-T-GG--AGTG-AATGC---CA-TT-A-C---CTACC-GGCTAGGAGG-AGT-AGTAC-A-AAGGA-GCTATTATCA-TATATTT-";
+            var netBioExpect2 = "CA-------TT--A--TGTATAGGTTA-T-CA-TGCGAACAATTCAACAGAC-AC-TG--TAG-A--CA--CAGTACTAGAA--AAG--A--AT--GTA-A---C";
+                                     
+            Assert.AreEqual (netBioExpect1, aln.FirstSequence.ConvertToString ());
+            Assert.AreEqual (netBioExpect2, aln.SecondSequence.ConvertToString());
+
+            /* Now verify that an affine gap with the penalties set to the same as the simple alignment
+             * produces the same result */
+            aln = na.Align (seq1, seq2).First().PairwiseAlignedSequences.First();
+            Assert.AreEqual (183, aln.Score); // 
+            Assert.AreEqual (netBioExpect1, aln.FirstSequence.ConvertToString ());
+            Assert.AreEqual (netBioExpect2, aln.SecondSequence.ConvertToString());
+        }
+
+
         /// <summary>
         ///     Pass a Valid Sequence with valid GapPenalty, Similarity Matrix
         ///     which is in a text file using the method Align(two sequences)
@@ -1234,7 +1358,7 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Validation : Aligned sequence and score.
         /// </summary>
         [Test]
-        [Category("Priority2")]
+        [Category("NeedlemanWunschAligner")]
         public void ValidateNeedlemanWunschAlignTwoSequencesWithTextReaderSimilarityMatrix()
         {
             this.ValidateNeedlemanWunschAlignment(
@@ -1255,7 +1379,7 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Validation : Aligned sequence and score.
         /// </summary>
         [Test]
-        [Category("Priority2")]
+        [Category("NeedlemanWunschAligner")]
         public void ValidateNeedlemanWunschAlignTwoSequencesWithDiagonalSimilarityMatrix()
         {
             this.ValidateNeedlemanWunschAlignment(
@@ -1275,7 +1399,7 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Validation : Aligned sequence and score.
         /// </summary>
         [Test]
-        [Category("Priority2")]
+        [Category("NeedlemanWunschAligner")]
         public void ValidateNeedlemanWunschAlignTwoSequencesWithEqualGapOpenAndExtensionCost()
         {
             this.ValidateNeedlemanWunschAlignment(
@@ -1294,7 +1418,7 @@ namespace Bio.Tests.Algorithms.Alignment
         ///     Validation : Aligned sequence and score.
         /// </summary>
         [Test]
-        [Category("Priority2")]
+        [Category("NeedlemanWunschAligner")]
         public void ValidateNeedlemanWunschAlignTwoSequencesWithEndGaps()
         {
             var exp_ref = "-ATTGTATGGCCAACAA-";
