@@ -17,11 +17,6 @@
     <TargetFrameworkProfile />
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
-    <CustomCommands>
-      <CustomCommands>
-        <Command type="AfterBuild" Condition=" '$(OS)' == 'Unix' " command="cp -r ${ProjectDir}/../TestData/TestUtils ${TargetDir}/" />
-      </CustomCommands>
-    </CustomCommands>
     <EnvironmentVariables>
       <EnvironmentVariables>
         <Variable name="MONO_IOMAP" value="all" />
@@ -41,11 +36,6 @@
     <CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
     <Prefer32Bit>false</Prefer32Bit>
     <CodeAnalysisIgnoreGeneratedCode>false</CodeAnalysisIgnoreGeneratedCode>
-    <CustomCommands>
-      <CustomCommands>
-        <Command type="AfterBuild" command="cp -r ${ProjectDir}/../TestData/TestUtils ${TargetDir}/" />
-      </CustomCommands>
-    </CustomCommands>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -61,9 +51,6 @@
     <CodeAnalysisIgnoreGeneratedCode>false</CodeAnalysisIgnoreGeneratedCode>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <CustomCommands>
-      <CustomCommands>
-        <Command type="AfterBuild" command="cp -r ${ProjectDir}/../TestData/TestUtils ${TargetDir}/" />
-      </CustomCommands>
     </CustomCommands>
   </PropertyGroup>
   <ItemGroup>
