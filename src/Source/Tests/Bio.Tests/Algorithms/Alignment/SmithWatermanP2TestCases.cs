@@ -124,7 +124,26 @@ namespace Bio.Tests.Algorithms.Alignment
                 AlignParameters.AlignTwo);
         }
 
-
+        /// <summary>
+        /// Validate that if we try to do an alignment with sequences that are too large
+        /// for a global M x N matrix allocation, we throw an exception. 
+        /// </summary>
+        [Test]
+        [Category("Priority2")]
+        public void SmithWatermanThrowsExceptionWhenTooLarge()
+        {
+            // What size squared is too large?
+            int seq_size = (int)Math.Sqrt ((double)Int32.MaxValue) + 5;
+            byte[] seq = new byte[seq_size];
+            // Now let's generate sequences of those size
+            for (int i = 0; i < seq.Length; i++) {
+                seq [i] = (byte)'A';
+            }
+            var seq1 = new Sequence (DnaAlphabet.Instance, seq, false);
+            var na = new SmithWatermanAligner ();
+            Assert.Throws(typeof(ArgumentOutOfRangeException),
+                () => na.Align(seq1, seq1));
+        }
         [Test]
         [Category("Priority2")]
         public void SmithWatermanGotohAlignSequenceWithMultiplePossibleIndelPositions()

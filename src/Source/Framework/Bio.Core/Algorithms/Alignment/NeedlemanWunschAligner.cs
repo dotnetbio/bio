@@ -192,8 +192,14 @@ namespace Bio.Algorithms.Alignment
              * which allows us to transition into and out of the gap matrices in one
              * step, rather than following paths through them.
              */
-            h_Gap_Length = new int[(Rows + 1) * gapStride];
-            v_Gap_Length = new int[(Rows + 1) * gapStride];
+            var matrixSize = checked((Rows + 1) * gapStride);
+            try {
+                h_Gap_Length = new int[matrixSize];
+                v_Gap_Length = new int[matrixSize];
+            }
+            catch(OutOfMemoryException oom) {
+                throw new OutOfMemoryException (GenerateOOMErrorMessageWhenAllocatingGapTracebacks (), oom);
+            }
 
             /* As we progress through, we only need to know about 
              * the current row and the previous row for the recursions,

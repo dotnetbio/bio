@@ -105,6 +105,28 @@ namespace Bio.Tests.Algorithms.Alignment
 
         #region Test Cases
 
+
+        /// <summary>
+        /// Validate that if we try to do an alignment with sequences that are too large
+        /// for a global M x N matrix allocation, we throw an exception. 
+        /// </summary>
+        [Test]
+        [Category("NeedlemanWunschAligner")]
+        public void NeedlemanWunschThrowsExceptionWhenTooLarge()
+        {
+            // What size squared is too large?
+            int seq_size = (int)Math.Sqrt ((double)Int32.MaxValue) + 5;
+            byte[] seq = new byte[seq_size];
+            // Now let's generate sequences of those size
+            for (int i = 0; i < seq.Length; i++) {
+                seq [i] = (byte)'A';
+            }
+            var seq1 = new Sequence (DnaAlphabet.Instance, seq, false);
+            var na = new NeedlemanWunschAligner ();
+            Assert.Throws(typeof(ArgumentOutOfRangeException),
+                () => na.Align(seq1, seq1));
+        }
+
         /// <summary>
         ///     Pass a Valid Sequence(Lower case) with valid GapPenalty, Similarity Matrix
         ///     which is in a text file using the method Align(sequence1, sequence2)

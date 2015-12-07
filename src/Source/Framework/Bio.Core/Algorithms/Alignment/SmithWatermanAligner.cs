@@ -141,10 +141,17 @@ namespace Bio.Algorithms.Alignment
 
             // Horizontal and vertical gap counts.
             int gapStride = Cols + 1;
-            h_Gap_Length = new int[(Rows + 1) * gapStride];
-            v_Gap_Length = new int[(Rows + 1) * gapStride];
-            int[] hgapCost = new int[(Rows + 1) * gapStride];
-            int[] vgapCost = new int[(Rows + 1) * gapStride];
+            var matrixSize = checked((Rows + 1) * gapStride);
+            int[] hgapCost, vgapCost;
+            try {
+                h_Gap_Length = new int[matrixSize];
+                v_Gap_Length = new int[matrixSize];
+                hgapCost = new int[matrixSize];
+                vgapCost = new int[matrixSize];
+            }
+            catch(OutOfMemoryException oom) {
+                throw new OutOfMemoryException (GenerateOOMErrorMessageWhenAllocatingGapTracebacks (), oom);
+            }
 
             // Initialize the gap extension cost matrices.
             for (int i = 1; i < Rows; i++)
