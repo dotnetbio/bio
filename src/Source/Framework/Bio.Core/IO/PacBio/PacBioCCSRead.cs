@@ -110,6 +110,44 @@ namespace Bio.IO.PacBio
         public readonly float[] ZScores;
 
         /// <summary>
+        /// The amount of time it took to process the ZMW to
+        /// generate consensus.  Only available if CCS is built
+        /// with DIAGNOSTICS defined.
+        /// </summary>
+        public float ProcessingTimeMS;
+
+        /// <summary>
+        /// The number of mutations tested during polishing.
+        /// Only available if CCS is built
+        /// with DIAGNOSTICS defined.
+        /// </summary>
+        public int MutationsTested;
+
+        /// <summary>
+        /// The number of mutations applied during polishing.  
+        /// Only available if CCS is built
+        /// with DIAGNOSTICS defined.
+        /// </summary>
+        public int MutationsApplied;
+
+
+        /// <summary>
+        /// The first barcode found.  
+        /// Only available if CCS is built
+        /// with DIAGNOSTICS defined and the file
+        /// contained barcodes.
+        /// </summary>
+        public ushort Barcode1;
+
+        /// <summary>
+        /// The second barcode found.  
+        /// Only available if CCS is built
+        /// with DIAGNOSTICS defined and the file
+        /// contained barcodes.
+        /// </summary>
+        public ushort Barcode2;
+
+        /// <summary>
         /// The consensus sequence and associated QV values.
         /// </summary>
         public QualitativeSequence Sequence;
@@ -137,7 +175,7 @@ namespace Bio.IO.PacBio
                     ReadQuality = Convert.ToSingle (v.Value);
                 } else if (v.Tag == "rq" && ReadQuality < 0) {
                     ReadQuality = Convert.ToSingle (v.Value);
-                }else if (v.Tag == "za") {
+                } else if (v.Tag == "za") {
                     AvgZscore = (float)Convert.ToSingle (v.Value);
                 } else if (v.Tag == "rs") {
                     statusCounts = v.Value.Split (',').Skip (1).Select (x => Convert.ToInt32 (x)).ToArray ();
@@ -147,6 +185,16 @@ namespace Bio.IO.PacBio
                     ReadGroup = v.Value;
                 } else if (v.Tag == "zs") {
                     ZScores = v.Value.Split (',').Skip (1).Select (x => Convert.ToSingle (x)).ToArray ();
+                } else if (v.Tag == "ms") {
+                    ProcessingTimeMS = Convert.ToSingle (v.Value);
+                } else if (v.Tag == "mt") {
+                    MutationsTested = Convert.ToInt32 (v.Value);
+                } else if (v.Tag == "ma") {
+                    MutationsApplied = Convert.ToInt32 (v.Value);
+                } else if (v.Tag == "bc") {
+                    var bcs = v.Value.Split (',').Skip (1).Select (x => Convert.ToUInt16(x)).ToArray ();
+                    Barcode1 = bcs [0];
+                    Barcode2 = bcs [1];
                 }
             }
             // TODO: We should use String.Intern here, but not available in PCL...
