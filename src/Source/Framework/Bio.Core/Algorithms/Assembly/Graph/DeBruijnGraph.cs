@@ -229,7 +229,7 @@ namespace Bio.Algorithms.Assembly.Graph
                     DeBruijnNode node = kmerManager.SetNewOrGetOld(newKmer);
 
                     // Need to lock node if doing this in parallel
-                    if (node.KmerCount <= 255)
+                    if (node.KmerCount < UInt32.MaxValue)
                     {
                         lock (node)
                         {
