@@ -186,7 +186,7 @@ namespace Bio.Algorithms.Assembly.Padena
 
         /// <summary>
         /// Gets the best path from the list of diverging paths.
-        /// Path that has maximum sum of 'count' of belonging k-mers is best.
+        /// Path that has maximum average of 'count' of belonging k-mers is best.
         /// In case there are multiple 'best' paths, we arbitrarily return one of them.
         /// </summary>
         /// <param name="divergingPaths">List of diverging paths.</param>
@@ -194,13 +194,13 @@ namespace Bio.Algorithms.Assembly.Padena
         private static int GetBestPath(DeBruijnPathList divergingPaths)
         {
             // We find the index of the 'best' path.
-            long max = -1;
+            double max = -1;
             int maxIndex = -1;
 
             // Path that has the maximum sum of 'count' of belonging k-mers is the winner
             for (int i = 0; i < divergingPaths.Paths.Count; i++)
             {
-                long sum = divergingPaths.Paths[i].PathNodes.Sum(n => n.KmerCount);
+                double sum = divergingPaths.Paths[i].PathNodes.Average(n => (double)n.KmerCount);
                 if (sum > max)
                 {
                     max = sum;
@@ -313,8 +313,7 @@ namespace Bio.Algorithms.Assembly.Padena
             // or possible paths are exhausted
             while (divergingPathLength <= this.pathLengthThreshold &&
                 finishedCount != divergingPaths.Count &&
-                convergentNode == null
-                )
+                convergentNode == null)
             {                
                 foreach(PathWithOrientation path in divergingPaths) {                    
                     if (path.EndReached) {
