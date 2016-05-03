@@ -219,6 +219,7 @@
     <Compile Include="Algorithms\Padena\PadenaP1TestCases.cs" />
     <Compile Include="PacBio\ParserTests.cs" />
     <Compile Include="Variant\VariantCallTests.cs" />
+    <Compile Include="Algorithms\Assembly\ParallelDenovoTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="..\TestData\Testcases.xml">

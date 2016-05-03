@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Collections.Generic;
+
 using Bio.Algorithms.Assembly.Graph;
 
 namespace Bio.Algorithms.Assembly.Padena
@@ -52,6 +54,9 @@ namespace Bio.Algorithms.Assembly.Padena
 
         /// <summary>
         /// Gets or sets threshold for length of redundant paths.
+        /// 
+        /// Given two diverging paths leaving a node, we extend the paths for a maximum up to LengthThreshold
+        /// looking for it to converge with itself before giving up.
         /// </summary>
         public int LengthThreshold
         {
@@ -74,15 +79,12 @@ namespace Bio.Algorithms.Assembly.Padena
         /// <returns>List of path nodes to be deleted.</returns>
         public DeBruijnPathList DetectErroneousNodes(DeBruijnGraph deBruijnGraph)
         {
-            if (deBruijnGraph == null)
-            {
-                throw new ArgumentNullException("deBruijnGraph");
-            }
-
             DeBruijnGraph.ValidateGraph(deBruijnGraph);
             this.graph = deBruijnGraph;
-
+            // List of the collection of redundant paths, passed in to method to be filled
+            // TODO: Paths are tranversed and returned in both directions here: we should probably simplify...
             List<DeBruijnPathList> redundantPaths = new List<DeBruijnPathList>();
+
             Parallel.ForEach(
                 deBruijnGraph.GetNodes(),
                 node =>
@@ -98,7 +100,7 @@ namespace Bio.Algorithms.Assembly.Padena
                         TraceDivergingExtensionPaths(node, node.GetLeftExtensionNodesWithOrientation(), false, redundantPaths);
                     }
                 });
-
+            // Now to check that for each path they all go in the same way.
             redundantPaths = RemoveDuplicates(redundantPaths);
             return DetachBestPath(redundantPaths);
         }
@@ -110,10 +112,6 @@ namespace Bio.Algorithms.Assembly.Padena
         /// <param name="nodesList">Path nodes to be deleted.</param>
         public void RemoveErroneousNodes(DeBruijnGraph deBruijnGraph, DeBruijnPathList nodesList)
         {
-            if (this.graph == null)
-            {
-                throw new ArgumentNullException("deBruijnGraph");
-            }
 
             DeBruijnGraph.ValidateGraph(deBruijnGraph);
 
@@ -288,7 +286,7 @@ namespace Bio.Algorithms.Assembly.Padena
         /// </summary>
         /// <param name="startNode">Node at starting point of divergence.</param>
         /// <param name="divergingNodes">List of diverging nodes.</param>
-        /// <param name="isForwardExtension">Bool indicating direction of divergence.</param>
+        /// <param name="isForwardExtension">Bool indicating direction of divergence. (Right = true)</param>
         /// <param name="redundantPaths">List of redundant paths.</param>
         private void TraceDivergingExtensionPaths(
             DeBruijnNode startNode,
@@ -298,67 +296,133 @@ namespace Bio.Algorithms.Assembly.Padena
         {
             List<PathWithOrientation> divergingPaths = new List<PathWithOrientation>(
                 divergingNodes.Select(n =>
-                    new PathWithOrientation(startNode, n.Key, n.Value)));
-            int divergingPathLengh = 2;
+                    new PathWithOrientation(startNode, n.Key, (isForwardExtension ^ n.Value))));
+            int divergingPathLength = 2;
 
+            /* These are nodes with >= 2 coming in as the 
+             * in the same direction as a path we are following.  If two paths
+             * both enter the same node from the same direction, they can be redundant.
+             */
+            HashSet<DeBruijnNode> possibleEndNodes = new HashSet<DeBruijnNode>();
+            int finishedCount = 0;
+            // Extend each path in cluster. While performing path extension 
+            // also keep track of whether they have converged, which we indicate by setting 
+            // this to the first node that two paths both encounter.
+            DeBruijnNode convergentNode = null;
             // Extend paths till length threshold is exceeded.
-            // In case paths coverge within threshold, we break out of while.
-            while (divergingPathLengh <= this.pathLengthThreshold)
-            {
-                // Extension is possible only if end point of all paths has exactly one extension
-                // In case extensions count is 0, no extensions possible for some path (or)
-                // if extensions is more than 1, they are diverging further. Not considered a redundant path
-                if (divergingPaths.Any(p => ((isForwardExtension ^ p.IsSameOrientation) ?
-                      p.Nodes.Last().LeftExtensionNodesCount : p.Nodes.Last().RightExtensionNodesCount) != 1))
-                {
-                    return;
-                }
-
-                // Extend each path in cluster. While performing path extension 
-                // also keep track of whether they have converged
-                bool hasConverged = true;
-                foreach (PathWithOrientation path in divergingPaths)
-                {
+            // or possible paths are exhausted
+            while (divergingPathLength <= this.pathLengthThreshold &&
+                finishedCount != divergingPaths.Count &&
+                convergentNode == null
+                )
+            {                
+                foreach(PathWithOrientation path in divergingPaths) {                    
+                    if (path.EndReached) {
+                        continue; 
+                    }
                     DeBruijnNode endNode = path.Nodes.Last();
                     Dictionary<DeBruijnNode, bool> extensions
-                        = (isForwardExtension ^ path.IsSameOrientation) ? endNode.GetLeftExtensionNodesWithOrientation() : endNode.GetRightExtensionNodesWithOrientation();
+                        = path.GrabNextNodesOnLeft ? endNode.GetLeftExtensionNodesWithOrientation() : endNode.GetRightExtensionNodesWithOrientation();
 
-                    KeyValuePair<DeBruijnNode, bool> nextNode = extensions.First();
-                    if (path.Nodes.Contains(nextNode.Key))
-                    {
-                        // Loop in path
-                        return;
-                    }
-                    else
-                    {
-                        // Update path orientation
-                        path.IsSameOrientation = !(path.IsSameOrientation ^ nextNode.Value);
-                        path.Nodes.Add(nextNode.Key);
+                    // Extension is possible only if end point of all paths has exactly one extension
+                    // In case extensions count is 0, no extensions possible for some path (or)
+                    // if extensions is more than 1, they are diverging further. Not considered a redundant path
+                    if (extensions.Count > 1 || extensions.Count == 0) {
+                        path.EndReached = true;
+                        finishedCount++;
+                    } else {
+                        // Get next node
+                        KeyValuePair<DeBruijnNode, bool> nextNodeTuple = extensions.First ();
+                        DeBruijnNode nextNode = nextNodeTuple.Key;
+                        // Have we formed a circle? If so, we are done.
+                        // TODO: This is almost certainly very slow for long paths, can replace with Hash and remove possibleEndNodes variable
+                        if (path.Nodes.Contains (nextNode)) {
+                            finishedCount++;
+                            path.EndReached = true;
+                        } else {
+                            // Update path orientation
+                            path.GrabNextNodesOnLeft = !(path.GrabNextNodesOnLeft ^ nextNodeTuple.Value);
+                            path.Nodes.Add (nextNode);
 
-                        // Check if paths so far are converged
-                        if (hasConverged && nextNode.Key != divergingPaths.First().Nodes.Last())
-                        {
-                            // Last node added is different. Paths do not converge
-                            hasConverged = false;
+                            /* Did any other nodes come in to this node from the same direction 
+                             * (path or N-1 basepairs shared)? */
+                            var sameInputsCount = path.GrabNextNodesOnLeft ? nextNode.RightExtensionNodesCount : nextNode.LeftExtensionNodesCount;
+                            if (sameInputsCount > 1) {
+                                if (possibleEndNodes.Contains (nextNode)) {
+                                    path.EndReached = true;
+                                    convergentNode = nextNode;
+                                    finishedCount++;
+                                } else {
+                                    possibleEndNodes.Add (nextNode);
+                                }
+                            }
                         }
                     }
                 }
-
-                divergingPathLengh++;
-
+                divergingPathLength++;
                 // Paths have been extended. Check for convergence
-                if (hasConverged)
+                if (convergentNode != null)
                 {
-                    // Note: all paths have the same end node.
-                    lock (redundantPaths)
-                    {
-                        // Redundant paths found
-                        redundantPaths.Add(new DeBruijnPathList(divergingPaths.Select(p => new DeBruijnPath(p.Nodes))));
+                    bool redundantPathFound = ConfirmAndAddRedundantPaths (convergentNode, divergingPaths, redundantPaths);
+                    if (redundantPathFound) {
+                        return;
+                    } else {
+                        /* If we didn't find any paths, it means the nodes came in from different directions, so we
+                         * didn't find a truly convergent node, and the search continues.  This should basically never happen.
+                        */     
+                        convergentNode = null;
                     }
-
-                    return;
                 }
             }
         }
+
+        /// <summary>
+        /// Once we have a set of paths where at least two of these paths converge on the same node.
+        /// This method checks that the paths are truly convergent (converge from same direction)
+        /// trims off any excess (indels can lead to unequl paths), and adds it to the redundant path list.
+        /// </summary>
+        /// <param name="convergentNode">Convergent node.</param>
+        /// <param name="divergingPaths">Paths.</param>
+        /// <param name="redundantPaths">Redundant paths.</param>
+        private bool ConfirmAndAddRedundantPaths(DeBruijnNode convergentNode, List<PathWithOrientation> divergingPaths,
+            List<DeBruijnPathList> redundantPaths)
+        {
+            bool foundRedundantPaths = false;
+            /* Now it is possible that two (or more) paths have converged on a node but from
+             * different directions, so we check for this */
+
+            // Get paths that converge on this node 
+            var convergingPaths = divergingPaths.Select (x => new KeyValuePair<PathWithOrientation, int> (x, x.Nodes.IndexOf (convergentNode))).
+                Where(z => z.Value != -1).ToList ();
+
+            // Now trim them all to the appropriate length so convergent node is the end node
+            // (in case of unequal paths they may differ)
+            foreach (var pathLocation in convergingPaths) {
+                var location = pathLocation.Value;
+                var path = pathLocation.Key;
+                if (location != path.Nodes.Count - 1) {
+                    path.Nodes.RemoveRange (location + 1, path.Nodes.Count - (location + 1));
+                }
+            }
+
+            /* Now we have to make a path of all nodes that converge in the same direction */
+            List<DeBruijnNode>[] sideExtensions =  { convergentNode.GetLeftExtensionNodes().ToList(),
+                convergentNode.GetRightExtensionNodes().ToList()};
+            foreach (var extensions in sideExtensions) {
+                var convergeFromSameSide = convergingPaths.Where (p => extensions.Contains (p.Key.Nodes [p.Key.Nodes.Count - 2])).ToList();
+                if (convergeFromSameSide.Count > 1) {
+                    foundRedundantPaths = true;
+                    // Note: all paths have the same end node.
+                    lock (redundantPaths)
+                    {
+                        redundantPaths.Add(new DeBruijnPathList(divergingPaths.Select(p => new DeBruijnPath(p.Nodes))));
+                    }
+                }
+            }
+            return foundRedundantPaths;
+        }
+
     }
+
+
 }
