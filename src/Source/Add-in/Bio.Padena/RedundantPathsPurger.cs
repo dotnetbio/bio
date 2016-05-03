@@ -129,6 +129,7 @@ namespace Bio.Algorithms.Assembly.Padena
             // Update extensions for deletion
             // No need for read-write lock as deleteNode's dictionary is being read, 
             // and only other graph node's dictionaries are updated.
+            //TODO: Every link is connected to another, we should only remove the deleted nodes, not iterate over all nodes.
             Parallel.ForEach(
                 deleteNodes,
                 node =>
@@ -174,11 +175,14 @@ namespace Bio.Algorithms.Assembly.Padena
             DeBruijnPath bestPath = divergingPaths.Paths[bestPathIndex];
             divergingPaths.Paths.RemoveAt(bestPathIndex);
 
-            // There can be overlap between redundant paths.
-            // Remove path nodes that occur in best path
+            /* There can be overlap between redundant paths and non-redundant paths
+             * Remove path nodes that occur in best path or that are part of an unrelated path
+             * e.g. A->B->C->D overlaps with E->F->G->C->D so C should be preserved even
+             * if not part of the best path. */
             foreach (var path in divergingPaths.Paths)
-            {
-                path.RemoveAll(n => bestPath.PathNodes.Contains(n));
+            {   
+                // condition below should include the condition bestPath.PathNodes.Contains(n)
+                path.RemoveAll(n =>  n.LeftExtensionNodesCount > 1 || n.RightExtensionNodesCount > 1);
             }
 
             return divergingPaths;
@@ -197,7 +201,7 @@ namespace Bio.Algorithms.Assembly.Padena
             double max = -1;
             int maxIndex = -1;
 
-            // Path that has the maximum sum of 'count' of belonging k-mers is the winner
+            // Path that has the maximum average of 'count' of belonging k-mers is the winner
             for (int i = 0; i < divergingPaths.Paths.Count; i++)
             {
                 double sum = divergingPaths.Paths[i].PathNodes.Average(n => (double)n.KmerCount);
