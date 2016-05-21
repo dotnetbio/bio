@@ -146,7 +146,6 @@ namespace Bio.Variant
             var gap = DnaAlphabet.Instance.Gap;
             int i = 0;
             int refPos = 0;
-            int queryPos = 0;
             while( i < refSeq.Length)
             {
                 if (refSeq[i] == gap)
@@ -160,10 +159,9 @@ namespace Bio.Variant
                     var newVariant = new IndelVariant(refPos - 1, len, bases, IndelType.Insertion,  
                                                       hplenAndChar.Item2, hplenAndChar.Item1, 
                                                       (i == 0 || (i + len + hplenAndChar.Item1) >= refSeq.Length));                   
-                    newVariant.QV = querySeq[queryPos].QV;
+                    newVariant.QV = querySeq[i].QV;
                     variants.Add(newVariant);
                     i += len;
-                    queryPos += len;
                 }
                 else if (querySeq[i].BP == gap)
                 {
@@ -206,10 +204,10 @@ namespace Bio.Variant
                     if (querySeq[i].BP != refSeq[i])
                     {
                         var newVariant = new SNPVariant(refPos, (char) querySeq[i].BP, (char)refSeq[i], (i ==0 || i == (refSeq.Length -1)));
-                        newVariant.QV = querySeq [queryPos].QV;
+                        newVariant.QV = querySeq [i].QV;
                         variants.Add(newVariant);
                     }
-                    i++; refPos++; queryPos++;
+                    i++; refPos++;
                 }
             }
             return variants;
