@@ -43,7 +43,10 @@
     <CodeAnalysisIgnoreGeneratedCode>false</CodeAnalysisIgnoreGeneratedCode>
     <CustomCommands>
       <CustomCommands>
-        <Command type="AfterBuild" command="cp -r ${ProjectDir}/../TestData/TestUtils ${TargetDir}/" />
+        <Command>
+          <type>AfterBuild</type>
+          <command>cp -r ${ProjectDir}/../TestData/TestUtils ${TargetDir}/</command>
+        </Command>
       </CustomCommands>
     </CustomCommands>
   </PropertyGroup>
@@ -62,7 +65,10 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <CustomCommands>
       <CustomCommands>
-        <Command type="AfterBuild" command="cp -r ${ProjectDir}/../TestData/TestUtils ${TargetDir}/" />
+        <Command>
+          <type>AfterBuild</type>
+          <command>cp -r ${ProjectDir}/../TestData/TestUtils ${TargetDir}/</command>
+        </Command>
       </CustomCommands>
     </CustomCommands>
   </PropertyGroup>
@@ -234,10 +240,6 @@
     <ProjectReference Include="..\..\Framework\Bio.Desktop\Bio.Desktop.csproj">
       <Project>{A482BE8F-67D5-4991-84BD-DA3BF6ED84FA}</Project>
       <Name>Bio.Desktop</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Framework\Shims\Bio.Platform.Helpers.Desktop\Bio.Platform.Helpers.Desktop.csproj">
-      <Project>{2A6BB04D-047F-4F04-9AFB-9BF8941A292A}</Project>
-      <Name>Bio.Platform.Helpers.Desktop</Name>
     </ProjectReference>
     <ProjectReference Include="..\Bio.TestUtils\Bio.TestUtils.csproj">
       <Project>{FC09FA89-39A2-4DB7-BB26-4DF616918506}</Project>
