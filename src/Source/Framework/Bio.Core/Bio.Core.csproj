@@ -439,6 +439,28 @@
     <Compile Include="Variant\VariantCaller.cs" />
     <Compile Include="PlatformServices.cs" />
     <Compile Include="TemporaryStream.cs" />
+    <Compile Include="Extensions\BAMFormatterExtensions.cs" />
+    <Compile Include="Extensions\BAMParserExtensions.cs" />
+    <Compile Include="Extensions\FormatterExtensions.cs" />
+    <Compile Include="Extensions\INamedStreamCreatorExtensions.cs" />
+    <Compile Include="Extensions\PacBioParserExtensions.cs" />
+    <Compile Include="Extensions\ParserExtensions.cs" />
+    <Compile Include="Extensions\ParserFormatterExtensions.cs" />
+    <Compile Include="Extensions\PhylogeneticTreeFormatterExtensions.cs" />
+    <Compile Include="Extensions\PhylogeneticTreeParserExtensions.cs" />
+    <Compile Include="Extensions\SequenceAlignmentFormatterExtensions.cs" />
+    <Compile Include="Extensions\SequenceAlignmentParserExtensions.cs" />
+    <Compile Include="Extensions\SequenceRangeFormatterExtensions.cs" />
+    <Compile Include="Extensions\SequenceRangeParserExtensions.cs" />
+    <Compile Include="Extensions\WiggleFormatterExtensions.cs" />
+    <Compile Include="Extensions\WiggleParserExtensions.cs" />
+    <Compile Include="Extensions\XsvContigFormatterExtensions.cs" />
+    <Compile Include="Extensions\XsvContigParserExtensions.cs" />
+    <Compile Include="Util\CommentedStreamReader.cs" />
+    <Compile Include="Util\FileAccessComparer.cs" />
+    <Compile Include="Util\FileUtils.cs" />
+    <Compile Include="IO\BAM\BAMSort.cs" />
+    <Compile Include="IO\BAM\BAMSortedIndex.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="CloneLibrary\Resources\Library.txt" />
