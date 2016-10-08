@@ -437,7 +437,7 @@ namespace Bio.Algorithms.SuffixTree
         public IEnumerable<Match> SearchMatches(ISequence searchSequence)
         {
             // LastQueryEndIndex ->  (LastQueryStartIndex - LastRefStartIndex )-> LastRefEndIndex -> LastRefStartIndex
-            var overlappingMatches = new SortedList<long, Dictionary<long, SortedList<long, SortedSet<long>>>>();
+            var overlappingMatches = new Bio.Util.SortedList<long, Dictionary<long, Bio.Util.SortedList<long, SortedSet<long>>>>();
             var edgesFound = new Stack<EdgesFound>();
             long minLengthOfMatch = this.MinLengthOfMatch;
             bool noambiguity = this.NoAmbiguity;
@@ -1617,7 +1617,7 @@ namespace Bio.Algorithms.SuffixTree
             long queryIndex,
             long referenceIndex,
             long matchLength,
-            SortedList<long, Dictionary<long, SortedList<long, SortedSet<long>>>> previousMatches,
+            Bio.Util.SortedList<long, Dictionary<long, Bio.Util.SortedList<long, SortedSet<long>>>> previousMatches,
             out Match match)
         {
             bool isoverlapedMatchFound = false;
@@ -1640,8 +1640,8 @@ namespace Bio.Algorithms.SuffixTree
                 lastQueryEndIndex = previousMatches.Keys[listIndex];
                 if (lastQueryEndIndex >= queryIndex + matchLength)
                 {
-                    Dictionary<long, SortedList<long, SortedSet<long>>> diffMap = previousMatches[lastQueryEndIndex];
-                    SortedList<long, SortedSet<long>> refEndIndexMap;
+                    Dictionary<long, Bio.Util.SortedList<long, SortedSet<long>>> diffMap = previousMatches[lastQueryEndIndex];
+                    Bio.Util.SortedList<long, SortedSet<long>> refEndIndexMap;
                     if (diffMap.TryGetValue(queryIndex - referenceIndex, out refEndIndexMap))
                     {
                         int refEndIndexCount = refEndIndexMap.Count;
@@ -1688,8 +1688,8 @@ namespace Bio.Algorithms.SuffixTree
                 long queryEndIndex = queryIndex + matchLength;
                 long diffValue = queryIndex - referenceIndex;
                 long refEndIndex = referenceIndex + matchLength;
-                Dictionary<long, SortedList<long, SortedSet<long>>> diffsMap;
-                SortedList<long, SortedSet<long>> refEndIndexMap;
+                Dictionary<long, Bio.Util.SortedList<long, SortedSet<long>>> diffsMap;
+                Bio.Util.SortedList<long, SortedSet<long>> refEndIndexMap;
                 SortedSet<long> refStartIndexes;
                 if (previousMatches.TryGetValue(queryEndIndex, out diffsMap))
                 {
@@ -1708,7 +1708,7 @@ namespace Bio.Algorithms.SuffixTree
                     }
                     else
                     {
-                        refEndIndexMap = new SortedList<long, SortedSet<long>>();
+                        refEndIndexMap = new Bio.Util.SortedList<long, SortedSet<long>>();
                         refStartIndexes = new SortedSet<long>();
                         refStartIndexes.Add(referenceIndex);
                         refEndIndexMap.Add(refEndIndex, refStartIndexes);
@@ -1717,8 +1717,8 @@ namespace Bio.Algorithms.SuffixTree
                 }
                 else
                 {
-                    diffsMap = new Dictionary<long, SortedList<long, SortedSet<long>>>();
-                    refEndIndexMap = new SortedList<long, SortedSet<long>>();
+                    diffsMap = new Dictionary<long, Bio.Util.SortedList<long, SortedSet<long>>>();
+                    refEndIndexMap = new Bio.Util.SortedList<long, SortedSet<long>>();
                     refStartIndexes = new SortedSet<long>();
                     refStartIndexes.Add(referenceIndex);
                     refEndIndexMap.Add(refEndIndex, refStartIndexes);

@@ -85,10 +85,6 @@
       <Project>{a482be8f-67d5-4991-84bd-da3bf6ed84fa}</Project>
       <Name>Bio.Desktop</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Framework\Shims\Bio.Platform.Helpers.Desktop\Bio.Platform.Helpers.Desktop.csproj">
-      <Project>{2a6bb04d-047f-4f04-9afb-9bf8941a292a}</Project>
-      <Name>Bio.Platform.Helpers.Desktop</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />

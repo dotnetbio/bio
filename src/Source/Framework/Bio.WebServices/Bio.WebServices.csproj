@@ -41,10 +41,6 @@
       <Project>{dfb9c4e2-c98c-4401-a650-756abab52663}</Project>
       <Name>Bio.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Shims\Bio.Platform.Helpers\Bio.Platform.Helpers.csproj">
-      <Project>{83cbb611-4049-456a-b87b-0b2cfc4797fa}</Project>
-      <Name>Bio.Platform.Helpers</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Blast\BlastProgram.cs" />

@@ -11,10 +11,8 @@
     <RootNamespace>Bio</RootNamespace>
     <AssemblyName>Bio.Core</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Profile111</TargetFrameworkProfile>
     <DefaultLanguage>en-US</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
-    <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -439,6 +437,8 @@
     <Compile Include="Variant\SNPVariant.cs" />
     <Compile Include="Variant\Variant.cs" />
     <Compile Include="Variant\VariantCaller.cs" />
+    <Compile Include="PlatformServices.cs" />
+    <Compile Include="TemporaryStream.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="CloneLibrary\Resources\Library.txt" />
@@ -455,13 +455,7 @@
     <EmbeddedResource Include="SimilarityMatrices\Resources\PAM30.txt" />
     <EmbeddedResource Include="SimilarityMatrices\Resources\PAM70.txt" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Shims\Bio.Platform.Helpers\Bio.Platform.Helpers.csproj">
-      <Project>{83CBB611-4049-456A-B87B-0B2CFC4797FA}</Project>
-      <Name>Bio.Platform.Helpers</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent Condition=" '$(OS)' != 'Unix' ">copy "$(TargetPath)" "$(SolutionDir)\bin\$(TargetName).dll"
 copy "$(TargetDir)\$(TargetName).xml" "$(SolutionDir)\bin\$(TargetName).xml"</PostBuildEvent>
@@ -485,5 +479,15 @@ cp "$(TargetDir)\$(TargetName).xml" "$(SolutionDir)\bin\$(TargetName).xml"</Post
   <ItemGroup>
     <Folder Include="IO\PacBio\" />
     <Folder Include="Variant\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Serialization" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
   </ItemGroup>
 </Project>

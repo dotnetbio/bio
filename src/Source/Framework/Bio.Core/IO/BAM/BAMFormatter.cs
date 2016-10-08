@@ -1218,7 +1218,7 @@ namespace Bio.IO.BAM
             }
             else
             {
-                SortedList<SAMRecordField, int> map = new SortedList<SAMRecordField, int>(new ComparisonWrapper<SAMRecordField>(CompareByChromosomeName));
+                 Bio.Util.SortedList<SAMRecordField, int> map = new Bio.Util.SortedList<SAMRecordField, int>(new ComparisonWrapper<SAMRecordField>(CompareByChromosomeName));
 
                 for (; i < header.RecordFields.Count; i++)
                 {
