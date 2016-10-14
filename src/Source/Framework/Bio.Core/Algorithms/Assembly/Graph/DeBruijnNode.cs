@@ -20,7 +20,8 @@ namespace Bio.Algorithms.Assembly.Graph
         public string ORIGINAL_SYMBOLS
         {
             get {
-                return new Bio.Sequence(DnaAlphabet.Instance, GetOriginalSymbols(6)).ConvertToString(0,6);
+                int kmerLength = 6;
+                return (new Bio.Sequence(DnaAlphabet.Instance, GetOriginalSymbols(kmerLength))).ConvertToString(0,kmerLength) + "|" +(new Bio.Sequence(DnaAlphabet.Instance, GetOriginalSymbols(kmerLength)).GetReverseComplementedSequence() as Sequence).ConvertToString(0,kmerLength) ;
             }
         }
 
@@ -90,7 +91,7 @@ namespace Bio.Algorithms.Assembly.Graph
         /// <summary>
         /// Gets or sets the number of duplicate kmers in the DeBrujin graph.
         /// </summary>
-        public byte KmerCount { get; set; }
+        public uint KmerCount { get; set; }
 
         /// <summary>
         /// Gets or sets the Left node, used by binary tree.
@@ -970,6 +971,7 @@ namespace Bio.Algorithms.Assembly.Graph
                 {
                     if (this.RightExtension0 != null && !this.InvalidRightExtension0)
                     {
+                        //TODO: This check should be totally unnecessary...
                         if (!extensions.ContainsKey(this.RightExtension0))
                         {
                             extensions.Add(this.RightExtension0, this.OrientationRightExtension0);
