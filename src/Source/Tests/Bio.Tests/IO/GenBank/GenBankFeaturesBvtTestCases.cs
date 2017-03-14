@@ -45,7 +45,7 @@ namespace Bio.Silverlight.TestAutomation.IO.GenBank
 
         #region Global Variables
 
-        private readonly Utility utilityObj = new Utility(@"TestUtils\GenBankFeaturesTestConfig.xml");
+        private readonly Utility utilityObj = new Utility(System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, "TestUtils", "GenBankFeaturesTestConfig.xml"));
 
         #endregion Global Variables
 
@@ -391,8 +391,8 @@ namespace Bio.Silverlight.TestAutomation.IO.GenBank
         public void ValidateGenBankFeatureProperties()
         {
             // Get Values from XML node.
-            string filePath = utilityObj.xmlUtil.GetTextValue(
-                Constants.DNAStandardFeaturesKeyNode, Constants.FilePathNode);
+            string filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, utilityObj.xmlUtil.GetTextValue(
+                Constants.DNAStandardFeaturesKeyNode, Constants.FilePathNode));
             string mRNAFeatureCount = utilityObj.xmlUtil.GetTextValue(
                 Constants.DNAStandardFeaturesKeyNode, Constants.mRNACount);
             string exonFeatureCount = utilityObj.xmlUtil.GetTextValue(
@@ -662,8 +662,8 @@ namespace Bio.Silverlight.TestAutomation.IO.GenBank
         public void ValidateSequenceFeatureUsingReferencedSequence()
         {
             // Get Values from XML node.
-            string filePath = utilityObj.xmlUtil.GetTextValue(
-                Constants.GenBankFileSubSequenceNode, Constants.FilePathNode);
+            string filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, utilityObj.xmlUtil.GetTextValue(
+                Constants.GenBankFileSubSequenceNode, Constants.FilePathNode));
             string subSequence = utilityObj.xmlUtil.GetTextValue(
                 Constants.GenBankFileSubSequenceNode, Constants.ExpectedSubSequence);
             string subSequenceStart = utilityObj.xmlUtil.GetTextValue(
@@ -765,8 +765,8 @@ namespace Bio.Silverlight.TestAutomation.IO.GenBank
                                              string methodName)
         {
             // Get Values from XML node.
-            string filePath = utilityObj.xmlUtil.GetTextValue(
-                nodeName, Constants.FilePathNode);
+            string filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, utilityObj.xmlUtil.GetTextValue(
+                nodeName, Constants.FilePathNode));
             string alphabetName = utilityObj.xmlUtil.GetTextValue(
                 nodeName, Constants.AlphabetNameNode);
             string expectedSequence = utilityObj.xmlUtil.GetTextValue(
@@ -897,8 +897,8 @@ namespace Bio.Silverlight.TestAutomation.IO.GenBank
         private void ValidateAdditionGenBankFeatures(string nodeName)
         {
             // Get Values from XML node.
-            string filePath = utilityObj.xmlUtil.GetTextValue(
-                nodeName, Constants.FilePathNode);
+            string filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, utilityObj.xmlUtil.GetTextValue(
+                nodeName, Constants.FilePathNode));
             string alphabetName = utilityObj.xmlUtil.GetTextValue(
                 nodeName, Constants.AlphabetNameNode);
             string expectedSequence = utilityObj.xmlUtil.GetTextValue(
@@ -984,8 +984,8 @@ namespace Bio.Silverlight.TestAutomation.IO.GenBank
         private void ValidateStandardFeaturesKey(string nodeName, string methodName)
         {
             // Get Values from XML node.
-            string filePath = utilityObj.xmlUtil.GetTextValue(
-                nodeName, Constants.FilePathNode);
+            string filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, utilityObj.xmlUtil.GetTextValue(
+                nodeName, Constants.FilePathNode));
             string expectedCondingSeqCount = utilityObj.xmlUtil.GetTextValue(
                 nodeName, Constants.CDSCount);
             string exonFeatureCount = utilityObj.xmlUtil.GetTextValue(
@@ -1054,8 +1054,8 @@ namespace Bio.Silverlight.TestAutomation.IO.GenBank
         private void ValidateGetFeatures(string nodeName, string methodName)
         {
             // Get Values from XML node.
-            string filePath = utilityObj.xmlUtil.GetTextValue(
-                nodeName, Constants.FilePathNode);
+            string filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, utilityObj.xmlUtil.GetTextValue(
+                nodeName, Constants.FilePathNode));
             string expectedFirstRangeStartPoint = utilityObj.xmlUtil.GetTextValue(
                 nodeName, Constants.FirstRangeStartPoint);
             string expectedSecondRangeStartPoint = utilityObj.xmlUtil.GetTextValue(
@@ -1115,8 +1115,8 @@ namespace Bio.Silverlight.TestAutomation.IO.GenBank
         private void ValidateCitationReferenced(string nodeName)
         {
             // Get Values from XML node.
-            string filePath = utilityObj.xmlUtil.GetTextValue(
-                nodeName, Constants.FilePathNode);
+            string filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, utilityObj.xmlUtil.GetTextValue(
+                nodeName, Constants.FilePathNode));
             string expectedCitationReferenced = utilityObj.xmlUtil.GetTextValue(
                 nodeName, Constants.citationReferencedCount);
 
@@ -1145,8 +1145,8 @@ namespace Bio.Silverlight.TestAutomation.IO.GenBank
         private void ValidateCitationReferencedUsingFeatureItem(string nodeName)
         {
             // Get Values from XML node.
-            string filePath = utilityObj.xmlUtil.GetTextValue(
-                nodeName, Constants.FilePathNode);
+            string filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, utilityObj.xmlUtil.GetTextValue(
+                nodeName, Constants.FilePathNode));
             string expectedCitationReferenced = utilityObj.xmlUtil.GetTextValue(
                 nodeName, Constants.citationReferencedCount);
 
@@ -1174,8 +1174,8 @@ namespace Bio.Silverlight.TestAutomation.IO.GenBank
         private void ValidateCDSQualifiers(string nodeName, string methodName)
         {
             // Get Values from XML node.
-            string filePath = utilityObj.xmlUtil.GetTextValue(
-                nodeName, Constants.FilePathNode);
+            string filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, utilityObj.xmlUtil.GetTextValue(
+                nodeName, Constants.FilePathNode));
             string expectedCDSProduct = utilityObj.xmlUtil.GetTextValue(
                 nodeName, Constants.CDSProductQualifier);
             string expectedCDSException = utilityObj.xmlUtil.GetTextValue(
@@ -1377,8 +1377,8 @@ namespace Bio.Silverlight.TestAutomation.IO.GenBank
         private void ValidateSequenceFeature(string nodeName)
         {
             // Get Values from XML node.
-            string filePath = utilityObj.xmlUtil.GetTextValue(
-                nodeName, Constants.FilePathNode);
+            string filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, utilityObj.xmlUtil.GetTextValue(
+                nodeName, Constants.FilePathNode));
             string subSequence = utilityObj.xmlUtil.GetTextValue(
                 nodeName, Constants.ExpectedSubSequence);
             string subSequenceStart = utilityObj.xmlUtil.GetTextValue(

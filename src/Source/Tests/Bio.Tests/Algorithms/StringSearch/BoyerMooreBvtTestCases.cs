@@ -15,7 +15,7 @@ namespace Bio.Tests.Algorithms.StringSearch
     [TestFixture]
     public class BoyerMooreBvtTestCases
     {
-        private readonly Utility utilityObj = new Utility(@"TestUtils\BoyerMooreTestConfig.xml");
+        private readonly Utility utilityObj = new Utility(System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, "TestUtils", "BoyerMooreTestConfig.xml"));
 
         #region BoyerMoore Align Test Cases
 

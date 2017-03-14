@@ -23,7 +23,7 @@ namespace Bio.Tests.IO.Phylip
         [Category("Priority0")]
         public void PhylipParse()
         {
-            string filepath = @"TestUtils\Phylip\dna.phy";
+            string filepath = Path.Combine(TestContext.CurrentContext.TestDirectory, "TestUtils", "Phylip", "dna.phy");
             Assert.IsTrue(File.Exists(filepath));
 
             IList<Dictionary<string, string>> expectedOutput = new List<Dictionary<string, string>>();
@@ -179,7 +179,7 @@ namespace Bio.Tests.IO.Phylip
         [Category("Priority0")]
         public void PhylipParseOne()
         {
-            string filepath = @"TestUtils\Phylip\dna.phy";
+            string filepath = Path.Combine(TestContext.CurrentContext.TestDirectory, "TestUtils", "Phylip", "dna.phy");
             Assert.IsTrue(File.Exists(filepath));
 
             IList<Dictionary<string, string>> expectedOutput = new List<Dictionary<string, string>>();
@@ -336,7 +336,7 @@ namespace Bio.Tests.IO.Phylip
         [Category("Priority0")]
         public void PhylipParsePrimates()
         {
-            string filepath = @"TestUtils\Phylip\primates.phy";
+            string filepath = Path.Combine(TestContext.CurrentContext.TestDirectory, "TestUtils", "Phylip", "primates.phy");
             Assert.IsTrue(File.Exists(filepath));
 
             IList<Dictionary<string, string>> expectedOutput = new List<Dictionary<string, string>>();

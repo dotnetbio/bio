@@ -33,7 +33,7 @@ using Bio;
 
         #region Global Variables
 
-        Utility utilityObj = new Utility(@"TestUtils\GenBankFeaturesTestConfig.xml");
+        Utility utilityObj = new Utility(System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, "TestUtils", "GenBankFeaturesTestConfig.xml"));
 
         #endregion Global Variables
 

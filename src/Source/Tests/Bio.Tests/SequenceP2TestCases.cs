@@ -13,7 +13,7 @@ namespace Bio.Tests
     [TestFixture]
     public class SequenceP2TestCases
     {
-        private readonly Utility utilityObj = new Utility(@"TestUtils\TestsConfig.xml");
+        private readonly Utility utilityObj = new Utility(System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, "TestUtils", "TestsConfig.xml"));
 
         #region P2 Test Cases
 

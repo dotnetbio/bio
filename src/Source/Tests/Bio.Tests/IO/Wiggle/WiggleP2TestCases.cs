@@ -15,7 +15,7 @@ namespace Bio.Tests.IO.Wiggle
     [TestFixture]
     public class WiggleP2TestCases
     {
-        Utility utilityObj = new Utility(@"TestUtils\WiggleTestConfig.xml");
+        Utility utilityObj = new Utility(System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, "TestUtils", "WiggleTestConfig.xml"));
 
         # region Enum
 
@@ -105,8 +105,8 @@ namespace Bio.Tests.IO.Wiggle
         public void ValidateArgumentNullException(ExceptionType exceptionType)
         {
             // Gets the filepath.
-            String filePath = this.utilityObj.xmlUtil.GetTextValue(Constants.
-                              SimpleWiggleWithFixedStepNodeName, Constants.FilePathNode);
+            String filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, this.utilityObj.xmlUtil.GetTextValue(Constants.
+                              SimpleWiggleWithFixedStepNodeName, Constants.FilePathNode));
             Assert.IsTrue(File.Exists(filePath));
             WiggleAnnotation annotation =null;
 
@@ -146,8 +146,8 @@ namespace Bio.Tests.IO.Wiggle
         public void ValidateFormatException(string nodeName)
         {
             // Gets the filepath.
-            String filePath = this.utilityObj.xmlUtil.GetTextValue(Constants.
-                              InValidFileNamesNode, nodeName);
+            String filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory,
+                this.utilityObj.xmlUtil.GetTextValue(Constants.InValidFileNamesNode, nodeName));
             Assert.IsTrue(File.Exists(filePath));
 
             WiggleParser parser=new WiggleParser();

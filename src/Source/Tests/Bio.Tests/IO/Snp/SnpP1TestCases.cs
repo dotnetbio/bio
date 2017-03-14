@@ -40,7 +40,7 @@ namespace Bio.TestAutomation.IO.Snp
 
         #region Global Variables
 
-        Utility utilityObj = new Utility(@"TestUtils\TestsConfig.xml");
+        Utility utilityObj = new Utility(Path.Combine(TestContext.CurrentContext.TestDirectory, "TestUtils", "TestsConfig.xml"));
         ASCIIEncoding encodingObj = new ASCIIEncoding();
 
         #endregion Global Variables
@@ -105,8 +105,8 @@ namespace Bio.TestAutomation.IO.Snp
             AdditionalParameters additionalParam)
         {
             // Gets the expected sequence from the Xml
-            string filePath = utilityObj.xmlUtil.GetTextValue(nodename,
-                Constants.FilePathNode);
+            string filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, utilityObj.xmlUtil.GetTextValue(nodename,
+                Constants.FilePathNode));
 
             Assert.IsTrue(File.Exists(filePath));
             // Logs information to the log file

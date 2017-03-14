@@ -14,7 +14,7 @@ namespace Bio.Tests.IO.SFF
     [TestFixture]
     public class SFFParserTests
     {
-        private const string filePath = @"TestUtils\SFF\E3MFGYR02_random_10_reads.sff";
+        private static readonly string filePath = Path.Combine(TestContext.CurrentContext.TestDirectory, "TestUtils", "SFF", "E3MFGYR02_random_10_reads.sff");
 
         /// <summary>
         /// Verifies that the parser doesn't throw an exception when calling Parse on a file

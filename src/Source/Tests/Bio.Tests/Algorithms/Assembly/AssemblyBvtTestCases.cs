@@ -18,7 +18,7 @@ namespace Bio.Tests.Algorithms.Assembly
     [TestFixture]
     public class AssemblyBvtTestCases
     {
-        private readonly Utility utilityObj = new Utility(@"TestUtils\TestsConfig.xml");
+        private readonly Utility utilityObj = new Utility(System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, "TestUtils", "TestsConfig.xml"));
 
         #region Sequence Assembly BVT Test cases
 

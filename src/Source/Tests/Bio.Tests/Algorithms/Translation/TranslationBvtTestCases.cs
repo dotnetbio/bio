@@ -15,7 +15,7 @@ namespace Bio.Tests.Algorithms.Translation
     [TestFixture]
     public class TranslationBvtTestCases
     {
-        private readonly Utility utilityObj = new Utility(@"TestUtils\TestsConfig.xml");
+        private readonly Utility utilityObj = new Utility(System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, "TestUtils", "TestsConfig.xml"));
 
         #region Translation Bvt TestCases
 

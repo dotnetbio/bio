@@ -21,16 +21,16 @@ namespace Bio.Tests.IO.Bed
         [Category("Priority0")]
         public void MergeOperationTest()
         {
-            string direc = Path.Combine ("TestUtils", "BED", "Merge");
+            string direc = Path.Combine (TestContext.CurrentContext.TestDirectory, "TestUtils", "BED", "Merge");
             string filepath = Path.Combine(direc, "Merge_single.BED");
-            string resultfilepath = "tmp_mergeresult.bed";
+            string resultfilepath = Path.Combine(TestContext.CurrentContext.TestDirectory, "tmp_mergeresult.bed");
             string expectedresultpath = Path.Combine(direc, "Result_Merge_Single_MinLength0.BED");
             BedParser parser = new BedParser();
             BedFormatter formatter = new BedFormatter();
             SequenceRangeGrouping seqGrouping = null;
             SequenceRangeGrouping result = null;
             bool resultvalue = false;
-            resultfilepath = "tmp_mergeresult.bed";
+            //resultfilepath = "tmp_mergeresult.bed";
             expectedresultpath = Path.Combine(direc, "Result_Merge_Single_MinLength0.BED");
             seqGrouping = parser.ParseRangeGrouping(filepath);
 
@@ -204,15 +204,15 @@ namespace Bio.Tests.IO.Bed
         [Category("Priority0")]
         public void IntersectOperationTest()
         {
-            string resultfilepath = "tmp_mergeresult.bed";
+            string resultfilepath = Path.Combine(TestContext.CurrentContext.TestDirectory, "tmp_mergeresult.bed");
             string expectedresultpath = string.Empty;
             BedParser parser = new BedParser();
             BedFormatter formatter = new BedFormatter();
 
             SequenceRangeGrouping result = null;
             bool resultvalue = false;
-            resultfilepath = "tmp_mergeresult.bed";
-            string direc = Path.Combine("TestUtils", "BED", "Intersect");
+            //resultfilepath = "tmp_mergeresult.bed";
+            string direc = Path.Combine(TestContext.CurrentContext.TestDirectory, "TestUtils", "BED", "Intersect");
 
             string reffile =  Path.Combine(direc, @"Intersect_ref.BED");
             string queryFile = Path.Combine(direc, "Intersect_query.BED");
@@ -293,10 +293,10 @@ namespace Bio.Tests.IO.Bed
         [Category("Priority0")]
         public void SubtractTest()
         {
-            var direc = System.IO.Path.Combine ("TestUtils", "BED", "Subtract");
+            var direc = System.IO.Path.Combine (TestContext.CurrentContext.TestDirectory, "TestUtils", "BED", "Subtract");
             string refSeqRangefile = System.IO.Path.Combine (direc, "Subtract_ref.BED");
             string querySeqRangefile = System.IO.Path.Combine (direc, "Subtract_query.BED");
-            string resultfilepath = "tmp_mergeresult.bed";
+            string resultfilepath = Path.Combine(TestContext.CurrentContext.TestDirectory, "tmp_mergeresult.bed");
             BedParser parser = new BedParser();
             BedFormatter formatter = new BedFormatter();
             SequenceRangeGrouping result = null;

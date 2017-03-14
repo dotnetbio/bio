@@ -23,7 +23,7 @@ namespace Bio.Tests
             Protein
         }
 
-        readonly Utility utilityObj = new Utility(@"TestUtils\TestsConfig.xml");        
+        readonly Utility utilityObj = new Utility(System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, "TestUtils", "TestsConfig.xml"));        
 
         #region Alphabets Bvt TestCases
 

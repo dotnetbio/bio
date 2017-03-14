@@ -101,7 +101,7 @@ namespace Bio.Tests.Algorithms.Alignment
 
         #endregion Enums
 
-        private readonly Utility utilityObj = new Utility(@"TestUtils\TestsConfig.xml");
+        private readonly Utility utilityObj = new Utility(Path.Combine(TestContext.CurrentContext.TestDirectory, "TestUtils", "TestsConfig.xml"));
 
         #region Test Cases
 
@@ -1389,8 +1389,8 @@ namespace Bio.Tests.Algorithms.Alignment
             if (isTextFile)
             {
                 // Read the xml file for getting both the files for aligning.
-                string filePath1 = this.utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode1);
-                string filePath2 = this.utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode2);
+                string filePath1 = Path.Combine(TestContext.CurrentContext.TestDirectory, this.utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode1));
+                string filePath2 = Path.Combine(TestContext.CurrentContext.TestDirectory, this.utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode2));
 
                 // Parse the files and get the sequence.
                 ISequence originalSequence1 = null;
@@ -1425,7 +1425,7 @@ namespace Bio.Tests.Algorithms.Alignment
                                                    bInput.ConvertToString()));
 
             // Create similarity matrix object for a given file.
-            string blosumFilePath = this.utilityObj.xmlUtil.GetTextValue(nodeName, Constants.BlosumFilePathNode);
+            string blosumFilePath = Path.Combine(TestContext.CurrentContext.TestDirectory, this.utilityObj.xmlUtil.GetTextValue(nodeName, Constants.BlosumFilePathNode));
             SimilarityMatrix sm;
             switch (similarityMatrixParam)
             {
@@ -1609,7 +1609,7 @@ namespace Bio.Tests.Algorithms.Alignment
             if (isTextFile)
             {
                 // Read the xml file for getting both the files for aligning.
-                string filepath = this.GetInputFileNameWithInvalidType(nodeName, invalidSequenceType);
+                string filepath = Path.Combine(TestContext.CurrentContext.TestDirectory, this.GetInputFileNameWithInvalidType(nodeName, invalidSequenceType));
 
                 // Create input sequence for sequence string in different cases.
                 try
@@ -1646,8 +1646,8 @@ namespace Bio.Tests.Algorithms.Alignment
                 bInput = aInput;
 
                 // Create similarity matrix object for a given file.
-                string blosumFilePath = this.utilityObj.xmlUtil.GetTextValue(nodeName,
-                                                                        Constants.BlosumFilePathNode);
+                string blosumFilePath = Path.Combine(TestContext.CurrentContext.TestDirectory, this.utilityObj.xmlUtil.GetTextValue(nodeName,
+                                                                        Constants.BlosumFilePathNode));
 
                 var sm = new SimilarityMatrix(new StreamReader(blosumFilePath));
 
@@ -1787,10 +1787,10 @@ namespace Bio.Tests.Algorithms.Alignment
             if (isTextFile)
             {
                 // Read the xml file for getting both the files for aligning.
-                string firstInputFilepath = this.utilityObj.xmlUtil.GetTextValue(nodeName,
-                                                                            Constants.FilePathNode1);
-                string secondInputFilepath = this.utilityObj.xmlUtil.GetTextValue(nodeName,
-                                                                             Constants.FilePathNode2);
+                string firstInputFilepath = Path.Combine(TestContext.CurrentContext.TestDirectory, this.utilityObj.xmlUtil.GetTextValue(nodeName,
+                                                                            Constants.FilePathNode1));
+                string secondInputFilepath = Path.Combine(TestContext.CurrentContext.TestDirectory, this.utilityObj.xmlUtil.GetTextValue(nodeName,
+                                                                             Constants.FilePathNode2));
 
                 // Parse the files and get the sequence.
                 var parseObjectForFile1 = new FastAParser { Alphabet = alphabet };
@@ -1820,7 +1820,7 @@ namespace Bio.Tests.Algorithms.Alignment
                 new string(bInput.Select(a => (char) a).ToArray())));
 
             // Create similarity matrix object for a invalid file.
-            string blosumFilePath = this.GetSimilarityMatrixFileWithInvalidType(nodeName, invalidType);
+            string blosumFilePath = Path.Combine(TestContext.CurrentContext.TestDirectory, this.GetSimilarityMatrixFileWithInvalidType(nodeName, invalidType));
             Exception actualExpection = null;
 
             // For invalid similarity matrix data format; exception will be thrown while instantiating

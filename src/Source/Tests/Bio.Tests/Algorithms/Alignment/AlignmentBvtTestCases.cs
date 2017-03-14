@@ -49,7 +49,7 @@ namespace Bio.Tests.Algorithms.Alignment
 
         #region Global Variables
 
-        private readonly Utility utilityObj = new Utility(@"TestUtils\TestsConfig.xml");
+        private readonly Utility utilityObj = new Utility(Path.Combine(TestContext.CurrentContext.TestDirectory, "TestUtils", "TestsConfig.xml"));
 
         #endregion Global Variables
 
@@ -524,8 +524,8 @@ namespace Bio.Tests.Algorithms.Alignment
             if (isTextFile)
             {
                 // Read the xml file for getting both the files for aligning.
-                string filePath1 = this.utilityObj.xmlUtil.GetTextValue(Constants.NeedlemanWunschAlignAlgorithmNodeName, Constants.FilePathNode1);
-                string filePath2 = this.utilityObj.xmlUtil.GetTextValue(Constants.NeedlemanWunschAlignAlgorithmNodeName, Constants.FilePathNode2);
+                string filePath1 = Path.Combine(TestContext.CurrentContext.TestDirectory, this.utilityObj.xmlUtil.GetTextValue(Constants.NeedlemanWunschAlignAlgorithmNodeName, Constants.FilePathNode1));
+                string filePath2 = Path.Combine(TestContext.CurrentContext.TestDirectory, this.utilityObj.xmlUtil.GetTextValue(Constants.NeedlemanWunschAlignAlgorithmNodeName, Constants.FilePathNode2));
 
                 // Parse the files and get the sequence.
                 var parseObjectForFile1 = new FastAParser { Alphabet = alphabet };
@@ -544,7 +544,7 @@ namespace Bio.Tests.Algorithms.Alignment
                 bInput = new Sequence(alphabet, origSequence2);
             }
 
-            string blosumFilePath = this.utilityObj.xmlUtil.GetTextValue(Constants.NeedlemanWunschAlignAlgorithmNodeName, Constants.BlosumFilePathNode);
+            string blosumFilePath = Path.Combine(TestContext.CurrentContext.TestDirectory, this.utilityObj.xmlUtil.GetTextValue(Constants.NeedlemanWunschAlignAlgorithmNodeName, Constants.BlosumFilePathNode));
 
             var sm = new SimilarityMatrix(new StreamReader(blosumFilePath));
             int gapOpenCost = int.Parse(this.utilityObj.xmlUtil.GetTextValue(Constants.NeedlemanWunschAlignAlgorithmNodeName, Constants.GapOpenCostNode), null);
@@ -678,10 +678,10 @@ namespace Bio.Tests.Algorithms.Alignment
             if (isTextFile)
             {
                 // Read the xml file for getting both the files for aligning.
-                string filePath1 = this.utilityObj.xmlUtil.GetTextValue(Constants.SmithWatermanAlignAlgorithmNodeName,
-                                                                   Constants.FilePathNode1);
-                string filePath2 = this.utilityObj.xmlUtil.GetTextValue(Constants.SmithWatermanAlignAlgorithmNodeName,
-                                                                   Constants.FilePathNode2);
+                string filePath1 = Path.Combine(TestContext.CurrentContext.TestDirectory, this.utilityObj.xmlUtil.GetTextValue(Constants.SmithWatermanAlignAlgorithmNodeName,
+                                                                   Constants.FilePathNode1));
+                string filePath2 = Path.Combine(TestContext.CurrentContext.TestDirectory, this.utilityObj.xmlUtil.GetTextValue(Constants.SmithWatermanAlignAlgorithmNodeName,
+                                                                   Constants.FilePathNode2));
 
                 // Parse the files and get the sequence.
                 var parseObjectForFile1 = new FastAParser();
@@ -707,8 +707,8 @@ namespace Bio.Tests.Algorithms.Alignment
                 bInput = new Sequence(alphabet, origSequence2);
             }
 
-            string blosumFilePath = this.utilityObj.xmlUtil.GetTextValue(Constants.SmithWatermanAlignAlgorithmNodeName,
-                                                                    Constants.BlosumFilePathNode);
+            string blosumFilePath = Path.Combine(TestContext.CurrentContext.TestDirectory, this.utilityObj.xmlUtil.GetTextValue(Constants.SmithWatermanAlignAlgorithmNodeName,
+                                                                    Constants.BlosumFilePathNode));
 
             var sm = new SimilarityMatrix(new StreamReader(blosumFilePath));
             int gapOpenCost =

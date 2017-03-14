@@ -11,7 +11,7 @@ namespace Bio.Tests
     [TestFixture]
     public class CloneLibraryInformationBvtTestCases
     {
-        readonly Utility utilityObj = new Utility(@"TestUtils\TestsConfig.xml");        
+        readonly Utility utilityObj = new Utility(System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, "TestUtils", "TestsConfig.xml"));        
 
         # region Clone library information Bvt test cases.
 

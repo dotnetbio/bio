@@ -32,7 +32,7 @@ namespace Bio.Tests.Algorithms.Padena
     {
         #region Global Variables
 
-        Utility utilityObj = new Utility(@"TestUtils\PadenaTestData\PadenaTestsConfig.xml");
+        Utility utilityObj = new Utility(System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, "TestUtils", "PadenaTestData", "PadenaTestsConfig.xml"));
 
         #endregion Global Variables
 
@@ -820,8 +820,8 @@ namespace Bio.Tests.Algorithms.Padena
         public void ValidateReadContigMap()
         {
             // Read all the input sequences from xml config file
-            string filePath = utilityObj.xmlUtil.GetTextValue(Constants.SmallChromosomeReadsNode,
-              Constants.FilePathNode);
+            string filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, utilityObj.xmlUtil.GetTextValue(Constants.SmallChromosomeReadsNode,
+              Constants.FilePathNode));
             IEnumerable<ISequence> sequenceReads = null;
             FastAParser parser = new FastAParser ();
             parser.Open( filePath.Replace("\\", System.IO.Path.DirectorySeparatorChar.ToString()));
@@ -872,7 +872,7 @@ namespace Bio.Tests.Algorithms.Padena
     {
         #region Global Variables
 
-        Utility utilityObj = new Utility(@"TestUtils\PadenaTestData\PadenaTestsConfig.xml");
+        Utility utilityObj = new Utility(System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, "TestUtils", "PadenaTestData", "PadenaTestsConfig.xml"));
 
         #endregion Global Variables
 
@@ -885,8 +885,8 @@ namespace Bio.Tests.Algorithms.Padena
         internal void ValidateDe2AssemblerBuildKmers(string nodeName)
         {
             // Read all the input sequences from xml config file
-            string filePath = utilityObj.xmlUtil.GetTextValue(nodeName,
-              Constants.FilePathNode);
+            string filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, utilityObj.xmlUtil.GetTextValue(nodeName,
+              Constants.FilePathNode));
             string kmerLength = utilityObj.xmlUtil.GetTextValue(nodeName,
               Constants.KmerLengthNode);
 
@@ -918,8 +918,8 @@ namespace Bio.Tests.Algorithms.Padena
         /// <param name="nodeName">xml node name for test data</param>
         internal void ValidateKmerBuilderBuild(string nodeName)
         {
-            string filePath = utilityObj.xmlUtil.GetTextValue(
-              nodeName, Constants.FilePathNode);
+            string filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, utilityObj.xmlUtil.GetTextValue(
+              nodeName, Constants.FilePathNode));
             string kmerLength = utilityObj.xmlUtil.GetTextValue(
               nodeName, Constants.KmerLengthNode);
 
@@ -952,8 +952,8 @@ namespace Bio.Tests.Algorithms.Padena
         /// <param name="nodeName">xml node name used for different testcases</param>
         internal void ValidateKmerBuilderBuildWithSequence(string nodeName)
         {
-            string filePath = utilityObj.xmlUtil.GetTextValue(
-              nodeName, Constants.FilePathNode);
+            string filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, utilityObj.xmlUtil.GetTextValue(
+              nodeName, Constants.FilePathNode));
             string kmerLength = utilityObj.xmlUtil.GetTextValue(
               nodeName, Constants.KmerLengthNode);
 
@@ -991,8 +991,8 @@ namespace Bio.Tests.Algorithms.Padena
         internal void ValidateKmersList(IList<KmersOfSequence> lstKmers,
             IList<ISequence> inputReads, string nodeName)
         {
-            string kmerOutputFile = utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.KmersOutputFileNode);
+            string kmerOutputFile = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, utilityObj.xmlUtil.GetTextValue(nodeName,
+                Constants.KmersOutputFileNode));
             
             Assert.AreEqual(inputReads.Count(), lstKmers.Count);
 
@@ -1040,7 +1040,7 @@ namespace Bio.Tests.Algorithms.Padena
         /// <param name="nodeName">xml node name used for different testcases</param>
         internal void ValidateKmersOfSequenceCtor(string nodeName)
         {
-            string filePath = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode);
+            string filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode));
             string kmerLength = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.KmerLengthNode);
 
             // Get the input reads and build kmers
@@ -1083,8 +1083,8 @@ namespace Bio.Tests.Algorithms.Padena
         /// <param name="nodeName">xml node name.</param>
         internal void ValidateKmersOfSequenceCtorWithBuildKmers(string nodeName)
         {
-            string filePath = utilityObj.xmlUtil.GetTextValue(nodeName,
-              Constants.FilePathNode);
+            string filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, utilityObj.xmlUtil.GetTextValue(nodeName,
+              Constants.FilePathNode));
             string kmerLength = utilityObj.xmlUtil.GetTextValue(nodeName,
               Constants.KmerLengthNode);
 
@@ -1123,10 +1123,10 @@ namespace Bio.Tests.Algorithms.Padena
         /// <param name="nodeName">xml node name used for different testcases</param>
         internal void ValidateKmersOfSequenceToSequences(string nodeName)
         {
-            string filePath = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode);
+            string filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode));
             string kmerLength = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.KmerLengthNode);
-            string kmerOutputFile = utilityObj.xmlUtil.GetTextValue(nodeName,
-                  Constants.KmersOutputFileNode);
+            string kmerOutputFile = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, utilityObj.xmlUtil.GetTextValue(nodeName,
+                  Constants.KmersOutputFileNode));
 
             // Get the input reads and build kmers
             IEnumerable<ISequence> sequenceReads = null;
@@ -1183,7 +1183,7 @@ namespace Bio.Tests.Algorithms.Padena
         /// <param name="nodeName">xml node name used for different testcases</param>
         internal void ValidateDe2AssemblerBuildGraph(string nodeName)
         {
-            string filePath = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode);
+            string filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode));
             string kmerLength = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.KmerLengthNode);
 
             // Get the input reads and build kmers
@@ -1214,7 +1214,7 @@ namespace Bio.Tests.Algorithms.Padena
         /// <param name="nodeName">xml node name used for different testcases</param>
         internal void ValidateDeBruijnGraphBuild(string nodeName)
         {
-            string filePath = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode);
+            string filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode));
             string kmerLength = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.KmerLengthNode);
 
             // Get the input reads and build kmers
@@ -1276,7 +1276,7 @@ namespace Bio.Tests.Algorithms.Padena
         /// <param name="nodeName">xml node name used for different testcases</param>
         internal void ValidateDeBruijnNodeCtor(string nodeName)
         {
-            string filePath = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode);
+            string filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode));
             string kmerLength = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.KmerLengthNode);
 
             // Get the input reads and build kmers
@@ -1317,7 +1317,7 @@ namespace Bio.Tests.Algorithms.Padena
         /// <param name="nodeName">xml node name used for different testcases</param>
         internal void ValidateDeBruijnNodeAddLeftExtension(string nodeName)
         {
-            string filePath = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode);
+            string filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode));
             string kmerLength = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.KmerLengthNode);
 
             // Get the input reads and build kmers
@@ -1356,7 +1356,7 @@ namespace Bio.Tests.Algorithms.Padena
         /// <param name="nodeName">xml node name used for different testcases</param>
         internal void ValidateDeBruijnNodeAddRightExtension(string nodeName)
         {
-            string filePath = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode);
+            string filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode));
             string kmerLength = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.KmerLengthNode);
 
             // Get the input reads and build kmers
@@ -1395,7 +1395,7 @@ namespace Bio.Tests.Algorithms.Padena
         /// <param name="nodeName">xml node name used for different testcases</param>
         internal void ValidateDe2AssemblerUnDangleGraph(string nodeName)
         {
-            string filePath = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode);
+            string filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode));
             string kmerLength = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.KmerLengthNode);
 
             // Get the input reads and build kmers
@@ -1425,7 +1425,7 @@ namespace Bio.Tests.Algorithms.Padena
         /// <param name="nodeName">xml node name used for different testcases</param>
         internal void ValidatePadenaDetectErrorNodes(string nodeName)
         {
-            string filePath = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode);
+            string filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode));
             string kmerLength = utilityObj.xmlUtil.GetTextValue(nodeName,
                 Constants.KmerLengthNode);
             string danglingSequence = utilityObj.xmlUtil.GetTextValue(nodeName,
@@ -1469,7 +1469,7 @@ parser.Open( filePath.Replace("\\", System.IO.Path.DirectorySeparatorChar.ToStri
         /// <param name="nodeName">xml node name used for different testcases</param>
         internal void ValidatePadenaRemoveErrorNodes(string nodeName)
         {
-            string filePath = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode);
+            string filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode));
             string kmerLength = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.KmerLengthNode);
 
             // Get the input reads and build kmers
@@ -1510,7 +1510,7 @@ parser.Open( filePath.Replace("\\", System.IO.Path.DirectorySeparatorChar.ToStri
         /// <param name="nodeName">xml node name used for different testcases</param>
         internal void ValidateDe2AssemblerRemoveRedundancy(string nodeName)
         {
-            string filePath = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode);
+            string filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode));
             string kmerLength = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.KmerLengthNode);
 
             // Get the input reads and build kmers
@@ -1548,7 +1548,7 @@ parser.Open( filePath.Replace("\\", System.IO.Path.DirectorySeparatorChar.ToStri
         /// <param name="nodeName">xml node name used for different testcases</param>
         internal void ValidateRedundantPathPurgerCtor(string nodeName)
         {
-            string filePath = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode);
+            string filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode));
             string kmerLength = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.KmerLengthNode);
 
             // Get the input reads and build kmers
@@ -1589,7 +1589,7 @@ parser.Open( filePath.Replace("\\", System.IO.Path.DirectorySeparatorChar.ToStri
         /// <param name="nodeName">xml node name used for different testcases</param>
         internal void ValidateDe2AssemblerBuildContigs(string nodeName)
         {
-            string filePath = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode);
+            string filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode));
             string kmerLength = utilityObj.xmlUtil.GetTextValue(nodeName,
                 Constants.KmerLengthNode);
             string expectedContigsString = utilityObj.xmlUtil.GetTextValue(nodeName,
@@ -1638,7 +1638,7 @@ parser.Open( filePath.Replace("\\", System.IO.Path.DirectorySeparatorChar.ToStri
         /// <param name="nodeName">xml node name used for different testcases</param>
         internal void ValidateSimpleContigBuilderBuild(string nodeName)
         {
-            string filePath = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode);
+            string filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode));
             string kmerLength = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.KmerLengthNode);
             string expectedContigsString =
                 utilityObj.xmlUtil.GetTextValue(nodeName, Constants.ContigsNode);
@@ -1687,8 +1687,8 @@ parser.Open( filePath.Replace("\\", System.IO.Path.DirectorySeparatorChar.ToStri
         /// <param name="nodeName">xml node name used for different testcases</param>
         internal void ValidatePairedReads(string nodeName)
         {
-            string filePath = utilityObj.xmlUtil.GetTextValue(nodeName,
-              Constants.FilePathNode);
+            string filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, utilityObj.xmlUtil.GetTextValue(nodeName,
+              Constants.FilePathNode));
             string expectedPairedReadsCount = utilityObj.xmlUtil.GetTextValue(
                 nodeName, Constants.PairedReadsCountNode);
             string[] backwardReadsNode = utilityObj.xmlUtil.GetTextValues(nodeName,
@@ -1748,8 +1748,8 @@ parser.Open( filePath.Replace("\\", System.IO.Path.DirectorySeparatorChar.ToStri
         /// <param name="nodeName">xml node name used for different testcases</param>
         internal void AddLibraryInformation(string nodeName)
         {
-            string filePath = utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.FilePathNode);
+            string filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, utilityObj.xmlUtil.GetTextValue(nodeName,
+                Constants.FilePathNode));
             string expectedPairedReadsCount = utilityObj.xmlUtil.GetTextValue(
                 nodeName, Constants.PairedReadsCountNode);
             string[] backwardReadsNode = utilityObj.xmlUtil.GetTextValues(nodeName,
@@ -1816,8 +1816,8 @@ parser.Open( filePath.Replace("\\", System.IO.Path.DirectorySeparatorChar.ToStri
         /// assumptions.  This should be cleaned up.
         internal void ValidateMapReadsToContig(string nodeName, bool IsFullOverlap)
         {
-            string filePath = utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.FilePathNode);
+            string filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, utilityObj.xmlUtil.GetTextValue(nodeName,
+                Constants.FilePathNode));
             string kmerLength = utilityObj.xmlUtil.GetTextValue(nodeName,
                 Constants.KmerLengthNode);
             string daglingThreshold = utilityObj.xmlUtil.GetTextValue(nodeName,
@@ -1906,8 +1906,8 @@ parser.Open( filePath.Replace("\\", System.IO.Path.DirectorySeparatorChar.ToStri
         /// <param name="nodeName">xml node name used for a differnt testcase.</param>
         internal void ValidateFilterPaired(string nodeName)
         {
-            string filePath = utilityObj.xmlUtil.GetTextValue(
-                nodeName, Constants.FilePathNode);
+            string filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, utilityObj.xmlUtil.GetTextValue(
+                nodeName, Constants.FilePathNode));
             string kmerLength = utilityObj.xmlUtil.GetTextValue(
                 nodeName, Constants.KmerLengthNode);
             string daglingThreshold = utilityObj.xmlUtil.GetTextValue(
@@ -2031,8 +2031,8 @@ parser.Open( filePath.Replace("\\", System.IO.Path.DirectorySeparatorChar.ToStri
         /// <param name="nodeName">xml node name used for a differnt testcase.</param>
         internal void ValidateContigDistance(string nodeName)
         {
-            string filePath = utilityObj.xmlUtil.GetTextValue(
-                nodeName, Constants.FilePathNode);
+            string filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, utilityObj.xmlUtil.GetTextValue(
+                nodeName, Constants.FilePathNode));
             string kmerLength = utilityObj.xmlUtil.GetTextValue(
                 nodeName, Constants.KmerLengthNode);
             string daglingThreshold = utilityObj.xmlUtil.GetTextValue(
@@ -2137,7 +2137,7 @@ parser.Open( filePath.Replace("\\", System.IO.Path.DirectorySeparatorChar.ToStri
         /// <param name="nodeName">xml node name used for different testcases</param>
         internal void ValidateScaffoldPath(string nodeName)
         {
-            string filePath = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode);
+            string filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode));
             string kmerLength = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.KmerLengthNode);
             string daglingThreshold = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.DanglingLinkThresholdNode);
             string redundantThreshold = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.RedundantThreshold);
@@ -2219,7 +2219,7 @@ parser.Open( filePath.Replace("\\", System.IO.Path.DirectorySeparatorChar.ToStri
         /// <param name="nodeName">xml node name used for different testcases</param>
         internal void ValidateAssembledPath(string nodeName)
         {
-            string filePath = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode);
+            string filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode));
             string kmerLength = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.KmerLengthNode);
             string daglingThreshold = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.DanglingLinkThresholdNode);
             string redundantThreshold = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.RedundantThreshold);
@@ -2311,7 +2311,7 @@ parser.Open( filePath.Replace("\\", System.IO.Path.DirectorySeparatorChar.ToStri
             bool isScaffold, bool enableLowerContigRemoval, bool allowErosion)
         {
             // Get values from XML node.
-            string filePath = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode);
+            string filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode));
             string kmerLength = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.KmerLengthNode);
             string daglingThreshold = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.DanglingLinkThresholdNode);
             string redundantThreshold = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.RedundantThreshold);
@@ -2376,7 +2376,7 @@ parser.Open( filePath.Replace("\\", System.IO.Path.DirectorySeparatorChar.ToStri
         internal void ParallelDenovoAssemblyProperties(string nodeName)
         {
             // Get values from XML node.
-            string filePath = utilityObj.xmlUtil.GetTextValue (nodeName, Constants.FilePathNode);
+            string filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, utilityObj.xmlUtil.GetTextValue (nodeName, Constants.FilePathNode));
             string kmerLength = utilityObj.xmlUtil.GetTextValue (nodeName, Constants.KmerLengthNode);
             string library = utilityObj.xmlUtil.GetTextValue (nodeName, Constants.LibraryName);
             string StdDeviation = utilityObj.xmlUtil.GetTextValue (nodeName, Constants.StdDeviation);

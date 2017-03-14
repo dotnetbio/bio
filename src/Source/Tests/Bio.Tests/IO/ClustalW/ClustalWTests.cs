@@ -23,7 +23,10 @@ namespace Bio.Tests.IO.ClustalW
         [Category("Priority0")]
         public void ClustalWParse()
         {
-            string filepath = @"TestUtils\ClustalW\AlignmentData.aln";
+            string filepath = Path.Combine(TestContext.CurrentContext.TestDirectory,
+                "TestUtils",
+                "ClustalW",
+                "AlignmentData.aln");
             Assert.IsTrue(File.Exists(filepath));
 
             IList<Dictionary<string, string>> expectedOutput = new List<Dictionary<string, string>>();
@@ -73,7 +76,10 @@ namespace Bio.Tests.IO.ClustalW
         [Category("Priority0")]
         public void ClustalWParseOne()
         {
-            string filepath = @"TestUtils\ClustalW\AlignmentData.aln";
+            string filepath = Path.Combine(TestContext.CurrentContext.TestDirectory,
+                "TestUtils",
+                "ClustalW",
+                "AlignmentData.aln");
             Assert.IsTrue(File.Exists(filepath));
 
             IList<Dictionary<string, string>> expectedOutput = new List<Dictionary<string, string>>();

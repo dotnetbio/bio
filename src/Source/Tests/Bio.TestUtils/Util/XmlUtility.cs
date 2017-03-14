@@ -27,8 +27,7 @@ namespace Bio.TestAutomation.Util{
         /// <param name="xmlFilePath">Config file path.</param>
         public XmlUtility(string xmlFilePath)
         {         
-            string path = Path.Combine(Directory.GetCurrentDirectory(), xmlFilePath);
-            _document = XDocument.Load(path);
+            _document = XDocument.Load(xmlFilePath);
         }
 
         /// <summary>
@@ -49,10 +48,15 @@ namespace Bio.TestAutomation.Util{
         /// <param name="parentNode">Name of the Parent node.</param>
         /// <param name="nodeName">Name of the node, from which the file path to be read.</param>
         /// <returns>Contents of file for the path specified.</returns>
-        public string GetFileTextValue(string parentNode, string nodeName)
+        public string GetFileTextValue(string parentNode, string nodeName, string basePath = null)
         {
             XElement actualNode = GetNode(parentNode, nodeName);
-            return Utility.GetFileContent(actualNode.Value);
+            string path = actualNode.Value;
+            if (!string.IsNullOrEmpty(basePath))
+            {
+                path = System.IO.Path.Combine(basePath, path);
+            }
+            return Utility.GetFileContent(path);
         }
 
         /// <summary>

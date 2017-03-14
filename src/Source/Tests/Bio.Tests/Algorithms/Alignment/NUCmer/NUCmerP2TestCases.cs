@@ -18,7 +18,7 @@ namespace Bio.Tests.Algorithms.Alignment.NUCmer
     [TestFixture]
     public class NUCmerP2TestCases
     {
-        private readonly Utility utilityObj = new Utility(@"TestUtils\NUCmerTestsConfig.xml");
+        private readonly Utility utilityObj = new Utility(System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, "TestUtils", "NUCmerTestsConfig.xml"));
 
         #region Invalidate Align NUCmer Test Cases
 

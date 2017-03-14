@@ -66,7 +66,7 @@ namespace Bio.TestAutomation.IO.SAM
 
         #region Global Variables
 
-        Utility utilityObj = new Utility(@"TestUtils\SAMBAMTestData\SAMBAMTestsConfig.xml");
+        Utility utilityObj = new Utility(System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, "TestUtils", "SAMBAMTestData", "SAMBAMTestsConfig.xml"));
 
         #endregion Global Variables
 
@@ -212,9 +212,9 @@ namespace Bio.TestAutomation.IO.SAM
         [Category("Priority2")]
         public void InvalidateSAMParseHeaderBioReader()
         {
-            string filePath = utilityObj.xmlUtil.GetTextValue(
+            string filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, utilityObj.xmlUtil.GetTextValue(
                 Constants.InvalidSamBioReaderNode,
-                Constants.FilePathNode);
+                Constants.FilePathNode));
 
             try
             {
@@ -521,8 +521,8 @@ namespace Bio.TestAutomation.IO.SAM
         /// </summary>
         void ValidateSamFormatter(ParseOrFormatTypes method)
         {
-            string filePath = utilityObj.xmlUtil.GetTextValue(
-                Constants.SmallSAMFileNode, Constants.FilePathNode);
+            string filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, utilityObj.xmlUtil.GetTextValue(
+                Constants.SmallSAMFileNode, Constants.FilePathNode));
             ISequenceAlignmentParser parser = new SAMParser();
             ISequenceAlignment alignment = null;
 

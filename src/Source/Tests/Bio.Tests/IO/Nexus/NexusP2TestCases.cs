@@ -43,7 +43,7 @@ namespace Bio.TestAutomation.IO.Nexus
 
         #region Global Variables
 
-        Utility utilityObj = new Utility(@"TestUtils\NexusTestsConfig.xml");
+        Utility utilityObj = new Utility(System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, "TestUtils", "NexusTestsConfig.xml"));
 
         #endregion Global Variables
 
@@ -160,9 +160,9 @@ namespace Bio.TestAutomation.IO.Nexus
         {
             try
             {
-                string filePath = utilityObj.xmlUtil.GetTextValue(
+                string filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, utilityObj.xmlUtil.GetTextValue(
                     nodeName,
-                    Constants.FilePathNode);
+                    Constants.FilePathNode));
                 NexusParser parser = new NexusParser();
 
                 switch (method)

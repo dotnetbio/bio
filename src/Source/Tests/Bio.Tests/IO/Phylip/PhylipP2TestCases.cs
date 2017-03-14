@@ -44,7 +44,7 @@ namespace Bio.TestAutomation.IO.Phylip
 
         #region Global Variables
 
-        Utility utilityObj = new Utility(@"TestUtils\PhylipTestsConfig.xml");
+        Utility utilityObj = new Utility(System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, "TestUtils", "PhylipTestsConfig.xml"));
 
         #endregion Global Variables
 
@@ -147,9 +147,9 @@ namespace Bio.TestAutomation.IO.Phylip
         {
             try
             {
-                string filePath = utilityObj.xmlUtil.GetTextValue(
+                string filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, utilityObj.xmlUtil.GetTextValue(
                     nodeName,
-                    Constants.FilePathNode);
+                    Constants.FilePathNode));
                 PhylipParser parser = new PhylipParser();
 
                 switch (method)

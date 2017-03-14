@@ -27,7 +27,7 @@ namespace Bio.TestAutomation.IO.FastQ
     [TestFixture]
     public class FastQP1TestCases
     {
-        private readonly Utility utilityObj = new Utility(@"TestUtils\FastQTestsConfig.xml");
+        private readonly Utility utilityObj = new Utility(System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, "TestUtils", "FastQTestsConfig.xml"));
 
       #region FastQ P1 Test cases
 
@@ -1095,7 +1095,7 @@ namespace Bio.TestAutomation.IO.FastQ
         private void ValidateFastQParser(string nodeName)
         {
             // Gets the expected sequence from the Xml
-            string filePath = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode);
+            string filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode));
             string expectedQualitativeSequence = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.ExpectedSequenceNode);
             string expectedSequenceId = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.SequenceIdNode);
             string expectedSeqCount = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.SeqsCount);
@@ -1121,7 +1121,7 @@ namespace Bio.TestAutomation.IO.FastQ
         private void ValidateMulitpleSequenceFastQParser(string nodeName, string triSeq)
         {
             // Gets the expected sequence from the Xml
-            string filePath = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode);
+            string filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode));
             string expectedFirstQualitativeSequence = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.ExpectedSequence1Node);
             string expectedSecondQualitativeSequence = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.ExpectedSequence2Node);
             string expectedthirdQualitativeSequence = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.ExpectedSequence3Node);
@@ -1215,7 +1215,7 @@ namespace Bio.TestAutomation.IO.FastQ
         private void ValidateFastQFormatter(string nodeName, bool writeMultipleSequences)
         {
             // Gets the expected sequence from the Xml
-            string filePath = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode);
+            string filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode));
             string expectedQualitativeSequence = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.ExpectedSequenceNode);
             string expectedSequenceId = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.SequenceIdNode);
             string tempFileName = Path.GetTempFileName();
@@ -1263,11 +1263,13 @@ namespace Bio.TestAutomation.IO.FastQ
         private void ValidateMultiSeqFastQFormatter(string nodeName)
         {
             // Gets the expected sequence from the Xml
-            string filePath = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode);
+            string filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode));
             string expectedQualitativeSequence = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.ExpectedSequenceNode);
             string expectedSequenceId = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.SequenceIdNode);
             string expectedSecondQualitativeSequence = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.ExpectedSequence2Node);
             string expectedSecondSeqID = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.ExpectedSequenceId1Node);
+            string fastqTempFileName = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, Constants.FastQTempFileName);
+            string streamWriterFastqTempFileName = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, Constants.StreamWriterFastQTempFileName);
 
             // Parse a FastQ file.
             var fastQParserObj = new FastQParser();
@@ -1276,14 +1278,14 @@ namespace Bio.TestAutomation.IO.FastQ
                 var qualSequenceList = fastQParserObj.Parse().ToList();
 
                 // Format a first Qualitative sequence
-                new FastQFormatter().Format(qualSequenceList[0], Constants.FastQTempFileName);
+                new FastQFormatter().Format(qualSequenceList[0], fastqTempFileName);
 
                 // Read it back
-                var seqsNew = new FastQParser().Parse(Constants.FastQTempFileName).ToList();
+                var seqsNew = new FastQParser().Parse(fastqTempFileName).ToList();
 
                 // Format a Second Qualitative sequence
-                new FastQFormatter().Format(qualSequenceList[1], Constants.StreamWriterFastQTempFileName);
-                var secondSeqsNew = new FastQParser().Parse(Constants.StreamWriterFastQTempFileName).ToList();
+                new FastQFormatter().Format(qualSequenceList[1], streamWriterFastqTempFileName);
+                var secondSeqsNew = new FastQParser().Parse(streamWriterFastqTempFileName).ToList();
 
                 // Validate Second qualitative Sequence upon parsing FastQ file.
                 Assert.AreEqual(expectedSecondQualitativeSequence, secondSeqsNew[0].ConvertToString());
@@ -1295,8 +1297,8 @@ namespace Bio.TestAutomation.IO.FastQ
 
                 ApplicationLog.WriteLine(string.Format("FastQ Parser P1: The FASTQ sequence '{0}' validation after Parse() is found to be as expected.", seqsNew[0]));
 
-                File.Delete(Constants.FastQTempFileName);
-                File.Delete(Constants.StreamWriterFastQTempFileName);
+                File.Delete(fastqTempFileName);
+                File.Delete(streamWriterFastqTempFileName);
             }
         }
 
@@ -1307,7 +1309,7 @@ namespace Bio.TestAutomation.IO.FastQ
         private void ValidateBasicSequenceParser(string nodeName)
         {
             // Gets the expected sequence from the Xml
-            string filepathOriginal = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode);
+            string filepathOriginal = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode));
             string expectedQualitativeSequence = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.ExpectedSequenceNode);
             string expectedSequenceId = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.SequenceIdNode);
             IAlphabet alphabet = Utility.GetAlphabet(utilityObj.xmlUtil.GetTextValue(nodeName, Constants.AlphabetNameNode));

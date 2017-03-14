@@ -34,7 +34,7 @@ namespace Bio.Silverlight.TestAutomation.IO.GenBank
 
         // Global variables which store the information of xml file values and is used across the class file.
 
-        private readonly Utility utilityObj = new Utility(@"TestUtils\TestsConfig.xml");
+        private readonly Utility utilityObj = new Utility(Path.Combine(TestContext.CurrentContext.TestDirectory, "TestUtils", "TestsConfig.xml"));
 
         #endregion Global Variables
 
@@ -175,9 +175,9 @@ namespace Bio.Silverlight.TestAutomation.IO.GenBank
         {
             InitializeXmlVariables();
             // Initialization of xml strings.
-            FilePath = utilityObj.xmlUtil.GetTextValue(
+            FilePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, utilityObj.xmlUtil.GetTextValue(
                 Constants.SimpleGenBankPrimaryNode,
-                Constants.FilePathNode);
+                Constants.FilePathNode));
             AlphabetName = utilityObj.xmlUtil.GetTextValue(
                 Constants.SimpleGenBankPrimaryNode,
                 Constants.AlphabetNameNode);
@@ -585,8 +585,8 @@ namespace Bio.Silverlight.TestAutomation.IO.GenBank
         private void InitializeXmlVariables()
         {
             // Initialization of xml strings.
-            FilePath = utilityObj.xmlUtil.GetTextValue(
-                Constants.SimpleGenBankNodeName, Constants.FilePathNode);
+            FilePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, utilityObj.xmlUtil.GetTextValue(
+                Constants.SimpleGenBankNodeName, Constants.FilePathNode));
             AlphabetName = utilityObj.xmlUtil.GetTextValue(
                 Constants.SimpleGenBankNodeName, Constants.AlphabetNameNode);
             SeqId = utilityObj.xmlUtil.GetTextValue(

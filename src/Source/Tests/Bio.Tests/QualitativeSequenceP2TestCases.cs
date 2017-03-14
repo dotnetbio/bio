@@ -39,7 +39,7 @@ namespace Bio.Tests
             IlluminaToSolexa,
         };
 
-        readonly Utility utilityObj = new Utility(@"TestUtils\QualitativeTestsConfig.xml");
+        readonly Utility utilityObj = new Utility(System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, "TestUtils", "QualitativeTestsConfig.xml"));
 
         # region Qualitative Sequence P2 TestCases
 

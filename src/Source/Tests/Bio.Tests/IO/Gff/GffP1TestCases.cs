@@ -48,7 +48,7 @@ using NUnit.Framework;
 
         #region Global Variables
 
-        Utility utilityObj = new Utility(@"TestUtils\GffTestsConfig.xml");
+        Utility utilityObj = new Utility(System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, "TestUtils", "GffTestsConfig.xml"));
 
         #endregion Global Variables
 
@@ -561,8 +561,8 @@ using NUnit.Framework;
             bool isFilePath, ParserParameters parseParam)
         {
             // Gets the expected sequence from the Xml
-            string filePath = utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.FilePathNode);
+            string filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, utilityObj.xmlUtil.GetTextValue(nodeName,
+                Constants.FilePathNode));
 
             Assert.IsTrue(File.Exists(filePath));
 
@@ -657,8 +657,8 @@ using NUnit.Framework;
             bool isFilePath)
         {
             // Gets the expected sequence from the Xml
-            string filePath = utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.FilePathNode);
+            string filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, utilityObj.xmlUtil.GetTextValue(nodeName,
+                Constants.FilePathNode));
 
             Assert.IsTrue(File.Exists(filePath));
 
@@ -1100,27 +1100,27 @@ using NUnit.Framework;
         void ValidateFormatGeneralTestCases(string nodeName, bool isFilePath, bool isSequenceList)
         {
             // Gets the expected sequence from the Xml
-            string filePath = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode);
-
+            string filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode));
+            string gffTempFileName = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, Constants.GffTempFileName);
             Assert.IsTrue(File.Exists(filePath));
             GffParser parserObj = new GffParser();
             IList<ISequence> seqs = parserObj.Parse(filePath).ToList();
             var originalSequence = seqs[0];
 
             // Use the formatter to write the original sequences to a temp file            
-            ApplicationLog.WriteLine(string.Format("Gff Formatter P1: Creating the Temp file '{0}'.", Constants.GffTempFileName));
+            ApplicationLog.WriteLine(string.Format("Gff Formatter P1: Creating the Temp file '{0}'.", gffTempFileName));
 
             GffFormatter formatter = new GffFormatter { ShouldWriteSequenceData = true };
             if (isFilePath)
             {
                 if (isSequenceList)
-                    formatter.Format(seqs, Constants.GffTempFileName);
+                    formatter.Format(seqs, gffTempFileName);
                 else
-                    formatter.Format(originalSequence, Constants.GffTempFileName);
+                    formatter.Format(originalSequence, gffTempFileName);
             }
             else
             {
-                using (var stream = File.Create(Constants.GffTempFileName))
+                using (var stream = File.Create(gffTempFileName))
                 {
                     if (isSequenceList)
                     {
@@ -1135,7 +1135,7 @@ using NUnit.Framework;
 
             // Read the new file, then compare the sequences
             GffParser newParser = new GffParser(); 
-            IList<ISequence> seqsNew = newParser.Parse(Constants.GffTempFileName).ToList();
+            IList<ISequence> seqsNew = newParser.Parse(gffTempFileName).ToList();
 
             ISequence seqTemp = seqsNew.First();
             string sequenceInString = seqTemp.ConvertToString();
@@ -1160,8 +1160,8 @@ using NUnit.Framework;
 
             // Passed all the tests, delete the tmp file. If we failed an Assert,
             // the tmp file will still be there in case we need it for debugging.
-            if (File.Exists(Constants.GffTempFileName))
-                File.Delete(Constants.GffTempFileName);
+            if (File.Exists(gffTempFileName))
+                File.Delete(gffTempFileName);
             ApplicationLog.WriteLine("Deleted the temp file created.");
         }
 
@@ -1172,8 +1172,9 @@ using NUnit.Framework;
         void ValidateFormatStringTestCases(string nodeName)
         {
             // Gets the expected sequence from the Xml
-            string filePath = utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.FilePathNode);
+            string filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, utilityObj.xmlUtil.GetTextValue(nodeName,
+                Constants.FilePathNode));
+            string gffTempFileName = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, Constants.GffTempFileName);
 
             Assert.IsTrue(File.Exists(filePath));
             IList<ISequence> seqs = null;
@@ -1183,9 +1184,10 @@ using NUnit.Framework;
 
             // Use the formatter to write the original sequences to a temp file            
             ApplicationLog.WriteLine(string.Format("Gff Formatter P1: Creating the Temp file '{0}'.",
-                Constants.GffTempFileName));
+                gffTempFileName));
 
             GffFormatter formatter = new GffFormatter { ShouldWriteSequenceData = true };
+            formatter.Format(seqs, gffTempFileName);
             string formatString = formatter.FormatString(originalSequence);
 
             string expectedString = utilityObj.xmlUtil.GetTextValue(nodeName,
@@ -1207,8 +1209,8 @@ using NUnit.Framework;
 
             // Passed all the tests, delete the tmp file. If we failed an Assert,
             // the tmp file will still be there in case we need it for debugging.
-            if (File.Exists(Constants.GffTempFileName))
-                File.Delete(Constants.GffTempFileName);
+            if (File.Exists(gffTempFileName))
+                File.Delete(gffTempFileName);
             ApplicationLog.WriteLine("Deleted the temp file created.");
         }
 
@@ -1219,8 +1221,9 @@ using NUnit.Framework;
         void ValidateFormatMultiSequencesTestCases(string nodeName)
         {
             // Gets the expected sequence from the Xml
-            string filePath = utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.FilePathNode);
+            string filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, utilityObj.xmlUtil.GetTextValue(nodeName,
+                Constants.FilePathNode));
+            string gffTempFileName = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, Constants.GffTempFileName);
 
             Assert.IsTrue(File.Exists(filePath));
             IList<ISequence> seqs = null;
@@ -1230,10 +1233,10 @@ using NUnit.Framework;
             // Use the formatter to write the original sequences to a temp file            
             ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                 "Gff Formatter P1: Creating the Temp file '{0}'.",
-                Constants.GffTempFileName));
+                gffTempFileName));
 
             GffFormatter formatter = new GffFormatter { ShouldWriteSequenceData = true };
-            formatter.Format(seqs, Constants.GffTempFileName);
+            formatter.Format(seqs, gffTempFileName);
 
             int noOfSeqs = int.Parse(utilityObj.xmlUtil.GetTextValue(nodeName,
                 Constants.NumberOfSequencesNode), null);
@@ -1301,8 +1304,8 @@ using NUnit.Framework;
 
             // Passed all the tests, delete the tmp file. If we failed an Assert,
             // the tmp file will still be there in case we need it for debugging.
-            if (File.Exists(Constants.GffTempFileName))
-                File.Delete(Constants.GffTempFileName);
+            if (File.Exists(gffTempFileName))
+                File.Delete(gffTempFileName);
             ApplicationLog.WriteLine("Deleted the temp file created.");
         }
 

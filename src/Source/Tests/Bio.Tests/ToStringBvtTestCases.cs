@@ -21,7 +21,7 @@ namespace Bio.Tests
     [TestFixture]
     public class ToStringBvtTestCases
     {
-        private readonly Utility utilityObj = new Utility(@"TestUtils\TestsConfig.xml");
+        private readonly Utility utilityObj = new Utility(Path.Combine(TestContext.CurrentContext.TestDirectory, "TestUtils", "TestsConfig.xml"));
 
         #region BVT Test Cases
 
@@ -53,8 +53,8 @@ namespace Bio.Tests
             Assert.AreEqual(string.Empty, blankString);
 
             // Gets the expected sequence from the Xml
-            string filePath = this.utilityObj.xmlUtil.GetTextValue(Constants.SimpleFastaNodeName,
-                                                              Constants.FilePathNode);
+            string filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, this.utilityObj.xmlUtil.GetTextValue(Constants.SimpleFastaNodeName,
+                                                              Constants.FilePathNode));
             //read sequence from file
             var parser = new FastAParser { Alphabet = Alphabets.Protein };
             List<ISequence> seqsList = parser.Parse(filePath).ToList();
@@ -145,7 +145,7 @@ namespace Bio.Tests
             var seq = new QualitativeSequence(Alphabets.DNA,
                                               FastQFormatType.Illumina_v1_3, seqData, qualityScores);
             string actualString = seq.ToString();
-            string expectedString = "ATCG\nAAAB"; // This is dangerously platform specific
+            string expectedString = "ATCG" + System.Environment.NewLine + "AAAB";
             Assert.AreEqual(expectedString, actualString);
         }
 
@@ -226,8 +226,8 @@ namespace Bio.Tests
             // Gets the expected sequence from the Xml
             List<ISequence> seqsList;
             IEnumerable<ISequence> sequences = null;
-            string filePath = this.utilityObj.xmlUtil.GetTextValue(Constants.SimpleFastaNodeName,
-                                                              Constants.FilePathNode);
+            string filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, this.utilityObj.xmlUtil.GetTextValue(Constants.SimpleFastaNodeName,
+                                                              Constants.FilePathNode));
             using (var reader = File.OpenRead(filePath))
             {
                 var parser = new FastAParser();
@@ -323,7 +323,7 @@ namespace Bio.Tests
 
             // Gets the expected sequence from the Xml
             List<ISequence> seqsList;
-            string filePath = this.utilityObj.xmlUtil.GetTextValue(Constants.SimpleFastaNodeName, Constants.FilePathNode);
+            string filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, this.utilityObj.xmlUtil.GetTextValue(Constants.SimpleFastaNodeName, Constants.FilePathNode));
             using (var reader = File.OpenRead(filePath))
             {
                 var parser = new FastAParser();
@@ -735,8 +735,8 @@ namespace Bio.Tests
 
             List<ISequence> seqsList;
             // Gets the expected sequence from the Xml
-            string filePath = this.utilityObj.xmlUtil.GetTextValue(Constants.SimpleFastaNodeName,
-                                                              Constants.FilePathNode);
+            string filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, this.utilityObj.xmlUtil.GetTextValue(Constants.SimpleFastaNodeName,
+                                                              Constants.FilePathNode));
 
             var parser = new FastAParser { Alphabet = Alphabets.Protein };
             IEnumerable<ISequence> seq = parser.Parse(filePath);

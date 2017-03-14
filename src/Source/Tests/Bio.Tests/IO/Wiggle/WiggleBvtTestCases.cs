@@ -18,7 +18,7 @@ namespace Bio.Tests.IO.Wiggle
     [TestFixture]
     public class WiggleBvtTestCases
     {
-        Utility utilityObj = new Utility(@"TestUtils\WiggleTestConfig.xml");
+        Utility utilityObj = new Utility(System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, "TestUtils", "WiggleTestConfig.xml"));
 
         #region Enum
 
@@ -52,8 +52,8 @@ namespace Bio.Tests.IO.Wiggle
         public void ValidateWiggleParserPublicProperties()
         {
             // Gets the filepath  from the Xml
-            string filePath = this.utilityObj.xmlUtil.GetTextValue(Constants.
-                              SimpleWiggleWithFixedStepNodeName, Constants.FilePathNode);
+            string filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, this.utilityObj.xmlUtil.GetTextValue(Constants.
+                              SimpleWiggleWithFixedStepNodeName, Constants.FilePathNode));
             Assert.IsTrue(File.Exists(filePath));
 
             // Logs information to the log file            
@@ -184,8 +184,8 @@ namespace Bio.Tests.IO.Wiggle
             WiggleAnnotation annotation = null;
 
             // Gets the filepath  from the Xml
-            string filePath = this.utilityObj.xmlUtil.GetTextValue(Constants.
-                              SimpleWiggleWithFixedStepNodeName, Constants.FilePathNode);
+            string filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, this.utilityObj.xmlUtil.GetTextValue(Constants.
+                              SimpleWiggleWithFixedStepNodeName, Constants.FilePathNode));
             Assert.IsTrue(File.Exists(filePath));
 
             // Logs information to the log file            
@@ -334,7 +334,7 @@ namespace Bio.Tests.IO.Wiggle
         private void ValidateWiggleParser(string nodeName, ParseType parseType)
         {
             // Gets the filepath.
-            String filePath = this.utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode);
+            String filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, this.utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode));
             Assert.IsTrue(File.Exists(filePath));
 
             int index = 0;
@@ -386,9 +386,10 @@ namespace Bio.Tests.IO.Wiggle
         private void ValidateWiggleFormatter(string nodeName, FormatType formatType)
         {
             // Gets the filepath.
-            String filePath = this.utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode);
+            String filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, this.utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode));
             Assert.IsTrue(File.Exists(filePath));
             WiggleAnnotation annotation = null, annotationNew = null;
+            string wiggleTempFileName = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, Constants.WiggleTempFileName);
 
             string[] expectedValues = this.utilityObj.xmlUtil.GetTextValue(nodeName,
                                      Constants.ExpectedValuesNode).Split(',');
@@ -405,7 +406,7 @@ namespace Bio.Tests.IO.Wiggle
             switch (formatType)
             {
                 case FormatType.Stream:
-                    using (var writer = File.Create(Constants.WiggleTempFileName))
+                    using (var writer = File.Create(wiggleTempFileName))
                     {
                         formatter = new WiggleFormatter();
                         formatter.Format(writer, annotation);
@@ -414,14 +415,14 @@ namespace Bio.Tests.IO.Wiggle
                     break;
                 default:
                     formatter = new WiggleFormatter();
-                    formatter.Format(annotation, Constants.WiggleTempFileName);
+                    formatter.Format(annotation, wiggleTempFileName);
                     formatter.Close();
                     break;
             }
 
             //Read the new file and then compare the annotations.
             WiggleParser parserNew = new WiggleParser();
-            annotationNew = parserNew.ParseOne(Constants.WiggleTempFileName);
+            annotationNew = parserNew.ParseOne(wiggleTempFileName);
             int index = 0;
 
             //Validate keys and values of the parsed file.
@@ -433,7 +434,7 @@ namespace Bio.Tests.IO.Wiggle
                             CultureInfo.InvariantCulture), keyvaluePair.Value);
                 index++;
             }
-            File.Delete(Constants.WiggleTempFileName);
+            File.Delete(wiggleTempFileName);
             ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
                "Wiggle Formatter BVT: Successfully validated the written file"));
         }

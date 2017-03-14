@@ -113,7 +113,7 @@ using Bio;
 
         #region Global Variables
 
-        Utility utilityObj = new Utility(@"TestUtils\TestsConfig.xml");
+        Utility utilityObj = new Utility(Path.Combine(TestContext.CurrentContext.TestDirectory, "TestUtils", "TestsConfig.xml"));
 
         #endregion Global Variables
 
@@ -759,8 +759,8 @@ using Bio;
         /// <param name="nodeName">xml node name.</param>
         void InitializeXmlVariables(string nodeName)
         {
-            FilePath = utilityObj.xmlUtil.GetTextValue(
-                nodeName, Constants.FilePathNode);
+            FilePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, utilityObj.xmlUtil.GetTextValue(
+                nodeName, Constants.FilePathNode));
             AlphabetName = utilityObj.xmlUtil.GetTextValue(
                 nodeName, Constants.AlphabetNameNode);
             SeqId = utilityObj.xmlUtil.GetTextValue(
@@ -1165,8 +1165,8 @@ using Bio;
         void ValidateParseMultiSeqTestCases(string nodeName)
         {
             // Initialize only required properties.
-            FilePath = utilityObj.xmlUtil.GetTextValue(
-                nodeName, Constants.FilePathNode);
+            FilePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, utilityObj.xmlUtil.GetTextValue(
+                nodeName, Constants.FilePathNode));
             AlphabetName = utilityObj.xmlUtil.GetTextValue(
                 nodeName, Constants.AlphabetNameNode);
             SeqId = utilityObj.xmlUtil.GetTextValue(
