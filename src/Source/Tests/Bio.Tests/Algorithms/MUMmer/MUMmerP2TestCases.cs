@@ -18,7 +18,7 @@ namespace Bio.TestAutomation.Algorithms.MUMmer
     [TestFixture]
     public class MUMmerP2TestCases
     {
-        private readonly Utility utilityObj = new Utility(@"TestUtils\MUMmerTestsConfig.xml");
+        private readonly Utility utilityObj = new Utility(System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, "TestUtils", "MUMmerTestsConfig.xml"));
 
         #region MUMmer Align Test Cases
 
@@ -47,7 +47,7 @@ namespace Bio.TestAutomation.Algorithms.MUMmer
         private void ValidateMUMmerAlignGeneralTestCases(string nodeName)
         {
             // Gets the reference sequence from the configuration file
-            string filePath = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode);
+            string filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode));
 
             Assert.IsNotNull(filePath);
             ApplicationLog.WriteLine(string.Format(null, "MUMmer P2 : Successfully validated the File Path '{0}'.", filePath));
@@ -58,7 +58,7 @@ namespace Bio.TestAutomation.Algorithms.MUMmer
             ISequence referenceSeq = referenceSeqs.ElementAt(0);
 
             // Gets the reference sequence from the configuration file
-            string queryFilePath = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.SearchSequenceFilePathNode);
+            string queryFilePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, utilityObj.xmlUtil.GetTextValue(nodeName, Constants.SearchSequenceFilePathNode));
 
             Assert.IsNotNull(queryFilePath);
             ApplicationLog.WriteLine(string.Format(null, "MUMmer P2 : Successfully validated the Search File Path '{0}'.", queryFilePath));

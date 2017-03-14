@@ -47,7 +47,7 @@ namespace Bio.Silverlight.TestAutomation.IO.Bed
 
         #region Global Variables
 
-        private readonly Utility utilityObj = new Utility(@"TestUtils\BedTestsConfig.xml");
+        private readonly Utility utilityObj = new Utility(System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, "TestUtils", "BedTestsConfig.xml"));
 
         #endregion Global Variables
 
@@ -349,8 +349,8 @@ namespace Bio.Silverlight.TestAutomation.IO.Bed
                                             AdditionalParameters addParam)
         {
             // Gets the Filename
-            string filePath = utilityObj.xmlUtil.GetTextValue(
-                nodeName, Constants.FilePathNode);
+            string filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, utilityObj.xmlUtil.GetTextValue(
+                nodeName, Constants.FilePathNode));
 
             Assert.IsFalse(string.IsNullOrEmpty(filePath));
             ApplicationLog.WriteLine(string.Format(null,
@@ -441,9 +441,9 @@ namespace Bio.Silverlight.TestAutomation.IO.Bed
             var rangeGroup = new SequenceRangeGrouping();
 
             // Gets the file name.
-            string filePath = utilityObj.xmlUtil.GetTextValue(
-                nodeName, Constants.FilePathNode);
-
+            string filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, utilityObj.xmlUtil.GetTextValue(
+                nodeName, Constants.FilePathNode));
+            string bedTempFileName = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, Constants.BedTempFileName);
             // Condition to check if Parse() happens before Format()
             switch (addParam)
             {
@@ -502,22 +502,22 @@ namespace Bio.Silverlight.TestAutomation.IO.Bed
             {
                 case AdditionalParameters.RangeFileName:
                 case AdditionalParameters.ParseRange:
-                    formatterObj.Format(rangeList, Constants.BedTempFileName);
+                    formatterObj.Format(rangeList, bedTempFileName);
                     break;
                 case AdditionalParameters.RangeTextWriter:
                     using (var txtWriter =
-                        File.Create(Constants.BedTempFileName))
+                        File.Create(bedTempFileName))
                     {
                         formatterObj.Format(txtWriter, rangeList);
                     }
                     break;
                 case AdditionalParameters.RangeGroupFileName:
                 case AdditionalParameters.ParseRangeGroup:
-                    formatterObj.Format(rangeGroup, Constants.BedTempFileName);
+                    formatterObj.Format(rangeGroup, bedTempFileName);
                     break;
                 case AdditionalParameters.RangeGroupTextWriter:
                     using (var txtWriter =
-                        File.Create(Constants.BedTempFileName))
+                        File.Create(bedTempFileName))
                     {
                         formatterObj.Format(txtWriter, rangeGroup);
                     }
@@ -529,7 +529,7 @@ namespace Bio.Silverlight.TestAutomation.IO.Bed
             // Reparse to validate the results
             var parserObj = new BedParser();
             IList<ISequenceRange> newRangeList =
-                parserObj.ParseRange(Constants.BedTempFileName);
+                parserObj.ParseRange(bedTempFileName);
 
             // Validation of all the properties.
             for (int i = 0; i < rangeList.Count; i++)
@@ -604,8 +604,8 @@ namespace Bio.Silverlight.TestAutomation.IO.Bed
                 "Bed Formatter BVT: Successfully validated the ID, Start and End Ranges");
 
             // Cleanup the file.
-            if (File.Exists(Constants.BedTempFileName))
-                File.Delete(Constants.BedTempFileName);
+            if (File.Exists(bedTempFileName))
+                File.Delete(bedTempFileName);
         }
 
         #endregion Supported Methods

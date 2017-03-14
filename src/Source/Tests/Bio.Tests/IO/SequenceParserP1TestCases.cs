@@ -18,7 +18,7 @@ namespace Bio.Tests
     [TestFixture]
     public class SequenceParserP1TestCases
     {
-        private readonly Utility utilityObj = new Utility(@"TestUtils\SequenceParser.xml");
+        private readonly Utility utilityObj = new Utility(System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, "TestUtils", "SequenceParser.xml"));
 
         #region SequenceParser TestCases
 

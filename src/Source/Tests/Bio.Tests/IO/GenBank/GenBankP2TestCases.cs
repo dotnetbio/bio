@@ -47,7 +47,7 @@ using NUnit.Framework;
 
         #region Global Variables
 
-        Utility utilityObj = new Utility(@"TestUtils\TestsConfig.xml");
+        Utility utilityObj = new Utility(Path.Combine(TestContext.CurrentContext.TestDirectory, "TestUtils", "TestsConfig.xml"));
 
         #endregion Global Variables
 
@@ -359,8 +359,8 @@ using NUnit.Framework;
         void InvalidateGenBankParser(string node)
         {
             // Initialization of xml strings.
-            FilePath = utilityObj.xmlUtil.GetTextValue(node,
-                Constants.FilePathNode);
+            FilePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, utilityObj.xmlUtil.GetTextValue(node,
+                Constants.FilePathNode));
 
             try
             {

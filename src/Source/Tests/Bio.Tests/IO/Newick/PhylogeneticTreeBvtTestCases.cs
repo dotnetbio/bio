@@ -54,7 +54,7 @@ namespace Bio.TestAutomation.IO.Newick
 
         #region Global Variables
 
-        Utility _utilityObj = new Utility(@"TestUtils\PhylogeneticTestsConfig.xml");
+        Utility _utilityObj = new Utility(System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, "TestUtils", "PhylogeneticTestsConfig.xml"));
 
         #endregion Global Variables
 
@@ -126,7 +126,7 @@ namespace Bio.TestAutomation.IO.Newick
         {
             NewickParser parser = new NewickParser();
             {
-                using (var reader = File.OpenRead(@"TestUtils\NewickExtended.nhx"))
+                using (var reader = File.OpenRead(System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, "TestUtils", "NewickExtended.nhx")))
                 {
                     Tree rootTree = parser.Parse(reader);
 
@@ -251,7 +251,7 @@ namespace Bio.TestAutomation.IO.Newick
         [Category("Priority0")]
         public void TestNamesOnInternalNodes()
         {
-            const string filename = @"TestUtils\\positives.newick";
+            string filename = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, "TestUtils", "positives.newick");
             var parser = new NewickParser();
             var tree = parser.Parse(filename);
             Assert.AreEqual(3, tree.Root.Children.Count);
@@ -269,8 +269,8 @@ namespace Bio.TestAutomation.IO.Newick
         void PhylogeneticTreeParserGeneralTests(string nodeName, AdditionalParameters addParam)
         {
             // Gets the expected sequence from the Xml
-            string filePath = _utilityObj.xmlUtil.GetTextValue(nodeName,
-                Constants.FilePathNode);
+            string filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, _utilityObj.xmlUtil.GetTextValue(nodeName,
+                Constants.FilePathNode));
 
             Assert.IsTrue(File.Exists(filePath));
 
@@ -360,8 +360,8 @@ namespace Bio.TestAutomation.IO.Newick
                         rootTree = GetFormattedObject();
                         break;
                     default:
-                        filePath = _utilityObj.xmlUtil.GetTextValue(nodeName,
-                         Constants.FilePathNode);
+                        filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, _utilityObj.xmlUtil.GetTextValue(nodeName,
+                         Constants.FilePathNode));
                         Assert.IsTrue(File.Exists(filePath));
 
                         // Logs information to the log file
@@ -373,8 +373,8 @@ namespace Bio.TestAutomation.IO.Newick
                         break;
                 }
 
-                string outputFilepath = _utilityObj.xmlUtil.GetTextValue(nodeName,
-                         Constants.OutputFilePathNode);
+                string outputFilepath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, _utilityObj.xmlUtil.GetTextValue(nodeName,
+                         Constants.OutputFilePathNode));
 
                 NewickFormatter format = new NewickFormatter();
                 switch (formatParam)

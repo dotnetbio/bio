@@ -14,7 +14,7 @@ namespace Bio.Tests.IO.Snp
     [TestFixture]
     public class SnpParserTests
     {
-        private const string snpFileName = @"TestUtils\SnpFile.tsv";
+        private static readonly string snpFileName = Path.Combine(TestContext.CurrentContext.TestDirectory, "TestUtils", "SnpFile.tsv");
 
         /// <summary>
         /// Parse a Snp file

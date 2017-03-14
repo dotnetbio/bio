@@ -32,7 +32,7 @@ namespace Bio.Tests
 
         #endregion Enums
 
-        private readonly Utility utilityObj = new Utility(@"TestUtils\BedTestsConfig.xml");
+        private readonly Utility utilityObj = new Utility(System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, "TestUtils", "BedTestsConfig.xml"));
 
         #region SequenceRange and SequenceRangeGrouping P1 TestCases
 
@@ -294,8 +294,8 @@ namespace Bio.Tests
             string expectedRangeIDs = this.utilityObj.xmlUtil.GetTextValue(nodeName, Constants.IDNode);
             string expectedStartIndex = this.utilityObj.xmlUtil.GetTextValue(nodeName, Constants.StartNode);
             string expectedEndIndex = this.utilityObj.xmlUtil.GetTextValue(nodeName, Constants.EndNode);
-            string referenceFilePath = this.utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode);
-            string queryFilePath = this.utilityObj.xmlUtil.GetTextValue(nodeName, Constants.QueryFilePath);
+            string referenceFilePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, this.utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode));
+            string queryFilePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, this.utilityObj.xmlUtil.GetTextValue(nodeName, Constants.QueryFilePath));
             string minimalOverlap = this.utilityObj.xmlUtil.GetTextValue(nodeName, Constants.OverlapValue);
 
             SequenceRangeGrouping operationResult = null;

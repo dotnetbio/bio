@@ -57,7 +57,7 @@ namespace Bio.TestAutomation.IO.Phylip
 
         #region Global Variables
 
-        Utility utilityObj = new Utility(@"TestUtils\PhylipTestsConfig.xml");
+        Utility utilityObj = new Utility(System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, "TestUtils", "PhylipTestsConfig.xml"));
 
         #endregion Global Variables
 
@@ -157,7 +157,7 @@ namespace Bio.TestAutomation.IO.Phylip
         void ParserGeneralTestCases(string nodeName, ParserTestAttributes addParam)
         {
             // Gets the Filename
-            string filePath = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode);
+            string filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode));
 
             Assert.IsFalse(string.IsNullOrEmpty(filePath));
             ApplicationLog.WriteLine(string.Format("Phylip Parser BVT: Reading the File from location '{0}'", filePath));

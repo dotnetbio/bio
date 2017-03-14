@@ -33,13 +33,13 @@ namespace Bio.Tests.IO
         [Category("Priority0")]
         public void ValidateSequenceParserFindParserByFileName()
         {
-            ISequenceParser fastAObj = SequenceParsers.FindParserByFileName(@"TestUtils\Small_Size.fasta");
+            ISequenceParser fastAObj = SequenceParsers.FindParserByFileName(System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, "TestUtils", "Small_Size.fasta"));
             Assert.AreEqual(SequenceType.FastA.ToString(), fastAObj.Name);
 
-            ISequenceParser gbkObj = SequenceParsers.FindParserByFileName(@"TestUtils\Small_Size.gbk");
+            ISequenceParser gbkObj = SequenceParsers.FindParserByFileName(System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, "TestUtils", "Small_Size.gbk"));
             Assert.AreEqual(SequenceType.GenBank.ToString(), gbkObj.Name);
 
-            ISequenceParser fastQObj = SequenceParsers.FindParserByFileName(@"TestUtils\Simple_Fastq_Sequence.fastq");
+            ISequenceParser fastQObj = SequenceParsers.FindParserByFileName(System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, "TestUtils", "Simple_Fastq_Sequence.fastq"));
             Assert.AreEqual(SequenceType.FastQ.ToString(), fastQObj.Name);
 
             ISequenceParser gffObj = SequenceParsers.FindParserByFileName(@"TestUtils\Simple_Gff_Dna.gff");
@@ -203,19 +203,19 @@ namespace Bio.Tests.IO
             switch (type)
             {
                 case SequenceType.FastA:
-                    filename = @"TestUtils\Small_Size.fasta";
+                    filename = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, "TestUtils", "Small_Size.fasta");
                     parserName = SequenceType.FastA.ToString();
                     break;
                 case SequenceType.FastQ:
-                    filename = @"TestUtils\Simple_Fastq_Sequence.fastq";
+                    filename = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, "TestUtils", "Simple_Fastq_Sequence.fastq");
                     parserName = SequenceType.FastQ.ToString();
                     break;
                 case SequenceType.GenBank:
-                    filename = @"TestUtils\Small_Size.gbk";
+                    filename = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, "TestUtils", "Small_Size.gbk");
                     parserName = SequenceType.GenBank.ToString();
                     break;
                 case SequenceType.GFF:
-                    filename = @"TestUtils\Simple_Gff_Dna.gff";
+                    filename = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, "TestUtils", "Simple_Gff_Dna.gff");
                     parserName = SequenceType.GFF.ToString();
                     break;
             }

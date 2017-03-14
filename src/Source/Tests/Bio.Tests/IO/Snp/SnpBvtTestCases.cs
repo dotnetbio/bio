@@ -40,7 +40,7 @@ namespace Bio.TestAutomation.IO.Snp
 
         #region Global Variables
 
-        Utility utilityObj = new Utility(@"TestUtils\TestsConfig.xml");
+        Utility utilityObj = new Utility(Path.Combine(TestContext.CurrentContext.TestDirectory, "TestUtils", "TestsConfig.xml"));
 
         #endregion Global Variables
 
@@ -71,8 +71,8 @@ namespace Bio.TestAutomation.IO.Snp
         [Category("Priority0")]
         public void SnpBvtParserProperties()
         {
-            string filepath = utilityObj.xmlUtil.GetTextValue(Constants.SimpleSnpNodeName,
-               Constants.FilePathNode);
+            string filepath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, utilityObj.xmlUtil.GetTextValue(Constants.SimpleSnpNodeName,
+               Constants.FilePathNode));
             SimpleSnpParser snpParser = new SimpleSnpParser();
             Assert.AreEqual(Constants.SnpDescription, snpParser.Description);
             Assert.AreEqual(Constants.SnpFileTypes, snpParser.SupportedFileTypes);
@@ -181,8 +181,8 @@ namespace Bio.TestAutomation.IO.Snp
         void SnpParserGeneralTestCases(string nodename, AdditionalParameters additionalParam)
         {
             // Gets the expected sequence from the Xml
-            string filepath = utilityObj.xmlUtil.GetTextValue(nodename,
-                Constants.FilePathNode);
+            string filepath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, utilityObj.xmlUtil.GetTextValue(nodename,
+                Constants.FilePathNode));
 
             Assert.IsTrue(File.Exists(filepath));
             // Logs information to the log file

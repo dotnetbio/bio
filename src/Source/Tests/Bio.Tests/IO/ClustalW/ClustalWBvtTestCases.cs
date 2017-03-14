@@ -41,7 +41,7 @@ namespace Bio.TestAutomation.IO.ClustalW
 
         #region Global Variables
 
-        private readonly Utility utilityObj = new Utility(@"TestUtils\ClustalWTestsConfig.xml");
+        private readonly Utility utilityObj = new Utility(System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, "TestUtils", "ClustalWTestsConfig.xml"));
 
         #endregion Global Variables
 
@@ -157,7 +157,7 @@ namespace Bio.TestAutomation.IO.ClustalW
         private void ParserGeneralTestCases(string nodeName, AdditionalParameters addParam)
         {
             // Gets the Filename
-            string filePath = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode);
+            string filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode));
 
             Assert.IsFalse(string.IsNullOrEmpty(filePath));
             ApplicationLog.WriteLine(string.Format("ClustalW Parser BVT: Reading the File from location '{0}'", filePath));

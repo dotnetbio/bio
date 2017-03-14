@@ -48,7 +48,7 @@ namespace Bio.Tests.Algorithms.Alignment
 
         #region Global Variables
 
-        private readonly Utility utilityObj = new Utility(@"TestUtils\TestsConfig.xml");
+        private readonly Utility utilityObj = new Utility(Path.Combine(TestContext.CurrentContext.TestDirectory, "TestUtils", "TestsConfig.xml"));
 
         #endregion Global Variables
 
@@ -241,8 +241,8 @@ namespace Bio.Tests.Algorithms.Alignment
             if (isTextFile)
             {
                 // Read the xml file for getting both the files for aligning.
-                string filePath1 = this.utilityObj.xmlUtil.GetTextValue(Constants.PairwiseOverlapAlignAlgorithmNodeName, Constants.FilePathNode1);
-                string filePath2 = this.utilityObj.xmlUtil.GetTextValue(Constants.PairwiseOverlapAlignAlgorithmNodeName, Constants.FilePathNode2);
+                string filePath1 = Path.Combine(TestContext.CurrentContext.TestDirectory, this.utilityObj.xmlUtil.GetTextValue(Constants.PairwiseOverlapAlignAlgorithmNodeName, Constants.FilePathNode1));
+                string filePath2 = Path.Combine(TestContext.CurrentContext.TestDirectory, this.utilityObj.xmlUtil.GetTextValue(Constants.PairwiseOverlapAlignAlgorithmNodeName, Constants.FilePathNode2));
 
                 //Parse the files and get the sequence.               
                 var parser = new FastAParser { Alphabet = alphabet };
@@ -264,7 +264,7 @@ namespace Bio.Tests.Algorithms.Alignment
             ApplicationLog.WriteLine(string.Format(null, "PairwiseOverlapAligner BVT : First sequence used is '{0}'.", aInputString));
             ApplicationLog.WriteLine(string.Format(null, "PairwiseOverlapAligner BVT : Second sequence used is '{0}'.", bInputString));
 
-            string blosumFilePath = this.utilityObj.xmlUtil.GetTextValue(Constants.PairwiseOverlapAlignAlgorithmNodeName, Constants.BlosumFilePathNode);
+            string blosumFilePath = Path.Combine(TestContext.CurrentContext.TestDirectory, this.utilityObj.xmlUtil.GetTextValue(Constants.PairwiseOverlapAlignAlgorithmNodeName, Constants.BlosumFilePathNode));
 
             var sm = new SimilarityMatrix(new StreamReader(blosumFilePath));
             int gapOpenCost = int.Parse(this.utilityObj.xmlUtil.GetTextValue(Constants.PairwiseOverlapAlignAlgorithmNodeName, Constants.GapOpenCostNode), null);

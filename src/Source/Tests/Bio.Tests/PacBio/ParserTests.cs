@@ -14,7 +14,7 @@ namespace Bio.Tests.PacBio
         [Category("PacBio")]
         public static void SimpleCCSTest ()
         {
-            string fname = System.IO.Path.Combine ("TestUtils", "PacBio", "ccs.bam");
+            string fname = System.IO.Path.Combine (TestContext.CurrentContext.TestDirectory, "TestUtils", "PacBio", "ccs.bam");
             var csp = new PacBioCCSBamReader ();
             var seqs = csp.Parse (fname).Select(z => z as PacBioCCSRead).ToList();
 

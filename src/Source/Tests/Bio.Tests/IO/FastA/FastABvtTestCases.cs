@@ -24,7 +24,7 @@ namespace Bio.TestAutomation.IO.FastA
     {
         #region Global Variables
 
-        private readonly Utility utilityObj = new Utility(@"TestUtils\TestsConfig.xml");
+        private readonly Utility utilityObj = new Utility(Path.Combine(TestContext.CurrentContext.TestDirectory, "TestUtils", "TestsConfig.xml"));
 
         #endregion Global Variables
 
@@ -42,8 +42,8 @@ namespace Bio.TestAutomation.IO.FastA
         public void FastAParserValidateParse()
         {
             // Gets the expected sequence from the Xml
-            string filePath = utilityObj.xmlUtil.GetTextValue(Constants.SimpleFastaNodeName,
-                                                              Constants.FilePathNode);
+            string filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, utilityObj.xmlUtil.GetTextValue(Constants.SimpleFastaNodeName,
+                                                              Constants.FilePathNode));
 
             Assert.IsTrue(File.Exists(filePath));
 
@@ -108,8 +108,8 @@ namespace Bio.TestAutomation.IO.FastA
         [Category("Priority0")]
         public void FastAParserValidateMoveNext()
         {
-            string filePath = utilityObj.xmlUtil.GetTextValue(Constants.SimpleFastaNodeName,
-                                                              Constants.FilePathNode);
+            string filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, utilityObj.xmlUtil.GetTextValue(Constants.SimpleFastaNodeName,
+                                                              Constants.FilePathNode));
             Assert.IsTrue(File.Exists(filePath));
             // Logs information to the log file            
             ApplicationLog.WriteLine(string.Format(null,
@@ -144,8 +144,8 @@ namespace Bio.TestAutomation.IO.FastA
         {
             List<ISequence> seqsList;
             // Gets the expected sequence from the Xml
-            string filePath = utilityObj.xmlUtil.GetTextValue(Constants.SimpleFastaNodeName,
-                                                              Constants.FilePathNode);
+            string filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, utilityObj.xmlUtil.GetTextValue(Constants.SimpleFastaNodeName,
+                                                              Constants.FilePathNode));
 
             Assert.IsTrue(File.Exists(filePath));
 
@@ -227,17 +227,18 @@ namespace Bio.TestAutomation.IO.FastA
                                                actualSequence);
                 seqOriginal.ID = "";
                 Assert.IsNotNull(seqOriginal);
+                string fastaTempFileName = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, Constants.FastaTempFileName);
                 // Use the formatter to write the original sequences to a temp file            
                 ApplicationLog.WriteLine(string.Format("FastA Formatter BVT: Creating the Temp file '{0}'.",
-                                                       Constants.FastaTempFileName));
-                formatter.Format(seqOriginal, Constants.FastaTempFileName);
+                                                       fastaTempFileName));
+                formatter.Format(seqOriginal, fastaTempFileName);
                 IEnumerable<ISequence> seqsNew = null;
 
                 // Read the new file, then compare the sequences            
                 var parser = new FastAParser();
                 {
                     parser.Alphabet = Alphabets.Protein;
-                    seqsNew = parser.Parse(Constants.FastaTempFileName);
+                    seqsNew = parser.Parse(fastaTempFileName);
                     char[] seqString = seqsNew.ElementAt(0).Select(a => (char) a).ToArray();
                     var newSequence = new string(seqString);
                     Assert.IsNotNull(seqsNew);
@@ -260,7 +261,7 @@ namespace Bio.TestAutomation.IO.FastA
 
                 // Passed all the tests, delete the tmp file. If we failed an Assert,
                 // the tmp file will still be there in case we need it for debugging.
-                File.Delete(Constants.FastaTempFileName);
+                File.Delete(fastaTempFileName);
                 ApplicationLog.WriteLine("Deleted the temp file created.");
             }
         }
@@ -318,7 +319,8 @@ namespace Bio.TestAutomation.IO.FastA
         public void FastAFormatterValidateWrite1()
         {
             var formatter = new FastAFormatter();
-            using (formatter.Open(Constants.FastaTempFileName))
+            string fastaTempFileName = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, Constants.FastaTempFileName);
+            using (formatter.Open(fastaTempFileName))
             {
                 // Gets the actual sequence and the alphabet from the Xml
                 string actualSequence = utilityObj.xmlUtil.GetTextValue(Constants.SimpleFastaNodeName,
@@ -335,7 +337,7 @@ namespace Bio.TestAutomation.IO.FastA
 
                 // Use the formatter to write the original sequences to a temp file            
                 ApplicationLog.WriteLine(string.Format("FastA Formatter BVT: Creating the Temp file '{0}'.",
-                                                       Constants.FastaTempFileName));
+                                                       fastaTempFileName));
                 var seqList = new List<ISequence> { seqOriginal, seqOriginal, seqOriginal };
                 formatter.Format(seqList);
                 formatter.Close();
@@ -345,7 +347,7 @@ namespace Bio.TestAutomation.IO.FastA
                 var parser = new FastAParser();
                 {
                     parser.Alphabet = Alphabets.Protein;
-                    seqsNew = parser.Parse(Constants.FastaTempFileName);
+                    seqsNew = parser.Parse(fastaTempFileName);
                     char[] seqString = seqsNew.ElementAt(0).Select(a => (char) a).ToArray();
                     var newSequence = new string(seqString);
                     Assert.IsNotNull(seqsNew);
@@ -366,7 +368,7 @@ namespace Bio.TestAutomation.IO.FastA
 
                     // Passed all the tests, delete the tmp file. If we failed an Assert,
                     // the tmp file will still be there in case we need it for debugging.
-                    File.Delete(Constants.FastaTempFileName);
+                    File.Delete(fastaTempFileName);
                     ApplicationLog.WriteLine("Deleted the temp file created.");
                 }
             }
@@ -385,10 +387,11 @@ namespace Bio.TestAutomation.IO.FastA
         public void FastAFormatterValidateWriteWithStream()
         {
             string actualSequence = string.Empty;
+            string fastaTempFileName = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, Constants.FastaTempFileName);
 
             var formatter = new FastAFormatter();
             {
-                using (formatter.Open(Constants.FastaTempFileName))
+                using (formatter.Open(fastaTempFileName))
                 {
                     // Gets the actual sequence and the alphabet from the Xml
                     actualSequence = utilityObj.xmlUtil.GetTextValue(Constants.SimpleFastaNodeName,
@@ -405,13 +408,13 @@ namespace Bio.TestAutomation.IO.FastA
                     Assert.IsNotNull(seqOriginal);
                     // Use the formatter to write the original sequences to a stream.
                     ApplicationLog.WriteLine(string.Format("FastA Formatter BVT: Creating the Temp file '{0}'.",
-                                                           Constants.FastaTempFileName));
+                                                           fastaTempFileName));
                     formatter.Format(seqOriginal);
                     formatter.Close();
                 }
                 IEnumerable<ISequence> seq = null;
 
-                using (var reader = File.OpenRead(Constants.FastaTempFileName))
+                using (var reader = File.OpenRead(fastaTempFileName))
                 {
                     // Read the new file, then compare the sequences            
                     var parser = new FastAParser();
@@ -430,7 +433,7 @@ namespace Bio.TestAutomation.IO.FastA
 
                 // Passed all the tests, delete the tmp file. If we failed an Assert,
                 // the tmp file will still be there in case we need it for debugging.
-                File.Delete(Constants.FastaTempFileName);
+                File.Delete(fastaTempFileName);
                 ApplicationLog.WriteLine("Deleted the temp file created.");
             }
         }

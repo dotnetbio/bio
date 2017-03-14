@@ -51,7 +51,7 @@ namespace Bio.Tests.Algorithms.Alignment.NUCmer
             Default
         };
 
-        private readonly Utility utilityObj = new Utility(@"TestUtils\NUCmerTestsConfig.xml");
+        private readonly Utility utilityObj = new Utility(System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, "TestUtils", "NUCmerTestsConfig.xml"));
 
         #region Suffix Tree Test Cases
 
@@ -1021,7 +1021,7 @@ namespace Bio.Tests.Algorithms.Alignment.NUCmer
             if (isFilePath)
             {
                 // Gets the reference sequence from the FastA file
-                string filePath = this.utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode);
+                string filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, this.utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode));
 
                 Assert.IsNotNull(filePath);
                 ApplicationLog.WriteLine(string.Format(null, "NUCmer P1 : Successfully validated the File Path '{0}'.", filePath));
@@ -1040,7 +1040,7 @@ namespace Bio.Tests.Algorithms.Alignment.NUCmer
                                             byteList.ToArray());
 
                 // Gets the query sequence from the FastA file
-                string queryFilePath = this.utilityObj.xmlUtil.GetTextValue(nodeName, Constants.SearchSequenceFilePathNode);
+                string queryFilePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, this.utilityObj.xmlUtil.GetTextValue(nodeName, Constants.SearchSequenceFilePathNode));
 
                 Assert.IsNotNull(queryFilePath);
                 ApplicationLog.WriteLine(string.Format(null, "NUCmer P1 : Successfully validated the File Path '{0}'.", queryFilePath));
@@ -1144,7 +1144,7 @@ namespace Bio.Tests.Algorithms.Alignment.NUCmer
             if (isFilePath)
             {
                 // Gets the reference sequence from the FastA file
-                string filePath = this.utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode);
+                string filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, this.utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode));
 
                 Assert.IsNotNull(filePath);
                 ApplicationLog.WriteLine(string.Format(null, "NUCmer P1 : Successfully validated the File Path '{0}'.", filePath));
@@ -1158,7 +1158,7 @@ namespace Bio.Tests.Algorithms.Alignment.NUCmer
                 }
 
                 // Gets the query sequence from the FastA file
-                string queryFilePath = this.utilityObj.xmlUtil.GetTextValue(nodeName, Constants.SearchSequenceFilePathNode);
+                string queryFilePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, this.utilityObj.xmlUtil.GetTextValue(nodeName, Constants.SearchSequenceFilePathNode));
 
                 Assert.IsNotNull(queryFilePath);
                 ApplicationLog.WriteLine(string.Format(null, "NUCmer P1 : Successfully validated the File Path '{0}'.", queryFilePath));
@@ -1289,7 +1289,7 @@ namespace Bio.Tests.Algorithms.Alignment.NUCmer
             }
 
             string expectedSequences = isFilePath
-                    ? this.utilityObj.xmlUtil.GetFileTextValue(nodeName, Constants.ExpectedSequencesNode)
+                    ? this.utilityObj.xmlUtil.GetFileTextValue(nodeName, Constants.ExpectedSequencesNode, TestContext.CurrentContext.TestDirectory)
                     : this.utilityObj.xmlUtil.GetTextValue(nodeName, Constants.ExpectedSequencesNode);
             string[] expSeqArray = expectedSequences.Split(',');
 
@@ -1326,7 +1326,7 @@ namespace Bio.Tests.Algorithms.Alignment.NUCmer
             if (isFilePath)
             {
                 // Gets the reference sequence from the FastA file
-                string filePath = this.utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode);
+                string filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, this.utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode));
 
                 Assert.IsNotNull(filePath);
                 ApplicationLog.WriteLine(string.Format(null, "NUCmer P1 : Successfully validated the File Path '{0}'.", filePath));
@@ -1340,7 +1340,7 @@ namespace Bio.Tests.Algorithms.Alignment.NUCmer
                 }
 
                 // Gets the query sequence from the FastA file
-                string queryFilePath = this.utilityObj.xmlUtil.GetTextValue(nodeName, Constants.SearchSequenceFilePathNode);
+                string queryFilePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, this.utilityObj.xmlUtil.GetTextValue(nodeName, Constants.SearchSequenceFilePathNode));
 
                 Assert.IsNotNull(queryFilePath);
                 ApplicationLog.WriteLine(string.Format(null,"NUCmer P1 : Successfully validated the File Path '{0}'.", queryFilePath));
@@ -1391,7 +1391,7 @@ namespace Bio.Tests.Algorithms.Alignment.NUCmer
             }
 
             string expectedSequences = isFilePath
-                ? this.utilityObj.xmlUtil.GetFileTextValue(nodeName, Constants.ExpectedSequencesNode)
+                ? this.utilityObj.xmlUtil.GetFileTextValue(nodeName, Constants.ExpectedSequencesNode, TestContext.CurrentContext.TestDirectory)
                 : this.utilityObj.xmlUtil.GetTextValue(nodeName, Constants.ExpectedSequencesNode);
 
             string[] expSeqArray = expectedSequences.Split(',');
@@ -1425,9 +1425,9 @@ namespace Bio.Tests.Algorithms.Alignment.NUCmer
 
             if (isFilePath)
             {
-                firstSeqOrder = this.utilityObj.xmlUtil.GetFileTextValue(nodeName, Constants.FirstSequenceMumOrderNode).Split(',');
-                length = this.utilityObj.xmlUtil.GetFileTextValue(nodeName, Constants.LengthNode).Split(',');
-                secondSeqOrder = this.utilityObj.xmlUtil.GetFileTextValue(nodeName, Constants.SecondSequenceMumOrderNode).Split(',');
+                firstSeqOrder = this.utilityObj.xmlUtil.GetFileTextValue(nodeName, Constants.FirstSequenceMumOrderNode, TestContext.CurrentContext.TestDirectory).Split(',');
+                length = this.utilityObj.xmlUtil.GetFileTextValue(nodeName, Constants.LengthNode, TestContext.CurrentContext.TestDirectory).Split(',');
+                secondSeqOrder = this.utilityObj.xmlUtil.GetFileTextValue(nodeName, Constants.SecondSequenceMumOrderNode, TestContext.CurrentContext.TestDirectory).Split(',');
             }
             else
             {

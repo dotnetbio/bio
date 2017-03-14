@@ -61,7 +61,7 @@ namespace Bio.Tests.Algorithms.Alignment
 
         #region Global Variables
 
-        private readonly Utility utilityObj = new Utility(@"TestUtils\TestsConfig.xml");
+        private readonly Utility utilityObj = new Utility(Path.Combine(TestContext.CurrentContext.TestDirectory, "TestUtils", "TestsConfig.xml"));
 
         #endregion Global Variables
 
@@ -1127,15 +1127,15 @@ namespace Bio.Tests.Algorithms.Alignment
             else
             {
                 // Read the xml file for getting both the files for aligning.
-                string filePath1 = this.utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode1);
-                string filePath2 = this.utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode2);
+                string filePath1 = Path.Combine(TestContext.CurrentContext.TestDirectory, this.utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode1));
+                string filePath2 = Path.Combine(TestContext.CurrentContext.TestDirectory, this.utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode2));
 
                 var parser1 = new FastAParser { Alphabet = alphabet };
                 aInput = parser1.Parse(filePath1).ElementAt(0);
                 bInput = parser1.Parse(filePath2).ElementAt(0);
             }
 
-            string blosumFilePath = this.utilityObj.xmlUtil.GetTextValue(nodeName, Constants.BlosumFilePathNode);
+            string blosumFilePath = Path.Combine(TestContext.CurrentContext.TestDirectory, this.utilityObj.xmlUtil.GetTextValue(nodeName, Constants.BlosumFilePathNode));
             SimilarityMatrix sm;
 
             switch (similarityMatrixParam)

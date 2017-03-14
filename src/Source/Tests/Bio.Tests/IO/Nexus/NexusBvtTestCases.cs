@@ -47,7 +47,7 @@ namespace Bio.TestAutomation.IO.Nexus
 
         #region Global Variables
 
-        Utility utilityObj = new Utility(@"TestUtils\NexusTestsConfig.xml");
+        Utility utilityObj = new Utility(System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, "TestUtils", "NexusTestsConfig.xml"));
 
         #endregion Global Variables
 
@@ -143,9 +143,9 @@ namespace Bio.TestAutomation.IO.Nexus
         [Category("Priority0")]
         public void NexusParserValidateCharBlock()
         {
-            string filePath = utilityObj.xmlUtil.GetTextValue(
+            string filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, utilityObj.xmlUtil.GetTextValue(
                     Constants.SimpleNexusCharBlockNode,
-                    Constants.FilePathNode);
+                    Constants.FilePathNode));
             NexusParser parser = new NexusParser();
 
             IEnumerable<ISequenceAlignment> alignment = parser.Parse(filePath);
@@ -166,7 +166,7 @@ namespace Bio.TestAutomation.IO.Nexus
         void ParserGeneralTestCases(string nodeName, AdditionalParameters addParam)
         {
             // Gets the Filename
-            string filePath = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode);
+            string filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode));
 
             Assert.IsFalse(string.IsNullOrEmpty(filePath));
             ApplicationLog.WriteLine(string.Format("Nexus Parser BVT: Reading the File from location '{0}'", filePath));

@@ -30,7 +30,7 @@ namespace Bio.Silverlight.TestAutomation.IO.FastA
     {
         #region Global Variables
 
-        private readonly Utility utilityObj = new Utility(@"TestUtils\TestsConfig.xml");
+        private readonly Utility utilityObj = new Utility(Path.Combine(TestContext.CurrentContext.TestDirectory, "TestUtils", "TestsConfig.xml"));
 
         #endregion Global Variables
 
@@ -91,8 +91,8 @@ namespace Bio.Silverlight.TestAutomation.IO.FastA
         [Category("Priority1")]
         public void FastAParserValidateParseWithMediumSizeSequence()
         {
-            string filePath = utilityObj.xmlUtil.GetTextValue(
-                Constants.MediumSizeFastaNodeName, Constants.FilePathNode);
+            string filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, utilityObj.xmlUtil.GetTextValue(
+                Constants.MediumSizeFastaNodeName, Constants.FilePathNode));
             string alphabet = utilityObj.xmlUtil.GetTextValue(Constants.MediumSizeFastaNodeName,
                                                               Constants.AlphabetNameNode);
             Assert.IsTrue(File.Exists(filePath));
@@ -178,7 +178,7 @@ namespace Bio.Silverlight.TestAutomation.IO.FastA
         [Category("Priority1")]
         public void FastAParserValidateParseWithAlphabetAsProperty()
         {
-            string filePath = utilityObj.xmlUtil.GetTextValue(Constants.SimpleFastaDnaNodeName, Constants.FilePathNode);
+            string filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, utilityObj.xmlUtil.GetTextValue(Constants.SimpleFastaDnaNodeName, Constants.FilePathNode));
             Assert.IsTrue(File.Exists(filePath));
             ApplicationLog.WriteLine(string.Format("FastA Parser : File Exists in the Path '{0}'.", filePath));
 
@@ -363,7 +363,7 @@ namespace Bio.Silverlight.TestAutomation.IO.FastA
         /// <param name="nodeName">xml node name.</param>
         private void ValidateParseGeneralTestCases(string nodeName)
         {
-            string filePath = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode);
+            string filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode));
             string alphabet = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.AlphabetNameNode);
 
             Assert.IsTrue(File.Exists(filePath));
@@ -440,20 +440,21 @@ namespace Bio.Silverlight.TestAutomation.IO.FastA
             ISequence seqOriginal = new Sequence(Utility.GetAlphabet(alphabet), formattedSequence) {ID = "test"};
             Assert.IsNotNull(seqOriginal);
 
+            string fastaTempFileName = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, Constants.FastaTempFileName);
             // Write it to a file
             var formatter = new FastAFormatter();
             {
                 // Use the formatter to write the original sequences to a temp file
                 ApplicationLog.WriteLine(string.Format("FastA Formatter : Creating the Temp file '{0}'.",
-                                                       Constants.FastaTempFileName));
-                formatter.Format(seqOriginal, Constants.FastaTempFileName);
+                                                       fastaTempFileName));
+                formatter.Format(seqOriginal, fastaTempFileName);
             }
 
             // Read the new file, then compare the sequences
             var parserObj = new FastAParser();
             {
                 parserObj.Alphabet = Utility.GetAlphabet(alphabet);
-                IEnumerable<ISequence> seqsNew = parserObj.Parse(Constants.FastaTempFileName);
+                IEnumerable<ISequence> seqsNew = parserObj.Parse(fastaTempFileName);
 
                 // Get a single sequence
                 ISequence seqNew = seqsNew.FirstOrDefault();
@@ -470,7 +471,7 @@ namespace Bio.Silverlight.TestAutomation.IO.FastA
 
             // Passed all the tests, delete the tmp file. If we failed an Assert,
             // the tmp file will still be there in case we need it for debugging.
-            File.Delete(Constants.FastaTempFileName);
+            File.Delete(fastaTempFileName);
             ApplicationLog.WriteLine("Deleted the temp file created.");
         }
 
@@ -482,7 +483,7 @@ namespace Bio.Silverlight.TestAutomation.IO.FastA
         private void ValidateParseFormatGeneralTestCases(string nodeName)
         {
             // Gets the expected sequence from the Xml
-            string filePath = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode);
+            string filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode));
             string alphabet = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.AlphabetNameNode);
             Assert.IsTrue(File.Exists(filePath));
             string filepathTmp = Path.Combine(Path.GetTempPath(), "temp.fasta");

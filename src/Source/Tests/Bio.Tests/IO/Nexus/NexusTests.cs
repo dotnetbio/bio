@@ -23,7 +23,7 @@ namespace Bio.Tests.IO.Nexus
         [Category("Priority0")]
         public void NexusParse()
         {
-            string filepath = @"TestUtils\Nexus\primate-mtDNA-interleaved.nex";
+            string filepath = Path.Combine(TestContext.CurrentContext.TestDirectory, "TestUtils", "Nexus", "primate-mtDNA-interleaved.nex");
             Assert.IsTrue(File.Exists(filepath));
 
             IList<Dictionary<string, string>> expectedOutput = new List<Dictionary<string, string>>();
@@ -241,7 +241,7 @@ namespace Bio.Tests.IO.Nexus
         [Category("Priority0")]
         public void NexusParseOne()
         {
-            string filepath = @"TestUtils\Nexus\primate-mtDNA-interleaved.nex";
+            string filepath = Path.Combine(TestContext.CurrentContext.TestDirectory, "TestUtils", "Nexus", "primate-mtDNA-interleaved.nex");
             Assert.IsTrue(File.Exists(filepath));
 
             IList<Dictionary<string, string>> expectedOutput = new List<Dictionary<string, string>>();

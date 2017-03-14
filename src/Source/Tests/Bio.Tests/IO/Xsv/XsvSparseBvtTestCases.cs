@@ -33,7 +33,7 @@ namespace Bio.Tests.IO.Xsv
 
         #endregion Enums
 
-        Utility utilityObj = new Utility(@"TestUtils\TestsConfig.xml");
+        Utility utilityObj = new Utility(Path.Combine(TestContext.CurrentContext.TestDirectory, "TestUtils", "TestsConfig.xml"));
 
         #region Parser Test cases
 
@@ -79,9 +79,9 @@ namespace Bio.Tests.IO.Xsv
         public void XsvSparseParseContig()
         {
             // Gets the expected file from the Xml
-            string filePathObj = this.utilityObj.xmlUtil.GetTextValue(
+            string filePathObj = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, this.utilityObj.xmlUtil.GetTextValue(
                 Constants.SimpleXsvSparseNodeName,
-                Constants.FilePathNode);
+                Constants.FilePathNode));
 
             Assert.IsTrue(File.Exists(filePathObj));
             // Logs information to the log file
@@ -169,9 +169,10 @@ namespace Bio.Tests.IO.Xsv
         public void XsvSparseContigFormatterWrite()
         {
             // Gets the expected sequence from the Xml
-            string filePathObj = this.utilityObj.xmlUtil.GetTextValue(
+            string filePathObj = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, this.utilityObj.xmlUtil.GetTextValue(
                 Constants.SimpleXsvSparseNodeName,
-                Constants.FilePathNode);
+                Constants.FilePathNode));
+            string xsvTempFileName = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, Constants.XsvTempFileName);
 
             Assert.IsTrue(File.Exists(filePathObj));
 
@@ -188,10 +189,10 @@ namespace Bio.Tests.IO.Xsv
 
             // Write Xsv file.            
             XsvContigFormatter formatObj = new XsvContigFormatter(',', '#');
-            formatObj.Format(contig, Constants.XsvTempFileName);
+            formatObj.Format(contig, xsvTempFileName);
 
             XsvContigParser parserObjNew = new XsvContigParser(Alphabets.DNA, ',', '#');
-            expectedContig = parserObjNew.ParseContig(Constants.XsvTempFileName);
+            expectedContig = parserObjNew.ParseContig(xsvTempFileName);
              
             string expectedseqId = expectedContig.Sequences.Aggregate(string.Empty, (current, seq) => current + (seq.Sequence.ID + ","));
 
@@ -202,7 +203,7 @@ namespace Bio.Tests.IO.Xsv
             Assert.AreEqual(contig.Sequences.Count, expectedContig.Sequences.Count);
             Assert.AreEqual(seqId.Length, expectedseqId.Length);
             Assert.AreEqual(seqId, expectedseqId);
-            File.Delete(Constants.XsvTempFileName);
+            File.Delete(xsvTempFileName);
             ApplicationLog.WriteLine("Successfully validated the Write Xsv file");
         }
 
@@ -219,8 +220,8 @@ namespace Bio.Tests.IO.Xsv
         void XsvSparseParserGeneralTestCases(string nodename)
         {
             // Gets the expected file from the Xml
-            string filePathObj = this.utilityObj.xmlUtil.GetTextValue(nodename,
-                Constants.FilePathNode);
+            string filePathObj = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, this.utilityObj.xmlUtil.GetTextValue(nodename,
+                Constants.FilePathNode));
 
             Assert.IsTrue(File.Exists(filePathObj));
             // Logs information to the log file
@@ -287,8 +288,8 @@ namespace Bio.Tests.IO.Xsv
             AdditionalParameters additionalParam)
         {
             // Gets the expected sequence from the Xml
-            string filePathObj = this.utilityObj.xmlUtil.GetTextValue(nodename,
-                Constants.FilePathNode);
+            string filePathObj = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, this.utilityObj.xmlUtil.GetTextValue(nodename,
+                Constants.FilePathNode));
 
             Assert.IsTrue(File.Exists(filePathObj));
             // Logs information to the log file

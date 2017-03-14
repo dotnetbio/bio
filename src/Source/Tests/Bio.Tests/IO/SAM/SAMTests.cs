@@ -25,7 +25,10 @@ namespace Bio.Tests.IO.SAM
         [Category("Priority0")]
         public void TestParser()
         {
-            string filePath = @"TestUtils\SAM\SeqAlignment1.sam";
+            string filePath = Path.Combine(TestContext.CurrentContext.TestDirectory,
+                "TestUtils",
+                "SAM",
+                "SeqAlignment1.sam");
             ISequenceAlignmentParser parser = new SAMParser();
             IList<ISequenceAlignment> alignments = parser.Parse(filePath).ToList();
             Assert.IsTrue(alignments != null);
@@ -40,8 +43,11 @@ namespace Bio.Tests.IO.SAM
         [Category("Priority0")]
         public void TestFormatter()
         {
-            string filePath = @"TestUtils\SAM\SeqAlignment1.sam";
-            string outputfilePath = "samtest.sam";
+            string filePath = Path.Combine(TestContext.CurrentContext.TestDirectory,
+                "TestUtils",
+                "SAM",
+                "SeqAlignment1.sam");
+            string outputfilePath = Path.Combine(TestContext.CurrentContext.TestDirectory, "samtest.sam");
             ISequenceAlignmentParser parser = new SAMParser();
             IList<ISequenceAlignment> alignments = parser.Parse(filePath).ToList();
 

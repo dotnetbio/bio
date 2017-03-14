@@ -17,7 +17,7 @@ namespace Bio.Tests
     [TestFixture]
     public class SequenceRangeAndSequenceRangeGroupingBvtTestCases
     {
-        private readonly Utility utilityObj = new Utility(@"TestUtils\BedTestsConfig.xml");
+        private readonly Utility utilityObj = new Utility(System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, "TestUtils", "BedTestsConfig.xml"));
 
         #region SequenceRangeAndSequenceRangeGroupingBvtTestCases
 
@@ -408,10 +408,10 @@ namespace Bio.Tests
                 nodeName, Constants.StartNode).Split(',');
             string[] expectedEndIndex = this.utilityObj.xmlUtil.GetTextValue(
                 nodeName, Constants.EndNode).Split(',');
-            string referenceFilePath = this.utilityObj.xmlUtil.GetTextValue(
-                nodeName, Constants.FilePathNode);
-            string queryFilePath = this.utilityObj.xmlUtil.GetTextValue(
-                nodeName, Constants.QueryFilePath);
+            string referenceFilePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, this.utilityObj.xmlUtil.GetTextValue(
+                nodeName, Constants.FilePathNode));
+            string queryFilePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, this.utilityObj.xmlUtil.GetTextValue(
+                nodeName, Constants.QueryFilePath));
             string minimalOverlap = this.utilityObj.xmlUtil.GetTextValue(
                 nodeName, Constants.OverlapValue);
 
@@ -468,8 +468,8 @@ namespace Bio.Tests
             string[] expectedRangeIDs = this.utilityObj.xmlUtil.GetTextValue(nodeName, Constants.IDNode).Split(',');
             string[] expectedStartIndex = this.utilityObj.xmlUtil.GetTextValue(nodeName, Constants.StartNode).Split(',');
             string[] expectedEndIndex = this.utilityObj.xmlUtil.GetTextValue(nodeName, Constants.EndNode).Split(',');
-            string filePath = this.utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode);
-            string queryFilePath = this.utilityObj.xmlUtil.GetTextValue(nodeName, Constants.QueryFilePath);
+            string filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, this.utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode));
+            string queryFilePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, this.utilityObj.xmlUtil.GetTextValue(nodeName, Constants.QueryFilePath));
 
             // Parse a BED file.
             var parserObj = new BedParser();
@@ -521,10 +521,10 @@ namespace Bio.Tests
                 nodeName, Constants.StartNode).Split(',');
             string[] expectedEndIndex = this.utilityObj.xmlUtil.GetTextValue(
                 nodeName, Constants.EndNode).Split(',');
-            string referenceFilePath = this.utilityObj.xmlUtil.GetTextValue(
-                nodeName, Constants.FilePathNode);
-            string queryFilePath = this.utilityObj.xmlUtil.GetTextValue(
-                nodeName, Constants.QueryFilePath);
+            string referenceFilePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, this.utilityObj.xmlUtil.GetTextValue(
+                nodeName, Constants.FilePathNode));
+            string queryFilePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, this.utilityObj.xmlUtil.GetTextValue(
+                nodeName, Constants.QueryFilePath));
             string minimalOverlap = this.utilityObj.xmlUtil.GetTextValue(
                 nodeName, Constants.OverlapValue);
             string rangeID = string.Empty;

@@ -50,7 +50,7 @@ namespace Bio.Tests.Algorithms.MUMmer
 
         #endregion Enums
 
-        readonly Utility utilityObj = new Utility(@"TestUtils\MUMmerTestsConfig.xml");
+        readonly Utility utilityObj = new Utility(System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, "TestUtils", "MUMmerTestsConfig.xml"));
         readonly ASCIIEncoding encodingObj = new ASCIIEncoding();
 
         #region Suffix Tree Test cases
@@ -684,7 +684,7 @@ namespace Bio.Tests.Algorithms.MUMmer
             if (isFilePath)
             {
                 // Gets the reference sequence from the configuration file
-                string filePath = this.utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode);
+                string filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, this.utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode));
 
                 Assert.IsNotNull(filePath);
                 ApplicationLog.WriteLine(string.Format(null, "MUMmer BVT : Successfully validated the File Path '{0}'.", filePath));
@@ -706,8 +706,8 @@ namespace Bio.Tests.Algorithms.MUMmer
                 referenceSequence = new string(referenceSeq.Select(a => (char)a).ToArray());
 
                 // Gets the reference sequence from the configuration file
-                string queryFilePath = this.utilityObj.xmlUtil.GetTextValue(nodeName,
-                    Constants.SearchSequenceFilePathNode);
+                string queryFilePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, this.utilityObj.xmlUtil.GetTextValue(nodeName,
+                    Constants.SearchSequenceFilePathNode));
 
                 Assert.IsNotNull(queryFilePath);
                 ApplicationLog.WriteLine(string.Format(null, "MUMmer BVT : Successfully validated the Search File Path '{0}'.", queryFilePath));
@@ -790,8 +790,8 @@ namespace Bio.Tests.Algorithms.MUMmer
             if (isFilePath)
             {
                 // Gets the reference sequence from the configuration file
-                string filePath = this.utilityObj.xmlUtil.GetTextValue(nodeName,
-                    Constants.FilePathNode);
+                string filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, this.utilityObj.xmlUtil.GetTextValue(nodeName,
+                    Constants.FilePathNode));
 
                 Assert.IsNotNull(filePath);
                 ApplicationLog.WriteLine(string.Format(null, "MUMmer P1 : Successfully validated the File Path '{0}'.", filePath));
@@ -848,7 +848,7 @@ namespace Bio.Tests.Algorithms.MUMmer
             if (isFilePath)
             {
                 // Gets the reference sequence from the configuration file
-                string filePath = this.utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode);
+                string filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, this.utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode));
                 Assert.IsNotNull(filePath);
                 Assert.IsTrue(File.Exists(filePath));
 
@@ -859,7 +859,7 @@ namespace Bio.Tests.Algorithms.MUMmer
                 Assert.IsNotNull(referenceSeq);
 
                 // Gets the query sequence from the configuration file
-                string queryFilePath = this.utilityObj.xmlUtil.GetTextValue(nodeName, Constants.SearchSequenceFilePathNode);
+                string queryFilePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, this.utilityObj.xmlUtil.GetTextValue(nodeName, Constants.SearchSequenceFilePathNode));
                 Assert.IsNotNull(queryFilePath);
                 Assert.IsTrue(File.Exists(queryFilePath));
 
@@ -1039,8 +1039,8 @@ namespace Bio.Tests.Algorithms.MUMmer
             if (isFilePath)
             {
                 // Gets the reference sequence from the configurtion file
-                string filePath = this.utilityObj.xmlUtil.GetTextValue(nodeName,
-                    Constants.FilePathNode);
+                string filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, this.utilityObj.xmlUtil.GetTextValue(nodeName,
+                    Constants.FilePathNode));
 
                 Assert.IsNotNull(filePath);
                 ApplicationLog.WriteLine(string.Format((IFormatProvider)null,
@@ -1052,8 +1052,8 @@ namespace Bio.Tests.Algorithms.MUMmer
                 referenceSequence = new string(referenceSeq.Select(a => (char)a).ToArray()); ;
 
                 // Gets the reference sequence from the configuration file
-                string queryFilePath = this.utilityObj.xmlUtil.GetTextValue(nodeName,
-                    Constants.SearchSequenceFilePathNode);
+                string queryFilePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, this.utilityObj.xmlUtil.GetTextValue(nodeName,
+                    Constants.SearchSequenceFilePathNode));
 
                 Assert.IsNotNull(queryFilePath);
                 ApplicationLog.WriteLine(string.Format((IFormatProvider)null,

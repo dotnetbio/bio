@@ -14,7 +14,7 @@ namespace Bio.Tests
     [TestFixture]
     public class DerivedSequenceP1TestCases
     {
-        readonly Utility utilityObj = new Utility(@"TestUtils\TestsConfig.xml");
+        readonly Utility utilityObj = new Utility(System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, "TestUtils", "TestsConfig.xml"));
 
         #region Test Cases
 

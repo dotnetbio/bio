@@ -25,7 +25,7 @@ namespace Bio.Tests.IO.FastQ
         [Category("Priority0")]
         public void TestFastQWhenParsingOneOfMany()
         {
-            string filepath = @"TestUtils\FASTQ\SRR002012_5.fastq";
+            string filepath = Path.Combine(TestContext.CurrentContext.TestDirectory, "TestUtils", "FASTQ", "SRR002012_5.fastq");
             
             // Parse
             ISequence seq = new FastQParser().ParseOne(filepath);
@@ -52,7 +52,10 @@ namespace Bio.Tests.IO.FastQ
         [Category("Priority0")]
         public void FastQFormatter()
         {
-            const string FilepathOriginal = @"TestUtils\FASTQ\SRR002012_5.fastq";
+            string FilepathOriginal = Path.Combine(TestContext.CurrentContext.TestDirectory,
+                "TestUtils",
+                "FASTQ",
+                "SRR002012_5.fastq");
             Assert.IsTrue(File.Exists(FilepathOriginal));
             
             IList<IQualitativeSequence> seqsOriginal;
@@ -112,7 +115,10 @@ namespace Bio.Tests.IO.FastQ
         [Category("Priority0")]
         public void FastQFormatterUsingInterface()
         {
-            const string FilepathOriginal = @"TestUtils\FASTQ\SRR002012_5.fastq";
+            string FilepathOriginal = Path.Combine(TestContext.CurrentContext.TestDirectory,
+                "TestUtils",
+                "FASTQ",
+                "SRR002012_5.fastq");
             Assert.IsTrue(File.Exists(FilepathOriginal));
 
             string filepathTmp = Path.GetTempFileName();
@@ -161,7 +167,9 @@ namespace Bio.Tests.IO.FastQ
         [Category("Priority0")]
         public void FastQParserForManyFiles()
         {
-            const string Path = @"TestUtils\FASTQ";
+            string Path = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory,
+                "TestUtils",
+                "FASTQ");
             Assert.IsTrue(Directory.Exists(Path));
             int count = 0;
            

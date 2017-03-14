@@ -29,7 +29,7 @@ namespace Bio.Tests
 
         #endregion Enums
 
-        readonly Utility utilityObj = new Utility(@"TestUtils\QualitativeTestsConfig.xml");        
+        readonly Utility utilityObj = new Utility(System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, "TestUtils", "QualitativeTestsConfig.xml"));
 
         #region Qualitative Sequence Test Cases
 

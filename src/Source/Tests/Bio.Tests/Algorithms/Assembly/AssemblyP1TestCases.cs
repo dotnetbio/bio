@@ -37,7 +37,7 @@ namespace Bio.Tests.Algorithms.Assembly
 
         #endregion Enums
 
-        private readonly Utility utilityObj = new Utility(@"TestUtils\TestsConfig.xml");
+        private readonly Utility utilityObj = new Utility(Path.Combine(TestContext.CurrentContext.TestDirectory, "TestUtils", "TestsConfig.xml"));
 
         #region Sequence Assembly P1 Test cases
 
@@ -449,7 +449,7 @@ namespace Bio.Tests.Algorithms.Assembly
                         new DiagonalSimilarityMatrix(matchScore, mismatchScore);
                     break;
                 case AssemblyParameters.SimilarityMatrix:
-                    string blosumFilePath = this.utilityObj.xmlUtil.GetTextValue(nodeName, Constants.BlosumFilePathNode);
+                    string blosumFilePath = Path.Combine(TestContext.CurrentContext.TestDirectory, this.utilityObj.xmlUtil.GetTextValue(nodeName, Constants.BlosumFilePathNode));
                     (assembler.OverlapAlgorithm).SimilarityMatrix = new SimilarityMatrix(new StreamReader(blosumFilePath));
                     break;
                 default:

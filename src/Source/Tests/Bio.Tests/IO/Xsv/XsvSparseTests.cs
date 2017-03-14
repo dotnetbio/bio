@@ -17,7 +17,7 @@ namespace Bio.Tests.IO.Xsv
     [TestFixture]
     public class XsvSparseTests
     {
-        private const string XsvFilename = @"\TestUtils\SampleSparseSeq.csv";
+        private static readonly string XsvFilename = Path.Combine(TestContext.CurrentContext.TestDirectory, "TestUtils", "SampleSparseSeq.csv");
 
         /// <summary>
         /// Validate xsv parser for filepath
@@ -89,7 +89,7 @@ namespace Bio.Tests.IO.Xsv
         public void XsvContigFormatter()
         {
             // Gets the expected sequence from the Xml
-            string filePathObj = Directory.GetCurrentDirectory() + XsvFilename;
+            string filePathObj = XsvFilename;
             string xsvTempFileName = Path.GetTempFileName();
             Assert.IsTrue(File.Exists(filePathObj));
 
@@ -124,7 +124,7 @@ namespace Bio.Tests.IO.Xsv
         private void XsvSparseParserGeneralTestCases()
         {
             // Gets the expected sequence from the Xml
-            string filePathObj = Directory.GetCurrentDirectory() + XsvFilename;
+            string filePathObj = XsvFilename;
 
             Assert.IsTrue(File.Exists(filePathObj));
             XsvContigParser parserObj = new XsvContigParser(Alphabets.DNA, ',', '#');
@@ -193,7 +193,7 @@ namespace Bio.Tests.IO.Xsv
         private void XsvSparseFormatterGeneralTestCases(string switchParam)
         {
             // Gets the expected sequence from the Xml
-            string filePathObj = Directory.GetCurrentDirectory() + XsvFilename;
+            string filePathObj = XsvFilename;
 
             Assert.IsTrue(File.Exists(filePathObj));
 

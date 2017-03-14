@@ -52,7 +52,7 @@ using NUnit.Framework;
 
         #region Global Variables
 
-        Utility utilityObj = new Utility(@"TestUtils\GffTestsConfig.xml");
+        Utility utilityObj = new Utility(System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, "TestUtils", "GffTestsConfig.xml"));
 
         #endregion Global Variables
 
@@ -286,7 +286,7 @@ using NUnit.Framework;
             try
             {
                 // Gets the expected sequence from the Xml
-                string filePath = utilityObj.xmlUtil.GetTextValue(nodeName,Constants.FilePathNode);
+                string filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, utilityObj.xmlUtil.GetTextValue(nodeName,Constants.FilePathNode));
                 new GffParser().Parse(filePath).ToList();
                 Assert.Fail();
             }

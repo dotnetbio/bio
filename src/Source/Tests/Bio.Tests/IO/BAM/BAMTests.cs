@@ -22,7 +22,7 @@ namespace Bio.Tests.IO.BAM
         [Category("Priority0"), Category("BAM")]
         public void TestParser()
         {
-            const string FilePath = @"TestUtils\BAM\SeqAlignment.bam";
+            string FilePath = Path.Combine(TestContext.CurrentContext.TestDirectory, "TestUtils", "BAM", "SeqAlignment.bam");
             BAMParser parser = null;
             try
             {
@@ -46,8 +46,8 @@ namespace Bio.Tests.IO.BAM
         [Category("Priority0"),Category("BAM")]
         public void TestFormatter()
         {
-            const string filePath = @"TestUtils\BAM\SeqAlignment.bam";
-            const string outputfilePath = "BAMTests123.bam";
+            string filePath = Path.Combine(TestContext.CurrentContext.TestDirectory, "TestUtils", "BAM", "SeqAlignment.bam");
+            string outputfilePath = Path.Combine(TestContext.CurrentContext.TestDirectory, "BAMTests123.bam");
             string outputIndexFile = outputfilePath + ".bai";
             BAMParser parser = new BAMParser();
             SequenceAlignmentMap alignmentMap = parser.ParseOne<SequenceAlignmentMap>(filePath);
@@ -65,7 +65,7 @@ namespace Bio.Tests.IO.BAM
             formatter.CreateSortedBAMFile = true;
             formatter.CreateIndexFile = true;
             formatter.Format(alignmentMap, outputfilePath);
-            Assert.IsTrue(File.Exists("BAMTests123.bam.bai"));
+            Assert.IsTrue(File.Exists(outputIndexFile));
 
             alignmentMap = parser.ParseOne<SequenceAlignmentMap>(outputfilePath);
             Assert.IsNotNull(alignmentMap);
@@ -74,14 +74,14 @@ namespace Bio.Tests.IO.BAM
             Assert.AreEqual(alignmentMap.Header.ReferenceSequences.Count, 1);
             Assert.AreEqual(alignmentMap.QuerySequences.Count, 2);
 
-            alignmentMap = parser.ParseRange("BAMTests123.bam", new SequenceRange("chr20", 0, int.MaxValue));
+            alignmentMap = parser.ParseRange(outputfilePath, new SequenceRange("chr20", 0, int.MaxValue));
             Assert.IsNotNull(alignmentMap);
             Assert.IsNotNull(alignmentMap.Header);
             Assert.AreEqual(alignmentMap.Header.GetReferenceSequencesInfoFromSQHeader().Count, 1);
             Assert.AreEqual(alignmentMap.Header.ReferenceSequences.Count, 1);
             Assert.AreEqual(alignmentMap.QuerySequences.Count, 2);
 
-            alignmentMap = parser.ParseRange("BAMTests123.bam", new SequenceRange("chr20", 0, 28833));
+            alignmentMap = parser.ParseRange(outputfilePath, new SequenceRange("chr20", 0, 28833));
             Assert.IsNotNull(alignmentMap);
             Assert.IsNotNull(alignmentMap.Header);
             Assert.AreEqual(alignmentMap.Header.GetReferenceSequencesInfoFromSQHeader().Count, 1);
@@ -121,9 +121,9 @@ namespace Bio.Tests.IO.BAM
         [Category("Priority0"), Category("BAM")]
         public void TestFormatterWithSort()
         {
-            string inputFilePath = @"TestUtils\BAM\SeqAlignment.bam";
-            string outputFilePath1 = "output1.bam";
-            string outputFilePath2 = "output2.bam";
+            string inputFilePath = Path.Combine(TestContext.CurrentContext.TestDirectory, "TestUtils", "BAM", "SeqAlignment.bam");
+            string outputFilePath1 = Path.Combine(TestContext.CurrentContext.TestDirectory, "output1.bam");
+            string outputFilePath2 = Path.Combine(TestContext.CurrentContext.TestDirectory, "output2.bam");
             BAMParser parser = null;
             try
             {

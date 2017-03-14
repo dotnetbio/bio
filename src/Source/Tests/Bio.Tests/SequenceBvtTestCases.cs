@@ -32,7 +32,7 @@ namespace Bio.Tests
 
         #endregion
 
-        readonly Utility utilityObj = new Utility(@"TestUtils\TestsConfig.xml");
+        readonly Utility utilityObj = new Utility(Path.Combine(TestContext.CurrentContext.TestDirectory, "TestUtils", "TestsConfig.xml"));
 
         #region Sequence Bvt TestCases
 
@@ -186,8 +186,8 @@ namespace Bio.Tests
             // Gets the expected sequence from the Xml
             string expectedSequence = this.utilityObj.xmlUtil.GetTextValue(
                 Constants.SimpleFastaNodeName, Constants.ExpectedSequenceNode);
-            string fastAFilePath = this.utilityObj.xmlUtil.GetTextValue(
-                Constants.SimpleFastaNodeName, Constants.FilePathNode);
+            string fastAFilePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, this.utilityObj.xmlUtil.GetTextValue(
+                Constants.SimpleFastaNodeName, Constants.FilePathNode));
             string alphabet = this.utilityObj.xmlUtil.GetTextValue(Constants.SimpleFastaNodeName,
                 Constants.AlphabetNameNode);
             Assert.IsTrue(File.Exists(fastAFilePath));

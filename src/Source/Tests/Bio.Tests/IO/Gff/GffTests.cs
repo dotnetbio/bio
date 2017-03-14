@@ -30,10 +30,10 @@ namespace Bio.Tests.IO.Gff
         #region Fields
 
         private static readonly string _today = DateTime.Today.ToString("yyyy-MM-dd", (IFormatProvider)null);
-        private const string _gffDataPath = @"TestUtils\GFF";
-        private const string _singleSeqGffFilename = @"TestUtils\GFF\random.GFF";
-        private const string TempGFFFileName = "tempGFF.GFF";
-        private const string _multipleSeqGffFilename = @"TestUtils\GFF\Tachibana2005.gff";
+        private static readonly string _gffDataPath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, "TestUtils", "GFF");
+        private static readonly string _singleSeqGffFilename = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, "TestUtils", "GFF", "random.GFF");
+        private static readonly string TempGFFFileName = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, "tempGFF.GFF");
+        private static readonly string _multipleSeqGffFilename = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, "TestUtils", "GFF", "Tachibana2005.gff");
         private static readonly string _singleSeqGffFileExpectedOutput =
 @"##gff-version 2
 ##date " + _today + @"

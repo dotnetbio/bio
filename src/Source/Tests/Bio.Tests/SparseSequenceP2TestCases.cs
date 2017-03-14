@@ -16,7 +16,7 @@ namespace Bio.Tests
     [TestFixture]
     public class SparseSequenceP2TestCases
     {
-        private readonly Utility _utilityObj = new Utility(@"TestUtils\TestsConfig.xml");
+        private readonly Utility _utilityObj = new Utility(System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, "TestUtils", "TestsConfig.xml"));
 
         #region SparseSequence P2 TestCases
 

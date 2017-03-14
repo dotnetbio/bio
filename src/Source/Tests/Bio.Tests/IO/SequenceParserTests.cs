@@ -23,7 +23,7 @@ namespace Bio.Tests.IO
         public void TestFastAFileExtension()
         {
             string[] extensions = {".fa", ".fas", ".fasta", ".fna", ".fsa", ".mpfa"};
-            string filepath = @"TestUtils\Simple_Fasta_DNA";
+            string filepath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, "TestUtils", "Simple_Fasta_DNA");
 
             foreach (var ext in extensions)
             {
@@ -40,7 +40,7 @@ namespace Bio.Tests.IO
         public void TestFastQFileExtension()
         {
             string[] extensions = { ".fq", ".fastq" };
-            string filepath = @"TestUtils\SimpleDnaIllumina";
+            string filepath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, "TestUtils", "SimpleDnaIllumina");
 
             foreach (var ext in extensions)
             {
@@ -57,7 +57,7 @@ namespace Bio.Tests.IO
         public void TestGenBankFileExtension()
         {
             string[] extensions = { ".gbk", ".genbank" };
-            string filepath = @"TestUtils\Simple_GenBank_DNA";
+            string filepath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, "TestUtils", "Simple_GenBank_DNA");
 
             foreach (var ext in extensions)
             {
@@ -73,7 +73,7 @@ namespace Bio.Tests.IO
         [Test]
         public void TestGffFileExtension()
         {
-            string filepath = @"TestUtils\Simple_Gff_Dna.gff";
+            string filepath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, "TestUtils", "Simple_Gff_Dna.gff");
 
             ISequenceParser foundParser = SequenceParsers.FindParserByFileName(filepath);
             Assert.IsNotNull(foundParser);
@@ -120,7 +120,7 @@ namespace Bio.Tests.IO
         [Test]
         public void TestTxtFileExtension()
         {
-            string filepath = @"TestUtils\BLOSUM50.txt";
+            string filepath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, "TestUtils", "BLOSUM50.txt");
 
             ISequenceParser foundParser = SequenceParsers.FindParserByFileName(filepath);
             Assert.IsNull(foundParser);
@@ -133,7 +133,7 @@ namespace Bio.Tests.IO
         [Test]
         public void TestSffFileExtension()
         {
-            string filepath = @"TestUtils\dummy.sff";
+            string filepath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, "TestUtils", "dummy.sff");
 
             ISequenceParser foundParser = SequenceParsers.FindParserByFileName(filepath);
             Assert.IsNotNull(foundParser);

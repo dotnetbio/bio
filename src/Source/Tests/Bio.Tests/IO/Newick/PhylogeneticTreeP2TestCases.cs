@@ -38,7 +38,7 @@ namespace Bio.TestAutomation.IO.Newick
 
         #region Global Variables
 
-        Utility _utilityObj = new Utility(@"TestUtils\PhylogeneticTestsConfig.xml");
+        Utility _utilityObj = new Utility(System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, "TestUtils", "PhylogeneticTestsConfig.xml"));
 
         #endregion Global Variables
 
@@ -144,7 +144,7 @@ namespace Bio.TestAutomation.IO.Newick
         {
             try
             {
-                string filePath = _utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode);
+                string filePath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, _utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode));
                 switch (method)
                 {
                     case AdditionalParameters.TextReader:
