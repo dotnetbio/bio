@@ -1578,8 +1578,10 @@ namespace Bio.TestAutomation.Util
         public const string OutputFilePathNode = "OutputFilePath";
         public const string ParserFileTypes = ".txt, .tre, .newick";
         public const string ParserName = "Newick";
-        public const string ParserDescription = "Reads from a source of text that is formatted according to the Newick flat\nfile specification, and converts the data to in-memory PhylogeneticTree object.";
-        public const string FormatDescription = "Writes a PhylogeneticTree to a particular location, usually a file. The output is formatted\naccording to the Newick format.";
+        public static readonly string ParserDescription = "Reads from a source of text that is formatted according to the Newick flat" +
+            System.Environment.NewLine + "file specification, and converts the data to in-memory PhylogeneticTree object.";
+        public static readonly string FormatDescription = "Writes a PhylogeneticTree to a particular location, usually a file. The output is formatted" +
+            System.Environment.NewLine + "according to the Newick format.";
         public const string SpecialCharSmallSizePhyloTreeNode =
             "SpecialCharSmallSizePhyloTree";
         public const string InvalidateNewickParseNode =
@@ -1944,10 +1946,12 @@ namespace Bio.TestAutomation.Util
         public const string CIGARNode = "CIGAR";
         public const string SAMFileWithRefNode = "SAMFileWithRef";
         public const string ReferenceSeqNode = "ReferenceSeq";
-        public const string SAMParserDescription =
-            "A SAMParser reads from a source of text that is formatted according to the SAM \nfile specification, and converts the data to in-memory SequenceAlignmentMap objects.";
-        public const string SAMFormatterDescription =
-            "Writes a SequenceAlignmentMap to a particular location, usually a file. The output is formatted\naccording to the SAM file format.";
+        public static readonly string SAMParserDescription =
+            "A SAMParser reads from a source of text that is formatted according to the SAM " +
+            System.Environment.NewLine + "file specification, and converts the data to in-memory SequenceAlignmentMap objects.";
+        public static readonly string SAMFormatterDescription =
+            "Writes a SequenceAlignmentMap to a particular location, usually a file. The output is formatted" +
+            System.Environment.NewLine + "according to the SAM file format.";
         public const string SAMName = "SAM";
         public const string SAMFileType = ".sam";
         public const string EmptySamFileNode =
