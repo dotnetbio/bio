@@ -15,7 +15,7 @@
     <AndroidResgenFile>Resources\Resource.Designer.cs</AndroidResgenFile>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
     <AndroidUseLatestPlatformSdk>True</AndroidUseLatestPlatformSdk>
-    <TargetFrameworkVersion>v6.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v5.0</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -60,6 +60,10 @@
     <ProjectReference Include="..\Bio.Core\Bio.Core.csproj">
       <Project>{dfb9c4e2-c98c-4401-a650-756abab52663}</Project>
       <Name>Bio.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Shims\Bio.Platform.Helpers\Bio.Platform.Helpers.csproj">
+      <Project>{83cbb611-4049-456a-b87b-0b2cfc4797fa}</Project>
+      <Name>Bio.Platform.Helpers</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="..\Shared\Shared.projitems" Label="Shared" Condition="Exists('..\Shared\Shared.projitems')" />

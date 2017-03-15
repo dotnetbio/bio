@@ -1,13 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bio.Core", "Source\Framework\Bio.Core\Bio.Core.csproj", "{DFB9C4E2-C98C-4401-A650-756ABAB52663}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shims", "Shims", "{9AD1F00F-4C1B-49A6-8525-4FFAED741F22}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bio.Platform.Helpers", "Source\Framework\Shims\Bio.Platform.Helpers\Bio.Platform.Helpers.csproj", "{83CBB611-4049-456A-B87B-0B2CFC4797FA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bio.Platform.Helpers.Desktop", "Source\Framework\Shims\Bio.Platform.Helpers.Desktop\Bio.Platform.Helpers.Desktop.csproj", "{2A6BB04D-047F-4F04-9AFB-9BF8941A292A}"
 EndProject
@@ -61,10 +59,7 @@ Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Source\Tests\TestData\TestData.projitems*{fc09fa89-39a2-4db7-bb26-4df616918506}*SharedItemsImports = 4
 		Source\Framework\Shared\Shared.projitems*{14a64db3-6621-4950-b25d-e24615d9386b}*SharedItemsImports = 4
-		Source\Framework\Shared\Shared.projitems*{c1249952-18e4-4d6d-bd8d-32a51af2d3f3}*SharedItemsImports = 4
-		Source\Framework\Shared\Shared.projitems*{a482be8f-67d5-4991-84bd-da3bf6ed84fa}*SharedItemsImports = 4
 		Source\Tests\TestData\TestData.projitems*{64b51721-d4fd-4da6-b722-95dbae696f03}*SharedItemsImports = 13
-		Source\Framework\Shared\Shared.projitems*{8647c589-c5b4-49ef-b722-3b8a12a2e13c}*SharedItemsImports = 4
 		Source\Framework\Shared\Shared.projitems*{bdb423a3-d3b6-434c-96ba-102025e2ea3b}*SharedItemsImports = 13
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -88,16 +83,6 @@ Global
 		{DFB9C4E2-C98C-4401-A650-756ABAB52663}.Release|ARM.ActiveCfg = Release|Any CPU
 		{DFB9C4E2-C98C-4401-A650-756ABAB52663}.Release|x64.ActiveCfg = Release|Any CPU
 		{DFB9C4E2-C98C-4401-A650-756ABAB52663}.Release|x86.ActiveCfg = Release|Any CPU
-		{83CBB611-4049-456A-B87B-0B2CFC4797FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{83CBB611-4049-456A-B87B-0B2CFC4797FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{83CBB611-4049-456A-B87B-0B2CFC4797FA}.Debug|ARM.ActiveCfg = Debug|Any CPU
-		{83CBB611-4049-456A-B87B-0B2CFC4797FA}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{83CBB611-4049-456A-B87B-0B2CFC4797FA}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{83CBB611-4049-456A-B87B-0B2CFC4797FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{83CBB611-4049-456A-B87B-0B2CFC4797FA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{83CBB611-4049-456A-B87B-0B2CFC4797FA}.Release|ARM.ActiveCfg = Release|Any CPU
-		{83CBB611-4049-456A-B87B-0B2CFC4797FA}.Release|x64.ActiveCfg = Release|Any CPU
-		{83CBB611-4049-456A-B87B-0B2CFC4797FA}.Release|x86.ActiveCfg = Release|Any CPU
 		{2A6BB04D-047F-4F04-9AFB-9BF8941A292A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2A6BB04D-047F-4F04-9AFB-9BF8941A292A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2A6BB04D-047F-4F04-9AFB-9BF8941A292A}.Debug|ARM.ActiveCfg = Debug|Any CPU
@@ -275,7 +260,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{83CBB611-4049-456A-B87B-0B2CFC4797FA} = {9AD1F00F-4C1B-49A6-8525-4FFAED741F22}
 		{2A6BB04D-047F-4F04-9AFB-9BF8941A292A} = {9AD1F00F-4C1B-49A6-8525-4FFAED741F22}
 		{9DE0E489-511D-4E4C-BBDA-D47C887BAF93} = {9AD1F00F-4C1B-49A6-8525-4FFAED741F22}
 		{17D7434B-E7F2-43F4-BB1E-FC40FDC5FB0B} = {9AD1F00F-4C1B-49A6-8525-4FFAED741F22}

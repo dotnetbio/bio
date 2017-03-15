@@ -145,7 +145,7 @@ namespace Bio.Tests
             var seq = new QualitativeSequence(Alphabets.DNA,
                                               FastQFormatType.Illumina_v1_3, seqData, qualityScores);
             string actualString = seq.ToString();
-            string expectedString = "ATCG\nAAAB"; // This is dangerously platform specific
+            string expectedString = "ATCG" + System.Environment.NewLine + "AAAB";
             Assert.AreEqual(expectedString, actualString);
         }
 
