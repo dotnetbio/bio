@@ -1,16 +1,20 @@
+solution: DotNetBio.sln
 language: csharp
-solution: src/Bio.Mono.sln
-env:
-    MONO_IOMAP=all
-install:
-  - nuget restore src/Bio.Mono.sln
-  - nuget restore src/BioTools.sln
-  - nuget install -Prerelease NUnit.Console -Version 3.0.0-beta-3 -OutputDirectory testrunner  
+dist: trusty
+sudo: required
+mono: none
+dotnet: 2.0.0
 script:
-  - xbuild /p:Configuration=Release src/Bio.Mono.sln
-  - xbuild /p:Configuration=Release src/BioTools.sln
-  - mkdir TestUtils
-  - cp ./src/Source/Tests/Bio.Tests/bin/Release/* TestUtils/
-  - cp -r ./src/Source/Tests/TestData/TestUtils/* ./TestUtils/
-  - ls -lR ./TestUtils/
-  - mono ./testrunner/NUnit.Console.3.0.0-beta-3/tools/nunit-console.exe ./TestUtils/Bio.Tests.dll
+  - cd Source\Bio.Core
+  - dotnet restore
+  - dotnet build -c Release
+  - cd ..\Bio.Padena
+  - dotnet restore
+  - dotnet build -c Release
+  - cd ..\Bio.Pamsam
+  - dotnet restore
+  - dotnet build -c Release
+  - cd ..\..\Tests\Bio.Tests
+  - dotnet restore
+  - dotnet build
+  - dotnet test

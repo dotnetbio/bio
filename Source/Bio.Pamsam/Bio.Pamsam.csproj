@@ -1,0 +1,41 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>Bio.Algorithms.Alignment.MultipleSequenceAlignment</RootNamespace>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>3.0.0-alpha</Version>
+    <PackageId>NetBio.Pamsam</PackageId>
+    <Authors>Various</Authors>
+    <Company />
+    <Copyright></Copyright>
+    <PackageProjectUrl>https://github.com/dotnetbio/dotnetbio.github.io</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/dotnetbio/bio/blob/master/License</PackageLicenseUrl>
+    <PackageIconUrl>https://avatars3.githubusercontent.com/u/12814787?v=4&amp;s=200</PackageIconUrl>
+    <RepositoryUrl>https://github.com/dotnetbio/bio</RepositoryUrl>
+    <RepositoryType>Github</RepositoryType>
+    <Description>Parallel Sequence Alignment (PAMSAM) aligner for .NET Bio</Description>
+    <PackageTags>bioinformatics biology FASTA FASTQ GenBank nucleotides genomics .NET</PackageTags>
+    <PackageReleaseNotes>First release for .NET Standard 2.0</PackageReleaseNotes>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Bio.Core\Bio.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Resource.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resource.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+</Project>

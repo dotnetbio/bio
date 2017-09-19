@@ -1,32 +1,22 @@
 **What are the prerequisites I need on my machine to build code in this project?**
 
-On Mac or Linux
-- Xamarin Studio with  [mono] (http://www.mono-project.com/) installed.
+`macOS`
+- [Visual Studio for Mac](https://www.visualstudio.com/) - any edition, including community, is fine.
 
-On Windows
+`Linux`
+- MonoDevelop with Mono installed
 
+`Windows`
 - Microsoft Windows® (Windows 7 or better) x86 or x64 (preferred) versions 
-- Visual Studio 2015 ([Community edition](https://www.visualstudio.com/en-us/products/visual-studio-community-vs.aspx) is fine)
-- .NET Framework 4.5, which is included with Visual Studio 2015
+- [Visual Studio 2017](https://www.visualstudio.com/) - any edition, including community, is fine.
+- .NET Core components available from the Visual Studio installer.
 
 _Optional Components (required to build some of the additional tools)_
-
-- [Microsoft Silverlight SDK](http://www.microsoft.com/download/en/details.aspx?displaylang=en&id=18149)
-- [Microsoft HPC Pack 2008 R2 Client Utilities Redistributable Package with Service Pack 1](http://www.microsoft.com/downloads/en/details.aspx?FamilyID=0a7ba619-fe0e-4e71-82c8-ab4f19c149ad)
-- [Microsoft HPC Pack 2008 R2 SDK](http://www.microsoft.com/downloads/en/details.aspx?FamilyID=BC671B22-F158-4A5F-828B-7A374B881172)
+- Visual Studio Tools for Office (VSTO) - add-in module available from the Visual Studio installer.
 
 **What platforms are supported?**
 
-.NET Bio 2.0 is entirely cross platform, and can be run on Linux, Mac, Windows and a variety of smartphones and tablets. In particular, it supports the following platforms:
-
-- .NET 4.5 or better
-- Mono 4.5 or better
-- Windows 8 or 8.1 WinRT (w/ .NET 4.5)
-- Windows Phone 8.1 WinPRT (w / .NET 4.5)
-- Xamarin.iOS
-- Xamarin.Android
-
-We currently do not support Silverlight, although it is possible it could be added in the future. You can use Visual Studio 2013 or 2015 with .NET Bio, MonoDevelop on Linux or Mac OSX, or Xamarin Studio on Windows or OS X.
+.NET Bio is entirely cross platform, and can be run on Linux, Mac, Windows and a variety of smartphones and tablets - anything that supports [.NET Standard 2.0](https://docs.microsoft.com/en-us/dotnet/standard/net-standard).
 
 **I found a bug - how do I report it?**
 
@@ -44,12 +34,12 @@ Visual Studio is an Integrated Development Environment (IDE) on Windows, which p
 
 **I would prefer not to use Microsoft Visual Studio as my IDE. What alternatives are available?**
 
-- You can use [MonoDevelop](http://monodevelop.com/Download) which runs under Linux and Mac OSX. It is compatible with Visual studio solution files, and is built more for C#/F#.
-- You may also want to check the Visual Studio site for things like [VsVIM](http://visualstudiogallery.msdn.microsoft.com/59ca71b3-a4a3-46ca-8fe1-0e90e3f79329) - Vim Emulation layer which integrates the familiar key binding experience of Vim directly into Visual Studio's editor. 
+- You can use [MonoDevelop](http://monodevelop.com/Download) which runs under Linux and Mac OSX. It is compatible with Visual Studio solution files, and is built more for C#/F#.
+- You may also want to check the Visual Studio Marketplace for things like [VsVIM](http://visualstudiogallery.msdn.microsoft.com/59ca71b3-a4a3-46ca-8fe1-0e90e3f79329) - Vim Emulation layer which integrates the familiar key binding experience of Vim directly into Visual Studio's editor. 
 - The [Mono Project](http://www.mono-project.com/) provides a plug-in for the Eclipse IDE, enabling .NET development on a number of platforms. Please visit the Mono pages for specifics.
 - Other Eclipse plug-ins are available, for instance [Emonic](http://emonic.sourceforge.net/).
 
-**I am using the BioExcel add-in with Microsoft Excel 2010 and want to use the Chart option under the .NET Bio tab to chart my DNA sequence distribution table. What steps do I need to do?**
+**I am using the BioExcel add-in with Microsoft Excel and want to use the Chart option under the .NET Bio tab to chart my DNA sequence distribution table. What steps do I need to do?**
 
 - Load the gene sequence you want to chart
 - Under the Excel File menu choose the Options submenu
@@ -85,7 +75,11 @@ Visual Studio is an Integrated Development Environment (IDE) on Windows, which p
 
 **Is .NET Bio compatible with [Mono](http://www.mono-project.com/Main_Page)?**
 
-Yes, .NET Bio builds and runs under Mono for Linux and Mac OS X.
+Yes, .NET Bio builds and runs under Mono for Linux and macOS.
+
+**Is .NET Bio compatible with .NET Standard?**
+
+Yes, .NET Bio builds and runs under .NET Standard 2.0 which is available for macOS, Windows, and Linux.
 
 **Why do I get the error message from PadenaUtil when doing an assembly “character not supported”?**
 

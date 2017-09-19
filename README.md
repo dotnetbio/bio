@@ -12,22 +12,36 @@ Build Status
 |:------:|:------:|:-------:|
 |[![Build Status](https://travis-ci.org/dotnetbio/bio.svg?branch=master)](https://travis-ci.org/dotnetbio/bio) | [![Build status](https://ci.appveyor.com/api/projects/status/ihru18bvx5d5yofm/branch/master?svg=true)](https://ci.appveyor.com/project/nigel-delaney/bio/branch/master) | [![Build Status](https://travis-ci.org/dotnetbio/bio.svg?branch=master)](https://travis-ci.org/dotnetbio/bio)|
 
-
-
 ## Using .NET Bio in your application
 .NET Bio binaries are distributed using [Nuget](wwww.nuget.org):
 
-- [.NET Bio Core](https://www.nuget.org/packages/NETBioCore.PCL/)
-- [.NET Bio Algorithms](https://www.nuget.org/packages/NetBioAlgorithms.PCL/)
-- [.NET Bio Web Services](https://www.nuget.org/packages/NetBioWeb.PCL/)
+- [.NET Bio Core](https://www.nuget.org/packages/NetBio.Core/3.0.0-alpha)
+Includes all the core APIs and web service support.
+
+```
+PM> Install-Package NetBio.Core -Version 3.0.0-alpha
+```
+
+- [PaDena Algorithm](https://www.nuget.org/packages/NetBio.Padena/3.0.0-alpha)
+Includes the Parallel DeNovo Assembler algorithm
+
+```
+PM> Install-Package NetBio.Padena -Version 3.0.0-alpha
+```
+
+- [PamSam Algorithm](https://www.nuget.org/packages/NetBio.Pamsam/3.0.0-alpha)
+Includes the Parallel Sequence Assembler algorithm
+
+```
+PM> Install-Package NetBio.Pamsam -Version 3.0.0-alpha
+```
 
 ## Building .NET Bio from source
 
-There are several solution files (.sln) you can use to build .NET Bio on Windows, Mac or Linux. These are in the `src` folder under the main repository.
+There are several solution files (.sln) you can use to build .NET Bio on Windows, Mac or Linux.
 
-- `Bio.Mono.sln` builds the .NET/Mono desktop assemblies necessary for Windows, Linux or Mac OSX. This is the easiest version to build and the one we recommend you start with. It can be built with Visual Studio, Xamarin Studio, or MonoDevelop.
-- `Bio.sln` builds the full set of binaries and Nuget packages and can only be compiled on Windows with Visual Studio 2013 or later (we recommend Visual Studio 2015).
-- `BioTools.sln` builds some optional command line tools which showcase some of the framework classes for .NET Bio.
+- `DotNetBio.sln` builds the .NET Standard 2.0 assemblies necessary for Windows, Linux or Mac OSX. This is the easiest version to build and the one we recommend you start with. It can be built with Visual Studio, Xamarin Studio, or MonoDevelop.
+- `DotNetBio-Fulll` builds some optional command line tools which showcase some of the framework classes for .NET Bio.
 
 ## Project Goals
 .NET Bio has been built with specific goals in mind:

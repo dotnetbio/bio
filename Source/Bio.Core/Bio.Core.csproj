@@ -1,0 +1,69 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>Bio</RootNamespace>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageId>NetBio.Core</PackageId>
+    <Version>3.0.0-alpha</Version>
+    <Authors>Various</Authors>
+    <Company />
+    <Description>.NET Bio is an open source bioinformatics/genomics library for .NET Standard 2.0 that is designed to enable simple loading, saving and analysis of biological data. It includes several common parsers as well as a variety of algorithms for pairwise/multiple alignment and assembly operations.</Description>
+    <PackageProjectUrl>https://github.com/dotnetbio/dotnetbio.github.io</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/dotnetbio/bio/blob/master/License</PackageLicenseUrl>
+    <PackageIconUrl>https://avatars3.githubusercontent.com/u/12814787?v=4&amp;s=200</PackageIconUrl>
+    <RepositoryUrl>https://github.com/dotnetbio/bio</RepositoryUrl>
+    <RepositoryType>Github</RepositoryType>
+    <PackageTags>bioinformatics biology FASTA FASTQ GenBank nucleotides genomics .NETInte</PackageTags>
+    <PackageReleaseNotes>First .NET Standard release.</PackageReleaseNotes>
+    <Product>.NET Bio</Product>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="CloneLibrary\Resources\Library.txt" />
+    <None Remove="SimilarityMatrices\Resources\AmbiguousDNA.txt" />
+    <None Remove="SimilarityMatrices\Resources\AmbiguousRNA.txt" />
+    <None Remove="SimilarityMatrices\Resources\BLOSUM45.txt" />
+    <None Remove="SimilarityMatrices\Resources\BLOSUM50.txt" />
+    <None Remove="SimilarityMatrices\Resources\BLOSUM62.txt" />
+    <None Remove="SimilarityMatrices\Resources\BLOSUM80.txt" />
+    <None Remove="SimilarityMatrices\Resources\BLOSUM90.txt" />
+    <None Remove="SimilarityMatrices\Resources\DiagonalScoreMatrix.txt" />
+    <None Remove="SimilarityMatrices\Resources\EDNAFull.txt" />
+    <None Remove="SimilarityMatrices\Resources\PAM250.txt" />
+    <None Remove="SimilarityMatrices\Resources\PAM30.txt" />
+    <None Remove="SimilarityMatrices\Resources\PAM70.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="CloneLibrary\Resources\Library.txt" />
+    <EmbeddedResource Include="SimilarityMatrices\Resources\AmbiguousDNA.txt" />
+    <EmbeddedResource Include="SimilarityMatrices\Resources\AmbiguousRNA.txt" />
+    <EmbeddedResource Include="SimilarityMatrices\Resources\BLOSUM45.txt" />
+    <EmbeddedResource Include="SimilarityMatrices\Resources\BLOSUM50.txt" />
+    <EmbeddedResource Include="SimilarityMatrices\Resources\BLOSUM62.txt" />
+    <EmbeddedResource Include="SimilarityMatrices\Resources\BLOSUM80.txt" />
+    <EmbeddedResource Include="SimilarityMatrices\Resources\BLOSUM90.txt" />
+    <EmbeddedResource Include="SimilarityMatrices\Resources\DiagonalScoreMatrix.txt" />
+    <EmbeddedResource Include="SimilarityMatrices\Resources\EDNAFull.txt" />
+    <EmbeddedResource Include="SimilarityMatrices\Resources\PAM250.txt" />
+    <EmbeddedResource Include="SimilarityMatrices\Resources\PAM30.txt" />
+    <EmbeddedResource Include="SimilarityMatrices\Resources\PAM70.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Resource.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resource.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+</Project>
