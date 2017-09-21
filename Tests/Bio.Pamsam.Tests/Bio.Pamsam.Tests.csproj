@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Source\Bio.Pamsam\Bio.Pamsam.csproj" />
+    <ProjectReference Include="..\..\Source\Bio.Core\Bio.Core.csproj" />
   </ItemGroup>
 
   <Import Project="..\TestData\TestData.projitems" Label="Shared" />

@@ -10,2184 +10,1458 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="$(MSBuildThisFileDirectory)Testcases.xml">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\AppliedBiosystems\A_2004-08-24_18-23-44_043630_A02_017_015.ab1.xml">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\attribution.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\AzureBlastConfig.xml">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\BedTestsConfig.xml">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\BioHPCTestConfigs.xml">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\BlastRecords.xml">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\BlastXmlWithMoreThanTenRecords.xml">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\BlastXmlWithMoreThanThreeRecords.xml">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\BlastXml\NewYork.xml">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\BlastXml\sources\readme.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\BLOSUM50.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\BLOSUM50_Dna.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\BLOSUM50_Rna.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\BLOSUMEmpty50.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\BLOSUMFewAlphabets50.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\BLOSUMInvalid50.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\BLOSUMInvalidDiagnol50.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\BLOSUMModified50.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\BLOSUMOnlyAlphabet50.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\BoyerMooreTestConfig.xml">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\ClustalWTestData\ClustalWTestsConfig.xml">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\ClustalWTestsConfig.xml">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\ComparativeExpectedOutputEcoliWithScaffold.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\ComparativeTestData\ComparativeExpectedOutputDefaultParams.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\ComparativeTestData\ComparativeExpectedOutputVerbose.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\ComparativeTestData\ComparativeExpectedOutputWithKmerAndMum.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\ComparativeTestData\ComparativeExpectedOutputWithMaxLengthInsert.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\ComparativeTestData\ComparativeExpectedOutputWithMeanLengthInsert.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\ComparativeTestData\ComparativeTestsConfig.xml">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\ComparativeTestData\EcoliDataWithErrors_output.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\ComparativeTestData\EcoliDataWithZeroErrorsNonPaired_output.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\ComparativeTestData\EcoliDataWithZeroErrorsPaired_output.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\ComparativeTestData\LisUtilExpectedOutputDefaultParams.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\ComparativeTestData\LisUtilExpectedOutputWithMaxMatch.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\ComparativeUtilExpectedOutputEcoli.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\EColi.500_NucmerOutputWithManySwitches.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\EColi.500_Padena_Assemble_Output.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\EColi.500_Padena_Scaffold_Output.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\EColiMumUtilOutput.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\EColiNucmerUtilOutput.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\EColiPadenaOutputWithAssemble.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\EColi_500_NucmerOutput.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\EColi_500_Padena_AssembleWithScaffold_Output.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\EColi_ConsensusOutput.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\EColi_LayoutRefinementOutput.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\EColi_RepeatResolutionOutput.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\EColi_ScaffoldUtil_Output.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\ExpectedComparativeUtilHelp.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\ExpectedConsensusUtilHelp.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\ExpectedLayoutRefinementUtilHelp.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\ExpectedLisUtilHelp.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\ExpectedMumUtilHelp.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\ExpectedNucmerUtilHelp.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\ExpectedPadenaUtilHelp.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\ExpectedRepeatResolutionUtilHelp.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\ExpectedSamUtilsHelp.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\ExpectedSamUtilsImportHelp.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\ExpectedSamUtilsIndexHelp.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\ExpectedSamUtilsMergeHelp.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\ExpectedSamUtilsSortHelp.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\ExpectedSamUtilsViewHelp.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\ExpectedScaffoldUtilHelp.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\FastQTestsConfig.xml">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\GenBankFeaturesTestConfig.xml">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\GenBank\attribution.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\GffTestsConfig.xml">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\GFF\attribution.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\GreaterThanOneTree.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\HpcInput.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\InvalidateNewickBranch.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\InvalidateNewickLeaf.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\InvalidateNewickParse.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\InvalidateNewickParserPeek.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\InvalidBlastOutput.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\LargeSizeBlastRecords.xml">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\LargeSizeDnaIllumina_output.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\LargeSize_FastQ_Sanger_Output.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\LisUtilExpectedOutputBoth.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\LisUtilExpectedOutputComplementBoth.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\LisUtilExpectedOutputComplementReverseOnly.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\LisUtilExpectedOutputDefaultParams.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\LisUtilExpectedOutputEcoli.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\LisUtilExpectedOutputNoAmbiguity.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\LisUtilExpectedOutputReverseOnly.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\LisUtilExpectedOutputShowMatchingStr.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\LisUtilExpectedOutputWithMaxMatch.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\MatrixTestsConfig.xml">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\MediumSizedBlastXml.xml">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\Medium_Size_Aligned_Seq.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\Medium_Size_End_Index.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\Medium_Size_First_Mum_Order.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\Medium_Size_First_Seq_Start.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\Medium_Size_Length.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\Medium_Size_Nodes.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\Medium_Size_Second_Mum_Order.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\Medium_Size_Second_Seq_Start.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\Medium_Size_SimpleAligned_Seq.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\Medium_Size_Start_Index.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\MSAConfig.xml">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\MUMmerTestsConfig.xml">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\MumUtil_NoAmbiguity_EColi500Output.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\MumUtil__EColi500Output_WithLength_AndBoth.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\NexusTestsConfig.xml">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\NUCmerTestsConfig.xml">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\OneLeafTree.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\OneLineTree.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\BubbleLinksLeft.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\BubbleLinksRight.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\BubbleLinksSequence.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\ChrKmers.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\ChromosomeReadsContigsLeft.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\ChromosomeReadsContigsNodeSequence.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\ChromosomeReadsContigsRight.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\ContigsWithBothOrientaionNodeSequence.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\ContigsWithBothOrientationLeft.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\ContigsWithBothOrientationRight.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\MultipleBubbleLinksLeft.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\MultipleBubbleLinksRight.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\MultipleBubbleLinksSequence.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\MultipleDanglingLinksLeft.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\MultipleDanglingLinksRight.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\MultipleDanglingLinksSequence.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\OneLineKmers.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\OneLineReadsWithClustersContigs.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\OneLineReadsWithClustersKmers.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\OneLineReadsWithRCContigs.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\OneLineReadsWithRCGraphLeft.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\OneLineReadsWithRCGraphRight.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\OneLineReadsWithRCKmers.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\OneLineReadsWithRCSequence.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\OneLineStep4Left.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\OneLineStep4Right.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\OneLineStep4Sequences.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\OneLineWithClustersStep2left.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\OneLineWithClustersStep2right.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\OneLineWithClustersStep2sequence.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\PaDeNATestsConfig.xml">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\PalindromeContigNodeSequence.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\PalindromeContigRight.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\PalindromeContigsLeft.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\ReadsWithDanglingLinksLeft.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\ReadsWithDanglingLinksRight.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\ReadsWithDanglingLinksSequence.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\SmallSizeReadsStep2left.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\SmallSizeReadsStep2Right.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\Step2SmallSizeSequence.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\Step4RedundantPathleft.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\Step4RedundantPathright.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\Step4RedundantPathsequence.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\Step4SmallSizeDanglingLinksLeft.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\Step4SmallSizeDanglingLinksRight.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\Step4SmallSizeDanglingLinksSequence.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\VirualGenomeNodeSequence.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\VirualGenomeStep2left.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\VirualGenomeStep2Right.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\virulgenomekmers.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\PhylipTestsConfig.xml">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\PhylogeneticTestsConfig.xml">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\PhylogeneticTree\tree.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\Phylo_Tree_Special_Char.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\QualitativeTestsConfig.xml">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\Readme.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\reads_output.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\SAMBAMTestData\attribution.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\SAMBAMTestData\ExpectedOutputMediumSizedBam.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\SAMBAMTestData\ExpectedOutputMediumSizedSam.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\SAMBAMTestData\ExpectedOutputViewDefaultParams.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\SAMBAMTestData\ExpectedOutputViewWithHeaderForSAM.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\SAMBAMTestData\ExpectedOutputViewWithHEX.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\SAMBAMTestData\ExpectedOutputViewWithMinMapQuality.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\SAMBAMTestData\ExpectedOutputViewWithOutputBam.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\SAMBAMTestData\ExpectedOutputViewWithSAMFormat.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\SAMBAMTestData\ExpectedOutputViewWithUncompressedBAM.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\SAMBAMTestData\MediumSizeBAMSortOutputMatchChromosomeCoordinates.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\SAMBAMTestData\MediumSizeBAMSortOutputMatchChromosomeNameAndCoordinates.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\SAMBAMTestData\MediumSizeBAMSortOutputMatchReadNames.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\SAMBAMTestData\SAMBAMTestsConfig.xml">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\SAM\CoverageOutput1.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\SAM\CoverageOutput2.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\SequenceAlignmentParser.xml">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\SequenceParser.xml">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\SimilarityMatrices\attribution.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\SimilarityMatrices\SampleCustomMatrix.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\SimilarityMatrices\TestIupacNA.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\SimilarityMatrices\TestNcbiStdAA.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\SimpleDna_output.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\Simple_FastQ_Dna_output.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\Small_Size_Aligned_Seq.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\Small_Size_End_Index.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\Small_Size_First_Mum_Order.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\Small_Size_First_Seq_Start.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\Small_Size_Length.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\Small_Size_MumUtil_Output.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\Small_Size_Nodes.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\Small_Size_NucmerUtil_Output.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\Small_Size_Phylo_Tree.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\Small_Size_Second_Mum_Order.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\Small_Size_Second_Seq_Start.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\Small_Size_Start_Index.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\TestsConfig.xml">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\UtilitiesTestsConfig.xml">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\VeryLargeSize_Output.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)TestUtils\WiggleTestConfig.xml">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\00_Bonobo_DEL_Chr1.bed">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\00_Gorilla_DEL_chr1.bed">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\100K-Ecoli-Query.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\100K-Ecoli-Ref.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\122_raw.afa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\AlignEmptyFile_1.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\AlignFileWithBlankLines.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\AlignFileWithGap_1.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\AlignFileWithSpaces_1.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\AlignFile_1.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\AlignFile_2.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\AlignFile_Dna_1.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\AlignFile_Dna_2.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\AlignFile_Pro_1.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\AlignFile_Pro_2.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\AlignFile_Rna_1.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\AlignFile_Rna_2.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\AlignmentData.aln">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\AlignUnicodeFile_1.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\AppliedBiosystems\A_2004-08-24_18-23-44_043630_A02_017_015.ab1">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\BAM\PairedReadsTest.bam">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\BAM\SeqAlignment.bam">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\BED\Intersect\Intersect_query.BED">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\BED\Intersect\Intersect_ref.BED">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\BED\Intersect\Result_Intersect_MinOverlap0.BED">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\BED\Intersect\Result_Intersect_MinOverlap0_OverLappingBases.BED">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\BED\Intersect\Result_Intersect_MinOverlap1.BED">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\BED\Intersect\Result_Intersect_MinOverlap1_OverLappingBases.BED">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\BED\Merge\Merge_single.BED">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\BED\Merge\Merge_twofiles_1.BED">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\BED\Merge\Merge_twofiles_2.BED">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\BED\Merge\Result_Merge_Single_MinLength-1.BED">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\BED\Merge\Result_Merge_Single_MinLength-3.BED">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\BED\Merge\Result_Merge_Single_MinLength0.BED">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\BED\Merge\Result_Merge_Single_MinLength1.BED">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\BED\Merge\Result_Merge_Two_MinLength-1.BED">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\BED\Merge\Result_Merge_Two_MinLength-3.BED">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\BED\Merge\Result_Merge_Two_MinLength0.BED">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\BED\Merge\Result_Merge_Two_MinLength1.BED">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\BED\Merge\Result_Merge_Two_MinLength2.BED">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\BED\Merge\Result_Merge_Two_MinLength6.BED">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\BED\Subtract\Result_subtract_minoverlap0.bed">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\BED\Subtract\Result_Subtract_minoverlap0_NOnOverlappingPieces.BED">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\BED\Subtract\Result_Subtract_minoverlap1.bed">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\BED\Subtract\Result_Subtract_minoverlap1_NOnOverlappingPieces.BED">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\BED\Subtract\Subtract_query.BED">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\BED\Subtract\Subtract_ref.BED">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\BOX032Small.xml.afa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\ClustalW\AlignmentData.aln">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\ComparativeTestData\100K-Ecoli-Query.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\ComparativeTestData\100K-Ecoli-Ref.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\ComparativeTestData\DNA-Large-Ref-Reads-WithError.fa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\ComparativeTestData\DNA-Large-Ref.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\ComparativeTestData\DNA-Medium-Ref.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\ComparativeTestData\DNA-Medium-RefReads-WithError_1.fa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\ComparativeTestData\EColi-NC_000913-Ref.bd.1X.NonPairedReads.fa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\ComparativeTestData\EColi-NC_000913-Ref.bd.1X.PairedReads.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\ComparativeTestData\EColi-NC_000913-Ref.bd.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\ComparativeTestData\EColi-NC_000913.bd_1xWithError-Reads_1.fa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\ComparativeTestData\Ecoli.500.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\ComparativeTestData\Ecoli.500_WithError_1x_Paired.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\ComparativeTestData\Ecoli.500_ZeroError_10x.fa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\ComparativeTestData\Ecoli.500_ZeroError_10x_Paired.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\ComparativeTestData\Ecoli.500_ZeroError_1x.fa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\ComparativeTestData\Ecoli.500_ZeroError_1x_Paired.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\ComparativeTestData\LargeSize_DNA_Reads_WithAddition.fa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\ComparativeTestData\LargeSize_DNA_Reads_WithDeletion.fa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\ComparativeTestData\LargeSize_DNA_Ref.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\ComparativeTestData\Multi_Seq_Medium_Size.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\ComparativeTestData\Multi_Seq_Search_Medium_Size.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\ComparativeTestData\PCASimpleDnaFile1.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\ComparativeTestData\PCASimpleDnaFile2.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\ComparativeTestData\Simple_Fasta_DNA_Reads.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\ComparativeTestData\Simple_Fasta_DNA_ReadsWithErrors_.001_1.fa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\ComparativeTestData\Simple_Fasta_DNA_Ref.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\ComparativeTestData\Simple_Fasta_DNA_RefWith_72bp.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\DNA-Medium.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\DNA-MultiSequences.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\dna.phy">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\DnaGenBank_MiscRecombination.gbk">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\DNAGenBank_Variation.gbk">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\DNA\12.afa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\DNA\12_raw.afa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\DNA\4_raw.afa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\dummy.sff">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\E-Coli_5Mb_ReadsFile_NC_000913.bd_1X_1.fa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\E-Coli_5Mb_RefFile_NC_000913.bd.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\E-Coli_5Mb_RefFile_NC_000913.bd_Copy.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Ecoli.500.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Ecoli.500_Copy.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Ecoli.500_WithError_1x_Paired.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\EmptyNexusFile.nex">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\EmptyPhylipParserFile.phy">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\EmptySeq.gbk">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Fasta1000BP.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Fasta1000BPReference.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Fasta\186972391.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Fasta\5_sequences.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Fasta\EmptySequenceWithID.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Fasta\NC_005213.ffn">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Fasta\Protein\Balibase\RV911\BOX010.xml.afa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Fasta\Protein\Balibase\RV911\BOX022.xml.afa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Fasta\Protein\Balibase\RV911\BOX032.xml.afa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Fasta\Protein\Balibase\RV911\BOX034.xml.afa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Fasta\Protein\Balibase\RV911\BOX035.xml.afa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Fasta\Protein\Balibase\RV911\BOX046.xml.afa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Fasta\Protein\Balibase\RV911\BOX060.xml.afa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Fasta\Protein\Balibase\RV911\BOX063.xml.afa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Fasta\Protein\Balibase\RV911\BOX076.xml.afa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Fasta\Protein\Balibase\RV911\BOX096.xml.afa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Fasta\Protein\Balibase\RV913\BOX032.xml.afa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Fasta\Protein\BB11001.tfa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Fasta\Protein\SABmark\group1\reference\d1a6m__-d1ash__.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Fasta\Protein\SABmark\group1\reference\d1a6m__-d1ckia_.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Fasta\Protein\SABmark\group1\reference\d1a6m__-d1dlwa_.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Fasta\Protein\SABmark\group1\reference\d1a6m__-d1ew6a_.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Fasta\Protein\SABmark\group1\reference\d1a6m__-d1fn9a_.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Fasta\Protein\SABmark\group1\reference\d1a6m__-d1fx2a_.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Fasta\Protein\SABmark\group1\reference\d1a6m__-d1g5na_.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Fasta\Protein\SABmark\group1\reference\d1a6m__-d1g8la3.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Fasta\Protein\SABmark\group1\reference\d1a6m__-d1gesa2.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Fasta\Protein\SABmark\group1\reference\d1a6m__-d1gtea1.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Fasta\RNA\k10\5S_rRNA\5S_rRNA.apsi-52.sci-77.no-1.raw.fa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Fasta\RNA\k10\5S_rRNA\5S_rRNA.apsi-52.sci-77.no-1.ref.fa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Fasta\RNA\k10\5S_rRNA\5S_rRNA.apsi-53.sci-75.no-1.raw.fa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Fasta\RNA\k10\5S_rRNA\5S_rRNA.apsi-53.sci-75.no-1.ref.fa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Fasta\RNA\k10\5S_rRNA\5S_rRNA.apsi-53.sci-79.no-1.raw.fa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Fasta\RNA\k10\5S_rRNA\5S_rRNA.apsi-53.sci-79.no-1.ref.fa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Fasta\RNA\k10\5S_rRNA\5S_rRNA.apsi-53.sci-91.no-1.raw.fa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Fasta\RNA\k10\5S_rRNA\5S_rRNA.apsi-53.sci-91.no-1.ref.fa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Fasta\RNA\k10\5S_rRNA\5S_rRNA.apsi-54.sci-72.no-1.raw.fa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Fasta\RNA\k10\5S_rRNA\5S_rRNA.apsi-54.sci-72.no-1.ref.fa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Fasta\RunningTime\BOX246.xml.afa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Fasta\RV11_BBS_all.afa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Fasta\uniprot-dutpase.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\FastQDnaSolexa.fastq">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\FastQEmptyFile.fastq">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\FastQFileWithEmptySeqIdAndQualityScore.fastq">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\FastQFileWithEmptySequence.fastq">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\FastQFileWithInvalidAlphabet.fastq">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\FastQFileWithInvalidQualityScore.fastq">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\FastQFileWithInvalidSeqID.fastq">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\FastQProteinSolexa.fastq">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\FastQRnaSolexa.fastq">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\FastQSanger.fastq">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\FastQSangerWithBlankLines.fastq">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\FastQWithEmptyQualScore.fastq">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\FastQ\SRR002012_5.fastq">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\GenBankRepeatRegion.gbk">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\GenBank\BK000016-tpa.gbk">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\GenBank\D12555.gbk">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\GenBank\EmptyOrganismClassificationTest.gb">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\GenBank\LocusTokenParserTest.gb">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\GenBank\NC_001284.gbk">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\GenBank\NC_003070.gbk">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\GenBank\NM_001747.gb">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\GenBank\ParseOriginShifted2.gb">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\GenBank\ParseOriginShifted.gb">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\GenBank\ParseVersionEmptyTest.gb">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\GenBank\seq1.gbk">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\GenBank\U49845+D12555.gbk">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\GenBank\U49845.gbk">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\GenBank_Features.gbk">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\GFF\random.GFF">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\GFF\Tachibana2005.gff">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\HumanReferenceGene.bed">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\InvalidAlignFile_1.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\InvalidateEndFeature.gff">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\InvalidateFrameFeature.gff">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\InvalidateGenBankParseFeaturesHasReader.gbk">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\InvalidateNexusParserAlignAlphabet.nex">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\InvalidateNexusParserAlphabet.nex">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\InvalidateNexusParserHeader.nex">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\InvalidateNexusParserSeqCount.nex">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\InvalidateNexusParserSeqLength.nex">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\InvalidateNullFeature.gff">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\InvalidateParseHeaderDateFormate.gff">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\InvalidateParseHeaderFieldLen.gff">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\InvalidateParseHeaderProtein.gff">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\InvalidateParseHeaderVersion.gff">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\InvalidatePhylipParserAlignAlphabet.phy">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\InvalidatePhylipParserAlphabet.phy">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\InvalidatePhylipParserCount.phy">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\InvalidatePhylipParserSeqLength.phy">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\InvalidateScoreFeature.gff">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\InvalidateSpecificSeqs.gff">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\InvalidateStartFeature.gff">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\InvalidateStrandFeature.gff">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\InvalideGenBank.gbk">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\InvalideGenBankParseHeader.genbank">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\InvalideGenBankReference.genbank">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\InvalidFastQFormat.Fastq">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\InvalidFastQQualScore.fastq">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\InvalidFeatureLength.gff">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\InvalidGenBankHeaderDataType.genbank">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\InvalidGenBankSegment.gbk">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\InvalidGenBankWithoutLocus.gbk">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\InvalidGenBankWithPrimary.gbk">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Invalid_GenBank_ParseReference.gbk">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Invalid_GenBank_ParseReference_Default.gbk">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Invalid_GenBank_ParseSequence.gbk">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Invalid_GenBank_ParseSequence_Default.gbk">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Invalid_GenBank_ParseSource.gbk">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Invalid_GenBank_Unknown_Locus.gbk">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Invalid_GenBank_Unknown_MoleculeType.gbk">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Invalid_GenBank_Unknown_RawDate.gbk">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Invalid_GenBank_Unknown_StrandTopology.gbk">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Invalid_GenBank_Unknown_StrandType.gbk">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\LargeSize.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\LargeSize.gb">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\LargeSize.gbk">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\LargeSize.GFF">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\LargeSizeDnaIllumina.fastq">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\LargeSizeDnaSanger.fastq">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\LargeSizeFastQDnaSolexa.fastq">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\LargeSize_AlignFile_Pro_1.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\LargeSize_AlignFile_Pro_2.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\LargeSize_FastQ_Sanger.fastq">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Long_Start_End.bed">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Mandatory_GenBank_Headers.gbk">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Maximum_Sequences.gff">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MediumSize.gbk">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MediumSize.Gff">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MediumSizeDNAGenBank.gbk">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MediumSizeDnaIllumina.fastq">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MediumSizeDnaSanger.fastq">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MediumSizeFastQDnaSolexa.fastq">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MediumSizeRNAGenBank.gbk">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MediumSize_AlignFile_Pro_1.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MediumSize_AlignFile_Pro_2.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MediumSize_GenBankFile.gbk">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Medium_Size.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MergeBed.bed">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Metadata_GenBank_DNA.gbk">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Metadata_GenBank_Protein.gbk">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Metadata_GenBank_RNA.gbk">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MiscRNAGenBank.gbk">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MockOutputObjects\AzureDnaResultsASync.object">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MockOutputObjects\AzureProteinSeqResultsASync.object">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MockOutputObjects\AzureWebServiceCancelRequestIdentifier.object">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MockOutputObjects\AzureWebServiceRequestStatusForDnaSeq.object">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MockOutputObjects\AzureWebserviceResultsSync.object">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MockOutputObjects\BioHPCCancelRequestIdentifierForDna.object">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MockOutputObjects\BioHPCCancelRequestIdentifierForProtein.object">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MockOutputObjects\BioHPCFetchResultsAsync.object">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MockOutputObjects\BioHPCFetchResultsForProtein.object">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MockOutputObjects\BioHPCFetchResultsSync.object">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MockOutputObjects\BioHPCFetchResultsSyncForProtein.object">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MockOutputObjects\BioHPCGetRequestStatusForDna.object">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MockOutputObjects\BioHPCGetRequestStatusForProtein.object">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MockOutputObjects\BioHPCRequestIdentifierForDna.object">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MockOutputObjects\BioHPCRequestIdentifierForProtein.object">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MockOutputObjects\EBIBlastAsyncFetchResults.object">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MockOutputObjects\EBIBlastObjectsBvtSyc.object">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MockOutputObjects\EBIBlastRequestStatusForDnaSeq.object">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MockOutputObjects\EBIBlastRequestStatusForProteinSeq.object">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MockOutputObjects\NCBIBlastObjectsBvtAsyc.object">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MockOutputObjects\NCBIBlastRequestIdentifierForDna.object">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MockOutputObjects\NCBIBlastRequestIdentifierForProtein.object">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MockOutputObjects\NCBIBlastRequestStatusForDna.object">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MockOutputObjects\NCBIBlastRequestStatusForProtein.object">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MockOutput\TestBioHPCBlast_Dna.object">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MockOutput\TestBioHPCBlast_GetServiceMetadata.object">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MockOutput\TestBioHPCBlast_GetServiceMetadataDatabasesDna.object">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MockOutput\TestBioHPCBlast_GetServiceMetadataDatabasesProt.object">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MockOutput\TestBioHPCBlast_GetServiceMetadataFilter.object">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MockOutput\TestBioHPCBlast_GetServiceMetadataFormats.object">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MockOutput\TestBioHPCBlast_GetServiceMetadataMatrixName.object">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MockOutput\TestBioHPCBlast_GetServiceMetadataProgram.object">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MockOutput\TestBioHPCBlast_Protein.object">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MockOutput\TestBlastXmlParser.object">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MockOutput\TestEBIWuBlast_Casing.object">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MockOutput\TestEBIWuBlast_Dna.object">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MockOutput\TestEBIWuBlast_GetServiceMetadataDatabases.object">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MockOutput\TestEBIWuBlast_GetServiceMetadataFilters.object">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MockOutput\TestEBIWuBlast_GetServiceMetadataMatrices.object">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MockOutput\TestEBIWuBlast_GetServiceMetadataPrograms.object">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MockOutput\TestEBIWuBlast_GetServiceMetadataSensitivity.object">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MockOutput\TestEBIWuBlast_GetServiceMetadataSort.object">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MockOutput\TestEBIWuBlast_GetServiceMetadataStats.object">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MockOutput\TestEBIWuBlast_GetServiceMetadataXmlFormats.object">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MockOutput\TestEbiWuBlast_Protein.object">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MockOutput\TestNcbiQBlast_BadDatabase.object">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MockOutput\TestNcbiQBlast_Casing.object">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MockOutput\TestNcbiQBlast_Dna.object">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MockOutput\TestNcbiQBlast_Protein.object">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MockOutput\TestNcbiQBlast_Protein_UserQuery.object">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MulitSeqSanger-DNA_PRO.fastq">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MulitSeqSanger-DNA_RNA.fastq">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MulitSeqSanger-DNA_RNA_PRO.fastq">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MulitSeqSanger-RNA_PROTEIN.fastq">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MulitSeqSolexa-DNA_PRO.fastq">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MulitSeqSolexa-DNA_RNA.fastq">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MulitSeqSolexa-DNA_RNA_PRO.fastq">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MulitSeqSolexa-RNA_PRO.fastq">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MultiChromoSnpFile.tsv">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MultiGene_CDS_DNA.gbk">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MultipleReference_GenBank_Protein.gbk">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MultiSeqIllumina-DNA_PRO.fastq">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MultiSeqIllumina-DNA_RNA.fastq">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MultiSeqIllumina-DNA_RNA_PRO.fastq">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MultiSeqIllumina-RNA_PROTEIN.fastq">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MultiSequence-Dna_Pro.gff">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MultiSequence-DNA_RNA.gff">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MultiSequence-Dna_Rna_Pro.gff">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MultiSequence-Rna_Pro.gff">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MultiSequenceDNA_GenBank.gbk">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MultiSequences-DNA_DNA.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MultiSequences-DNA_Pro.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MultiSequences-DNA_RNA.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MultiSequences-DNA_RNA_Pro.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MultiSequences-RNA_Pro.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MultiSequences_GenBank_Protein.gbk">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MultiSequence_GenBank_RNA.gbk">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\MultiSeq_GenBank_Protein.gbk">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Multi_Sequences.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Multi_Seq_Medium_Size.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Multi_Seq_Search_Medium_Size.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Multi_Seq_Search_Small_Size.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Multi_Seq_Small_Size.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\NC_000913.bd.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\NC_000913.bd_1X_1.fa.gz">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\NewickExtended.nhx">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Nexus\primate-mtDNA-interleaved.nex">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Nucmer_Query_Seq.gbk">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Nucmer_Query_Seq.gff">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Nucmer_Reference_Seq.gbk">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Nucmer_Reference_Seq.gff">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\OneLineDnaIlluminaSequence.fastq">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\OneLineSeq.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\OneLineSeq.gbk">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\OneLineSeq.gff">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\OneLineSeqDnaSolexa.fastq">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\OneLineSnpFile.tsv">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\One_Line.bed">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\OnlyFeatures.gff">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\OperatorGenBankFile.genbank">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\1And2FormatPairedReadsLibraryInformation.fa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\AverageSizeChromosomes.fa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\ChrReads.fa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\ClustalWContigs.fa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\EulerTestDataReads.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\FilterContigsReverseDirectionAndPalindromeContig.fa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\FilterContigsRevReadWithRevComplement.fa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\FilterContigsWithForwardOrientation.fa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\FilterContigsWithOneLineReads.fa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\FilterContigsWithReadAndPalindromeContig.fa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\FilterContigsWithReadNotSupportReverseOrientation.fa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\FilterContigsWithRevComplement.fa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\FilterContigsWithReverseOrientation.fa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\LeftSideContigGenerator.fa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\OneLine200bpReadsWithRC.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\OneLineBubbleReads.fa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\OneLineReads.fa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\OneLineReadsFor10KAnd50And100KLibrary.fa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\OneLineReadsFor2KAnd0.5KLibrary.fa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\OneLineReadsForMapToContig.fa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\OneLineReadsForMapToContigPartialOverlap.fa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\OneLineReadsForPairedReads.fa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\OneLineReadsWith1And2PairedReads.fa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\OneLineReadsWithFAndRPairedReads.fa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\OneLineReadsWithX1AndY1PairedReads.fa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\ReadsWithBubbles.fa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\ReadsWithDanglingLinks.fa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\ReadsWithDotsBetweenSequenceId.fa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\ReadsWithMultipleBubbles.fa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\ReadsWithMultipleDanglingLinks.fa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\ReadsWithSpecialCharsID.fa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\ScaffoldForForwardReadAndPalindromeContig.fa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\ScaffoldForForwardReadAndRevComplContig.fa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\ScaffoldForReverseReadAndPalindromeContig.fa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\ScaffoldForReverseReadAndRevComplContig.fa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\ScaffoldPaths.fa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\ScaffoldPathsForForwardReadAndReverseCompContig.fa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\ScaffoldPathsForReverseDirectionDoesNotSupportOrientation.fa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\ScaffoldPathsWithForwardOrientation.fa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\ScaffoldPathsWithReverse.fa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\SeqReadsAndReverse.fa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\SeqReadsWithRightSideContig.fa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\SequenceIdWithDotReads.fa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\SequenceReadsWithoutIDName.fa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\PaDeNATestData\virulgenomereads.fa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\PhylipParserEncodingFile.phy">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Phylip\dna.phy">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Phylip\primates.phy">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\positives.newick">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\primate-mtDNA-interleaved.nex">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\PROTEIN-Medium.gbk">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\ProteinFastQIllumina.fastq">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\ProteinFastQSanger.fastq">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\ProteinGenBank_MaturePeptide.gbk">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\ProteinGenBank_Variation.gbk">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Protein\12.afa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Protein\12_raw.afa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\QueryBedWithTenChromo.bed">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Query_Protein.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Query_Protein_Ambiguity.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Query_Rna.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Query_Rna_Ambiguity.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Query_Small_Size_Ambiguity.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\random.GFF">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\reads.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\ReferenceBed.bed">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\ReferenceBedWithAllIdenticalEntries.bed">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\ReferenceBedWithTenChromo.bed">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\RNA-Medium.gbk">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\RnaFastQIllumina.fastq">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\RnaFastQSanger.fastq">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\RNAGenBank_Variation.gbk">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\RNA\15.fa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\RNA\15_raw.fa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\RV11_BBS_allSmall.afa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\SAMBAMTestData\AlignmentQualitySequenceWithDV.bam">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\SAMBAMTestData\AlignmentWithIndexTwelveOutput.fa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\SAMBAMTestData\AlignmentWithQualityValues.bam">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\SAMBAMTestData\AlignmentWithQualityValues.fa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\SAMBAMTestData\AlignmentWithQualityValues.sam">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\SAMBAMTestData\AlignmentWithRef.sam">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\SAMBAMTestData\AlignmentWithSequenceRange.fa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\SAMBAMTestData\AlignmentWithSequenceRefName.fa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\SAMBAMTestData\BAMFileWithPairedReads.bam">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\SAMBAMTestData\BAMWithQualityValues.bam">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\SAMBAMTestData\DummyReads.bam">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\SAMBAMTestData\EmptyReaderLine.sam">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\SAMBAMTestData\EmptySAMFile.fa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\SAMBAMTestData\ExpectedBAMIndex.index">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\SAMBAMTestData\ExpectedOutputSortedBam.bam">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\SAMBAMTestData\ExpectedOutputSortedBamByReadNames.bam">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\SAMBAMTestData\InvalidSamBioReader.sam">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\SAMBAMTestData\InvalidSAMEmptyFile.sam">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\SAMBAMTestData\MediumSizeBam.bam">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\SAMBAMTestData\MediumSizeBam.bam.bai">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\SAMBAMTestData\MediumSizeBAMSequences.fa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\SAMBAMTestData\MediumSizeBamSorted.bam">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\SAMBAMTestData\MediumSizeBamSorted.bam.bai">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\SAMBAMTestData\MediumSizeSam.sam">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\SAMBAMTestData\MediumSizeSAMFile.sam">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\SAMBAMTestData\NA07000.454.BCM.crossmatch.bam">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\SAMBAMTestData\NA07000.454.BCM.crossmatchSeqAlignmentOutput.fa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\SAMBAMTestData\qualitativesequences.fa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\SAMBAMTestData\RefSequencesOutput.fa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\SAMBAMTestData\ref_list.fna">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\SAMBAMTestData\SamFormatterFile.sam">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\SAMBAMTestData\SeqAlignment.bam">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\SAMBAMTestData\SeqAlignment.bam.bai">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\SAMBAMTestData\SeqAlignment.sam">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\SAMBAMTestData\SeqAlignmentFormatWithRef.fa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\SAMBAMTestData\SeqAlignmentOutput.fa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\SAMBAMTestData\SeqAlignmentOutputWithIndex.fa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\SAMBAMTestData\SeqAlignmentWithBlankLine.sam">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\SAMBAMTestData\SeqAlignmentWithRef.bam">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\SAMBAMTestData\SeqAlignmentWithRef.bam.bai">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\SAMBAMTestData\SeqAlignmentWithRefSeq.fa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\SAMBAMTestData\SeqFormatterAlignOutput.fa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\SAMBAMTestData\SortedByName.bam">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\SAMBAMTestData\SortedHuman.bam">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\SAMBAMTestData\SortedHuman.bam.bai">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\SAMBAMTestData\SortedHuman.bam.expected.bai">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\SampleSparseSeq.csv">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\SAM\PairedReadsTest.sam">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\SAM\SeqAlignment.bam">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\SAM\SeqAlignment.sam">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\SAM\SeqAlignment1.sam">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Search_Dna.gbk">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Search_Dna.gff">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Search_Medium_Size.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Search_Protein.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Search_Protein_Ambiguity.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Search_Rna.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Search_Rna_Ambiguity.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Search_Small_Size.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Search_Small_Size_Ambiguity.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\SFF\E3MFGYR02_random_10_reads.sff">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\simple.GFF">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\SimpleDnaIllumina.fastq">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\SimpleDnaIllumina.fq">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\SimpleDnaIlluminaDV.fastq">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\SimpleNexusCharBlock.nex">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\SimpleNexusFile.nex">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\SimpleSnpFile.tsv">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Simple_Encoding.gff">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Simple_Encoding_Reader.gff">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Simple_Fasta_DNA.fa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Simple_Fasta_DNA.fas">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Simple_Fasta_DNA.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Simple_Fasta_DNA.fna">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Simple_Fasta_DNA.fsa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Simple_Fasta_DNA.mpfa">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Simple_Fasta_Protein.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Simple_Fasta_RNA.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Simple_Fastq_Sequence.fastq">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Simple_GenBank_DNA.gbk">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Simple_GenBank_DNA.genbank">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Simple_GenBank_Primary.gbk">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Simple_GenBank_Protein.gbk">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Simple_GenBank_RNA.gbk">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Simple_Gff_Dna.gff">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Simple_Gff_Protein.GFF">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Simple_Gff_Rna.gff">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\SingleSequenceFastQSanger.fastq">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\SmallSizeQueryBed.bed">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\SmallSizeReferenceBed.bed">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Small_Size.bed">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Small_Size.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Small_Size.gbk">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Small_Size.gff">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\SnpFile.tsv">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Temp_Dna.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Three_Chromo.bed">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\TwoLineSeqDnaSolexa.fastq">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\TwoLineSequenceDnaIllumina.fastq">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\TwoLineSequenceeDnaSanger.fastq">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\VeryLargeSize_AlignFile_Pro_1.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\VeryLargeSize_AlignFile_Pro_2.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\VeryLargeSize_Protein.fasta">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\WiggleWithFixedStep.wig">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\WiggleWithInvalidAutoScale.wig">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\WiggleWithInvalidTrack.wig">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\WiggleWithVariableStep.wig">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Wiggle\fixed.wig">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\Wiggle\variable.wig">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)TestUtils\PacBio\ccs.bam">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>

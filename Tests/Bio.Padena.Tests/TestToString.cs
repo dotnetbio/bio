@@ -25,8 +25,8 @@ namespace Bio.Padena.Tests
             PadenaAssembly denovoAssembly = new PadenaAssembly();
             denovoAssembly.AddContigs(contigList);
 
-            string actualString = denovoAssembly.ToString();
-            string expectedString = "ATGAAGGCAATACTAGTAGT\r\nACAAAAGCAAC\r\n";
+            string actualString = denovoAssembly.ToString().Replace(Environment.NewLine, "");
+            string expectedString = "ATGAAGGCAATACTAGTAGTACAAAAGCAAC";
             Assert.AreEqual(actualString, expectedString);
         }
     }

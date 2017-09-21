@@ -6,23 +6,14 @@ mono: none
 dotnet: 2.0.0
 script:
   - cd Source/Bio.Core
-  - dotnet restore
   - dotnet build -c Release
   - cd ../Bio.Padena
-  - dotnet restore
   - dotnet build -c Release
   - cd ../Bio.Pamsam
-  - dotnet restore
   - dotnet build -c Release
   - cd ../../Tests/Bio.Tests
-  - dotnet restore
-  - dotnet build
   - dotnet test
   - cd ../Bio.Pamsam.Tests
-  - dotnet restore
-  - dotnet build
   - dotnet test
   - cd ../Bio.Padena.Tests
-  - dotnet restore
-  - dotnet build  
   - dotnet test

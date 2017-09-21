@@ -597,7 +597,7 @@ ORIGIN
             Assert.AreEqual(metadata.GetCitationsReferredInFeatures().Count, 0);
 
             ISequence seq1 = new GenBankParser()
-                .Parse(_genBankDataPath + @"\NC_001284.gbk")
+                .Parse(Path.Combine(_genBankDataPath, "NC_001284.gbk"))
                 .FirstOrDefault();
             Assert.IsNotNull(seq1);
 
