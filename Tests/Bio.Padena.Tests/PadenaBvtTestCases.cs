@@ -33,7 +33,7 @@ namespace Bio.Padena.Tests
     {
         #region Global Variables
 
-        Utility utilityObj = new Utility(@"TestUtils\PaDeNATestData\PadenaTestsConfig.xml");
+        Utility utilityObj = new Utility(@"TestUtils\PaDeNATestData\PaDeNATestsConfig.xml");
 
         #endregion Global Variables
 
@@ -872,7 +872,7 @@ namespace Bio.Padena.Tests
     {
         #region Global Variables
 
-        Utility utilityObj = new Utility(@"TestUtils\PaDeNATestData\PadenaTestsConfig.xml");
+        Utility utilityObj = new Utility(@"TestUtils\PaDeNATestData\PaDeNATestsConfig.xml");
 
         #endregion Global Variables
 

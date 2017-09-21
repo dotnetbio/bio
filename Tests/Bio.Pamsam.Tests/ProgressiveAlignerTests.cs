@@ -114,7 +114,7 @@ namespace Bio.Pamsam.Tests
             }
 
             MsaUtils.SetProfileItemSets(Alphabets.AmbiguousProtein);
-            string filepath = @"TestUtils\FASTA\Protein\BB11001.tfa".TestDir();
+            string filepath = @"TestUtils\Fasta\Protein\BB11001.tfa".TestDir();
             FastAParser parser = new FastAParser();
             IList<ISequence> orgSequences = parser.Parse(filepath).ToList();
 

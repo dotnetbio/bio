@@ -1404,7 +1404,7 @@ namespace Bio.Padena.Tests
     {
         #region Global Variables
 
-        readonly Utility utilityObj = new Utility(@"TestUtils\PaDeNATestData\PadenaTestsConfig.xml");
+        readonly Utility utilityObj = new Utility(@"TestUtils\PaDeNATestData\PaDeNATestsConfig.xml");
 
         #endregion Global Variables
 
