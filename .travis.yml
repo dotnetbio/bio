@@ -17,13 +17,9 @@ script:
   - cd ../../Tests/Bio.Tests
   - dotnet restore
   - dotnet build
-  - dotnet test
   - cd ../Bio.Pamsam.Tests
   - dotnet restore
   - dotnet build
-  - dotnet test
   - cd ../Bio.Padena.Tests
   - dotnet restore
-  - dotnet build
-  - dotnet test
-  
+  - dotnet build  
