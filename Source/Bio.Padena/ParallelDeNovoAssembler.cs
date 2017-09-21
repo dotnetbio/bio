@@ -287,9 +287,7 @@ namespace Bio.Algorithms.Assembly.Padena
         public virtual IDeNovoAssembly Assemble(IEnumerable<ISequence> inputSequences)
         {
             if (inputSequences == null)
-            {
-                throw new ArgumentNullException("inputSequences");
-            }
+                throw new ArgumentNullException(nameof(inputSequences));
 
             this.sequenceReads = inputSequences;
 
@@ -714,50 +712,57 @@ namespace Bio.Algorithms.Assembly.Padena
         {
             const int ProgressTimerInterval = 5 * 60 * 1000;
 
-            while (!token.IsCancellationRequested)
+            try
             {
-                await Task.Delay(ProgressTimerInterval, token);
-
-                switch (this.currentStep)
+                while (!token.IsCancellationRequested)
                 {
-                    case 0:
-                    case 1:
-                        break;
+                    await Task.Delay(ProgressTimerInterval, token);
 
-                    case 2:
-                        if (!Graph.GraphBuildCompleted)
-                        {
-                            StatusMessage = Graph.SkippedSequencesCount > 0
-                                ? string.Format(CultureInfo.CurrentCulture, Properties.Resource.CreateGraphSubStatus, Graph.SkippedSequencesCount, Graph.ProcessedSequencesCount)
-                                : string.Format(CultureInfo.CurrentCulture, Properties.Resource.CreateGraphSubStatusWithoutSkipped, Graph.ProcessedSequencesCount);
-                        }
-                        else
-                        {
-                            if (!this.graphBuildCompleted)
+                    switch (this.currentStep)
+                    {
+                        case 0:
+                        case 1:
+                            break;
+
+                        case 2:
+                            if (!Graph.GraphBuildCompleted)
                             {
-                                this.graphBuildCompleted = Graph.GraphBuildCompleted;
-                                StatusMessage = string.Format(CultureInfo.CurrentCulture, Properties.Resource.GraphBuilt, Graph.ProcessedSequencesCount);
-                                StatusMessage = string.Format(CultureInfo.CurrentCulture, Properties.Resource.GenerateLinkStarted);
+                                StatusMessage = Graph.SkippedSequencesCount > 0
+                                    ? string.Format(CultureInfo.CurrentCulture, Properties.Resource.CreateGraphSubStatus, Graph.SkippedSequencesCount, Graph.ProcessedSequencesCount)
+                                    : string.Format(CultureInfo.CurrentCulture, Properties.Resource.CreateGraphSubStatusWithoutSkipped, Graph.ProcessedSequencesCount);
                             }
                             else
                             {
-                                if (!this.linkGenerationCompleted && Graph.LinkGenerationCompleted)
+                                if (!this.graphBuildCompleted)
                                 {
-                                    this.linkGenerationCompleted = Graph.LinkGenerationCompleted;
-                                    StatusMessage = string.Format(CultureInfo.CurrentCulture,
-                                                                       Properties.Resource.GenerateLinkEnded);
+                                    this.graphBuildCompleted = Graph.GraphBuildCompleted;
+                                    StatusMessage = string.Format(CultureInfo.CurrentCulture, Properties.Resource.GraphBuilt, Graph.ProcessedSequencesCount);
+                                    StatusMessage = string.Format(CultureInfo.CurrentCulture, Properties.Resource.GenerateLinkStarted);
                                 }
                                 else
                                 {
-                                    StatusMessage = Properties.Resource.DefaultSubStatus;
+                                    if (!this.linkGenerationCompleted && Graph.LinkGenerationCompleted)
+                                    {
+                                        this.linkGenerationCompleted = Graph.LinkGenerationCompleted;
+                                        StatusMessage = string.Format(CultureInfo.CurrentCulture,
+                                                                           Properties.Resource.GenerateLinkEnded);
+                                    }
+                                    else
+                                    {
+                                        StatusMessage = Properties.Resource.DefaultSubStatus;
+                                    }
                                 }
                             }
-                        }
-                        break;
-                    default:
-                        StatusMessage = Properties.Resource.DefaultSubStatus;
-                        break;
+                            break;
+                        default:
+                            StatusMessage = Properties.Resource.DefaultSubStatus;
+                            break;
+                    }
                 }
+            }
+            catch (TaskCanceledException)
+            {
+                StatusMessage = string.Empty;
             }
         }
 

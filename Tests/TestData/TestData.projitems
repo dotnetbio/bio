@@ -2193,4 +2193,7 @@
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)TestUtils\PacBio\" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)TestExtensions.cs" />
+  </ItemGroup>
 </Project>

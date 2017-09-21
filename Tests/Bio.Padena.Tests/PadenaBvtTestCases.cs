@@ -1,5 +1,4 @@
-﻿#if FALSE
-/****************************************************************************
+﻿/****************************************************************************
  * PadenaBvtTestCases.cs
  * 
  *  This file contains the Padena Bvt test cases.
@@ -10,7 +9,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Bio.TestAutomation.Util;
 using Bio.Algorithms.Assembly;
 using Bio.Algorithms.Assembly.Graph;
 using Bio.Algorithms.Assembly.Padena;
@@ -20,10 +18,11 @@ using Bio.Algorithms.Kmer;
 using Bio.IO.FastA;
 using Bio.Util.Logging;
 using NUnit.Framework;
-using Bio.Tests.Framework;
 using Bio.Extensions;
+using Bio.TestAutomation.Util;
+using Bio.Tests.Framework;
 
-namespace Bio.Tests.Algorithms.Padena
+namespace Bio.Padena.Tests
 {
     /// <summary>
     /// The class contains Bvt test cases to confirm Padena assembler.
@@ -62,7 +61,7 @@ namespace Bio.Tests.Algorithms.Padena
         [Category("Padena")]
         public void ValidatePadenaStep1BuildKmers()
         {
-            using (PadenaBvtTest testObj = new Padena.PadenaBvtTest())
+            using (PadenaBvtTest testObj = new PadenaBvtTest())
             {
                 testObj.ValidateDe2AssemblerBuildKmers(Constants.OneLineReadsNode);
             }
@@ -79,7 +78,7 @@ namespace Bio.Tests.Algorithms.Padena
         [Category("Padena")]
         public void ValidatePadenaStep1KmerBuilderBuild()
         {
-            using (PadenaBvtTest testObj = new Padena.PadenaBvtTest())
+            using (PadenaBvtTest testObj = new PadenaBvtTest())
             {
                 testObj.ValidateKmerBuilderBuild(Constants.OneLineReadsNode);
             }
@@ -96,7 +95,7 @@ namespace Bio.Tests.Algorithms.Padena
         [Category("Padena")]
         public void ValidatePadenaStep1KmerBuilderBuildWithSequence()
         {
-            using (PadenaBvtTest testObj = new Padena.PadenaBvtTest())
+            using (PadenaBvtTest testObj = new PadenaBvtTest())
             {
                 testObj.ValidateKmerBuilderBuildWithSequence(Constants.OneLineReadsNode);
             }
@@ -115,7 +114,7 @@ namespace Bio.Tests.Algorithms.Padena
         [Category("Padena")]
         public void ValidatePadenaStep1KmersOfSequenceCtorWithBuildKmers()
         {
-            using (PadenaBvtTest testObj = new Padena.PadenaBvtTest())
+            using (PadenaBvtTest testObj = new PadenaBvtTest())
             {
                 testObj.ValidateKmersOfSequenceCtorWithBuildKmers(Constants.SmallChromosomeReadsNode);
             }
@@ -134,7 +133,7 @@ namespace Bio.Tests.Algorithms.Padena
         [Category("Padena")]
         public void ValidatePadenaStep1KmersOfSequenceCtor()
         {
-            using (PadenaBvtTest testObj = new Padena.PadenaBvtTest())
+            using (PadenaBvtTest testObj = new PadenaBvtTest())
             {
                 testObj.ValidateKmersOfSequenceCtor(Constants.OneLineReadsNode);
             }
@@ -150,7 +149,7 @@ namespace Bio.Tests.Algorithms.Padena
         [Category("Padena")]
         public void ValidatePadenaStep1KmersOfSequenceToSequences()
         {
-            using (PadenaBvtTest testObj = new Padena.PadenaBvtTest())
+            using (PadenaBvtTest testObj = new PadenaBvtTest())
             {
                 testObj.ValidateKmersOfSequenceToSequences(Constants.OneLineReadsNode);
             }
@@ -167,7 +166,7 @@ namespace Bio.Tests.Algorithms.Padena
         [Category("Padena")]
         public void ValidatePadenaStep1KmersOfSequenceGetKmers()
         {
-            using (PadenaBvtTest testObj = new Padena.PadenaBvtTest())
+            using (PadenaBvtTest testObj = new PadenaBvtTest())
             {
                 testObj.ValidateKmersOfSequenceCtor(Constants.OneLineReadsNode);
             }
@@ -188,7 +187,7 @@ namespace Bio.Tests.Algorithms.Padena
         [Category("Padena")]
         public void ValidatePadenaStep2BuildGraph()
         {
-            using (PadenaBvtTest testObj = new Padena.PadenaBvtTest())
+            using (PadenaBvtTest testObj = new PadenaBvtTest())
             {
                 testObj.ValidateDe2AssemblerBuildGraph(Constants.OneLineStep2GraphNode);
             }
@@ -205,7 +204,7 @@ namespace Bio.Tests.Algorithms.Padena
         [Category("Padena")]
         public void ValidatePadenaStep2DeBruijnGraph()
         {
-            using (PadenaBvtTest testObj = new Padena.PadenaBvtTest())
+            using (PadenaBvtTest testObj = new PadenaBvtTest())
             {
                 testObj.ValidateDeBruijnGraphBuild(Constants.OneLineStep2GraphNode);
             }
@@ -221,7 +220,7 @@ namespace Bio.Tests.Algorithms.Padena
         [Category("Padena")]
         public void ValidatePadenaStep2DeBruijnNode()
         {
-            using (PadenaBvtTest testObj = new Padena.PadenaBvtTest())
+            using (PadenaBvtTest testObj = new PadenaBvtTest())
             {
                 testObj.ValidateDeBruijnNodeCtor(Constants.OneLineStep2GraphNode);
             }
@@ -237,7 +236,7 @@ namespace Bio.Tests.Algorithms.Padena
         [Category("Padena")]
         public void ValidatePadenaStep2DeBruijnNodeAddLeftExtension()
         {
-            using (PadenaBvtTest testObj = new Padena.PadenaBvtTest())
+            using (PadenaBvtTest testObj = new PadenaBvtTest())
             {
                 testObj.ValidateDeBruijnNodeAddLeftExtension(Constants.OneLineStep2GraphNode);
             }
@@ -253,7 +252,7 @@ namespace Bio.Tests.Algorithms.Padena
         [Category("Padena")]
         public void ValidatePadenaStep2DeBruijnNodeAddRightExtension()
         {
-            using (PadenaBvtTest testObj = new Padena.PadenaBvtTest())
+            using (PadenaBvtTest testObj = new PadenaBvtTest())
             {
                 testObj.ValidateDeBruijnNodeAddRightExtension(Constants.OneLineStep2GraphNode);
             }
@@ -274,7 +273,7 @@ namespace Bio.Tests.Algorithms.Padena
         [Category("Padena")]
         public void ValidatePadenaStep3UndangleGraph()
         {
-            using (PadenaBvtTest testObj = new Padena.PadenaBvtTest())
+            using (PadenaBvtTest testObj = new PadenaBvtTest())
             {
                 testObj.ValidateDe2AssemblerUnDangleGraph(Constants.OneLineStep3GraphNode);
             }
@@ -291,7 +290,7 @@ namespace Bio.Tests.Algorithms.Padena
         [Category("Padena")]
         public void ValidatePadenaStep3DetectErrorNodes()
         {
-            using (PadenaBvtTest testObj = new Padena.PadenaBvtTest())
+            using (PadenaBvtTest testObj = new PadenaBvtTest())
             {
                 testObj.ValidatePadenaDetectErrorNodes(Constants.OneLineStep3GraphNode);
             }
@@ -308,7 +307,7 @@ namespace Bio.Tests.Algorithms.Padena
         [Category("Padena")]
         public void ValidatePadenaStep3RemoveErrorNodes()
         {
-            using (PadenaBvtTest testObj = new Padena.PadenaBvtTest())
+            using (PadenaBvtTest testObj = new PadenaBvtTest())
             {
                 testObj.ValidatePadenaRemoveErrorNodes(Constants.OneLineStep3GraphNode);
             }
@@ -328,7 +327,7 @@ namespace Bio.Tests.Algorithms.Padena
         [Category("Padena")]
         public void ValidatePadenaStep4RemoveRedundancy()
         {
-            using (PadenaBvtTest testObj = new Padena.PadenaBvtTest())
+            using (PadenaBvtTest testObj = new PadenaBvtTest())
             {
                 testObj.ValidateDe2AssemblerRemoveRedundancy(
                     Constants.OneLineStep4ReadsAfterRemoveRedundancy);
@@ -346,7 +345,7 @@ namespace Bio.Tests.Algorithms.Padena
         [Category("Padena")]
         public void ValidatePadenaStep4RedundantPathPurgerCtor()
         {
-            using (PadenaBvtTest testObj = new Padena.PadenaBvtTest())
+            using (PadenaBvtTest testObj = new PadenaBvtTest())
             {
                 testObj.ValidateRedundantPathPurgerCtor(Constants.OneLineStep4ReadsAfterErrorRemove);
             }
@@ -362,7 +361,7 @@ namespace Bio.Tests.Algorithms.Padena
         [Category("Padena")]
         public void ValidatePadenaStep4DetectErrorNodes()
         {
-            using (PadenaBvtTest testObj = new Padena.PadenaBvtTest())
+            using (PadenaBvtTest testObj = new PadenaBvtTest())
             {
                 testObj.ValidateRedundantPathPurgerCtor(Constants.OneLineStep4ReadsAfterErrorRemove);
             }
@@ -378,7 +377,7 @@ namespace Bio.Tests.Algorithms.Padena
         [Category("Padena")]
         public void ValidatePadenaStep4RemoveErrorNodes()
         {
-            using (PadenaBvtTest testObj = new Padena.PadenaBvtTest())
+            using (PadenaBvtTest testObj = new PadenaBvtTest())
             {
                 testObj.ValidateRedundantPathPurgerCtor(Constants.OneLineStep4ReadsAfterErrorRemove);
             }
@@ -398,7 +397,7 @@ namespace Bio.Tests.Algorithms.Padena
         [Category("Padena")]
         public void ValidatePadenaStep5BuildContigs()
         {
-            using (PadenaBvtTest testObj = new Padena.PadenaBvtTest())
+            using (PadenaBvtTest testObj = new PadenaBvtTest())
             {
                 testObj.ValidateDe2AssemblerBuildContigs(Constants.OneLineStep5ReadsNode);
             }
@@ -414,7 +413,7 @@ namespace Bio.Tests.Algorithms.Padena
         [Category("Padena")]
         public void ValidatePadenaStep5SimpleContigBuilderBuildContigs()
         {
-            using (PadenaBvtTest testObj = new Padena.PadenaBvtTest())
+            using (PadenaBvtTest testObj = new PadenaBvtTest())
             {
                 testObj.ValidateSimpleContigBuilderBuild(Constants.OneLineStep5ReadsNode);
             }
@@ -434,7 +433,7 @@ namespace Bio.Tests.Algorithms.Padena
         [Category("Padena")]
         public void ValidatePadenaStep6X1Y1FormatPairedReads()
         {
-            using (PadenaBvtTest testObj = new Padena.PadenaBvtTest())
+            using (PadenaBvtTest testObj = new PadenaBvtTest())
             {
                 testObj.ValidatePairedReads(Constants.X1AndY1PairedReadsNode);
             }
@@ -450,7 +449,7 @@ namespace Bio.Tests.Algorithms.Padena
         [Category("Padena")]
         public void ValidatePadenaStep6OneAndTwoFormatPairedReads()
         {
-            using (PadenaBvtTest testObj = new Padena.PadenaBvtTest())
+            using (PadenaBvtTest testObj = new PadenaBvtTest())
             {
                 testObj.ValidatePairedReads(Constants.OneAndTwoPairedReadsNode);
             }
@@ -466,7 +465,7 @@ namespace Bio.Tests.Algorithms.Padena
         [Category("Padena")]
         public void ValidatePadenaStep6FAndRFormatPairedReads()
         {
-            using (PadenaBvtTest testObj = new Padena.PadenaBvtTest())
+            using (PadenaBvtTest testObj = new PadenaBvtTest())
             {
                 testObj.ValidatePairedReads(Constants.FAndRPairedReadsNode);
             }
@@ -482,7 +481,7 @@ namespace Bio.Tests.Algorithms.Padena
         [Category("Padena")]
         public void ValidatePadenaStep6Libraryinformation()
         {
-            using (PadenaBvtTest testObj = new Padena.PadenaBvtTest())
+            using (PadenaBvtTest testObj = new PadenaBvtTest())
             {
                 testObj.AddLibraryInformation(Constants.X1AndY1FormatPairedReadAddLibrary);
             }
@@ -502,7 +501,7 @@ namespace Bio.Tests.Algorithms.Padena
         [Category("Padena")]
         public void ValidatePadenaStep6MapReadsToContigs()
         {
-            using (PadenaBvtTest testObj = new Padena.PadenaBvtTest())
+            using (PadenaBvtTest testObj = new PadenaBvtTest())
             {
                 testObj.ValidateMapReadsToContig(Constants.MapReadsToContigFullOverlapNode, true);
             }
@@ -518,7 +517,7 @@ namespace Bio.Tests.Algorithms.Padena
         [Category("Padena")]
         public void ValidatePadenaStep6MapReadsToContigsForPartialOverlap()
         {
-            using (PadenaBvtTest testObj = new Padena.PadenaBvtTest())
+            using (PadenaBvtTest testObj = new PadenaBvtTest())
             {
                 testObj.ValidateMapReadsToContig(Constants.MapReadsToContigPartialOverlapNode, false);
             }
@@ -539,7 +538,7 @@ namespace Bio.Tests.Algorithms.Padena
         [Category("Padena")]
         public void ValidatePadenaStep6FilterPairedReadsForForwardOrientation()
         {
-            using (PadenaBvtTest testObj = new Padena.PadenaBvtTest())
+            using (PadenaBvtTest testObj = new PadenaBvtTest())
             {
                 testObj.ValidateFilterPaired(Constants.FilterPairedReadContigsNode);
             }
@@ -556,7 +555,7 @@ namespace Bio.Tests.Algorithms.Padena
         [Category("Padena")]
         public void ValidatePadenaStep6FilterPairedReadsUsingRedundancy()
         {
-            using (PadenaBvtTest testObj = new Padena.PadenaBvtTest())
+            using (PadenaBvtTest testObj = new PadenaBvtTest())
             {
                 testObj.ValidateFilterPaired(Constants.FilterPairedReadContigsUsingRedundancy);
             }
@@ -574,7 +573,7 @@ namespace Bio.Tests.Algorithms.Padena
         [Category("Padena")]
         public void ValidatePadenaStep6FilterPairedReadsForReverseOrientation()
         {
-            using (PadenaBvtTest testObj = new Padena.PadenaBvtTest())
+            using (PadenaBvtTest testObj = new PadenaBvtTest())
             {
                 testObj.ValidateFilterPaired(Constants.FilterPairedReadReverseOrietnationContigsNode);
             }
@@ -595,7 +594,7 @@ namespace Bio.Tests.Algorithms.Padena
         [Category("Padena")]
         public void ValidatePadenaStep6CalculateDistanceForForwardPairedContigs()
         {
-            using (PadenaBvtTest testObj = new Padena.PadenaBvtTest())
+            using (PadenaBvtTest testObj = new PadenaBvtTest())
             {
                 testObj.ValidateContigDistance(Constants.FilterPairedReadContigsNode);
             }
@@ -613,7 +612,7 @@ namespace Bio.Tests.Algorithms.Padena
         [Ignore("This test is currently broken")]
         public void ValidatePadenaStep6CalculateDistanceForReversePairedContigs()
         {
-            using (PadenaBvtTest testObj = new Padena.PadenaBvtTest())
+            using (PadenaBvtTest testObj = new PadenaBvtTest())
             {
                 testObj.ValidateContigDistance(Constants.FilterPairedReadReverseOrietnationContigsNode);
             }
@@ -635,7 +634,7 @@ namespace Bio.Tests.Algorithms.Padena
         [Ignore("This test is currently broken")]
         public void ValidatePadenaStep6ScaffoldPathForForwardOrientation()
         {
-            using (PadenaBvtTest testObj = new Padena.PadenaBvtTest())
+            using (PadenaBvtTest testObj = new PadenaBvtTest())
             {
                 testObj.ValidateScaffoldPath(Constants.ScaffoldPathWithOverlapNode);
             }
@@ -653,7 +652,7 @@ namespace Bio.Tests.Algorithms.Padena
         [Ignore("This test is currently broken")]
         public void ValidatePadenaStep6ScaffoldPathForReverseOrientation()
         {
-            using (PadenaBvtTest testObj = new Padena.PadenaBvtTest())
+            using (PadenaBvtTest testObj = new PadenaBvtTest())
             {
                 testObj.ValidateScaffoldPath(Constants.ScaffoldPathWithOverlapReverseNode);
             }
@@ -675,7 +674,7 @@ namespace Bio.Tests.Algorithms.Padena
         [Ignore("This test is currently broken")]
         public void ValidatePadenaStep6AssembledPathWithOverlapContigs()
         {
-            using (PadenaBvtTest testObj = new Padena.PadenaBvtTest())
+            using (PadenaBvtTest testObj = new PadenaBvtTest())
             {
                 testObj.ValidateAssembledPath(Constants.AssembledPathWithOverlapNode);
             }
@@ -693,7 +692,7 @@ namespace Bio.Tests.Algorithms.Padena
         [Ignore("This test is currently broken")]
         public void ValidatePadenaStep6AssembledPathWithPartialOverlapContigs()
         {
-            using (PadenaBvtTest testObj = new Padena.PadenaBvtTest())
+            using (PadenaBvtTest testObj = new PadenaBvtTest())
             {
                 testObj.ValidateAssembledPath(Constants.AssembledPathWithoutOverlap);
             }
@@ -709,7 +708,7 @@ namespace Bio.Tests.Algorithms.Padena
         [Category("Padena")]
         public void ValidatePadenaStep6AssembledSequencesWithSmallReads()
         {
-            using (PadenaBvtTest testObj = new Padena.PadenaBvtTest())
+            using (PadenaBvtTest testObj = new PadenaBvtTest())
             {
                 testObj.ValidatePadenaAssembledSeqs(
                     Constants.AssembledSequencesForSequenceReadsNode, true, false,
@@ -727,7 +726,7 @@ namespace Bio.Tests.Algorithms.Padena
         [Category("Padena")]
         public void ValidateParallelDenovoAssemblerProperties()
         {
-            using (PadenaBvtTest testObj = new Padena.PadenaBvtTest())
+            using (PadenaBvtTest testObj = new PadenaBvtTest())
             {
                 testObj.ParallelDenovoAssemblyProperties(
                     Constants.AssembledSequencesForSequenceReadsNode);
@@ -744,7 +743,7 @@ namespace Bio.Tests.Algorithms.Padena
         [Category("Padena")]
         public void ValidatePadenaSequenceContigsWithSmallReads()
         {
-            using (PadenaBvtTest testObj = new Padena.PadenaBvtTest())
+            using (PadenaBvtTest testObj = new PadenaBvtTest())
             {
                 testObj.ValidatePadenaAssembledSeqs(
                     Constants.AssembledContigsForSequenceReadsNode,
@@ -781,7 +780,7 @@ namespace Bio.Tests.Algorithms.Padena
         [Category("Padena")]
         public void ValidatePadenaAssembledSeqsForSmallReadsWithLowCoverageContig()
         {
-            using (PadenaBvtTest testObj = new Padena.PadenaBvtTest())
+            using (PadenaBvtTest testObj = new PadenaBvtTest())
             {
                 testObj.ValidatePadenaAssembledSeqs(
                     Constants.AssembledSequencesForSequenceReadsWithLCCNode,
@@ -800,7 +799,7 @@ namespace Bio.Tests.Algorithms.Padena
         [Category("Padena")]
         public void ValidatePadenaAssembledSeqsWithErosionAndLowCoverageContig()
         {
-            using (PadenaBvtTest testObj = new Padena.PadenaBvtTest())
+            using (PadenaBvtTest testObj = new PadenaBvtTest())
             {
                 testObj.ValidatePadenaAssembledSeqs(
                     Constants.AssembledSequencesForSequenceReadsWithErosionAndLCCNode,
@@ -2464,4 +2463,3 @@ parser.Open( filePath.Replace("\\", System.IO.Path.DirectorySeparatorChar.ToStri
         #endregion
     }
 }
-#endif

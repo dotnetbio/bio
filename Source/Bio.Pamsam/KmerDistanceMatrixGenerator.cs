@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bio.Algorithms.Alignment.MultipleSequenceAlignment.Properties;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

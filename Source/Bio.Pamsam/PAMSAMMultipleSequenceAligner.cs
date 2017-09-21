@@ -7,9 +7,9 @@ using Bio.Registration;
 using Bio.SimilarityMatrices;
 using System.Linq;
 using System.Diagnostics;
+using Bio.Algorithms.Alignment.MultipleSequenceAlignment.Properties;
 
 [assembly: BioRegister(typeof(PAMSAMMultipleSequenceAligner))]
-
 
 namespace Bio.Algorithms.Alignment.MultipleSequenceAlignment
 {

@@ -1,5 +1,4 @@
-﻿#if FALSE
-/****************************************************************************
+﻿/****************************************************************************
  * PadenaP1TestCases.cs
  * 
  *  This file contains the Padena P1 test cases.
@@ -26,7 +25,7 @@ using NUnit.Framework;
 using System.Globalization;
 using Bio.Tests.Framework;
 
-namespace Bio.Tests.Algorithms.Padena
+namespace Bio.Padena.Tests
 {
     /// <summary>
     /// The class contains P1 test cases to confirm Padena.
@@ -3090,4 +3089,3 @@ parser.Open(filePath);
         #endregion
     }
 }
-#endif

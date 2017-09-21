@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System;
 using System.Threading.Tasks;
+using Bio.Algorithms.Alignment.MultipleSequenceAlignment.Properties;
 
 namespace Bio.Algorithms.Alignment.MultipleSequenceAlignment
 {

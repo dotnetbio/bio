@@ -62,7 +62,7 @@ namespace Bio
         private readonly Dictionary<byte, string> friendlyNameMap = new Dictionary<byte, string>();
 
         /// <summary>
-        /// Holds the nucleotides present in this DnaAlphabet.
+        /// Holds the nucleotides present in this RnaAlphabet.
         /// </summary>
         private readonly List<byte> nucleotides = new List<byte>();
 
@@ -430,7 +430,12 @@ namespace Bio
         {
             if (symbols == null)
             {
-                throw new ArgumentNullException("symbols");
+                throw new ArgumentNullException(nameof(symbols));
+            }
+
+            if (symbols.Length < offset + length)
+            {
+                throw new ArgumentOutOfRangeException(nameof(length));
             }
 
             for (long i = offset; i < length; i++)

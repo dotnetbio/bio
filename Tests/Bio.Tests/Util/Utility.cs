@@ -12,17 +12,6 @@ using System.Linq;
 using System.Reflection;
 using NUnit.Framework;
 
-namespace Bio.Tests
-{
-    public static class UtilityExtensions
-    {
-        public static string TestDir(this string path)
-        {
-            return Path.Combine(TestContext.CurrentContext.TestDirectory, path);
-        }
-    }
-}
-
 namespace Bio.TestAutomation.Util
 {
     /// <summary>

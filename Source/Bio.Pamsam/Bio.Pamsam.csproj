@@ -4,19 +4,19 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>Bio.Algorithms.Alignment.MultipleSequenceAlignment</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>3.0.0-alpha</Version>
     <PackageId>NetBio.Pamsam</PackageId>
+    <Version>3.0.0-alpha</Version>
     <Authors>Various</Authors>
     <Company />
-    <Copyright></Copyright>
+    <Description>Parallel Sequence Alignment (PAMSAM) aligner for .NET Bio</Description>
     <PackageProjectUrl>https://github.com/dotnetbio/dotnetbio.github.io</PackageProjectUrl>
     <PackageLicenseUrl>https://github.com/dotnetbio/bio/blob/master/License</PackageLicenseUrl>
     <PackageIconUrl>https://avatars3.githubusercontent.com/u/12814787?v=4&amp;s=200</PackageIconUrl>
     <RepositoryUrl>https://github.com/dotnetbio/bio</RepositoryUrl>
     <RepositoryType>Github</RepositoryType>
-    <Description>Parallel Sequence Alignment (PAMSAM) aligner for .NET Bio</Description>
     <PackageTags>bioinformatics biology FASTA FASTQ GenBank nucleotides genomics .NET</PackageTags>
     <PackageReleaseNotes>First release for .NET Standard 2.0</PackageReleaseNotes>
+    <Product>.NET Bio</Product>
   </PropertyGroup>
 
   <ItemGroup>

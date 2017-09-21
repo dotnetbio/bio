@@ -1,0 +1,158 @@
+﻿<!-- 
+<summary>
+    // Blast pane will display the results of BLAST Webservice.
+    // Blast pane will display both the textual output and visual output (using
+    // SilverMap control) for a particular BLAST result.
+</summary> 
+-->
+<UserControl x:Class="SequenceAssembler.BlastPane"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    mc:Ignorable="d" 
+    xmlns:SequenceAssembler="clr-namespace:SequenceAssembler">
+    <Grid>
+        <!-- Displays Results in both textual and visual formats. -->
+
+        <TabControl x:Name="webServiceReportTab" IsSynchronizedWithCurrentItem="True" TabStripPlacement="Top" Style="{DynamicResource AssemblyReportTabControl}">
+            <TabItem Header="{DynamicResource BlastPane_SingleLineReport}" Style="{DynamicResource MainLevelTabItem}" Background="#FFC6D0D5">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="54"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Border BorderBrush="#FFE0EBEE" BorderThickness="1,1,1,1" CornerRadius="2,2,2,2" Padding="3,3,3,3" Margin="0,0,0,0">
+                        <Border.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FFF4F4F4" Offset="0"/>
+                                <GradientStop Color="#FFDEEEF0" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock x:Name="txtVersion" TextWrapping="Wrap" FontSize="14" FontWeight="Bold"/>
+                            <StackPanel Margin="0,-5,0,0" Orientation="Horizontal">
+                                <TextBlock x:Name="txtDate" TextWrapping="Wrap" FontSize="10" Foreground="#FF8F8F8F"/>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{DynamicResource BlastHeader_Database}" TextWrapping="Wrap" FontSize="10" Foreground="#FF8F8F8F" Margin="10,0,0,0"/>
+                                    <TextBlock x:Name="txtDataBaseName" TextWrapping="Wrap" FontSize="10" Foreground="#FF8F8F8F" Margin="10,0,0,0"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+                    <ListView x:Name="lstSingleLineReport" GridViewColumnHeader.Click="OnSingleLineReportHeaderClick"  IsSynchronizedWithCurrentItem="True" Grid.Row="1" Margin="0,3,0,0" BorderBrush="#FFDFEAED" BorderThickness="1,1,1,1" >
+                        <ListView.Resources>
+                            <PathGeometry x:Key="TreeArrow" Figures="M0,0 L0,6 L6,0 z"/>
+                            <Style TargetType="{x:Type GridViewColumnHeader}">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type GridViewColumnHeader}">
+                                            <Border BorderThickness=".5,0,.5,1" BorderBrush="Gray">
+                                                <Grid Background="{TemplateBinding Background}">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*" />
+                                                        <ColumnDefinition Width="10"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <TextBlock Text="{TemplateBinding Content}" Padding="5" Width="{TemplateBinding Width}" TextAlignment="Left" />
+                                                    <Border Grid.Column="1" Padding="2"  >
+                                                        <Path x:Name="SortArrowBox" Visibility="Hidden" Data="{StaticResource TreeArrow}" Fill="DarkGreen" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
+                                                    </Border>
+                                                </Grid>
+                                            </Border>
+                                            
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="SequenceAssembler:BlastPane.IsSortedColumn" Value="true" >
+                                                    <Setter Property="Visibility" Value="Visible" TargetName="SortArrowBox" />
+                                                </Trigger>
+                                                <Trigger Property="SequenceAssembler:BlastPane.ColumnSortDirection" Value="1">
+                                                    <Setter Property="RenderTransform" TargetName="SortArrowBox">
+                                                        <Setter.Value>
+                                                            <RotateTransform CenterX=".5" CenterY="1" Angle="225" />
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </Trigger>
+                                                <Trigger Property="SequenceAssembler:BlastPane.ColumnSortDirection" Value="0">
+                                                    <Setter Property="RenderTransform" TargetName="SortArrowBox">
+                                                        <Setter.Value>
+                                                            <RotateTransform CenterX=".5" CenterY="1" Angle="45" />
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="OverridesDefaultStyle" Value="True" />
+                                <Setter Property="Background" Value="Green" />
+                                <Setter Property="Foreground" Value="Black" />
+                                <Setter Property="FontSize" Value="12" />
+                                <Setter Property="Background">
+                                    <Setter.Value>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                            <GradientStop Offset="-0.25" Color="#FF478EAD" />
+                                            <GradientStop Offset="0.5" Color="White" />
+                                            <GradientStop Offset="2" Color="#FF478EAD" />
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="true">
+                                        <Setter Property="Background" >
+                                            <Setter.Value>
+                                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                                    <GradientStop Offset="-0.25" Color="#FFA1D5E8" />
+                                                    <GradientStop Offset="0.5" Color="White" />
+                                                    <GradientStop Offset="2" Color="#FF90D2EF" />
+                                                </LinearGradientBrush>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ListView.Resources>
+                        
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn DisplayMemberBinding="{Binding QueryId}" Header="{DynamicResource BlastPane_QueryId}"/>
+                                <GridViewColumn Header="{DynamicResource BlastPane_SubjectId}" DisplayMemberBinding="{Binding SubjectId}">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            
+                                            <TextBlock x:Name="hyperlinkTextbox" Hyperlink.RequestNavigate="OnSubjectIDRequestNavigate">
+                                                <Hyperlink NavigateUri="{Binding Uri}">
+                                                    <TextBlock Text="{Binding SubjectId}" />
+                                                </Hyperlink>
+                                            </TextBlock>
+                                            <DataTemplate.Triggers>
+                                                <DataTrigger Binding="{Binding IsValidUrl}" Value="false">
+                                                    <Setter Property="IsEnabled" Value="false" TargetName="hyperlinkTextbox" />
+                                                </DataTrigger>
+                                            </DataTemplate.Triggers>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn DisplayMemberBinding="{Binding Identity}" Header="{DynamicResource BlastPane_Identity}"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding Alignment}" Header="{DynamicResource BlastPane_Alignment}"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding Length}" Header="{DynamicResource BlastPane_Length}"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding QStart}" Header="{DynamicResource BlastPane_QStart}"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding QEnd}" Header="{DynamicResource BlastPane_QEnd}"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding SStart}" Header="{DynamicResource BlastPane_SStart}"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding SEnd}" Header="{DynamicResource BlastPane_SEnd}"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding EValue}" Header="{DynamicResource BlastPane_EValue}"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding Bit}" Header="{DynamicResource BlastPane_Bit}"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding Gaps}" Header="{DynamicResource BlastPane_Gaps}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <Button HorizontalAlignment="Right" x:Name="btnBlastHeader" Margin="0,4,34,0" Width="90" Content="{DynamicResource BlastPane_BlastHeader}" ToolTipService.ShowOnDisabled="True" ToolTip="{DynamicResource BlastPane_BlastHeader_Tooltip}" Style="{DynamicResource WebServiceButton}" Height="22" VerticalAlignment="Top"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="{DynamicResource BlastPane_SilverMap}" Style="{DynamicResource MainLevelTabItem}" Background="#FFC6D0D5">
+                <Grid>
+                    <SequenceAssembler:SilverMapController x:Name="silverMapControl" />
+                </Grid>
+            </TabItem>
+        </TabControl>
+
+    </Grid>
+</UserControl>

@@ -1,0 +1,30 @@
+﻿    <!-- 
+<summary>
+    // ColorSchemeDialog dialog will allow the user choose between DNA color scheme
+    // and Protein color scheme for Consensus custom view.
+</summary> 
+-->
+    <Window
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	mc:Ignorable="d"
+	x:Class="SequenceAssembler.ColorSchemeDialog"
+	Title="{DynamicResource SequenceAssembly_SequenceAssembler}" MinWidth="389" Width="389" Height="Auto" 
+    SizeToContent="Height" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" 
+    ShowInTaskbar="False" WindowStyle="SingleBorderWindow" Icon="/BioSequenceAssembler;component/Resources/SequenceAssembler.ico">
+
+    <Border Padding="10,5,5,5" Style="{DynamicResource BorderStyle}">
+		<StackPanel>
+			<TextBlock TextWrapping="Wrap" FontSize="18" FontWeight="Bold" Text="{DynamicResource ColorSchemeDialog_ChangeColorSceme}"/>
+			<TextBlock Text="{DynamicResource ColorSchemeDialog_ChooseSceme}" TextWrapping="Wrap"/>
+            <ComboBox HorizontalAlignment="Left" x:Name="cmbColorScheme" Width="133" />
+			<Path Stretch="Fill" Stroke="#FF809EB7" Height="1" Data="M12,189 L248.10379,189" Margin="0,20,0,0"/>
+			<StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+				<Button x:Name="btnSave" Style="{DynamicResource WebServiceButton}" Content="{DynamicResource ColorSchemeDialog_SaveColorSceme}" FontSize="12" FontWeight="Normal" IsDefault="True"/>
+				<Button x:Name="btnCancel" Style="{DynamicResource WebServiceButton}" Content="{DynamicResource ColorSchemeDialog_CancelColorSceme}" FontSize="12" FontWeight="Normal" Margin="3,0,0,0" IsCancel="True"/>
+			</StackPanel>
+		</StackPanel>
+	</Border>
+</Window>

@@ -406,11 +406,11 @@ namespace Bio
         {
             if (symbols == null)
             {
-                throw new ArgumentNullException("symbols");
+                throw new ArgumentNullException(nameof(symbols));
             }
 
             if (symbols.Length < offset + length) {
-                throw new ArgumentOutOfRangeException("length");
+                throw new ArgumentOutOfRangeException(nameof(length));
             }
 
             for (long i = offset; i < (length + offset); i++)

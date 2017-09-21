@@ -1,0 +1,47 @@
+﻿<UserControl x:Class="SequenceAssembler.SilverMapController"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:qut_bio_util="clr-namespace:QUT.Bio.Util;assembly=QUT.Bio"
+             xmlns:qut_bio_silvermap="clr-namespace:QUT.Bio.SilverMap;assembly=QUT.Bio">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/QUT.Bio;component/SilverMap/Simple Styles.xaml" />
+                <ResourceDictionary Source="/QUT.Bio;component/SilverMap/Theme.xaml" />
+                <ResourceDictionary Source="/QUT.Bio;component/SilverMap/HorizontalLayoutStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <qut_bio_silvermap:MapControl x:Name="map"
+                                      Grid.Row="1"
+                                      Grid.Column="0"
+                                      Visibility="Visible"
+                                      Foreground="{x:Null}"
+                                      Background="#7F9CC7EF" />
+
+        <qut_bio_util:PopupOverlay x:Name="overlay"
+                                   Grid.Row="1"
+                                   Grid.Column="0" />
+
+        <qut_bio_util:StatusBar Grid.Row="2"
+                                x:Name="statusBar">
+            <qut_bio_util:StatusBar.Background>
+                <SolidColorBrush Color="{DynamicResource NormalBrushGradient4}" />
+            </qut_bio_util:StatusBar.Background>
+        </qut_bio_util:StatusBar>
+    </Grid>
+</UserControl>

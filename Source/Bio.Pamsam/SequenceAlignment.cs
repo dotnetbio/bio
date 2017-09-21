@@ -45,8 +45,8 @@ namespace Bio.Algorithms.Alignment.MultipleSequenceAlignment
         {
             Consensus = null;
             Score = 0;
-            Offsets.Clear();
-            Sequences.Clear();
+            Offsets?.Clear();
+            Sequences?.Clear();
         }
     }
 }
