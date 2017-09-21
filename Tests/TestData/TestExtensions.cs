@@ -12,6 +12,9 @@ namespace Bio.Tests
 
         public static string TestDir(this string path)
         {
+            // Fix up for non-Windows.
+            path = path.Replace('\\', Path.DirectorySeparatorChar);
+
             string testPath = path;
 
             // Try local first.

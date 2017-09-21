@@ -128,7 +128,7 @@
         /// This event will be raised when a Pop-up will be closed
         /// by the application.
         /// </summary>
-        public event EventHandler SearchCompleted;
+        public event EventHandler SearchCompleted = delegate { };
 
         /// <summary>
         /// This event will be raised when the user wants to exit the application.

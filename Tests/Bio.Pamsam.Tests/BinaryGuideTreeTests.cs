@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Bio;
 using Bio.Algorithms.Alignment.MultipleSequenceAlignment;
 using NUnit.Framework;
+using System.Linq;
 
 namespace Bio.Pamsam.Tests
 {
@@ -20,11 +21,9 @@ namespace Bio.Pamsam.Tests
         public void TestBinaryGuideTree()
         {
             int numberOfNodes = 5;
-            List<BinaryGuideTreeNode> nodes = new List<BinaryGuideTreeNode>(numberOfNodes);
-            for (int i = 0; i < numberOfNodes; ++i)
-            {
-                nodes.Add(new BinaryGuideTreeNode(i));
-            }
+            var nodes = Enumerable.Range(0, numberOfNodes)
+                .Select(n => new BinaryGuideTreeNode(n))
+                .ToList();
 
             nodes[3].LeftChildren = nodes[0];
             nodes[3].RightChildren = nodes[1];
@@ -54,13 +53,9 @@ namespace Bio.Pamsam.Tests
 
             Assert.AreEqual(nodes[3], nodes[0].Parent);
 
-
             int numberOfEdges = 4;
-            List<BinaryGuideTreeEdge> edges = new List<BinaryGuideTreeEdge>(numberOfEdges);
-            for (int i = 0; i < numberOfEdges; ++i)
-            {
-                edges.Add(new BinaryGuideTreeEdge(i));
-            }
+            var edges = Enumerable.Range(0, numberOfEdges)
+                .Select(n => new BinaryGuideTreeEdge(n)).ToList();
 
             edges[0].ParentNode = nodes[3];
             edges[0].ChildNode = nodes[0];
@@ -84,9 +79,7 @@ namespace Bio.Pamsam.Tests
             }
 
             PAMSAMMultipleSequenceAligner.ParallelOption = new ParallelOptions { MaxDegreeOfParallelism = 2 };
-
             IHierarchicalClustering hierarchicalClustering = new HierarchicalClusteringParallel(distanceMatrix);
-
             BinaryGuideTree binaryGuideTree = new BinaryGuideTree(hierarchicalClustering);
 
             Assert.AreEqual(7, binaryGuideTree.NumberOfNodes);
