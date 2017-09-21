@@ -14,7 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Source\Bio.Core\Bio.Core.csproj" />
-    <ProjectReference Include="..\..\source\Bio.Padena\Bio.Padena.csproj" />
+    <ProjectReference Include="..\..\Source\Bio.Padena\Bio.Padena.csproj" />
     <ProjectReference Include="..\Bio.Tests\Bio.Tests.csproj" />
   </ItemGroup>
 
