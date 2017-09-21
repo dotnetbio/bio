@@ -12,6 +12,7 @@ using Bio.IO.Bed;
 using Bio.TestAutomation.Util;
 using Bio.Util.Logging;
 using NUnit.Framework;
+using Bio.Tests;
 
 namespace Bio.TestAutomation.IO.Bed
 {
@@ -344,12 +345,10 @@ namespace Bio.TestAutomation.IO.Bed
                                             AdditionalParameters addParam)
         {
             // Gets the Filename
-            string filePath = Path.Combine(TestContext.CurrentContext.TestDirectory, utilityObj.xmlUtil.GetTextValue(
-                nodeName, Constants.FilePathNode));
+            string filePath = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode).TestDir();
 
             Assert.IsFalse(string.IsNullOrEmpty(filePath));
-            ApplicationLog.WriteLine(string.Format(null,
-                                                   "Bed Parser BVT: Reading the File from location '{0}'", filePath));
+            ApplicationLog.WriteLine($"Bed Parser BVT: Reading the File from location '{filePath}'");
 
             // Get the rangelist after parsing.
             var parserObj = new BedParser();
@@ -436,8 +435,7 @@ namespace Bio.TestAutomation.IO.Bed
             var rangeGroup = new SequenceRangeGrouping();
 
             // Gets the file name.
-            string filePath = Path.Combine(TestContext.CurrentContext.TestDirectory, utilityObj.xmlUtil.GetTextValue(
-                nodeName, Constants.FilePathNode));
+            string filePath = utilityObj.xmlUtil.GetTextValue(nodeName, Constants.FilePathNode).TestDir();
 
             // Condition to check if Parse() happens before Format()
             switch (addParam)

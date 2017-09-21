@@ -2,7 +2,9 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>Bio.Algorithms.Assembly.Padena</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageId>NetBio.Padena</PackageId>
     <Version>3.0.0-alpha</Version>
     <Authors>Various</Authors>
     <Company />
@@ -15,8 +17,6 @@
     <RepositoryUrl>https://github.com/dotnetbio/bio</RepositoryUrl>
     <RepositoryType>Github</RepositoryType>
     <PackageReleaseNotes>First release for .NET Standard 2.0</PackageReleaseNotes>
-    <RootNamespace>Bio.Algorithms.Assembly.Padena</RootNamespace>
-    <PackageId>NetBio.Padena</PackageId>
     <Copyright></Copyright>
   </PropertyGroup>
 

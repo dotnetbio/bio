@@ -11,9 +11,9 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "TestData", "Tests\TestData\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bio.Tests", "Tests\Bio.Tests\Bio.Tests.csproj", "{36E57777-1CFC-4288-B33C-EF7C4036966E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bio.Padena", "source\Bio.Padena\Bio.Padena.csproj", "{212C2E8A-6CB1-42E8-8216-B152579428EB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bio.Padena", "Source\Bio.Padena\Bio.Padena.csproj", "{212C2E8A-6CB1-42E8-8216-B152579428EB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bio.Pamsam", "source\Bio.Pamsam\Bio.Pamsam.csproj", "{97C70B82-1581-454A-839F-30FA6647748C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bio.Pamsam", "Source\Bio.Pamsam\Bio.Pamsam.csproj", "{97C70B82-1581-454A-839F-30FA6647748C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{67FADB46-16E5-4B25-AF7E-69086773E56D}"
 EndProject

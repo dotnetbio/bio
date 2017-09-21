@@ -2,22 +2,18 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
-
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.5.0-preview-20170914-09" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.3.0" />
     <PackageReference Include="NUnit" Version="3.8.1" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.8.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Source\Bio.Core\Bio.Core.csproj" />
     <ProjectReference Include="..\..\Source\Bio.Padena\Bio.Padena.csproj" />
     <ProjectReference Include="..\Bio.Tests\Bio.Tests.csproj" />
   </ItemGroup>
-
-  <Import Project="..\TestData\TestData.projitems" Label="Shared" />
 
 </Project>

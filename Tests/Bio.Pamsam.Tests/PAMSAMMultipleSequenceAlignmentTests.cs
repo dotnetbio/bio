@@ -150,7 +150,7 @@ namespace Bio.Pamsam.Tests
         [Test]
         public void TestMuscleMultipleSequenceAlignmentRunningTime()
         {
-            string filepath = @"TestUtils\FASTA\RunningTime\BOX246.xml.afa";
+            string filepath = @"TestUtils\FASTA\RunningTime\BOX246.xml.afa".TestDir();
 
             // Test on DNA benchmark dataset
             FastAParser parser = new FastAParser();

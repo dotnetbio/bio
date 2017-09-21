@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using NUnit.Framework;
+using Bio.Tests;
 
 namespace Bio.TestAutomation.Util
 {
@@ -28,8 +29,7 @@ namespace Bio.TestAutomation.Util
         /// <param name="xmlFilePath">Config file path.</param>
         public XmlUtility(string xmlFilePath)
         {
-            string cdir = TestContext.CurrentContext.TestDirectory;
-            string path = Path.Combine(cdir, xmlFilePath);
+            string path = xmlFilePath.TestDir();
             _document = XDocument.Load(path);
         }
 

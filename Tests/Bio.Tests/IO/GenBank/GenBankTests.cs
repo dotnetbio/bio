@@ -39,7 +39,7 @@ namespace Bio.Tests.IO.GenBank
         private static string _genBankFile_WithMultipleDBLines = @"TestUtils\GenBank\seq1.gbk".TestDir();
         private static string _genBankFile_WithREFSEQPrimaryData = @"TestUtils\GenBank\NM_001747.gb".TestDir();
         private static string _genBankDataPath = @"TestUtils\GenBank".TestDir();
-        private static string TempGenBankFileName = "tempGenBank.gbk".TestDir();
+        private static string TempGenBankFileName = "tempGenBank.gbk";
         private static string _singleProteinSeqGenBankFilename = @"TestUtils\GenBank\U49845.gbk".TestDir();
         private static string _singleDnaSeqGenBankFilename = @"TestUtils\GenBank\D12555.gbk".TestDir();
         private static string _multipleSeqGenBankFilename = @"TestUtils\GenBank\U49845+D12555.gbk".TestDir();

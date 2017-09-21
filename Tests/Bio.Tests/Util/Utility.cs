@@ -11,6 +11,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using NUnit.Framework;
+using Bio.Tests;
 
 namespace Bio.TestAutomation.Util
 {
@@ -100,10 +101,8 @@ namespace Bio.TestAutomation.Util
         /// <returns>Content of the Text file.</returns>
         public static string GetFileContent(string filePath)
         {
+            filePath = filePath.TestDir();
             string fileContent = string.Empty;
-
-            if (!File.Exists(filePath))
-                filePath = Path.Combine(TestContext.CurrentContext.TestDirectory, filePath);
 
             // Check if the File path exists, if not throw exception.
             if (File.Exists(filePath))

@@ -32,7 +32,7 @@ namespace Bio.Tests.IO.Gff
         private static readonly string _today = DateTime.Today.ToString("yyyy-MM-dd", (IFormatProvider)null);
         private static string _gffDataPath = @"TestUtils\GFF".TestDir();
         private static string _singleSeqGffFilename = @"TestUtils\GFF\random.GFF".TestDir();
-        private static string TempGFFFileName = "tempGFF.GFF".TestDir();
+        private static string TempGFFFileName = "tempGFF.GFF";
         private static string _multipleSeqGffFilename = @"TestUtils\GFF\Tachibana2005.gff".TestDir();
         private static readonly string _singleSeqGffFileExpectedOutput =
 @"##gff-version 2
