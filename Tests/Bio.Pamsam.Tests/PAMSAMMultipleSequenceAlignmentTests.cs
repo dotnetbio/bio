@@ -150,7 +150,7 @@ namespace Bio.Pamsam.Tests
         [Test]
         public void TestMuscleMultipleSequenceAlignmentRunningTime()
         {
-            string filepath = @"TestUtils\FASTA\RunningTime\BOX246.xml.afa".TestDir();
+            string filepath = @"TestUtils\Fasta\RunningTime\BOX246.xml.afa".TestDir();
 
             // Test on DNA benchmark dataset
             FastAParser parser = new FastAParser();
@@ -159,7 +159,7 @@ namespace Bio.Pamsam.Tests
 
             List<ISequence> sequences = MsaUtils.UnAlign(orgSequences);
 
-            //filepath = @"TestUtils\FASTA\RunningTime\12_raw.afa";
+            //filepath = @"TestUtils\Fasta\RunningTime\12_raw.afa";
             //List<ISequence> sequences = parser.Parse(filepath);
 
             int numberOfSequences = orgSequences.Count;

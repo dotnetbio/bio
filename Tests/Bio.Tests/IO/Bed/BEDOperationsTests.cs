@@ -305,7 +305,8 @@ namespace Bio.Tests.IO.Bed
             SequenceRangeGrouping refSeqRange = parser.ParseRangeGrouping(refSeqRangefile);
             SequenceRangeGrouping querySeqRange = parser.ParseRangeGrouping(querySeqRangefile);
 
-            string expectedresultpath = System.IO.Path.Combine (direc, "Result_Subtract_minoverlap1.BED").TestDir();
+            const string MinOverlap1 = "Result_Subtract_minoverlap1.bed";
+            string expectedresultpath = System.IO.Path.Combine (direc, MinOverlap1).TestDir();
             result = refSeqRange.Subtract(querySeqRange, 1, SubtractOutputType.IntervalsWithNoOverlap);
             formatter.Format(result, resultfilepath);
             resultvalue = CompareBEDOutput(resultfilepath, expectedresultpath);
@@ -313,7 +314,8 @@ namespace Bio.Tests.IO.Bed
             resultvalue = ValidateParentSeqRange(result, refSeqRange, querySeqRange, true);
             Assert.IsTrue(resultvalue);
 
-            expectedresultpath = System.IO.Path.Combine (direc, "Result_Subtract_minoverlap0.BED").TestDir();
+            const string MinOverlap0 = "Result_subtract_minoverlap0.bed";
+            expectedresultpath = System.IO.Path.Combine (direc, MinOverlap0).TestDir();
             result = refSeqRange.Subtract(querySeqRange, 0, SubtractOutputType.IntervalsWithNoOverlap);
             formatter.Format(result, resultfilepath);
             resultvalue = CompareBEDOutput(resultfilepath, expectedresultpath);
@@ -321,7 +323,7 @@ namespace Bio.Tests.IO.Bed
             resultvalue = ValidateParentSeqRange(result, refSeqRange, querySeqRange, true);
             Assert.IsTrue(resultvalue);
 
-            expectedresultpath = System.IO.Path.Combine (direc, "Result_Subtract_minoverlap1.BED").TestDir();
+            expectedresultpath = System.IO.Path.Combine (direc, MinOverlap1).TestDir();
             result = refSeqRange.Subtract(querySeqRange, 1, SubtractOutputType.IntervalsWithNoOverlap, true);
             formatter.Format(result, resultfilepath);
             resultvalue = CompareBEDOutput(resultfilepath, expectedresultpath);
@@ -329,7 +331,7 @@ namespace Bio.Tests.IO.Bed
             resultvalue = ValidateParentSeqRange(result, refSeqRange, querySeqRange, true);
             Assert.IsTrue(resultvalue);
 
-            expectedresultpath = System.IO.Path.Combine (direc, "Result_Subtract_minoverlap0.BED").TestDir();
+            expectedresultpath = System.IO.Path.Combine (direc, MinOverlap0).TestDir();
             result = refSeqRange.Subtract(querySeqRange, 0, SubtractOutputType.IntervalsWithNoOverlap, true);
             formatter.Format(result, resultfilepath);
             resultvalue = CompareBEDOutput(resultfilepath, expectedresultpath);
@@ -338,7 +340,7 @@ namespace Bio.Tests.IO.Bed
             Assert.IsTrue(resultvalue);
 
 
-            expectedresultpath = System.IO.Path.Combine (direc, "Result_Subtract_minoverlap1.BED").TestDir();
+            expectedresultpath = System.IO.Path.Combine (direc, MinOverlap1).TestDir();
             result = refSeqRange.Subtract(querySeqRange, 1, SubtractOutputType.IntervalsWithNoOverlap, false);
             formatter.Format(result, resultfilepath);
             resultvalue = CompareBEDOutput(resultfilepath, expectedresultpath);
@@ -346,7 +348,7 @@ namespace Bio.Tests.IO.Bed
             resultvalue = ValidateParentSeqRange(result, refSeqRange, querySeqRange, false);
             Assert.IsTrue(resultvalue);
 
-            expectedresultpath = System.IO.Path.Combine (direc, "Result_Subtract_minoverlap0.BED").TestDir();
+            expectedresultpath = System.IO.Path.Combine (direc, MinOverlap0).TestDir();
             result = refSeqRange.Subtract(querySeqRange, 0, SubtractOutputType.IntervalsWithNoOverlap, false);
             formatter.Format(result, resultfilepath);
             resultvalue = CompareBEDOutput(resultfilepath, expectedresultpath);
@@ -354,7 +356,8 @@ namespace Bio.Tests.IO.Bed
             resultvalue = ValidateParentSeqRange(result, refSeqRange, querySeqRange, false);
             Assert.IsTrue(resultvalue);
 
-            expectedresultpath = System.IO.Path.Combine (direc, "Result_Subtract_minoverlap0_NOnOverlappingPieces.BED").TestDir();
+            const string MinNoOverlap0 = "Result_Subtract_minoverlap0_NOnOverlappingPieces.BED";
+            expectedresultpath = System.IO.Path.Combine (direc, MinNoOverlap0).TestDir();
             result = refSeqRange.Subtract(querySeqRange, 0, SubtractOutputType.NonOverlappingPiecesOfIntervals, true);
             formatter.Format(result, resultfilepath);
             resultvalue = CompareBEDOutput(resultfilepath, expectedresultpath);
@@ -362,7 +365,8 @@ namespace Bio.Tests.IO.Bed
             resultvalue = ValidateParentSeqRange(result, refSeqRange, querySeqRange, true);
             Assert.IsTrue(resultvalue);
 
-            expectedresultpath = System.IO.Path.Combine (direc, "Result_Subtract_minoverlap1_NOnOverlappingPieces.BED").TestDir();
+            const string MinNoOverlap1 = "Result_Subtract_minoverlap1_NOnOverlappingPieces.BED";
+            expectedresultpath = System.IO.Path.Combine (direc, MinNoOverlap1).TestDir();
             result = refSeqRange.Subtract(querySeqRange, 1, SubtractOutputType.NonOverlappingPiecesOfIntervals, true);
             formatter.Format(result, resultfilepath);
             resultvalue = CompareBEDOutput(resultfilepath, expectedresultpath);

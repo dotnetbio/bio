@@ -137,7 +137,7 @@
   </SimpleGff>
   <!-- This node contains the Gff file information for Protein. -->
   <SimpleGffProtein>
-    <FilePath>TestUtils\simple_gff_protein.GFF</FilePath>
+    <FilePath>TestUtils\Simple_Gff_Protein.GFF</FilePath>
     <ExpectedSequence>MVLSPADKTNVKAAWGKVGAHAGEYGAEALERMFLSF</ExpectedSequence>
     <ExpectedSequenceCount></ExpectedSequenceCount>
     <AlphabetName>Protein</AlphabetName>
@@ -1463,7 +1463,7 @@
   </MaxSequenceGff>
   <!-- This node contains the Gff file information for Large Size File. -->
   <LargeSizeGff>
-    <FilePath>TestUtils\LargeSize.gff</FilePath>
+    <FilePath>TestUtils\LargeSize.GFF</FilePath>
     <NumberOfSequences>1</NumberOfSequences>
     <ExpectedSequence></ExpectedSequence>
     <ExpectedSequenceCount></ExpectedSequenceCount>
@@ -20932,7 +20932,7 @@
   </LargeSizeGff>
   <!-- This node contains the Gff file information for Medium Size File. -->
   <MediumSizeGff>
-    <FilePath>TestUtils\MediumSize.gff</FilePath>
+    <FilePath>TestUtils\MediumSize.Gff</FilePath>
     <NumberOfSequences>1</NumberOfSequences>
     <ExpectedSequence></ExpectedSequence>
     <ExpectedSequenceCount></ExpectedSequenceCount>

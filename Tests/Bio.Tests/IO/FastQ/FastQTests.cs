@@ -25,7 +25,7 @@ namespace Bio.Tests.IO.FastQ
         [Category("Priority0")]
         public void TestFastQWhenParsingOneOfMany()
         {
-            string filepath = @"TestUtils\FASTQ\SRR002012_5.fastq".TestDir();
+            string filepath = @"TestUtils\FastQ\SRR002012_5.fastq".TestDir();
             
             // Parse
             ISequence seq = new FastQParser().ParseOne(filepath);
@@ -52,7 +52,7 @@ namespace Bio.Tests.IO.FastQ
         [Category("Priority0")]
         public void FastQFormatter()
         {
-            string FilepathOriginal = @"TestUtils\FASTQ\SRR002012_5.fastq".TestDir();
+            string FilepathOriginal = @"TestUtils\FastQ\SRR002012_5.fastq".TestDir();
             Assert.IsTrue(File.Exists(FilepathOriginal));
             
             IList<IQualitativeSequence> seqsOriginal;
@@ -77,8 +77,8 @@ namespace Bio.Tests.IO.FastQ
                 Assert.IsNotNull(seqsNew);
 
                 // Now compare the sequences.
-                int countOriginal = seqsOriginal.Count();
-                int countNew = seqsNew.Count();
+                int countOriginal = seqsOriginal.Count;
+                int countNew = seqsNew.Count;
                 Assert.AreEqual(countOriginal, countNew);
 
                 int i;
@@ -112,7 +112,7 @@ namespace Bio.Tests.IO.FastQ
         [Category("Priority0")]
         public void FastQFormatterUsingInterface()
         {
-            string FilepathOriginal = @"TestUtils\FASTQ\SRR002012_5.fastq".TestDir();
+            string FilepathOriginal = @"TestUtils\FastQ\SRR002012_5.fastq".TestDir();
             Assert.IsTrue(File.Exists(FilepathOriginal));
 
             string filepathTmp = Path.GetTempFileName();
@@ -161,7 +161,7 @@ namespace Bio.Tests.IO.FastQ
         [Category("Priority0")]
         public void FastQParserForManyFiles()
         {
-            string Path = @"TestUtils\FASTQ".TestDir();
+            string Path = @"TestUtils\FastQ".TestDir();
             Assert.IsTrue(Directory.Exists(Path));
             int count = 0;
            

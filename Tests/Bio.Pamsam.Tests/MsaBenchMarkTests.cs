@@ -24,7 +24,7 @@ namespace Bio.Pamsam.Tests
         [Test]
         public void TestMsaBenchMark()
         {
-            string fileDirectory = @"TestUtils\FASTA\Protein\Balibase\RV911\".TestDir();
+            string fileDirectory = @"TestUtils\Fasta\Protein\Balibase\RV911\".TestDir();
             DirectoryInfo iD = new DirectoryInfo(fileDirectory);
 
             PAMSAMMultipleSequenceAligner.FasterVersion = false;
@@ -215,7 +215,7 @@ namespace Bio.Pamsam.Tests
             List<float> allQ = new List<float>();
             List<float> allTC = new List<float>();
 
-            string fileDirectory = @"TestUtils\FASTA\Protein\SABmark".TestDir();
+            string fileDirectory = @"TestUtils\Fasta\Protein\SABmark".TestDir();
             DirectoryInfo iD = new DirectoryInfo(fileDirectory);
 
             PAMSAMMultipleSequenceAligner.FasterVersion = false;
@@ -298,7 +298,7 @@ namespace Bio.Pamsam.Tests
             var allQ = new List<float>();
             var allTC = new List<float>();
 
-            string fileDirectory = @"TestUtils\FASTA\RNA\k10".TestDir();
+            string fileDirectory = @"TestUtils\Fasta\RNA\k10".TestDir();
             DirectoryInfo iD = new DirectoryInfo(fileDirectory);
 
             PAMSAMMultipleSequenceAligner.FasterVersion = false;

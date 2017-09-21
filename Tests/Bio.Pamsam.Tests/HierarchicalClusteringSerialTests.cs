@@ -105,7 +105,7 @@ namespace Bio.Pamsam.Tests
             //Assert.AreEqual(5, hierarchicalClustering.Nodes[6].RightChildren.ID);
 
             // Test on larger dataset
-            string filepath = @"TestUtils\FASTA\RV11_BBS_all.afa".TestDir();
+            string filepath = @"TestUtils\Fasta\RV11_BBS_all.afa".TestDir();
             FastAParser parser = new FastAParser();
             IList<ISequence> orgSequences = parser.Parse(filepath).ToList();
 
