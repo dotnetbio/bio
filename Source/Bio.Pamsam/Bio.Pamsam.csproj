@@ -5,7 +5,7 @@
     <RootNamespace>Bio.Algorithms.Alignment.MultipleSequenceAlignment</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>NetBio.Pamsam</PackageId>
-    <Version>3.0.0-alpha</Version>
+    <Version>3.0.1-alpha</Version>
     <Authors>Various</Authors>
     <Company />
     <Description>Parallel Sequence Alignment (PAMSAM) aligner for .NET Bio</Description>
@@ -17,6 +17,8 @@
     <PackageTags>bioinformatics biology FASTA FASTQ GenBank nucleotides genomics .NET</PackageTags>
     <PackageReleaseNotes>First release for .NET Standard 2.0</PackageReleaseNotes>
     <Product>.NET Bio</Product>
+    <AssemblyVersion>3.0.0.1</AssemblyVersion>
+    <FileVersion>3.0.0.1</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
