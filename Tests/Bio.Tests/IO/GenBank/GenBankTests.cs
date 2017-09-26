@@ -10,6 +10,7 @@ using Bio.IO.GenBank;
 using Bio.Util.Logging;
 using NUnit.Framework;
 using Bio.Properties;
+using Bio.TestAutomation.Util;
 
 namespace Bio.Tests.IO.GenBank
 {
@@ -407,7 +408,8 @@ ORIGIN
             File.Delete(TempGenBankFileName);
 
             // test the formatting
-            Assert.AreEqual(_singleProteinSeqGenBankFileExpectedOutput.Replace(" ", "").Replace("\r\n", Environment.NewLine), actual.Replace(" ", ""));
+            Assert.AreEqual(Utility.CleanupWhiteSpace(_singleProteinSeqGenBankFileExpectedOutput),
+                            Utility.CleanupWhiteSpace(actual));
         }
 
         /// <summary>
@@ -455,7 +457,8 @@ ORIGIN
 
             File.Delete(TempGenBankFileName);
             // test the formatting
-            Assert.AreEqual(_singleProteinSeqGenBankFileExpectedOutput.Replace(" ", "").Replace("\r\n", Environment.NewLine), actual.Replace(" ", ""));
+            Assert.AreEqual(Utility.CleanupWhiteSpace(_singleProteinSeqGenBankFileExpectedOutput),
+                            Utility.CleanupWhiteSpace(actual));
         }
 
         /// <summary>
@@ -483,7 +486,8 @@ ORIGIN
             File.Delete(TempGenBankFileName);
 
             // test the formatting
-            Assert.AreEqual(_singleDnaSeqGenBankFileExpectedOutput.Replace(" ", "").Replace("\r\n", Environment.NewLine), actual.Replace(" ", ""));
+            Assert.AreEqual(Utility.CleanupWhiteSpace(_singleDnaSeqGenBankFileExpectedOutput),
+                            Utility.CleanupWhiteSpace(actual));
         }
 
         /// <summary>
@@ -675,7 +679,7 @@ ORIGIN
                     formatter.Close();
                 }
             }
-            var same = CompareFiles(tempFileName, _genBankFile_WithMultipleDBLines);
+            var same = Utility.CompareFiles(tempFileName, _genBankFile_WithMultipleDBLines);
             File.Delete(tempFileName);
             Assert.IsTrue(same);
             ApplicationLog.WriteLine("GenBank Formatter: Successful read->write loop");
@@ -683,47 +687,7 @@ ORIGIN
 
 
 
-        /// <summary>
-        /// Compare the results/output file
-        /// 
-        /// Checks that only differences are \r\n versus \n
-        /// </summary>
-        /// <param name="file1">File 1 to compare</param>
-        /// <param name="file2">File 2 to compare with</param>
-        /// <returns>True, if both files are the same.</returns>
-        internal static bool CompareFiles(string observed, string expected)
-        {
-            FileInfo fileInfoObj1 = new FileInfo(observed);
-            FileInfo fileInfoObj2 = new FileInfo(expected);
 
-            if (fileInfoObj1.Length > fileInfoObj2.Length)
-                return false;
-
-            byte[] bytesO = File.ReadAllBytes(observed);
-            byte[] bytesE = File.ReadAllBytes(expected);
-
-            if (bytesO.Length > bytesE.Length)
-                return false;
-            int j = 0;
-            for (int i = 0; i < bytesE.Length; i++)
-            {
-                if (bytesO [j] != bytesE [i]) {
-                    if (i + 1 < bytesE.Length) {
-                        if (bytesO [j] == '\n' &&
-                            bytesE [i] == '\r' &&
-                            bytesE [i + 1] == '\n') {
-                            i++;
-                        } else {
-                            return false;
-                        }
-                    } else {
-                        return false;
-                    }
-                }
-                j++;
-            }
-            return true;
-        }
 
 
     }
