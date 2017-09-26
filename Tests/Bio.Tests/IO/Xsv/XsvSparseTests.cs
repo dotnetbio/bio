@@ -5,6 +5,7 @@ using System.Text;
 using Bio;
 using Bio.Algorithms.Assembly;
 using Bio.IO.Xsv;
+using Bio.TestAutomation.Util;
 
 using NUnit.Framework;
 
@@ -174,7 +175,8 @@ namespace Bio.Tests.IO.Xsv
                 actualOutput = readerDest.ReadToEnd();
             }
            
-            Assert.AreEqual(expectedOutput.Replace("\r\n", System.Environment.NewLine), actualOutput);
+            Assert.AreEqual(Utility.CleanupWhiteSpace(expectedOutput),
+                            Utility.CleanupWhiteSpace(actualOutput));
 
 
             Assert.IsNotNull(sparseSeq.Alphabet);

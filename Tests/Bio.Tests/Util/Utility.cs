@@ -179,5 +179,83 @@ namespace Bio.TestAutomation.Util
             return new string(encodedQualityScores);
         }
 
-    }
+		/// <summary>
+		/// Takes two strings encoded as either "\n" or "\r\n" and converts
+		/// them to only "\n" and removes any empty characters. 
+		/// </summary>
+		/// <returns>A cleaned up string</returns>
+		/// <param name="str">String to format</param>
+		public static string CleanupWhiteSpace(string str)
+		{
+			str = str.Replace(" ", "");
+			var index = str.IndexOf('\n');
+			if (index > 0 && str[index - 1] == '\r')
+			{
+				str = str.Replace("\r\n", "\n");
+			}
+			return str;
+		}
+
+		/// <summary>
+		/// Compare the results/output file
+		/// 
+		/// Checks that only differences are \r\n versus \n
+		/// </summary>
+		/// <param name="file1">File 1 to compare</param>
+		/// <param name="file2">File 2 to compare with</param>
+		/// <returns>True, if both files are the same.</returns>
+		public static bool CompareFiles(string observed, string expected)
+		{
+
+			byte[] bytesO = File.ReadAllBytes(observed);
+			byte[] bytesE = File.ReadAllBytes(expected);
+			if (bytesO.Length == bytesE.Length)
+			{
+				return bytesO.SequenceEqual(bytesE);
+			}
+			else
+			{
+				// Assume the larger array is only larger because of \r\n endings
+				var maxLength = Math.Max(bytesO.Length, bytesE.Length);
+				byte[] big, small;
+				if (bytesE.Length > bytesO.Length)
+				{
+					big = bytesE;
+					small = bytesO;
+				}
+				else
+				{
+					big = bytesO;
+					small = bytesE;
+				}
+				int b = 0;
+				int s = 0;
+				while (b < big.Length)
+				{
+					if (s == small.Length)
+					{
+						return false;
+					}
+					else if (big[b] != small[s])
+					{
+						if (big[b] == '\r' &&
+						   (b + 1) < big.Length &&
+						   big[b + 1] == '\n' &&
+						   small[s] == '\n')
+						{
+							b += 2;
+							s += 1;
+						}
+						else
+						{
+							return false;
+						}
+					}
+					b++;
+					s++;
+				}
+				return true;
+			}
+		}
+	}
 }

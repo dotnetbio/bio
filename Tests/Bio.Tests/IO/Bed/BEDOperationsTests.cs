@@ -383,25 +383,7 @@ namespace Bio.Tests.IO.Bed
         /// <returns>True if results are equal, else false</returns>
         private static bool CompareBEDOutput(string resultfile, string expectedresultfile)
         {
-            StreamReader resultReader = null;
-            try
-            {
-                resultReader = new StreamReader(resultfile);
-                using (StreamReader expectedResultReader = new StreamReader(expectedresultfile))
-                {
-                    string result = resultReader.ReadToEnd();
-                    string expectedResult = expectedResultReader.ReadToEnd().Replace("\r\n", System.Environment.NewLine);
-                    int resultvalue = string.Compare(result, expectedResult, true,
-                        CultureInfo.CurrentCulture);
-                    return resultvalue == 0;
-                }
-
-            }
-            finally
-            {
-                if (resultReader != null)
-                    resultReader.Dispose();
-            }
+            return Bio.TestAutomation.Util.Utility.CompareFiles(resultfile, expectedresultfile);
         }
 
         /// <summary>
