@@ -151,7 +151,7 @@ namespace Bio.IO.SAM
                 return "Optional field variable type must be of length 1, but was of length: " + vtype.Length.ToString();
             }
                 //note in this case they are "legal" characters
-            if (Helper.StringContainsIllegalCharacters(vtype, VTypeAllowableValues))
+            if (Array.IndexOf(VTypeAllowableValues, vtype[0]) != -1)
             {
                 return String.Empty;
             }
