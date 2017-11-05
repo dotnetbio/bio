@@ -4,6 +4,7 @@ using System.Globalization;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 using Bio.Algorithms.Alignment;
@@ -257,13 +258,13 @@ namespace Bio.IO.BAM
         /// Gets equivalent sequence char for the specified encoded value.
         /// </summary>
         /// <param name="encodedValue">Encoded value.</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)] 
         private static byte GetSeqCharAsByte(int encodedValue)
         {
-            if (encodedValue >= 0 && encodedValue <= BAMAlphabetAsBytes.Length)
-            {
-                return BAMAlphabetAsBytes[encodedValue];
-            }
-            throw new Exception(Properties.Resource.BAM_InvalidEncodedSequenceValue);
+            // Note that encoded value must be between 0 and 15, but we don't 
+            // explicitly check that here because this private method is only called
+            // by byte-masking 4 bytes.
+            return BAMAlphabetAsBytes[encodedValue];
         }
 
         /// <summary>
