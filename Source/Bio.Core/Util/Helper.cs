@@ -655,17 +655,22 @@ namespace Bio.Util
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "1")]
 		public static bool StringContainsIllegalCharacters(string toTest, char[] illegalCharacters)
 		{
-			for (int j = 0; j < illegalCharacters.Length; j++)
-			{
-				char badVal=illegalCharacters[j];
-				for (int i = 0; i < toTest.Length; i++)
-				{
-					if (toTest[i] == badVal)
-					{
-						return true; 
-					}
-				}
-			}
+            // This will frequently be used to test for presence of low 
+            // values when represented as ushorts, such as '\t', \r', '\n' etc.
+            // we'll find the maximum value of the illegal characters
+            // and only check the full set if the value is below that, only
+            // checking the full set of illegal characters if we are below that range.
+            ushort cmax = (ushort)illegalCharacters[0];
+            for (int i = 1; i < illegalCharacters.Length; i++) {
+                cmax = Math.Max(cmax, (ushort)illegalCharacters[i]);    
+            }
+            for (int i = 0; i < toTest.Length; i++)
+            {
+                if ((ushort)toTest[i] <= cmax &&
+                    illegalCharacters.Contains(toTest[i])) {
+                    return true;
+                }
+            }
 			return false;
 		}
 
