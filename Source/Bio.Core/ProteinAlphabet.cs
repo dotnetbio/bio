@@ -161,31 +161,31 @@ namespace Bio
             basicSymbols.Add(Y); basicSymbols.Add((byte)char.ToLower((char)Y));
             basicSymbols.Add(this.Gap);
 
-            this.AddAminoAcid(this.A, "Alanine", "Ala", (byte)'a');
-            this.AddAminoAcid(this.C, "Cysteine", "Cys", (byte)'c');
-            this.AddAminoAcid(this.D, "Aspartic", "Asp", (byte)'d');
-            this.AddAminoAcid(this.E, "Glutamic", "Glu", (byte)'e');
-            this.AddAminoAcid(this.F, "Phenylalanine", "Phe", (byte)'f');
-            this.AddAminoAcid(this.G, "Glycine", "Gly", (byte)'g');
-            this.AddAminoAcid(this.H, "Histidine", "His", (byte)'h');
-            this.AddAminoAcid(this.I, "Isoleucine", "Ile", (byte)'i');
-            this.AddAminoAcid(this.K, "Lysine", "Lys", (byte)'k');
-            this.AddAminoAcid(this.L, "Leucine", "Leu", (byte)'l');
-            this.AddAminoAcid(this.M, "Methionine", "Met", (byte)'m');
-            this.AddAminoAcid(this.N, "Asparagine", "Asn", (byte)'n');
-            this.AddAminoAcid(this.O, "Pyrrolysine", "Pyl", (byte)'o');
-            this.AddAminoAcid(this.P, "Proline", "Pro", (byte)'p');
-            this.AddAminoAcid(this.Q, "Glutamine", "Gln", (byte)'q');
-            this.AddAminoAcid(this.R, "Arginine", "Arg", (byte)'r');
-            this.AddAminoAcid(this.S, "Serine", "Ser", (byte)'s');
-            this.AddAminoAcid(this.T, "Threoine", "Thr", (byte)'t');
-            this.AddAminoAcid(this.U, "Selenocysteine", "Sec", (byte)'u');
-            this.AddAminoAcid(this.V, "Valine", "Val", (byte)'v');
-            this.AddAminoAcid(this.W, "Tryptophan", "Trp", (byte)'w');
-            this.AddAminoAcid(this.Y, "Tyrosine", "Tyr", (byte)'y');    
+            this.AddAminoAcid(this.A, "Ala", "Alanine", (byte)'a');
+            this.AddAminoAcid(this.C, "Cys", "Cysteine", (byte)'c');
+            this.AddAminoAcid(this.D, "Asp", "Aspartic", (byte)'d');
+            this.AddAminoAcid(this.E, "Glu", "Glutamic", (byte)'e');
+            this.AddAminoAcid(this.F, "Phe", "Phenylalanine", (byte)'f');
+            this.AddAminoAcid(this.G, "Gly", "Glycine", (byte)'g');
+            this.AddAminoAcid(this.H, "His", "Histidine", (byte)'h');
+            this.AddAminoAcid(this.I, "Ile", "Isoleucine", (byte)'i');
+            this.AddAminoAcid(this.K, "Lys", "Lysine", (byte)'k');
+            this.AddAminoAcid(this.L, "Leu", "Leucine", (byte)'l');
+            this.AddAminoAcid(this.M, "Met", "Methionine", (byte)'m');
+            this.AddAminoAcid(this.N, "Asn", "Asparagine", (byte)'n');
+            this.AddAminoAcid(this.O, "Pyl", "Pyrrolysine", (byte)'o');
+            this.AddAminoAcid(this.P, "Pro", "Proline", (byte)'p');
+            this.AddAminoAcid(this.Q, "Gln", "Glutamine", (byte)'q');
+            this.AddAminoAcid(this.R, "Arg", "Arginine", (byte)'r');
+            this.AddAminoAcid(this.S, "Ser", "Serine", (byte)'s');
+            this.AddAminoAcid(this.T, "Thr", "Threoine", (byte)'t');
+            this.AddAminoAcid(this.U, "Sec", "Selenocysteine", (byte)'u');
+            this.AddAminoAcid(this.V, "Val", "Valine", (byte)'v');
+            this.AddAminoAcid(this.W, "Trp", "Tryptophan", (byte)'w');
+            this.AddAminoAcid(this.Y, "Tyr", "Tyrosine", (byte)'y');    
 
-            this.AddAminoAcid(this.Gap, "Gap", "Gap");
-            this.AddAminoAcid(this.Ter, "Ter", "Termination");
+            this.AddAminoAcid(this.Gap, "---", "Gap");
+            this.AddAminoAcid(this.Ter, "***", "Termination");
         }
 
         /// <summary>
