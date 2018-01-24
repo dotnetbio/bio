@@ -64,6 +64,11 @@ namespace Bio
         private readonly Dictionary<byte, byte> aminoAcidValueMap = new Dictionary<byte, byte>();
 
         /// <summary>
+        /// Symbol to three amino acid abbreviation.
+        /// </summary>
+        private readonly Dictionary<byte, string> threeLetterAbbreviationMap = new Dictionary<byte, string>();
+
+        /// <summary>
         /// Symbol to Friendly name mapping.
         /// </summary>
         private readonly Dictionary<byte, string> friendlyNameMap = new Dictionary<byte, string>();
@@ -156,31 +161,31 @@ namespace Bio
             basicSymbols.Add(Y); basicSymbols.Add((byte)char.ToLower((char)Y));
             basicSymbols.Add(this.Gap);
 
-            this.AddAminoAcid(this.A, "Alanine", (byte)'a');
-            this.AddAminoAcid(this.C, "Cysteine", (byte)'c');
-            this.AddAminoAcid(this.D, "Aspartic", (byte)'d');
-            this.AddAminoAcid(this.E, "Glutamic", (byte)'e');
-            this.AddAminoAcid(this.F, "Phenylalanine", (byte)'f');
-            this.AddAminoAcid(this.G, "Glycine", (byte)'g');
-            this.AddAminoAcid(this.H, "Histidine", (byte)'h');
-            this.AddAminoAcid(this.I, "Isoleucine", (byte)'i');
-            this.AddAminoAcid(this.K, "Lysine", (byte)'k');
-            this.AddAminoAcid(this.L, "Leucine", (byte)'l');
-            this.AddAminoAcid(this.M, "Methionine", (byte)'m');
-            this.AddAminoAcid(this.N, "Asparagine", (byte)'n');
-            this.AddAminoAcid(this.O, "Pyrrolysine", (byte)'o');
-            this.AddAminoAcid(this.P, "Proline", (byte)'p');
-            this.AddAminoAcid(this.Q, "Glutamine", (byte)'q');
-            this.AddAminoAcid(this.R, "Arginine", (byte)'r');
-            this.AddAminoAcid(this.S, "Serine", (byte)'s');
-            this.AddAminoAcid(this.T, "Threoine", (byte)'t');
-            this.AddAminoAcid(this.U, "Selenocysteine", (byte)'u');
-            this.AddAminoAcid(this.V, "Valine", (byte)'v');
-            this.AddAminoAcid(this.W, "Tryptophan", (byte)'w');
-            this.AddAminoAcid(this.Y, "Tyrosine", (byte)'y');    
+            this.AddAminoAcid(this.A, "Alanine", "Ala", (byte)'a');
+            this.AddAminoAcid(this.C, "Cysteine", "Cys", (byte)'c');
+            this.AddAminoAcid(this.D, "Aspartic", "Asp", (byte)'d');
+            this.AddAminoAcid(this.E, "Glutamic", "Glu", (byte)'e');
+            this.AddAminoAcid(this.F, "Phenylalanine", "Phe", (byte)'f');
+            this.AddAminoAcid(this.G, "Glycine", "Gly", (byte)'g');
+            this.AddAminoAcid(this.H, "Histidine", "His", (byte)'h');
+            this.AddAminoAcid(this.I, "Isoleucine", "Ile", (byte)'i');
+            this.AddAminoAcid(this.K, "Lysine", "Lys", (byte)'k');
+            this.AddAminoAcid(this.L, "Leucine", "Leu", (byte)'l');
+            this.AddAminoAcid(this.M, "Methionine", "Met", (byte)'m');
+            this.AddAminoAcid(this.N, "Asparagine", "Asn", (byte)'n');
+            this.AddAminoAcid(this.O, "Pyrrolysine", "Pyl", (byte)'o');
+            this.AddAminoAcid(this.P, "Proline", "Pro", (byte)'p');
+            this.AddAminoAcid(this.Q, "Glutamine", "Gln", (byte)'q');
+            this.AddAminoAcid(this.R, "Arginine", "Arg", (byte)'r');
+            this.AddAminoAcid(this.S, "Serine", "Ser", (byte)'s');
+            this.AddAminoAcid(this.T, "Threoine", "Thr", (byte)'t');
+            this.AddAminoAcid(this.U, "Selenocysteine", "Sec", (byte)'u');
+            this.AddAminoAcid(this.V, "Valine", "Val", (byte)'v');
+            this.AddAminoAcid(this.W, "Tryptophan", "Trp", (byte)'w');
+            this.AddAminoAcid(this.Y, "Tyrosine", "Tyr", (byte)'y');    
 
-            this.AddAminoAcid(this.Gap,"Gap");
-            this.AddAminoAcid(this.Ter, "Termination");
+            this.AddAminoAcid(this.Gap, "Gap", "Gap");
+            this.AddAminoAcid(this.Ter, "Ter", "Termination");
         }
 
         /// <summary>
@@ -616,9 +621,10 @@ namespace Bio
         /// Adds a Amino acid to the existing amino acids.
         /// </summary>
         /// <param name="aminoAcidValue">Amino acid to be added.</param>
+        /// <param name="threeLetterAbbreviation">Three letter abbreviation for the symbol.</param>
         /// <param name="friendlyName">User friendly name of the symbol.</param>
         /// <param name="otherPossibleValues">Maps Capital and small Letters.</param>
-        protected void AddAminoAcid(byte aminoAcidValue, string friendlyName, params byte[] otherPossibleValues)
+        protected void AddAminoAcid(byte aminoAcidValue, string threeLetterAbbreviation, string friendlyName, params byte[] otherPossibleValues)
         {
             // Verify whether the aminoAcidValue or other possible values already exist or not.
             if (this.aminoAcidValueMap.ContainsKey(aminoAcidValue) || otherPossibleValues.Any(x => this.aminoAcidValueMap.Keys.Contains(x)))
@@ -637,6 +643,7 @@ namespace Bio
             }
 
             this.aminoAcids.Add(aminoAcidValue);
+            this.threeLetterAbbreviationMap.Add(aminoAcidValue, threeLetterAbbreviation);
             this.friendlyNameMap.Add(aminoAcidValue, friendlyName);
         }
 
