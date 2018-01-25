@@ -66,7 +66,12 @@ namespace Bio
         /// <summary>
         /// Symbol to three amino acid abbreviation.
         /// </summary>
-        private readonly Dictionary<byte, string> threeLetterAbbreviationMap = new Dictionary<byte, string>();
+        private readonly Dictionary<byte, string> abbreviationMap1to3 = new Dictionary<byte, string>();
+
+        /// <summary>
+        /// Symbol to three amino acid abbreviation.
+        /// </summary>
+        private readonly Dictionary<string, byte> abbreviationMap3to1 = new Dictionary<string, byte>();
 
         /// <summary>
         /// Symbol to Friendly name mapping.
@@ -378,6 +383,30 @@ namespace Bio
         }
 
         /// <summary>
+        /// Gets the three-letter abbreviation of a given symbol.
+        /// </summary>
+        /// <param name="item">Symbol to find three-letter abbreviation.</param>
+        /// <returns>Three-letter abbreviation of the given symbol.</returns>
+        public string GetThreeLetterAbbreviation(byte item)
+        {
+            string threeLetterAbbreviation;
+            abbreviationMap1to3.TryGetValue(aminoAcidValueMap[item], out threeLetterAbbreviation);
+            return threeLetterAbbreviation;
+        }
+
+        /// <summary>
+        /// Gets the symbol from a three-letter abbreviation.
+        /// </summary>
+        /// <param name="item">Three letter abbreviation to find symbol.</param>
+        /// <returns>Symbol corresponding to three-letter abbreviation.</returns>
+        public byte GetSymbolFromThreeLetterAbbrev(string item)
+        {
+            byte symbol;
+            abbreviationMap3to1.TryGetValue(item, out symbol);
+            return symbol;
+        }
+
+        /// <summary>
         /// Gets the complement of the symbol.
         /// </summary>
         /// <param name="symbol">The protein symbol.</param>
@@ -643,7 +672,8 @@ namespace Bio
             }
 
             this.aminoAcids.Add(aminoAcidValue);
-            this.threeLetterAbbreviationMap.Add(aminoAcidValue, threeLetterAbbreviation);
+            this.abbreviationMap3to1.Add(aminoAcidValue, threeLetterAbbreviation);
+            this.abbreviationMap1to3.Add(threeLetterAbbreviation, aminoAcidValue);
             this.friendlyNameMap.Add(aminoAcidValue, friendlyName);
         }
 
