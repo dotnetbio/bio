@@ -64,12 +64,12 @@ namespace Bio
         private readonly Dictionary<byte, byte> aminoAcidValueMap = new Dictionary<byte, byte>();
 
         /// <summary>
-        /// Symbol to three amino acid abbreviation.
+        /// Symbol to three-letter amino acid abbreviation.
         /// </summary>
         private readonly Dictionary<byte, string> abbreviationMap1to3 = new Dictionary<byte, string>();
 
         /// <summary>
-        /// Symbol to three amino acid abbreviation.
+        /// Three-letter amino acid abbreviation to symbol.
         /// </summary>
         private readonly Dictionary<string, byte> abbreviationMap3to1 = new Dictionary<string, byte>();
 
