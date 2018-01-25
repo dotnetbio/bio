@@ -672,8 +672,8 @@ namespace Bio
             }
 
             this.aminoAcids.Add(aminoAcidValue);
-            this.abbreviationMap3to1.Add(aminoAcidValue, threeLetterAbbreviation);
-            this.abbreviationMap1to3.Add(threeLetterAbbreviation, aminoAcidValue);
+            this.abbreviationMap1to3.Add(aminoAcidValue, threeLetterAbbreviation);
+            this.abbreviationMap3to1.Add(threeLetterAbbreviation, aminoAcidValue);
             this.friendlyNameMap.Add(aminoAcidValue, friendlyName);
         }
 
