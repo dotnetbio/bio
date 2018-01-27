@@ -38,10 +38,10 @@ namespace Bio
             this.B = (byte)'B';
             this.J = (byte)'J';
 
-            AddAminoAcid(this.X, "Undetermined or atypical", (byte)'x');
-            AddAminoAcid(this.Z, "Glutamic or Glutamine", (byte)'z');
-            AddAminoAcid(this.B, "Aspartic or Asparagine", (byte)'b');
-            AddAminoAcid(this.J, "Leucine or Isoleucine", (byte)'j');
+            AddAminoAcid(this.X, "Xaa", "Undetermined or atypical", (byte)'x');
+            AddAminoAcid(this.Z, "Glx", "Glutamic or Glutamine", (byte)'z');
+            AddAminoAcid(this.B, "Asx", "Aspartic or Asparagine", (byte)'b');
+            AddAminoAcid(this.J, "Xle", "Leucine or Isoleucine", (byte)'j');
 
             // Map ambiguous symbols.
             MapAmbiguousAminoAcid(this.B, new byte[] { D, N });
