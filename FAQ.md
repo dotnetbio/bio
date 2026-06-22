@@ -61,7 +61,7 @@ Visual Studio is an Integrated Development Environment (IDE) on Windows, which p
 - Select `Bio.sln` or `Bio.Mono.sln` (for Linux/Mac OSX) in the open project dialog box.
 - Mouse or tab to the solution Explorer Window, right click on the solution and then choose build solution
 
-**What alignment algorithms are part of the .Net Bio library and therefore availble in the Biology Extension for Excel add-in?**
+**What alignment algorithms are part of the .Net Bio library and therefore available in the Biology Extension for Excel add-in?**
 
 - Smith-Waterman
 - Needleman-Wunsch
